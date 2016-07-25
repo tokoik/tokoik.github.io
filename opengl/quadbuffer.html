@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>液晶シャッタメガネ（時分割方式）を用いた立体視の実現</title>
+</head>
+
+<body>
+
+<h1>液晶シャッタメガネ（時分割方式）を用いた立体視の実現</h1>
+
+<h2>液晶シャッタメガネの原理</h2>
+
+<p>両眼視差による立体視は,
+右眼用と左眼用の画像を別々に生成することで実現できます.
+一つのディスプレイでこの二つの画像を見ることができるように,
+演習質の一部のパソコンには液晶シャッタメガネが用意されています.</p>
+
+<p>ディスプレイの表示が１秒間に何回も書き替えられていることは,
+みなさん良くご存じのことと思います (テレビの前で手を振ったことないですか？).
+テレビの場合, この書き換えは1秒間に約60回,
+パソコンのディスプレイで大体60回から85回くらい行われています
+(もっと回数が多い場合もあります). この書き換え頻度のことを,
+<em>リフレッシュレート</em>と呼びます.</p>
+
+<p>そこで, この書き換えの時に右眼用の画像と左眼用の画像を交互に表示して,
+液晶シャッタメガネで右眼用の画像が表示されているときは左目を閉じ,
+左眼用の画像が表示されているときは右目を閉じてしまいます.
+こうして一つのディスプレイで右目と左目に別々の絵を見せることができます.</p>
+
+<div class="figure"><img src="shutter.gif" width="429" height="190"
+alt="時分割方式"></div>
+
+<p>これは<em>時分割方式</em>（フレームシーケンシャル）によるステレオ表示と呼ばれます.</p>
+
+<h2>クワッドバッファステレオ</h2>
+
+<p>この手法では右眼用の画面と左眼用の画面を別々に用意する必要があります.
+このメカニズムを<em>ステレオバッファ</em>と呼びます.
+一方, アニメーション時のちらつきを抑制するために
+<a href="libglut.html#9.2">ダブルバッファリング</a>
+を行っている場合にも 2 枚の画面が必要になります.
+したがって, ダブルバッファリングを行いながら立体視を行うには,
+全部で 2 &times; 2 = 4 枚の画面が必要になります.
+そこでこの方式を
+<em>クワッドバッファステレオ</em>
+と呼びます. なかなか贅沢な手法なので,
+ちょっと前までこれが実現できるのは高価なハードウェアに限られていましたが,
+最近ではパソコン用のビデオカードでも可能になってきています.</p>
+
+<h2>実験</h2>
+
+<p>GLUT では, glutInitDisplayMode() の引数に GLUT_DOUBLE と
+GLUT_STEREO を追加することにより,
+クワッドバッファステレオのモードに切り替えることができます.
+ただし, ビデオカード (あるいはそのドライバ) が
+クワッドバッファステレオをサポートしていなければ,
+実行時にエラーとなってプログラムが終了します.</p>
+
+<pre class="source">#include &lt;stdlib.h&gt;
+
+...
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE <em>| GLUT_STEREO</em>);
+
+  ...
+
+  return 0;
+}</pre>
+
+<p>こうして描画時に画面 (バッファ) をに切り替えながら,
+それぞれに右眼用の画像と左眼用の画像を表示します.
+画面の切り替えには glDrawBuffer() を使います.
+ダブルバッファなので,
+両方とも背後の画面 (表示していない側の画面) に描きます.</p>
+
+<pre class="source">  ...
+
+  <em>/* 右眼用のバッファの指定 */</em>
+  <em>glDrawBuffer(GL_BACK_RIGHT);</em>
+
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+
+  <em>/* 右眼の位置と方向 */</em>
+  <em>gluLookAt(</em>/* ここは自分で考えてください */<em>);</em>
+
+  /* 視点の移動 */
+  ... 
+
+  /* シーンの描画 */
+  ... 
+
+
+  <em>/* 左眼用のバッファの指定 */</em>
+  <em>glDrawBuffer(GL_BACK_LEFT);</em>
+
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+
+  <em>/* 左眼の位置と方向 */</em>
+  <em>gluLookAt(</em>/* ここは自分で考えてください */<em>);</em>
+
+  /* 視点の移動 */
+  ... 
+
+  /* シーンの描画 */
+  ...</pre>
+
+<p>二つの視点の間隔とそれぞれの位置・方向,
+および fovy (実験１のサンプルでは 30 に設定されています) は,
+ディスプレイの表示面の高さ, 表示面との距離,
+自分の両目の間隔の実測値から割り出してください.</p>
+
+<div class="figure"><img src="stereo1.gif" width="473" height="354"
+alt="両眼立体視の原理"></div>
+
+<blockquote>本当は gluLookAt() を使わずに,
+<a href="faq.html#Q7">gluPerspective() を glFrustum()
+に置き換えて左右の目の視野をずらしたほうが厳密</a>なんですが,
+それだとプログラムが少しややこしくなりますし,
+glFrustum()
+の説明もしなきゃいけなくなるので手を抜きます.</blockquote>
+
+<p>なお, 演習室のディスプレイはリフレッシュレートが
+80Hz (1秒間に80回書き換え) なので,  ステレオモードにすると片目あたり
+40Hz になって, 結構ちらつきが目立ちます.
+プログラムが完成してそれらしい画像が表示されることを確かめたら,
+ディスプレイの解像度を落としてリフレッシュレートを上げて見てください.
+GLUT の<em>ゲームモード</em>を使えば, これをプログラム中から制御することもできます.
+詳しくは<a href="refresh.html">ここ</a>を参照してください.</p>
+
+</body>
+</html>

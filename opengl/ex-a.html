@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>A. ウォークスルーの実験</title>
+</head>
+
+<body>
+
+<h1>ウォークスルーの実験</h1>
+
+<p>ウォークスルーは３次元ＣＧシーンの中を歩き回る効果のことを言います． これは視点の移動によるアニメーションです．マウスで視点の位置を動かすプログラムを作ってみましょう． これまでに作ったプログラムをベースを改造するのが手っ取り早いと思いますが，うまく行かなければ下の手順を参考にしてください． ソースファイル名は prog3.c としてください．</p>
+
+<p>下のプログラムはタイル状の床に四つの立方体を置いたシーンを静止画で表示します． 立方体の表示には glutSolidCube() という関数を用いています． ただし，このプログラムでは，これを display() ではなく，別の関数 scene() の中で実行しています．</p>
+
+<pre class="source">#include &lt;stdlib.h&gt;
+#include &lt;GL/glut.h&gt;
+
+void scene(void)
+{
+  /* 物体の色 */
+  static GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };
+  static GLfloat green[] = { 0.2, 0.8, 0.2, 1.0 };
+  static GLfloat blue[] = { 0.2, 0.2, 0.8, 1.0 };
+  static GLfloat yellow[] = { 0.8, 0.8, 0.2, 1.0 };
+  static GLfloat ground[][4] = {
+    { 0.6, 0.6, 0.6, 1.0 },
+    { 0.3, 0.3, 0.3, 1.0 }
+  };
+
+  int i, j;
+
+  /* 赤い箱 */
+  glPushMatrix();
+  glTranslated(0.0, 0.0, -3.0);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, red);
+  glutSolidCube(1.0);
+  glPopMatrix();
+
+  /* 緑の箱 */
+  glPushMatrix();
+  glTranslated(0.0, 0.0, 3.0);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
+  glutSolidCube(1.0);
+  glPopMatrix();
+
+  /* 青い箱 */
+  glPushMatrix();
+  glTranslated(-3.0, 0.0, 0.0);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, blue);
+  glutSolidCube(1.0);
+  glPopMatrix();
+
+  /* 黄色い箱 */
+  glPushMatrix();
+  glTranslated(3.0, 0.0, 0.0);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, yellow);
+  glutSolidCube(1.0);
+  glPopMatrix();
+
+  /* 地面 */
+  glBegin(GL_QUADS);
+  glNormal3d(0.0, 1.0, 0.0);
+  for (j = -5; j &lt; 5; ++j) {
+    for (i = -5; i &lt; 5; ++i) {
+      glMaterialfv(GL_FRONT, GL_DIFFUSE, ground[(i + j) &amp; 1]);
+      glVertex3d((GLdouble)i, -0.5, (GLdouble)j);
+      glVertex3d((GLdouble)i, -0.5, (GLdouble)(j + 1));
+      glVertex3d((GLdouble)(i + 1), -0.5, (GLdouble)(j + 1));
+      glVertex3d((GLdouble)(i + 1), -0.5, (GLdouble)j);
+    }
+  }
+  glEnd();
+}
+
+void display(void)
+{
+  static GLfloat lightpos[] = { 3.0, 4.0, 5.0, 1.0 }; /* 光源の位置 */
+
+  static double ex = 0.0, ez = 0.0; /* 視点の位置 */
+  static double r = 0.0;            /* 視点の向き */
+
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+
+  /* 視点の移動 */
+  glRotated(r, 0.0, 1.0, 0.0);
+  glTranslated(ex, 0.0, ez);
+
+  /* 光源の位置を設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+
+  /* シーンの描画 */
+  scene();
+
+  glFlush();
+}
+
+void resize(int w, int h)
+{
+  /* ウィンドウ全体をビューポートにする */
+  glViewport(0, 0, w, h);
+
+  /* 透視変換行列の指定 */
+  glMatrixMode(GL_PROJECTION);
+
+  /* 透視変換行列の初期化 */
+  glLoadIdentity();
+  gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
+
+  /* モデルビュー変換行列の指定 */
+  glMatrixMode(GL_MODELVIEW);
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+  /* ESC か q をタイプしたら終了 */
+  if (key == '\033' || key == 'q') {
+    exit(0);
+  }
+}
+
+void init(void)
+{
+  /* 初期設定 */
+  glClearColor(1.0, 1.0, 1.0, 0.0);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  glutKeyboardFunc(keyboard);
+  init();
+  glutMainLoop();
+  return 0;
+}</pre>
+
+<p>この視点を，例えば車を運転するように， マウスのドラッグに従って自由に移動できるようにしてください． <EM>どういう移動の仕方をするかは自分で考えて下さい．</EM> うまい方法が思い付かなければ，以下の方式を参考にして下さい．</p>
+
+<p>例えば，マウスカーソルがウィンドウの中心にある時に静止するとして， そこからマウスを前（マウスカーソルは上）に動かせば前進，後ろ（マウスカーソルは下）に動かせば後退， 右に動かせば右旋回，左に動かせば左旋回するようにします．中心から離れるにつれて速く動くようになるようにしましょう．</p>
+
+<div class="figure">
+<img src="walk1.gif" width="595" height="253" alt="マウスによる制御">
+<img src="walkmov.gif" width="120" height="120" alt="ウォークスルー">
+</div>
+
+<ol>
+
+<li>視点の現在位置は display() の中の ex および ez の二つの変数で設定しています．この値を変更することで，視点の位置を変えることができます． また，その位置での進行方向は r で設定しています．</li>
+
+<li>現在位置を <b>P</b> = (ex, ez) とし，速度ベクトルを <b>V</b> とすれば， t 秒後の位置 <b>P</b>' = (ex', ez') は次式で求められます．
+<div class="expression">
+<b>P</b>' = <b>V</b> t + <b>P</b>
+</div></li>
+
+<li>またその位置における進行方向 r' は， 現在の進行方向を r，進行方向を変える速度（ハンドルを切る速さ）を a とすれば，次式で求められます．
+<div class="expression">
+r' = a t + r
+</div></li>
+
+<li>したがって，ウィンドウの中心位置とマウスカーソルの関係から， 速度ベクトルの絶対値（進行方向に対する速度） |<b>V</b>| と角速度 a を求めます． 現在位置における速度ベクトル <b>V</b>は次式で求められます．
+<div class="expression">
+<b>V</b> = (|<b>V</b>|sin r, |<b>V</b>|cos r)
+</div>
+ただし，<a href="libglut.html#glRotated">glRotated()</a>の第１引数 r は左回転が正なのに対してマウスの座標系は右方向が正であること，および r の単位は<EM>度</EM>なのに対して数学関数 sin(), cos() の引数は<EM>ラジアン</EM>で与える必要があることに注意してください．</li>
+
+<li>ウィンドウのサイズは resize() の引数で得られますから， それらからウィンドウの中心位置を求めます． 得られた位置は，他の関数で利用できるように， 適当な<EM>外部変数</EM>に代入しておきます．</li>
+
+<li><a href="libglut.html#7.2">ドラッグ</a>中のマウスの位置を得るために， このプログラムにマウスのドラッグ中に呼び出す関数を追加し，それを <a href="libglut.html#glutmotionfunc">glutMotionFunc()</a> の引数に指定します．マウスの位置は追加した関数の引数で得ることができますから，その位置のウィンドウの中心からの変位を元に， 進行方向とその方向に対する速度を決定します．これらも適当な外部変数に代入します．</li>
+
+<li>この進行方向とその方向に対する速度をもとに， 視点の現在位置を変更します．なお，時刻 t は経過時間を計測して決定する必要がありますが， 面倒なら定数でも構いません．t = 1 くらいから始めて適当なスピードになるよう調整してみて下さい．</li>
+
+<li>もちろん，視点の移動は<EM>滑らかに</EM>行われるようにしてください． また画面の<EM>ちらつきも抑制</EM>するようにしてください．</li>
+
+</ol>
+
+<div class="figure">
+<img src="walk2.gif" alt="移動の仕方">
+</div>
+
+<p>上のプログラムでは，視点を移動するかわりに <strong>物体の方を逆方向に動かす</strong>ことを前提にしています．このため ex, ez および r の値は， 進行方向とは逆に設定する必要がありますので，注意してください．</p>
+
+<p>scene() の図形は自分なりに色々変えてみてください． ただし，あまり複雑なものを描くと表示が遅くなります．部品には glutSolidCube() のほか，glutSolidSphere(), glutSolidCone(), glutSolidDodecahedron(), glutSolidOctahedron(), glutSolidIcosahedron(), glutSolidTetrahedron(), glutSolidTorus(), それに glutSolidTeapot() などが用意されています．詳しくはオンラインマニュアル等を参照してください．</p>
+
+<p>glutSolidTetrahedron() などはサイズを指定することができませんから， これらの大きさを変えたいときは glScaled() を使ってください（サイズが指定できる glSolidCube() などをこれで拡大縮小すると，法線ベクトルがずれて陰影付けがおかしくなります）</p>
+
+<dl>
+
+<dt><tt><b><a class="label" name="glScaled">glScaled(GLdouble x, GLdouble y, GLdouble z)</a></b></tt></dt>
+
+<dd>変換行列に拡大縮小の行列を乗じます． 引数はいずれも GLdouble 型 (double と等価）で， ３つの引数 x, y, z には拡大係数を指定します． 引数が float 型なら glScalef() を使います．ただし，glutSolidCube() のようなプリミティブをこれで拡大縮小すると法線ベクトルがずれて陰影付けがおかしくなってしまいます．</dd>
+
+</dl>
+
+<p>なお，これはあくまで「一例」に過ぎません． 自分の思う方法で歩き回り方を考えてくれれば結構です．ただし， ちゃんと物体の背後に「回り込む」ことができるようにして下さい．</p>
+</body>
+</html>

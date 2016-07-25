@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>Visual C++ の補足</title>
+</head>
+
+<BODY bgcolor="#c0d0f0">
+
+<h1>Visual C++ の補足</h1>
+<H2>１．Visual C++ の起動</H2>
+<P>Windows の「スタート」ボタンをクリックし、「プログラム」→「Microsoft
+Visual Studio」→「Microsoft Visual C++ 6.0」の順にたどってください。</P>
+<P align="center"><IMG src="vcpp/startw2k.gif" width="720" height="520" border="0"></P>
+<P>起動すると次のようなウィンドウが現れます。「閉じる」をクリックしてください。</P>
+<P align="center"><IMG src="vcpp/tipsvs.gif" width="720" height="520" border="0"></P>
+<H2>２．新しいプロジェクトの作成</H2>
+<P>メニューバーの「ファイル」から「新規作成」を選んでください。</P>
+<P align="center"><IMG src="vcpp/create.gif" width="720" height="520" border="0"></P>
+<P>「プロジェクト」のタブで <B>Win32 Console Application</B> を選んだ後、「位置」の欄に “<TT>H:\MYDOCUMENT\</TT>” を設定してください。</P>
+<P align="center"><IMG src="vcpp/createproj.gif" width="721" height="521" border="0"></P>
+<P>次に<B>プロジェクト名</B>（作成するプログラムの名前）を指定します。ここでは
+prog1 とします。プロジェクト名を設定すると、その名前が「位置」の欄に追加されます。設定が終わったら「OK」をクリックしてください。</P>
+<P align="center"><IMG src="vcpp/projname.gif" width="721" height="521" border="0"></P>
+<P>次の画面では、そのまま何もしないで（「空のプロジェクト」を選んだ状態で）「終了」をクリックしてください。</P>
+<P align="center"><IMG src="vcpp/vsstep1.gif" width="720" height="520" border="0"></P>
+<P>次の画面が現れたら「OK」をクリックしてください。</P>
+<P align="center"><IMG src="vcpp/projinfo.gif" width="720" height="520" border="0"></P>
+<P>これでプロジェクトが作成されました。</P>
+<H2>３．ソースプログラムの作成</H2>
+<P>メニューバーの「プロジェクト」から「プロジェクトへ追加」→「新規作成」とたどってください。</P>
+<P align="center"><IMG src="vcpp/addproj.gif" width="720" height="520" border="0"></P>
+<P>「ファイル」のタブの「C++ソースファイル」を選び、「ファイル名」の欄にソースファイル名を設定してください。ここではファイル名を main.c とします。拡張子を .c とすることで、C
+のプログラムの作成になります。設定が終わったら「OK」をクリックしてください。</P>
+<P align="center"><IMG src="vcpp/createfile.gif" width="720" height="519" border="0"></P>
+<P>main.c のウィンドウが現れますから、ここに<B>ソースプログラム</B>を書き込みます。</P>
+<P align="center"><IMG src="vcpp/editfile.gif" width="720" height="520" border="0"></P>
+<H2>４．実行プログラムの作成</H2>
+<P>ソースプログラムが作成できたら、<B>ビルド</B>（コンパイル＆リンク）して<B>実行プログラム</B>を作成します。メニューバーの「ビルド」から「ビルド」を選ぶか、ファンクションキーの
+<TT><B>F7</B></TT> をタイプしてください。</P>
+<P align="center"><IMG src="vcpp/buildproj.gif" width="720" height="520" border="0"></P>
+<P>ウィンドウの下部にビルドの途中経過が表示されます。エラーがあると実行プログラムは作成されませんので、このウィンドウをスクロールして、<B>エラーメッセージ</B>を見てみてください。表示されているエラーメッセージをダブルクリックすると、エラーの発生個所に移動できます。</P>
+<P align="center"><IMG src="vcpp/errmsg.gif" width="720" height="520" border="0"></P>
+<P>エラーがなければ実行プログラムが作成されていますので、メニューバーの「ビルド」から「実行」を選ぶか、<TT><B>Ctrl</B></TT> キーを押しながらファンクションキーの <TT><B>F5</B></TT> をタイプしてください。プログラムの実行が開始されます。</P>
+<P align="center"><IMG src="vcpp/runningproj.gif" width="721" height="521" border="0"></P>
+<P>先に黒い<B>コンソールウィンドウ</B>が開き、続けて作成したプログラムのウィンドウが開きます。プログラム中で
+printf() などにより表示したメッセージは、コンソールウィンドウに表示されます。プログラムを終了するには、プログラムのウィンドウの右上の<B>クローズボックス</B>をクリックしてください。</P>
+<P>なお、プログラムのウィンドウを閉じたあと、コンソールウィンドウに
+&quot;Press any key to continue&quot; というメッセージが現れますので、コンソールウィンドウを選択して何かキーをタイプしてください。<TT><B>Ctrl</B></TT> キーを<B>押さずに</B>ファンクションキーの <TT><B>F5</B></TT> をタイプした場合は、このメッセージは表示されません（コンソールウィンドウはすぐに閉じてしまいます）。</P>
+<H2>５．Visual C++ の終了</H2>
+<P>メニューバーの「ファイル」メニューから「すべて保存」を選んでファイルを保存したあと、もう一度同じメニューから「アプリケーションの終了」を選んでください。なお、次回このプロジェクトを開く場合は、このメニューの「ワークスペースを開く」を選ぶか、「最近使ったワークスペース」のところに現れる一覧から選んでください。</P>
+<P align="center"><IMG src="vcpp/quitvs.gif" width="720" height="520" border="0"></P>
+</BODY>

@@ -1,0 +1,633 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>Delphiによる最低限のOpenGL制御</title>
+</head>
+
+<body>
+
+<h1>Delphiによる最低限のOpenGL制御</h1>
+
+<h3 align="right">和歌山大学経済学部産業工学科47期2104番
+中山礼児</h3>
+
+<h2>1.はじめに</h2>
+
+<p>この文書は、Borland社の高性能RADツールDelphiを使用してのプログラミングについて少量の知識を持っている人が、最低限のOpenGL制御を行うことを目的に書かれています。しかし、最低限の制御ということで話を進めたいと思いますが、本当に制御ができたかどうかを視覚的に確認できる方が良いため、『DelphiでOpenGLを使って3次元空間に板を回転させる』という事を具体的な最終目標にしましょう。</p>
+
+<h2>2.OpenGLとは</h2>
+
+<p>制御する前にOpenGLを詳しく知らないという人のための説明を入れておこうと思います。OpenGLは3次元アプリケーションを作成するための代表的な標準のグラフィックス関数ライブラリです。通常、3次元グラフィックスを扱う場合、複雑な数値計算を処理しなければなりません。しかし、OpenGLを使用すると、それらの複雑な計算をOpenGLが行ってくれるため、プログラマ側はそれらの計算を全く意識せずに作成することができます。さらに、OpenGLは、多数の異なったプラットホームでの互換性に優れているため、他のマシンやオペレーティングシステムに比較的簡単に移植することができます。</p>
+
+<h2>3.問題点</h2>
+
+<p>Delphiを使ってがOpenGLを制御する上で、知っておかなければならない問題が最低でも2つ存在します。1つ目の問題は、OpenGLが通常C/C++上で制御される事を前提に創られているという事です。これは、Delphiユーザーなら常につきまとう問題なのですが、これは逆に、ある程度の技術を持っているユーザーや、CのプログラムをDelphiへ移植するスキルを持っているならば、それらの大量なソースファイル等の資源を有効利用できる可能性が出てくることを意味します。</p>
+
+<p>さて、2つ目の問題ですが、互換性の問題です。OpenGLのプログラムが異なるプラットホームでの互換性が優れている理由の1つに、そのほとんどのプログラムが同じC/C++で書かれているからに違いありません。しかし、DelphiをWindows環境以外のプラットホームで実行するのは事実上無理でしょう(一部のエミュレータなどにより擬似的な実行は可能かもしれませんが、100%のパフォーマンスは出せないのではないでしょうか？)。従って、他のプラットホームに移植する場合、Object
+PascalからC/C++に移植した上で、元と先のプラットホーム固有の部分を変更しなければなりません。そのため、DelphiでUNIX等の環境への移植性を高めたい場合、Object
+PascalからC/C++への移植という作業の事も考慮に入れて創る必要が生じてしまい、細心の注意を払ったコーディングを行わなければなりません。しかも、その際のソースコードは極めてCライクなソースになりやすく、Delphiの一部の特徴を発揮させることが困難になります。その様な理由と、私自身の技術と、OpenGLに関しての知識が未熟なため、この文書では他のプラットホームや言語への互換性はほぼ考えていません。</p>
+
+<h2>4.前準備</h2>
+
+<p>さて、そろそろ具体的な制御に入りたいと思いますが、その前にチェックしておく事柄があります。</p>
+
+<dl>
+    <dt>・WindowsのSystemディレクトリ内に「opengl32.dll」「glu32.dll」の２つのDLLファイルが存在しているかどうか？
+    </dt>
+    <dd>もし、見つからない場合は、以下のftpサーバー等からダウンロードする必要があります。なお、WindowsNTおよびWindows95OSR2の場合は標準で実装されているため問題ないはずです。<br>
+        ftp://ftp.microsoft.com/Softlib/MSLFILES/Opengl95.exe<br>
+        ダウンロードしたら、２つのDLLファイルをWindowsのSystemディレクトリにコピーしておいてください。</dd>
+    <dt>　</dt>
+    <dt>・OpenGL制御用のユニットファイルが存在しているかどうか？</dt>
+    <dd>C/C++でのヘッダファイルは、OpenGLのSDKや開発言語自身に通常含まれていますが、Delphi用のユニットはまず含まれていません。これがない場合、先ほど述べたDLLファイルを制御するための窓口が無いため、OpenGLが容易に扱えません。自分でC/C++のヘッダファイルを、Pascal形式に移植するのは大変ですので、ユニットファイルをどこかで入手しましょう。しかし、私の知る限りでも、数種類の制御用ユニットがあります。一概にどれを使えばいいのか断言できませんが、自分の環境で不具合の発生しないファイルを使用しましょう。以下に入手先を書いておきます。</dd>
+    <dt>　</dt>
+    <dd><dl>
+            <dt>Delphi 3 Professional の CD-ROM内</dt>
+            <dd>\runimage\delphi30\lib\opengl.dcu<br>
+                \runimage\delphi30\source\rtl\win\opengl.pas<br>
+                ※Delphi 3 Standard版は手元にないため未確認、opengl.pasが含まれない可能性が高いです。Delphi
+                2には含まれていないようです。</dd>
+            <dt>　</dt>
+            <dt>Nifty-Serve SBORLAND LIB 2</dt>
+            <dd>#299 OPENGL.ZIP<br>
+                #380 DXF3D.ZIP</dd>
+            <dt>　</dt>
+            <dt>インターネット</dt>
+            <dd><a href="http://www.cyberhighway.net/~mjames/">http://www.cyberhighway.net/~mjames/</a></dd>
+            <dd>　</dd>
+        </dl>
+        <p>なお、これらの利用条件はフリーの場合が多いですが、必ず付属のドキュメントなどを参照してください。</p>
+    </dd>
+</dl>
+
+<p>これらの制御用ユニットをこれから創ろうとするプログラムの中から参照するので、使いやすい場所に置いておきましょう。なお今回は、私の環境で動作が安定しているユニット、(Delphi
+3 に付属している)opengl.dcuをリンクして使うことにします。</p>
+
+<p>※Microsoft社はWindowsNT上でOpenGLが実行できることについて保証していますが、Windows95上では保証していないようです。一応、上記のDLLファイルがあれば、Windows95上でもOpenGLを扱うことはできますが、もしかすると、一部の処理がWindows95上では動かないという可能性も考えられます。</p>
+
+<h2>5.予備知識</h2>
+
+<h3>・WGL関数</h3>
+
+<p>さて、ここから本格的に制御に入ろうと思いますが、ここで少々理論的な話をしておきます。まず、OpenGLの構造がどの様なものなのでしょうか？Windows上で扱うために、知っておかなければならないことが、いくつかあります。Windowsでグラフィックスを扱うときデバイスコンテキスト(以下DCと略す)を中心として処理されているのはご存じだと思います(Delphiでは上手にカプセル化されています)が、OpenGLについても同様でOpenGL用のDC、「レンダリングコンテキスト(以下RCと略す)」というもので処理されているようで、制御するためにはRCを、起動時に生成、終了時に解放するのが原則です。さらに注意すべきは、Windowsでは基本的にDCが中心(カレント)となってグラフィックの描画をしているため、OpenGLを使うときだけはDCとRCを一時的に連結(バインド)してRCを中心(カレント)にする必要があります。その後、DCとRCが結びついたままでは、OpenGL以外の通常の描画が困難になる可能性があるため、通常はDCとRCを切断(アンバインド)しなければならないようです。(ただし、この部分についての正確な内部アルゴリズムが、私自身理解できていないので、はっきりとはわかりません)</p>
+
+<p>以下に、先ほど述べた事柄をまとめておきます。</p>
+
+<blockquote>
+    <pre>起動:  RC生成
+...
+描画:  バインド〜描画〜アンバインド
+...
+描画:  バインド〜描画〜アンバインド
+...
+終了:  RC解放</pre>
+</blockquote>
+
+<p>WindowsでRCを生成・解放したり、カレントにするなどの処理はOpenGL側で、WGL関数というWindows固有の関数として用意されているため、実際はそれらを扱うだけで簡単に出来ます。ただし、注意すべき事として、先ほど述べた通りWGL関数はWindows固有の関数であるため、他のOpenGLプラットホーム上では実装されていません。</p>
+
+<h3>・ピクセルフォーマット</h3>
+
+<p>WGL関数を扱うと簡単にRCの制御ができてしまうと述べましたが、1つだけ前提があります。それは、前もってデバイスのピクセルフォーマットが設定されていなければならないことです。ピクセルフォーマットの内容は、デバイスの描画面に関する属性で、「どの様な設定でOpenGLを使用するか」というのを詳しく記述したものと思っていいのではないでしょうか。今回は最低限の制御という事なので、このピクセルフォーマットを隅々まで解説するのは妥当でないと思われますし、Windowsでは未サポートの部分や、デフォルト値で良い部分が多いので、今回は以下のピクセルフォーマットを利用することにします。なお、Win32では26個のフィールドから構成される、PIXELFORMATDESCRIPTOR構造体を用いてピクセルフォーマットの属性を表現していますが、Delphiで扱う場合、既にWindowsユニット内にTPixelFormatDescriptorとして定義されていますので、それを利用しましょう。(具体的な構造が知りたい場合、メニューの[検索(S)]-[シンボルを調べる(Y)]で'TPixelFormatDescriptor'を入力すると良いでしょう)</p>
+
+<pre>{今回使用するPixelFormatDescriptor}
+var
+  pfd : Windows.TPixelFormatDescriptor = (
+    nSize:           sizeof(TPixelFormatDescriptor);           {構造体のサイズ}
+    nVersion:        1;                       {構造体のバージョン番号、現在は1}
+    dwFlags:         PFD_DRAW_TO_WINDOW                            {特性フラグ}
+                     or PFD_SUPPORT_OPENGL
+                     or PFD_DOUBLEBUFFER;
+    iPixelType:      PFD_TYPE_RGBA;                    {ピクセルのカラーデータ}
+    cColorBits:      24;                                         {色のビット数}
+    cRedBits:        0;                          {RGBAカラーバッファのビット数}
+    cRedShift:       0;            {RGBAカラーバッファのビット用シフトカウント}
+    cGreenBits:      0;
+    cGreenShift:     0;
+    cBlueBits:       0;
+    cBlueShift:      0;
+    cAlphaBits:      0;
+    cAlphaShift:     0;
+    cAccumBits:      0;    {アキュムレーションバッファのピクセル当りのビット数}
+    cAccumRedBits:   0;
+    cAccumGreenBits: 0;
+    cAccumBlueBits:  0;
+    cAccumAlphaBits: 0;
+    cDepthBits:      32;           {デプスバッファ    のピクセル当りのビット数}
+    cStencilBits:    0;            {ステンシルバッファのピクセル当りのビット数}
+    cAuxBuffers:     0;                    {補助バッファ   Win32上は未サポート}
+    iLayerType:      PFD_MAIN_PLANE;       {Win32上ではPFD_MAIN_PLANE 以外不可}
+    bReserved:       0;                    {必ず 0}
+    dwLayerMask:     0;                    {レイヤマスク   Win32上は未サポート}
+    dwVisibleMask:   0;                    {ビジブルマスク Win32上は未サポート}
+    dwDamageMask:    0;                    {ダメージマスク Win32上は未サポート}
+  );</pre>
+
+<p>以上がPixelFormatDescriptorですが、ここで注意すべきなのは特性フラグのPFD_DOUBLEBUFFERです。これは後で出てくる動的な描画時のちらつき防止策として、ダブルバッファを使うために定義しています。静止画を描画するだけの場合は、無理に付ける必要はありませんが、再描画などの処理が楽になります。なお、実行環境によって特に変更する部分などはないと思います。</p>
+
+<p>さて、これでプログラムが組める段階になったので、実際にDelphiでOpenGLアプリケーションを創ってみましょう。</p>
+
+<h2>6.開発</h2>
+
+<p>『3次元空間に板を回転させる』アプリケーションを創るわけですが、とりあえず最初にOpenGLを扱うために必要なRCの生成と解放についての処理を記述してみましょう。Delphiを起動した直後の状態から、Unit1.pasにいろいろ追加していきます。</p>
+
+<p>注意すべき点として、Delphiの統合環境(IDE)上で開発を進めていくと、途中ハードウェア等に負荷がかかりすぎた時などにAccess
+Violationを起こして実行が中断する事があります。Delphi2では、その時点からの再実行は失敗する可能性がありますが、Delphi3では、ほとんどの場合、復帰可能です。外部DLLを扱う場合にあることですが、どうやらDelphiのIDE上での実行時にはDelphiがOpenGLを完全に扱いきれない様です。ただし、コンパイル自体は何の問題もなく出来ますので、あまりにエラーが頻発するのであれば、コンパイルを行った後IDE上で実行するのではなく、コンパイルされたファイルがあるフォルダを開いておき、それを実行するようにすれば極めて簡易的なテストできます。IDE上でデバッグをする場合は、負荷をかけないようにするなどの対策が必要と思われます。<br>
+</p>
+
+<p><strong>6-1.</strong>OpenGLの関数を使うため、(interfaceの下にある)usesにOpenGLを追加する。</p>
+
+<pre>uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  OpenGL;{追加}</pre>
+
+<p><strong>6-2.</strong>先ほど示したPixelFormatDescriptorをimplementationの下に記述しましょう。</p>
+
+<p><strong>6-3.</strong>Unit1.pasのTForm1の定義に以下の追加をします。</p>
+
+<pre>  TForm1 = class(TForm)
+  ....
+  private
+    { Private 宣言 }
+    DC: HDC;   {デバイスコンテキスト}
+    RC: HGLRC; {レンダリングコンテキスト}
+  public
+    { Public 宣言 }
+  end;
+</pre>
+
+<p><strong>6-4.</strong>オブジェクトインスペクタでForm1のイベントを開き、OnCreateとOnDestroyをそれぞれダブルクリックし、以下のコードを記述します。</p>
+
+<pre>procedure TForm1.FormCreate(Sender: TObject);
+var 
+  nPixelFormat : integer;
+  success : boolean;
+begin
+  DC := GetDC(Handle);                               {フォームのDCを取得}</pre>
+
+<pre>  nPixelFormat := ChoosePixelFormat(DC, @pfd);       
+                                   {要求されているフォーマットにもっとも近い
+                                    ピクセルフォーマットのインデックスを取得}
+  success := SetPixelFormat(DC, nPixelFormat, @pfd); 
+                                             {ピクセルフォーマットを設定する}</pre>
+
+<pre>  RC := wglCreateContext(DC);                        {RC 生成}
+end;</pre>
+
+<pre>procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  wglDeleteContext(RC);                              {RC 解放}
+end;</pre>
+
+<p><strong>6-5.</strong>以上でRCの生成〜解放についての処理は完成です。一応これで、制御はできていると言えるのですが、これだけでは視覚的に結果が見れないため、とりあえずフォームの中心に何か画像が表示されるように処理を追加してみましょう。Form1のOnPaintイベントに以下の処理を追加して、実行してみてください。</p>
+
+<pre>procedure TForm1.FormPaint(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);</pre>
+
+<pre>  glClearColor(0.0, 0.0, 0.0, 0.0); {背景色の設定(左からRGBA) 黒}
+  glClear(GL_COLOR_BUFFER_BIT);     {画面をクリアする}</pre>
+
+<pre>  glBegin(GL_POLYGON);              {ポリゴンを描画開始}
+    glColor3f(1.0, 1.0, 1.0);       {色の設定 範囲は0.0~1.0 (左からRGB)白}
+    glVertex2f(-0.5, -0.4);         {頂点の設定 二点(x,y)を指定}
+    glVertex2f(+0.5, -0.4);         {同上 三点指定でないため平面画像である}
+    glVertex2f( 0.0, +0.4);         {同上 三つの頂点を結び、面として描画}
+  glEnd();                          {描画終了}</pre>
+
+<pre>  glFlush();                        {今までのOpenGL命令を全て実行}
+  SwapBuffers(DC);                  {ダブルバッファを使って画面を書き換える}
+                                    {ダブルバッファを使う場合、必須である}
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<p><strong>6-6.</strong>画面の中央に白い三角形が表示されたでしょうか？これができれば、OpenGLの制御は出来ていると言えます。もし、出来ていない場合、Windowsのデスクトップ上で右クリック〜プロパティ〜ディスプレイの詳細タブを選び、カラーパレット(C)の項目を見てください。High
+Color (16ビット)以上になっているでしょうか？なっていなければ、それを変更して試してみてください。256色以下の環境では、デフォルトでWindowsが定義している20色以外は全て色が未定義のため、236色のカラーパレットをプログラム上で定義する等の必要があります。このプログラムを組み込もうとすると、パレット制御のコードも入ってしまい、少々長くなりますので、省かせていただきます。それでは、今までのコードに説明を入れながら、機能拡張していきましょう。</p>
+
+<p><strong>6-7.</strong>OpenGLでの描画部分だけを別に処理した方がスマートだと思うのでTForm1のprivateに以下のメソッドを追加します。</p>
+
+<pre>  private
+    { Private 宣言 }
+    DC: HDC;   {デバイスコンテキスト}
+    RC: HGLRC; {レンダリングコンテキスト}</pre>
+
+<pre>    procedure DrawWithOpenGL;
+  public</pre>
+
+<p><strong>6-8.</strong>DrawWithOpenGLメソッドを新たに記述し、FormPaintメソッドを以下のように書き換えます。</p>
+
+<pre>procedure TForm1.DrawWithOpenGL;
+begin
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClear(GL_COLOR_BUFFER_BIT);</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2f(-0.5, -0.4);
+    glVertex2f(+0.5, -0.4);
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glFlush();
+  SwapBuffers(DC);
+end;</pre>
+
+<pre>procedure TForm1.FormPaint(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);  {RCをカレントとし、RCをDCにバインドする}
+  DrawWithOpenGL;          {描画部分}
+  wglMakeCurrent(DC, 0);   {RCをカレントから外し、RCをDCからアンバインドする}
+end;</pre>
+
+<p><strong>6-9.</strong>さて、画像が表示できることができても、アプリケーションとしての完成度はまだ高くありません。なぜなら、サイズ変更をしたときに絵が、中央に表示し続けないからです。そこで、次にFormのOnResizeイベントを以下のようにしてみてください。</p>
+
+<pre>procedure TForm1.FormResize(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);
+  glViewport(0, 0, ClientWidth, ClientHeight);  { 表示領域の指定 (xywh)}
+  glLoadIdentity();                             { 座標変換値を初期化 }
+  glOrtho(-1.0, 1.0, -1.0, 1.0, 0.0, 1.0);      { 座標軸指定 }
+                                                { 左右下上前後 }
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;
+</pre>
+
+<p><strong>6-10.</strong>この様にすると、絵の縦横が伸縮してしまいますが、中央に表示されることは保証されます。絵の比率を変えないようにするためには、画面の幅の比率計算の処理を追加すれば良いでしょう。以下に修正したFormResizeを示します。</p>
+
+<pre>procedure TForm1.FormResize(Sender: TObject);
+var ratio : GLdouble; {画面比率 計算結果格納用}
+begin
+  wglMakeCurrent(DC, RC);
+  glViewport(0, 0, ClientWidth, ClientHeight);
+  glLoadIdentity();
+  ratio := ClientWidth / ClientHeight;
+  if (ClientWidth &lt;= ClientHeight) then
+    glOrtho(-1.0, 1.0, -1.0 / ratio, 1.0 / ratio, 0.0, 1.0)
+  else
+    glOrtho(-1.0 * ratio, 1.0 * ratio, -1.0, 1.0, 0.0, 1.0);
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<p><strong>6-11.</strong>さて、次は三角形に白以外の色を与えてみましょう。描画内容に関してはDrawWithOpenGLなので、そこを修正すれば良いわけです。以下に修正したDrawWithOpenGLを示します。</p>
+
+<pre>procedure TForm1.DrawWithOpenGL;
+begin
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClear(GL_COLOR_BUFFER_BIT);</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0); {R 100% G   0% B   0% つまりは赤}
+    glVertex2f(-0.5, -0.4);
+    glColor3f(0.0, 1.0, 0.0); {R   0% G 100% B   0% つまりは緑}
+    glVertex2f(+0.5, -0.4);
+    glColor3f(0.0, 0.0, 1.0); {R   0% G   0% B 100% つまりは青}
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glFlush();
+  SwapBuffers(DC);
+end;</pre>
+
+<p><strong>6-12.</strong>どうでしょう？それぞれの頂点に、赤、緑、青の色を指定しただけで、面の中間色は全てOpenGL側が補完してくれているのです。それでは、もう少し凝ったことをしてみましょう。さらにDrawWithOpenGLに修正を加えます。</p>
+
+<pre>procedure TForm1.DrawWithOpenGL;
+begin
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClear(GL_COLOR_BUFFER_BIT);</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0); {R 100% G   0% B   0% つまりは赤}
+    glVertex2f(-0.5, -0.4);
+    glColor3f(0.0, 1.0, 0.0); {R   0% G 100% B   0% つまりは緑}
+    glVertex2f(+0.5, -0.4);
+    glColor3f(1.0, 1.0, 1.0); {R 100% G 100% B 100% つまりは白}
+    glVertex2f( 0.0,  0.0);
+  glEnd();</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0); {R 100% G   0% B   0% つまりは赤}
+    glVertex2f(-0.5, -0.4);
+    glColor3f(1.0, 1.0, 1.0); {R 100% G 100% B 100% つまりは白}
+    glVertex2f( 0.0,  0.0);
+    glColor3f(0.0, 0.0, 1.0); {R   0% G   0% B 100% つまりは青}
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 1.0, 1.0); {R 100% G 100% B 100% つまりは白}
+    glVertex2f( 0.0,  0.0);
+    glColor3f(0.0, 1.0, 0.0); {R   0% G 100% B   0% つまりは緑}
+    glVertex2f(+0.5, -0.4);
+    glColor3f(0.0, 0.0, 1.0); {R   0% G   0% B 100% つまりは青}
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glFlush();
+  SwapBuffers(DC);
+end;</pre>
+
+<p><strong>6-13.</strong>今度は三角形を3つ組み合わせて三角形を創ってみました。視覚的に立体に見えるかも知れませんが、面に色をつけただけなので平面です。それを証明するために、画像の回転を行ってみましょう。フォーム上にTTimerを1つ張り付けましょう。Intervalは50~100位で良いでしょう。OnTimerイベントに以下のコードを記述してください。</p>
+
+<pre>procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Tag := Timer1.Tag mod 360 + 3; {回転角度の計算 ０〜３６０を３の間隔で}</pre>
+
+<pre>  wglMakeCurrent(DC, RC);
+  glLoadIdentity();                     { 座標変換値を初期化 }
+  glRotatef(Timer1.Tag, 0.0, 1.0, 0.0); {角度はTimer1.Tag度で、Y軸を中心に回転}
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<p><strong>6-14.</strong>回転させることで、平面であることが解ったと思います。では最後に、フォーム上でマウスのドラッグアンドドロップを使って、先ほどの三角形を回転させてみましょう。</p>
+
+<p>まず、TForm1への追加が少々あります。</p>
+
+<pre>  private
+    { Private 宣言 }
+    DC: HDC;   {デバイスコンテキスト}
+    RC: HGLRC; {レンダリングコンテキスト}
+    Down: boolean;
+    x_Temp,
+    y_Temp: integer;
+    x_Move,
+    y_Move: integer;
+    procedure InitDraw;
+    procedure DrawWithOpenGL;
+  public</pre>
+
+<p>先ほど追加したInitDrawメソッドの定義をします。</p>
+
+<pre>procedure TForm1.InitDraw;
+var ratio : GLdouble; {画面比率 計算結果格納用}
+begin
+  glViewport(0, 0, ClientWidth, ClientHeight);
+  glMatrixMode(GL_PROJECTION);                           {透視変換モードに変更}
+  glLoadIdentity();
+  ratio := ClientWidth / ClientHeight;
+  if (ClientWidth &lt;= ClientHeight) then
+    glOrtho(-1.0, 1.0, -1.0 / ratio, 1.0 / ratio, -1.0, 1.0)
+  else
+    glOrtho(-1.0 * ratio, 1.0 * ratio, -1.0, 1.0, -1.0, 1.0);</pre>
+
+<pre>  glMatrixMode(GL_MODELVIEW);                {モデリング−視野変換モードに変更}
+  glLoadIdentity;
+end;</pre>
+
+<p>・InitDrawを創ったのでFormResizeを修正します。</p>
+
+<pre>procedure TForm1.FormResize(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);
+  InitDraw;
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<p>・OnMouseDown, OnMouseMove, OnMouseUpの3つのイベントに以下のコードを記述。</p>
+
+<pre>procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Down := True;
+  x_Temp := x;
+  y_Temp := y;
+end;</pre>
+
+<pre>procedure TForm1.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if down then begin
+    x_Move := x - x_Temp;
+    y_Move := y - y_Temp;</pre>
+
+<pre>    wglMakeCurrent(DC, RC);
+    glLoadIdentity();
+    glRotatef(x_move, 0.0, 1.0, 0.0);
+    glRotatef(y_move, 1.0, 0.0, 0.0);
+    DrawWithOpenGL;
+    wglMakeCurrent(DC, 0);
+  end;
+end;</pre>
+
+<pre>procedure TForm1.FormMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Down := False;
+end;</pre>
+
+<p>・あと、FormのOnDblClickイベントをFormResizeと同一に(共有)しておくと、ダブルクリックで元の状態に戻せるので良いでしょう。</p>
+
+<p><strong>6-15.</strong>どうでしょうか？説明不足な点もあるとは思いますが、これで「Delphiによる最低限のOpenGL制御」は終わらせていただきたいと思います。最後に完成したソースコード等を以下に示しておきます。</p>
+
+<hr>
+
+<pre>unit Unit1;</pre>
+
+<pre>interface</pre>
+
+<pre>uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  OpenGL, ExtCtrls;</pre>
+
+<pre>type
+  TForm1 = class(TForm)
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+  private
+    { Private 宣言 }
+    DC: HDC;   {デバイスコンテキスト}
+    RC: HGLRC; {レンダリングコンテキスト}
+    Down: boolean;
+    x_Temp,
+    y_Temp: integer;
+    x_Move,
+    y_Move: integer;
+    procedure InitDraw;
+    procedure DrawWithOpenGL;
+  public
+    { Public 宣言 }
+  end;</pre>
+
+<pre>var
+  Form1: TForm1;</pre>
+
+<pre>implementation</pre>
+
+<pre>{$R *.DFM}</pre>
+
+<pre>var
+  pfd : Windows.TPixelFormatDescriptor = (
+    nSize:           sizeof(TPixelFormatDescriptor);
+    nVersion:        1;
+    dwFlags:         PFD_DRAW_TO_WINDOW
+                     or PFD_SUPPORT_OPENGL
+                     or PFD_DOUBLEBUFFER;
+    iPixelType:      PFD_TYPE_RGBA;
+    cColorBits:      24;
+    cRedBits:        0;
+    cRedShift:       0;
+    cGreenBits:      0;
+    cGreenShift:     0;
+    cBlueBits:       0;
+    cBlueShift:      0;
+    cAlphaBits:      0;
+    cAlphaShift:     0;
+    cAccumBits:      0;
+    cAccumRedBits:   0;
+    cAccumGreenBits: 0;
+    cAccumBlueBits:  0;
+    cAccumAlphaBits: 0;
+    cDepthBits:      32;
+    cStencilBits:    0;
+    cAuxBuffers:     0;
+    iLayerType:      PFD_MAIN_PLANE;
+    bReserved:       0;
+    dwLayerMask:     0;
+    dwVisibleMask:   0;
+    dwDamageMask:    0;
+  );</pre>
+
+<pre>procedure TForm1.FormCreate(Sender: TObject);
+var
+  nPixelFormat : integer;
+  success : boolean;
+begin
+  DC := GetDC(Handle);</pre>
+
+<pre>  nPixelFormat := ChoosePixelFormat(DC, @pfd);
+  success := SetPixelFormat(DC, nPixelFormat, @pfd);</pre>
+
+<pre>  RC := wglCreateContext(DC);
+end;</pre>
+
+<pre>procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  wglDeleteContext(RC);
+end;</pre>
+
+<pre>procedure TForm1.DrawWithOpenGL;
+begin
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClear(GL_COLOR_BUFFER_BIT);</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex2f(-0.5, -0.4);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex2f(+0.5, -0.4);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2f( 0.0,  0.0);
+  glEnd();</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex2f(-0.5, -0.4);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2f( 0.0,  0.0);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glBegin(GL_POLYGON);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2f( 0.0,  0.0);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex2f(+0.5, -0.4);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2f( 0.0, +0.4);
+  glEnd();</pre>
+
+<pre>  glFlush();
+  SwapBuffers(DC);
+end;</pre>
+
+<pre>procedure TForm1.FormPaint(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<pre>procedure TForm1.InitDraw;
+var ratio : GLdouble; {画面比率 計算結果格納用}
+begin
+  glViewport(0, 0, ClientWidth, ClientHeight);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  ratio := ClientWidth / ClientHeight;
+  if (ClientWidth &lt;= ClientHeight) then
+    glOrtho(-1.0, 1.0, -1.0 / ratio, 1.0 / ratio, -1.0, 1.0)
+  else
+    glOrtho(-1.0 * ratio, 1.0 * ratio, -1.0, 1.0, -1.0, 1.0);</pre>
+
+<pre>  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity;
+end;</pre>
+
+<pre>procedure TForm1.FormResize(Sender: TObject);
+begin
+  wglMakeCurrent(DC, RC);
+  InitDraw;
+  DrawWithOpenGL;
+  wglMakeCurrent(DC, 0);
+end;</pre>
+
+<pre>procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Down := True;
+  x_Temp := x;
+  y_Temp := y;
+end;</pre>
+
+<pre>procedure TForm1.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if down then begin
+    x_Move := x - x_Temp;
+    y_Move := y - y_Temp;</pre>
+
+<pre>    wglMakeCurrent(DC, RC);
+    glLoadIdentity();
+    glRotatef(x_move, 0.0, 1.0, 0.0);
+    glRotatef(y_move, 1.0, 0.0, 0.0);
+    DrawWithOpenGL;
+    wglMakeCurrent(DC, 0);
+  end;
+end;</pre>
+
+<pre>procedure TForm1.FormMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Down := False;
+end;</pre>
+
+<pre>end.</pre>
+
+<hr>
+
+<h2>7.追記</h2>
+
+<p>開発には、以下の環境を用いました。</p>
+
+<blockquote>
+OS: Windows95<br>
+Language: Borland Delphi 3 Professional
+</blockquote>
+
+<p>中山 礼児</p>
+
+</body>

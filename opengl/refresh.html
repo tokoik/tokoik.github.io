@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>リフレッシュレートの変更</title>
+<head>
+</head>
+
+<BODY>
+<h1>リフレッシュレートの変更</h1>
+<ul>
+<li><a href="#byproperty">１．画面のプロパティによる方法</a></li>
+<li><a href="#bygamemode">２．GLUT のゲームモードを使う方法</a></li>
+</ul>
+
+<a name="byproperty"></a>
+<H2>１．画面のプロパティによる方法</H2>
+<P>マウスの右ボタンでデスクトップをクリックし，「プロパティ」を選びます．</P>
+<P align="center"><IMG src="dispprop.gif" width="528" height="480" border="0"></P>
+<P>「設定」のタブを選んで，「画面の領域」のスライダを動かして「800×600ピクセル」程度にし，そのまま「詳細」のボタンをクリックしてください．</P>
+<P align="center"><IMG src="dispres.gif" width="528" height="480" border="0"></P>
+<P>「モニタ」のタブを選んで「リフレッシュレート」の中から「100ヘルツ」〜「120ヘルツ」程度を選んだ後，「OK」をクリックしてください．</P>
+<P align="center"><IMG src="dispmon.gif" width="528" height="480" border="0"></P>
+<P>解像度を変更してよいかどうか聞いてきます．ここも「OK」をクリックしてください．</P>
+<P align="center"><IMG src="dispconf.gif" width="528" height="480" border="0"></P>
+<P>解像度が変更され，一瞬画面が消えるか，ちょっと乱れた後に次のウィンドウが現れます．この画面が現れたら「はい」をクリックしてください．現れなければ（画面がまともに見えなければ）そのまま１５秒ほど待っていてください．</P>
+<P align="center"><IMG src="dispsave.gif" width="528" height="480" border="0"></P>
+<a name="bygamemode"></a>
+<H2>２．GLUTのゲームモードを使う方法</H2>
+<P>GLUTのゲームモードは，画面の表示解像度，リフレッシュレート，それに色深度（最大表示色数）をプログラムから制御すると同時に，画面をフルスクリーンモードにします．</P>
+<P>ゲームモード時の画面設定は glutGameModeString()
+を使って指定します．引数は設定を示す文字列で，画面を「幅800ピクセル，高さ600ピクセル，32bit
+カラー，リフレッシュレート 100Hz」に設定するなら，&quot;width=800
+height=600 bpp=32 hertz=100&quot; あるいは
+&quot;800x600:32@100&quot; という文字列を指定します．</P>
+<P>この文字列中の演算子には，&quot;=&quot; のほかに
+&quot;!=&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;,
+&quot;&lt;=&quot;, &quot;&gt;=&quot;, および
+&quot;~&quot; が使えます．&quot;hertz<B>&gt;=</B>100&quot; とすれば，「リフレッシュレートを
+100Hz <B>以上</B>に設定する」ことを要求します．マシンが指定した設定をサポートしていなければ，ゲームモードには切り替わるものの画面設定は変更されません．ただし
+&quot;~&quot; は &quot;&gt;=&quot; と同等ですが，「この設定が無理なら設定しなくてもいいや」という意味合いを持つので，この演算子を使った設定が行えなくても他の設定は行われます．</P>
+<BLOCKQUOTE><FONT size="-1">glutGameModeString() の実行後，glutEnterGameMode()
+でゲームモードに入る前に glutGameModeGet(GLUT_GAME_MODE_POSSIBLE)
+の戻り値が非０であることを調べれば，その設定が可能であることを確かめられます．また，ゲームモードに入った後
+glutGameModeGet(GLUT_GAME_MODE_DISPLAY_CHANGED)
+の戻り値が非０であることを調べれば，画面設定の変更に成功したことを確かめることができます．</FONT></BLOCKQUOTE>
+<P>なお，ゲームモードに入ると画面はフルスクリーンモードになるので，「ウィンドウ」を作成することができません．したがって，
+glutEnterGameMode() を使ってゲームモードに切り替えたあとは，glutCreateWindow()
+等を使用しないようにする必要があります．またプログラム終了時には，一応画面の設定を元に戻します．これはプログラムを終了させるところで
+glutLeaveGameMode() を呼び出します．</P>
+
+<pre class="source">#include &lt;stdlib.h&gt;
+
+...
+
+<b>#define GAMEMODE 1</b>
+
+...
+
+void keyboard(unsigned char key, int x, int y)
+{
+  switch (key) {
+  case '\033':
+  case 'q':
+  case 'Q':
+<b>#if GAMEMODE</b>
+    <b>/* プログラム終了時にゲームモードから抜ける */</b>
+    <b>glutLeaveGameMode();</b>
+<b>#endif</b>
+    exit(0);
+    break;
+  default:
+    break;
+  }
+}
+
+...
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STEREO);
+
+  ...
+
+<b>#if GAMEMODE</b>
+  <b>glutGameModeString(&quot;width=800 height=600 bpp~24 hertz&gt;=100&quot;);</b>
+  <b>glutEnterGameMode();</b>
+<b>#else</b>
+  glutCreateWindow(argv[0]);
+<b>#endif</b>
+
+  ...
+
+  return 0;
+}</pre>
+
+<P>ゲームモードにした時にマウスカーソルが邪魔になるようなら，<tt>glutSetCursor(GLUT_CURSOR_NONE)</tt> で隠してください．もとのマウスカーソルに戻すには <tt>glutSetCursor(GLUT_CURSOR_INHERIT)</tt> を実行します．</P>
+<P>ゲームモードを使わないようにするには，上の &quot;<TT>#define GAMEMODE <B>1</B></TT>&quot; を <TT>&quot;#define GAMEMODE <B>0</B></TT>&quot; に変更して，コンパイル（ビルド）しなおしてください．</P>
+<P>ところで，<A href="http://www.nvidia.com/" target="_blank">nVIDIA</A> のビデオチップでステレオモードをサポートしているのは，CAD
+用とうたわれた比較的高価なビデオカードに採用されるものに限られます（これはドライバだけの制限のようで，一般向けのビデオチップでクワッドバッファステレオを使えるようにするツールもあるようですが・・・）．ゲームモードでも状況は同じで，GLUT_STEREO
+を指定しても，やはり実行時にエラーになってしまいます．</P>
+<P>ところが，nVIDIA 自身が一般向けビデオカード向けに提供している「ステレオドライバ」をインストールすると，ゲームモードにするだけで勝手にステレオにしてくれます．glDrawBuffer()
+を使って左右の眼用の画像を描き分けたりする必要もありません．このとき視差はドライバの設定（「画面のプロパティ」の「詳細」）で指定できるようになってます．でも，これを使っちゃうと課題にならないので（だいたい演習室のマシンにはステレオドライバ入ってないし），課題はこういうものがあることは考えないでやってください．</P>
+</BODY>
+
+</html>

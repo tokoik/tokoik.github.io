@@ -1,0 +1,100 @@
+body {
+  color: #020;
+  background-color: #ffe;
+  font-size: medium;
+}
+a:link {
+  color: #060;
+}
+a:active {
+  color: #f00;
+}
+a:visited {
+  color: #040;
+}
+a:hover {
+  color: #840;
+  text-decoration: underline;
+}
+a.label {
+  color: #020;
+  text-decoration: none;
+}
+h2 {
+  margin-top: 2em;
+  border-bottom: solid 2px #080;
+}
+dl {
+  margin: 1em 2em 1em 2em;
+}
+dt         {
+  margin-top: 0.5em;
+  font-style: normal;
+  font-weight: bold;
+}
+blockquote {
+  margin: 1em 2em 1em 2em;
+  font-size: smaller;
+}
+pre.source {
+  background-color: #fff;
+  margin: 1em 2em 1em 2em;
+  padding: 0.5em 1em 0.5em 1em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ada;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+}
+pre.display {
+  color: #fff;
+  background-color: #004;
+  margin: 1em 2em 1em 2em;
+  padding: 0.5em 1em 0.5em 1em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff;
+}
+pre.sample {
+  margin: 1em 2em 1em 2em;
+  padding: 0.5em 1em 0.5em 1em;
+  border: none;
+}
+pre {
+  font-family: "Menlo", "Osaka-mono", "VL Gothic", "Andale Mono", "MS Gothic", monospace;
+  font-size: medium;
+}
+div.figure {
+  margin: 1em 0 1em 2em
+}
+div.expression {
+  margin: 0.5em 0 0.5em 2em
+}
+em {
+  font-style: normal;
+  font-weight: bold;
+}
+strong {
+  font-style: normal;
+  font-weight: bold;
+  color: #f00;
+}
+kbd {
+  color: #c55;
+  font-family: monospace;
+}
+.title {
+  margin-top: 1em;
+  border: none;
+  text-align: center;
+}
+.blue {
+  color: #00f;
+}
+.gray {
+  color: #8a8;
+}

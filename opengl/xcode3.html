@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-2022-jp">
+    <meta name="description" content="Xcode 3 で GLUT のプロジェクトを作る 情報メディア総合演習 Xcode を起動する 新規 Xcode プロジェクトを作成する 空のプロジェクトを作成する プロジェクト名を指定して保存する プロジェクトのウィンドウ 編集エリア 新規ターゲットを追加する Cocoa の Application を選択する  ターゲット名を指定する ターゲットの情報 編集エリア 「構成」から「すべての構成」を選ぶ 「他のリンカフラグ」をダブルクリック 「Foundation」と「AppKit」を変更する 編集エリア →GLUT →OpenGL 「他のリンカフラグ」の変更後 GCC_PREFIX_HEADER をダブルクリック GCC_PREFIX_HEADER の内容を削除する GCC_PREFIX_HEADER の変更後 ターゲットの情報を閉じる プロジェクトを選択する 新規ファイルを追加する ファイルの種類を選択する 編集エリア ファイル名を指定する プログラムを書いてビルドと実行 実行したプログラムの終了 "/>
+    <title>Xcode 3 で GLUT のプロジェクトを作る</title>
+    <script type="text/javascript" language="javascript">
+//      <![CDATA[
+            var images = new Array (24);
+            images[0] = "xcode3_files/xcode3.001.jpg";
+            images[1] = "xcode3_files/xcode3.002.jpg";
+            images[2] = "xcode3_files/xcode3.003.jpg";
+            images[3] = "xcode3_files/xcode3.004.jpg";
+            images[4] = "xcode3_files/xcode3.005.jpg";
+            images[5] = "xcode3_files/xcode3.006.jpg";
+            images[6] = "xcode3_files/xcode3.007.jpg";
+            images[7] = "xcode3_files/xcode3.008.jpg";
+            images[8] = "xcode3_files/xcode3.009.jpg";
+            images[9] = "xcode3_files/xcode3.010.jpg";
+            images[10] = "xcode3_files/xcode3.011.jpg";
+            images[11] = "xcode3_files/xcode3.012.jpg";
+            images[12] = "xcode3_files/xcode3.013.jpg";
+            images[13] = "xcode3_files/xcode3.014.jpg";
+            images[14] = "xcode3_files/xcode3.015.jpg";
+            images[15] = "xcode3_files/xcode3.016.jpg";
+            images[16] = "xcode3_files/xcode3.017.jpg";
+            images[17] = "xcode3_files/xcode3.018.jpg";
+            images[18] = "xcode3_files/xcode3.019.jpg";
+            images[19] = "xcode3_files/xcode3.020.jpg";
+            images[20] = "xcode3_files/xcode3.021.jpg";
+            images[21] = "xcode3_files/xcode3.022.jpg";
+            images[22] = "xcode3_files/xcode3.023.jpg";
+            images[23] = "xcode3_files/xcode3.024.jpg";
+            var index = 0;
+            function WindowLoaded(evt)
+            {
+                document.body.onselectstart = function () { return false; };
+            }
+            function Step(i)
+            {
+                GoTo(index + i)
+            }
+            function GoTo(newIndex)
+            {
+                if(newIndex >= 0 && newIndex < images.length)
+                {
+                    index = newIndex;
+                    document.Slideshow.src = images[index];
+                }
+            }
+//      ]]>
+    </script>
+</head>
+<body bgcolor="black" onload='WindowLoaded(event);'>
+    <p align="center">
+        <br/>
+        <br/>
+        <img name="Slideshow" alt="" src="xcode3_files/xcode3.001.jpg" onclick="Step(1)"/>
+        <br/>
+        <br/>
+        <input type="image" src="xcode3_files/home.png" onclick="GoTo(0)"/>
+        &nbsp;&nbsp;&nbsp;
+        <input type="image" src="xcode3_files/prev.png" onclick="Step(-1)"/>
+        <input type="image" src="xcode3_files/next.png" onclick="Step(1)"/>
+    </p>
+</body>
+</html>

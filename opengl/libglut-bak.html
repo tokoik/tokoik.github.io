@@ -1,0 +1,4223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>GLUTによる「手抜き」OpenGL入門</title>
+</head>
+
+<body bgcolor="#c0d0d0" text="#000000" link="#0000ee" vlink="#000088" alink="#ff0000">
+
+<h1 align="center">GLUTによる「手抜き」OpenGL入門</h1>
+<h3 align="center">
+<a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
+<a href="http://www.sys.wakayama-u.ac.jp/">システム工学部</a>
+<a href="http://www.sys.wakayama-u.ac.jp/di/">デザイン情報学科</a>
+</h3>
+<h2 align="center">床井浩平</h2>
+
+<h3 align="center">この文書の位置づけ</h3>
+<blockquote>
+この文書は学生実験のテーマ「ＶＲ実験」の参考資料の、
+GLUT を用いた OpenGL のチュートリアルです。
+180 分× 2 日＋αで実験部分に到達できると思います。
+ただし内容は不十分なので、
+必要に応じて<a href="#reference">資料</a>やオンラインマニュ
+アル等を参照してください。
+また間違いも含まれていると思います。
+コメントをお願いします。
+</blockquote>
+
+<blockquote>
+<font size="-1">このディレクトリをまとめたものを
+<a href="../tenuki.tar.gz">ここ</a>
+に用意しています。ご自由にお使いください。</font>
+</blockquote>
+
+<p align="center">
+初版 1997/09/30, 最終更新 <!--#config timefmt="%Y/%m/%d"-->
+<!--#echo var="LAST_MODIFIED"-->
+</p>
+
+<blockquote>
+<h3>目次</h3>
+<div><a href="#1">　１．はじめに</a></div>
+<div><a href="#1.1">　　１．１ なぜ GLUT か</a></div>
+<div><a href="#1.2">　　１．２ それ以前に、なぜ OpenGL か</a></div>
+<div><a href="#2">　２．GLUT のインストール</a></div>
+<div><a href="#2.1">　　２．１ GLUT を入手する</a></div>
+<div><a href="#2.2">　　２．２ UNIX 系 OS にインストールする</a></div>
+<div><a href="#2.3">　　２．３ Windows 系 OS にインストールする</a></div>
+<div><a href="#2.4">　　２．４ Mac OS X にインストールする</a></div>
+<div><a href="#3">　３．コンパイルの仕方</a></div>
+<div><a href="#3.1">　　３．１ UNIX 系 OS の場合</a></div>
+<div><a href="#3.2">　　３．２ Windows 系 OS (Visual C++) の場合</a></div>
+<div><a href="#3.3">　　３．３ Mac OS X (Developer Tools) の場合</a></div>
+<div><a href="#4">　４．ウィンドウを開く</a></div>
+<div><a href="#4.1">　　４．１ 空のウィンドウを開く</a></div>
+<div><a href="#4.2">　　４．２ ウィンドウを塗りつぶす</a></div>
+<div><a href="#5">　５．２次元図形を描く</a></div>
+<div><a href="#5.1">　　５．１ 線を引く</a></div>
+<div><a href="#5.2">　　５．２ 図形のタイプ</a></div>
+<div><a href="#5.3">　　５．３ 線に色を付ける</a></div>
+<div><a href="#5.4">　　５．４ 図形を塗りつぶす</a></div>
+<div><a href="#5.5">　　５．５ 関数の命名法</a></div>
+<div><a href="#6">　６．座標軸を設定する</a></div>
+<div><a href="#6.1">　　６．１ 座標軸とビューポート</a></div>
+<div><a href="#6.2">　　６．２ 位置やサイズを指定してウィンドウを開く</a></div>
+<div><a href="#7">　７．マウスとキーボード</a></div>
+<div><a href="#7.1">　　７．１ マウスボタンをクリックする</a></div>
+<div><a href="#7.2">　　７．２ マウスをドラッグする</a></div>
+<div><a href="#7.3">　　７．３ キーボードから読み込む</a></div>
+<div><a href="#8">　８．３次元図形を描く</a></div>
+<div><a href="#8.1">　　８．１ ２次元と３次元</a></div>
+<div><a href="#8.2">　　８．２ 線画を表示する</a></div>
+<div><a href="#8.3">　　８．３ 透視投影する</a></div>
+<div><a href="#8.4">　　８．４ 視点の位置を変更する</a></div>
+<div><a href="#9">　９．アニメーション</a></div>
+<div><a href="#9.1">　　９．１ 図形を動かす</a></div>
+<div><a href="#9.2">　　９．２ ダブルバッファリング</a></div>
+<div><a href="#10">１０．隠面消去</a></div>
+<div><a href="#10.1">　１０．１ 多面体を塗りつぶす</a></div>
+<div><a href="#10.2">　１０．２ デプスバッファを使う</a></div>
+<div><a href="#10.3">　１０．３ カリング</a></div>
+<div><a href="#11">１１．陰影付け</a></div>
+<div><a href="#11.1">　１１．１ 光を当ててみる</a></div>
+<div><a href="#11.2">　１１．２ 光源を設定する</a></div>
+<div><a href="#11.3">　１１．３ 材質を設定する</a></div>
+<div><a href="#12">１２．階層構造</a></div>
+<div><a href="#ex1">実験１．基本実験</a></div>
+<div><a href="#ex2">実験２．立体視の実験</a></div>
+<div><a href="#ex3">実験３．仮想のぞき穴の実験</a></div>
+<div><a href="#ex4">実験４．仮想パペットの実験</a></div>
+<div><a href="#ex5">実験５．仮想パンチングボールの実験</a></div>
+
+<dl>
+<dt><a name="reference">資料：</a></dt>
+<dd><ul>
+<li><a href="faq.html">今までにあった質問</a></li>
+<li>以前に書いた
+<a href="libaux.html">AUX 版</a>、<a href="libglut-old.html">Indy 版</a></li>
+<li><a href="refresh.html">リフレッシュレートの変更</a></li>
+<li><a href="kenshin/">柴山健伸先生の混沌としたサンプル</a></li>
+<li><a href="http://www.sys.wakayama-u.ac.jp/~chen/MotifGL.html">
+陳謙先生の Motif を使ったサンプル</a></li>
+<li><a href="delphi.html">中山礼児氏の Delphi についての解説</a></li>
+<li><a href="http://www.opengl.org/">
+The OpenGL WEB Site</a>（OpenGL の総本山）</li>
+<li><a href="http://www.opengl.org/developers/documentation/glut.html">
+About GLUT</a>（OpenGL.org の GLUT のページ）</li>
+<li><a href="http://www.opengl.org/developers/code/tutorials.html">
+Coding &amp; Tutorials</a>（OpenGL.org のチュートリアルリンク集）
+<li><a href="http://www.opengl.org/developers/faqs/technical.html">
+OpenGL Technical FAQ</a>（OpenGL について良く聞かれる質問）</li>
+<li><a href="http://www.gimlay.org/~andoh/opengl/faq/openglfaq.html">
+OpenGL FAQ 日本語</a>（OpenGL について良く聞かれる質問の日本語版）</li>
+<li><a href="http://www.opengl.org/developers/documentation/glut/spec3/spec3.html">
+GLUT Programming Interface API Version 3</a>（GLUT のマニュアル）</li>
+<li><a href="http://www.gimlay.org/~andoh/opengl/glut/">GLUT ガイド日本語版</a>
+（GLUT Programming Interface API Version 3 の訳）</li>
+<li><a href="http://www.opengl.org/developers/documentation/glut/glut_faq.html">GLUT FAQ</a>
+（GLUT について良く聞かれる質問）</li>
+<li><a href="http://www.nk-exa.co.jp/mmtech/OpenGLEdu/">
+OpenGL プログラミングコース</a>（これが最初からあれば苦労しなかったのに）</li>
+<li><a href="http://miso.ice.ous.ac.jp/~oka/opengl/index.html">OpenGL 入門講座</a>（関数の解説が丁寧）</li>
+<li><a href="http://www.nara-edu.ac.jp/~asait/">数学と計算</a>（OpenGL のほか、C/C++、LaTeX 等豊富なチュートリアルあり）</li>
+<li><a href="http://www.geocities.jp/yuichiy2001/">sonson@Picture&amp;Software</a> (GLUT に頼らない OpenGL の使い方等詳しい解説がある)</li>
+<li><a href="http://www.gimlay.org/~andoh/opengl/ml/">OpenGL Mailing List</a>（日本の OpenGL エキスパートが集う）</li>
+</ul></dd>
+</dl>
+</blockquote>
+
+<h2><a name="1">１．はじめに</a></h2>
+
+<h3><a name="1.1">１．１ なぜ GLUT か</a></h3>
+
+<p>OpenGL はシリコングラフィックス社（以下 SGI）が開発した、
+OS に依存しない３次元のグラフィックスライブラリ (API) です。
+でも、この「OS に依存しない」というところが実は曲者で、
+ウィンドウを開いたりウィンドウマネージャと通信したりするところは、
+ちゃんとそれぞれの流儀に則って、
+OS やウィンドウシステムにお願いしないといけません。
+すなわち、OpenGL の機能が使えるように、
+Windows なら Windows のやり方で、
+X なら X のやり方で、
+お膳立てをしてやる必要があるのです。</p>
+
+<p>実はこれが結構面倒な作業なので、教科書の
+<a href="http://fly.srk.fer.hr/%7eunreal/theredbook/">
+OpenGL Programming Guide の第１版</a>
+では、補助ライブラリ（AUX ライブラリ、一種の toolkit）というのを導入して、
+その部分をとりあえず隠していました。
+つまり、AUX ライブラリに OS に依存する処理を任せることで、
+読者は OpenGL
+そのものの学習に専念できるようになっていたのです。</p>
+
+<blockquote>
+<font size="-1">OpenGL Programming Guide の第２版では、AUX
+ライブラリに代えて GLUT を使うようになりました。</font>
+</blockquote>
+
+<p>ところで、Microsoft 社（以下 MS）が
+SGI から OpenGL のライセンスを買って自分のところの OS に載っけたので、
+OpenGL は一気にグラフィックスライブラリの“業界標準”の地位に登り詰めました。
+その際、この AUX ライブラリも Windows (NT/95) に移植されました。
+この結果、図らずも？この AUX ライブラリを使って書いたソースプログラムは、
+UNIX と Windows のどちらでもコンパイルできるという
+便利な仕組みができ上がりました。</p>
+
+<p>しかし、AUX ライブラリはもともと学習用であり、
+ちゃんとしたアプリケーションを書こうとすると機能に不足を感じます。
+それに MS による AUX ライブラリの移植はやはり MS の流儀で行われていて、
+例えば、イベントのハンドラには
+CALLBACK という型を付けないといけないとか、
+やっぱり気色の悪い部分があったりします。</p>
+
+<p>そこで AUX ライブラリを、
+多少なりともまともなアプリケーションが作れるように改良したものが
+GLUT と言えます。
+これは SGI の Mark Kilgard によって作成されました
+（今は nVIDIA に居るみたいですけど）。
+またユタ大学の Nate Robins（この人も今は
+nVIDIA に居るのかも）という人によって、
+Windows にも移植されました。
+このため GLUT には AUX ライブラリのような問題？はありません。
+バージョン 3.6 以降では Windows 版と UNIX 版のソースコードが統合され、
+まとめて提供されています。</p>
+
+<blockquote>
+<font size="-1">Linux や Macintosh では <a href="#Mesa">Mesa</a> の上に AUX
+ライブラリや GLUT が移植されています。また Apple 自身もついに?
+<a href="http://developer.apple.com/opengl/">OpenGL</a>
+を採用し、この上でも GLUT は使用可能です。
+Mac OS X の Developer Tools には標準で GLUT が含まれています。
+いくつかデモプログラムも入っています。</font>
+</blockquote>
+
+<p>なお、GLUT には C/C++ 用の他、Fortran や
+Ada 用のインタフェースライブラリも用意されています。</p>
+
+<h3><a name="1.2">１．２ それ以前に、なぜ OpenGL か</a></h3>
+
+<p>シミュレーション結果の視覚化など、
+グラフィックスを専門としない人が
+グラフィックスプログラミングをしなければならないということは結構ありますよね。
+私の記憶が正しければ、かつて（いつの話だ？）は
+Calcomp のプロッタライブラリとか、Tektronix 4014
+ターミナルのエスケープシーケンスとか、あるいは
+N88BASIC のグラフィックス（GLIO 呼び出しとか）
+なんかがそういう目的に使われてたように思います。</p>
+
+<p>現在なら、そういう目的には何を使えばいいのでしょうか？
+Windows なら GDI で描きますか？やはり DirectX でしょうか？
+X なら Xlib？ それとも PEX？
+こういうのは、使ったことがある人はわかると思いますが、
+実際に絵を描き始めるまでに
+なんか訳の分からない呪文をいっぱい並べないといけなくて、
+結構煩わしいもんですよね。特にグラフィックスとなると…</p>
+
+<p>本格的な GUI (Graphical User Interface)
+を持ったアプリケーションプログラムを作りたければ、
+Windows なら素直に Visual BASIC なり Visual C++ に付いている
+MFC (Microsoft Foundation Class) なりを使うべきでしょうし、
+X Window なら Motif などの toolkit
+を使えば見栄えのいいものができるでしょう。でも、これらはあくまで
+「ユーザーインタフェース作成のための部品集」
+なので、これら自体はあまり
+「グラフィックスプログラミング」
+の役に立ちそうにありません。</p>
+
+<p>OpenGL は３次元のグラフィックスライブラリですが、
+もちろん２次元の機能も持っています。
+なにより、これを使うと N88BASIC の
+LINE 文で図形を書いていた頃（遠くなったなぁ）の気楽さで
+グラフィックスプログラミングができます（あくまで個人的な印象です）。
+それでいて、（当たり前だけど）
+N88BASIC とは比較にならないほどいろんなことができます。</p>
+
+<p>ということで、GLUT と OpenGL を組み合わせれば、</p>
+
+<ol>
+<li>UNIX 系 OS（Linux、FreeBSD 等を含む）と Windows と Macintosh のいずれでも動く、</li>
+<li>リアルタイムに３次元表示を行うプログラムが、</li>
+<li>とっても簡単に書けてしまう、</li>
+</ol>
+
+<p>という三拍子そろったメリットが得られます。</p>
+
+<p>もちろん GLUT は、
+本格的な GUI を持ったプログラムの開発には向きません。
+しかし研究などで、
+手早くグラフィックスのプログラムを仕上げないといけないという場合には、
+とても便利な組み合わせだと思います。</p>
+
+<p>なお GUI については、GLUT 自身に一応
+<a href="http://www.opengl.org/developers/code/mjktips/mui/mui.html">
+MUI - micro-UI</a>
+という簡単なユーザインタフェース作成用の toolkit が付いています。
+また <a href="http://www.cs.unc.edu/~rademach/glui/">GLUI</a>
+という C++ で書かれた toolkit もリリースされているようです。
+これについては、
+<a href="http://www.ina.sd.keio.ac.jp/Haoyama/public/glui/GluiHP.htm">
+GLUIによるOpenGLダイアログ</a>
+に日本語で書かれた分かりやすいチュートリアルがあります。
+その他の OpenGL と組み合わせて使える toolkit には、
+<a href="http://www.fltk.org/">FLTK</a> や
+<a href="http://world.std.com/~xforms/">XForms</a>、
+Linux のデスクトップ環境の一つである <a href="http://www.kde.org/">KDE</a>
+で使われている <a href="http://www.trolltech.com/">Qt</a>、
+それに Tcl/Tk 用の widget の <a href="http://togl.sourceforge.net/">Togl</a>
+などがあります (Tcl/Tk 用の OpenGL インタフェースには
+<a href="http://tcltk.free.fr/index.php3?idxcat=42">ほかにもいろいろ</a>
+あるようです)。</p>
+
+<h2><a name="2">２．GLUT をインストールする</a></h2>
+
+<h3><a name="2.1">２．１ GLUT を入手する</a></h3>
+
+<p>GLUT のソースファイルは <A href="http://www.opengl.org/developers/documentation/glut/index.html">GLUT Specification</A> のページにあります （<A href="http://www.opengl.org/developers/documentation/glut/glut-3.7.tar.gz">glut-3.7.tar.gz</A> と <A href="http://www.opengl.org/developers/documentation/glut/glut_data-3.7.tar.gz">glut_data-3.7.tar.gz</A>）。IRIX 用のバイナリは <a href="http://freeware.sgi.com/index-by-alpha.html">
+SGI の freeware のページ</a>にあります。 また Windows (95/98/98SE/Me/NT/2000/XP)
+版の最新版は <a href="http://www.xmission.com/~nate/glut.html">
+http://www.xmission.com/~nate/glut.html</a>
+から得られます。</p>
+
+<h3><a name="2.2">２．２ UNIX 系 OS にインストールする</a></h3>
+
+<p>IRIX 用のバイナリ (glut_dev.tardist) は、
+IRIX の Web ブラウザでダウンロードするとインストーラ
+(swmgr) が自動的に起動します。tardist ファイルを取ってきて
+tardist コマンドでインストールすることもできます。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% tardist glut_dev.tardist</tt></td></tr></table>
+</blockquote>
+
+<p>これで swmgr が起動します。
+swmgr を使えば、
+システム標準のヘッダファイル／ライブラリのパスにインストールできます。
+ただし、
+それには root の権限が必要です。</p>
+
+<blockquote><font size="-1">
+tardist ファイルは tar で展開できます。その場合は
+“swmgr -f 展開したディレクトリ”あるいは
+“inst -f 展開したディレクトリ”を実行してください。
+</font></blockquote>
+
+<a name="source"></a>
+<p>IRIX 以外の UNIX 系 OS や IRIX で root の権限がないときは、
+<a href="http://www.opengl.org/developers/documentation/glut/index.html">
+GLUT Specification</a>
+のページからソースファイル
+（<a href="http://www.opengl.org/developers/documentation/glut/glut-3.7.tar.gz">glut-3.7.tar.gz</a> と
+<a href="http://www.opengl.org/developers/documentation/glut/glut_data-3.7.tar.gz">glut_data-3.7.tar.gz</a>） を取ってきてコンパイルしてください。 その際は
+glut-3.7/lib/glut に cd して make したほうがいいでしょう。
+glut-3.7 で make すると サンプルプログラムから何からコンパイルするので、
+すごく時間がかかります （非常に参考になるサンプルプログラムなので、
+目を通しておくことを勧めます）。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% gunzip -d -c glut-3.7.tar.gz | tar xf -<br>
+% cd glut-3.7/lib/glut<br>
+% make</tt></td></tr></table>
+</blockquote>
+
+<p>でき上がった glut-3.7/lib/glut/libglut.a と 
+glut-3.7/include/GL/glut.h を、
+適当なディレクトリに移動します。
+例えばホームディレクトリ直下に GLUT というディレクトリを作り、
+~/GLUT/GL/glut.h と~/GLUT/libglut.a として置けばいいでしょう。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% mkdir ~/GLUT<br>
+% cp libglut.a ~/GLUT<br>
+% mkdir ~/GLUT/GL<br>
+% cp ../../include/GL/glut.h ~/GLUT/GL</tt></td></tr></table>
+</blockquote>
+
+<p><a name="Mesa">OpenGL</a>
+が移植されていない UNIX 系 OS や Macintosh などでは、
+<a href="http://www.mesa3d.org/">Mesa</a>
+と呼ばれる OpenGL 互換の無料のライブラリが使用できます。
+<a href="http://sourceforge.net/projects/mesa3d">SourceForge の
+Mesa3D プロジェクト</a>から入手できます。
+Linux の場合、Mesa や GLUT
+はたいていのディストリビューションに含まれていると思います。</p>
+
+<blockquote><font size="-1">SGI から Mark Kilgard
+を含む大量のエンジニアが nVIDIA に移籍したと思ったら、1999 年 2 月には
+SGI が <a href="http://www.sgi.com/software/opensource/glx/">
+GLX (X Window の OpenGL 拡張）をオープンソース化</a>して、
+XFree86 でも GLX が使えるようになりました。
+現在 <a href="http://www.nvidia.com">nVIDIA</a>
+は RIVA 128 シリーズや TNT、GeForce シリーズ、それに
+Quadro に対応した、OpenGL のハードウェアアクセラレーションが有効な
+<a href="http://www.nvidia.com/content/drivers/drivers.asp">ドライバ</a>
+を提供しています。
+また <a href="http://www.ati.com/">ATI</A>
+も RADEON 8500〜9700（FireGL 8700/8800 を含む）については OpenGL
+のハードウェアアクセラレーションが有効な
+<a href="http://mirror.ati.com/support/driver.html">ドライバ</a>
+を提供しています。
+その他のグラフィックスプロセッサメーカーも、
+それぞれに Open Source なドライバを用意しているようです。詳しくは
+<a href="http://dri.sourceforge.net/">DRI
+(Direct Rendering Infrastracture)</a>
+を参照してください。また
+<a href="http://utah-glx.sourceforge.net/">Utah-GLX</a>
+にもいくつかのグラフィックスプロセッサのドライバがあります。
+ところで SGI は 2000 年の 1 月，ついに 
+<a href="http://oss.sgi.com/projects/ogl-sample/">
+OpenGL のサンプルインプリメンテーションをオープンソース化</a>してしまいました。</font>
+</blockquote>
+
+<h3><a name="2.3">２．３ Windows 系 OS にインストールする</A></h3>
+
+<p>OpenGL が使えるのは、OpenGL の DLL をインストールした Windows 95 および
+Windows 98/98SE/Me、Windows NT 3.5/4.0/2000、そして Windows XP です。
+Windows 95 の場合、
+OSR2 以降なら多分標準で入っているのではないかと思いますが、
+無い場合は MS からダウンロードしてきてください。
+これは<a href="ftp://ftp.microsoft.com/softlib/MSLFILES/opengl95.exe">
+ftp://ftp.microsoft.com/softlib/MSLFILES/opengl95.exe</a>
+にあります。</p>
+
+<p>開発環境には Visual C++ 6.0 を想定しています。
+Windows 用のバイナリ (glut-3.7.x-bin.zip) を展開した後、
+各ファイルを以下のように「手で」配置してください。</p>
+
+<dl>
+<dt><b>glut.h</b></dt>
+<dd>コンパイラのヘッダファイルのパス
+(C:\Program Files\DevStudio\Vc\include\GL など)</dd>
+<dt><b>*.lib</b></dt>
+<dd>コンパイラのライブラリのパス
+(C:\Program Files\DevStudio\Vc\lib など)</dd>
+<dt><b>*.dll</b></dt>
+<dd>システムのディレクトリ
+(C:\WINDOWS\system や C:\WINNT\system32 あたり)</dd>
+</dl>
+
+<p>NT 系の OS (Windows NT/2000/XP) では、そのまま配置すると配置したユーザ
+(Administrator 等) しか読み取りや実行が行えなくなってしまいます。
+配置後にこれらのファイルのプロパティを見て
+（ファイルをマウスの右ボタンでクリック）、
+「セキュリティ」のタブで「Everyone」が「読み取りと実行」できるように
+チェックマークを入れておいてください。
+「継承可能なアクセス許可を親からこのオブジェクトに継承できるようにする」
+をチェックしてもいいんじゃないかと思います。</p>
+
+<p>なお、C++ Builder の場合は“えむっち”さんの
+<a href="http://www.nk.rim.or.jp/~m_iida/programming/diary/19990421.html">
+へっぽこ<strike>プログラマー</strike>日記</a>が参考になります。
+Cygwin の場合は
+<a href="http://www.cim.pe.u-tokyo.ac.jp/~kawachi/software/cygwin.html">
+cygwin を使って OpenGL を使ったプログラムを書く話</a>
+で詳しく解説されています。また、フリーの処理系の
+<a href="http://www.cs.virginia.edu/~lcc-win32/">LCC-Win32</a>
+というのも使えるそうです（
+<a href="http://www.cc.rim.or.jp/~yukkun/glut.html">
+Using GLUT with LCC-Win32</a>、山本秀一先生ありがとう）。
+この他、埼玉大学の櫻井先生が OpenGL と GLUT を Windows9*/NT で使う方法について
+<a href="http://www.rimath.saitama-u.ac.jp/lab.jp/tsakurai/opengl/index.html">
+OpenGL の部屋</a>
+に詳しくおまとめになっています。</p>
+
+<h3><a name="2.4">２．４ Mac OS X にインストールする</A></h3>
+
+<p>Mac OS X で OpenGL/GLUT を使うには、以下の２とおりの方法があります。</p>
+
+<ul>
+<li>X Windows System (<a href="http://www.xdarwin.org/">XDarwin</a>)
+をインストールする</li>
+<li>Developer Tools を使う</li>
+</ul>
+
+<p>XDarwin は <a href="http://sourceforge.net/projects/xonx">
+SourceForge の XonX Project</a> あたりから入手できます。XFree86 4.2.x
+ベースなので、GLX (OpenGL Extension) はサポートされています。
+<a href="http://www.xfree86.org/">XFree86 Project</a> の CVS
+から取れる開発版 (4.2.99) ではハードウェアアクセラレーションが有効なのか、
+rootless で glxgears を動かすと iMac DV でもなんだか速い気がします。
+ただし、いずれも GLUT
+は含まれていないので、<a href="#source">ソースからコンパイル</a>して、
+インストールしてください。</p>
+
+<blockquote><font size="-1">2003年1月7日、なんと Apple 自身が
+<a href="http://www.apple.com/macosx/x11/">X11 for Mac OS X</a>
+を発表してしまいました。</font></blockquote>
+
+<p>一方、後者の Developer Tools を使う方法では、Mac OS X 自体が
+OpenGL を本格的にサポートしており、GLUT も Developer Tools
+に最初から含まれているので、特に何も入手する必要はありません
+（gl.h などは /usr/include/GL の中に既に入っていますし、Shader
+の開発環境まで入っているのは驚き）。</p>
+
+<p>ただし、以下のソースプログラムをそのままコンパイルできるようにするためには、
+/usr/local/include/GL というディレクトリを掘って
+/System/Library/Frameworks/GLUT.framework/Versions/A/Headers/glut.h
+へのシンボリックリンクを張るか、
+そのディレクトリに<a href="#source">ソースファイル</a>に含まれている
+glut.h を入れておいてください（/usr/include/GL
+に入れておいても構わないと思います）。XDarwin
+用に GLUT をインストールしていれば、/usr/local/include/GL
+に glut.h が入っているかも知れません。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% sudo mkdir /usr/local/include<br>
+% sudo mkdir /usr/local/include/GL<br>
+% cd /usr/local/include/GL<br>
+% sudo ln -s /System/Library/Frameworks/GLUT.framework/Versions/A/Headers/glut.h .</tt></td></tr></table>
+</blockquote>
+
+<h2><a name="3">３．コンパイルの仕方</a></h2>
+
+<h3><a name="3.1">３．１ UNIX 系 OS の場合</a></h3>
+
+<p>cc（あるいは gcc）コマンドに以下のようなオプションを付けてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% cc program.c -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm</tt>
+</td></tr></table>
+</blockquote>
+
+<p>GLUT のソースをコンパイルした場合は、上のコマンドにおいて
+glut.h と libglut.a を置いた場所をオプションで指定してください。
+仮に、これらをホームディレクトリ直下の GLUT
+に置いたとすれば、<tt>-I ~/GLUT -L ~/GLUT</tt>
+を追加します。
+また IRIX の場合は -L/usr/X11R6/lib というオプションは不要です。</p>
+
+<p>コンパイルの度にこんなに長いコマンドを打つのは面倒ですから、
+楽をする方法を考えましょう。これにはいくつか方法が考えられます。</p>
+
+<dl>
+<dt><b>alias する</b></dt>
+<dd>あらかじめ以下のようなコマンドを実行しておきます。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% alias ccgl 'cc \!* -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm'</tt>
+</td></tr></table></div>
+そうすると、以降は以下のコマンドでコンパイル（＆リンク）が行えます。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% ccgl program.c</tt></td></tr></table></div>
+これを .cshrc の中に書いておけば、ログインする度に
+alias コマンドを実行する手間が省けます。</dd>
+</dl>
+<dl>
+<dt><b>シェルスクリプトを書く</b></dt>
+<dd>以下のような内容のファイル ccgl を作成してください。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>#!/bin/sh<br>
+exec cc "$@" -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm</tt>
+</td></tr></table></div>
+そのあと chmod コマンドを実行して、このシェルスクリプトを実行可能にします。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% chmod +x ccgl</tt></td></tr></table></div>
+以降はこの ccgl コマンドを使ってコンパイルできます。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% ccgl program.c</tt></td></tr></table></div></dd>
+</dl>
+<dl>
+<dt><b>Makefile を作る</b></dt>
+<dd>以下の内容の Makefile というファイルを作ります。
+"<tt><font color="#cc5555">--Tab--&gt;</font></tt>" のところは、
+タブ (Tab) を使って字下げしてください。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>LIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm<br>
+a.out: program.c<br>
+<font color="#cc5555">--Tab--&gt;</font>cc program.c $(LIBS)</tt>
+</td></tr></table></div>
+Makefile のあるディレクトリで make コマンドを実行すると、
+program.c がコンパイルされて a.out という実行ファイルが生成されます。
+<div><table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% make</tt></td></tr></table></div>
+このコマンドは mule の中からも M-x compile で起動できます。</dd>
+</dl>
+
+<p>Makefile にはファイルの「生成規則」を記述します。
+make は実行すると、Makefile 中の最初の生成規則を探します。
+上のファイルの場合、a.out の行がそれになります。
+この行には a.out というターゲットを生成するのに program.c
+が必要だという依存関係を記述しており、
+その次の行に実際に a.out を生成するための手続きを記述しています
+（<a href="make.html">注</a>）。
+この行の行頭は Tab 文字にしてください。</p>
+
+<p>ターゲットが複数あるときは以下のようにします。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>LIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm<br>
+all: prog1 prog2<br>
+prog1: prog1.c<br>
+<font color="#cc5555">--Tab--&gt;</font>cc prog1.c -o prog1 $(LIBS)<br>
+prog2: prog2.c<br>
+<font color="#cc5555">--Tab--&gt;</font>cc prog2.c -o prog2 $(LIBS)</tt>
+</td></tr></table>
+</blockquote>
+
+<p>この最初の生成規則は all の行で、all を生成するには prog1 と prog2
+が必要だという依存関係を記述しています。
+しかし all の生成方法は記述していないので、make は prog1 と prog2
+の両方の生成だけが完了した時点で終了します。
+特定のターゲットだけを生成したいときは、
+そのターゲット名を make の引数に指定します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% make prog1</tt></td></tr></table>
+</blockquote>
+
+<h3><a name="3.2">３．２ Windows 系 OS (Visual C++) の場合</A></h3>
+
+<p>まず、新規作成で
+<a href="project.gif">「Win32 Console Application」のプロジェクト</a>を作成してください。Visual C++ の使い方を知らない人は、まず<B><a href="vcpp/">こちら</a></B>を見てください。</p>
+
+<blockquote><font size="-1">
+以降で示すプログラムは、UNIX 系 OS 上での実行を前提に作成しています。
+Windows 上では「Win32 Console Application」のプロジェクトにすることで、
+これらのプログラムをそのまま Visual C++ でコンパイルできるようになります。
+コンソールウィンドウを開きたくない場合は
+<a href="http://www.opengl.org/developers/documentation/glut/glut_faq.html#Q36">GLUT
+FAQ の Q36</a> を参考にしてください。</font></blockquote>
+
+<p>GLUT 3.7.2 以降と Visual C++ 6.0
+の組合わせなら、ソースファイルに GL/glut.h が include していれば自動的に
+glut32.lib glu32.lib opengl32.lib
+を組み込んでくれます（山下真様ありがとうございました）。
+したがって、普通にビルドすれば実行ファイルができあがるはずです。</p>
+
+<blockquote><font size="-1">もし、うまく行かないようなら、
+<a href="link.gif">プロジェクトの設定 (Alt+F7)</a>
+のリンクのタブで、
+オブジェクト／ライブラリモジュールに
+glut32.lib glu32.lib opengl32.lib
+の３つを追加してください。
+SGI の OpenGL を使用する場合は、
+代わりに glut.lib glu.lib opengl.lib を追加してください。
+あと、C/C++ のタブでプリプロセッサの定義に
+WIN32 があることを確かめてください（無いことは無いと思いますが）。
+もしなければ追加してください。</font></blockquote>
+
+<h3><a name="3.3">３．３ Mac OS X (Developer Tools) の場合</a></h3>
+
+<p>XDarwin を使用する場合は
+<a href="#3.1">３．１</a>で述べた UNIX 系 OS の場合に準じます。
+ここでは後者の Developer Tools を使う方法について解説します。</p>
+
+<p>プログラムをコマンドラインでコンパイルする場合は、cc（あるいは
+gcc）コマンドに以下のようなオプションを付けてください
+（榎本剛様ありがとうございました）。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<tt>% cc -framework OpenGL -framework GLUT -framework Foundation program.c</tt>
+</td></tr></table>
+</blockquote>
+
+<p>できた a.out を実行すれば、ウィンドウが開きます。
+メニューも付いているはずです。</p>
+
+<p>Project Builder を使う場合は、既に用意されている GLUT
+のサンプルプログラムの（結合）プロジェクトにターゲットを追加するのが、
+一番手っ取り早いように思います。
+新たにプロジェクトを起こす場合は、次のような手順になります。</p>
+<ol>
+<li>新規プロジェクトとして空のプロジェクトを作成する。</li>
+<li>新規ターゲットとしてアプリケーションを追加する。</li>
+<li>Foundation.framework, OpenGL.framework, および
+GLUT.framework という３つのフレームワークを追加する。</li>
+<li>ソースファイルを作成あるいは追加する。</li>
+<li>ビルドする。</p>
+</ol>
+
+<p>詳しくは<a href="macosx/"><b>ここ</b></a>を参照してください。
+なお、<a href="#2.4">２．４</a>で示したように
+/usr/local/include/GL 等に glut.h を<u>置いていない場合</u>は、
+ヘッダファイルとして <u>GL</u>/glut.h
+ではなく <font color="#ff0000"><u>GLUT</u>/glut.h</font>
+を #include するようにしてください（Mac OS X ではこっちが正統でしょう）。</p>
+
+<h2><a name="4">４．ウィンドウを開く</a></h2>
+
+<h3><a name="4.1">４．１ 空のウィンドウを開く</a></h3>
+
+<p>いよいよプログラムの作成に入ります。
+ウィンドウを開くだけのプログラムは、
+GLUT を使うとこんな風になります。
+このソースプログラムを prog1.c とというファイル名で作成し、
+<a href="#3">コンパイル</a>して出来上がった実行プログラム
+(a.out) を実行してみてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre><b>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutMainLoop();
+  return 0;
+}</b></pre></td></tr></table>
+
+<dl>
+<dt><tt><b>void glutInit(int *argcp, char **argv)</b></tt></dt>
+
+<dd>GLUT および OpenGL 環境を初期化します。
+引数には main の引数をそのまま渡します。
+X Window で使われるオプション -display などはここで処理されます。
+この関数によって引数の内容が変更されます。
+プログラム自身で処理すべき引数があるときは、
+この後で処理します。</dd>
+
+<dt><tt><b>int glutCreateWindow(char *name)</b></tt></dt>
+
+<dd>ウィンドウを開きます。
+引数 name はそのウィンドウの名前の文字列で、
+タイトルバーなどに表示されます。
+以降の OpenGL による図形の描画等は、
+開いたウィンドウに対して行われます。
+なお、戻り値は開いたウィンドウの識別子です。</dd>
+
+<dt><tt><b>void glutDisplayFunc(void (*func)(void))</b></tt></dt>
+
+<dd>引数 func は開いたウィンドウ内に描画する関数へのポインタです。
+ウィンドウが開かれたり、
+他のウィンドウによって隠されたウィンドウが再び現れたりして、
+ウィンドウを再描画する必要があるときに、
+この関数が実行されます。
+したがって、この関数内で図形表示を行います。</dd>
+
+<dt><tt><b>void glutMainLoop(void)</b></tt></dt>
+
+<dd>これは無限ループです。
+この関数を呼び出すことで、
+プログラムはイベントの待ち受け状態になります。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>見れば分かる通り、プログラムは、</p>
+
+<ol>
+<li>初期化して、</li>
+<li>ウィンドウを開いて、</li>
+<li>そのウィンドウ内に絵を描く関数を決めて、</li>
+<li>何かことが起こるのを待つ。</li>
+</ol>
+
+<p>という順になります。
+C 言語の教科書なんかに良く出てくる
+「標準入出力を使ったプログラム」なんかと違うところは、
+中心となる処理（この場合 display()）を実行するタイミングが、
+ソースプログラムを見ただけでは何時なのかわからない、
+というところでしょうか。</p>
+
+<p>最初に display() が実行されるのは、
+初めてウィンドウが開いたとき、すなわち、
+glutMainLoop() が glutCreateWindow()
+の指示を受けてウィンドウの生成を完了したときになります。
+また、その後も、
+このウィンドウがほかのウィンドウに隠され再び現れたときのように、
+ウィンドウの再描画が必要になったときに実行されます。</p>
+
+<p>上のプログラムでは display() の中身に何も記述していないため、
+display() が呼び出されても何も仕事をしません。
+試しにこのウィンドウを移動したり、
+他のウィンドウで隠したりしてみてください。
+ウィンドウの中の表示はおかしなものになっていると思います。</p>
+
+<p>このように複数の
+（オーバーラップ可能な）
+ウィンドウが使用できるウィンドウシステムに対応したプログラムでは、
+処理の流れは時間軸に沿って「プログラムの始めから終りへ」ではなく、
+何かこと（事象）が起るたびに「プログラムの各部がランダムに」実行されます。
+従って、そのプログラミングスタイルも、
+「事象」に対して、その「対処方法」を登録していくというものになります。
+ここではこの事象を<font color="#ff0000">イベント</font>と呼び、
+対処方法の手続きを<font color="#ff0000">ハンドラ</font>と呼ぶことにします。</p>
+
+<p>なお、このプログラムには「終了する方法」を組み込んでいないので、
+プログラムを終了するには実行したウィンドウで Ctrl-C をタイプするか、
+ウィンドウのタイトルバーの左のボタンをクリックして
+「閉じる」か「中止」を選んでください。</p>
+
+<h3><a name="4.2">４．２ ウィンドウを塗りつぶす</a></h3>
+
+<p>今までは関数 display() の中に何も記述していなかったので、
+ウィンドウの中身はでたらめ
+（おそらく、そのウィンドウの位置に以前に描かれていた内容の残骸）
+だと思います。
+そこで、今度は開いたウィンドウを塗りつぶしてみます。
+prog1.c に太字のところを追加し、
+もう一度コンパイルしてプログラムを実行してみてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  <b>glClear(GL_COLOR_BUFFER_BIT);</b>
+  <b>glFlush();</b>
+}
+
+<b>void init(void)
+{
+  glClearColor(0.0, 0.0, 1.0, 0.0);
+}</b>
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  <b>glutInitDisplayMode(GLUT_RGBA);</b>
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  <b>init();</b>
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void glutInitDisplayMode(unsigned int mode)</b></tt></dt>
+
+<dd>ディスプレイの表示モードを設定します。
+mode に GLUT_RGBA を指定した場合は、
+色の指定を RGB（赤緑青、光の３原色）で行えるようにします。
+他にインデックスカラーモード (GLUT_INDEX) も指定できます。
+後者はうまく使えば効率の良い表示が行えますが、
+それなりに面倒なので、
+ここではお任せで使える RGBA モードを使います。</dd>
+
+<dt><tt><b>void glClearColor(GLclampf R, GLclampf G, GLclampf B, GLclampf A)</b></tt></dt>
+
+<dd>glClear(GL_COLOR_BUFFER_BIT)
+でウィンドウを塗りつぶす際の色を指定します。
+R，G，B はそれぞれ赤、緑、青色の成分の強さを示す GLclampf 型
+（float 型と等価）の値で、
+0〜1 の間の値を持ちます。
+1 が最も明るく、この３つに (0, 0, 0)
+を指定すれば黒色、(1, 1, 1) を指定すれば白色になります。
+上の例ではウィンドウは<font color="#0000ff">青色</font>で塗りつぶされます。
+最後の A はα値と呼ばれ、OpenGL では不透明度として扱われます
+（0 で透明、1 で不透明）。ここではとりあえず
+0 にしておいてください。</dd>
+
+<dt><tt><b><a name="glClear">void glClear(GLbitfield mask)</a></b></tt></dt>
+
+<dd>ウィンドウを塗りつぶします。
+mask には塗りつぶすバッファを指定します。
+OpenGL が管理する画面上のバッファ（メモリ）には、
+色を格納するカラーバッファの他、
+隠面消去に使うデプスバッファ、
+凝ったことをするときに使うステンシルバッファ、
+カラーバッファの上に重ねて表示されるオーバーレイバッファなど、
+いくつかのものがあり、
+これらが一つのウィンドウに重なって存在しています。
+mask に GL_COLOR_BUFFER_BIT を指定したときは、
+カラーバッファだけが塗りつぶされます。</dd>
+
+<dt><tt><b>glFlush(void)</b></tt></dt>
+
+<dd>glFlush() はまだ実行されていない OpenGL の命令を全部実行します。
+OpenGL は関数呼び出しによって生成される OpenGL
+の命令をその都度実行するのではなく、
+いくつか溜め込んでおいてまとめて実行します。
+このため、ある程度命令が溜まらないと
+関数を呼び出しても実行が開始されない場合があります。
+glFlush() はそういう状況で
+まだ実行されていない残りの命令の実行を開始します。
+ひんぱんに glFlush() を呼び出すと、かえって描画速度が低下します。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>glClearColor() は、
+プログラムの実行中に背景色を変更することがなければ、
+最初に一度だけ設定すれば十分です。
+そこでこのような初期化処理を行う関数は、
+glMainLoop() の前に実行する関数 init()
+にまとめて置くことにします。</p>
+
+<p>glFlush() のかわりに glFinish() を使う場合もあります。これは、
+glFlush() がまだ実行されていない OpenGL の命令の実行開始を促すのに加えて、
+glFinish() はそれがすべて完了するのを待ちます。</p>
+
+<p>gl*() で始まる（glu*() や glut*() で始まらない）関数が、
+OpenGL の API です。</p>
+
+<h2><a name="5">５．２次元図形を描く</a></h2>
+
+<h3><a name="5.1">５．１ 線を引く</a></h3>
+
+<p>ウィンドウ内に線を引いてみます。
+prog1.c を以下のように変更し、
+コンパイルしてプログラムを実行してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  <b>glBegin(GL_LINE_LOOP);</b>
+  <b>glVertex2d(-0.9, -0.9);</b>
+  <b>glVertex2d(0.9, -0.9);</b>
+  <b>glVertex2d(0.9, 0.9);</b>
+  <b>glVertex2d(-0.9, 0.9);</b>
+  <b>glEnd();</b>
+  glFlush();
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void glBegin(GLnum mode)</b></tt></dt>
+<dt><tt><b>void glEnd(void)</b></tt></dt>
+
+<dd>図形を描くには、
+glBegin()〜glEnd() の間にその図形の各頂点の座標値を設定する関数を置きます。
+glBegin() の引数 mode には描画する図形のタイプを指定します。</dd>
+
+<dt><tt><b><a name="glVertex2d">void glVertex2d(GLdouble x, GLdouble y)</a></b></tt></dt>
+
+<dd>glVertex2d() は２次元の座標値を設定するのに使います。
+引数の型は GLdouble （double と等価）です。
+引数が float 型のときは glVertex2f()、
+int 型のときは glVertex2i() を使います。</dd>
+
+</dl>
+
+</blockquote>
+
+<h3><a name="5.2">５．２ 図形のタイプ</a></h3>
+
+<p>glBegin() の引数 mode
+に指定できる図形のタイプには以下のようなものがあります。
+詳しくは man glBegin を参照してください。</p>
+
+<blockquote>
+<dl>
+<dt><tt><b>GL_POINTS</b></tt></dt>
+<dd>点を打ちます。</dd>
+<dt><tt><b>GL_LINES</b></tt></dt>
+<dd>２点を対にして、その間を直線で結びます。</dd>
+<dt><tt><b>GL_LINE_STRIP</b></tt></dt>
+<dd>折れ線を描きます。</dd>
+<dt><tt><b>GL_LINE_LOOP</b></tt></dt>
+<dd>折れ線を描きます。始点と終点の間も結ばれます。</dd>
+<dt><tt><b>GL_TRIANGLES / GL_QUADS</b></tt></dt>
+<dd>３／４点を組にして、三角形／四角形を描きます。</dd>
+<dt><tt><b>GL_TRIANGLE_STRIP / GL_QUAD_STRIP</b></tt></dt>
+<dd>一辺を共有しながら帯状に三角形／四角形を描きます。</dd>
+<dt><tt><b>GL_TRIANGLE_FAN</b></tt></dt>
+<dd>一辺を共有しながら扇状に三角形を描きます。</dd>
+<dt><tt><b>GL_POLYGON</b></tt></dt>
+<dd><b>凸</b>多角形を描きます。</dd>
+</dl>
+<img src="libaux1.gif" width="511" height="445"
+alt="図形プリミティブ一覧">
+</blockquote>
+
+<p>OpenGL を処理するハードウェアは、
+実際には３角形しか塗り潰すことができません
+（モノによっては４角形もできるものもあります）。
+このため GL_POLYGON の場合は、
+多角形を３角形に分割してから処理します。
+従って、もし描画速度が重要なら
+GL_TRIANGLE_STRIP や GL_TRIANGLE_FAN を使うよう
+プログラムを工夫してみてください。
+また GL_QUADS も GL_POLYGON より高速です。</p>
+
+<h3><a name="5.3">５．３ 線に色を付ける</a></h3>
+
+<p>線に色を付けてみます。
+prog1.c を以下のように変更し、コンパイルしてください。
+プログラムを実行したら線は何色で表示されたでしょうか？</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  <b>glColor3d(1.0, 0.0, 0.0);</b>
+  glBegin(GL_LINE_LOOP);
+  glVertex2d(-0.9, -0.9);
+  glVertex2d(0.9, -0.9);
+  glVertex2d(0.9, 0.9);
+  glVertex2d(-0.9, 0.9);
+  glEnd();
+  glFlush();
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b><a name="glColor3d">void glColor3d(GLdouble r, GLdouble g, GLdouble b)</a></b></tt></dt>
+
+<dd>glColor3d() はこれから描画するものの色を指定します。
+引数の型は GLdouble 型（double と等価）で、
+r，g，b にはそれぞれ赤、緑、青の強さを 0〜1 の範囲で指定します。
+引数が float 型のときは glColor3f()、
+int 型のときは glColor3i() を使います。</dd>
+
+</dl>
+
+</blockquote>
+
+<h3><a name="5.4">５．４ 図形を塗りつぶす</a></h3>
+
+<p>図形を塗りつぶしてみます。
+GL_LINE_LOOP を GL_POLYGON に変更し、
+ついでに背景も白色に変更しましょう。
+変更したプログラムをコンパイルして実行してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  glColor3d(1.0, 0.0, 0.0);
+  glBegin(<b>GL_POLYGON</b>);
+  glVertex2d(-0.9, -0.9);
+  glVertex2d(0.9, -0.9);
+  glVertex2d(0.9, 0.9);
+  glVertex2d(-0.9, 0.9);
+  glEnd();
+  glFlush();
+}
+
+void init(void)
+{
+  glClearColor(<b>1.0</b>, <b>1.0</b>, 1.0, 0.0);
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>色は頂点毎に指定することもできます。
+prog1.c を以下のように変更してください。
+コンパイルしてプログラムを実行すると、
+どういう色の付き方になったでしょうか？</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  glColor3d(1.0, 0.0, 0.0);
+  glBegin(GL_POLYGON);
+  <b>glColor3d(1.0, 0.0, 0.0); /* 赤 */</b>
+  glVertex2d(-0.9, -0.9);
+  <b>glColor3d(0.0, 1.0, 0.0); /* 緑 */</b>
+  glVertex2d(0.9, -0.9);
+  <b>glColor3d(0.0, 0.0, 1.0); /* 青 */</b>
+  glVertex2d(0.9, 0.9);
+  <b>glColor3d(1.0, 1.0, 0.0); /* 黄 */</b>
+  glVertex2d(-0.9, 0.9);
+  glEnd();
+  glFlush();
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>多分、
+多角形の内部は頂点の色から補間した色で塗りつぶされたと思います。
+このプログラムは後で使用するので、
+prog2.c というコピーを作っておいてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>% cp prog1.c prog2.c</pre></td></tr></table>
+</blockquote>
+
+<h2><a name="5.5">５．５ 関数の命名法</a></h2>
+
+<p>glVertex*() や glColor*() のような関数の * の部分は、
+引数の型や数などを示しています。
+詳しくは man glVertex2d や man glColor3d を参照してください。</p>
+
+<blockquote>
+<img src="libaux2.gif" width="472" height="211"
+alt="関数の命名法概略図">
+</blockquote>
+
+<h2><a name="6">６．座標軸を設定する</a></h2>
+
+<h3><a name="6.1">６．１ 座標軸とビューポート</a></h3>
+
+<p>ウィンドウ内に表示する図形の座標軸は、
+そのウィンドウ自体の大きさと図形表示を行う“空間”との関係で決定します。
+開いたウィンドウの位置や大きさはマウスを使って変更することができますが、
+その情報はウィンドウマネージャを通じて、
+イベントとしてプログラムに伝えられます。</p>
+
+<p>これまでのプログラムでは、
+ウィンドウのサイズを変更すると表示内容もそれにつれて拡大縮小していました。
+これを表示内容の大きを変えずに表示領域のみを広げるようにします。</p>
+
+<p>prog1.c に以下のように resize() という関数を追加し、
+glutReshapeFunc() を使って
+それをウィンドウのリサイズ（拡大縮小）のイベントに対するハンドラに指定します。
+プログラムが変更できたらコンパイルしてプログラムを実行し、
+開いたウィンドウを拡大縮小してみてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+<b>void resize(int w, int h)
+{
+  /* ウィンドウ全体をビューポートにする */
+  glViewport(0, 0, w, h);
+
+  /* 変換行列の初期化 */
+  glLoadIdentity();
+
+  /* スクリーン上の表示領域をビューポートの大きさに比例させる */
+  glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
+}</b>
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  <b>glutReshapeFunc(resize);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b><a name="glViewport">void glViewport(GLint x, GLint y, GLsizei w, GLsizei h)</a></b></tt></dt>
+
+<dd>ビューポートを設定します。
+ビューポートとは、開いたウィンドウの中で描画が行われる領域で、
+正規化デバイス座標系の２点 (-1, -1), (1, 1)
+を結ぶ線分を対角線とする矩形領域がここに表示されます。
+最初の２つの引数 x、y にはその領域の左下隅の位置、
+w には幅、h には高さをデバイス座標系、
+すなわちディスプレ以上の画素数で指定します。
+関数 resize() の引数 w、h にはそれぞれウィンドウの幅と高さが入っていますから、
+glViewport(0, 0, w, h)
+はリサイズ後のウィンドウの全面を表示領域に使うことになります。</dd>
+
+<dt><tt><b>void glLoadIdentity(void)</b></tt></dt>
+
+<dd>これは変換行列を初期化します。
+座標変換の合成は行列の積であらわされますから、
+変換行列に初期値として単位行列を設定します。</dd>
+
+<dt><tt><b>void glOrtho(GLdouble l, GLdouble r, GLdouble b, GLdouble t, GLdouble n, GLdouble f)</b></tt></dt>
+
+<dd>glOrtho() はワールド座標系を正規化デバイス座標系に平行投影
+(orthographic projection : 正射影)
+する行列を変換行列に乗じます。
+引数には左から、
+l に表示領域の左端 (left) の位置、
+r に右端 (right) の位置、
+b に下端 (bottom) の位置、
+t に上端 (top) の位置、
+n に前方面 (near) の位置、
+f に後方面 (far) の位置を指定します。
+これは、ビューポートに表示される空間の座標軸を設定します。</dd>
+
+<dt><tt><b>glutReshapeFunc(void (*func)(int w, int h))</b></tt></dt>
+
+<dd>引数 func には、
+ウィンドウがリサイズされたときに実行する関数のポインタを与えます。
+この関数の引数にはリサイズ後のウィンドウの幅と高さが渡されます。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>resize()
+の処理によって、プログラムは
+glViewport() で指定した領域に
+glOrtho() で指定した領域内の図形を表示するようになります。
+ここで glOrtho() で指定するの領域の大きさを
+resize() の引数で得られる領域の大きさに比例するように設定すれば、
+図形の空間のディスプレイ上での“密度”を一定に保つことができます。</p>
+
+<blockquote>
+<img src="libglut4.gif" width="487" height="227"
+alt="ウィンドウ−ビューポート変換">
+</blockquote>
+
+<p>図形はワールド座標系と呼ばれる空間にあり、
+その２点 (l, b), (r, t) を結ぶ線分を対角線とする矩形領域を、
+２点 (-1, -1), (1, 1) を対角線とする矩形領域に投影します。
+この投影された座標系を正規化デバイス座標系と呼びます。</p>
+
+<p>この正規化デバイス座標系の正方形領域内の図形がデバイス座標系
+（ディスプレイ上のウィンドウ）のビューポートに表示されますから、
+結果的にワールド座標系から glOrtho()
+で指定した矩形領域を切り取ってビューポートに表示することになります。</p>
+
+<p>ワールド座標系から切り取る領域は、
+“ＣＧ用語的”には「ウィンドウ」と呼ばれ、
+ワールド座標系から正規化デバイス座標系への変換は
+「ウィンドウイング変換」と呼ばれます。
+しかしウィンドウシステム（X Window, MS Windows 等）においては、
+「ウィンドウ」はアプリケーションプログラムが
+ディスプレイ上に作成する表示領域のことを指すので、
+ここの説明ではこれを「座標軸」と呼んでいます。
+なお、正規化デバイス座標系からデバイス座標系への変換は
+ビューポート変換と呼ばれます。</p>
+
+<p>glOrtho() では引数として l, r, t, b の他に n と f
+も指定する必要があります。
+実は OpenGL は２次元図形の表示においても内部的に３次元の処理を行っており、
+ワールド座標系は奥行き (Z) 方向にも軸を持つ３次元空間になっています。
+n と f には、
+それぞれこの空間の前方面（可視範囲の手前側の限界）
+と後方面（可視範囲の遠方の限界）を指定します。
+n より手前にある面や f より遠方にある面は表示されません。</p>
+
+<p>２次元図形は奥行き (Z) 方向が 0 の３次元図形として取り扱われるので、
+ここでは n（前方面、可視範囲の手前の位置）を -1.0、
+f （後方面、遠方の位置）を 1 にしています。</p>
+
+<p>glOrtho() を使用しなければ変換行列は単位行列のままなので、
+ワールド座標系と正規化デバイス座標系は一致し、
+ワールド座標系の２点 (-1, -1), (1, 1)
+を対角線とする矩形領域がビューポートに表示されます。
+ビューポート内に表示する空間の座標軸が変化しないため、
+この状態でウィンドウのサイズを変化させると、
+それに応じて表示される図形のサイズも変わります。
+初期状態はこのようになっています。</p>
+
+<p>そこで上のプログラムでは、
+実際のウィンドウのサイズの 1/100 をワールド座標系の矩形領域に設定します。
+こうするとウィンドウのサイズの変化に比例して
+ワールド座標系の矩形領域の大きさが設定されるため、
+ウィンドウ内に表示される図形の大きさが不変になります。</p>
+
+<h3><a name="6.2">６．２ 位置やサイズを指定してウィンドウを開く</a></h3>
+
+<p>プログラムの起動時に開くウィンドウの位置やサイズを指定したいときは、
+glutInitWindowPosition() および glutInitWindowSize()
+を使います。
+これらを使用しなければ、
+プログラムが起動したときに開かれるウィンドウのサイズは
+ウィンドウマネージャの設定に従います。
+prog1.c に試しに太字の部分を追加してみてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  <b>glutInitWindowPosition(100, 100);</b>
+  <b>glutInitWindowSize(320, 240);</b>
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void glutInitWindowSize(int w, int h)</b></tt></dt>
+
+<dd>新たに開くウィンドウの幅と高さを指定します。
+これを指定しないときは、300×300 のウィンドウを開きます。</dd>
+
+<dt><tt><b>void glutInitWindowPosition(int x, int y)</b></tt></dt>
+
+<dd>新たに開くウィンドウの位置を指定します。
+これを指定しないときは、
+ウィンドウマネージャによってウィンドウを開く位置を決定します。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>X Window の場合、
+-geometry オプションによって
+コマンドラインからウィンドウを開く位置やサイズを指定できます。
+これは glutInit() によって処理されるので、
+-geometry オプションを有効にするには
+glutInitWindowPosition() と glutInitWindowSize() を 
+glutInit() より前に置き、無効にするには後に置きます。</p>
+
+<h2><a name="7">７．マウスとキーボード</a></h2>
+
+<h3><a name="7.1">７．１ マウスボタンをクリックする</a></h3>
+
+<p>マウスのボタンを押したことを知るには、
+glutMouseFunc() という関数で
+マウスのボタンを操作したときに呼び出す関数を指定します。
+prog1.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre><b>#include &lt;stdio.h&gt;</b>
+#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  <b>/* 途中削除 */</b>
+  glFlush();
+}
+
+void resize(int w, int h)
+{
+  /* ウィンドウ全体をビューポートにする */
+  glViewport(0, 0, w, h);
+
+  /* 変換行列の初期化 */
+  glLoadIdentity();
+
+  <b>/* 以下削除 */</b>
+}
+
+<b>void mouse(int button, int state, int x, int y)
+{
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+    printf("left");
+    break;
+  case GLUT_MIDDLE_BUTTON:
+    printf("middle");
+    break;
+  case GLUT_RIGHT_BUTTON:
+    printf("right");
+    break;
+  default:
+    break;
+  }
+
+  printf(" button is ");
+
+  switch (state) {
+  case GLUT_UP:
+    printf("up");
+    break;
+  case GLUT_DOWN:
+    printf("down");
+    break;
+  default:
+    break;
+  }
+
+  printf(" at (%d, %d)\n", x, y);
+}</b>
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInitWindowPosition(100, 100);
+  glutInitWindowSize(320, 240);
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  <b>glutMouseFunc(mouse);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>glutMouseFunc(void (*func)(int button, int state, int x, int y))</b></tt></dt>
+
+<dd>引数 func には、
+マウスのボタンが押されたときに実行する関数のポインタを与えます。
+この関数の引数 button には押されたボタン
+(GLUT_LEFT_BUTTON, GLUT_MIDDLE_BUTTON, GLUT_RIGHT_BUTTON)、
+state には「押した (GLUT_DOWN)」のか「離した (GLUT_UP)」のか、
+x と y にはその位置が渡されます。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>プログラムが変更できたら、コンパイルしてプログラムを実行してみてください。
+開いたウィンドウの上でマウスのボタンをクリックしてみてください。</p>
+
+<p>x と y に渡される座標は、
+ウィンドウの<font color="#ff0000">左上隅を原点 (0, 0)</font>
+とした画面上の画素の位置になります。
+<font color="#ff0000">デバイス座標系とは上下が反転している</font>
+ので気をつけてください。</p>
+
+<p><img src="libglut8.gif" width="256" height="256" align="right" hspace="5"
+alt="ワールド座標系をマウスの座標系と一致させる方法"></p>
+
+<p>マウスの位置をもとに図形を描く場合は、
+マウスの位置からウィンドウ上の座標値を求めなければなりません。
+ここではちょっと手を抜いて、
+ワールド座標系がこのマウスの座標系に一致するよう
+glOrtho() を設定します（右図）。
+またウィンドウの上下も反転します（prog1.c の下線部）。
+prog1.c を以下のように変更してください。<br clear="all"></p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  /* ウィンドウ全体をビューポートにする */
+  glViewport(0, 0, w, h);
+
+  /* 変換行列の初期化 */
+  glLoadIdentity();
+
+  <b>/* スクリーン上の座標系をマウスの座標系に一致させる */</b>
+  <b>glOrtho(-0.5, (GLdouble)w - 0.5, <u>(GLdouble)h - 0.5, -0.5,</u> -1.0, 1.0);</b>
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  <b>static int x0, y0;</b>
+
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+    <b>if (state == GLUT_UP) {
+      /* ボタンを押した位置から離した位置まで線を引く */
+      glColor3d(0.0, 0.0, 0.0);
+      glBegin(GL_LINES);
+      glVertex2i(x0, y0);
+      glVertex2i(x, y);
+      glEnd();
+      glFlush();
+    }
+    else {
+      /* ボタンを押した位置を覚える */
+      x0 = x;
+      y0 = y;
+    }</b>
+    break;
+  case GLUT_MIDDLE_BUTTON:
+    <b>/* 削除 */</b>
+    break;
+  case GLUT_RIGHT_BUTTON:
+    <b>/* 削除 */</b>
+    break;
+  default:
+    break;
+  }
+
+  <b>/* 以下削除 */</b>
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b><a name="glVertex2i">glVertex2i(GLint, GLint)</a></b></tt></dt>
+
+<dd>この関数は <a href="#glVertex2d">glVertex2d()</a>
+と同様に２次元の座標値を設定しますが、
+引数の型が GLint 型（int 型と等価）です。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>前のプログラムでは、
+ウィンドウのサイズを変えたり
+ウインドウが他のウィンドウに隠されたあと再び表示される度に、
+ウィンドウの中身が消えてしまいます。
+やはり、この場合もちゃんと書き直してやる必要があるわけですが、
+そのためにはそれまでに表示した内容を記憶しておかなければなりません。</p>
+
+<p>mouse() が実行されたときに、
+配列に現在の位置を記憶しておき、
+display() が実行されたときに、それをまとめて描画するようにします。
+prog1.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;GL/glut.h&gt;
+<b>#define MAXPOINTS 100
+GLint point[MAXPOINTS][2]; /* 座標を記憶する配列 */
+int pointnum = 0;          /* 記憶した座標の数　 */</b>
+
+void display(void)
+{
+  <b>int i;</b>
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  <b>/* 記録したデータで線を描く */
+  if (pointnum &gt; 1) {
+    glColor3d(0.0, 0.0, 0.0);
+    glBegin(GL_LINES);
+    for (i = 0; i &lt; pointnum; i++) {
+      glVertex2iv(point[i]);
+    }
+    glEnd();
+  }</b>
+
+  glFlush();
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  <b>/* 削除 */</b>
+
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+    <b>/* ボタンを操作した位置を記録する */
+    point[pointnum][0] = x;
+    point[pointnum][1] = y;</b>
+    if (state == GLUT_UP) {
+      /* ボタンを押した位置から離した位置まで線を引く */
+      glColor3d(0.0, 0.0, 0.0);
+      glBegin(GL_LINES);
+      <b>glVertex2iv(point[pointnum - 1]); /* 一つ前は押した位置　 */</b>
+      <b>glVertex2iv(point[pointnum]);     /* 今の位置は離した位置 */</b>
+      glEnd();
+      glFlush();
+    }    
+    else {
+      <b>/* 削除 */</b>
+    }
+    <b>if (pointnum &lt; MAXPOINTS - 1) pointnum++;</b>
+    break;
+  case GLUT_MIDDLE_BUTTON:
+    break;
+  case GLUT_RIGHT_BUTTON:
+    break;
+  default:
+    break;
+  }
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>glVertex2iv(const GLint *v)</b></tt></dt>
+
+<dd>この関数は <a href="#glVertex2i">glVertex2i()</a>
+と同様に２次元の座標値を設定しますが、
+引数 v には２個の要素をもつ
+GLint 型（int と等価）の配列を指定します。
+v[0] には x 座標値、v[1] には y 座標値を格納します。
+この例のように、複数の点の座標を指定する場合に便利です。</dd>
+
+</dl>
+
+</blockquote>
+
+<h3><a name="7.2">７．２ マウスをドラッグする</a></h3>
+
+<p>マウスのボタンを押しながらマウスを動かす操作を、
+<font color="#ff0000">ドラッグ</font>と言います。
+ドラッグ中はマウスの位置を継続的に取得する必要がありますが、
+glutMouseFunc() で指定するハンドラはボタンを押したときにしか実行されないので、
+この目的には使用できません。</p>
+
+<p>マウスを動かしたときに実行する関数を指定するには、
+glutMotionfunc() または glutPassiveMotionFunc() を使用します。
+glutMotionfunc() で指定した関数は、
+マウスのボタンを押しながらマウスを動かしたときに実行されます。
+glutPassiveMotionFunc() で指定した関数は、
+マウスのボタンを押さずにマウスを動かしたときに実行されます。</p>
+
+<p>前のプログラムでは、
+マウスの左ボタンを押してから離すまでウィンドウには何も表示されませんでした。
+これを、マウスのドラッグ中は線分をマウスに追従して描くようにします。
+このような効果を<font color="#ff0000">ラバーバンド</font>（輪ゴム）
+と言います。このために glutMotionFunc() を使って、
+マウスのドラッグ中にラバーバンドを表示するようにします
+（大川様ありがとうございました）。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;GL/glut.h&gt;
+#define MAXPOINTS 100
+GLint point[MAXPOINTS][2]; /* 座標を記憶する配列 */
+int pointnum = 0;          /* 記憶した座標の数　 */
+<b>int rubberband = 0;        /* ラバーバンドの消去 */</b>
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+    /* ボタンを操作した位置を記録する */
+    point[pointnum][0] = x;
+    point[pointnum][1] = y;
+    if (state == GLUT_UP) {
+      /* ボタンを押した位置から離した位置まで線を引く */
+      glColor3d(0.0, 0.0, 0.0);
+      glBegin(GL_LINES);
+      glVertex2iv(point[pointnum - 1]); /* 一つ前は押した位置　 */
+      glVertex2iv(point[pointnum]);     /* 今の位置は離した位置 */
+      glEnd();
+      glFlush();
+      <b>rubberband = 0;</b>
+    }
+    else {
+    }
+    if (pointnum &lt; MAXPOINTS) pointnum++;
+    break;
+  case GLUT_MIDDLE_BUTTON:
+    break;
+  case GLUT_RIGHT_BUTTON:
+    break;
+  default:
+    break;
+  }
+}
+
+<b>void motion(int x, int y)
+{
+  static GLint savepoint[2]; /* 以前のラバーバンドの端点 */
+
+  /* 論理演算機能 ON */
+  glEnable(GL_COLOR_LOGIC_OP);
+  glLogicOp(GL_INVERT);
+
+  glBegin(GL_LINES);
+  if (rubberband) {
+    /* 以前のラバーバンドを消す */
+    glVertex2iv(point[pointnum - 1]);
+    glVertex2iv(savepoint);
+  }
+  /* 新しいラバーバンドを描く */
+  glVertex2iv(point[pointnum - 1]);
+  glVertex2i(x, y);
+  glEnd();
+
+  glFlush();
+
+  /* 論理演算機能 OFF */
+  glLogicOp(GL_COPY);
+  glDisable(GL_COLOR_LOGIC_OP);
+
+  /* 今描いたラバーバンドの端点を保存 */
+  savepoint[0] = x;
+  savepoint[1] = y;
+  rubberband = 1;
+}</b>
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInitWindowPosition(100, 100);
+  glutInitWindowSize(320, 240);
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  glutMouseFunc(mouse);
+  <b>glutMotionFunc(motion);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>glEnable(GLenum cap)</b></tt></dt>
+
+<dd>引数 cap に指定した機能を使用可能にします。
+GL_LOGIC_OP もしくは GL_COLOR_LOGIC_OP
+は、図形の描画の際にウィンドウに既に描かれている内容と、
+これから描こうとする内容の間で論理演算を行うことができるようにします。
+</dd>
+
+<dt><tt><b>glDisable(GLenum cap)</b></tt></dt>
+
+<dd>引数 cap に指定した機能を使用不可にします。</dd>
+
+<dt><tt><b>glLogicOp(GLenum opcode)</b></tt></dt>
+
+<dd>引数 opcode にはウィンドウに描かれている内容と、
+これから描こうとする内容との間で行う論理演算のタイプを指定します。
+GL_COPY はこれから描こうとする内容をそのままウィンドウ内に描きます。
+GL_INVERT はウィンドウに描かれている内容の、
+これから描こうとする図形の領域を反転します。
+詳しくは man glLogicOp を参照してください。</dd>
+
+<dt><tt><b><a name="glutmotionfunc">glutMotionFunc(void (*func)(int x, int y))</a></b></tt></dt>
+
+<dd>引数 func には、
+マウスのいずれかのボタンを押しながらマウスを動かしたときに
+実行する関数のポインタを与えます。
+この関数の引数 x と y には、現在のマウスの位置が渡されます。
+この設定を解除するには、引数に 0（ヌルポインタ）を指定します
+（stdio.h 等の中で定義されている記号定数 NULL を使用しても良い）。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>ラバーバンドを実現する場合、
+マウスを動かしたときに直前に描いたラバーバンドを消す必要があります。
+また、ラバーバンドを描いたことによって
+ウィンドウに既に描かれていた内容が壊されてしまうので、
+その部分をもう一度描き直す必要があります。
+しかし、そのために画面全体を書き換えるのは、
+ちょっともったいない気がします。</p>
+
+<p>そこでラバーバンドを描く際には、
+線を背景とは異なる色で描く代わりに、
+描こうとする線上の画素の色を反転するようにします。
+こうすればもう一度同じ線上の画素の色を反転することで、
+そこに描かれていた以前の線が消えてウィンドウに描かれた図形が元に戻ります。
+このために glLogicOp() を使用します。
+glLogicOp() で指定した論理演算は、
+glEnable(GL_LOGIC_OP)＜白黒の場合＞あるいは
+glEnable(GL_COLOR_LOGIC_OP)＜カラーの場合＞で有効になります
+（陳先生ご指摘ありがとう）。</p>
+
+<p>ただし、マウスのボタンを押した直後はまだラバーバンドは描かれていませんから、
+そのときだけラバーバンドの消去は行わないようにしなければなりません。
+このため rubberband
+なんていう変数を使ったちょっと泥臭いプログラムになっていますが、
+我慢してください（もっとエレガントな方法もありますけど…）。</p>
+
+<p>glutMotionFunc(), glutPassiveMotionFunc() で指定した関数は、
+マウスの移動にともなって頻繁に実行されるので、
+この関数の中で時間のかかる処理を行うと、
+マウスの応答が悪くなってしまいます。
+これを避ける方法は<a href="#9">９節</a>以降で解説します。</p>
+
+<h3><a name="7.3">７．３ キーボードから読み込む</a></h3>
+
+<p>OpenGL のアプリケーションプログラムが開いたウィンドウには、
+コンソールや xwsh のようなキーボード入力を行うことができません。
+そのかわりマウスのボタン同様、
+キーをタイプするごとに実行する関数を指定できます。
+それには glutKeyboardFunc() を使います。</p>
+
+<p>これまで作ったプログラムは、
+プログラムを終了する方法を組み込んでいませんでした。
+そこで q のキーや ESC キーをタイプしたときに exit()
+を呼び出して、プログラムが終了するようにします。
+また exit() を使うために stdlib.h も include します。
+prog1.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;stdio.h&gt;
+<b>#include &lt;stdlib.h&gt;</b>
+#include &lt;GL/glut.h&gt;
+#define MAXPOINTS 100
+GLint point[MAXPOINTS][2]; /* 座標を記憶する配列 */
+int pointnum = 0;          /* 記憶した座標の数　 */
+int rubberband = 0;        /* ラバーバンドの消去 */
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+
+void motion(int x, int y)
+{
+  /* 変更なし */
+}
+
+<b>void keyboard(unsigned char key, int x, int y)
+{
+  switch (key) {
+  case 'q':
+  case 'Q':
+  case '\033':
+    exit(0);  /* '\033' は ESC の ASCII コード */
+  default:
+    break;
+  }
+}</b>
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInitWindowPosition(100, 100);
+  glutInitWindowSize(320, 240);
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  glutMouseFunc(mouse);
+  glutMotionFunc(motion);
+  <b>glutKeyboardFunc(keyboard);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>glutKeyboardFunc(void (*func)(unsigned char key, int x, int y))</b></tt></dt>
+
+<dd>引数 func には、
+キーがタイプされたときに実行する関数のポインタを与えます。
+この関数の引数 key にはタイプされたキーの ASCII コードが渡されます。
+また x と y にはキーがタイプされたときのマウスの位置が渡されます。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>ファンクションキーのような文字キー以外のタイプを検出するときは
+glutSpecialFunc()、Shift や Ctrl
+のようなモディファイア（修飾）キーを検出するには
+glutGetModifiers() を使います。
+使い方はいずれも man コマンドで調べてください。</p>
+
+<h2><a name="8">８．３次元図形を描く</a></h2>
+
+<h3><a name="8.1">８．１ ２次元と３次元</a></h3>
+
+<p>これまでは２次元の図形の表示を行ってきましたが、
+OpenGL の内部では実際には３次元の処理を行っています。
+すなわち画面表示に対して垂直に Z 軸が伸びており、
+これまではその３次元空間の XY 平面への平行投影像を表示していました。</p>
+
+<p>試しに<a href="#5.4">５．４節</a>で作成したプログラム (prog2.c) において、
+図形を Y 軸中心に 25 度回転してみましょう。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+void display(void)
+{
+  glClear(GL_COLOR_BUFFER_BIT);
+  glColor3d(1.0, 0.0, 0.0);
+  <b>glRotated(25.0, 0.0, 1.0, 0.0);</b>
+  glBegin(GL_POLYGON);
+  glColor3d(1.0, 0.0, 0.0); /* 赤 */
+  glVertex2d(-0.9, -0.9);
+  glColor3d(0.0, 1.0, 0.0); /* 緑 */
+  glVertex2d(0.9, -0.9);
+  glColor3d(0.0, 0.0, 1.0); /* 青 */
+  glVertex2d(0.9, 0.9);
+  glColor3d(1.0, 1.0, 0.0); /* 黄 */
+  glVertex2d(-0.9, 0.9);
+  glEnd();
+  glFlush();
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><a name="glRotated"><tt><b>glRotated(GLdouble angle, GLdouble x, GLdouble y, GLdouble z)</b></tt></a></dt>
+
+<dd>変換行列に回転の行列を乗じます。
+引数はいずれも GLdouble 型（double と等価）で、１つ目の引数 angle は回転角、
+残りの３つの引数 x, y, z は回転軸の方向ベクトルです。
+引数が float 型なら glRotatef() を使います。
+原点を通らない軸で回転させたい場合は、
+<a href="#glTranslated">glTranslated()</a>
+を使って一旦軸が原点を通るように図形を移動し、
+回転後に元の位置に戻します。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>コンパイルしたプログラムを実行して、描かれる図形を見てください。
+Y 軸中心に回転しているため、
+以前に比べて少し縦長になっていると思います。</p>
+
+<p>このウィンドウを最小化したり他のウィンドウを重ねたりして、
+再描画をさせてみましょう。再描画する度に図形の形が変わると思います。
+これは変換行列に glRotated() による回転の行列が積算されるからです。
+これを防ぐには描画の度に変換マトリクスを glLoadIdentity() で初期化するか、
+後で述べる glPushMatrix() / glPopMatrix() を使って変換行列を保存します。</p>
+
+<h3><a name="8.2">８．２ 線画を表示する</a></h3>
+
+<p>それでは、こんどは以下のような３次元の立方体を線画で描いてみましょう。
+glut には glutWireCube() など、
+いくつか基本的な立体を描く関数があるのですが、
+ここでは自分で形状を定義してみたいと思います。</p>
+
+<blockquote>
+<img src="libglut5.gif" width="400" height="337" alt="立方体の構造">
+</blockquote>
+
+<p>この図形は８個の点を１２本の線分で結びます。
+点の位置（幾何情報）と線分（位相情報）を別々にデータにします。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>GLdouble vertex[][3] = {
+  { 0.0, 0.0, 0.0 }, /* A */
+  { 1.0, 0.0, 0.0 }, /* B */
+  { 1.0, 1.0, 0.0 }, /* C */
+  { 0.0, 1.0, 0.0 }, /* D */
+  { 0.0, 0.0, 1.0 }, /* E */
+  { 1.0, 0.0, 1.0 }, /* F */
+  { 1.0, 1.0, 1.0 }, /* G */
+  { 0.0, 1.0, 1.0 }  /* H */
+};
+
+int edge[][2] = {
+  { 0, 1 }, /* ア (A-B) */
+  { 1, 2 }, /* イ (B-C) */
+  { 2, 3 }, /* ウ (C-D) */
+  { 3, 0 }, /* エ (D-A) */
+  { 4, 5 }, /* オ (E-F) */
+  { 5, 6 }, /* カ (F-G) */
+  { 6, 7 }, /* キ (G-H) */
+  { 7, 4 }, /* ク (H-E) */
+  { 0, 4 }, /* ケ (A-E) */
+  { 1, 5 }, /* コ (B-F) */
+  { 2, 6 }, /* サ (C-G) */
+  { 3, 7 }  /* シ (D-H) */
+};</pre></td></tr></table>
+</blockquote>
+
+<p>この場合、例えば“点 C”(1,1,0) と“点 D”(0,1,0)
+を結ぶ線分“ウ”は、以下のようにして描画できます。
+glVertex3dv() は、
+引数に３つの要素を持つ
+GLdouble 型（double と等価）の配列のポインタを与えて、
+頂点を指定します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>glBegin(GL_LINES);
+glVertex3dv(vertex[edge[2][0]]); /* 線分“ウ”の一つ目の端点“C”*/
+glVertex3dv(vertex[edge[2][1]]); /* 線分“ウ”の二つ目の端点“D”*/
+glEnd();</pre></td></tr></table>
+</blockquote>
+
+<p>従って立方体全部を描くプログラムは以下のようになります。
+なお、立方体がウィンドウからはみ出ないように、
+glOrtho() で表示する座標系を (-2,-2)〜(2,2) にしています。
+prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+<b>GLdouble vertex[][3] = {
+  { 0.0, 0.0, 0.0 },
+  { 1.0, 0.0, 0.0 },
+  { 1.0, 1.0, 0.0 },
+  { 0.0, 1.0, 0.0 },
+  { 0.0, 0.0, 1.0 },
+  { 1.0, 0.0, 1.0 },
+  { 1.0, 1.0, 1.0 },
+  { 0.0, 1.0, 1.0 }
+};
+
+int edge[][2] = {
+  { 0, 1 },
+  { 1, 2 },
+  { 2, 3 },
+  { 3, 0 },
+  { 4, 5 },
+  { 5, 6 },
+  { 6, 7 },
+  { 7, 4 },
+  { 0, 4 },
+  { 1, 5 },
+  { 2, 6 },
+  { 3, 7 }
+};</b>
+
+void display(void)
+{
+  <b>int i;</b>
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  <b>/* 図形の描画 */
+  glColor3d(0.0, 0.0, 0.0);
+  glBegin(GL_LINES);
+  for (i = 0; i &lt; 12; i++) {
+    glVertex3dv(vertex[edge[i][0]]);
+    glVertex3dv(vertex[edge[i][1]]);
+  }
+  glEnd();</b>
+
+  glFlush();
+}
+
+<b>void resize(int w, int h)
+{
+  glViewport(0, 0, w, h);
+
+  glLoadIdentity();
+  glOrtho(-2.0, 2.0, -2.0, 2.0, -2.0, 2.0);
+}</b>
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  <b>glutReshapeFunc(resize);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>glVertex3dv(const GLdouble *v)</b></tt></dt>
+
+<dd>glVertex3dv() は３次元の座標値を指定するのに使います。
+引数 v は３個の要素を持つ GLdouble 型（double と等価）配列を指定します。
+v[0] には x 座標値、v[1] には y 座標値、v[2] には z 座標値を格納します。</dd>
+
+</dl>
+
+</blockquote>
+
+<h3><a name="8.3">８．３ 透視投影する</a></h3>
+
+<p>前のプログラムでは、立方体が画面に平行投影されるため、
+正方形しか描かないと思います。
+そこで現実のカメラのように透視投影をしてみます。
+これには glOrtho() の代わりに gluPerspective() を使います。</p>
+
+<p>gluPerspective() は座標軸の代わりに、
+カメラの画角やスクリーンのアスペクト比（縦横比）を用いて表示領域を指定します。
+また glOrtho() 同様、前方面や後方面の位置の指定も行います。</p>
+
+<p>視点の位置の初期値は原点なので、
+このままでは立方体が視点に重なってしまいます。
+そこで glTranslated() を使って立方体の位置を少し奥にずらしておきます。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int edge[][2] = {
+  /* 変更なし */
+};
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  glViewport(0, 0, w, h);
+
+  glLoadIdentity();
+  <b>gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);</b>
+  <b>glTranslated(0.0, 0.0, -5.0);</b>
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b><a name="gluPerspective">gluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar)</a></b></tt></dt>
+
+<dd>変換行列に透視変換の行列を乗じます。
+最初の引数 fovy はカメラの画角であり、度で表します。
+これが大きいほどワイドレンズ（透視が強くなり、絵が小さくなります）になり、
+小さいほど望遠レンズになります。
+２つ目の引数 aspect は画面のアスペクト比（縦横比）であり、
+1 であればビューポートに表示される図形の
+X 方向と Y 方向のスケールが等しくなります。
+３つ目の引数 zNear と４つ目の引数 zFar は表示を行う奥行き方向の範囲で、
+zNear は手前（前方面）、zFar は後方（後方面）の位置を示します。
+この間にある図形が描画されます。
+
+<div>
+<img src="perspective.gif" width="513" height="161"
+alt="透視変換の視野">
+</div></dd>
+
+<dt><tt><b><a name="glTranslated">glTranslated(GLdouble x, GLdouble y, GLdouble z)</a></b></tt></dt>
+
+<dd>変換行列に平行移動の行列を乗じます。
+引数はいずれも GLdouble 型 (double と等価）で、
+３つの引数 x, y, z には現在の位置からの相対的な移動量を指定します。
+引数が float 型なら glTranslatef() を使います。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>ウィンドウをリサイズしたときに表示図形がゆがまないようにするためには、
+gluPerspective() で設定するアスペクト比 aspect を、
+<a href="#glViewport">glViewport()</a>
+で指定したビューポートの縦横比 (w/h)
+と一致させます。</p>
+
+<p>上のプログラムのように、
+リサイズ後のウィンドウのサイズをそのままビューポートに設定している場合、
+仮に aspect が定数であれば、
+ウィンドウのリサイズに伴って表示図形が伸縮するようになります。したがって、
+ウィンドウをリサイズしても表示図形の縦横比が変わらないようにするために、
+ここでは aspect をビューポートの縦横比に設定しています。</p>
+
+<h3><a name="8.4">８．４ 視点の位置を変更する</a></h3>
+
+<p>前のプログラムのように、
+視点の位置を移動するには、図形の方を
+glTranslated() や glRotated() を用いて逆方向に移動することで実現できます。
+しかし、視点を任意の位置に指定したいときには gluLookAt() を使うと便利です。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int edge[][2] = {
+  /* 変更なし */
+};
+
+void display(void)
+{
+  /* 変更なし */
+}
+
+void resize(int w, int h)
+{
+  glViewport(0, 0, w, h);
+
+  glLoadIdentity();
+  gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
+  <b>gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);</b>
+}
+
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void gluLookAt(GLdouble ex, GLdouble ey, GLdouble ez, GLdouble cx, GLdouble cy, GLdouble cz, GLdouble ux, GLdouble uy, GLdouble uz)</b></tt></dt>
+
+<dd>この最初の３つの引数 ex, ey, ez は視点の位置、
+次の３つの引数 cx, cy, cz は目標の位置、
+最後の３つの引数 ux, uy, uz は、
+ウィンドウに表示される画像の「上」の方向を示すベクトルです。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>この例では (3,4,5) の位置から原点 (0,0,0) を眺めますから、
+立方体の A (0,0,0) の頂点がウィンドウの中心に来ると思います。</p>
+
+<p>なお、gluPerspective(), gluLookAt() 等、
+glu*() で始まる関数は GL Utility ライブラリ (-lGLU) の関数です。</p>
+
+<h2><a name="9">９．アニメーション</a></h2>
+
+<h3><a name="9.1">９．１ 図形を動かす</a></h3>
+
+<p>ここまでできたら、今度はこの立方体を回してみましょう。
+それにはちょっと工夫が必要です。アニメーションを行うには、
+頻繁に画面の書き換えを行う必要があります。
+しかし glutMailLoop() は無限ループであり、
+glutDisplayFunc() で指定された関数は、
+ウィンドウを再描画するイベントが発生したときにしか呼び出されません。</p>
+
+<p>したがってアニメーションを実現するには、
+このウィンドウの再描画イベントを連続的に発生させる必要があります。
+プログラム中でウィンドウの再描画イベントを発生させるには、
+glutPostRedisplay() 関数を用います。
+これをプログラムが「暇なとき」に繰り返し呼び出すことで、
+アニメーションが実現できます。
+プログラムが暇になったときに実行する関数は、
+glutIdleFunc() で指定します。</p>
+
+<p><a name="viewpipe">一つ注意しなければいけないことがあります。</a>
+繰り返し描画を行うには、
+描画の度に座標変換の行列を設定する必要があります。</p>
+
+<p>ところで座標変換のプロセスは、</p>
+
+<ol>
+<li>図形の空間中での位置を決める「モデリング変換」</li>
+<li>その空間を視点から見た空間に直す「ビューイング（視野）変換」</li>
+<li>その空間をコンピュータ内の空間にあるスクリーンに投影する「透視変換」</li>
+<li>スクリーン上の図形をディスプレイ上の表示領域に切り出す「ビューポート変換」</li>
+</ol>
+
+<p>という４つのステップで行われます。
+今行おうとしている図形を回すという変換は、
+「モデリング変換」に相当します。</p>
+
+<p>これまではこれらを区別 せずに取り扱ってきました。
+すなわち、これらの投影を行う行列式を掛け合わせることで、
+単一の行列式として取り扱ってきたのです。</p>
+
+<p>しかし図形だけを動かす場合は、
+モデリング変換の行列だけを変更すればいいことになります。
+また、後で述べる<a href="#11">陰影付け</a>は、
+透視変換を行う前の座標系で計算する必要があります。</p>
+
+<p>そこで OpenGL では、
+「モデリング変換−ビューイング変換」の変換行列（モデルビュー変換行列）と、
+「透視変換」の変換行列を独立して取り扱う手段が提供されています。
+モデルビュー変換行列を設定する場合は
+ glMatrixMode(GL_MODELVIEW)、
+透視変換行列を設定する場合は glMatrixMode(GL_PROJECTION) を実行します。</p>
+
+<p>カメラの画角などのパラメータを変更しなければ、
+透視変換行列を設定しなければならないのはウィンドウを開いたときだけなので、
+これは resize() で設定すればよいでしょう。
+あとは全てモデリング−ビューイング変換行列に対する操作なので、
+直後に glMatrixMode(GL_MODELVIEW) を実行します。</p>
+
+<p>カメラ（視点）の位置を動かすアニメーションを行う場合は、
+描画のたびに gluLookAt() によるカメラの位置や方向の設定
+（ビューイング変換行列の設定）
+を行う必要があります。
+同様に物体が移動したり回転したりするアニメーションを行う場合も、
+描画のたびに物体の位置や回転角の設定（モデリング変換行列の設定）を
+行う必要があります。
+したがって、これらは display() の中で設定します。</p>
+
+<p>マウスの左ボタンをクリックする度に、
+立方体が１回転するようにします。
+ついでに中央ボタンをクリックすると立方体が１ステップだけ回転し
+（<a href="http://www.d4.dion.ne.jp/~sekiya_z/">関谷先生</a>
+ありがとうございました）、
+右ボタンをクリックするとプログラムが終了するようにします。
+prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre><b>#include &lt;stdlib.h&gt;</b>
+#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int edge[][2] = {
+  /* 変更なし */
+};
+
+<b>void idle(void)
+{
+  glutPostRedisplay();
+}</b>
+
+void display(void)
+{
+  int i;
+  <b>static int r = 0; /* 回転角 */</b>
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  <b>glLoadIdentity();</b>
+
+  <b>/* 視点位置と視線方向 */</b>
+  <b>gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);</b>
+
+  <b>/* 図形の回転 */</b>
+  <b>glRotated((double)r, 0.0, 1.0, 0.0);</b>
+
+  /* 図形の描画 */
+  glColor3d(0.0, 0.0, 0.0);
+  glBegin(GL_LINES);
+  for (i = 0; i &lt; 12; i++) {
+    glVertex3dv(vertex[edge[i][0]]);
+    glVertex3dv(vertex[edge[i][1]]);
+  }
+  glEnd();
+
+  glFlush();
+
+  <b>/* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }</b>
+}
+
+void resize(int w, int h)
+{
+  glViewport(0, 0, w, h);
+
+  <b>/* 透視変換行列の設定 */</b>
+  <b>glMatrixMode(GL_PROJECTION);</b>
+  glLoadIdentity();
+  gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
+
+  <b>/* モデルビュー変換行列の設定 */</b>
+  <b>glMatrixMode(GL_MODELVIEW);</b>
+}
+
+<b>void mouse(int button, int state, int x, int y)
+{
+  switch (button) {
+  case GLUT_LEFT_BUTTON:
+    /* アニメーション開始 */
+    if (state == GLUT_UP) glutIdleFunc(idle);
+    break;
+  case GLUT_MIDDLE_BUTTON:
+    /* コマ送り */
+    if (state == GLUT_UP) {
+        /* 表示イベントの無限ループを止める */
+        glutIdleFunc(0);
+        /* １ステップだけ進める */
+        glutPostRedisplay();
+    }
+    break;
+  case GLUT_RIGHT_BUTTON:
+    /* プログラム終了 */
+    if (state == GLUT_UP) exit(0);
+    break;
+  default:
+    break;
+  }
+}</b>
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  <b>glutMouseFunc(mouse);</b>
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>int glutLayerGet(GLenum info)</b></tt></dt>
+
+<dd><a href="#glClear">glClear()</a>の解説でも述べましたが、
+一つのウィンドウは幾つかのメモリが層（レイヤ）状に重なって構成されています。
+この関数は処理対象のウィンドウの関係するレイヤの状態を調べます。
+引数 info に GLUT_NORMAL_DAMAGED を指定すると、
+そのウィンドウの表示が壊されている
+（他のウィンドウに隠されたあと再表示されたなど）場合に、
+戻り値が真（非０）になります。
+display() が実行されたときの再表示イベントには、
+glutPostRedisplay()
+によるものとウィンドウマネージャからの本当の再表示イベントがありますから、
+これらを区別するためにこの関数を使用しています。</dd>
+
+<dt><tt><b>void glutPostRedisplay(void)</b></tt></dt>
+
+<dd>再描画イベントを発生させます。
+このイベントの発生が発生すると、
+glutDisplayFunc()
+で指定されている描画関数が実行されます。
+なお、再描画が開始されるまでの間にこのイベントが複数回発生しても、
+この描画関数は１度だけ実行されます。
+また、この関数によって発生した再描画イベントでは、
+glutLayerGet(GLUT_NORMAL_DAMAGED) は真になりません。</dd>
+
+<dt><tt><b>void glutIdleFunc(void (*func)(void))</b></tt></dt>
+
+<dd>引数 func には、
+プログラムが「何もすることがない」ときに実行する関数のポインタを指定します。
+引数の関数はプログラムが「暇なとき」に繰り返し実行されます。
+この関数を指定すると、
+プログラムが止まっているように見えてもコンピュータの負荷は増大します。
+したがって glutIdleFunc() による関数の指定は必要になった時点で行い、
+不要になれば glutIdleFunc() の引数に 0 または NULL
+を指定して関数の指定を解除してやる必要があります。</dd>
+
+<dt><tt><b>void glMatrixMode(GLenum mode)</b></tt></dt>
+
+<dd>設定する変換行列を指定します。
+引数 mode が GL_MODELVIEW ならモデルビュー変換行列、
+GL_PROJECTION なら透視変換行列を指定します。</dd>
+
+</dl>
+
+</blockquote>
+
+<h3><a name="9.2">９．２ ダブルバッファリング</a></h3>
+
+<p>前のプログラムでは毎回画面を全部描き換えているため、
+表示がちらついてしまいます。
+これを防ぐためには、ダブルバッファリングという方法を用います。
+これは画面を２つに分け、
+一方を表示している間に（見えないところで）もう一方に図形を描き、
+それが完了したらこの２つの画面を入れ換える方法です。</p>
+
+<p>GLUT でダブルバッファリングを使うには、
+glutInitDisplayMode() に GLUT_DOUBLE の指定を追加します。
+また、図形の描画後 glFlush() の代わりに glutSwapBuffers()
+を呼び出して、２つの画面の入れ換えを行います。</p>
+
+<p>それでは、prog2.c でダブルバッファリングを行うようにしてみましょう。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int edge[][2] = {
+  /* 変更なし */
+};
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glColor3d(0.0, 0.0, 0.0);
+  glBegin(GL_LINES);
+  for (i = 0; i &lt; 12; i++) {
+    glVertex3dv(vertex[edge[i][0]]);
+    glVertex3dv(vertex[edge[i][1]]);
+  }
+  glEnd();
+
+  <b>glutSwapBuffers();</b>
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA <b>| GLUT_DOUBLE</b>);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  glutMouseFunc(mouse);
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>int glutSwapBuffers(void)</b></tt></dt>
+
+<dd>ダブルバッファリングの２つのバッファを交換します。
+glFlush() は自動的に実行されます。
+このプログラムでこれを使うとずいぶん遅くなるように見えますが、
+これはディスプレイのバッファの交換の時のちらつきを防ぐために、
+ディスプレイの表示タイミング（帰線消去期間）を待っているためです。
+ディスプレイのリフレッシュレートが 60Hz であれば、
+バッファの交換は 1/60 秒ごとに行われます。
+このプログラムは一周で 360 回再表示を行いますから、
+この場合一周するのに最短でも 6 秒かかることになります。</dd>
+
+</dl>
+
+</blockquote>
+
+<h2><a name="10">１０．隠面消去</a></h2>
+
+<h3><a name="10.1">１０．１ 多面体をぬりつぶす</a></h3>
+
+<p>それでは、次に立方体の面を塗りつぶしてみましょう。
+面のデータは、稜線とは別に以下のように用意します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>int face[][4] = {
+  { 0, 1, 2, 3 }, /* A-B-C-D を結ぶ面 */
+  { 1, 5, 6, 2 }, /* B-F-G-C を結ぶ面 */
+  { 5, 4, 7, 6 }, /* F-E-H-G を結ぶ面 */
+  { 4, 0, 3, 7 }, /* E-A-D-H を結ぶ面 */
+  { 4, 5, 1, 0 }, /* E-F-B-A を結ぶ面 */
+  { 3, 2, 6, 7 }  /* D-C-G-H を結ぶ面 */
+};</pre></td></tr></table>
+</blockquote>
+
+<p>このデータを使って、線を引く代わりに６枚の４角形を描きます。
+prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+<b>int face[][4] = {
+  { 0, 1, 2, 3 },
+  { 1, 5, 6, 2 },
+  { 5, 4, 7, 6 },
+  { 4, 0, 3, 7 },
+  { 4, 5, 1, 0 },
+  { 3, 2, 6, 7 }
+};</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  <b>int j;</b>
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glColor3d(0.0, 0.0, 0.0);
+  <b>glBegin(GL_QUADS);</b>
+  <b>for (j = 0; j &lt; 6; j++) {</b>
+    <b>for (i = 0; i &lt; 4; i++) {</b>
+      <b>glVertex3dv(vertex[face[j][i]]);</b>
+    <b>}</b>
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>でもこれだと真っ黒で何もわからないので、
+面ごとに色を変えてみましょう。
+色のデータは以下のように作ってみます。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>GLdouble color[][3] = {
+  { 1.0, 0.0, 0.0 }, /* 赤 */
+  { 0.0, 1.0, 0.0 }, /* 緑 */
+  { 0.0, 0.0, 1.0 }, /* 青 */
+  { 1.0, 1.0, 0.0 }, /* 黄 */
+  { 1.0, 0.0, 1.0 }, /* マゼンタ */
+  { 0.0, 1.0, 1.0 }  /* シアン 　*/
+};</pre></td></tr></table>
+</blockquote>
+
+<p>一つの面を描く度に、この色を設定してやります。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+<b>GLdouble color[][3] = {
+  { 1.0, 0.0, 0.0 },
+  { 0.0, 1.0, 0.0 },
+  { 0.0, 0.0, 1.0 },
+  { 1.0, 1.0, 0.0 },
+  { 1.0, 0.0, 1.0 },
+  { 0.0, 1.0, 1.0 }
+};</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    <b>glColor3dv(color[j]);</b>
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b><a name="glColor3dv">void glColor3dv(const GLdouble *v)</a></b></tt></dt>
+
+<dd>glColor3dv() は <a href="#glColor3d">glColor3d()</a>
+と同様にこれから描画するものの色を指定します。
+引数 v は３つの要素を持った GLdouble 型（double と等価）の配列で、
+v[0] には赤 (R)、v[1] には緑 (G)、v[2] には青 (B) の強さを、
+0〜1 の範囲で指定します。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>でもこれだとなんか変な表示になるかもしれません。
+前のプログラムではデータの順番で面を描いていますから、
+先に描いたものが後に描いたもので塗りつぶされてしまいます。
+ちゃんとした立体を描くには隠面消去を行う必要があります。</p>
+
+<h3><a name="10.2">１０．２ デプスバッファを使用する</a></h3>
+
+<p>隠面消去を行なうには
+glutInitDisplayMode() で GLUT_DEPTH を指定しておき、
+glEnable(GL_DEPTH_TEST) を実行します。</p>
+
+<p>こうすると、描画のときに Z バッファ（デプスバッファ）を使うようになります。
+したがって、画面を消去するときは Z バッファも消去する必要があります。
+それには glClear() で GL_DEPTH_BUFFER_BIT を指定します。</p>
+
+<p>Z バッファを使うと、使わないときより処理速度が低下します。
+そこで、必要なときだけ Z バッファを使うようにします。
+Z バッファを使う処理の前で glEnable(GL_DEPTH_TEST) を実行し、
+使い終わったら glDisable(GL_DEPTH_TEST) を実行します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble color[][3] = {
+  /* 変更なし */
+};
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT <b>| GL_DEPTH_BUFFER_BIT</b>);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    glColor3dv(color[j]);
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  glClearColor(1.0, 1.0, 1.0, 0.0);
+
+  <b>glEnable(GL_DEPTH_TEST);</b>
+}
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE <b>| GLUT_DEPTH</b>);
+  glutCreateWindow(argv[0]);
+  glutDisplayFunc(display);
+  glutReshapeFunc(resize);
+  glutMouseFunc(mouse);
+  init();
+  glutMainLoop();
+  return 0;
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p><a name="depthtest">上のプログラムでは常に Z</a>
+バッファを使うので、init() の中で glEnable(GL_DEPTH_TEST)
+を一度だけ実行し、glDisable(GL_DEPTH_TEST)
+の実行を省略しています。</p>
+
+<h3><a name="10.3">１０．３ カリング</a></h3>
+
+<p>立方体のように閉じた立体の場合、裏側にある面、
+すなわち視点に対して裏を向いている面は見ることはできません。
+そういう面をあらかじめ取り除いておくことで、
+隠面消去処理の効率を上げることができます。</p>
+
+<p>視点に対して裏を向いている面を表示しないようにするには
+glCullFace(GL_BACK)、
+表を向いている面を表示しないようにするには
+glCullFace(GL_FRONT)、
+両方とも表示しないようにするには
+glCullFace(GL_FRONT_AND_BACK)
+を実行します。ただし、この状態でも点や線などは描画されます。</p>
+
+<p>また、glCullFace() を有効にするには glEnable(GL_CULL_FACE)、
+無効にするには glDisable(GL_CULL_FACE) を実行します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble color[][3] = {
+  /* 変更なし */
+};
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    glColor3dv(color[j]);
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  glClearColor(1.0, 1.0, 1.0, 0.0);
+
+  glEnable(GL_DEPTH_TEST);
+
+  <b>glEnable(GL_CULL_FACE);</b>
+  <b>glCullFace(GL_BACK);</b>
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>このプログラムも、
+多分妙な表示になります。
+裏側の面を表示しないはずなのに、
+実際は表側の面が削除されています。
+実は、面の表裏は頂点をたどる順番で決定しています。
+配列 face[] ではこれを右回り（時計回り）で結んでいます。
+ところが OpenGL では、
+標準では視点から見て頂点が左回りになっているとき、
+その面を表として扱います。
+試しに glCullFace(GL_FRONT) としてみてください。
+あるいは、face[] において頂点を右回りにたどるようにしてみてください。</p>
+
+<p>なお、頂点が右回りになっているときを表として扱いたいときは、
+glFrontFace(GL_CW) を実行します。
+左回りに戻すには glFrontFace(GL_CCW) を実行します。</p>
+
+<p>一般にカリングはクリッピングや隠面消去の効率を上げるために、
+視野外にある図形など見えないことが分かっているものを事前に取り除いておいて、
+隠面消去（可視判定）の対象から外しておくことを言います。
+これには様々な方法が考えられますが、glCullFace()
+による方法はそのもっとも基本的なものです。</p>
+
+<h2><a name="11">１１．陰影付け</a></h2>
+
+<h3><a name="11.1">１１．１ 光を当ててみる</a></h3>
+
+<p>次は面ごとに色を付けるかわりに、光を当ててみましょう。
+陰影付け（光源の処理）の計算を行うためには、
+面ごとの色の代わりに法線ベクトルを与えます。
+glColor3dv() のかわりに glNormal3dv() を使います。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>GLdouble normal[][3] = {
+  { 0.0, 0.0,-1.0 },
+  { 1.0, 0.0, 0.0 },
+  { 0.0, 0.0, 1.0 },
+  {-1.0, 0.0, 0.0 },
+  { 0.0,-1.0, 0.0 },
+  { 0.0, 1.0, 0.0 }
+};</pre></td></tr></table>
+</blockquote>
+
+<p>光を当てるためには、もちろん光源も設定する必要があります。
+OpenGL には、最初からいくつかの光源が用意されています。
+いくつの光源が用意されているかはシステムによって異なります。
+０番目の光源（GL_LIGHT0 - 必ず用意されている）を有効にする
+（点灯する）には glEnable(GL_LIGHT0)、
+無効にする（消灯する）には glDisable(GL_LIGHT0) を実行します。</p>
+
+<p>陰影付けを行うと、陰影付けを行わないより処理速度は低下します。
+陰影付けを有効にするには glEnable(GL_LIGHTING)、
+無効にするには glDisable(GL_LIGHTING) を実行します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+<b>GLdouble normal[][3] = {
+  { 0.0, 0.0,-1.0 },
+  { 1.0, 0.0, 0.0 },
+  { 0.0, 0.0, 1.0 },
+  {-1.0, 0.0, 0.0 },
+  { 0.0,-1.0, 0.0 },
+  { 0.0, 1.0, 0.0 }
+};</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    <b>glNormal3dv(normal[j]);</b>
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  glClearColor(1.0, 1.0, 1.0, 0.0);
+
+  glEnable(GL_DEPTH_TEST);
+
+  glEnable(GL_CULL_FACE);
+  glCullFace(<b>GL_FRONT</b>);
+
+  <b>glEnable(GL_LIGHTING);</b>
+  <b>glEnable(GL_LIGHT0);</b>
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p><a name="lighting">なお、陰影付けが有効になっているときは、</a>
+glColor3d() などによる色指定は無視されます。
+glColor3d() などで色を付けたいときは、一旦
+glDisable(GL_LIGHTING)
+を実行して陰影付けを行わないようにする必要があります。
+一方、上のプログラムのように常に陰影付けを行う場合や、
+光源を点灯したままにしておく場合は、
+<a href="#depthtest">glEnable(GL_DEPTH_TEST)</a>
+同様 glEnalbe(GL_LIGHTING) や glEnable(GL_LIGHT<i>n</i>)
+を init() の中で一度実行するだけで十分です。
+また、このときは glDisable(GL_LIGHTING) や glDisable(GL_LIGHT<i>n</i>)
+を実行する必要はありません。</p>
+
+<h3><a name="11.2">１１．２ 光源を設定する</a></h3>
+
+<p>それでは光源を２つにして、
+それぞれの位置と色を変えてみましょう。
+最初の光源 (GL_LIGHT0) の位置を Z 軸方向の斜め上
+(0, 3, 5) に、２つ目の光源 (GL_LIGHT1) を X 軸方向の斜め上
+(5, 3, 0) に置き、２つ目の光源の色を緑 (0, 1, 0) にします。
+これらのデータはいずれも４つの要素を持つ GLfloat 型の配列に格納します。
+４つ目の要素は 1 にしておいてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };</pre></td></tr></table>
+</blockquote>
+
+<p>これらを glLightfv() を使ってそれぞれの光源に設定します。
+prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+<b>GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };</b>
+<b>GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };</b>
+
+<b>GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  <b>/* 光源の位置設定 */</b>
+  <b>glLightfv(GL_LIGHT0, GL_POSITION, light0pos);</b>
+  <b>glLightfv(GL_LIGHT1, GL_POSITION, light1pos);</b>
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    glNormal3dv(normal[j]);
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  glClearColor(1.0, 1.0, 1.0, 0.0);
+
+  glEnable(GL_DEPTH_TEST);
+
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_FRONT);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  <b>glEnable(GL_LIGHT1);</b>
+  <b>glLightfv(GL_LIGHT1, GL_DIFFUSE, green);</b>
+  <b>glLightfv(GL_LIGHT1, GL_SPECULAR, green);</b>
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void glLightfv(GLenum light, GLenum pname, const GLfloat *params)</b></tt></dt>
+
+<dd>光源のパラメータを設定します。最初の引数 light には設定する光源の番号
+（GL_LIGHT0〜GL_LIGHT<i>n</i>、<i>n</i> はシステムによって異なります）です。
+２つ目の引数 pname は設定するパラメータの種類です。
+ここに GL_POSITION を指定すると光源の位置を設定します。
+また GL_DIFFUSE を指定すると光源の拡散反射光強度（色）を設定します。
+最後の引数 params は、pname に指定したパラメータの種類に設定する値です。
+pname が GL_POSITION あるいは  GL_DIFFUSE のときは、
+params は４つの要素を持つ GLfloat 型の配列で、
+それぞれ光源の位置および拡散反射光強度を指定します。
+光源が (x, y, z) の位置にあるとき、
+params の各要素には (x/w, y/w, z/w, w) を設定します。
+通常 w = 1 として点光源の位置を設定しますが、w = 0 であれば
+(x, y, z) 方向の平行光線の設定になります。
+また光源の拡散反射光強度が (R, G, B) なら
+params の各要素には (R, G, B, 1) を設定します。
+なお、この初期値は (1 1 1 1) ですが、RGB には 1 を越えた値を設定できます。</dd>
+</dl>
+
+</blockquote>
+
+<p>陰影付けの計算は視点座標系で行われるので、
+glLightfv() による光源の位置 (GL_POSITION) の設定は、
+<font color="#ff0000">視点の位置を設定した後に行う</font>必要があります。
+また、上のプログラムの glRotate3d() より後でこれを設定すると、
+光源もいっしょに回転してしまいます。</p>
+
+<blockquote>
+<p><font size="-1"><a href="#viewpipe">座標変換のプロセス</a>は
+“モデリング変換→ビューイング変換→透視変換→…”
+という順に行われると書きましたが、
+プログラムのコーディング上は、これらの設定が
+<font color="#ff0000">逆順になる</font>
+ことに注意してください。</font></p>
+<ol>
+<li><font size="-1">glLoadIdentity() でモデルビュー変換行列を初期化</font></li>
+<li><font size="-1">gluLookAt() 等でビューイング変換を設定</font></li>
+<li><font size="-1">glTranslated() や glRotated() 等でモデリング変換を設定</font></li>
+<li><font size="-1">glBegin()〜glEnd() 等による描画</font></li>
+</ol>
+<div><font size="-1">1-2 の間で光源の位置を設定した場合は、
+光源は視点と一緒に移動します。
+このとき、光源の方向を (0, 0, -1, 0)、すなわち Z 軸の負の方向に設定すれば、
+自動車のヘッドライトのような効果を得ることができます。</font></div>
+<div><font size="-1">2-3 の間で光源の位置を設定した場合は、
+光源の位置は視点や図形の位置によらず固定になります。
+通常はここで光源の位置を設定します。</font></div>
+<div><font size="-1">3-4 の間で光源の位置を設定した場合は、
+光源の位置は図形と一緒に移動します。</font></div>
+</blockquote>
+
+<p>glLightfv() による光源の色の設定 (GL_DIFFUSE 等) は、
+必ずしも display() 内に置く必要はありません。
+プログラムの実行中に光源の色を変更しないなら、
+<a href="#depthtest">glEnable(GL_DEPTH_TEST)</a>
+や <a href="#lighting">glEnable(GL_LIGHTING)</a>
+同様 init() の中で一度実行すれば十分です。</p>
+
+<p>glLightf*() で設定可能なパラメータは、
+GL_POSITION や GL_DIFFUSE 以外にもたくさんあります。
+光源を方向を持ったスポットライトとし、
+その方向や広がり、減衰率なども設定することもできます。
+詳しくは man glLightf を参照してください。</p>
+
+<h3><a name="11.3">１１．３ 材質を設定する</a></h3>
+
+<p>前の例では図形に色を付けていませんでしたから、
+立方体はデフォルトの色（白）で表示されたと思います。
+今度はこの色を変えてみましょう。
+この場合も光源の時と同様に４つの要素を持つ GLfloat 型の配列を用意し、
+個々の要素に色を R、G、B それに A の順に格納します。
+４つ目の要素 (A) は、ここではとりあえず 1 にしておいてください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };</pre></td></tr></table>
+</blockquote>
+
+<p>glColor*() で色を付けるときと同様、
+図形を描く前に glMaterialfv() を使ってこの色を図形の色に指定します。
+prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };
+<b>GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  int i;
+  int j;
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glLoadIdentity();
+
+  /* 視点位置と視線方向 */
+  gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+  /* 光源の位置設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  <b>/* 図形の色（赤） */</b>
+  <b>glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);</b>
+
+  /* 図形の描画 */
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    glNormal3dv(normal[j]);
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+<dl>
+
+<dt><tt><b>void glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)</b></tt></dt>
+
+<dd>glMaterialfv() は図形の材質パラメータを設定します。
+引数 face には GL_FRONT、GL_BACK および GL_FRONT_AND_BACK が指定でき、
+それぞれ面の表、裏、あるいは両面に材質パラメータを設定します。
+設定できる材質 pname には GL_AMBIENT（環境光に対する反射係数）、
+GL_DIFFUSE（拡散反射係数）、GL_SPECULAR（鏡面反射係数）、
+GL_EMISSION（発光係数）、GL_SHININESS（ハイライトの輝き）、
+あるいは GL_AMBIENT_AND_DIFFUSE（拡散反射係数と鏡面反射係数の両方）
+があります。他にインデックスカラーモード (GLUT_INDEX) であれば
+GL_COLOR_INDEXES も使用できますが、
+この資料では使用していません。
+引数 params は１つまたは４つの要素を持つ GLfloat 型（float と等価）の配列で、
+４つの要素を持つ場合（GL_SHININESS、GL_COLOR_INDEXES 以外）は、
+色の成分 RGB および A に対する係数を指定します。
+この初期値は (0.8, 0.8, 0.8, 1) ですが、
+1 を越える値も設定できます。</dd>
+
+</dl>
+
+</blockquote>
+
+<p>図形に色を付けるということは、
+図形の物理的な材質パラメータを設定することに他なりません。
+<font color="#ff0000">GL_DIFFUSE で設定する拡散反射率が図形の色</font>に相当します。
+GL_AMBIENT は環境光（光源以外からの光）に対する反射率で、
+光の当たらない部分の明るさになります。
+GL_SPECULAR は光源に対する鏡面反射率で、
+図形表面の光源の映り込み（ハイライト）の強さです。
+GL_SHININESS はこの鏡面反射の細さを示し、
+大きいほどハイライトの部分が小さくなります。
+この材質パラメータの要素は１つだけなので、
+glMaterialf() を使って設定することもできます。</p>
+
+<p>GL_DIFFUSE 以外のパラメータを設定することによって、
+図形の質感を制御できます。
+たとえば GL_SPECULAR（鏡面反射係数）を白 (1 1 1 1)
+に設定して GL_SHININESS を大きく（10〜40 とか／最大 128）すれば
+つややかなプラスチックのようになりますし、
+GL_SPECULAR（鏡面反射係数）を GL_DIFFUSE と同じにして
+GL_AMBIENT を 0 に近づければ金属的な質感になります。
+ただし GL_SPECULAR や GL_AMBIENT を操作するときは、
+glLightfv() で光源のこれらのパラメータも設定してやる必要があります。</p>
+
+<h2><a name="12">１２．階層構造</a></h2>
+
+<p>次に図形の階層構造を表現してみます。
+これまでのプログラムで実際に立方体を描いている部分を、
+独立した関数 cube() として抜き出します。</p>
+
+<p>また、
+視点の位置や画角などは変更しないので、
+これをウィンドウを開いたりサイズが変更されたときに設定するようにします。
+こうすると変換行列は glRotated() で変更されたあと元に戻されないため、
+このままでは次に描画するときにはおかしくなってしまいます。
+そこで、glRoatated() を使う前に、
+そのときの変換行列の内容を保存しておき、
+あとでその内容を戻します。
+これには glPushMatrix() と glPopMatrix() を使います。</p>
+
+<p>prog2.c を以下のように変更してください。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };
+GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };
+
+<b>void cube(void)
+{
+  int i;
+  int j;
+
+  glBegin(GL_QUADS);
+  for (j = 0; j &lt; 6; j++) {
+    glNormal3dv(normal[j]);
+    for (i = 0; i &lt; 4; i++) {
+      glVertex3dv(vertex[face[j][i]]);
+    }
+  }
+  glEnd();
+}</b>
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* 光源の位置設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+
+  <b>/* モデルビュー変換行列の保存 */</b>
+  <b>glPushMatrix();</b>
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の色（赤） */
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
+
+  /* 図形の描画 */
+  <b>cube();</b>
+
+  <b>/* モデルビュー変換行列の復帰 */</b>
+  <b>glPopMatrix();</b>
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  glViewport(0, 0, w, h);
+
+  /* 透視変換行列の設定 */
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(30.0, (double)w / (double)h, 1.0, 100.0);
+
+  /* モデルビュー変換行列の設定 */
+  glMatrixMode(GL_MODELVIEW);
+  <b>glLoadIdentity();</b>
+  <b>gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);</b>
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>この図形に、もう一つ立方体を追加します。
+２つ目の cube() を実行する前に glTranslated() を実行して、
+最初の cube() の位置から少しずらします。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };
+GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };
+
+void cube(void)
+{
+  /* 変更なし */
+}
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* 光源の位置設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+
+  /* モデルビュー変換行列の保存 */
+  glPushMatrix();
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の色（赤）*/
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
+
+  /* 図形の描画 */
+  cube();
+
+  <b>/* 二つ目の図形の描画 */</b>
+  <b>glPushMatrix();</b>
+  <b>glTranslated(1.0, 1.0, 1.0);</b>
+  <b>cube();</b>
+  <b>glPopMatrix();</b>
+
+  /* モデルビュー変換行列の復帰 */
+  glPopMatrix();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>本当はこの２つ目の cube() をはさんでいる glPushMatrix()、glPopMatrix()
+は不要なのですが、説明をわかりやすくするために付けています。</p>
+
+<p>ではこの２つ目の cube() を、
+１つ目の cube() の倍の速度で回転させてみましょう。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };
+GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };
+
+void cube(void)
+{
+  /* 変更なし */
+}
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* 光源の位置設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+
+  /* モデルビュー変換行列の保存 */
+  glPushMatrix();
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の色（赤）*/
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
+
+  /* 図形の描画 */
+  cube();
+
+  /* 二つ目の図形の描画 */
+  glPushMatrix();
+  glTranslated(1.0, 1.0, 1.0);
+  <b>glRotated((double)(2 * r), 0.0, 1.0, 0.0);</b>
+  cube();
+  glPopMatrix();
+
+  /* モデルビュー変換行列の復帰 */
+  glPopMatrix();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>この例では、１つ目の glRotated() による回転が
+両方の cube() に影響しているのに対し、
+２つ目の glRotated() は２つ目の cube() にしか影響していません。
+これによって、図形の動きの階層構造を表現できます。
+では最後に、この２つの立方体の色を変えてみましょう。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;GL/glut.h&gt;
+
+GLdouble vertex[][3] = {
+  /* 変更なし */
+};
+
+int face[][4] = {
+  /* 変更なし */
+};
+
+GLdouble normal[][3] = {
+  /* 変更なし */
+};
+
+GLfloat light0pos[] = { 0.0, 3.0, 5.0, 1.0 };
+GLfloat light1pos[] = { 5.0, 3.0, 0.0, 1.0 };
+
+GLfloat green[] = { 0.0, 1.0, 0.0, 1.0 };
+GLfloat red[] = { 0.8, 0.2, 0.2, 1.0 };
+<b>GLfloat blue[] = { 0.2, 0.2, 0.8, 1.0 };</b>
+
+void cube(void)
+{
+  /* 変更なし */
+}
+
+void idle(void)
+{
+  /* 変更なし */
+}
+
+void display(void)
+{
+  static int r = 0; /* 回転角 */
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* 光源の位置設定 */
+  glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
+  glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
+
+  /* モデルビュー変換行列の保存 */
+  glPushMatrix();
+
+  /* 図形の回転 */
+  glRotated((double)r, 0.0, 1.0, 0.0);
+
+  /* 図形の色（赤）*/
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, red);
+
+  /* 図形の描画 */
+  cube();
+
+  /* 二つ目の図形の描画 */
+  glPushMatrix();
+  glTranslated(1.0, 1.0, 1.0);
+  glRotated((double)(2 * r), 0.0, 1.0, 0.0);
+  <b>glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, blue);</b>
+  cube();
+  glPopMatrix();
+
+  /* モデルビュー変換行列の復帰 */
+  glPopMatrix();
+
+  glutSwapBuffers();
+
+  /* 回転の制御 */
+  if (glutLayerGet(GLUT_NORMAL_DAMAGED) == 0) {
+    /* glutPostRedisplay() による再描画 */
+    if (++r &gt;= 360) {
+      /* 一周回ったらアニメーションを止める */
+      r = 0;
+      glutIdleFunc(0);
+    }
+  }
+}
+
+void resize(int w, int h)
+{
+  /* 変更なし */
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  /* 変更なし */
+}
+  
+void init(void)
+{
+  /* 変更なし */
+}
+
+int main(int argc, char *argv[])
+{
+  /* 変更なし */
+}</pre></td></tr></table>
+
+</blockquote>
+
+<h2><a name="ex1">実験１．基本実験</a></h2>
+
+<p>ここからようやく実験の本題に入ります。
+以下のテーマのうち、グループに割り当てられた課題を選んで実験してください。
+これまでのようにソースプログラムは明示しませんから、
+自分で実装を考えてください。</p>
+
+<ul>
+<li><a href="ex-a.html">ウォークスルーの実験</a>（Ｅグループ）</li>
+<li><a href="ex-b.html">ロボットアームの実験</a>（Ｆグループ）</li>
+<li><a href="ex-c.html">ピッチングマシーンの実験</a>（Ａグループ）</li>
+<li><a href="ex-d.html">エアホッケーの実験</a>（Ｂグループ）</li>
+<li><a href="ex-e.html">歩行ロボットの実験</a>（Ｃグループ）</li>
+<li><a href="ex-f.html">フライトシミュレータの実験</a>（Ｄグループ）</li>
+</ul>
+
+<h2><a name="ex2">実験２．立体視の実験</a></h2>
+
+<p>実験１で作成したプログラムをもとにして、
+両眼視差による立体視（ステレオ表示）を行うプログラムを作成してください。
+両眼視差による立体視は、
+右眼用と左眼用の画像を別々に生成することで実現できます。
+一つのディスプレイでこの２つの画像を見ることができるように、
+演習質の一部のパソコンには液晶シャッタ眼鏡が用意されています。</p>
+
+<p>ディスプレイの表示が１秒間に何回も書き替えられていることは、
+みなさん良くご存じのことと思います （テレビの前で手を振ったことないですか？）。
+テレビの場合、この書き換えは１秒間に約６０回、
+パソコンのディスプレイで大体６０回から１００回くらい行われています
+（もっと回数が多い場合もあります）。この書き換え頻度のことを、
+<font color="#ff0000">リフレッシュレート</font>と呼びます。</p>
+
+<p>そこで、この書き換えの時に右眼用の画像と左眼用の画像を交互に表示して、
+液晶シャッタ眼鏡で右眼用の画像が表示されているときは左目を閉じ、
+左眼用の画像が表示されているときは右目を閉じてしまいます。
+こうして一つのディスプレイで右目と左目に別々の絵を見せることができます。
+これは<font color="#ff0000">時分割方式</font>によるステレオ表示と呼ばれます。</p>
+
+<p>この手法では右眼用の画面と左眼用の画面を別々に用意する必要があります。
+このメカニズムを<font color="#ff0000">ステレオバッファ</font>と呼びます。
+一方、アニメーション時のちらつきを抑制するために
+<a href="#9.2">ダブルバッファリング</a>
+を行っている場合にも２つの画面が必要になります。
+したがって、ダブルバッファリングを行いながら立体視を行うには、
+全部で２×２＝４つの画面が必要になります。
+そこでこの方式を
+<font color="#ff0000">クワッドバッファステレオ</font>
+と呼びます。なかなか贅沢な手法なので、
+ちょっと前までこれが実現できるのは高価なハードウェアに限られていましたが、
+最近ではパソコン用のビデオカードでも可能になってきています。</p>
+
+<p>GLUT では、glutInitDisplayMode() の引数に GLUT_DOUBLE と
+GLUT_STEREO を追加することにより、
+クワッドバッファステレオのモードに切り替えることができます。
+ただし、ビデオカード（あるいはそのドライバ）が
+クワッドバッファステレオをサポートしていなければ、
+実行時にエラーとなってプログラムが終了します。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>#include &lt;stdlib.h&gt;
+
+...
+
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE <b>| GLUT_STEREO</b>);
+
+  ...
+
+  return 0;
+}</pre></td></tr></table>
+
+</blockquote>
+
+<p>こうして描画時に画面（バッファ）をに切り替えながら、
+それぞれに右眼用の画像と左眼用の画像を表示します。
+画面の切り替えには glDrawBuffer() を使います。
+ダブルバッファなので、
+両方とも背後の画面（表示していない側の画面）に描きます。</p>
+
+<blockquote>
+<table border width="90%" bgcolor="#ffffff"><tr><td>
+<pre>  ...
+
+  <b>/* 右眼用のバッファの指定 */</b>
+  <b>glDrawBuffer(GL_BACK_RIGHT);</b>
+
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+
+  <b>/* 右眼の位置と方向 */</b>
+  <b>gluLookAt(</b>/* ここは自分で考えてください */<b>);</b>
+
+  /* 視点の移動 */
+  ... 
+
+  /* シーンの描画 */
+  ... 
+
+
+  <b>/* 左眼用のバッファの指定 */</b>
+  <b>glDrawBuffer(GL_BACK_LEFT);</b>
+
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+
+  <b>/* 左眼の位置と方向 */</b>
+  <b>gluLookAt(</b>/* ここは自分で考えてください */<b>);</b>
+
+  /* 視点の移動 */
+  ... 
+
+  /* シーンの描画 */
+  ...</pre></td></tr></table>
+
+</blockquote>
+
+<p>二つの視点の間隔とそれぞれの位置・方向、
+および <b>fovy</b>（実験１のサンプルでは 30 に設定されています）は、
+ディスプレイの表示面の高さ、表示面との距離、
+自分の両目の間隔の実測値から割り出してください。</p>
+
+<blockquote>
+<img src="stereo1.gif" alt="両眼立体視の原理">
+</blockquote>
+
+<blockquote><font size="-1">本当は gluLookAt() を使わずに、
+<a href="faq.html#Q7">gluPerspective() を glFrustum()
+に置き換えて左右の目の視野をずらしたほうが厳密</a>なんですが、
+それだとプログラムが少しややこしくなりますし、
+glFrustum()
+の説明もしなきゃいけなくなるので手を抜きます。</font></blockquote>
+
+<p>なお、演習室のディスプレイはリフレッシュレートが
+80Hz（１秒間に８０回書き換え）なので、 ステレオモードにすると片目あたり
+40Hz になって、結構ちらつきが目立ちます。
+プログラムが完成してそれらしい画像が表示されることを確かめたら、
+ディスプレイの解像度を落としてリフレッシュレートを上げて見てください。
+GLUT の<B>ゲームモード</B>を使えば、これをプログラム中から制御することもできます。
+詳しくは<a href="refresh.html">ここ</a>を参照してください。</p>
+
+<h2><a name="ex3">実験３．仮想のぞき穴の実験</a></h2>
+
+<p>ディスプレイをのぞき穴に見立てて、
+その向こう側に仮想的な部屋があるものとして画像を生成します。
+観測者の頭に位置センサ (IsoTrak) を取り付け、
+その情報を元に画像を生成することにより、
+運動視差による奥行き感を実現します。
+IsoTrak からのデータの読み込みについては、
+<a href="isotrak/">IsoTrak II の資料</a>を参照してください。</p>
+
+<h2><a name="ex4">実験４．仮想パペットの実験</a></h2>
+
+<p>SuperGrove から得られるデータを元に、
+ＣＧ指人形を動かします。
+SuperGrove からのデータの読み込みについては、
+<a href="superglovejr/">SupreGlove Jr. の資料</a>を参照してください。
+なお、この実験は表示形状を変化させることになるので、
+ディスプレイリストは使わない方が簡単だと思います。</p>
+
+<h2><a name="ex5">実験５．仮想パンチングボールの実験</a></h2>
+
+<p>Crystal Eys を装着し、IsoTrak のセンサを握り締めて、
+パンチングボールを殴ります。
+IsoTrak からのデータの読み込みについては、
+<a href="isotrak/">IsoTrak II の資料</a>を参照してください。</p>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+
+      .CvPage      {
+                     margin: 0;
+                     padding: 0;
+                     border: none;
+                     color: #000000;
+                     background: #FFFFFF; }
+      .CvSheet     {
+                     margin: 0;
+                     padding: 0;
+                     border: none;
+                     color: #000000;
+                     background: #FFFFFF; }
+      .CvObject    {
+                     margin: 0;
+                     padding: 0;
+                     border: none;
+                     color: inherit;
+                     background: none; }
+      .CvParagraph {
+                     margin: 0;
+                     padding: 0;
+                     border: none;
+                     color: inherit;
+                     background: inherit;
+                     text-indent: 0;
+                     text-align: left; }
+      a.cvlink:link    { color: blue; text-decoration: none; }
+      a.cvlink:visited { color: purple; text-decoration: none; }
+      a.cvlink:hover   { color: blue; text-decoration: underline; }

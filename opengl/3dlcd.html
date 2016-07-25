@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>裸眼 3D ディスプレイ (SHARP LL-151D) を用いた立体視の実現</title>
+</head>
+
+<body>
+
+<h1>裸眼 3D ディスプレイ (SHARP LL-151D) を用いた立体視の実現</h1>
+
+<h2>裸眼 3D ディスプレイの原理</h2>
+
+<p>裸眼 3D ディスプレイは,
+通常のディスプレイに「レンチキュラーレンズ」と呼ばれる板状のレンズや「視差バリア」と呼ばれる縦縞のフィルタ（アパーチャーグリル）を重ねることによって,
+一つの画面で右目と左目に異なる映像を見せるようにしたものです.
+いずれも画面上に左目用の映像と右目用の映像を交互に表示し,
+レンチキュラーレンズや視差バリアを通して見ることによって,
+左目には左目用の画像だけが,
+右目には右目用の画像だけが見えるようになります.
+この方式では特殊なメガネ等を使う必要はありません.
+この実験では視差バリア方式のディスプレイを使用します.</p>
+
+<div class="figure"><img src="aperture-barrier.gif" width="766" height="213"
+alt="レンチキュラーレンズと視差バリア"></div>
+
+<h2>SHARP LL-151D の構造</h2>
+
+<p>液晶ディスプレイ上の１つのピクセル（画素）は,
+光の３原色（赤=R，緑=G，青=B）の発光体の組み合わせで構成されています.
+この１つ１つの発光体のことを,
+サブピクセルと呼びます.
+実験に使用する裸眼 3D ディスプレイ SHARP LL-151D は,
+このサブピクセルに対応した視差バリアが設けられています．</p>
+
+<div class="figure"><img src="3dlcd.gif" width="434" height="374"
+alt="視差バリアとサブピクセルとの関係"></div>
+
+<p>したがって,
+この裸眼 3D ディスプレイでは,
+映像を次のように分けて画面表示する必要があります．</p>
+
+<ul>
+<li><em>右目</em>用の映像の R と B の成分を<em>奇数</em>番目の縦のラインに描く．</li>
+<li><em>右目</em>用の映像の G の成分を<em>偶数</em>番目の縦のラインに描く．</li>
+<li><em>左目</em>用の映像の R と B の成分を<em>偶数</em>番目の縦のラインに描く．</li>
+<li><em>左目</em>用の映像の G の成分を<em>奇数</em>番目の縦のラインに描く．</li>
+</ul>
+
+<p>なお SHARP LL-151D の視差バリアは,
+実際には液晶パネルとその背後の発光体との間にあります．</p>
+
+<h2>実験</h2>
+
+<p>裸眼 3D ディスプレイを使用した立体視表示を行う場合,
+図形を画面上の偶数番目の縦のラインと奇数番目の縦のラインに分けて描く必要があります.
+そのために,
+ここでは OpenGL の glPolygonStipple() という関数を使用します.
+この関数は図形を描く際に,
+図形にかける「マスク」を定義します.
+マスクの大きさは 32&times;32 画素で,
+マスクの値が 1 のところだけ図形が描画されます.
+従って次のようなマスクを用意すれば,
+画面上の偶数番目の縦のラインや奇数番目の縦のラインだけに図形を描くことができます.</p>
+<div class="figure"><img src="mask.gif" width="528" height="264"
+alt="マスク画像"></div>
+
+<p>まず最初に,
+初期化の関数 init() でこのマスクを作成します.
+また,
+GL_POLYGON_STIPPLE を有効にしておきます．</p>
+
+<pre class="source">...
+ 
+#include &lt;GL/glut.h&gt;
+ 
+...
+ 
+<em>/*
+** マスク用の変数の宣言
+*/
+static unsigned int emask[32]; /* 偶数番目のライン用マスク */
+static unsigned int omask[32]; /* 奇数番目のライン用マスク */</em>
+ 
+...
+ 
+void init(void)
+{
+  <em>int i;</em>
+  
+  /* 初期設定 */
+  ...
+  
+  <em>/* マスクを作る */</em>
+  <em>for (i = 0; i &lt; 32; ++i) {</em>
+    <em>emask[i] = 0xaaaaaaaa;</em>
+    <em>omask[i] = 0x55555555;</em>
+  <em>}</em>
+  
+  <em>/* 描画するポリゴンにマスクをかける */</em>
+  <em>glEnable(GL_POLYGON_STIPPLE);</em>
+}</pre>
+
+<p>こうして奇数ラインの R と B と偶数ラインの G に右目からみたシーンを表示し,
+偶数ラインの R と B と奇数ラインの G に左目から見たシーンを表示します.</p>
+
+<p>特定の色バッファのみに描画するには,
+glColorMask() という関数を使用します.
+glColorMask() の４つの引数はそれぞれ
+R, G, B, A の色バッファに対応しており,
+描画を行う色バッファには GL_TRUE を,
+描画を行わない色バッファには GL_FALSE を指定します.</p>
+
+<p>また,
+この方法では同じシーンを４回描く必要があるので,
+手間を省くためにディスプレイリストという機能を使用することにします.
+ディスプレイリストは,
+glNewList(番号, ...) 〜 glEndList() の間で実行した OpenGL の命令を,
+glCallList(番号）を呼び出すことによって再度実行するというものです.
+このディスプレイリストの番号は,
+glGenLists() を使って生成し,
+glDeleteLists() で破棄します．</p>
+
+<pre class="source">/*
+ * 画面表示
+ */
+void display(void)
+{
+  ...
+  <em>GLuint list; /* ディスプレイリスト */</em>
+  
+  <em>/* ディスプレイリストの作成 */</em>
+  <em>list = glGenLists(1);</em>
+  
+  <em>/* すべての色バッファに描画を許可 */</em>
+  <em>glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);</em>
+  
+  /* 画面クリア */
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+  
+  <em>/* 右目の位置と方向 */</em>
+  <em>gluLookAt(<strong>/* ここは自分で考えてください */</strong>);</em>
+  
+  /* 視点の移動 */
+  ...
+  
+  /* 光源の位置を設定 */
+  ...
+  
+  <em>/* 奇数ラインにＲ・Ｂを表示 */</em>
+  <em>glPolygonStipple((GLubyte *)omask);</em>
+  <em>glColorMask(GL_TRUE, GL_FALSE, GL_TRUE, GL_TRUE);</em>
+  
+  <em>/* ディスプレイリストへの登録開始 */</em>
+  <em>glNewList(list, GL_COMPILE_AND_EXECUTE);</em>
+  <em>glPushMatrix();</em>
+  
+  /* シーンの描画 */
+  ...
+  
+  <em>/* ディスプレイリストへの登録終了 */</em>
+  <em>glPopMatrix();</em>
+  <em>glEndList();</em>
+  
+  <em>/* 偶数ラインにＧを表示 */</em>
+  <em>glPolygonStipple((GLubyte *)emask);</em>
+  <em>glColorMask(GL_FALSE, GL_TRUE, GL_FALSE, GL_FALSE);</em>
+  
+  <em>/* シーンの描画 */</em>
+  <em>glCallList(list);</em>
+  
+  <em>/* デプスバッファだけをクリア */</em>
+  <em>glClear(GL_DEPTH_BUFFER_BIT);</em>
+  
+  /* モデルビュー変換行列の初期化 */
+  glLoadIdentity();
+  
+  <em>/* 左目の位置と方向 */</em>
+  <em>gluLookAt(<strong>/* ここは自分で考えてください */</strong>);</em>
+  
+  /* 視点の移動 */
+  ...
+  
+  /* 光源の位置を設定 */
+  ...
+  
+  <em>/* 偶数ラインにＲ・Ｂを表示 */</em>
+  <em>glPolygonStipple((GLubyte *)emask);</em>
+  <em>glColorMask(GL_TRUE, GL_FALSE, GL_TRUE, GL_TRUE);</em>
+  
+  <em>/* シーンの描画 */</em>
+  <em>glCallList(list);</em>
+  
+  <em>/* 奇数ラインにＧを表示 */</em>
+  <em>glPolygonStipple((GLubyte *)omask);</em>
+  <em>glColorMask(GL_FALSE, GL_TRUE, GL_FALSE, GL_FALSE);</em>
+  
+  <em>/* シーンの描画 */</em>
+  <em>glCallList(list);</em>
+  
+  <em>/* ディスプレイリストを破棄する */</em>
+  <em>glDeleteLists(list, 1);</em>
+  
+  ...
+}</pre>
+
+<p>２つの視点の間隔とそれぞれの位置・方向,
+および fovy (実験１のサンプルでは 30 に設定されています) は,
+ディスプレイの表示面の高さ,
+表示面との距離,
+自分の両目の間隔の実測値から割り出してください.</p>
+
+<div class="figure"><img src="stereo1.gif" width="473" height="354"
+alt="両眼立体視の原理"></div>
+
+<blockquote>本当は gluLookAt() を使わずに,
+<a href="faq.html#Q7">gluPerspective() を glFrustum() に置き換えて左右の目の視野をずらしたほうが厳密</a>なんですが,
+それだとプログラムが少しややこしくなりますし,
+glFrustum() の説明もしなきゃいけなくなるので手を抜きます.</blockquote>
+
+<p>最後に,
+立体視表示しているウィンドウが小さかったり,
+画面上に余計なものが映っていたりするとうまく立体感が得られない場合があるので,
+画面をフルスクリーン表示にします.</p>
+
+<pre class="source">...
+ 
+int main(int argc, char *argv[])
+{
+  glutInit(&amp;argc, argv);
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH);
+  glutCreateWindow(argv[0]);
+  <em>glutFullScreen();</em>
+  glutDisplayFunc(display);
+  ...
+}
+</pre>
+
+</body>
+</html>

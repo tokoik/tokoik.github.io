@@ -1,0 +1,741 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>Frequently Asked Questions</title>
+</head>
+
+<body>
+
+<h1>今までにあった質問</h1>
+
+<ul>
+<li><a href="#Q1">質問１：マウスを使ってオブジェクトを選択するには？</a></li>
+<li><a href="#Q2">質問２：マウスでクリックした場所の３次元位置を求めるには？</a></li>
+<li><a href="#Q3">質問３：透視変換の場合にウィンドウをリサイズしても表示図形の大きさが変らないようにするには？</a></li>
+<li><a href="#Q4">質問４：IsoTrak や SuperGlobe からデータを取ると，表示がぎこちなくなるのですが？</a></li>
+<li><a href="#Q5">質問５：視点を移動するのではなく，物体をぐるぐる回す方法は？</a></li>
+<li><a href="#Q6">質問６：円柱はどうやって描くんですか？</a></li>
+<li><a href="#Q7">質問７：glFrustum() を使って正確な立体視を行う方法は？</a></li>
+</ul>
+
+<h2><a name="Q1">質問１</a></h2>
+<p>マウスを使ってオブジェクトを選択するには？</p>
+
+<h2>回答１</h2>
+
+<p>セレクションを使えば，
+マウス（あるいはスクリーン上の領域）
+がどのオブジェクトを指して（含んで）
+いるのかを調べることができます．</p>
+
+<p>glRenderMode(GL_SELECT)
+を実行してセレクションモードに入ると，
+オブジェクトを描画してもスクリーンには表示されなくなります．
+その代わり，オブジェクトの描画の際に名前（実は整数値）を付けておくと，
+（実際には表示されない）描画処理によって視体積内にあると判断された
+オブジェクトの名前が glSelectBuffer() で指定した配列に格納されます．</p>
+
+<p>したがって，
+表示領域をマウスてクリックした点の周囲に限定して描画処理を行えば，
+その領域に（一部でも）描画されたオブジェクトを選択できます．
+このような表示領域を設定するには gluPickMatrix() が使えます．</p>
+
+<blockquote>
+以前，ここで大嘘書いてました．ごめんなさい．
+お詫びに<a href="#selectionsample">サンプル</a>作りました．
+</blockquote>
+
+<p><a href="http://www.geocities.jp/yuichiy2001/gl/applied/index.htm">
+sonson@Pictures&amp;Software - OpenGL - applied</a>
+で具体的に説明なさっていますが，一応以下にも手順の概略を書いてみます．
+とりあえず一旦，画面にオブジェクト（図形）を全部書きます．
+その後，以下の手順でクリックされたオブジェクトを見つけます．</p>
+
+<dl>
+
+<dt><b>glSelectBuffer(GLsizei size, GLuint *buffer)</b></dt>
+<dd>buffer に GLuint 型の配列，size にその要素数を指定します．
+この配列に選択したオブジェクトの名前の他，
+セレクションされた位置の奥行きの最小値と最大値などが格納されますから，
+要素数はオブジェクト数にしたがって，多めに指定しておいてください．
+なお，これはセレクションモードに入る前
+（glRenderMode(GL_SELECT) を実行する前）に実行する必要があります．</dd>
+
+<dt><b>glRenderMode(GL_SELECT)</b></dt>
+<dd>引数に GL_SELECT を指定してセレクションモードに入ります．</dd>
+
+<dt><b>glMatrixMode(GL_PROJECTION)</b></dt>
+<dd>セレクションの処理は視点座標系で行うので，
+透視変換マトリクスの設定を行います．</dd>
+
+<dt><b>glInitName()</b></dt>
+<dd>オブジェクトにつける名前（整数値）を登録しておく
+ネームスタックを初期化します．これはセレクションモードに入った後
+（glRenderMode(GL_SELECT) を実行した後）に行わなければ無視されます．</dd>
+
+<dt><b>glPushName(-1)</b></dt>
+<dd>name はこれから描画するオブジェクトの名前で，
+符合なし整数値です．glInitName() の直後に glPushName(-1)
+を実行し，ネームスタックの先頭に仮の名前 (-1) を入れておきます．</dd>
+
+<dt><b>glPushMatrix()</b><dt>
+<dd>透視変換マトリクスを保存します．</dd>
+
+<dt><b>glLoadIdentity()</b></dt>
+<dd>透視変換マトリクスを初期化します．</dd>
+
+<dt><b>gluPickMatrix(GLdouble x, GLdouble y, GLdouble dx, GLdouble dy, GLint *viewport)</b></dt>
+<dd>表示領域がマウスポインタの周囲だけになるように変換行列を
+設定します．x, y は選択する領域の中心で，
+ウィンドウ座標系におけるマウスポインタの位置です．
+glutMotionFunc() で指定した関数の引数に与えられるマウスポインタの位置は
+デバイス座標系なので，これをウィンドウ座標系に直す必要があります．
+dx, dy は選択する領域の大きさです．
+viewport は glViewport() で設定したビューポートのサイズが格納されている，
+４つの要素の GLint 型の配列です．
+これは glGetIntegerv(GL_VIEWPORT, viewport) でも得られます．</dd>
+
+<dt><b>glutPerspective( ... )</b></dt>
+<dd>この後，通常の描画と同様に透視変換マトリクスを設定します．</dd>
+
+<dt><b>glMatrixMode(GL_MODELVIEW)</b></dt>
+<dd>視野変換マトリクスに切り替え，
+通常の描画と同様に glutLookAt()
+などを設定した上でオブジェクトを描画します．</dd>
+
+<dt><b>glLoadName(1)</b></dt>
+<dd>ネームスタックの先頭に１を格納します．
+これは１個目のオブジェクトの名前を１にしています．
+この後１個目のオブジェクトを描画します．
+同じようにして２〜４個目のオブジェクトについて，
+名前を設定しながら描画します．</dd>
+
+<dt><b>glMatrixMode(GL_PROJECTION)</b></dt>
+<dd>再び透視変換マトリクスに戻します．</dd>
+
+<dt><b>glPopMatrix()</b></dt>
+<dd>透視変換マトリクスを元に戻します．</dd>
+
+<dt><b>hits = glRenderMode(GL_RENDER)</b></dt>
+<dd>セレクションモードを終わります．
+hits には得られたデータの数が入ります．
+もし，データが glSerectBuffer()
+で用意したバッファに入りきらなければ，hits は負になります．</dd>
+</dl>
+
+<p>glSerectBuffer() の引数に指定した（一次元）配列 buffer には，
+次のような順序でデータが格納されています．</p>
+
+<blockquote>
+<img src="libglut9.gif" alt="selection バッファの構造">
+</blockquote>
+
+<a name="selectionsample"></a>
+<ul>
+<li><a href="select.c">セレクションを使ったサンプル</a></li>
+<li><a href="select2.c">セレクションを使ったサンプル
+（アニメーション版）</a></li>
+</ul>
+
+<blockquote>
+アニメーション版は，
+ワンクリックで複数のオブジェクトがセレクトできることを実感できます．
+</blockquote>
+
+<h2><a name="Q2">質問２</a></h2>
+
+<p>マウスでクリックした場所の３次元位置を求めるには？</p>
+
+<h2>回答２</h2>
+
+<p>gluUnProject() という関数を使います．</p>
+
+<pre class="sample">
+GLint gluUnProject( GLdouble winX,
+                    GLdouble winY,
+                    GLdouble winZ,
+                    const GLdouble *model,
+                    const GLdouble *proj,
+                    const GLint *view,
+                    GLdouble* objX,
+                    GLdouble* objY,
+                    GLdouble* objZ )
+</pre>
+
+<p>winX, winY はスクリーン上の点，
+すなわちマウスポインタの位置になります．
+winZ はその点の奥行きですが，
+<a href="#Q1">セレクション</a>
+を使った場合はセレクションバッファに入っている値が使えます
+（セレクションバッファに入っている値は GLuint 型なので，
+gluUnProject() で使う場合は GLuint 型の最大値 0xffffffff で割る必要があります
+［<a href="http://www.gimlay.org/~andoh/opengl/ml/">OpenGL Mailing List</a>
+の<a href="http://sml-log1.infoseek.co.jp/goodml/user/266/html/msg000001774.php3">寺西さんのコメント</a>］．
+他に glReadPixels() を使って GL_DEPTH_COMPONENT すなわち
+Z バッファからデータを読んだり，
+適当な値を設定しておいてスクリーン空間中の視点と
+(objX, objY, objZ) を通る直線を求め，
+それとオブジェクトの交点を求めるなどの方法で得ることができると思います．</p>
+
+<p>model, proj はそれぞれ GL_MODELVIEW, GL_PROJECTION
+マトリクスが格納されている 4x4 の配列で，
+view はビューポートが格納されている 4 要素の配列です．
+model, proj は以下の手順で得られます（うう，マウス座標の上下を反転するのを忘れていた…）．</p>
+
+<pre class="source">int wh; /* 開いたウィンドウの高さ */
+
+void resize(int w, int h)
+{
+  /* ウィンドウ全体をビューポートにする */
+  glViewport(0, 0, w, wh = h);
+
+  <span class="gray">...</span>
+}
+
+void mouse(int button, int state, int x, int y)
+{
+  if (button == GLUT_LEFT_BUTTON &amp;&amp; state == GLUT_DOWN) {
+    GLdouble model[16], proj[16];
+    GLint view[4];
+    GLfloat z;
+    GLdouble ox, oy, oz;
+
+    glGetDoublev(GL_MODELVIEW_MATRIX, model);
+    glGetDoublev(GL_PROJECTION_MATRIX, proj);
+    glGetIntegerv(GL_VIEWPORT, view);
+
+    glReadPixels(x, wh - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &amp;z);
+    gluUnProject(x, wh - y, z, model, proj, view, &amp;ox, &amp;oy, &amp;oz);
+
+    /* ox, oy, oz にクリックしたところの３次元位置が入る */
+  }
+
+  <span class="gray">...</span>
+}
+</pre>
+
+<h2><a name="Q3">質問３</a></h2>
+
+<p>透視変換の場合にウィンドウをリサイズしたとき表示図形の大きさが変らないようにするには？</p>
+
+<h2>回答３</h2>
+
+<img src="frustum.gif" align="right" alt="Frustum">
+<p>gluPerspective() の代りに glFrustum() を使ってみてください．</p>
+
+<pre class="sample">
+void glFrustum( GLdouble left,
+                GLdouble right,
+                GLdouble bottom,
+                GLdouble top,
+                GLdouble zNear,
+                GLdouble zFar )
+</pre>
+
+<p>平行投影を設定する glOrtho() に対して，glFrustum()
+は透視投影の設定を行います．
+gl<b>u</b>Perspective()
+はカメラ的なパラメータを使って glFrustum()
+を設定できるようにした<b>ユー</b>ティリティライブラリ関数です．</p>
+
+<p>glFrustum() の引数は glOrtho() に準じていて，
+left, right, top, bottom, near, far の６つを指定します．
+left, right, top, bottom はシーンを投影するスクリーンの大きさで，
+near, far がそれぞれ前方面および後方面の位置であると言うところまでは
+glOrtho() と同じですが，glFrustum()
+の場合はスクリーンが前方面であるというところがミソです．</p>
+
+<p>視点は原点にあるため，
+視点と前方面，すなわちスクリーンとの距離 near
+は，カメラの焦点距離に相当します．したがってスクリーンの大きさに比べて
+near が大きいほど望遠になります．</p>
+
+<p>ウィンドウをリサイズしたときに表示図形の大きさが変らないようにする考え方は
+glOrtho() と同じで，ウィンドウのサイズに比例して
+left, right, top, bottom を設定します．</p>
+
+<p>例えばもともとのサイズが WIDTH×HEIGHT
+のウィンドウに，アスペクト比 ASPECT，画角 FOVY
+で表示されている図形の大きさを，
+幅 w，高さ h にリサイズしたときも変化しないようにするには，
+次のように設定してみてください．</p>
+
+<blockquote>
+ここでも以前でたらめ書いてました．ごめんなさい．
+</blockquote>
+
+<pre class="source">void resize(int w, int h)
+{
+  double scale = <b>NEAR</b> * tan(<b>FOVY</b> * 0.5 * 3.1415926536 / 180.0);
+  double x = w * scale * <b>ASPECT</b> / <b>WIDTH</b>;
+  double y = h * scale / <b>HEIGHT</b>;
+  glFrustum(-x, x, -y, y, <b>NEAR</b>, <b>FAR</b>);
+  <span class="gray">glViewport(0, 0, w, h);
+  ...</span>
+}</pre>
+
+<h2><a name="Q4">質問４</a></h2>
+
+<p>IsoTrak や SuperGlobe からデータを取ると，表示がぎこちなくなるのですが？</p>
+
+<h2>回答４</h2>
+
+<p>実験項目で示したサンプルでは，
+IsoTrak や SuperGlobe から“単一モード”でデータを取得しています．
+“単一モード”では，
+コンピュータからデータを取り出す命令（コマンド）を送り，
+それに IsoTrak や SuperGlobe が応答して一つ分のデータを送ってきます．</p>
+
+<p>このため，データが必要になってから単一モードでデータを取得しようとすると，
+データが得られるまでの間にちょっと時間がかかってしまいます．
+アニメーションを行っている場合，
+各フレームの画像を生成するたびにデータの取得を行うと，
+この時間のために画面表示がぎこちなくなってしまいます．</p>
+
+<p>これを避けるためには，
+“連続モード”を使って常に最新のデータを継続的に取得するようにします．</p>
+
+<p>しかし，そのためには
+IsoTrak や SuperGlobe からのデータの受取りを，
+画像生成などの本来の作業と非同期に（並行して）行う必要があります．</p>
+
+<p>これにはいくつかの方法があります．
+ひとつの方法は，データの取り出し専用のプログラムを別に作り，
+共有メモリ機能などを用いて，
+取り出されたデータを画像生成を行うプログラムから参照できるようにします．
+また，スレッドという機能を使えば，
+一つのプログラム内で，プログラムの各部分を非同期に動作させることができます．</p>
+
+<p>下の例では，最初に startIsoTrak() / startSuperGlobe()
+を呼び出すことで，スレッドを生成して非同期にデータを取り出します．
+この引数は tty デバイス名（"/dev/ttyf1" 等）で，
+戻り値は読み出しスレッドの id です．
+getIsoTrak(id, 0, pos) / getSuperGlobe(id, pos) で，
+取り出したデータを引数に指定した配列 pos にコピーします．
+プログラムの終了時に stopIsoTrak(id) / stopSuperGlobe(id)
+を呼び出してください．</p>
+
+<ul>
+<li><a href="iso.c">
+スレッドを生成して IsoTrak から非同期にデータを受け取るプログラム</a></li>
+<li><a href="glo.c">
+スレッドを生成して SuperGlobe から非同期にデータを受け取るプログラム</a></li>
+</ul>
+
+<p>あと，スレッドを使う場合は，コンパイルの時に
+<tt>-lpthread</tt> オプションを追加してください．
+……と，ところがどっこい，実験で使っている Indy には，
+スレッドライブラリをインストールし忘れたので，
+実は以下のプログラムは実験用の Indy ではコンパイルできない
+（他のマシンでは一応試した）んだなこれが．
+わはははは．あ〜あ．</p>
+
+<h2><a name="Q5">質問５</a></h2>
+
+<p>視点を移動するのではなく，物体をぐるぐる回す方法は？</p>
+
+<h2>回答５</h2>
+
+<p>GLUT 付属のサンプルプログラムに含まれる dinospin
+が，まさにそれを実現しています．このプログラムは
+dinospin.c および trackball.c, trackball.h
+という３つのソースファイルからなり，回転はこのうちの trackball.c
+で実現しています．これを参考にしてください．
+なお，こういう回転はクォータニオンで表現すれば取り扱いが容易になります．
+クォータニオンについては，
+<a href="http://www.cc.rim.or.jp/~devilman/3dCoding/3dCoding.html">
+宇治社中 〜3D Coding Tips〜</a>
+のページが参考になります．</p>
+
+<p>dinospin では本格的なトラックボールを実現していますが，
+ここでは例によって手抜きの実装を考えてみます
+（ということで，この方法ではあんまり「思った通り」に回転できません→
+多少は意図した通りに回せるようにする説明が<a href="http://marina.sys.wakayama-u.ac.jp/~tokoi/?date=20040321">このあたり</a>にあります）．</p>
+
+<p>任意の軸を中心とした回転は，glRotated()
+で与えることができます．下の例では，図形の原点を通り
+(ax, ay, az) の方向を向いた軸を中心に angle 度だけ図形を回転します．</p>
+
+<pre class="source">/* 回転軸 */
+GLdouble ax, ay, az;
+
+/* 回転角 */
+GLdouble angle;
+
+<span class="gray">...</span>
+
+void display(void)
+{
+  <span class="gray">...</span>
+
+  glPushMatrix();
+
+  /* 回転 */
+  <b>glRotated(angle, ax, ay, az);</b>
+
+  /* 図形の描画 */
+  glBegin(<span class="gray">...</span>);
+  <span class="gray">...</span>
+  glEnd();
+
+  glPopMatrix();
+
+  <span class="gray">...</span>
+}</pre>
+
+<p>マウスの移動によってこの angle と (ax, ay, az)
+を指定するようにすれば，目的は果たせそうです．話を簡単にするために，マウスは
+XY 平面上を動かすものとします．すなわち回転軸は常に XY
+平面上 (az = 0) にあり，視線は Z 軸上にあるものとします
+（こうすると視線を Z
+軸上以外に移動したときに思い通りに回転できなくなりますが…
+<a href="#anno1">※</a>）．</p>
+
+<p>マウスをドラッグしている間，
+マウスポインタの移動にしたがって物体を回転させるのですから，
+その間マウスの移動方向と移動量を検出する必要があります．
+そこで，まずマウスボタンを押したときに，
+その位置（ドラッグ開始点）とその時の回転角を記録します．</p>
+
+<pre class="source">/* ドラッグ開始位置 */
+int cx, cy;
+
+/* ドラッグ開始位置での回転角 */
+double ca;
+
+<span class="gray">...</span>
+
+void mouse(int button, int state, int x, int y)
+{
+  switch (state) {
+  case GLUT_DOWN:
+    /* マウスボタンを押した位置を記録 */
+    cx = x;
+    cy = y;
+    /* 表示している物体の回転角を記録 */
+    ca = angle;
+    break;
+  default:
+    break;
+  }
+}</pre>
+
+<p>次にマウスをドラッグしたときに，
+現在のマウスポインタの位置のドラッグ開始点からの変位を調べ，
+それをもとに回転軸ベクトルや回転角を求めます
+（この方法ではドラッグ開始点付近での挙動が不安定になります．
+これを避けるには，移動中のマウスの速度と方向を連続的に求めて，
+そこから回転軸ベクトルや回転角を求める必要があります）．</p>
+
+<p>その際，回転量がウィンドウのサイズに依存しないように，
+マウスポインタの変位を
+ウィンドウ内の相対的な位置にしておいたほうがいいかも知れません．
+このためにウィンドウのサイズからスケールファクタ sx, sy
+を求めておきます．定数 SCALE
+はマウスポインタの位置から回転角への換算に用います．
+これが 360.0 なら，
+マウスポインタをウィンドウの幅（あるいは高さ）分移動したときに，
+物体をちょうど一回転させることができます．</p>
+
+<p>物体を回転させる回転軸と回転角が決まったら，
+図形を再描画します．</p>
+
+<pre class="source">/* マウス移動量のスケールファクタ */
+double sx, sy;
+#define SCALE 360.0
+
+<span class="gray">...</span>
+
+void resize(int w, int h)
+{
+  /* マウスポインタ位置のウィンドウ内の相対的位置への換算用 */
+  sx = 1.0 / (double)w;
+  sy = 1.0 / (double)h;
+
+  <span class="gray">...</span>
+}
+
+<span class="gray">...</span>
+
+void motion(int x, int y)
+{
+  double dx, dy, a;
+
+  /* マウスポインタの位置のドラッグ開始位置からの変位 */
+  dx = (x - cx) * sx;
+  dy = (y - cy) * sy;
+
+  /* マウスポインタの位置のドラッグ開始位置からの距離 */
+  a = sqrt(dx * dx + dy * dy);
+
+  if (a != 0.0) {
+    /* 距離を角度に換算してドラッグ開始時の回転角に加算 */
+    angle = fmod(ca + SCALE * a, 360.0);
+
+    /* マウスポインタの変位から回転軸ベクトルを求める */
+    ax = dy / a;
+    ay = dx / a;
+    az = 0.0;
+
+    /* 図形の再描画 */
+    glutPostRedisplay();
+  }
+}</pre>
+
+<p>上の例では，az は常に 0
+ですから，定数にしてしまって構わないでしょう．
+あと，マウスのドラッグする度に図形を再描画すると，
+マウスの応答が悪くなるかも知れません．
+その場合はマウスのボタンを押した時点でアニメーションを開始し
+離した時点でアニメーションを終了させるようにして，
+マウスのドラッグによる回転軸や回転角の計算と図形の再描画を
+非同期に行うようにした方がいいでしょう．</p>
+
+<ul>
+<li><a href="spin.c">マウスで図形を回転するプログラム</a></li>
+</ul>
+
+<p><a name="anno1">回転を視点座標系で行う</a>ようにすれば，視線が Z
+軸上以外の場所にあっても思い通りに回転できます．
+ただし，これは空間全体の回転（あるいは視点の回転）になります．
+このとき光源の位置を gluLookAt()
+より後で設定すると光源も一緒に回転するので，
+これが嫌なら光源の位置も視点座標系で設定してください．</p>
+
+<ul>
+<li><a href="spin2.c">視点座標系で回転するプログラム</a></li>
+</ul>
+
+<p>あと，おまけです．</p>
+<ul>
+<li><a href="clip.c">マウスでクリップ面を回転するプログラム</a></li>
+<li><a href="trans.c">周囲を半透明にしたプログラム</a></li>
+<li><a href="cap.c">クリップ面にふたをしたプログラム</a></li>
+</ul>
+
+<h2><a name="Q6">質問６</a></h2>
+
+<p>円柱はどうやって描くんですか？</p>
+
+<h2>回答６</h2>
+
+<p>確かに，GLUT には球や円錐はあっても，
+なぜか円柱を描く関数は用意されてませんよね．
+でも，この程度なら自分で書いても，
+大した手間じゃない気がするんですが…宿題にしたらいけませんか？</p>
+
+<p>一応説明を考えてみます．
+まず，円柱を「上面」「側面」「下面」の部分に別けます．
+「上面」と「下面」はともに単なる円（というか，正多角形）なので，
+例えば「上面」は次のような手続きで描くことができます．</p>
+
+<pre class="source">#include &lt;math.h&gt;
+
+  <span class="gray">...</span>
+
+  double step = PI2 / (double)sides;
+  int i;
+
+  <span class="gray">...</span>
+
+  /* 上面 */
+  glNormal3d(0.0, 1.0, 0.0);
+  glBegin(GL_POLYGON);
+  for(i = 0; i < sides; i++) {
+    double t = step * (double)i;
+    glVertex3d(radius * sin(t), height, radius * cos(t));
+  }
+  glEnd();</pre>
+
+<p>変数 height は円柱の長さ，radius は円柱の半径，
+sides は円柱の側面の数（＝上面の辺の数）です．
+また記号定数 PI2 は“２π”です．
+したがって step には１辺あたりの中心角が代入されます．</p>
+
+<blockquote>
+<img src="top.gif" alt="円柱の上面">
+</blockquote>
+
+<p>結局，sin/cos を使って円を描くのと同じです．
+「下面」も同様ですが，面の向きが「上面」と反対になるので，
+頂点をたどる順番を「上面」に対して逆順にします．</p>
+
+<pre class="source">  /* 下面 */
+  glNormal3d(0.0, -1.0, 0.0);
+  glBegin(GL_POLYGON);
+  for(i = sides; --i >= 0; ) {
+    double t = step * (double)i;
+    glVertex3d(radius * sin(t), 0.0, radius * cos(t));
+  }
+  glEnd();</pre>
+
+<p>側面は円周上に長方形を並べることで描くことができます．
+この時，長方形の各頂点における法線ベクトルを，
+円柱の中心軸からその点までの方向ベクトルにしてやります．
+こうすることでスムースシェーディングが施され，
+滑らかな側面が表示されます．</p>
+
+<pre class="source">  /* 側面 */
+  glBegin(GL_QUAD_STRIP);
+  for (i = 0; i &lt;= sides; i++) {
+    double t = step * (double)i;
+    double x = sin(t);
+    double z = cos(t);
+
+    glNormal3d(x, 0.0, z);
+    glVertex3f(radius * x, height, radius * z);
+    glVertex3f(radius * x, 0.0, radius * z);
+  }
+  glEnd();</pre>
+
+<p>sin/cos を何回も計算しているのが気になりますけど，
+そういうところに突っ込みたい人は自分で工夫してください．</p>
+
+<ul>
+<li><a href="myCylinder.c">円柱を描く関数</a></li>
+</ul>
+
+<p>実は GLU ライブラリの中に，gluCylinder()
+という関数が用意されています．
+これは円柱の側面だけを描く関数なので，
+これと円盤を描く gluDisk()
+を組み合わせて円柱を描くことができます．</p>
+
+<ul>
+<li><a href="myCylinderGLU.c">gluCylinder() を使って円柱を描く関数</a></li>
+</ul>
+
+<p>なお gluDisk() という関数は，
+真ん中に穴をあけることができるので，
+パイプみたいなものもわりと簡単に描くことができます．</p>
+
+<ul>
+<li><a href="myPipe.c">gluCylinder() を使って円筒を描く関数</a></li>
+</ul>
+
+<h2><a name="Q7">質問７</a></h2>
+
+<p>glFrustum() を使って正確な立体視を行う方法は？</p>
+
+<h2>回答７</h2>
+
+<p>実験部分で「gluLookAt() を使わずに，
+gluPerspective() を glFrustum()
+に置き換えて視野をずらしたほうが厳密」などと書いていますが，
+実際どういう事なのか説明します．</p>
+
+<p>gluLookAt() を使って視差を付けると，
+視線（視点と目標点と結ぶ線）の方向が少し回転してしまいます．
+この状態で視線と垂直な投影面（前方面というわけではありません）
+に投影された図形が，ディスプレイに表示されます．</p>
+
+<blockquote>
+<img src="stereo4.gif" alt="gluLookAt() で視差を付けた場合">
+</blockquote>
+
+<p>しかし，ディスプレイの表示面は視線に対して垂直ではありませんから，
+投影面に投影された図形をそのままディスプレイに表示すると，
+少しずれが生じます．
+両目はともにディスプレイを少し斜めから見ていますから，
+図形はその分だけ横長に表示する必要があります．</p>
+
+<p>このずれはわずかなので，ほとんどの場合あまり気になることはありません．
+しかし，立体感を強調しようとして物体を視点に近づけた場合などに，
+思うように立体感が得られないということが起こります．</p>
+
+<p>glFrustum() は視線を回転させずに投影面をずらす事ができるため，
+このずれを生じさせずに視差を与える事ができます．</p>
+
+<blockquote>
+<img src="stereo2.gif" alt="glFrustum() で視差を付けた場合">
+</blockquote>
+
+<p>いま，左目とディスプレイとの距離を D，
+視差（両目の間隔）を P とします．
+このとき glFrustum() で指定する表示領域の中心の，
+左目の視線からのずれ F は，次式で求められます．</p>
+
+<pre class="sample">
+F = P × 0.5 × zNear ／ D
+</pre>
+<blockquote>
+<img src="stereo3.gif" alt="表示領域のずれ F">
+</blockquote>
+
+<p>またディスプレイ表示面の幅を W，高さを H とすれば
+（アスペクト比は１とします），
+表示領域の幅は W × zNear ／ D，高さは H × zNear ／ D
+となりますから，glFrustum() で指定する表示領域は次のようになります．
+右目の場合は P または F の符号を反転するだけです．</p>
+
+<pre class="sample">
+left = (-W + P) × 0.5 × zNear ／ D = -W × 0.5 × zNear ／ D + F
+right = (W + P) × 0.5 × zNear ／ D = W × 0.5 × zNear ／ D + F
+bottom = -H × 0.5 × zNear ／ D
+top = H × 0.5 × zNear ／ D
+</pre>
+
+<p>そして，左右の目を，それらの本来の位置に置いてレンダリングします．
+これは，実際にはシーンの方を移動します．上図の場合では，
+左目についてはシーン全体を (P ／ 2, 0, -D) だけ並行移動してから描画し，
+右目についてはシーン全体を (-P ／ 2, 0, -D) だけ並行移動してから描画します．
+</p>
+
+
+<pre class="source">  GLdouble k = 0.5 * zNear / D;
+  GLdouble f = P * k;
+  GLdouble w = W * k;
+  GLdouble h = H * k;
+
+  /* 右目の画像 */
+  glDrawBuffer(GL_BACK_RIGHT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glFrustum(-w - f, w - f, -h, h, zNear, zFar);
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  <span class="gray">/* 光源の位置等の設定 */
+  ...</span>
+
+  glTranslated(-P * 0.5, 0.0, -D);
+
+  <span class="gray">/* 視点の位置等の設定 */
+  ... 
+
+  /* シーンの描画 */
+  ...</span>
+
+
+  /* 左目の画像 */
+  glDrawBuffer(GL_BACK_LEFT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glFrustum(-w + f, w + f, -h, h, zNear, zFar);
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  <span class="gray">/* 光源の位置等の設定 */
+  ...</span>
+
+  glTranslated(P * 0.5, 0.0, -D);
+
+  <span class="gray">/* 視点の位置等の設定 */
+  ... 
+
+  /* シーンの描画 */
+  ...</span></pre>
+
+</body>
+
+</html>

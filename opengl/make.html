@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="opengl.css">
+<title>Makefile の補足</title>
+</head>
+
+<body>
+
+<h1>Makefile の補足</h1>
+
+<h2>make は実行プログラムの作り方を知っている</h2>
+
+<p>make コマンドは, 実は
+C や C++
+のソースプログラムから実行プログラムを作製する方法を最初から知っています. 
+このため, 
+一つのソースプログラムから一つの実行プログラムを作成するような場合は, 
+Makefile において手続き（コマンド）の記述を省略することができます. </p>
+
+<pre class="source">CFLAGS = -I/usr/X11R6/include
+LIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+all: prog1 prog2
+prog1: prog1.c
+<kbd>--Tab--&gt;</kbd>$(CC) $(CFLAGS) prog1.c -o prog1 $(LIBS)
+prog2: prog2.c
+<kbd>--Tab--&gt;</kbd>$(CC) $(CFLAGS) prog2.c -o prog2 $(LIBS)</pre>
+
+<p>すなわち, 上のような Makefile は下のように書くこともできます. </p>
+
+<h3>IRIX オリジナルの make を使う場合</h3>
+<pre class="source">CFLAGS = -I/usr/X11R6/include
+LDFLAGS = -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+all: prog1 prog2
+prog1: prog1.c
+prog2: prog2.c</pre>
+
+<h3>GNU make (gmake) を使う場合</h3>
+<pre class="source">CFLAGS = -I/usr/X11R6/include
+LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+all: prog1 prog2
+prog1: prog1.c
+prog2: prog2.c</pre>
+
+<h2>make は簡単な依存関係なら知っている</h2>
+
+<p>さらに, 実行プログラムのファイル名がソースプログラムのファイル名から拡張子
+(.c) を取り除いたものであれば（prog1.c から prog1 を生成する場合など）, 
+それらの依存関係も省略することができます. </p>
+
+<h3>IRIX オリジナルの make を使う場合</h3>
+<pre class="source">CFLAGS = -I/usr/X11R6/include
+LDFLAGS = -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+all: prog1 prog2</pre>
+
+<h3>GNU make (gmake) を使う場合</h3>
+<pre class="source">CFLAGS = -I/usr/X11R6/include
+LDLIBS = -L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+all: prog1 prog2</pre>
+
+<h2>マクロは環境変数でも指定できる</h2>
+
+<p>また, 上の <tt>CFLAGS</tt> や <tt>LDFLAGS</tt> あるいは <tt>LDLIBS</tt>
+のような「マクロ」は, 環境変数で与えることもできます. </p>
+
+<h3>IRIX オリジナルの make を使う場合</h3>
+<pre class="display">% setenv CFLAGS -I/usr/X11R6/include
+% setenv LDFLAGS '-lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread'</pre>
+
+<p>あるいは, </p>
+
+<h3>GNU make (gmake) を使う場合</h3>
+<pre class="display">% setenv CFLAGS -I/usr/X11R6/include
+% setenv LDLIBS '-L/usr/X11R6/lib -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthrad'</pre>
+
+<p>というコマンドをシェル（この場合は csh/tcsh）であらかじめ実行しておけば
+（もちろん, これは .cshrc に入れておくことができます）, 
+Makefile は次のような依存関係だけになります. </p>
+
+<pre class="source">all: prog1 prog2</pre>
+
+<p>もし, 生成する実行プログラムを make コマンドの引数に指定するなら, 
+<em>上の Makefile すら不要</em>です. </p>
+
+<pre class="display">% make prog1 prog2</pre>
+
+<p>カレントディレクトリに prog1.c と prog2.c というソースプログラムがあれば, 
+Makefile を作成しなくても, 上のコマンド一発で
+prog1 と prog2 が作成されます. </p>
+
+<h2>Makefile を使った演習</h2>
+<ul>
+<li><a href="http://www.wakayama-u.ac.jp/~tokoi/lecture/spyro/">
+課題７ マクロ定数+Makefile+へッダファイル</a></li>
+</li>
+
+</body>
+
+</html>
