@@ -11,3 +11,4 @@ BLOCKQUOTE { color: #a02000; }
 EM { color: #ff0000; }
 TABLE { margin-left: 1em; width: 90%; }
 TD { text-align: center; }
+TABLE.textbook, TABLE.textbook TD, TABLE.textbook TH { border: solid 1px #000000; border-collapse: collapse; }
