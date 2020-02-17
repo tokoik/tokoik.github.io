@@ -1,0 +1,13 @@
+BODY { line-height: 1.2; color: #000000; background-color: #ffffff; }
+A:link { color: #0000aa; }
+A:visited { color: #000044; }
+A:hover { color: #ff0000; }
+A:active { color: #ff0000; }
+H1 { color: #006622; }
+H2 { color: #002266; }
+P { margin: 0.5em 1em 0.5em 1em; }
+P.right { text-align: right; }
+BLOCKQUOTE { color: #a02000; }
+EM { color: #ff0000; }
+TABLE { margin-left: 1em; width: 90%; }
+TD { text-align: center; }

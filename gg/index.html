@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="../lecture.css"><title>ゲームグラフィックス特論 A / B − 授業概要</title></head><body>
+
+<h1>ゲームグラフィックス特論 A / B</h1>
+
+<h2>授業の概要・位置づけ</h2>
+<p>3次元コンピュータグラフィックスの理論と実装方法のうち,
+特に3Dゲームなどのインタラクティブなアプリケーションを実現する上で必要になるリアルタイムレンダリングの技術の学習を通して,
+現在のCGシステムで用いられている各種の技術や考え方を理解し, それを応用したシステムを実装するための知識とノウハウを習得します.
+学部科目の「コンピュータグラフィックス」に続く進歩的な内容であり,
+教科書的な内容にとどまらず現実のシステムで応用されている技術の具体的な内容の一端に触れることを目指します.</p>
+
+<h3>ゲームグラフィックス特論 A</h3>
+<ol start="1">
+<li>概要説明，レンダリングパイプライン (<a href="ggnote01.pdf">講義資料</a>, <a href="ggbook01.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample01">宿題</a>)</li>
+<li>GPU (Graphics Processing Unit) (<a href="ggnote02.pdf">講義資料</a>, <a href="ggbook02.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample02">宿題</a>)</li>
+<li>変換 (1) - 同時座標による座標変換 (<a href="ggnote03.pdf">講義資料</a>, <a href="ggbook03.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample03">宿題</a>)</li>
+<li>変換 (2) - 四元数による回転と補間 (<a href="ggnote04.pdf">講義資料</a>, <a href="ggbook04.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample04">宿題</a>)</li>
+<li>変換 (3) - 座標値の生成とブレンディング (<a href="ggnote05.pdf">講義資料</a>, <a href="ggbook05.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample05">宿題</a>)</li>
+<li>陰影付け (1) - 基本的な陰影付け方程式 (<a href="ggnote06.pdf">講義資料</a>, <a href="ggbook06.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample06">宿題</a>)</li>
+<li>陰影付け (2) - 物理ベースの反射モデル (<a href="ggnote07.pdf">講義資料</a>, <a href="ggbook07.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample07">宿題</a>)</li>
+<li>(試験)</li>
+</ol>
+
+<h3>ゲームグラフィックス特論 B</h3>
+<ol start="9">
+<li>テクスチャマッピング (1) - テクスチャ座標の生成とマップのサンプリング (<a href="ggnote08.pdf">講義資料</a>, <a href="ggbook08.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample08">宿題</a>)</li>
+<li>テクスチャマッピング (2) - さまざまな材質のマッピング (<a href="ggnote09.pdf">講義資料</a>, <a href="ggbook09.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample09">宿題</a>)</li>
+<li>環境による照明 - 環境マッピングとイメージベースドライティング (<a href="ggnote10.pdf">講義資料</a>, <a href="ggbook10.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample10">宿題</a>)</li>
+<li>影 - シャドウボリュームとシャドウマッピング (<a href="ggnote11.pdf">講義資料</a>, <a href="ggbook11.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample11">宿題</a>)</li>
+<li>大域照明 - 環境遮蔽と映り込み・屈折マッピングおよび大域照明概説 (<a href="ggnote12.pdf">講義資料</a>, <a href="ggbook12.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample12">宿題</a>)</li>
+<li>遅延レンダリング - フレームバッファオブジェクトの使い方と Render To Texture (<a href="ggnote13.pdf">講義資料</a>, <a href="ggbook13.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample13">宿題</a>)</li>
+<li>ジオメトリシェーダ - GPU によるレンダリングプリミティブの生成と破棄 (<a href="ggno14.pdf">講義資料</a>, <a href="ggbook14.pdf">講義ノート</a>, <a href="https://github.com/tokoik/ggsample14">宿題</a>)</li>
+<li>(試験)</li>
+</ol>
+
+<h3>補足</h3>
+<ul>
+<li>宿題は <a href="https://github.com/tokoik">GitHub</a> にあります.</li>
+</ul>
+
+<h2>参考資料</h2>
+<ol>
+<li>仕様書等 - <a href="http://www.opengl.org/registry/">OpenGL&reg; Registry</a> (<a href="http://www.opengl.org/">OpenGL.org</a>)</li>
+<li>補助プログラムの<a href="html/">ドキュメント</a> (<a href="refman.pdf">PDF</a>)</li>
+</ol>
+
+<h2>教科書・参考書</h2>
+
+<p>
+<table border="1" width="90%">
+<tbody><tr><th>指定</th><th>書名</th><th>著者名</th><th>出版社名</th>
+</tr><tr>
+<td>参考書</td>
+<td>Real-Time Rendering (Fourth Edition)</td>
+<td>Tomas Akenine-M&#246;ller, Eric Haines, Naty Hoffman</td>
+<td>A K Peters / CRC Press</td>
+</tr>
+<tr>
+<td>参考書</td>
+<td>OpenGL Programming Guide (Ninth Edition) - 赤本</td>
+<td>Dave Shreiner</td>
+<td>Addision Wesley</td>
+</tr>
+<tr>
+<td>参考書</td>
+<td>OpenGL Shading Language (Third Edition) - 橙本</td>
+<td>Randi J. Rost, Bill Licea-Kane</td>
+<td>Addision Wesley</td>
+</tr>
+</tbody></table>
+</p>
+
+</body></html>
