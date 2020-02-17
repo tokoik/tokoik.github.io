@@ -45,6 +45,7 @@ xcuserdata
 *.sln.docstates
 *.opendb
 *.db
+*.aps
 #
 # anothre stuff
 #
@@ -52,3 +53,5 @@ xcuserdata
 *.bak
 *.tmp
 *.swp
+/pdf/*
+!/pdf/refman.pdf
