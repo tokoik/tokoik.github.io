@@ -1,0 +1,2 @@
+equirectangular1.zip filter=lfs diff=lfs merge=lfs -text
+equirectangular2.zip filter=lfs diff=lfs merge=lfs -text
