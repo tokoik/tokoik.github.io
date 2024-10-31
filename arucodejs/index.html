@@ -26,6 +26,20 @@
     <div class="caption">canvasOutput</div>
   </div>
 
+  <!-- ビデオのキャプチャに用いる video -->
+  <div class="inputoutput">
+    <video id="videoInput">videoInput</video>
+    <div class="caption">videoInput</div>
+  </div>
+
+  <!-- OpenCV.js によるビデオの処理結果の表示に使う canvas -->
+  <div class="inputoutput">
+    <canvas id="videoOutput" ></canvas>
+    <div class="caption">videoOutput
+    <input type="button" id="startButton" value="start" />
+    </div>
+  </div>
+
 </div>
 <script type="text/javascript">
 
@@ -55,6 +69,56 @@
     // Mat 型に変換した画像データはもう使わないのでメモリを開放する
     mat.delete
   }
+
+  // ビデオの処理結果の表示に使う canvas 要素
+  let videoOutput = document.getElementById("videoOutput")
+
+  // ビデオの処理結果の表示に使う canvas 要素のコンテキスト
+  let videoContext = videoOutput.getContext("2d")
+
+  // ビデオのキャプチャ開始ボタンの input 要素
+  let startButton = document.getElementById("startButton")
+
+  // キャプチャ開始ボタンをクリックしたら
+  startButton.addEventListener("click", (e) => {
+
+    // video 要素を取り出して
+    let video = document.getElementById("videoInput")
+
+    // その video 要素のデバイスの設定を行って再生を開始する
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function(stream) {
+        video.srcObject = stream
+        video.play()
+      })
+      .catch(function(err) {
+        console.log("An error occurred! " + err)
+      })
+
+    // キャプチャするフレームレート
+    const FPS = 30
+
+    // ビデオのフレームの処理
+    function processVideo() {
+
+      // 現在時刻を取り出して
+      const begin = Date.now()
+
+      // 表示先の canvas のサイズをキャプチャしたビデオのフレームのサイズに合わせて
+      videoOutput.width = video.videoWidth
+      videoOutput.height = video.videoHeight
+
+      // キャプチャしたビデオのフレームを表示したら
+      videoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+
+      // 次のフレームの表示タイミングまで待つ
+      const delay = 1000 / FPS - (Date.now() - begin)
+      setTimeout(processVideo, delay);
+    }
+
+    // 最初のフレームを表示する
+    setTimeout(processVideo, 0);
+  }, false)
 
   // opencv.js の初期化が完了したら表示を更新する
   var Module = {
