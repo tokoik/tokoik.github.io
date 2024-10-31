@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Hello OpenCV.js</title>
+</head>
+
+<body>
+<h1>Hello OpenCV.js</h1>
+<div>
+
+  <!-- 読み込んだ画像の表示に使う canvas -->
+  <div class="inputoutput">
+    <img id="imageSrc" alt="No Image" />
+    <div class="caption">imageSrc</div>
+    <input type="file" id="fileInput" name="file" />
+  </div>
+
+</div>
+<script type="text/javascript">
+
+  // 読み込んだ画像の表示に使う canvas 要素
+  let imgElement = document.getElementById("imageSrc")
+
+  // 画像ファイルの読み込みに使う input 要素
+  let inputElement = document.getElementById("fileInput")
+
+  // ファイルの読み込みに変化があったら
+  inputElement.addEventListener("change", (e) => {
+
+    // そのファイルの内容を表示に使う canvas 要素に設定する
+    imgElement.src = URL.createObjectURL(e.target.files[0])
+
+  }, false)
+</script>
+</body>
+
+</html>
