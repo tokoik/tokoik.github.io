@@ -28,7 +28,7 @@
 
   <!-- ビデオのキャプチャに用いる video -->
   <div class="inputoutput">
-    <video id="videoInput">videoInput</video>
+    <video id="videoInput" width="640" height="480">videoInput</video>
     <div class="caption">videoInput</div>
   </div>
 
@@ -85,6 +85,10 @@
     // video 要素を取り出して
     let video = document.getElementById("videoInput")
 
+    let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+    let cap = new cv.VideoCapture(video);
+
     // その video 要素のデバイスの設定を行って再生を開始する
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
       .then(function(stream) {
@@ -95,6 +99,9 @@
         console.log("An error occurred! " + err)
       })
 
+    videoOutput.width = video.videoWidth
+    videoOutput.height = video.videoHeight
+
     // キャプチャするフレームレート
     const FPS = 30
 
@@ -104,13 +111,18 @@
       // 現在時刻を取り出して
       const begin = Date.now()
 
+      cap.read(src);
+      cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+      cv.imshow("videoOutput", dst);
+
+/*
       // 表示先の canvas のサイズをキャプチャしたビデオのフレームのサイズに合わせて
       videoOutput.width = video.videoWidth
       videoOutput.height = video.videoHeight
 
       // キャプチャしたビデオのフレームを表示したら
       videoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
-
+*/
       // 次のフレームの表示タイミングまで待つ
       const delay = 1000 / FPS - (Date.now() - begin)
       setTimeout(processVideo, delay);
