@@ -85,8 +85,11 @@
     // video 要素を取り出して
     let video = document.getElementById("videoInput")
 
+    // キャプチャしたフレームを格納する Mat を用意しておく
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
     let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+
+    // ビデオキャプチャ
     let cap = new cv.VideoCapture(video);
 
     // その video 要素のデバイスの設定を行って再生を開始する
@@ -99,6 +102,7 @@
         console.log("An error occurred! " + err)
       })
 
+    // 結果を表示する canvas のサイズをキャプチャしたフレームのサイズに合わせる
     videoOutput.width = video.videoWidth
     videoOutput.height = video.videoHeight
 
@@ -110,11 +114,6 @@
 
       // 現在時刻を取り出して
       const begin = Date.now()
-
-      cap.read(src);
-      cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-      cv.imshow("videoOutput", dst);
-
 /*
       // 表示先の canvas のサイズをキャプチャしたビデオのフレームのサイズに合わせて
       videoOutput.width = video.videoWidth
@@ -123,6 +122,15 @@
       // キャプチャしたビデオのフレームを表示したら
       videoContext.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
 */
+      // フレームをキャプチャする
+      cap.read(src);
+
+      // キャプチャしたフレームをグレースケールにする
+      cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+
+      // グレースケールにしたフレームを結果を表示する canvas に表示する
+      cv.imshow("videoOutput", dst);
+
       // 次のフレームの表示タイミングまで待つ
       const delay = 1000 / FPS - (Date.now() - begin)
       setTimeout(processVideo, delay);
