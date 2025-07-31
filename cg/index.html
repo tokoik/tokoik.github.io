@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../lecture.css">
+<TITLE>コンピュータグラフィックス － 授業概要</TITLE>
+</HEAD>
+<BODY>
+
+<h1>コンピュータグラフィックス</h1>
+
+<h2>授業の概要</h2>
+
+<p>
+コンピュータグラフィックス（ＣＧ）とは、コンピュータとグラフィック周辺装置を用いて画像や映像を作成したり処理したりする技術、またはそれにらよって作成された画像や映像のことをいいます。つまりコンピュータを使って絵を描くわけですが、それには絵の具やキャンバスのような画材とか、カメラと被写体といった道具や環境を、コンピュータを使って実現しなければなりません。
+</p>
+<p>
+既にそういう道具として使える「ＣＧソフトウェア」がたくさん開発されていて、子供でも簡単にＣＧやアニメーションが作成できるようになっています。そこでこの授業では、ＣＧの理論と実装方法に関する学習を通して、様々なＣＧソフトウェアが提供している機能を最大限に活用するためのノウハウと、自分でそういうソフトウェアを開発する際に必要になる基礎的な知識の習得を目指します。
+</p>
+<blockquote>この講義内容は令和２年度をもって終了しました。</blockquote>
+
+<h2>授業内容</h2>
+
+<ol>
+<li><a href="cgnote01.pdf">概要説明</a>
+  <ul>
+    <li><a href="cgguide.pdf">宿題プログラムの作成手順</a></li>
+  </ul>
+</li>
+<li><a href="cgnote02.pdf">コンピュータとデジタル画像</a>：「画材」としてのコンピュータ
+  <ul>
+    <li><a href="fb.html">フレームメモリの走査と画面表示</a></li>
+    <li><a href="cgsample01-2019note.pdf">第１回の宿題のノート</a> (後ろに残ってたぞ)</li>
+  </ul>
+</li>
+<li><a href="cgnote03.pdf">走査変換（１）</a>：線を描く
+  <ul>
+    <li><a href="line.pdf">線分／円の生成</a></li>
+  </ul>
+</li>
+<li><a href="cgnote04.pdf">走査変換（２）</a>：多角形を描く
+  <ul>
+    <li><a href="polygon.pdf">台形／三角形の生成</a></li>
+  </ul>
+</li>
+<li><a href="cgnote05.pdf">形状の表現と操作（１）</a>：形の情報をデータにする</li>
+<li><a href="cgnote06.pdf">形状の表現と操作（２）</a>：立体形状を定義する</li>
+<li><a href="cgnote07.pdf">座標系と変換の理論（１）</a>：空間に立体を配置する</li>
+<li><a href="cgnote08.pdf">座標系と変換の理論（２）</a>：スクリーンに映す</li>
+<li><a href="cgnote09.pdf">隠面消去処理</a>：見えない所を隠す
+  <ul>
+    <li><a href="triangle3d.pdf">三角形の生成の三次元化</a></li>
+    <li><a href="cgsample09fig.html">宿題プログラムによる生成画像 (例)</a></li>
+    <li><a href="blendertoc.pdf">Blender を使ってデータを作る方法</a></li>
+  </ul>
+</li>
+<li><a href="cgnote10.pdf">陰影付け</a>：光を当ててみる
+  <ul>
+    <li><a href="cgsample10fig.html">宿題プログラムによる生成画像 (例)</a></li>
+  </ul>
+</li>
+<li><a href="cgnote11.pdf">スムーズシェーディング</a>：曲面に見せかける
+  <ul>
+    <li><a href="cgsample11fig.html">宿題プログラムによる生成画像 (例)</a></li>
+  </ul>
+</li>
+<li><a href="cgnote12.pdf">テクスチャマッピング</a>：表面に別の画像を貼り付ける
+  <ul>
+    <li><a href="cgsample12fig.html">宿題プログラムによる生成画像 (例)</a></li>
+  </ul>
+</li>
+<li><a href="cgnote13.pdf">アニメーション</a>：動かしてみる</li>
+<li><a href="cgnote14.pdf">レイトレーシング</a>：反射や屈折を表現する</li>
+<li>特別講義</li>
+</ol>
+
+<h2>教科書・参考書</h2>
+
+<p>
+<table width="90%" border="1">
+<tr><th>指定</th><th>書名</th><th>著者名</th><th>出版社名</th>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</table>
+</p>
+
+<h2>成績評価の方法</h2>
+
+<ul>
+<li>講義中に課す課題と宿題の評価および期末試験による</li>
+</ul>
+
+<h2>宿題</h2>
+
+<p>
+<table width="90%" border="1">
+
+<tr>
+<th>課題説明</th><th>宿題プログラム (Linux Mint 18 以降 / Visual Studio 2017 以降 / Xcode 9 以降)</th>
+</tr>
+
+<tr>
+<td><a href="cgsample01.pdf">第１回</a></td>
+<td><a href="cgsample01.zip">cgsample01.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample02.pdf">第２回</a></td>
+<td><a href="cgsample02.zip">cgsample02.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample03.pdf">第３回</a></td>
+<td><a href="cgsample03.zip">cgsample03.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample04.pdf">第４回</a></td>
+<td><a href="cgsample04.zip">cgsample04.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample05.pdf">第５回</a></td>
+<td><a href="cgsample05.zip">cgsample05.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample06.pdf">第６回</a></td>
+<td><a href="cgsample06.zip">cgsample06.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample07.pdf">第７回</a></td>
+<td><a href="cgsample07.zip">cgsample07.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample08.pdf">第８回</a></td>
+<td><a href="cgsample08.zip">cgsample08.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample09.pdf">第９回</a></td>
+<td><a href="cgsample09.zip">cgsample09.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample10.pdf">第１０回</a></td>
+<td><a href="cgsample10.zip">cgsample10.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample11.pdf">第１１回</a></td>
+<td><a href="cgsample11.zip">cgsample11.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample12.pdf">第１２回</a></td>
+<td><a href="cgsample12.zip">cgsample12.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample13.pdf">第１３回</a></td>
+<td><a href="cgsample13.zip">cgsample13.zip</a></td>
+</tr>
+
+<tr>
+<td><a href="cgsample14.pdf">第１４回</a></td>
+<td><a href="cgsample14.zip">cgsample14.zip</a></td>
+</tr>
+
+</table>
+</p>
+
+</body>
+</HTML>
