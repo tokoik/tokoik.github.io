@@ -1,0 +1,51 @@
+BODY{
+  font-size : small;
+  color: #020;
+  background-color : #ffd;
+}
+A:LINK{
+  text-decoration : none;
+  color : #c00;
+}
+A:VISITED{
+  text-decoration : none;
+  color : #c00;
+}
+A:HOVER{
+  text-decoration : none;
+  color : #fd0;
+}
+H1,HR{
+  color : #484;
+}
+TABLE{
+  font-size : small;
+}
+TEXTAREA{
+  border-style : solid;
+  border-color : #000;
+  border-width : 1px;
+}
+.inputbtn{
+  /* ボタン */
+  color : white;
+  background-color : #666;
+  border-style : solid;
+  border-color : #000;
+  border-width : 1px;
+}
+.inputfrm{
+  /* テキスト入力 */
+  background-color : #fff;
+  border-style : solid;
+  border-color : #000;
+  border-width : 1px;
+}
+.fbgclr{
+  /* フォーム部分他の枠色 */
+  background-color : #666;
+}
+.tbgclr{
+  /* フォーム部分他地色 */
+  background-color : #dfd;
+}

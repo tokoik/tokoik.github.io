@@ -1,0 +1,6 @@
+<Limit GET>
+  Require ip 133.42.
+</Limit>
+<LimitExcept GET>
+  Require all denied
+</LimitExcept>
