@@ -1,0 +1,944 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第９回：グラフ作成，作図，文書の浄書（２）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第９回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>gnuplot でグラフを描いてみる</LI>
+  <LI>Inkscape で作図してみる</LI>
+  <LI>gnuplot や Inkscape で作った図を LaTeX 文書に入れる</LI>
+</OL>
+<UL>
+<li><a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-08/">提出された前回の宿題</a></li>
+</UL>
+<div class="footer"><a href="08.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．グラフ作成</H2>
+<H3>１．１　グラフ作成ツール</H3>
+<P>レポートなどでグラフを描かなければいけないことは良くあります．データや関数のグラフを作成するには，以下のコマンドが使えます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">グラフ作成ツール</TH>
+    </TR>
+    <TR>
+      <TD><EM>xgraph</EM></TD>
+      <TD class="action">シンプルなグラフ作成ツール</TD>
+    </TR>
+    <TR>
+      <TD><EM>ngraph</EM></TD>
+      <TD class="action">日本人が作ったグラフ作成ツール</TD>
+    </TR>
+    <TR>
+      <TD><EM>gnuplot</EM></TD>
+      <TD class="action">大御所</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>それぞれに特徴があるのですが，ここでは一番機能が豊富だと思われる gnuplot を使ってみます．</P>
+<H3>１．２　gnuplot の起動</H3>
+<P>ターミナルのウィンドウを開いて，gnuplot コマンドを実行してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>gnuplot を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">gnuplot<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>gnuplot は起動すると次のメッセージを出した後，&quot;gnuplot&gt;&quot; というプロンプトを出してコマンドの入力を待ちます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>gnuplot の起動メッセージ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>
+
+        G N U P L O T
+        Version 4.2 patchlevel 5
+        last modified Mar 2009
+        System: Linux 2.6.27-57vl5
+
+        Copyright (C) 1986 - 1993, 1998, 2004, 2007 - 2009
+        Thomas Williams, Colin Kelley and many others
+
+        Type `help` to access the on-line reference manual.
+        The gnuplot FAQ is available from http://www.gnuplot.info/faq/
+
+        Send bug reports and suggestions to &lt;http://sourceforge.net/projects/gnuplot&gt;
+
+
+Terminal type set to 'wxt'
+gnuplot&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ここで &quot;gnuplot&gt;&quot; のすぐ上に &quot;Terminal type set to 'wxt'&quot; と出ていますが，これはグラフの表示や印刷を行う方法を現しています．'<em>wxt</em>' でもグラフは表示されますが，現時点では gnuplot を終了したときにエラーを起こすことがあるようなので，<em>その場合は</em>次のようにして Terminal type を <em>'x11</em>' に変更してください（しなくても使えるとは思いますが&hellip;）．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Terminal type の変更</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set terminal <em>x11</em></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．３　関数のグラフを描いてみる</H3>
+<P>それでは，試しに y=x<SUP>2</SUP>のグラフを描いてみましょう．<EM>plot</EM> コマンドに続けて <I>x</I> の関数 <I>f</I>(<I>x</I>) を書きます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>y=x<SUP>2</SUP>のグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot x*x<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot01.png" width="401" height="301" border="0"></DIV>
+<P>三角関数も描けます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>sin(x) のグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot sin(x)<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot02.png" width="401" height="301" border="0"></DIV>
+<P>値の範囲は <TT>[<I>最小値</I>:<I>最大値</I>]</TT> で指定します．pi は&pi; (3.141592・・・) を表します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>-&pi;～&pi;の範囲で sin(x) のグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot <EM>[-pi:pi]</EM> sin(x)<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot03.png" width="401" height="301" border="0"></DIV>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>値の上限と下限を指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot [-pi:pi] <EM>[-2:2]</EM> sin(x)<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot04.png" width="401" height="301" border="0"></DIV>
+<P>複雑な関数でも描くことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>複雑な関数のグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot [-pi:pi] [-2:2] sin(x*x)+cos(4*x)<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot05.png" width="401" height="301" border="0"></DIV>
+<P><EM>splot</EM> コマンドを使えば，３次元のグラフを描くこともできます．splot コマンドに続けて <I>f</I>(<I>x</I>,<I>y</I>) 形式の関数を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３次元のグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">splot exp(-x*x-y*y)<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot06.png" width="401" height="301" border="0"></DIV>
+<H3>１．４　離散データのグラフを描いてみる</H3>
+<P>実験などで得られたデータは，そのままでは単なる数値の羅列に過ぎません．それらを目に見える形にして，はじめて解釈や分析を行うことができます．いま，次のようなデータがあったとします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>離散データ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>4165
+2155
+1776
+1127
+236
+346
+313
+478
+850
+2657
+10432
+13757
+9305
+7289
+8970
+10496
+9519
+5334
+4883
+3566
+3785
+4205
+6316
+5121</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>上のデータをダウンロードするには，<A href="data1.txt">ここ</A>をマウスの<EM>右ボタン</EM>でクリックし，「名前を付けてリンク先を保存」を選んでください．ファイルの保存のウィンドウが出たら，<EM>data1.txt</EM> というファイル名で保存してください．</P>
+<H4>(1) 離散データを点でプロットする</H4>
+<P>このデータのグラフを描くには，plot コマンドに &quot;～&quot; でくくってファイル名を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>離散データのグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;<EM>data1.txt</EM>&quot;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>data1.txt には一つのデータの並び（欄）しかありませんから，何行目のデータなのかが横軸になります．</P>
+<DIV class="figure"><IMG src="gnuplot07.png" width="401" height="301" border="0"></DIV>
+<H4>(2) 折れ線グラフを描く</H4>
+<P>グラフを線で結ぶには，<EM>with lines</EM> を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>折れ線グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data1.txt&quot; <EM>with lines</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot08.png" width="401" height="301" border="0"></DIV>
+<H4>(3) 棒グラフを描く</H4>
+<P>棒グラフを描くには，<EM>with boxes</EM> を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>棒グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data1.txt&quot; <EM>with boxes</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot09.png" width="401" height="301" border="0"></DIV>
+<P>ただし，このままだと横軸がずれてしまうので，横軸の範囲を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>棒グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot <EM>[-1:24]</EM> &quot;data1.txt&quot; with boxes<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot10.png" width="401" height="301" border="0"></DIV>
+<H3>１．５　２次元のデータ</H3>
+<P>もし，データに複数の欄があれば，一つ目のデータが横軸，二つ目のデータが縦軸になります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>２次元データ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>4165 29329.3
+2155 14243.9
+1776 9087.7
+1127 6980.54
+236 665.639
+346 1723.1
+313 873.139
+478 2463.78
+850 3531.96
+2657 25978.9
+10432 61518.2
+13757 91962.7
+9305 53341.5
+7289 48685.0
+8970 60858.3
+10496 73180.3
+9519 68276.7
+5334 39095.3
+4883 43886.0
+3566 27799.9
+3785 42597.1
+4205 29211.1
+6316 36928.9
+5121 42233.2</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>上のデータをダウンロードするには，<A href="data2.txt">ここ</A>をマウスの<EM>右ボタン</EM>でクリックし，「名前を付けてリンク先を保存」を選んでください．ファイルの保存のウィンドウが出たら，<EM>data2.txt</EM> というファイル名で保存してください．このデータをもとに<EM>散布図</EM>を描いてみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>２次元データのグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;<EM>data2.txt</EM>&quot;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot11.png" width="401" height="301" border="0"></DIV>
+<P>しかし，このデータは横軸（第１欄）の値が大きさの順に並んでいないので，折れ線グラフにするとむちゃくちゃになってしまいます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>折れ線グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data2.txt&quot; <EM>with lines</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot12.png" width="401" height="301" border="0"></DIV>
+<P>with lines はデータの順に線を引きます．このようなデータにおいてグラフを滑らかに結ぶには，後で述べる<A href="#interpolation">補間</A>を用います．</P>
+<H3>１．５　３つ以上の欄を持つデータ</H3>
+<P>２次元のグラフを描く場合，データに３つ以上の欄があっても，最初の２つの欄しか使用されません．．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３つの欄を持つデータ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>4165 29329.3 7.04185
+2155 14243.9 6.6097
+1776 9087.7 5.11695
+1127 6980.54 6.19391
+236 665.639 2.8205
+346 1723.1 4.98006
+313 873.139 2.78958
+478 2463.78 5.15435
+850 3531.96 4.15525
+2657 25978.9 9.77753
+10432 61518.2 5.89707
+13757 91962.7 6.68479
+9305 53341.5 5.73256
+7289 48685.0 6.67924
+8970 60858.3 6.78465
+10496 73180.3 6.97221
+9519 68276.7 7.17268
+5334 39095.3 7.32945
+4883 43886.0 8.98751
+3566 27799.9 7.79582
+3785 42597.1 11.2542
+4205 29211.1 6.94675
+6316 36928.9 5.84688
+5121 42233.2 8.24706</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このデータをダウンロードするには，<A href="data3.txt">ここ</A>をマウスの<EM>右ボタン</EM>でクリックし，「名前を付けてリンク先を保存」を選んでください．ファイルの保存のウィンドウが出たら，<EM>data3.txt</EM> というファイル名で保存してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３つの欄を持つデータのグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この場合，１つ目の欄を横軸の値，２つ目の欄を縦軸の値としてグラフを描きます．このデータの最初の２つの欄は data2.txt と同じです．</P>
+<DIV class="figure"><IMG src="gnuplot13.png" width="401" height="301" border="0"></DIV>
+<P>グラフを描く欄を <EM>using</EM> で指定すれば，任意の欄のグラフを描くことができます．３つ目の欄を描く場合は using <EM>3</EM> とします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３つ目の欄のデータのグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; <EM>using 3</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot14.png" width="401" height="301" border="0"></DIV>
+<P>この場合はデータが何行目にあるのかが横軸に使われますから，with lines を付けて折れ線グラフを描くことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３つ目の欄のデータの折れ線グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using 3 <EM>with lines</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot15.png" width="401" height="301" border="0"></DIV>
+<P>２つ目の欄を横軸，３つ目の欄を縦軸にするには，using <EM>2:3</EM> とします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>２つ目の欄と３つ目の欄を使って散布図を描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using <EM>2:3</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot16.png" width="401" height="301" border="0"></DIV>
+<P>ただし，この場合は横軸の値に使う２行目のデータが大きさの順に並んでいなければ，折れ線グラフなどは乱れます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>２つ目の欄と３つ目の欄を使って折れ線グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using 2:3 <EM>with lines</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot17.png" width="401" height="301" border="0"></DIV>
+<P>この場合もグラフを滑らかに結ぶには，後で述べる<A href="#interpolation">補間</A>を用います．</P>
+<H3>１．６　３次元のデータ</H3>
+<P>データに３つ以上の欄があるとき，そのデータから３次元のグラフを作成することができます．<A href="data4.txt">ここ</A>をマウスの<EM>右ボタン</EM>でクリックし，「名前を付けてリンク先を保存」を選んで，<EM>data4.txt</EM> というファイル名で保存してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３次元のデータのグラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">splot &quot;data4.txt&quot;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot27.gif" width="401" height="301" border="0"></DIV>
+<P>３次元のデータでも <EM>with lines</EM> を指定すれば折れ線グラフを描くことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>３次元のデータの折れ線グラフを描く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">splot &quot;data4.txt&quot; <EM>with lines</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot28.gif" width="401" height="301" border="0"></DIV>
+<H3><A class="label" name="interpolation">１．７　補間</A></H3>
+<P>グラフを描く際にデータの補間を行うことができます．補間の方式には <EM>smooth unique</EM>（線形補間），<EM>smooth cspline</EM>（スプライン補間），<EM>smooth acspline</EM>（重みつきスプライン補間）および <EM>smooth bezier</EM>，<EM>smooth sbezier</EM>（ベジェ曲線）があります．</P>
+<H4>(1) 線形補間</H4>
+<P><EM>smooth unique</EM> を指定すれば，データ間を線形補間します．with lines がすべての点をテー他の順に結ぶのに対し，smooth unique は横軸の値の大きさの順に点を結びます．横軸の値が同じ点が２つ以上あれば，縦軸の値としてそれらの平均値を使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>線形補間</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using 2:3 <EM>smooth unique</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>これは前節のグラフと同じデータです．</P>
+<DIV class="figure"><IMG src="gnuplot18.png" width="401" height="301" border="0"></DIV>
+<H4>(2) スプライン補間</H4>
+<P><EM>smooth cspline</EM> を指定すれば，データ間を３次スプライン (cubic spline) 曲線で補間します．曲線はすべての点を通ります．data3.txt の三番目の欄のデータのグラフは次のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>スプライン補間</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using 3 smooth <EM>cspline</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot19.png" width="401" height="301" border="0"></DIV>
+<H4>(3) 重みつきスプライン補間</H4>
+<P>smooth cspline によるスプライン補間ではすべての点を通るように曲線を描くので，誤差を含む測定データなどではかえって曲線が乱れます．そのような場合は
+<EM>smooth acspline</EM> を使います．各点の重み（その点の位置に引っ張られる強さ）は，各点のデータごとに３つ目のデータとして追加するか，using を使って指定します．下の例はデータのある行の番号を横軸に，３つ目の欄を縦軸に使い，すべての点の重みとして
+100 を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>重みつきスプライン補間</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using <EM>:</EM>3<EM>:(100)</EM> smooth <EM>acspline</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot20.png" width="401" height="301" border="0"></DIV>
+<P>重みを小さくすると，データの点から離れていきます．同じデータで重みを１にすると，次のようなグラフになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>重みつきスプライン補間の重みを小さくした場合</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using</span> :3:(<EM>1</EM>) smooth acspline<span class="type"><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot21.png" width="401" height="301" border="0"></DIV>
+<H4>(4) ベジェ曲線</H4>
+<P>ベジェ曲線は Illustrator などの作図ソフトウェアなどで使用される曲線です．データの各点はベジェ曲線の制御点として扱われます．<EM>smooth bezier</EM> はデータを順に制御点として使うのに対し，<EM>smooth sbezier</EM> はデータを横軸の値の順に並べ替えてから制御点として使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ベジェ曲線</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; <EM>using 3</EM> smooth <EM>bezier</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot22.png" width="401" height="301" border="0"></DIV>
+<P>しかし，bezier はデータが大きさの順に並んでいないとくしゃくしゃになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ベジェ曲線</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; <EM>using 2:3</EM> smooth bezier<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot23.png" width="401" height="301" border="0"></DIV>
+<P><EM>sbezier</EM> ならデータが順に並んでいなくても滑らかに線を引くことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ベジェ曲線</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data3.txt&quot; using 2:3 smooth <EM>sbezier</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot24.png" width="401" height="301" border="0"></DIV>
+<H3>１．８　グラフの重ね合わせ</H3>
+<P>plot コマンドにコンマで区切ってデータを複数指定すれば，それらのグラフを重ねて表示することができます．例えば上のベジェ曲線のグラフに重ねて同じデータを点で描くには，次のようにします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>グラフの重ね合わせ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data2.txt&quot; smooth sbezier<EM>, &quot;data2.txt&quot;</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot25.png" width="401" height="301" border="0"></DIV>
+<P>もちろん，２つ目のグラフを折れ線グラフにしたり，補間することもできます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>グラフの重ね合わせ</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">plot &quot;data2.txt&quot; smooth sbezier</span>, &quot;data2.txt&quot; <EM>smooth unique</EM><span class="type"><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="figure"><IMG src="gnuplot26.png" width="401" height="301" border="0"></DIV>
+<H3><A class="label" name="print">１．９　グラフのファイル出力と印刷</A></H3>
+<P>作成したグラフを印刷したり，別のソフトウェアで利用したりするには，グラフをファイルに保存します．最初に <EM>set terminal</EM> コマンドを使って出力方法を指定します．set terminal コマンドだけを入力すれば，出力方法の一覧が表示されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>出力方法の一覧</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set terminal<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(1) グラフをプリンタに印刷する</H4>
+<P>プリンタに印刷できる形式でグラフを出力するには，set terminal コマンドで <EM>postscript</EM> を指定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript 形式で出力</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set terminal <EM>postscript</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>次に，<EM>set output</EM> コマンドで出力するファイル名を指定します．ファイル名は &quot;～&quot; でくくります．ここでは graph.ps というファイルを作成するものとします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>出力ファイル名の指定</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set output &quot;graph.ps&quot;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ここでもう一度 plot コマンドでグラフを描きます．<EM>replot</EM> コマンドを使えば，直前に描いたものと同じグラフをもう一度描くことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>出力ファイル名の指定</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">replot<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>replot を何度も実行したり，plot コマンドで別のグラフを出力したりすると，ファイルにグラフを重ね書きしてしまいます．一度グラフを出力したら，そのたびに
+<EM>set output</EM> コマンドで別のファイル名を指定するか，ファイル名を指定せずに set output コマンドを実行して下さい．</BLOCKQUOTE>
+<P>これでカレントディレクトリに graph.ps というファイルができているはずです．<EM>端末</EM>のウィンドウをもう一つ開いて，ls コマンドで確認してみてください．PostScript 形式のデータは， <em>gv</em> や <em>evince</em> コマンドで画面表示できます．<EM>シェル</EM>で gv コマンドを使って，graph.ps を見てみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript ファイルを画面表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">gv graph.ps<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>演習室のプリンタは PostScript 形式のファイルを直接印刷することができます．なお，gv からも印刷することができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript ファイルを印刷する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">lpr graph.ps<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(2) EPS (Encapsulated PostScript) 形式でグラフを出力する</H4>
+<P>LaTeX において文書中に図を埋め込む方法の一つに，EPS 形式のファイルを使用するものがあります．その形式でグラフを出力します．EPS は
+Encapsulated （他の PostScript ファイルに埋め込めるようにカプセル化された） PostScript です．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>EPS 形式で出力</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set terminal postscript <EM>eps</EM><KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">set output &quot;graph.eps&quot;<KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">replot<KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">set output<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>EPS 形式のファイルも gv や evince コマンドで画面表示できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript ファイルを画面表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">gv graph.eps<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(3) SVG 形式でグラフを出力する</H4>
+<P>SVG は Web における図形ファイル（ベクトル形式）の標準的な書式で，そのまま Web ブラウザ（Internet Explorer 8 以前を除く）で表示できます．出力するファイルのファイル名には，必ず <EM>.svg</EM> という拡張子を付けてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>SVG 形式で出力</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>gnuplot&gt; <span class="type">set terminal svg<KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">set output &quot;graph.<EM>svg</EM>&quot;<KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">replot<KBD>[Enter]</KBD></span>
+gnuplot&gt; <span class="type">set output<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>出力された graph.svg というファイルは，後で説明する <em>Inkscape</em> で開くことができます．ただし，Inkscape で開くと見掛けが完全に再現されないことがあるので，「表示」メニューから「アウトラインモード」に切り替えて，線の属性などを修正する必要があるかもしれません．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Inkscape を使ってグラフを編集する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">inkscape graph.svg<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このほか，Macintosh や Windows でよく使用される作図ソフトウェアの Illustrator 形式や，Web の画像データとして使用される
+PNG 形式などでも出力することができます．</P>
+<H2><a name="inkscape" class="label" id="inkscape">２．作図</a></H2>
+<H3>２．１　作図ツール</H3>
+<P>図やイラストを描くためのツールとしては Adobe 社の Illustrator が有名ですが，これも Linux 版はありません．代わりに以下のものがあります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">作図ツール</TH>
+    </TR>
+   <TR>
+      <TD><EM>xfig</EM></TD>
+      <td class="action">古くからある X Window 用の作図ツール．</td>
+    </TR>
+   <TR>
+      <TD><EM>Tgif</EM></TD>
+      <td class="action">これも古くからある X Window 用の作図ツール．「図面」みたいなものが書きやすい．日本語対応．</td>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://sodipodi.sourceforge.net/" target="_blank">sodiposi</a></EM></TD>
+      <td class="action">オープンソースで開発されているドローソフト．SVG 形式のファイルを作成できる．現在は開発が停止している模様．</td>
+    </TR>
+     <TR>
+      <TD><EM><a href="http://www.inkscape.org/index.php?lang=ja" target="_blank">Inkscape</a></EM></TD>
+      <td class="action">オープンソースで開発されているドローソフト．sodipodi から派生したもの．<a href="http://www.forest.impress.co.jp/lib/pic/piccam/paint/inkscape.html" target="_blank">Windows版</a>もある．</td>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ここでは <a href="http://www.inkscape.org/index.php?lang=ja" target="_blank">Inkscape</a> を使って作図をしてみます．<a href="http://www.inkscape.org/download/?lang=ja" target="_blank">Windows 版や Mac 版もあります．</a>Inkscape を使うと他の講義で Illustrator を使うときに混乱するかもしれませんが，Illustrator 9 形式のファイルを読み込んだり，Illustrator 8 形式でファイルを保存したりすることが可能です．ただし，Illustrator など比べて機能的に多少見劣りします．また不具合もいろいろあります．描いた図はそのまま Web ページで使用できるほか，PostScript 形式や <A href="07.html#viewer">PDF 形式</A>でも保存できます．</P>
+<H3>２．２　Inkscape の起動</H3>
+<P>ターミナルのウィンドウで inkscape コマンドを実行してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Inkscape の起動</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><em>inkscape</em> &amp;<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>メニューからも起動できます．</P>
+<DIV class="figure"><IMG src="inkscape00.gif" width="720" height="600" alt="GIMP の起動"></DIV>
+<P>Inkscape が起動すると，空の作図のウィンドウが開きます．以降の図はウィンドウのデザインが違いますが，使用するボタン等は同じです．</P>
+<DIV class="figure"><IMG src="inkscape01.gif" width="640" height="548" border="0"></DIV>
+<H3>２．３　図形の描画</H3>
+<P>まず，描画する図形を選択します．作図エリアの左に縦に並んでいるツールの絵記号の中から，例えば矩形（四角形）を選択してください．</P>
+<DIV class="figure"><IMG src="inkscape02.gif" width="640" height="548" border="0"></DIV>
+<P>作図エリア上でマウスを斜めにドラッグすれば，図形が描かれます．<em>正方形</em>を描くには，<kbd>[Ctrl]</kbd> を押しながらドラッグします．また <kbd>[Shift]</kbd> を押しながらドラッグすれば，ドラッグを開始した点を中心に図形を描きます．</P>
+<DIV class="figure"><IMG src="inkscape03.gif" width="640" height="548" border="0"></DIV>
+<P>描いた図形の左上または右下にある□のハンドルをドラッグすれば，サイズを調整できます．</P>
+<DIV class="figure"><img src="inkscape04.gif" width="640" height="548" border="0"></DIV>
+<P>描いた図形の右上にある○のハンドルをドラッグすれば，角を丸めることができます．</P>
+<DIV class="figure"><IMG src="inkscape05.gif" width="640" height="548" border="0"></DIV>
+<P>塗りつぶしの色を変えるには，作図エリアの<em>下部</em>にあるパレットの色をクリックしてください．パレットは，その下にあるスクロールバーで動かすことができます．なお，右上にある &quot;Fill&quot; &quot;Stroke&quot; の色のところはクリックしないでください．</P>
+<DIV class="figure"><IMG src="inkscape06.gif" width="640" height="548" border="0"></DIV>
+<P><kbd>[Shift]</kbd> を押しながらパレットの色をクリックすると，枠線の色を変更することができます．</P>
+<DIV class="figure"><IMG src="inkscape07.gif" width="640" height="548" border="0"></DIV>
+<P>パレットの右側にある &quot;&lt;&quot; をクリックすれば，パレットの色の組み合わせを変更できます．</P>
+<DIV class="figure"><IMG src="inkscape08.gif" width="640" height="548" border="0"></DIV>
+<P>作図エリアの左下の枠線 (Stroke) の色の<em>右側</em>にある数字をマウスの<em>右ボタン</em>でクリックすると，枠線の太さを変えることができます．</P>
+<DIV class="figure"><IMG src="inkscape09.gif" width="640" height="548" border="0"></DIV>
+<P>その右側の箱の中の数字を設定するか，数字の右にある &quot;＾&quot; &quot;ｖ&quot; をクリックすれば，不透明度を変えることができます．</P>
+<DIV class="figure"><IMG src="inkscape10.gif" width="640" height="548" border="0"></DIV>
+<P>作図エリアの右上の絵筆のついている絵記号か左下の部分をクリックすると，「フィル／ストローク」のウィンドウが現れます．ここでさらに細かく設定できます．</P>
+<DIV class="figure"><IMG src="inkscape11.jpg" width="640" height="548" border="0"></DIV>
+<P>「ストロークのスタイル」のタブを選ぶと，枠線を点線にしたり，矢印にしたりすることができます（矩形のように枠線が閉じている場合は矢印は表示されません．</P>
+<DIV class="figure"><IMG src="inkscape12.jpg" width="640" height="548" border="0"></DIV>
+<P>このウィンドウを閉じるには，このウィンドウの右上の&times;をクリックしてください．</P>
+<DIV class="figure"><img src="inkscape13.jpg" width="640" height="548" border="0"></DIV>
+<P>同様にして，楕円も描くことができます．この場合も，<kbd>[Ctrl]</kbd> を押しながらドラッグすれば真円を描くことができます．また <kbd>[Shift]</kbd> を押しながらドラッグすれば，ドラッグを開始した点を中心に図形を描きます．図形を描く前にパレットをクリックして色を設定しておくこともできます．</P>
+<DIV class="figure"><img src="inkscape14.jpg" width="640" height="548" border="0"></DIV>
+<P>○のハンドルを操作すれば，扇形や弧を描くことができます．扇形と弧はウィンドウ上部のボタンで切り替えることができます．一番右の全円のボタンをクリックすれば，扇形や弧を全円に戻すことができます．</P>
+<DIV class="figure"><IMG src="inkscape15.jpg" width="640" height="548" border="0"></DIV>
+<P>作図エリアの左下をクリックして「フィル／ストローク」のウィンドウを表示します．「フィル」のタブで「塗りなし」を選択してください．</P>
+<DIV class="figure"><IMG src="inkscape16.jpg" width="640" height="548" border="0"></DIV>
+<P>「ストロークのスタイル」のタブで，「始点マーカー」や「終点マーカー」に矢じりを設定すると，矢印を描くことができます．</P>
+<DIV class="figure"><IMG src="inkscape17.jpg" width="640" height="548" border="0"></DIV>
+<P>ただし，この矢印の色は線の色と異なるので，「エフェクト」メニューから「パスの変形」，「Color Markers to Match Stroke」を選んでください．</P>
+<DIV class="figure"><IMG src="inkscape18.gif" width="640" height="480" border="0"></DIV>
+<blockquote><p>もしここで次のような警告が表示された場合は，そのまま OK をクリックしてください．</p>
+<DIV class="figure"><IMG src="inkscape19.gif" width="483" height="270" border="0"></DIV></blockquote>
+<P>曲線（ベジェ曲線）の描き方は，Illustrator と同じです．</P>
+<DIV class="figure"><IMG src="inkscape20.jpg" width="640" height="548" border="0"></DIV>
+<P>曲線を選択した後，作図エリア上でマウスをドラッグすると，線分が表示されます．曲線ではなく折れ線を描くときは，マウスをドラッグせずに，すぐにボタンを離してください．</P>
+<DIV class="figure"><IMG src="inkscape21.jpg" width="640" height="548" border="0"></DIV>
+<P>マウスのボタンを離すと，赤い曲線が現れます．別の位置でマウスのボタンをクリックして，そのままドラッグすれば，また線分が現れます．曲線ではなく折れ線を描くときは，マウスをドラッグせずに，すぐにボタンを離してください．</P>
+<DIV class="figure"><IMG src="inkscape22.jpg" width="640" height="548" border="0"></DIV>
+<P>この操作を繰り返し，最後に始点の位置にある□のハンドルをクリックするか，終点の位置で<em>右ボタン</em>をクリックするか<em>ダブルクリック</em>すれば，図形が作成されます．始点の□のハンドルをクリックしたときは，閉じた図形になります．このときマウスのボタンを離さずにドラッグすれば，その点での接線方向を調整できます．</P>
+<DIV class="figure"><IMG src="inkscape23.jpg" width="640" height="548" border="0"></DIV>
+<P>これで曲線の図形が作成されます．</P>
+<DIV class="figure"><IMG src="inkscape24.jpg" width="640" height="548" border="0"></DIV>
+<P>矩形や楕円の場合と同様に，塗りつぶしや枠線の色などを設定します．</P>
+<DIV class="figure"><IMG src="inkscape25.jpg" width="640" height="548" border="0"></DIV>
+<H3>２．４　図形の編集</H3>
+<P>描いた図形を編集するには，まず作図エリアの左のツールの絵記号の一番上にある矢印を選ぶか <kbd>[F1]</kbd> または<kbd>スペースバー</kbd>をタイプし，その後，編集する図形をクリックしてください．<kbd>[Shift]</kbd> キーを押しながらクリックすれば，複数の図形を選択できます．その後マウスをドラッグすれば，図形を<em>移動</em>できます．<kbd>[Ctrl]</kbd> キーを押しながらドラッグすれば，移動方向を水平あるいは垂直に制限できます．<kbd>[Esc]</kbd> キーをタイプすれば選択を解除できます．</P>
+<DIV class="figure"><IMG src="inkscape26.jpg" width="640" height="548" border="0"></DIV>
+<P>図形の周囲に表示されている矢印をドラッグすれば，矢印の方向に図形を<em>拡大縮小</em>できます．<kbd>[Ctrl]</kbd> を押しながらドラッグすれば，拡大縮小の縦横比を固定します．</P>
+<DIV class="figure"><IMG src="inkscape27.jpg" width="640" height="548" border="0"></DIV>
+<P><em>もう一度</em>図形をクリックすれば，図形の周囲の矢印の形が変わります．このとき四隅の矢印をドラッグすれば，図形を<em>回転</em>できます．<kbd>[Ctrl]</kbd> を押しながらドラッグすれば，回転角を１５度ずつに制限できます．</P>
+<DIV class="figure"><IMG src="inkscape28.jpg" width="640" height="548" border="0"></DIV>
+<P>上下左右の矢印をドラッグすれば，図形を<em>せん断変形</em>（シアー）できます．<kbd>[Ctrl]</kbd> を押しながらドラッグすれば，せん断の角度を１５度ずつに制限できます．</P>
+<DIV class="figure"><IMG src="inkscape29.jpg" width="640" height="548" border="0"></DIV>
+<P>作図エリアの上部のボタンを使って，図形を左右90度ずつ回転することもできます．図形を左に90度回転すると，下のようになります．</P>
+<DIV class="figure"><IMG src="inkscape30.jpg" width="640" height="548" border="0"></DIV>
+<P>同様に作図エリアの上部のボタンを使って，図形を左右あるいは上下に反転できます．図形を左右に反転すると，下のようになります．</P>
+<DIV class="figure"><IMG src="inkscape31.jpg" width="640" height="548" border="0"></DIV>
+<P>図形は描くたびに上に重ねられていきますが，作図エリアの上のボタンを使って，重なり順を変えることができます．図形を一つ下に移動すると，下のようになります．</P>
+<DIV class="figure"><IMG src="inkscape32.jpg" width="640" height="548" border="0"></DIV>
+<P>メニューの下の「はさみ」のボタンのクリックか <kbd>Ctrl-X</kbd> のタイプ，あるいは「編集」メニューから「切り取り」を選択することで，選択した図形を削除することができます．</P>
+<DIV class="figure"><IMG src="inkscape33.jpg" width="640" height="548" border="0"></DIV>
+<P>削除した図形は「はさみ」のボタンの右側にある「クリップボード」のボタンのクリック，<kbd>Ctrl-V</kbd> のタイプ，あるいは「編集」メニューから「貼り付け」を選択することで，再び貼り付けることができます．</P>
+<DIV class="figure"><IMG src="inkscape34.jpg" width="640" height="548" border="0"></DIV>
+<P>クリップボードには削除またはコピーした図形が保存されているので，同じ図形を複数回貼り付けて複製することもできます．ただし，以前に貼り付けたところと同じ位置に貼り付けられます．どちらか一方を移動させておいてください．なお，図形の複製は「複製」のボタンでもできます．</P>
+<DIV class="figure"><IMG src="inkscape36.jpg" width="640" height="548" border="0"></DIV>
+<P>「クローン」も図形を複製します．ただし，この場合はもとの図形を変形すると，複製された図形も変形します．</P>
+<DIV class="figure"><IMG src="inkscape36.jpg" width="640" height="548" border="0"></DIV>
+<P>クローンで複製された図形を変形しても，もとの図形に影響はありません．</P>
+<DIV class="figure"><IMG src="inkscape37.jpg" width="640" height="548" border="0"></DIV>
+<P>しかし，クローンによる複製の元になった図形を変形すると，複製された図形も同じように変形します．</P>
+<DIV class="figure"><IMG src="inkscape38.jpg" width="640" height="548" border="0"></DIV>
+<P>曲線で描いた図形も編集できます．曲線の変種のボタンをクリックした後，曲線の制御点を選択します．その点から出ている二つの○のハンドルを移動すれば，その点における曲線の接線の方向を変えることができます．</P>
+<DIV class="figure"><IMG src="inkscape39.jpg" width="640" height="548" border="0"></DIV>
+<P>曲線は制御点を滑らかに結びますが，作図エリアの上の「制御点を角にする」ボタンを使って，制御点を角にすることができます．このボタンをクリックした後，○のハンドルをドラッグします．</P>
+<DIV class="figure"><IMG src="inkscape40.jpg" width="640" height="548" border="0"></DIV>
+<P>もし，ハンドルが短すぎてマウスで選択できないような場合は，「ハンドルを対称にする」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="inkscape41.jpg" width="640" height="548" border="0"></DIV>
+<H3>２．５　操作の取り消し</H3>
+<P>作図内容や図形に対する操作を取り消したいときは，メニューの下の左向きの黄色い矢印をクリックするか，<kbd>Ctrl-Z</kbd> をタイプするか，「編集」メニューから「元に戻す」を選んでください．取り消した操作をもう一度やり直したいときには，メニューの下の右向きの緑色の矢印をクリックするか，<kbd>[Shift]</kbd> を押しながら <kbd>Ctrl-Z</kbd> をタイプするか，「編集」メニューから「やり直し」を選んでください．</P>
+<DIV class="figure"><IMG src="inkscape42.jpg" width="640" height="548" border="0"></DIV>
+<H3>２．６　画面表示</H3>
+<P>画面表示の拡大縮小は，「表示」メニューから「ズーム」の「ズームイン」「ズームアウト」を選ぶか，<kbd>+</kbd> または <kbd>-</kbd> キーをタイプしてください．</P>
+<DIV class="figure"><IMG src="inkscape49.jpg" width="640" height="548" border="0"></DIV>
+<P>作図エリアの左にある虫眼鏡のボタンを選択すれば，マウスでクリックしたところを拡大できます．縮小するには <kbd>[Shift]</kbd> キーを押しながらマウスをクリックしてください．</P>
+<DIV class="figure"><IMG src="inkscape50.jpg" width="640" height="548" border="0"></DIV>
+<P><kbd>[Ctrl]</kbd> を押しながらマウスの<strong>右ボタン</strong>で作図エリアをドラッグすれば，表示範囲を移動することができます．</P>
+<DIV class="figure"><IMG src="inkscape51.jpg" width="640" height="548" border="0"></DIV>
+<P>メニューの下の三つの虫眼鏡の一番左をクリックすると，選択している図形が作図エリアいっぱいに表示されます．</P>
+<DIV class="figure"><IMG src="inkscape52.jpg" width="640" height="548" border="0"></DIV>
+<P>メニューの下の三つの虫眼鏡の一番右をクリックすると，ページ全体が作図エリアいっぱいに表示されます．</P>
+<DIV class="figure"><IMG src="inkscape53.jpg" width="640" height="548" border="0"></DIV>
+<P>かっちりとした図を描きたいときは，グリッドを表示すると便利です．グリッドは <kbd>#</kbd> キーをタイプするか，「表示」メニューから「グリッド」を選ぶと表示されます．グリッドを消すには，もう一度 <kbd>#</kbd> キーをタイプするか「表示」メニューから「グリッド」を選びます．</P>
+<DIV class="figure"><IMG src="inkscape54.jpg" width="640" height="548" border="0"></DIV>
+<P>また，グリッドを表示しているときに「スナップ」を有効にすると，マウスをクリックした位置がグリッドの交点に吸い寄せられます．<kbd>%</kbd> キーをタイプするか「表示」メニューの「Snap」を選んでください．スナップを無効にするには，もう一度 <kbd>%</kbd> キーをタイプするか「表示」メニューの「Snap」を選んでください．なお，グリッドを表示していないときにスナップを有効にすれば，他のオブジェクトの頂点や制御点などに吸い寄せられます．</P>
+<DIV class="figure"><img src="inkscape55.jpg" width="640" height="548" border="0"></DIV>
+<H3>２．７　作成した図の保存</H3>
+<P>作成した図を保存するには，メニューの下の左から三番目のハードディスクのボタンをクリックするか，<kbd>Ctrl-S</kbd> をタイプするか，もしくは「ファイル」メニューから「保存」を選んでください．</P>
+<DIV class="figure"><IMG src="inkscape43.jpg" width="640" height="548" border="0"></DIV>
+<P>「名前」には <em>.svg</em> という拡張子をつけてください．その後「他のフォルダ」の左側の三角をクリックして，保存するディレクトリを選んで，「保存」をクリックしてください．</P>
+<DIV class="figure"><IMG src="inkscape44.jpg" width="606" height="645" border="0"></DIV>
+<P>いったん保存したファイルを別のファイル名で保存するときは，<kbd>[Shift]</kbd> キーを押しながら <kbd>Ctrl-S</kbd> をタイプするか，「ファイル」メニューから「名前を付けて保存」を選んでください．</P>
+<DIV class="figure"><IMG src="inkscape45.jpg" width="640" height="548" border="0"></DIV>
+<P><em>EPS 形式</em>でファイルを出力するなら，ここでファイルの種類として「カプセル化 PostScript (*.eps)」を選び，その後に「保存」をクリックしてください．</P>
+<DIV class="figure"><IMG src="inkscape46.jpg" width="606" height="645" border="0"></DIV>
+<P>EPS 形式（カプセル化 PostScript）で出力する場合は，テキスト（文字）をパス（図形）に変換しておかないと，他のソフトウェアで利用できない場合があります．</P>
+<DIV class="figure"><IMG src="inkscape47.gif" width="282" height="169" border="0"></DIV>
+<H3>２．８　Inkscape の終了</H3>
+<P>Inkscape を終了するには，<kbd>Ctrl-Q</kbd> をタイプするか，「ファイル」メニューから「終了」を選んでください．</P>
+<DIV class="figure"><IMG src="inkscape48.jpg" width="640" height="548" border="0"></DIV>
+<H2><A class="label" name="assignment">宿題</A></H2>
+<p>次の (1)～(5) の作業を行ってください．その後，メールの本文に (6) の内容を書き，(5) で作成した PDF ファイルを添付して <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-09">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-09 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) 何か適当な図を Inkscape を使って描いてください．書くものが思いつかなかったら，下の図を描いてください（まったく同一である必要はありません）．ファイル名は<em>アルファベットと数字だけ</em>にして，<em>拡張子 .svg</em> は必ず付けてください．また誰の図かわかるように，図中に自分の<EM>学籍番号</EM>と<EM>氏名</EM>（漢字も入れられるけどローマ字でも可）を書き込んでおいてください．文字を入力するには，作図エリアの左にある<em> A </em>のボタンをクリックしてください．字体などを調整したいときは，メニューの下にある <em>T</em> のボタンをクリックするか，「テキスト」メニューから「テキスト／フォント」を選んでください．</DIV>
+<DIV class="figure"><object type="image/svg+xml" data="pyramid.svg" width="540" height="700"></object></DIV>
+<blockquote><div class="header">SVG ファイルの Web ページへの埋め込み</div>
+<div class="body">SVG ファイルも GIF や JPEG 画像と同様，<CODE class="tag">&lt;img&gt;</CODE> タグを使って Web ページ内に配置することができます．
+  <pre class="source">&lt;img src=&quot;pyramid.svg&quot; width=&quot;540&quot; height=&quot;700&quot;&gt;</pre>
+  ただし，古いブラウザでは表示できない場合があります．そのことを想定する場合は，<a href="07.html#object" target="_blank">SWF (Macromedia Shockwave Flash) ファイルと同様</a>，<CODE class="tag">&lt;object&gt;</CODE> タグを使って Web ページ内に配置することができます（ブラウザ側にプラグインが必要になる場合があります）．
+  <pre class="source">&lt;object type=&quot;image/svg+xml&quot; data=&quot;pyramid.svg&quot; width=&quot;540&quot; height=&quot;700&quot;&gt;&lt;/object&gt;</pre>
+なお，<em>文字</em>は<em>字体が Web ページを見ている側の環境にない場合が多い</em>ので，文字を選択してメニューの「パス」から「オブジェクトをパスへ <kbd>Shift+Ctrl+C</kbd>」を選んで，図形に変換しておく必要があります．</div>
+</blockquote>
+<DIV class="assign">(2) 上の図を <EM>EPS 形式</EM>で出力してください（.eps という拡張子のファイルが作成されるはずです）．</DIV>
+<DIV class="assign">(3) <A href="data5.txt">このデータ</A>（右クリックで「名前を付けてリンク先を保存」してください）の３次元の折れ線グラフを <B>gnuplot</B> の <B>splot</B> コマンドを使って作成し，<B>EPS 形式</B>で出力してください．なお，splot コマンドを実行する<EM>前</EM>に <EM>set hidden3d</EM> コマンドを実行しておけば，<EM>隠線消去処理</EM>（隠れた線を表示しないようにする処理）を行うことができます．</DIV>
+<DIV class="assign">(4) <A href="07.html#banner">第７回で作成したバナー画像</A>を <em>EPS 形式</em>で保存してください（「ファイル」メニューから「別名で保存」を選んで，.eps という拡張子をつけたファイル名で保存します）．</DIV>
+<DIV class="assign">(5) <A href="08.html#kadai">第８回の宿題</A>で作成したレポートの最後に，(2), (3), (4) で作成した <em>EPS 形式</em>のファイルを埋め込んだ <EM>PDF ファイル</EM>を作成してください．作成した PDF ファイルを <em>report</em><strong>2</strong><em>.pdf</em> というファイル名で <em>public_html に置いて</em>ください．図の<em>横幅は 8cm</em> とし，それぞれに<em>キャプション</em>を付けるようにしてください．また，これら三つの図が文書中に<em>うまく収まるように</em>工夫してください．LaTeX のソースファイルに EPS 形式の図を埋め込む方法については <A href="latex.html">LaTeX の概要</A>を参考にしてください．</DIV>
+<DIV class="figure"><IMG src="tanoshimi2.gif" width="640" height="449" alt="「私の密かな楽しみ」に図を追加"></DIV>
+<div class="assign">(6) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="08.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,1270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第６回：ホームページ制作（スタイル編），ホームページ制作（テーブル編）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第６回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>スタイルシートによるレイアウト制御について知る</LI>
+  <LI>表の作成方法について知る</LI>
+</OL>
+<ul>
+<li><a href="shori1-05/">提出された前回の宿題</a></li>
+</ul>
+<div class="footer"><a href="05.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2><A class="label" name="table">１．ホームページ制作（スタイル編）</A></H2>
+<H3>１．１　カスケーディングスタイルシート (CSS)</H3>
+<P>HTML によるマークアップによって，Web ブラウザは文書の要素をレイアウトするための手がかりを得ます．要素のレイアウト方法は，<EM>スタイルシート</EM>によって指定します．ここで注意してほしいことは，<strong>マークアップが見かけを指定することではない</strong>ということです．マークアップとは<em>文書の論理的構造に印をつける</em>ことであって，その印に対して<em>どういう見かけを与えるのかはスタイルシートの役割</em>です．<code class="tag">&lt;center&gt;</code> で中央に寄せたり，<code class="tag">&lt;br&gt;</code> の数でスペースを調整したりすることは<em>推奨されません</em>．</P>
+<P>ブラウザが Web ページを表示する際に参照するスタイルシートには，以下の三つのものがあります．</P>
+<blockquote>
+<div class="header">参照されるスタイルシート</div>
+<div class="body">
+<DL>
+  <DT>Web ページ作成者によって設定されたスタイルシート</DT>
+  <DD>Web ページ作成者がレイアウトを指定するために設定したスタイルシートです．</DD>
+  <DT>利用者（読者）によって設定されたスタイルシート</DT>
+  <DD>利用者が Web ブラウザの表示設定などを行うことによって設定されるスタイルシートです．</DD>
+  <DT>Web ブラウザ自体が持っているスタイルシート</DT>
+  <DD>Web ブラウザ自身が持っているスタイルシートは，利用者や Web ページ作成者による指定がなかったときに用いられる，最も標準的なレイアウトを指定します．</DD>
+</DL>
+</div>
+</blockquote>
+<P>Web ブラウザ上のレイアウトは，この３つのスタイルシートの組み合わせによって決定されます．<EM>通常</EM>，最初の「Webページ作成者によって設定されたスタイルシート」が最も優先され，次に「利用者（読者）によって設定されたスタイルシート」が使用されます．このような組み合わせ処理を<A href="http://park19.wakwak.com/~zashiki/css-make/cascade.html" target="_blank">カスケード処理</A>と呼びます．</P>
+<H3>１．２　長さの指定</H3>
+<P>文書の要素をレイアウトする際には，文字の大きさや欄の幅のような<EM>値</EM>を指定しなければならないことがあります．このような値のことを，ここでは「長さ」と呼ぶことにします．この「長さ」は符号付きの実数値に単位識別子を付けて表します．また「長さ」の単位には，実際の長さを指定する<EM>絶対単位</EM>と，他との関係で長さを指定する<EM>相対単位</EM>があります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">絶対単位の識別子</TH>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>in</EM></TD>
+      <TD class="action">インチ（例 0.5in -3in）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>cm</EM></TD>
+      <TD class="action">センチメートル（例 0.5cm 2.4cm）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>mm</EM></TD>
+      <TD class="action">ミリメートル（例 10mm 20.5mm）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>pt</EM></TD>
+      <TD class="action">ポイント，1pt = 1/72 in（例 10pt 12pt）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>pc</EM></TD>
+      <TD class="action">パイカ，1pc = 12pt（例 2pc 3.5pc）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>絶対単位を用いても，（現状では）それが実際に表示されるときの長さは利用者が Web の閲覧に使用する環境に依存します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">相対単位の識別子</TH>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>em</EM></TD>
+      <TD class="action">エム，大文字の M の高さ＝そのフォントの高さ（例 1em -2.5em）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>ex</EM></TD>
+      <TD class="action">エックス，小文字の x の高さ（例 0.5ex 2.4ex）</TD>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>px</EM></TD>
+      <TD class="action">ピクセル，ディスプレイ上の点（画素）の大きさ（例 10px 500px）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>相対単位のうち <EM>px</EM> は，画素の大きさという物理的な大きさとの比較になるので，ウィンドウサイズや基本となるフォントのサイズが変化しても不変な<EM>固定値</EM>になります．</P>
+<H3>１．３　割合の指定</H3>
+<P>何らかの対象に対する割合を百分率で指定して，<EM>長さ</EM>などの値として用いる場合もあります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">百分率単位の識別子</TH>
+    </TR>
+    <TR>
+      <TD style="width: 5em;"><EM>%</EM></TD>
+      <TD class="action">パーセント，何らかの比較対象に対するパーセンテージ（例 100% 50% 120%）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>Web ページは印刷物等とは異なり，利用者によってウィンドウサイズや表示に使用する文字の<em>基準となる大きさが変更される</em>ことを前提としなければなりません．したがって，できるだけ <EM>em</EM> や <EM>%</EM> などの相対的な長さを用い，かつ美しくレイアウトするよう心がけるべきでしょう．</P>
+<H3>１．４　 Web ページに CSS を組み込む</H3>
+<P>それでは前回作成した <EM>profile.html</EM> のレイアウトを <EM>CSS</EM> で制御してみましょう．Web ページの作成者が HTML ファイルのレイアウトを CSS によって制御するには，HTML ファイルのヘッダ部に置いた <CODE class="tag">&lt;style&gt;</CODE>～<CODE class="tag">&lt;/style&gt;</CODE> タグの間でスタイルの<EM>プロパティ</EM>（特性値）を設定します．</P>
+<P>はじめに <A href="05.html#openfile">Firefox の新しいウィンドウかタブを作成</A>し，そこに profile.html を表示してください．次に<EM>端末</EM>を開き，シェルの<EM>カレントディレクトリ</EM>を<A href="05.html#workdir">前回作成した <EM>html</EM> に移してください</A>．そこで <EM>emacs</EM> を使って profile.html を開き，下線部の内容を追加してください．タイピングに時間がかかるようなら，下線部の内容を Firefox
+から テキストエディタのウィンドウに<A href="04.html#copyandpaste">コピー＆ペースト</A>して構いません．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+<span class="type"></span><span class="type">  &lt;style&gt;</span>
+<span class="type"></span><span class="type">    dt {</span>
+<span class="type">      font-weight: bold;</span>
+<span class="type">    }</span>
+<span class="type"></span><span class="type">  &lt;/style&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;h1&gt;自己紹介&lt;/h1&gt;
+
+  &lt;dl&gt;
+          &lt;dt&gt;名前&lt;/dt&gt;       &lt;dd&gt;和歌山健太郎&lt;/dd&gt;
+          &lt;dt&gt;出身地&lt;/dt&gt;     &lt;dd&gt;和歌山県和歌山市&lt;/dd&gt;
+          &lt;dt&gt;生年月日&lt;/dt&gt;   &lt;dd&gt;昭和52年6月23日&lt;/dd&gt;
+          &lt;dt&gt;趣味&lt;/dt&gt;       &lt;dd&gt;美食&lt;/dd&gt;
+          &lt;dt&gt;メッセージ&lt;/dt&gt; &lt;dd&gt;美食サークルメンバー募集中&lt;/dd&gt;
+  &lt;/dl&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>追加できたらファイルを保存して（emacs なら <KBD>C-x C-s</KBD> でバッファを保存して），Firefox で<EM>再読み</EM>してみてください．リストの見出しの部分が太字に変化します．しなかったらどこかに問題がありますので，調べてみてください．わからなければ聞いてください．</P>
+<P>上記のスタイル指定は，<CODE class="tag">&lt;dt&gt;</CODE>～<CODE class="tag">&lt;/dt&gt;</CODE> でマークアップされた<EM>要素</EM>の <EM>font-weight</EM>（文字の太さ）という<EM>プロパティ</EM>（特性値）に， <EM>bold</EM>（太字）という値を設定するものです．</P>
+<H3>１．５　フォント（字体）を変更する</H3>
+<P>フォントを制御するプロパティには <EM>font-weight</EM> のほかに <EM>font-style</EM> などいくつかのものがあります．font-style は文字のスタイルを指定するプロパティです（そのまんまやんけ）．<EM>italic</EM> はフォントのスタイルを<I>イタリック体</I>にします．ただし，日本語の文字にはイタリック体の字体がありませんから，ほとんどの Web ブラウザでは斜体で表示されるようです．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      font-weight: bold;
+<span class="type">      font-style: italic;</span>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>次に，文字の大きさを変えてみましょう．文字の大きさは <EM>font-size</EM> というプロパティで指定します．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．<EM>larger</EM> は通常の文字の大きさに比べて大きくするという指定です．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      font-weight: bold;
+      font-style: italic;
+<span class="type">      font-size: larger;</span>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>最後に <EM>font-family</EM> を使って字体を変更してみましょう．ここでは一般的なフォントファミリー名である <EM>serif</EM>（セリフ，明朝体のようにセリフの付いた字体）のみを指定します．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      font-weight: bold;
+      font-style: italic;
+      font-size: larger;
+<span class="type">      font-family: serif;</span>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>なお，<EM>font</EM> を用いれば，これらのプロパティを一括して指定できます．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      <EM>font: bold italic larger serif;</EM>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<BLOCKQUOTE>
+<DIV class="header">フォントを制御するプロパティ</DIV>
+<DIV class="body">
+<DL>
+  <DT>font-family</DT>
+  <DD>使用するフォント（字体）を指定します．ただし，これは利用者が Web の閲覧に使用している環境に依存している（利用者が使用しているオペレーティングシステムや
+  Web ブラウザなどの違いで使えるフォントが異なる）ため，正直言ってこれが指定してあるとマイナーな環境の利用者がムカツクことがあります．なお，フォントは複数指定でき，その中から使用可能なものが使われます．この最後のフォントには一般的ファミリー名（<EM>serif</EM>，<EM>sans-serif</EM>，<EM>cursive</EM>，<EM>fantasy</EM>，<EM>monospace</EM>）を指定することが推奨されています．</DD>
+  <DT>font-style</DT>
+  <DD>フォントのスタイルを指定します．<EM>normal</EM>（通常），<EM>italic</EM>（イタリック体），<EM>oblique</EM>（斜体）が指定できます．</DD>
+  <DT>font-valiant</DT>
+  <DD>フォントの異形体を指定します．<EM>normal</EM>（通常），<EM>small-caps</EM>（小文字が大文字と同じ字形でサイズが小さいもの）が指定できます．</DD>
+  <DT>font-weight</DT>
+  <DD>フォントの重み（太さ）を指定します．<EM>normal</EM>（通常），<EM>bold</EM>（太字），<EM>bolder</EM>（現在の weight よりも太く），<EM>lighter</EM>（現在の weight よりも細く），<EM>100</EM>，<EM>200，300，400，500，600，700，800，900</EM>（数字が大きいほど太くなり，normal=400，bold=700 に相当する）が指定できます．</DD>
+  <DT>font-size</DT>
+  <DD>フォントのサイズを指定します．<EM>xx-small</EM>，<EM>x-small</EM>，<EM>small</EM>，<EM>medium</EM>，<EM>large</EM>，<EM>x-large</EM>，<EM>xx-large</EM>（絶対サイズ指定），<EM>smaller</EM>，<EM>larger</EM>（相対サイズ指定），<EM>長さ</EM>が指定できます．</DD>
+  <DT>font</DT>
+  <DD>フォントの family, style, variant, weight および size を一括して指定します．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H3>１．６　テキストの配置などを制御する</H3>
+<P>今度はテキストの配置を変えてみましょう．<CODE class="tag">&lt;h1&gt;</CODE>～<CODE class="tag">&lt;/h1&gt;</CODE>でマークアップした見出しの位置を，中央に移動します．それには <EM>h1</EM> において <EM>text-align</EM> というプロパティに <EM>center</EM> を指定します．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      font: bold italic larger serif;
+    }
+<span class="type">    h1 {</span>
+<span class="type">      text-align: center;</span>
+<span class="type">    }</span>
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>次に，この見出しに下線を付けてみましょう．下線などのテキストの修飾を行うには，<EM>text-decoration</EM> というプロパティを用います．これに <EM>underline</EM> を指定すれば，テキストに下線を付けることができます．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dt {
+      font: bold italic larger serif;
+    }
+    h1 {
+      text-align: center;
+<span class="type">      text-decoration: underline;</span>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<BLOCKQUOTE>
+<DIV class="header">テキストの配置・修飾を制御するプロパティ</DIV>
+<DIV class="body">
+<DL>
+  <DT>word-spacing</DT>
+  <DD>単語の間隔を指定します．<EM>normal</EM>（通常）あるいは<EM>長さ</EM>が指定できます．</DD>
+  <DT>letter-spacing</DT>
+  <DD>文字の間隔を指定します．<EM>normal</EM>（通常）あるいは<EM>長さ</EM>が指定できます．</DD>
+  <DT>text-decoration</DT>
+  <DD>文字の修飾を指定します．<EM>none</EM>（なし），<EM>underline</EM>（下線），<EM>overline</EM>（上線），<EM>line-through</EM>（取り消し線），<EM>blink</EM>（点滅）が指定できます．</DD>
+  <DT>vertical-align</DT>
+  <DD>テキストの垂直方向の位置を指定します．<EM>baseline</EM>（標準），<EM>middle</EM>（中間の高さ），<EM>sub</EM>（下付き文字），<EM>super</EM>（上付き文字），<EM>text-top</EM>（上端揃え），<EM>text-bottom</EM>（下端揃え），<EM>top</EM>（上寄せ），<EM>bottom</EM>（下寄せ）が指定できます．</DD>
+  <DT>text-align</DT>
+  <DD>テキストの水平方向の位置を指定します．<EM>left</EM>（左寄せ），<EM>center</EM>（中央揃え），<EM>right</EM>（右寄せ），<EM>justify</EM>（両端揃え）が指定できます．</DD>
+  <DT>text-indent</DT>
+  <DD>テキストのインデント（字下げ）の大きさを指定します．<EM>長さ</EM>あるいは <EM>%</EM>（百分率単位）</DD>
+  <DT>text-transform</DT>
+  <DD>テキストの文字の変換方法を指定します．<EM>none</EM>（そのまま），<EM>capitalize</EM>（各単語の最初の１字だけ大文字に変換），<EM>uppercase</EM>（全部大文字に変換），<EM>lowercase</EM>（全部小文字に変換）が指定できます．</DD>
+  <DT>line-height</DT>
+  <DD>行送り幅を指定します．<EM>normal</EM>（通常），数値，<EM>長さ</EM>，<EM>%</EM>（百分率単位）が指定できます．数値を指定したときは，現在のフォントのサイズにその値を掛けたものを行送り幅に用います．これが 2 なら行間に１行分の間隔が空きます．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H3>１．７　枠線を描く</H3>
+<P>マークアップした要素には枠をつけることができます．<CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE>でマークアップしたリスト全体に枠をつけるなら，<EM>dl</EM> において <EM>border</EM> というプロパティを指定します．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+<span class="type">    dl {</span>
+<span class="type">      border: solid;</span>
+<span class="type">    }</span>
+    dt {
+      font: bold italic larger serif;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>枠線の種類には <EM>solid</EM>（実線）のほか <EM>dotted</EM>（点線），<EM>dashed</EM>（破線），<EM>inset</EM>（へこみ），<EM>outset</EM>（出っ張り）などがあります．下線部を変更した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dl {
+      border: <span class="type">inset</span>;
+    }
+    dt {
+      font: bold italic larger serif;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P><EM>thin</EM>（細線），<EM>medium</EM>（標準），<EM>thick</EM>（太線） あるいは<EM>長さ</EM>の指定を追加すれば，枠線の太さを制御できます．下線部は枠線の太さを5ピクセル（画面の点5個分）に設定します．下線部を追加した後ファイルを保存し，Firefox
+で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    dl {
+      border: inset<span class="type"> 5px</span>;
+    }
+    dt {
+      font: bold italic larger serif;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P><CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグでマークアップされた <EM>Web ページの本文全体</EM>に対して，枠線を付けることも可能です．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．Web ブラウザのウィンドウが小さいと，期待通りに枠線が付かない場合があります．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+<span class="type">    body {</span>
+<span class="type">      border: outset 8px;</span>
+<span class="type">    }</span>
+    dl {
+      border: inset 5px;
+    }
+    dt {
+      font: bold italic larger serif;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>枠は長方形ですが，その一辺のみに対してプロパティを設定することもできます．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+    }
+    dl {
+      border: inset 5px;
+    }
+    dt {
+      font: bold italic larger serif;
+<span class="type">      border-top: dotted thin;</span>
+<span class="type">      border-bottom: dotted thin;</span>
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<BLOCKQUOTE>
+<DIV class="header">枠線を制御するプロパティ</DIV>
+<DIV class="body">
+<DL>
+  <DT>border-style</DT>
+  <DD>枠線のスタイルを指定します．スタイルには <EM>none</EM>（付けない），<EM>dotted</EM>（点線），<EM>dashed</EM>（破線），<EM>solid</EM>（実線），<EM>double</EM>（二重線），<EM>groove</EM>（溝），<EM>ridge</EM>（峰），<EM>inset</EM>（へこみ），<EM>outset</EM>（出っ張り）があります．スタイルは１～４個指定でき，１個指定した場合はすべての辺にそのスタイルが適用され，４個指定した場合は左からそれぞれ上，右，下，左の辺の順に個々のスタイルが適用されます．</DD>
+  <DT>border-width</DT>
+  <DD>枠線の太さを <EM>thin</EM>（細線），<EM>medium</EM>（通常），<EM>thick</EM>（太線），あるいは<EM>長さ</EM>で指定します．太さは１～４個指定でき，１個指定した場合はすべての辺にその太さが適用され，４個指定した場合は左からそれぞれ上，右，下，左の辺の順に個々の太さが適用されます．</DD>
+  <DT>border-top-width</DT>
+  <DD>枠線の上辺の太さを指定します．</DD>
+  <DT>border-bottom-width</DT>
+  <DD>枠線の下辺の太さを指定します．</DD>
+  <DT>border-left-width</DT>
+  <DD>枠線の左辺の太さを指定します．</DD>
+  <DT>border-right-width</DT>
+  <DD>枠線の右辺の太さを指定します．</DD>
+  <DT>border-top</DT>
+  <DD>枠線の上辺の太さ，スタイル，色（後述）を指定します．</DD>
+  <DT>border-bottom</DT>
+  <DD>枠線の下辺の太さ，スタイル，色（後述）を指定します．</DD>
+  <DT>border-left</DT>
+  <DD>枠線の左辺の太さ，スタイル，色（後述）を指定します．</DD>
+  <DT>border-right</DT>
+  <DD>枠線の右辺の太さ，スタイル，色（後述）を指定します．</DD>
+  <DT>border</DT>
+  <DD>枠線の４辺全部の太さ，スタイル，色（後述）を指定します．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H3>１．８　継承について</H3>
+<P>字体やテキストの配置，枠線などを含む多くのプロパティは，文書中のたいていの要素で指定できます．たとえば <CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグでマークアップした要素（すなわち本文全体）は，その内側にある <CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE> タグでマークアップした要素の<EM>親要素</EM>になります．親要素で指定したプロパティの中には，その<EM>子要素</EM>に継承されるものがあります．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+<span class="type">      line-height: 2;</span>
+    }
+    dl {
+      border: inset 5px;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>上記の例では，<CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグでマークアップした要素に対して設定した<EM>line-height</EM>（行送り幅） というプロパティは，その子要素である<CODE class="tag">&lt;h1&gt;</CODE>～<CODE class="tag">&lt;/h1&gt;</CODE>タグや<CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE>タグでマークアップした要素にも継承され，これらにも同じ行送り幅が設定されます．なお枠線などは継承されません．</P>
+<H3>１．９　間隔を調整する</H3>
+<P>要素間の間隔を設定するプロパティには，要素と境界（枠線がひかれるところ）との間隔を設定する <EM>padding</EM> と，境界と隣接する要素との間隔を設定する <EM>margin</EM> があります．まず <CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE>タグでマークアップした要素に padding を設定して，要素と外枠との間隔を調整してみましょう．下線部を追加した後ファイルを保存し，Firefox
+で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+    }
+    dl {
+      border: inset 5px;
+<span class="type">      padding: 1.5em;</span>
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>上の変更で，要素（この場合，自己紹介の項目）と外枠との間に間隔が空くはずです．それでは，次に margin を設定して，外枠と隣接する要素（この場合は<CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグでマークアップした本文全体に付けた外枠）との間隔を調整してみましょう．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+<span class="type">      margin: 1em;</span>
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P><CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグでマークアップした要素，すなわち本文全体に <EM>margin</EM> を設定すれば，本文と Web ブラウザの表示領域との間に間隔を空けることができます．また <EM>width</EM> や <EM>height</EM> というプロパティを指定して，要素そのものの幅や高さを指定することもできます．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+<span class="type">      margin-top: 3em;</span>
+<span class="type">      margin-left: 5%;</span>
+<span class="type">      margin-right: 5%;</span>
+<span class="type">      height: 30em;</span>
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<BLOCKQUOTE>
+<DIV class="header">間隔を制御するプロパティ</DIV>
+<DIV class="body">
+<DL>
+  <DT>padding</DT>
+  <DD>要素と外枠との間隔を<EM> auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．<EM>auto</EM> を指定したときは，他の間隔や要素の幅との関係をもとに決定されます．間隔は１～４個指定でき，４個指定した場合は左からそれぞれ上側，右側，下側，左側の間隔として適用され，１個指定した場合はすべての側にその間隔が適用されます．</DD>
+  <DT>padding-top</DT>
+  <DD>要素と外枠との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>padding-bottom</DT>
+  <DD>要素と外枠との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>padding-left</DT>
+  <DD>要素と外枠との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>padding-right</DT>
+  <DD>要素と外枠との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>margin</DT>
+  <DD>外枠と隣接する要素あるいは親要素との間隔を<EM> auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．<EM>auto</EM> を指定したときは，他の間隔や要素の幅との関係をもとに決定されます．間隔は１～４個指定でき，４個指定した場合は左からそれぞれ上側，右側，下側，左側の間隔として適用され，１個指定した場合はすべての側にその間隔が適用されます．</DD>
+  <DT>margin-top</DT>
+  <DD>外枠と上側に隣接する要素あるいは親要素との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>margin-bottom</DT>
+  <DD>外枠と下側に隣接する要素あるいは親要素との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>margin-left</DT>
+  <DD>外枠と左側に隣接する要素あるいは親要素との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>margin-right</DT>
+  <DD>外枠と右側に隣接する要素あるいは親要素との間隔を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．</DD>
+  <DT>width</DT>
+  <DD>外枠の幅を <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．無指定時は <EM>auto</EM> です．</DD>
+  <DT>height</DT>
+  <DD>外枠の高さを <EM>auto</EM> あるいは<EM>長さ</EM>，<EM>%</EM>（百分率単位）で指定します．無指定時は <EM>auto</EM> です．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H3>１．１０　色の指定</H3>
+<P>CSS において色を指定する場合は，<EM>aqua</EM>，<EM>black</EM>，<EM>blue</EM>，<EM>fuchsia</EM>，<EM>gray</EM>，<EM>green</EM>，<EM>lime</EM>，<EM>maroon</EM>，<EM>navy</EM>，<EM>olive</EM>，<EM>purple</EM>，<EM>red</EM>，<EM>silver</EM>，<EM>teal</EM>，<EM>white</EM>，<EM>yellow</EM> のいずれかのキーワード，あるいは数値（10進数あるいは16進数）を用います．数値による色指定は，次のようなものです．</P>
+<UL>
+  <LI>色の表現には光の三原色（赤:Red，緑:Green，青:Blue～RGB）の混合比を用います．</LI>
+  <LI>これを rgb(R, G, B) で表現します．</LI>
+  <LI>R, G, B の各色成分の明るさは10進数の 0～255 の整数値で表し，0 がもっとも暗く，255 がもっとも明るくなります．</LI>
+  <LI>たとえば rgb(0, 0, 0) は全部がもっとも暗いので黒，rgb(255, 255, 255) は RGB 全部がもっとも明るいので白になります．また
+  rgb(255, 0, 0) は R だけが明るいので赤，rgb(0, 255, 0) は G だけが明るいので緑，rgb(0, 0, 255)
+  は B だけが明るいので青になります．</LI>
+  <LI>16進数で表す場合は，# に続けて16進数2桁で表した明るさを，RGB の順に並べます．</LI>
+  <LI>16進数は次のようなものです．</LI>
+</UL>
+<TABLE>
+  <COLGROUP span="1" width="*">
+  </COLGROUP>
+  <COLGROUP span="16" align="right" width="5%">
+  </COLGROUP>
+  <TBODY>
+    <TR>
+      <TH>10進数</TH>
+      <TD>0</TD>
+      <TD>1</TD>
+      <TD>2</TD>
+      <TD>3</TD>
+      <TD>4</TD>
+      <TD>5</TD>
+      <TD>6</TD>
+      <TD>7</TD>
+      <TD>8</TD>
+      <TD>9</TD>
+      <TD>10</TD>
+      <TD>11</TD>
+      <TD>12</TD>
+      <TD>13</TD>
+      <TD>14</TD>
+      <TD>15</TD>
+    </TR>
+    <TR>
+      <TH>16進数</TH>
+      <TD>0</TD>
+      <TD>1</TD>
+      <TD>2</TD>
+      <TD>3</TD>
+      <TD>4</TD>
+      <TD>5</TD>
+      <TD>6</TD>
+      <TD>7</TD>
+      <TD>8</TD>
+      <TD>9</TD>
+      <TD>a</TD>
+      <TD>b</TD>
+      <TD>c</TD>
+      <TD>d</TD>
+      <TD>e</TD>
+      <TD>f</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<UL>
+  <LI>たとえば16進数の「34」は10進数では3&times;16+4=52，16進数の「ff」は10進数では15&times;16+15=255になります．</LI>
+  <LI>したがって #000000 は RGB 全部がもっとも暗いので黒，#ffffff は RGB 全部がもっとも明るいので白になります．また #ff0000
+  は R だけが明るいので赤，#00ff00 は G だけが明るいので緑，#0000ff は B だけが明るいので青になります．</LI>
+</UL>
+<P>別のページに<A href="colors.html">色のサンプル</A>を用意しています．</P>
+<H3>１．１１　文字の色を設定する</H3>
+<P>要素の色を指定するには，<EM>color</EM> プロパティを用います．<EM>body</EM> の <EM>color</EM> プロパティの設定は子要素に継承されるため，これにより Web ページ全体の要素の色を設定できます．それでは，それに濃い緑色(#003300)を設定してみましょう．下線部を追加した後ファイルを保存し，Firefox
+で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+      margin-top: 3em;
+      margin-left: 5%;
+      margin-right: 5%;
+      height: 30em;
+<span class="type">      color: #003300;</span>
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>もちろん，要素の色は要素ごとに指定できます．見にくいですが，見出しにクリーム色(#ffffcc)を設定してみてください．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+      margin-top: 3em;
+      margin-left: 5%;
+      margin-right: 5%;
+      height: 30em;
+      color: #003300;
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+<span class="type">      color: #ffffcc;</span>
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<H3>１．１２　背景の色を設定する</H3>
+<P>背景色の設定には，<EM>background-color</EM> というプロパティを用います．<EM>body</EM> の背景色を設定すれば，Web ページ全体の背景色になります．これに少しグレーがかった緑 (#669966) を設定してみます．下線部を追加した後ファイルを保存し，Firefox
+で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+      margin-top: 3em;
+      margin-left: 5%;
+      margin-right: 5%;
+      height: 30em;
+      color: #003300;
+<span class="type">      background-color: #669966;</span>
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      color: #ffffcc;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>背景色も要素ごとに指定できます．<EM>dl</EM> や <EM>dt</EM> に対して <EM>background-color</EM> プロパティを設定すれば，リスト部分やキーワード部分の背景色を個別に変更できます．リスト全体の背景色には見出しと同じクリーム色(#ffffcc)，リストのキーワード部分の背景色には
+(#bbeebb) を設定してみます．下線部を追加した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+  &lt;style&gt;
+    body {
+      border: outset 8px;
+      line-height: 2;
+      margin-top: 3em;
+      margin-left: 5%;
+      margin-right: 5%;
+      height: 30em;
+      color: #003300;
+      background-color: #669966;
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+<span class="type">      background-color: #ffffcc;</span>
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+<span class="type">      background-color: #bbeebb;</span>
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      color: #ffffcc;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>なお，背景色は<EM>継承されません</EM>．子要素の背景色が変化しているのは，背景色を指定してしない要素の背景色が <EM>transparent</EM>（透明）だからです．</P>
+<BLOCKQUOTE>
+<DIV class="header">色を設定するプロパティ</DIV>
+<DIV class="body">
+<DL>
+  <DT>color</DT>
+  <DD>要素の色を設定します．通常，その要素の文字の色となります．</DD>
+  <DT>background-color</DT>
+  <DD>要素の背景の色を設定します．<EM>transparent</EM> を指定すれば透明になります．</DD>
+  <DT>border-color</DT>
+  <DD>要素の枠線の色を設定します．色は１～４個指定でき，１個指定した場合はすべての辺にその色が適用され，４個指定した場合は左からそれぞれ上，右，下，左の辺の順に個々の色が適用されます．<EM>border-color</EM> を設定しなければ，<EM>color</EM> で設定した色が枠線の色として用いられます．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<P>ここまでで下のような見掛けになります．字体などは<EM>必ずしもこの通りにならない</EM>かもしれません．</P>
+<DIV class="figure"><IMG src="style2.gif" width="640" height="640"></DIV>
+<P>ちなみに前回作成した profile.html の見かけは，こう&darr;でした．<CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE>タグ内の HTML の本文に違いはありません．</P>
+<DIV class="figure"><IMG src="html12.gif" width="640" height="400"></DIV>
+<H3>１．１３　外部スタイルシート</H3>
+<P>ここまでくると，CSS だけで結構な長さになりました．そこで，この部分を別のファイルに保存します．<KBD>C-k</KBD> などを使って<SPAN class="bggray">網掛け</SPAN>の部分を<EM>削除</EM>し（スタイル指定だけを残して），<KBD>C-x C-w</KBD> で profile.<EM>css</EM> という<A href="05.html#saveas">ファイル名を付けて保存</A>してください．</P>
+<PRE class="source"><SPAN class="bggray">&lt;!DOCTYPE html&gt;</SPAN>
+<SPAN class="bggray">&lt;html lang=&quot;ja&quot;&gt;</SPAN>
+
+<SPAN class="bggray">&lt;head&gt;</SPAN>
+<SPAN class="bggray">  &lt;meta charset=&quot;utf-8&quot;&gt;</SPAN>
+<SPAN class="bggray">  &lt;title&gt;Profile&lt;/title&gt;</SPAN><SPAN class="bggray"></SPAN>
+<SPAN class="bggray">  &lt;style&gt;</SPAN>
+<SPAN class="bggray"></SPAN>    body {
+      border: outset 8px;
+      line-height: 2;
+      margin-top: 3em;
+      margin-left: 5%;
+      margin-right: 5%;
+      height: 30em;
+      color: #003300;
+      background-color: #669966;
+    }
+    dl {
+      border: inset 5px;
+      padding: 1.5em;
+      margin: 1em;
+      background-color: #ffffcc;
+    }
+    dt {
+      font: bold italic larger serif;
+      border-top: dotted thin;
+      border-bottom: dotted thin;
+      background-color: #bbeebb;
+    }
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      color: #ffffcc;
+    }
+<SPAN class="bggray"></SPAN><SPAN class="bggray">  &lt;/style&gt;</SPAN>
+<SPAN class="bggray">&lt;/head&gt;</SPAN>
+
+<SPAN class="bggray">&lt;body&gt;</SPAN>
+
+<SPAN class="bggray">  <SPAN class="anon">（中略）</SPAN></SPAN>
+
+<SPAN class="bggray">&lt;/body&gt;</SPAN>
+
+<SPAN class="bggray">&lt;/html&gt;</SPAN></PRE>
+<P>次に <KBD>C-x C-f</KBD> で再度 profile.<EM>html</EM> を開き，今度は <CODE class="tag">&lt;style&gt;</CODE>～<CODE class="tag">&lt;/style&gt;</CODE> の部分を<EM>削除して</EM>次の１行に書き換えてください．書き換え終えたらファイルを保存し，Firefox で再読み込みしてください．レイアウトは<EM>変化しない</EM>はずです．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+<span class="type">  &lt;link rel=&quot;stylesheet&quot; href=&quot;profile.css&quot;&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>CSS を別のファイルで設定することのメリットには，HTML ファイル自体を変更せずにスタイルの変更が行えること，複数のファイルで同じスタイルが共有できることなどが挙げられます．たとえば，index.html
+ファイルのヘッダ部に上記と同じ内容を追加すれば，このファイルにも同じスタイルが適用されます．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kentaro's page&lt;/title&gt;<span class="type"></span>
+<span class="type">  &lt;link rel=&quot;stylesheet&quot; href=&quot;profile.css&quot;&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+  &lt;p&gt;和歌山健太郎のホームページへようこそ．&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;profile.html&quot;&gt;自己紹介&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;時間割&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<H2>２．ホームページ制作（テーブル編）</H2>
+<H3>２．１　表を作成する</H3>
+<P>表は，<EM>セル</EM>（マス目）の内容を <CODE class="tag">&lt;td&gt;</CODE>～<CODE class="tag">&lt;/td&gt;</CODE> または <CODE class="tag">&lt;th&gt;</CODE>～<CODE class="tag">&lt;/th&gt;</CODE> でマークアップし，それらの１行分を <CODE class="tag">&lt;tr&gt;</CODE>～<CODE class="tag">&lt;/tr&gt;</CODE> でマークアップして，全体を <CODE class="tag">&lt;table&gt;</CODE>～<CODE class="tag">&lt;/table&gt;</CODE> でマークアップします．<CODE class="tag">&lt;th&gt;</CODE>～<CODE class="tag">&lt;/th&gt;</CODE> は<EM>表の見出し欄</EM>に使います．例えば，３行４列の表（うち１行と１列は見出し）を書くには，次のように記述します．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;第１列&lt;/th&gt;
+      &lt;th&gt;第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</span></PRE>
+<P>それでは実際にこの表を作成してみましょう．まず <A href="05.html#pwd">pwd コマンド</A>等でカレントディレクトリがホームディレクトリの下の html にあることを確認してください．次に emacs を使って <EM>table.html</EM> というファイルを作成し，上記の内容を打ち込んでください．タイピングに時間がかかるようなら，上記の内容を Firefox からテキストエディタのウィンドウに<A href="04.html#copyandpaste">コピー＆ペースト</A>して構いません．打ち込み終わったらファイルを保存して（emacs の場合は <KBD>C-x C-s</KBD> でバッファを保存して），table.html を <A href="05.html#openfile">Firefox で読み込んで</A>ください．下のような表が表示されたでしょうか？</P>
+<DIV class="figure"><IMG src="table1.gif" width="560" height="72"></DIV>
+<H3>２．２　枠線を表示する</H3>
+<P>表に枠線を引くには HTML の属性を指定する方法もありますが，ここでは CSS を使ってみます．<EM>table</EM> に対して <EM>border</EM> プロパティを指定すれば，表に外枠が描かれます．下線部を追加した後ファイルを保存して（emacs の場合は <KBD>C-x C-s</KBD> でバッファを保存して），Firefox の<EM>再読み</EM>してみてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;<span class="type"></span>
+<span class="type">  &lt;style&gt;</span>
+<span class="type"></span><span class="type">    table {</span>
+<span class="type">      border: outset;</span>
+<span class="type">    }</span>
+<span class="type"></span><span class="type">  &lt;/style&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<DIV class="figure"><IMG src="table2.gif" width="560" height="80"></DIV>
+<P>セルの枠線を描くには <EM>td</EM>（データセル）や <EM>th</EM>（見出しセル）に対して<EM>border</EM> プロパティを指定します．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+  &lt;style&gt;
+    table {
+      border: outset;
+    }
+<span class="type">    td {</span>
+<span class="type">      border: inset;</span>
+<span class="type">    }</span>
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<DIV class="figure"><IMG src="table3.gif" width="560" height="96"></DIV>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+  &lt;style&gt;
+    table {
+      border: outset;
+    }
+    td {
+      border: inset;
+    }
+<span class="type">    th {</span>
+<span class="type">      border: inset;</span>
+<span class="type">    }</span>
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  <SPAN class="anon">（中略）</SPAN>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<DIV class="figure"><IMG src="table4.gif" width="560" height="96"></DIV>
+<H3>２．３　複数の列にまたがったセルを作る</H3>
+<P>２列以上にまたがったセルを作るには，そのセルに <EM>colspan=&quot;数値&quot;</EM> という属性を指定します．数値はまたがる列数です．下線部を変更した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+  &lt;style&gt;
+    table {
+      border: outset;
+    }
+    td {
+      border: inset;
+    }
+    th {
+      border: inset;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      <span class="type">&lt;th colspan=&quot;2&quot;&gt;第１列と第２列&lt;/th&gt;</span>
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<DIV class="figure"><IMG src="table5.gif" width="560" height="96"></DIV>
+<H3>２．４　複数の行にまたがったセルを作る</H3>
+<P>同様に２行以上にまたがったセルを作るには，そのセルに <EM>rowspan=&quot;数値&quot;</EM> という属性を指定します．数値はまたがる行数です．「第２行第２列」のセルが<EM>削除されている</EM>ことに注意してください．下線部を変更した後ファイルを保存し，Firefox で再読み込みしてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table border=&quot;10&quot; cellspacing=&quot;7&quot; cellpadding=&quot;5&quot;&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th colspan=&quot;2&quot;&gt;第１列と第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      <span class="type">&lt;td rowspan=&quot;2&quot;&gt;第１行と第２行の第２列&lt;/td&gt;</span>
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<DIV class="figure"><IMG src="table6.gif" width="560" height="96"></DIV>
+<H2><A class="label" name="kadai">宿題</A></H2>
+<p>次の (1) ～（3) の作業を行ってください．それが完了したら，そのことをメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-06">tokoi@sys.wakayama-u.ac.jp</A> に知らせるとともに，(4) の内容を送ってください．メールの件名 (Subject) は shori1-06 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) 表（<CODE class="tag">&lt;table&gt;</CODE>タグ）を使って，自分の時間割を <EM>timetable.html</EM> というファイル名でディレクトリ html の中に作成してください．また，index.html から timetable.html に<A href="05.html#link">リンクを張って</A>ください．</DIV>
+<DIV class="assign">(2) 外部スタイルシートを使って自分の Web ページのレイアウトを変更してください．ファイル名は <B>style.css</B> としてください．</DIV>
+<DIV class="assign">(3) 作成した <EM>timetable.html</EM> と，そこへのリンクを追加した <EM>index.html</EM>，および <EM>profile.html</EM>，<EM>profile.css</EM>，および <EM>style.css</EM> を担当教員のホームディレクトリ (<EM>/home/staff/tokoi</EM> あるいは <EM>~tokoi</EM> でもアクセスできます）の <EM>students</EM> というディレクトリの中にある，前回作成した 自分のユーザ名のディレクトリにコピーしてください．</DIV>
+<div class="assign">(4) 今回の講義に対する意見や改善点．</div>
+<BLOCKQUOTE>
+<DIV class="header">HTML に関する情報</DIV>
+<DIV class="body">より詳しい情報を得たければ，インターネットで検索してみてください．多分「山のように」情報が得られると思います．オリジナルの情報は <A href="http://www.w3.org/" target="_blank">W3C (World Wide Web Consortium)</A> にありますが，とりあえず Yahoo Japan の <A href="http://dir.yahoo.co.jp/Computers_and_Internet/Data_Formats/HTML/Reference/?frc=dsrp_jp0015" target="_blank">HTML に関するリンク集</A>あたりから探し始めるとよいでしょう．</DIV>
+<H4>HTMLの仕様等</H4>
+<UL>
+  <LI><A href="http://www.w3.org/TR/html5/" target="_blank">HTML 5</A> (草案)</LI>
+  <LI><A href="http://www.w3.org/TR/WAI-WEBCONTENT/" target="_blank">Web Content Accessibility Guidelines 1.0</A> （<A href="http://www.zspc.com/documents/wcag10/index.html" target="_blank">邦訳</A> by <A href="http://www.zspc.com/" target="_blank">ZSPC</A>）</LI>
+  <LI><a href="http://www.w3.org/TR/WCAG20/" target="_blank">Web Content Accessibility Guidelines (WCAG) 2.0</a> （草案)</LI>
+  <LI><A href="http://www.w3.org/TR/2000/NOTE-WCAG10-TECHS-20001106/" target="_blank">Techniques for Web Content Accessibility Guidelines 1.0</A> （<A href="http://www.zspc.com/documents/wcag10-tech/index.html" target="_blank">邦訳</A> by <A href="http://www.zspc.com/" target="_blank">ZSPC</A>）</LI>
+</UL>
+<H4>Webページ作成全般</H4>
+<UL>
+  <LI><A href="http://www.zspc.com/" target="_blank">ZSPC</A></LI>
+  <LI><A href="http://www.tohoho-web.com/" target="_blank">とほほのWWW入門</A></LI>
+  <LI><A href="http://www.hajimeteno.ne.jp/" target="_blank">初めてのホームページ講座</A></LI>
+  <LI><A href="http://www.tg.rim.or.jp/~hexane/ach/" target="_blank">Academic HTML</A></LI>
+  <LI><A href="http://www.scollabo.com/banban/" target="_blank">初心者のためのホームページ作り-Web for beginner ホームページ作成支援</A></LI>
+  <LI><A href="http://www.htmq.com/" target="_blank">HTMLクイックリファレンス</A></LI>
+  <LI><A href="http://members.jcom.home.ne.jp/pctips/" target="_blank">PC Tips</A></LI>
+  <LI><A href="http://www6.plala.or.jp/go_west/" target="_blank">鳥さんの棲むところ</A></LI>
+  <LI><a href="http://www.kokoroweb.org/" target="_blank">こころ Web</a></LI>
+  </UL>
+<H4>CSS関連（CSSの解説は上記のサイトにもあります）</H4>
+<UL>
+  <LI><a href="http://www.w3.org/Style/CSS/" target="_blank">Cascading Style Sheets</a></LI>
+  <LI><A href="http://www.w3.org/TR/REC-CSS2/" target="_blank">Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) 様書</A></LI>
+  <LI><a href="http://www.d-toybox.com/spec/index.html" target="_blank">Web 関連技術の仕様書邦訳</a></LI>
+  <LI><A href="http://www12.plala.or.jp/costellazione/css-make/" target="_blank">CSS解説</A></LI>
+  <LI><A href="http://tancro.stp-1.com/" target="_blank">スタイルシートの裏の裏</A></LI>
+</UL>
+</BLOCKQUOTE>
+<div class="footer"><a href="05.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

@@ -1,0 +1,23 @@
+body       { color: #000000; background-color: #ffeedd; }
+h2,h3,a    { color: #ff0099; }
+a:link     { color: #0000ff; }
+a:hover    { color: #ff0000; }
+a:visited  { color: #000066; }
+a:active   { color: #ff0000; }
+h1         { color: #ffffff; background-color: #ff0099; }
+h2         { background-color: #ffffff; border-color: #ff0099; }
+blockquote { background-color: #ffdddd; border-color: #ff0099; }
+div.header { background-color: #ff99cc; }
+span.book  { color: #ffffff; background-color: #ff0099; }
+span.gray  { color: #aaaaaa; }
+span.hilit { background-color: #ffff88; }
+th         { background-color: #ff99cc; }
+td         { background-color: #ffdddd; }
+td.action  { background-color: #ffffff; }
+pre.source { border-color: #ff0099; }
+caption    { background-color: #ffbbdd; }
+strong     { color: #ff0000; }
+code.tag   { color: #884400; }
+a.label:hover { color: #ff0099; }
+div.footer a { margin-left: 4px; padding: 4px; background-color: #ff0099; }
+div.footer a:link,div.footer a:visited { color: #ffffaa; }

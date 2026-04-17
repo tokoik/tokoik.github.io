@@ -1,0 +1,853 @@
+<head>
+<title>情報処理II － 第４回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第４回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．文とブロック</h2>
+
+<hr>
+
+<p>自分で<a href="03.html#definefunc">関数を定義する</a>ことによって、
+プログラムを複数の<font color="#ff0000">部品</font>に分割できます。
+また、単純な機能を持つ部品の組み合わせとしてプログラムを記述することで、
+プログラムが読みやすくなり保守も容易になります。</p>
+
+<p>この関数を記述している<a href="01.html#procedure">手続き</a>自体も、
+<font color="#ff0000">文</font>と<font color="#ff0000">ブロック</font>というさらに小さな要素の組み合わせで構成されています。</p>
+
+<hr>
+
+<a name="sentence">
+<h3>１．１．文</h3></a>
+
+<p><font color="#ff0000">文</font>はプログラムの構成要素の最小単位です。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int x;        // 宣言文（定義文）
+x = 10;       // 代入文（実行文）
+sub(x);       // 関数呼び出し（実行文）
+;             // 空文</table>
+</center>
+
+<p>一つの文の終りには、
+必ず <font color="#ff0000">;（セミコロン）</font>を置きます。
+この例のように複数の文を並べたものを<font color="#ff0000">複文</font>と呼びます。
+また何も記述されていない（すなわち ; セミコロンだけの）文を<font color="#ff0000">空文</font>と呼びます。</p>
+
+<hr>
+
+<a name="block">
+<h3>１．２．ブロック</h3></a>
+
+<p>文を { } でくくってひとまとめにしたものを、
+<font color="#ff0000">ブロック</font>と呼びます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>{</b>
+  int x;        // 宣言文（定義文）
+  x = 10;       // 代入文（実行文）
+  sub(x);       // 関数呼び出し（実行文）
+  <font color="#808080">...</font>
+<b>}</b></table>
+</center>
+
+<p>ブロックの内側に更にブロックを作ることもできます（ブロックの入れ子）。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>{
+  // ここは外側のブロック
+  int x;          // 外側のブロックでの変数定義
+  x = 10;         // 外側の x に代入
+
+  <b>{</b>
+    // ここは内側のブロック
+    int x;        // 内側のブロックでの変数定義
+    x = 20;       // 内側の x に代入
+    cout &lt;&lt; "内側の x=" &lt;&lt; x &lt;&lt; endl;  // 内側の x を出力
+  <b>}</b>
+
+  // ここから再び外側のブロック
+  cout &lt;&lt; "外側の x=" &lt;&lt; x &lt;&lt; endl;    // 外側の x を出力
+}</table>
+</center>
+
+<p><a href="03.html#function">関数</a>は
+ブロックに関数名と<a href="03.html#argument">仮引数</a>の宣言を付けたものだと見ることができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+<b>main()</b> {
+  // ここは外側のブロック
+  int x;          // 外側のブロックでの変数定義
+  x = 10;         // 外側の x に代入
+
+  {
+    // ここは内側のブロック
+    int x;        // 内側のブロックでの変数定義
+    x = 20;       // 内側の x に代入
+    cout &lt;&lt; "内側の x=" &lt;&lt; x &lt;&lt; endl;  // 内側の x を出力
+  }
+
+  // ここから再び外側のブロック
+  cout &lt;&lt; "外側の x=" &lt;&lt; x &lt;&lt; endl;    // 外側の x を出力
+}</table>
+</center>
+
+<p>上の例ではブロックの中と外で同じ名前の変数 z を定義していますが、
+これらは<font color="#ff0000">別の変数</font>になります。
+内側のブロックでは外側で定義されている同じ名前の変数は
+<font color="#ff0000">隠蔽</font>されます。
+したがって、
+このプログラムをコンパイルして実行すると次のような出力を得ます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+内側の x=20
+外側の x=10   <font color="#ffff00">（←同じ x なのに値が違う！）</font>
+</font></table>
+</center>
+
+<hr>
+
+<h2>２．関係演算・等値演算と論理演算</h2>
+
+<hr>
+
+<a name="relative">
+<h3>２．１．関係演算・等値演算</h3></a>
+
+<p>数値の大小比較を行うには<font color="#ff0000">関係演算子</font>を用います。
+</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">関係演算子</th></tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x &gt; y</tt></td>
+<td bgcolor="#ffeeaa">x が y より大きいなら真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x &gt;= y</tt></td>
+<td bgcolor="#ffeeaa">x が y 以上なら真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x &lt; y</tt></td>
+<td bgcolor="#ffeeaa">x が y より小さいなら真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x &lt;= y</tt></td>
+<td bgcolor="#ffeeaa">x が y 以下なら真</td>
+</tr>
+</table>
+</center>
+
+<p>データによっては大小比較が意味を持たないものもあります。
+このようなデータでも<font color="#ff0000">等値演算子</font>を用いて、
+等しいか等しくないかを判断できる場合があります。
+なお、C++ では「<tt>=</tt>」は<font color="#ff0000">代入演算子</font>です。
+等しいことを調べるのに使う<font color="#ff0000">等値演算子</font>は「<tt>==</tt>」なので気を付けてください。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">等値演算子</th></tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x == y</tt></td>
+<td bgcolor="#ffeeaa">x と y が等しいなら真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x != y</tt></td>
+<td bgcolor="#ffeeaa">x と y が等しくないなら真</td>
+</tr>
+</table>
+</center>
+
+<p>C++ では、
+関係演算や論理演算も加減乗除のような四則演算と同様に<font color="#ff0000">式</font>として扱います。
+関係演算式や等値演算式の値は「<font color="#ff0000">真</font>」「<font color="#ff0000">偽</font>」のいずれかになります。
+このような値を<font color="#ff0000">論理値</font>と呼びます。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">論理値</th></tr>
+<tr>
+<td bgcolor="#ffffaa" align="center" width="50%">0 でない値</td>
+<td bgcolor="#ffffaa" align="center" width="50%">0</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa" align="center">真</td>
+<td bgcolor="#ffeeaa" align="center">偽</td>
+</tr>
+</table>
+</center>
+
+<p>関係演算式や等値演算式の値のデータ型は<font color="#ff0000">int</font>で、
+下の例では、x と y が等しければ a に 0 でない整数として 1 が、
+等しくなければ 0 が入ります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>float x, y;
+int a;
+a = <b>x == y;</b> // x と y の比較結果を a に代入</table>
+</table>
+</center>
+
+<font size="-1">
+<ul>
+<li>新しい C++ の文法では、論理値を扱うデータ型として
+<font color="#ff0000">bool 型</font>が追加されています。また論理値として
+<font color="#ff0000">true</font> と <font color="#ff0000">false</font>
+を使います。</li>
+<li>この授業では使用しません。</li>
+</ul>
+</font>
+
+<p>なお、文字列同士の<font color="#ff0000">字面の比較</font>には strcmp()
+などの<a href="03.html#library">ライブラリ関数</a>を用います。
+strcmp() は引数に与えられた二つの文字列の内容が同じ時 0
+を戻り値として返しますから、下の関係演算では文字列 s
+の内容が "abc" の時に真になります。
+なお strcmp() を使用するときは、
+それより前に <tt>#include &lt;strings.h&gt;</tt>
+を置いておく必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;strings.h&gt;
+  <font color="#808080">...</font>
+  <font color="#808080">...</font> <b>strcmp(s, "abc")<b> == 0 <font color="#808080">...</font></table>
+</center>
+
+<p>関係演算子の優先順位は等値演算子よりも高くなっていますが、
+四則演算（加減乗除）より低くなっています。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="6">優先順位</th></tr>
+<tr>
+<th bgcolor="#ffffaa" width="15%">高</th>
+<th bgcolor="#ffffaa" colspan="4" width="*">…</th>
+<th bgcolor="#ffffaa" width="15%">低</th>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa" align="center"><tt>( 式 )</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>* / %</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>+ -</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt><font color="#ff0000">&lt; &lt;= &gt; &gt=</font></tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt><font color="#ff0000">== !=</font></tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>=</tt></td>
+</tr>
+</table>
+</center>
+
+<p>したがって下の例では、x + 1
+を計算した後、その結果と 10 を比較しています。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x + 1 &gt; 10</table>
+</center>
+
+<hr>
+
+<a name="logical">
+<h3>２．２．論理演算</h3></a>
+
+<p>論理演算は関係演算などによって得られる論理値を対象とした演算です。
+このような演算を行う演算子を論理演算子と呼びます。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">論理演算子</th></tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x &amp;&amp; y</tt></td>
+<td bgcolor="#ffeeaa">x が y ともに真のとき真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>x || y</tt></td>
+<td bgcolor="#ffeeaa">x と y のいずれか一方が真のとき真</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"><tt>!x</tt></td>
+<td bgcolor="#ffeeaa">x が 僞なら真、真なら偽（反転）</td>
+</tr>
+</table>
+</center>
+
+<p>論理演算子の優先順位は次のようになります。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="9">優先順位</th></tr>
+<tr>
+<th bgcolor="#ffffaa" width="15%">高</th>
+<th bgcolor="#ffffaa" colspan="7" width="*">…</th>
+<th bgcolor="#ffffaa" width="15%">低</th>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa" align="center"><tt>( 式 )</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt><font color="#ff0000">!</font></tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>* / %</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>+ -</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>&lt; &lt;= &gt; &gt=</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>== !=</tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt><font color="#ff0000">&amp;&amp</font></tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt><font color="#ff0000">||</font></tt></td>
+<td bgcolor="#ffeeaa" align="center"><tt>=</tt></td>
+</tr>
+</table>
+</center>
+
+<p>したがって下の例では、<tt>x &gt;= 16</tt> と
+<tt>x &lt 26</tt> を計算した後、
+<tt>&amp;&amp;</tt> による論理演算が行われます。
+従ってこの式は x が 16 以上 26 未満（16≦x＜26）のときに真になります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x &gt;= 16 && x &lt 26</table>
+</center>
+
+<p>これを下のように書くことはできません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>16 &lt;= x &lt 26      // <font color="#ff0000">こういう書き方はできません</font></table>
+</center>
+
+<p>論理演算子は 0 でない値を真、0 を偽であると見なします。
+また論理演算式の値も論理値になります。
+このデータ型は関係演算式・等値演算式と同様に <font color="#ff0000">int</font>
+で、真なら 0 でない整数として 1 が、
+偽なら 0 になります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>!x || y</table>
+</center>
+
+<p>上の例では !x が先に計算されるため、
+この式は x が偽か、あるいは y が真のとき真になります。</p>
+
+<center>
+<table width="90%" border>
+<tr>
+<td bgcolor="#ffffff" valign="top" width="50%"><tt>!(x || y)</tt></td>
+<td bgcolor="#ffffff" valign="top" width="*"><tt>!x && !y</tt></td>
+</tr>
+</table>
+</center>
+
+<p>一方、上の左の例では x || y を計算した後に ! 演算子による計算が
+行われるので、この式は x と y が両方とも偽のとき真になります。
+すなわち、この式は、上の右の式と等価です。</p>
+
+<hr>
+
+<h2>３．条件分岐</h2>
+
+<hr>
+
+<h3>３．１．if</h3>
+
+<p><b>if</b> というキーワードを使えば、
+<font color="#ff0000">条件</font>によって特定の処理を行ったり、
+行わなかったりすることができます。
+<b>if</b> の後に続く ( ) 内の論理値が<font color="#ff0000">真</font>なら、
+その直後の { } に書かれた処理を実行し、
+<font color="#ff0000">偽</font>（真でない場合）なら <b>else</b> の後の
+{ } 内の処理を実行します。このように一つの <b>if</b>
+に関連づけられたプログラムの部分を
+<font color="#ff0000"><b>if</b> 節</font>と呼びます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>if</b> (x &gt; y) {
+  z = x;    // ここは x＞y の時に実行されます
+}
+<b>else</b> {
+  z = y;    // ここは x≦y の時に実行されます
+}</table>
+</center>
+
+<p>上の例は x が y より大きい（x &gt; y が真）なら z = x を実行し、
+小さい（x &gt; y が偽）なら z = y を実行します。
+この結果、z には x と y の大きいほうの値が入ります。</p>
+
+<p><b>if</b> ( ) や <b>else</b> に続けて、
+<a href="#block">ブロック</a>ではなく単一の<a href="#sentence">文</a>を書くこともできます。
+従って、上の例は下のように書くこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>if</b> (x &gt; y)
+  z = x;    // ここは x＞y の時に実行されます
+<b>else</b>
+  z = y;    // ここは x≦y の時に実行されます</table>
+</center>
+
+<p><b>if</b> 節の中にさらに
+<b>if</b> 節を書くこともできます（<b>if</b>
+節の<font color="#ff0000">入れ子</font>）。
+ただし、この場合は { }
+を省略すると非常に見つけにくいプログラムのミスを誘発することがあります。
+省略可能でも省略しない方がいい場合もあります。</p>
+
+<center>
+<table width="90%" border>
+<tr>
+<td bgcolor="#ffffff" valign="top" width="50%">
+<pre><b>if</b> (x &gt; 0)
+  <b>if</b> (y &gt; 0) z = 1;
+<b>else</b>
+  z = 2;
+</td>
+<td bgcolor="#ffffff" valign="top" width="*">
+<pre><b>if</b> (x &gt; 0)
+  <b>if</b> (y &gt; 0)
+    z = 1;
+  <b>else</b>
+    z = 2;
+</td>
+</tr>
+</table>
+</center>
+
+<p>上の二つの例は<font color="#ff0000">同じもの</font>ですが、
+左のものは x &gt; 0 が真の時に z = 2 が実行されるように<u>見えます</u>。
+しかし、実際にはこの <b>else</b> は二つ目の <b>if</b> に対応します。
+右の例も勧められません。こういうときは { } を使って書くべきでしょう。</p>
+
+<p><b>else</b> に続く処理が必要なければ、<b>else</b> 以降は省略できます。</p>
+
+<center>
+<table width="90%" border>
+<tr>
+<td bgcolor="#ffffff" valign="top" width="50%">
+<pre><b>if</b> (x &lt; 0) {
+  x = -x;
+}
+</td>
+<td bgcolor="#ffffff" valign="top" width="*">
+<pre><b>if</b> (x &lt; 0) x = -x;
+</td>
+</tr>
+</table>
+</center>
+
+<p>いずれも x が負（x &lt; 0 が真）なら x = -x; を実行します。
+すなわち x の絶対値を求めます。</p>
+
+<p><b>else</b> の後にまた <b>if</b> を置くことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>if</b> (x &lt; 0) {
+  cout &lt;&lt; "x は負です" &lt;&lt; endl;
+}
+<b>else <b>if</b></b> (x == 0) {
+  cout &lt;&lt; "x は０です" &lt;&lt; endl;
+}
+else { // 負でも０でもなければ正
+  cout &lt;&lt; "x は正です" &lt;&lt; endl;
+}</table>
+</center>
+
+<hr>
+
+<h2>課題１２</h2>
+
+<hr>
+
+<p>２次方程式
+<img src="04-01.gif" align="bottom">
+の解は、解の公式
+<img src="04-02.gif" align="bottom">
+で求めることができます。
+この２次方程式の三つの係数 a, b, c を入力して、
+x を求めるプログラムを作成してください。</p>
+
+<ol>
+
+<li><p>キーボードからデータを三つの変数 a, b, c に格納します。</p></li>
+
+<li><p>次に判別式 d = b * b - 4.0 * a * c を計算します。b<sup>2</sup> や
+b<sup>3</sup> 程度なら pow() を使う代わりにそれぞれ b * b、b * b * b
+とした方が効率がいいでしょう。</p></li>
+
+<li><p>平方根を求めるには<a href="03.html#library">ライブラリ関数 sqrt()</a>
+を使用します。この関数を使用する場合は <tt>#include &lt;math.h&gt;</tt>
+をソースプログラムの先頭部分に置き、<a href="03.html#libmath">CC コマンドに
+<tt>-lm</tt> オプションを付けてコンパイル</a>してください。</p></li>
+
+<ul>
+
+  <li><p>d が正なら解は二つの実数になります。d = sqrt(d) としておけば、解は
+  <blockquote>(-b + d) / (2.0 * a) および (-b - d) / (2.0 * a)</blockquote>
+  として得ることができます。</p></li>
+
+  <li><p>d が 0 なら解は一つの実数、
+  <blockquote>-b / (2.0 * a)</blockquote>
+  になります。</p></li>
+
+  <li><p>d がこれら以外の場合（すなわち負）なら、解は二つの複素数になります。
+  平方根を求めるライブラリ関数 sqrt() は引数が負だとエラーになるので、
+  d の符号を反転して d = sqrt(-d) としておき、
+  <blockquote>-b / (2.0 * a) + (d /  (2.0 * a))<b>i</b>
+  および -b / (2.0 * a) - (d / (2.0 * a))<b>i</b></blockquote>
+  として二つの解を求めます。
+  解は複素数ですから、この場合の x
+  の表示は「実部＋虚部<b>i</b>，
+  実部－虚部<b>i</b>」とい形式で行ってください。</p></li>
+
+</ul></p></li>
+
+<li><p>d を求めたあとは a は 2.0 * a としてしか使われませんから、あらかじめ
+a = 2.0 * a としておけば、上の (2.0 * a)
+は全部 a に置き換えることができます。</p></li>
+
+</ol>
+
+<p>ユーザインタフェースの例を下に示します。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+a= <u>1<b><font color="#00cc66">[Enter]</font></b></u>
+b= <u>2<b><font color="#00cc66">[Enter]</font></b></u>
+c= <u>1<b><font color="#00cc66">[Enter]</font></b></u>
+x= -1
+% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+a= <u>1<b><font color="#00cc66">[Enter]</font></b></u>
+b= <u>5<b><font color="#00cc66">[Enter]</font></b></u>
+c= <u>6<b><font color="#00cc66">[Enter]</font></b></u>
+x= -2, -3
+% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+a= <u>1<b><font color="#00cc66">[Enter]</font></b></u>
+b= <u>2<b><font color="#00cc66">[Enter]</font></b></u>
+c= <u>2<b><font color="#00cc66">[Enter]</font></b></u>
+x= -1+1i, -1-1i
+</font></table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai12">tokoi</a>
+まで送ってください。Subject:（件名）は kadai12 としてください。</p>
+
+<hr>
+
+<a name="kadai13">
+<h2>課題１３</h2></a>
+
+<hr>
+
+<p><font color="#ff0000"><tt>A &amp;&amp; B</tt></font>
+という論理演算式において、
+A が偽なら B の値に関係なく
+<tt>A &amp;&amp; B</tt> は偽であることは明白なので、
+この場合は B は評価（計算）されません。
+つまり <font color="#ff0000">B は A が真の時のみ評価</font>されます。</p>
+
+<p>同様に <font color="#ff0000"><tt>A || B</tt></font>
+という論理演算式において、
+A が真なら B の値に関係なく <tt>A || B</tt> は真であることは明白なので、
+この場合は B は評価されません。
+つまり <font color="#ff0000">B は A が偽の時のみ評価</font>されます。</p>
+
+<p>この規則を応用して、次のような文を書くことができます。
+この論理演算式の値（真か偽か）は使われません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x &lt; 0 && x = -x;</table>
+</center>
+
+<p>これは次の文と同じ動作をします。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>if (x &lt; 0) x = -x;</table>
+</center>
+
+<p>以上のことを頭に入れておいてから、
+次のことを考えてみてください。
+まずはじめに、次のソースプログラムを
+kadai13.c というファイル名で作成してください。
+<a href="02.html#assignment">代入演算子 (<tt>=</tt>)</a>
+は論理演算子 (<tt>&amp;&amp;, ||</tt>) や関係演算子 (<tt>&lt;</tt> 等)
+より優先順位が低いので、<tt>x = x + 1</tt> や <tt>y = y + 1</tt> は ( ... )
+でくくってあります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int x = 0, y = 0;
+
+  /* １回目 */
+  if ((x = x + 1) &lt; 2 || (y = y + 1) &gt;= 2) {
+      cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; ", y=" &lt;&lt; y &lt;&lt; endl;
+  }
+
+  /* ２回目 */
+  if ((x = x + 1) &lt; 2 || (y = y + 1) &gt;= 2) {
+      cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; ", y=" &lt;&lt; y &lt;&lt; endl;
+  }
+
+  /* ３回目 */
+  if ((x = x + 1) &lt; 2 || (y = y + 1) &gt;= 2) {
+      cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; ", y=" &lt;&lt; y &lt;&lt; endl;
+  }
+
+  return 0;
+}</table>
+</center>
+
+<p>このソースプログラムをコンパイルしたあと実行して、
+出力を確かめてください。</p>
+
+<p>このプログラムが仮に <b>if</b> の条件内で x と y が
+同時に１ずつ増えていくことを想定して作られているとすると、
+次のような出力が期待できます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+x=1, y=1
+x=2, y=2
+x=3, y=3
+</table>
+</center>
+
+<p>しかし実際の出力は上のようにはなりません。
+その理由を考察して、メールで
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai13">tokoi</a>
+まで送ってください。Subject:（件名）は kadai13 としてください。
+ソースプログラムを添付する必要はありません。</p>
+
+<a name="jouken">
+<hr>
+
+<h3>２．２．条件演算</h3></a>
+
+<p>次のような式を<font color="#ff0000">条件演算式</font>といいます。
+この動作は <b>if</b> に似ていますが、式の中で使用できます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x = (a &gt b) <b>?</b> a * a <b>:</b> b * b;</table>
+</center>
+
+<p>上の例では <tt>a &gt; b</tt> が真の時 x に a を二乗した値が、
+偽の時 x に b を二乗した値が代入されます。
+すなわち x には a、b のいずれか大きい方の値の二乗が代入されます。
+<font>条件演算子</font> <tt>? :</tt> は、
+<tt>?</tt> の左の式の値が真なら <tt>?</tt> と <tt>:</tt>
+の間の式が評価され、偽なら
+<tt>:</tt> の右側の式が評価されてこの式の値になります。</p>
+
+<p><tt>:</tt>
+の両側がどちらも<font color="#ff0000">同じデータ型の変数</font>の場合、
+この式を = の左辺（左辺値）に使うこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>(a &gt b) ? <b>a</b> : <b>b</b> = 0;</table>
+</center>
+
+<p>上の例では、a、b の二つの変数のうち、
+内容が大きい方の変数の値を 0 にします。</p>
+
+<hr>
+
+<h3>２．３．switch</h3>
+
+<p>例えば次のような（割とよくある）ユーザインタフェースを作るとします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>
+
+          1 - 全体運
+          2 - 健康運
+          3 - 恋愛運
+          4 - 金運
+          0 - 終了
+
+    占って欲しい運勢の番号を入力してください:<blink>_</blink>
+</pre></font></table>
+</center>
+
+<p>これを <b>if</b> を使って書けば、
+次のようなプログラムになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void menu(void) {
+  cout &lt;&lt; "          1 - 全体運" &lt;&lt; endl;
+  cout &lt;&lt; "          2 - 健康運" &lt;&lt; endl;
+  cout &lt;&lt; "          3 - 恋愛運" &lt;&lt; endl;
+  cout &lt;&lt; "          4 - 金運" &lt;&lt; endl;
+  cout &lt;&lt; "          0 - 終了" &lt;&lt; endl;
+
+  cout &lt;&lt; "    占って欲しい運勢の番号を入力してください:";
+  int answer;  // 答
+  cin &gt;&gt; answer;
+
+  <b>if</b> (answer == 1) {         // 全体運
+    cout &lt;&lt; "最悪です。" &lt;&lt; endl;
+  }
+  <b>else if</b> (answer == 2) {    // 健康運
+    cout &lt;&lt; "食中毒に気を付けてください。" &lt;&lt; endl;
+  }
+  <b>else if</b> (answer == 3) {    // 恋愛運
+    cout &lt;&lt; "「友達でいましょう」って言われてしまいます。" &lt;&lt; endl;
+  }
+  <b>else if</b> (answer == 4) {    // 金運
+    cout &lt;&lt; "悪友どもにカモにされてしまいます。" &lt;&lt; endl;
+  }
+  <b>else if</b> (answer == 0) {
+    cout &lt;&lt; "さようなら。" &lt;&lt; endl;
+  }
+  <b>else</b> {
+    cout &lt;&lt; "そんな運は知りません。" &lt;&lt; endl;
+  }
+}</table>
+</center>
+
+<p>これを <b>switch</b> を使って書き直すと、
+次のようになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void menu(void) {
+  cout &lt;&lt; "          1 - 全体運" &lt;&lt; endl;
+  cout &lt;&lt; "          2 - 健康運" &lt;&lt; endl;
+  cout &lt;&lt; "          3 - 恋愛運" &lt;&lt; endl;
+  cout &lt;&lt; "          4 - 金運" &lt;&lt; endl;
+  cout &lt;&lt; "          0 - 終了" &lt;&lt; endl;
+
+  cout &lt;&lt; "    占って欲しい運勢の番号を入力してください:";
+  int answer;  // 答
+  cin &gt;&gt; answer;
+
+  <b>switch (</b>answer<b>) {</b>
+  <b>case</b> 1:                    // 全体運
+    cout &lt;&lt; "最悪です。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>case</b> 2:                    // 健康運
+    cout &lt;&lt; "食中毒に気を付けてください。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>case</b> 3:                    // 恋愛運
+    cout &lt;&lt; "「友達でいましょう」って言われてしまいます。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>case</b> 4:                    // 金運
+    cout &lt;&lt; "悪友どもにカモにされてしまいます。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>case</b> 0:
+    cout &lt;&lt; "さようなら。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>default</b>:
+    cout &lt;&lt; "そんな運は知りません。" &lt;&lt; endl;
+    <b>break</b>;
+  <b>}</b>
+}</table>
+</center>
+
+<p>この例のように、ある整数値に対して実行する処理が決まっているときは、
+<b>switch</b> を使うと便利です。
+<b>switch</b> は、それに続く ( )
+内の式の値を持った目印
+（<font color="#ff0000"><b>case</b> ラベル</font>）以降から処理を実行します。
+該当する <b>case</b> ラベルがなければ、<b>default</b> ラベル以降から処理を実行します。
+また、このとき以下の点に注意してください。</p>
+
+<ul>
+
+<li><b>switch</b> の ( )
+内の式は<font color="#ff0000">整数型</font>でなければなりません。</li>
+
+<li><b>case</b>
+ラベルには<font color="#ff0000">整数型の定数</font>のみが指定できます。</li>
+
+<li>同じ値を持った <b>case</b> ラベルが複数存在してはなりません。</li>
+
+<li><b>default</b> ラベルは二つ以上存在してはなりません。</li>
+
+</ul>
+
+<p><b>switch</b> ( ) { ... } 内の処理から脱出するには
+<font color="#ff0000"><b>break</b></font> を使います。
+<b>break</b> がなければ次のラベル以降も実行されます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>switch</b> (x) {
+<b>case</b> 1:
+  cout &lt;&lt; "たいした";
+<b>case</b> 2:
+  cout &lt;&lt; "たまげた" &lt;&lt; endl;
+<b>default</b>:
+  <b>break</b>;
+}</table>
+</center>
+
+<p>この例では x が 1 なら“たいしたたまげた”、
+x が 2 なら“たまげた”が出力されます。
+x がこれら以外の値なら何も出力されません。</p>
+
+<hr>
+
+<h2>課題１４</h2>
+
+<hr>
+
+<p>キーボードから整数値を３つ入力して、
+最初の数値が１なら残り２つの数値の和、
+2 なら残り２つの数値の差、
+3 なら残り２つの数値の積を表示するプログラムを作ってください。</p>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai14">tokoi</a>
+まで送ってください。Subject:（件名）は kadai14 としてください。</p>
+
+</body>

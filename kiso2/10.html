@@ -1,0 +1,443 @@
+<head>
+<title>情報基礎演習II − 第１０回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第１０回</h1>
+
+<hr>
+
+<h2>１．記憶クラス</h2>
+
+<hr>
+
+<a href="07.html#block">ブロック</a>の先頭で宣言された変数は、
+そのブロックの始まりで生成（記憶領域の割り当て）され、
+そのブロックの終りで消去（記憶領域の開放）されます。
+<p>
+
+従って、例えば同じ関数を２回呼び出したとき、
+１回目の呼び出しのときの変数の値は、
+２回目の呼び出しのときまで保存されません。
+例えば、次のプログラムでは、
+sub1 の１回目の呼び出しで変数 i に 10 が代入されるものの、
+２回目の呼び出しのときには i に 10 以外のものが入っています。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void sub1(int f)
+{
+    int i; /* sub1 の中だけで有効な変数（自動変数） */
+
+    if (f == 0) {
+      i = 10;
+    }
+    else {
+      printf("i = %d\n", i);
+    }
+}
+
+void sub2(void)
+{
+    int x = 20;
+}
+
+int main(void)
+{
+    sub1(0);   /* sub1 の i に 10 を入れる */
+    sub2();
+    sub1(1);   /* sub1 の i を表示する */
+               /* i が保存されていれば 10 が表示されるはず */
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+このような変数を<b>自動変数</b>と呼びます。
+自動変数の宣言は通常次のように行います。
+
+<blockquote>
+<pre>
+auto int i;
+</pre>
+</blockquote>
+
+auto は自動変数の宣言であることを示します。
+auto を省略した場合、
+ブロックの内側で宣言された変数は自動変数であると見なされます。
+普通 auto は省略されます。
+<p>
+
+ブロック内で変数された変数が
+ブロックの終了後も保存される用にするには、
+static を付けて変数を宣言します。
+
+<blockquote>
+<pre>
+static int i;
+</pre>
+</blockquote>
+
+このような変数を<b>静的変数</b>と呼びます。
+静的変数の記憶領域の割り当ては、
+プログラムの実行開始時に行われ、
+プログラムが終了するまで保存されます。
+上のプログラムにおいて sub1 の変数 i を <tt>static int i;</tt> と
+宣言すれば、２回目の呼び出しのときにも i には 10 が入っています。
+
+<a href="k44.html"><h3 align="center">■課題４４■</h3></a>
+
+<hr>
+
+<h2>２．変数のスコープ</h2>
+
+<hr>
+
+<a href="07.html#block">ブロック</a>の先頭で宣言した変数は、
+そのブロックの中でのみ有効です。
+下の例では、関数 main 内の変数 i と、
+関数 sub 内の変数 i は、
+別の変数になります。
+従って関数 main から sub 内の i を参照することは、
+引数などを用いない限りできません。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void sub(void)
+{
+    int i;      /* 関数 sub の中だけで有効 */
+
+    for (i = 0; i < 10; i++) {
+        printf("%3d", i);
+    }
+    printf("\n");
+}
+
+int main(void)
+{
+    int i;      /* 関数 main の中だけで有効 */
+
+    for (i = 0; i < 10; i++) {
+        sub();
+    }
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+上の例で、
+for によって繰り返されている <tt>{ ... }</tt> の部分も
+ひとつのブロックです。
+従って、この部分でも変数宣言を行うことができます。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main(void)
+{                                       <---------------+
+    int i;                                              |
+                                                        |
+    for (i = 0; i < 10; i++) {          <-----------+   |
+        int j;                                      |   |
+                                                    |   |
+        for (j = 0; j < 10; j++) {      <-------+   |   |
+            printf("%3d", j);                  (1) (2) (3)
+        }                               <-------+   |   |
+        printf("\n");                               |   |
+    }                                   <-----------+   |
+                                                        |
+    return 0;                                           |
+}                                       <---------------+
+</pre>
+</table>
+</blockquote>
+
+上の例では、(2) のブロックで宣言されている変数 j は
+その内側のブロック (1) でも有効ですが、
+ブロック (2) の外側では使えません。
+<p>
+
+このような変数の有効範囲のことを <b>スコープ</b>（可視範囲）
+といいます。
+<p>
+
+<a href="k45.html"><h3 align="center">■課題４５■</h3></a>
+<a href="k46.html"><h3 align="center">■課題４６■</h3></a>
+<p>
+
+<a name="extern">
+<hr>
+
+<h3>外部変数</h3></a>
+
+複数の関数の間で同じ変数を共有したいときは、
+その変数を関数の外側の、
+その変数を共有しようとする全ての関数より前で宣言します。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+int sum; /* 共有しようとする変数 */
+
+void goukei(int n)
+{
+    do {
+      sum += n; /* 共有しようとする変数 */
+    }
+    while (--n > 0);
+}
+
+void hyouji(void)
+{
+    printf("合計は %d\n", sum); /* 共有しようとする変数 */
+}
+
+int main(void)
+{
+    sum = 0; /* 共有しようとする変数 */
+    goukei(100);
+    hyouji();
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+このような変数は<b>外部変数</b>と呼ばれます。
+外部変数の記憶領域はプログラムの実行開始時に割り当てられます。
+すなわち外部変数は静的変数です。
+<p>
+
+外部変数の宣言が、
+その変数を参照している部分より前にないときは、
+その部分より前で
+「どこかにそう言う変数があるよ」という宣言をします。
+
+<blockquote>
+<pre>
+extern int i;
+</pre>
+</blockquote>
+
+この宣言自体は i という変数に対してメモリを割り当てませんが、
+どこか他のところで i が宣言されていることを示します。
+
+<a href="k47.html"><h3 align="center">■課題４７■</h3></a>
+<p>
+
+<a name="bunkatu">
+<hr>
+
+<h2>３．分割コンパイル</h2></a>
+
+<hr>
+
+ソースプログラムは複数のファイルに分けて作ることができます。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>goukei.c</b>
+<tr><td>
+<pre>
+extern int sum; /* どこか他で宣言されている */
+
+void goukei(int n)
+{
+    do {
+      sum += n;
+    }
+    while (--n > 0);
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>hyouji.c</b>
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+extern int sum; /* どこか他で宣言されている */
+
+void hyouji(void)
+{
+    printf("合計は %d\n", sum);
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>main.c</b>
+<tr><td>
+<pre>
+int sum; /* 共有しようとする変数の宣言 */
+
+int main(void)
+{
+    sum = 0;
+    goukei(100);
+    hyouji();
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+このようにファイルを分けた場合は、
+次のようにしてコンパイルします。
+
+<blockquote>
+<pre>
+cc main.c goukei.c hyouji.c -o prog
+</pre>
+</blockquote>
+
+これによって main.c goukei.c hyouji.c をそれぞれコンパイルし、
+作成されたオブジェクトファイルを結合して prog という実行ファイルを
+作成します。
+<p>
+
+この例では、外部変数 sum （の実体）は main.c の中だけで宣言されており、
+goukei.c hyouji.c では、
+
+<blockquote>
+<pre>
+extern int sum;
+</pre>
+</blockquote>
+
+によって、それぞれのソースプログラムの中以外に
+sum が用意されていることを宣言しています。
+<p>
+
+一方、関数の外部で、
+
+<blockquote>
+<pre>
+static int sum;
+</pre>
+</blockquote>
+
+のように宣言した場合には、
+この変数はそのソースファイルの
+それが宣言されている場所より後ろ以外からは参照されないことを示します。
+例えば、上記の例の main.c において sum を次のように宣言すると、
+sum が他から参照できなくなるため、
+goukei.c および hyouji.c にある
+<tt>extern int sum;</tt> の実体がないことになり、
+リンク時にエラーになります。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>main.c</b>
+<tr><td>
+<pre>
+static int sum; /* このファイル内だけで使用される変数の宣言 */
+
+int main(void)
+{
+    sum = 0;
+    goukei(100);
+    hyouji();
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+<a href="k48.html"><h3 align="center">■課題４８■</h3></a>
+<p>
+
+<a name="prototype">
+<hr>
+
+<h3>関数プロトタイプ</h3></a>
+
+課題４８において、kadai48b.c に含まれる関数 inc を
+kadai48a.c の関数 goukei 内で使用するために、
+kadai48a.c の先頭で次のように宣言していました。
+
+<blockquote>
+<pre>
+extern int inc(void);
+</pre>
+</blockquote>
+
+これまで例では、
+関数は必ずそれを呼び出している部分より前で定義していました。
+これは外部変数の宣言と同じ規則です。
+<p>
+
+従って、
+関数の定義が同じソースファイルの関数を呼び出している部分より前に無い場合は、
+外部変数同様その関数を extern を使って宣言してやる必要があります。
+この場合、戻り値の型の他に、
+引数の型も宣言します
+（関数の中身は必要ありません）。
+これを<b>関数プロとタイプ</b>と言います。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+extern void swap(int *, int *); /* 関数プロトタイプ */
+
+int main(void)
+{
+    int x, y;
+
+    x = 10;
+    y = 20;
+    swap(&x, &y);
+    printf("x=%d, y=%d\n", x, y);
+
+    return 0;
+}
+
+void swap(int *a, int *b)
+{
+    int t;
+
+    t = *a;
+    *a = *b;
+    *b = t;
+}
+</pre>
+</table>
+</blockquote>
+
+この例では関数 swap の戻り値の型が void（値を返さない）で、
+２つの引数がいずれも int 型のポインタであることを示しています。
+
+<blockquote>
+<pre>
+extern void swap(int *, int *);
+</pre>
+</blockquote>
+
+</body>

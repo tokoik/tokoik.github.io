@@ -1,0 +1,925 @@
+<head>
+<title>情報処理 II － 第５回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第５回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．インクリメント・デクリメント演算子と代入演算子</h2>
+
+<hr>
+
+<p>次の代入によって、
+変数 x の内容を a だけ増すことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x = x + a</table>
+</center>
+
+<p>これは x + a の結果を x に代入します。
+<a href="02-h2.html#assignment">代入演算子</a>を用いれば、
+これを次のように書くことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x <b>+=</b> a</table>
+</center>
+
+<p>同様に、下の左のようなの代入は、右のようにも書くことができます。</p>
+
+<center>
+<table>
+<tr>
+<td width="45%" bgcolor="#ffffff" nowrap><tt>y = y - b</tt></td>
+<th width="10%">→</td>
+<td width="*" bgcolor="#ffffff" nowrap><tt>y -= b</tt></td>
+</tr>
+<tr>
+<td width="45%" bgcolor="#ffffff" nowrap><tt>k = k * (i + j)</tt></td>
+<th width="10%">→</td>
+<td width="*" bgcolor="#ffffff" nowrap><tt>k *= i + j</tt></td>
+</tr>
+<tr>
+<td width="45%" bgcolor="#ffffff" nowrap><tt>l = l / (i * j)</tt></td>
+<th width="10%">→</td>
+<td width="*" bgcolor="#ffffff" nowrap><tt>l /= i * j</tt></td>
+</tr>
+</table>
+</center>
+
+<p>特に変数の内容を１だけ増す、
+あるいは１だけ減じる場合は、
+次のような演算子を使うことができます。</p>
+
+<center>
+<table>
+<tr>
+<td width="30%" bgcolor="#ffffff"><tt>i = i + 1</tt></td>
+<td width="5%">→</td>
+<td width="30%" bgcolor="#ffffff"><tt>i += 1</tt></td>
+<td width="5%">→</td>
+<td width="*" bgcolor="#ffffff"><tt>++i</tt></td>
+</tr>
+<tr>
+<td width="30%" bgcolor="#ffffff"><tt>i = i - 1</tt></td>
+<td width="5%">→</td>
+<td width="30%" bgcolor="#ffffff"><tt>i -= 1</tt></td>
+<td width="5%">→</td>
+<td width="*" bgcolor="#ffffff"><tt>--i</tt></td>
+</tr>
+</table>
+</center>
+
+<p><b><tt>++</tt></b>、<b><tt>--</tt></b> は変数にだけ適用できる単項演算子で、
+それぞれ<font color="#ff0000">インクリメント演算子</font>、
+<font color="#ff0000">デクリメント演算子</font>と呼ばれます。
+これらは上記のように変数の左側に書く場合の他、
+右側に書く場合もあります。
+左側と右側では変数に対する効果（１加減する）は同じですが、
+その演算を<font color="#ff0000">評価</font>したときの値が異なります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>i = 1;    // ここで i は 1 になる
+j = <b>++</b>i;  // ここで i が 2 になって、それが j に入る</table>
+</center>
+
+<p>上の例では <u>i も j も 2</u> になります。
+j には i
+の内容が１増やされた<font color="#ff0000">後</font>の値が入ります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>i = 1;    // ここで i は 1 になる
+j = i<b>++</b>;  // ここで j に 1 を入れてから i は 2 になる</table>
+</center>
+
+<p>上の例では <u>i は 2、j は <font color="#ff0000">1</font></u>になります。
+j には i
+の内容が１増やされる<font color="#ff0000">前</font>の値が入ります。</p>
+
+<hr>
+
+<h2>２．繰り返し</h2>
+
+<hr>
+
+<a name="while">
+<h3>２．１．while</h3></a>
+
+<p>整数の割り算を、引き算の繰り返しで計算することを考えてみます。</p>
+
+<ul>
+
+<li>被除数が除数以上なら被除数から除数を引き、
+結果を被除数にしてこの処理を繰り返す。</li>
+
+<li>被除数が除数未満なら被除数を剰余とし、
+引き算を繰り返した回数を商とする。</li>
+
+</ul>
+
+<p>この方法で７÷３を求めてみます。</p>
+
+<center>
+<table width="90%">
+<tr><th>被除数</th><th></th><th>除数</th><th></th><th></tr>
+<tr>
+<td align="right">７</td>
+<td align="center">≧</td>
+<td align="left">３</td>
+<td nowrap>なので、７－３＝４（１回目の引き算）</td>
+</tr>
+<tr>
+<td align="right">４</td>
+<td align="center">≧</td>
+<td align="left">３</td>
+<td nowrap>なので、４－３＝１（２回目の引き算）</td>
+</tr>
+<tr>
+<td align="right">１</td>
+<td align="center">＜</td>
+<td align="left">３</td>
+<td nowrap>なので、剰余＝１、商（引き算の回数）＝２
+</tr>
+</table>
+</center>
+
+<p>変数 x を被除数、y を除数として、この手順をプログラムに書いてみます。
+被除数が除数以上の間、被除数から除数を引くことを繰り返すわけですから、
+これには <font color="#ff0000"><b>while</b></font> を使います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void warizan(int x, int y) {
+  int kaisu = 0;         // 引き算の回数を数える変数
+
+  <b>while</b> (x &gt;= y) {       // x &gt;= y の間、以下の処理を繰り返す
+    x = x - y;           //   引き算の実行して結果を被除数にする
+    kaisu = kaisu + 1;   //   引き算の回数をカウント
+  }
+  cout &lt;&lt; "商は" &lt;&lt; kaisu &lt;&lt; "、剰余は" &lt;&lt; x &lt;&lt; endl;
+}</table>
+</center>
+
+<p><b>while</b> というキーワードを使えば、
+ある条件が成立する（真である）間、
+<font color="#ff0000">同じ処理を繰り返す</font>ことができます。
+<b>while</b> の後に続く ( ) 内の条件（継続条件）が真なら、
+その直後の { } 内の処理を実行して、もう一度継続条件を調べます。
+そのとき継続条件が真なら同じことを繰り返します。
+なお、上の例において <tt>x = x - y</tt> は <tt>x -= y</tt>、
+<tt>kaisu = kaisu + 1</tt> は <tt>++kaisu</tt> と書くことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void warizan(int x, int y) {
+  int kaisu = 0;         // 引き算の回数を数える変数
+
+  <b>while</b> (x &gt;= y) {       // x &gt;= y の間、以下の処理を繰り返す
+    x -= y;              //   引き算の実行して結果を被除数にする
+    ++kaisu;             //   引き算の回数をカウント
+  }
+  cout &lt;&lt; "商は" &lt;&lt; kaisu &lt;&lt; "、剰余は" &lt;&lt; x &lt;&lt; endl;
+}</table>
+</center>
+
+<p><b>if</b> と同様に <b>while</b> ( ) に続く { } 内が単一の文のときは、
+{ } を省略できます。上の例で剰余を求めるだけなら kaisu の計算は不要ですから、
+そのような場合は次のように書いても構いません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>  <b>while</b> (x &gt;= y) x -= y;</table>
+</center>
+
+<hr>
+
+<h2>課題１５</h2>
+
+<hr>
+
+<p>キーボードから整数入力を一つ入力し、
+「１～その数」までの合計を求めるプログラムを、
+以下の方法で作ってください。
+n (n + 1) / 2 という公式は使っちゃいけません。</p>
+
+<ol>
+
+<li><p>キーボードから入力した整数を n という変数に格納するとします。</p></li>
+
+<li><p>また合計を sum という変数に格納するとします。
+この初期値はもちろん 0 です。</p></li>
+
+<li><p>「1～n の合計を求める」という処理は、
+以下のような計算を繰り返すことになります。
+<blockquote>
+<table>
+<tr><td><tt>sum += 1;</tt></td><td nowrap><tt>// 0 + 1 = 1</tt></td><td><tt>→ 1～1 の合計</tt></td></tr>
+<tr><td><tt>sum += 2;</tt></td><td nowrap><tt>// 1 + 2 = 3</tt></td><td><tt>→ 1～2 の合計</tt></td></tr>
+<tr><td><tt>sum += 3;</tt></td><td nowrap><tt>// 3 + 3 = 6</tt></td><td><tt>→ 1～3 の合計</tt></td></tr>
+<tr><td><tt><font color="#808080">...</font></tt></td></tr>
+<tr><td><tt>sum += n;</tt></td><td nowrap><tt>//</tt></td><td><tt>→ 1～n の合計</tt></td></tr>
+</table>
+</blockquote>
+だからといってこの通りにプログラムすることはできません。</p></li>
+
+<li><p>sum には 1, 2, 3, ... , n
+というように１ずつ増えていく数を加えていくわけですから、
+ここに変数（例えば i）を使って ++i のように表せばうまくいきそうです。
+もちろんこの i の初期値も 0 にしておきます。
+すると上の計算は次の１行で表すことができます。
+<blockquote>
+<table>
+<tr><td><tt>sum += ++i;</tt></td></tr>
+</table>
+</blockquote></p></li>
+
+<li><p>したがって、これを i が n より小さい間繰り返して、
+この条件を満たさなくなったら sum を出力すればよいことになります。</p></li>
+
+</ol>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai15">tokoi</a>
+まで送ってください。Subject:（件名）は kadai15 としてください。</p>
+
+<hr>
+
+<h3>２．２．繰り返し入力</h3>
+
+<p>標準入力（コンソール）から一つデータを入力したい時は、
+<tt>cin</tt> から抽出演算子 <tt>&gt;&gt;</tt> を使って、
+データを変数に格納します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data1;
+
+  <b>cin &gt;&gt; data1;</b>  // キーボードから読み込んだ整数値を data1 に格納
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>データが２つ以上あるときは次のように書くことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data1, data2;
+
+  // キーボードから読み込んだ整数値を data1 と data2 に格納
+  <b>cin &gt;&gt; data1 &gt;&gt; data2;</b>
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>これは <tt>cin &gt;&gt; data1</tt> という式の値が <tt>cin</tt> なので、
+それに対して続けて抽出演算子 <tt>&gt;&gt;</tt> を適用しているわけです。
+したがって、これを次のように別けて書いても構いません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data1, data2;
+
+  <b>cin &gt;&gt; data1;</b> // キーボードから読み込んだ整数値を data1 に格納
+  <b>cin &gt;&gt; data2;</b> // キーボードから読み込んだ整数値を data2 に格納
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>データがもっとたくさんあるときは、この行を増やしていけば良いことになります。
+しかし、そういうときには普通 <b>while</b> などを使って繰り返します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data;
+
+  cin &gt;&gt; data;
+  while (<b>data != 0</b>) {
+    <font color="#808080">...</font>
+    cin &gt;&gt; data;
+  }
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>このプログラムは、入力データが 0 の時に繰り返しを終了します。
+しかし、0 もデータとして使いたい場合もあるんじゃないかと思います。</p>
+
+<p>そういう場合は、
+入力が「データの終り」に達したときに繰り返しをやめるようにします。
+キーボードからデータを入力する場合、
+入力が「データの終り」に達したことをプログラムに知らせるには、
+<tt><b>Ctrl-D</b></tt>（<tt>Ctrl</tt>
+キーを押しながら <tt>D</tt>）
+をタイプします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>10<b><font color="#00cc66">[Enter]</font></b></u>
+<u>20<b><font color="#00cc66">[Enter]</font></b></u>
+<u><b><font color="#00cc66">Ctrl-D</font></b></u><font color="#ffff00">　　　　（←入力の終了）</font>
+</font></table>
+</center>
+
+<p><tt>cin</tt> からの入力が「データの終り」に達したとき、
+<tt>cin</tt> の値は 0 になります。
+したがってこの繰り返しは、次のように書くことができます。
+なお、<tt>cin</tt> が 0 のときには、
+変数（この場合 <tt>data</tt>）へのデータの格納は行われません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data;
+
+  cin &gt;&gt; data;
+  while (<b>cin != 0</b>) {
+    <font color="#808080">...</font>
+    cin &gt;&gt; data;
+  }
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p><b>while</b> の継続条件は、( ) 内が「非０」なら「真」なので、
+<tt>!= 0</tt> という等値演算は省略することができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data;
+
+  cin &gt;&gt; data;
+  while (<b>cin</b>) {
+    <font color="#808080">...</font>
+    cin &gt;&gt; data;
+  }
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p><tt>cin &gt;&gt; data</tt> という式の値も <tt>cin</tt>
+ですから、これを次のように書くこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int data;
+
+  while (<b>cin &gt;&gt; data</b>) {
+    <font color="#808080">...</font>
+  }
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<hr>
+
+<h2>課題１６</h2>
+
+<hr>
+
+<p>課題１５では変数 i を 1 ずつ増やしながら sum に足して、
+1 ～ n の合計を求めました。
+ここでは、この i の値を１ずつ増やす代わりに、cin
+から入力したデータを使って、
+キーボードから入力した数値の合計を求めるプログラムを作成してください。</p>
+
+<p>すべての数値を入力して、
+最後に <tt><b>Ctrl-D</b></tt>
+をタイプしたあとに答が出るようにしてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>8<b><font color="#00cc66">[Enter]</font></b></u>
+<u>5<b><font color="#00cc66">[Enter]</font></b></u>
+<u>7<b><font color="#00cc66">[Enter]</font></b></u>
+<u><b><font color="#00cc66">Ctrl-D</font></b></u><font color="#ffff00">　　　　（←入力の終了）</font>
+20    <font color="#ffff00">　　　　（←答）</font>
+</font></table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai16">tokoi</a>
+まで送ってください。Subject:（件名）は kadai16 としてください。</p>
+
+<hr>
+
+<h3>２．３．<b>for</b></h3>
+
+次のような一定回数の繰り返しは、プログラムの至る所で現れます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int i;
+i = 0;
+<b>while</b> (i &lt; 5) {
+  cout &lt;&lt; "おはようさん" &lt;&lt; endl;
+  ++i;
+}</table>
+</center>
+<p>
+
+<font color="#ff0000"><b>for</b></font>
+というキーワードを使えば、これを次のように簡略化できます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>for</b> (i = 0; i &lt; 5; ++i) {
+    cout &lt;&lt; "おはようさん" &lt;&lt; endl;
+}</table>
+</center>
+<p>
+
+これも <b>for</b> ( ) に続く { } 内が単一の文のときは、{ } を省略できます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>for</b> (i = 0; i &lt; 5; ++i)
+    cout &lt;&lt; "おはようさん" &lt;&lt; endl;</table>
+</center>
+<p>
+
+<img src="05-01.gif" align="right" hspace="10" vspace="10">
+<b>for</b> の ( ) 内は ;（セミコロン）に区切られた３つの部分からなり、
+それぞれ「前処理」「継続条件」「継続処理」を記述します。
+これらは右のような順序で実行されます。
+
+<blockquote>
+<pre>
+<b>for</b> (前処理; 継続条件; 継続処理) {
+    繰り返すプログラム;
+    <font color="#808080">...</font>
+}
+</pre>
+</blockquote>
+
+上の例では、i は 0→1→2→3→4 と変化し、
+i == 5 となったときに継続条件を満たさなくなり、
+繰り返しを終了します。
+<p>
+
+<b>for</b> の用途は <a href="#while"><b>while</b></a> 同様、
+一定回数の繰り返しだけに限りません。
+<b>while</b> のところで例に使った割り算のプログラムを、
+<b>for</b> を使って書き換えてみましょう。
+<p>
+
+<blockquote>
+<dl>
+
+<dt>前処理</dt>
+<dd>この場合の前処理は変数 kaisu の初期値を 0 にすることですが、
+これは kaisu は定義の際に 0 で初期化しているので、
+ここでは前処理は不要です。</dd>
+
+<dt>継続条件</dt>
+<dd><b>while</b> の条件同様 <tt>x &gt;= y</tt> にします。</dd>
+
+<dt>継続処理</dt>
+<dd>これは <tt>x -= y</tt> と <tt>++kaisu</tt> のどちらでもいいでしょう。
+ここでは後者を指定することにします。</dd>
+
+</dl>
+</blockquote>
+
+<br clear="all">
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void warizan(int x, int y) {
+  int kaisu = 0;         // 引き算の回数を数える変数
+
+  <b>for</b> (; x &gt;= y; ++kaisu) {
+    x -= y;              //   引き算の実行して結果を被除数にする
+  }
+  cout &lt;&lt; "商は" &lt;&lt; kaisu &lt;&lt; "、剰余は" &lt;&lt; x &lt;&lt; endl;
+}</table>
+</center>
+<p>
+
+<b>for</b> の前処理、継続条件、継続処理はいずれも省略することができます。
+継続条件を省略すると、処理を無限に繰り返します（無限ループ）。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>for</b> (;;) { <font color="#808080">...</font> }   // 無限ループ</table>
+</center>
+<p>
+
+なお <b>while</b> の場合は ( ) 内の継続条件を省略できません。
+上と同じことを行うには、継続条件に真の値（非 0 の整数値）を指定します。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>while</b> (<b>1</b>) { <font color="#808080">...</font> }  // 無限ループ</table>
+</center>
+<p>
+
+<a name="kadai17">
+<hr>
+
+<h2>課題１７</h2></a>
+
+<hr>
+
+<p>関数のグラフを描くプログラムを考えてみます．</p>
+
+<p>まず，手始めにキーボードから入力した数値の数だけ，
+'*' 印を出力するプログラムを作ってください．</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+数を入れてください: <u>5<b><font color="#00cc66">[Enter]</font></b></u>
+*****
+% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+数を入れてください: <u>13<b><font color="#00cc66">[Enter]</font></b></u>
+*************
+</font></table>
+</center>
+
+<p>これは '*' を一つ出力する処理を、
+その数だけ繰り返せば実現できます。</p>
+<blockquote>
+<pre>cout &lt;&lt; '*';</pre>
+</blockquote>
+<p>繰り返しの終了後に行末文字を出力します。</p>
+<blockquote>
+<pre>cout &lt;&lt; endl;</pre>
+</blockquote>
+<p>この繰り返しの回数を，
+キーボードから入力する代わりに，
+関数を使って決めることで、グラフを描きます。
+ここでは sin 関数を使ってみましょう．</p>
+
+<p>sin 関数の値は -1 ～ 1 の範囲にありますから、
+これを出力する '*' の数の範囲に置き換える必要があります。
+ウィンドウの１行の文字数が標準で 80 ですから，
+出力する '*' の数の範囲は，とりあえず 0 ～ 50 位の範囲にします．
+25 * (sin(x) + 1.0) とすれば，この範囲の数値が得られます．</p>
+
+<p>上の x を変化させながら上式の値を '*' を出力する繰り返しの回数に用いれば，
+関数のグラフを描くことができます．</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+*************************
+********************************
+***************************************
+*********************************************
+************************************************
+**************************************************
+************************************************
+*********************************************
+***************************************
+********************************
+************************
+*****************
+**********
+****
+*
+
+*
+****
+**********
+*****************
+*************************
+</font></table>
+</center>
+
+<p>sin 関数の引数 x の単位はラジアンで，１周期の値の範囲は 0 ～ 2πです．
+１周期を 20 に分割した場合，
+整数型の変数（ここでは j）を 0 ～ 20 に変化させるとして，
+x = 2 * 3.1415926536 * j / 20
+で求めることができます．</p>
+
+<p>したがって，
+<ul>
+<li>n = 25.0 * (sin(2 * 3.1415926536 * j / 20.0) + 1.0)</li>
+<li>'*' を n 個出力する</li>
+</ul>
+という処理を，j を 0 ～ 20 に変化させながら繰り返します．
+ここで n が int などの整数型の変数であれば、
+右辺が float や dobule などの実数値であっても
+n に代入する時に小数点以下が切り捨てられ、
+整数値に変換されます（型変換）。</p>
+
+<p>この方針で最初に作ったプログラムを修正し，
+sin 関数のグラフを描くプログラムを作成してください．</p>
+
+<p> メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai17">tokoi</a>
+まで送ってください。Subject:（件名）は kadai17 としてください。</p>
+
+<hr>
+
+<h3>２．４．<b>do</b> ～ <b>while</b></h3>
+
+<p>処理を繰り返す手段として、<b>for</b> や <b>while</b> のほかに
+<font color="#ff0000"><b>do</b></font> ～
+<font color="#ff0000"><b>while</b></font> があります。
+これは <b>do</b> と <b>while</b> の間に繰り返すべきプログラムを書きます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int i = 5;
+
+<b>do</b> {
+  cout &lt;&lt; "おはようさん" &lt;&lt; endl;
+}
+<b>while</b> (--i &gt; 0);
+</table>
+</center>
+
+<p><b>while</b> () { <font color="#808080">...</font> } とは異なり、
+継続条件の判定を { <font color="#808080">...</font> } の実行後に行うため、
+少なくとも１回は処理を実行します。</p>
+
+<p>上の例では、i の初期値が 1 でも 0 でも、
+「おはようさん」が１回表示されます。</p>
+
+<hr>
+
+<h3>２．５．<b>break</b> と <b>continue</b></h3>
+
+<p><b>while</b> のような繰り返しを継続条件以外の要因で終了させたり、
+途中をはしょったりするために、
+<font color="#ff0000"><b>break</b></font> と
+<font color="#ff0000"><b>continue</b></font>
+というキーワードが用意されています。</p>
+
+<blockquote>
+<dl>
+
+<dt><b>break</b></dt>
+<dd>繰り返しをそこで打ち切ります。</dd>
+
+<dt><b>continue</b>
+<dd>繰り返し部分の残りの処理を飛ばします。</dd>
+
+</dl>
+</blockquote>
+
+<p>下の例は i == 3 になったところで <b>break</b> が実行されて
+<b>for</b> による繰り返しが終わるので「2 回目」までしか出力されません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int i;
+
+<b>for</b> (i = 0; i &lt; 5; ++i) {
+  if (i == 3) <b>break</b>;
+  cout &lt;&lt; i &lt;&lt; " 回目" &lt;&lt; endl;
+}</table>
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+1 回目
+2 回目  <font color="#ffff00">（←ここで処理が終わってしまう）</font>
+</font></table>
+</center>
+
+<p>下の例は i == 3 になったところで <b>continue</b> が実行されて
+残りの部分が飛ばされるので「3 回目」が出力されません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int i;
+
+<b>for</b> (i = 0; i &lt; 5; ++i) {
+  if (i == 3) <b>continue</b>;
+  cout &lt;&lt; i &lt;&lt; " 回目" &lt;&lt; endl;
+}</table>
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+1 回目
+2 回目
+4 回目  <font color=#ffff00">（←「3 回目」が飛ばされた）</font>
+5 回目
+</font></table>
+</center>
+
+<hr>
+
+<h2>課題１８</h2>
+
+<hr>
+
+<p>次のプログラムは、ある決められた数（金額、この場合は１万円）から、
+キーボードから入力した数（支出額）を減じてゆき、
+残り（残額）が０以下になったら終了するプログラムです。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int budget, payment;
+
+  budget  = 10000;
+  while (budget &gt; 0) {
+    cout &lt;&lt; "支出額を入れてください：";
+    cin &gt;&gt; payment;
+    budget -= payment;
+    cout &lt;&lt; "残額は " &lt;&lt; budget &lt;&lt; " 円です。" &lt;&lt; endl;
+  }
+  return 0;
+}</table>
+</center>
+
+<p>このプログラムは残額が０以下になるまで終了しません。
+そこで支出額を入力するかわりに
+<tt><b>Ctrl-D</b></tt> をタイプしたときは、
+残額が０以下でなくても途中で終了するように、
+このプログラムに<font color="#ff0000">１行追加</font>してください。 
+メールに変更したソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai18">tokoi</a>
+まで送ってください。Subject:（件名）は kadai18 としてください。</p>
+
+<hr>
+
+<h3>２．６．goto</h3>
+
+<p>次の１つ目のプログラムの <b>break</b> は
+switch の処理からの脱出になるため、
+２つ目のプログラムのように <b>for</b>
+による繰り返しを終了することはできません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>for</b> (;;) {
+  cout &lt;&lt; "終了する場合は 0 を入れてください：";
+  cin &gt;&gt; key;
+  <b>switch</b> (key) {
+  case 0:
+    cout &lt;&lt; "プログラムを終了します" &lt;&lt; endl;
+    <b>break</b>; // この <b>break</b> は <font color="#aa0000"><b>switch</b> から抜け出すだけ</font>
+  }
+}</td></tr>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>for</b> (;;) {
+  cout &lt;&lt; "終了する場合は 0 を入れてください：";
+  cin &gt;&gt; key;
+  <b>if</b> (key == 0) {
+    cout &lt;&lt; "プログラムを終了します" &lt;&lt; endl;
+    <b>break</b>; // この <b>break</b> は <font color="#aa0000"><b>for</b> による繰り返しを終了する</font>
+  }
+}</td></tr>
+</table>
+</center>
+
+<p>上の１つ目の例のように <b>switch</b> を使った場合に、
+２つ目の例のように <b>for</b> の外側まで脱出したいときには、
+<font color="#ff0000"><b>goto</b></font> を使うことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>  <b>for</b> (;;) {
+    cout &lt;&lt; "終了する場合は 0 を入れてください：";
+    cin &gt;&gt; key;
+    <b>switch</b> (key) {
+    case 0:
+      cout &lt;&lt; "プログラムを終了します" &lt;&lt; endl;
+      <b>goto</b> out_of_loop; // out_of_loop というラベルに直行
+    }
+  }
+out_of_loop:
+  cout &lt;&lt; "終了" &lt;&lt; endl;
+</table>
+</center>
+
+<p>「<b>goto</b> ラベル;」とすると、
+そこから（同じ関数内にある）「ラベル:」が書かれたところに処理を移します。
+ラベル名の付け方は<a href="02.html#identifier">変数名</a>と同じです。
+「ラベル:」の後には文が必要です。
+実行する処理がなければ、空文（セミコロン ";" のみ）を置いてください。</p>
+
+<p><b>for</b> や <b>while</b>
+による繰り返しが２重になっている場合も同様です。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>  <b>for</b> (i = 0; i &lt; 100; i++) {
+    <b>for</b> (j = 0; j &lt; 100; j++) {
+      <font color="#808080">...</font>
+      if (<font color="#808080">...</font>) <b>goto</b> exit_loop;  // <b>break</b> だと <font color="#aa0000">内側の <b>for</b> から抜けるだけ</font>
+      <font color="#808080">...</font>
+    }
+  }
+exit_loop:
+  <font color="#808080">...</font>
+</table>
+</center>
+
+<p><b>goto</b> は安易に使うべきではありません。
+エラー処理など、<b>goto</b> を使わないことによって、
+かえってソースプログラムの可読性（読みやすさ）を下げることが
+明らかな場合だけに限定して使用した方が無難でしょう。</p>
+
+<hr>
+
+<h2>課題１９</h2>
+
+<hr>
+
+<p>次のソースプログラムは <b>goto</b> を使って繰り返し処理を行っています。
+これを <b>while</b> を使って書き直してください。 </p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int n;
+  double factorial = 1.0;
+
+  cout &lt;&lt; "整数を入力してください：";
+  cin &gt;&gt; n;
+  cout &lt;&lt; n &lt;&lt; " の階乗は ";
+
+start_loop:
+  if (n &gt; 1) {
+    factorial *= n--;
+    goto start_loop;
+  }
+
+  cout &lt;&lt; factorial &lt;&lt; endl;
+  return 0;
+}
+</table>
+</center>
+
+<p>書き直したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai19">tokoi</a>
+まで送ってください。Subject:（件名）は kadai19 としてください。</p>
+
+</body>

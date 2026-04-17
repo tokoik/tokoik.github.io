@@ -1,0 +1,406 @@
+<head>
+<title>情報基礎演習II − 第４回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第４回</h1>
+
+<hr>
+
+<h2>１．実数</h2>
+
+<hr>
+
+Ｃ言語では、
+これまで使ってきた整数の他に、
+実数を扱うことができます。
+実数は小数部を持つ数で、
+コンピュータ上では
+浮動小数点数 (floating-point number) と呼ばれる形式で表現されます。
+<p>
+
+<hr>
+
+<h3>実数型の定数</h3>
+
+小数点を含む定数は、実数型の定数になります。
+0.5 や 1.0 のような場合は、0 を省略して .5 や 1. と表すこともできます。
+<p>
+
+<blockquote>
+<pre>
+1.0  3.1415926535  1000.2  0.5  .3
+</pre>
+</blockquote>
+
+e や E を使って指数表現した場合も実数を表す定数になります。
+1e23 は 1×10<sup>23</sup>、0.25e-31 は 0.25×10<sup>-31</sup>を表します。
+
+<blockquote>
+<pre>
+1.45e12  -3.77e45  12e-34
+</pre>
+</blockquote>
+
+<hr>
+
+<h3>実数型の変数</h3>
+
+実数型の変数の宣言には float または double を用います。
+
+<blockquote>
+<pre>
+float sum;              /* 合計 */
+</pre>
+</blockquote>
+
+float は、
+に続く名前が実数を格納する変数であることを宣言します。
+この例では sum は float型変数と呼ばれます。
+<p>
+
+float 型の変数の有効数字は約７桁です。
+より精度の高い計算を行う必要がある場合には、
+double（倍精度）型を使います。
+double 型の有効数字は約１６桁です。
+<p>
+
+<blockquote>
+<pre>
+double accurate;
+</pre>
+</blockquote>
+
+さらに高精度な計算を行うために、
+long double 型と呼ばれる
+データ型を用意している処理系もあります。
+<p>
+
+<hr>
+
+<h3>実数型データの表示</h3>
+
+printf で float 型のデータを表示する変換指定子は %f、
+double 型の場合には %lf です。
+また long double 型の場合は %Lf を使います。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<th>データ型<th>変換指定子
+<tr>
+<td>float<td>%f
+<tr>
+<td>double<td>%lf
+<tr>
+<td>long double<td>%Lf
+</table>
+</blockquote>
+
+<blockquote>
+<pre>
+printf("１割る３は%f\n", 1.0 / 3.0);
+</pre>
+</blockquote>
+
+本当のことを言うと実数型の定数のデータ型は double なので、
+ここでは %lf を使用すべきなのですが、
+float 型のデータは普通 printf には double に変換されてから渡されるので
+（つまり、printf では %f と %lf は同じ）、
+%f でも正常に表示できます。
+
+<a href="k12.html"><h3 align="center">■課題１２■</h3></a>
+
+<hr>
+
+<h3>実数型と整数型の変換</h3>
+
+整数と実数の演算は、整数を実数に変換して実行されます。
+
+<blockquote>
+<pre>
+1.0 / 3
+</pre>
+</blockquote>
+
+この例では整数の定数 3 を実数 (3.0) に直して計算します。
+
+<blockquote>
+<pre>
+1 / 3
+</pre>
+</blockquote>
+
+これは整数同士の演算なので、切り捨てられて結果は 0 になります。
+<p>
+
+実数型の変数への整数の代入は、
+整数を実数に直して行われます。
+
+<blockquote>
+<pre>
+int i;
+float x;
+i = 10;
+x = i;
+</pre>
+</blockquote>
+
+x には 10.0 が入ります。
+<p>
+
+整数型の変数への実数の代入は、
+実数の小数部を切り捨てた後、
+それを整数に直して行われます。
+
+<blockquote>
+<pre>
+int i;
+i = 7.0 / 3.0;
+</pre>
+</blockquote>
+
+i には 2 が入ります。
+
+<a href="k13.html"><h3 align="center">■課題１３■</h3></a>
+
+<hr>
+
+<h2>２．文字</h2>
+
+<hr>
+
+Ｃ言語は文字もデータとして扱うことができます。
+文字型の変数の宣言には char を用います。
+
+<blockquote>
+<pre>
+char one;               /* １文字 */
+</pre>
+</blockquote>
+
+char は、後ろに続く名前が文字を格納する変数であることを宣言します。
+この場合 one は char 型変数と呼ばれます。
+<p>
+
+文字の定数は１文字を '…' ではさんだもので、「文字リテラル」と呼ばれます。
+なお<font color="#ff0000">文字リテラルのデータ型は int</font> です。
+
+<blockquote>
+<pre>
+'A'  'a'  '0'  ' '  ','
+</pre>
+</blockquote>
+
+これらは左から大文字の A、小文字の a、数字の 0、空白、コンマを示します。
+'…' の間に２文字以上をはさむことはできません。
+<a href="h07.html">日本語用の文字</a>は２文字とみなされるので、
+文字型の定数には使えません。
+"…" ではさんだものは文字型の定数ではありません
+（文字列定数と呼び、別のものです）。
+<p>
+
+改行 (\n) のような特殊文字は、
+１文字として扱われます。
+
+<blockquote>
+<table>
+<tr>
+<td><tt>'\b'</tt>
+<td>バックスペース<td>（カーソルを１文字左へ移動）
+<tr>
+<td><tt>'\f'</tt>
+<td>フォームフィード<td>（改ページ）
+<tr>
+<td><tt>'\n'</tt>
+<td>改行<td>（次の行に移動）
+<tr>
+<td><tt>'\r'</tt>
+<td>復帰<td>（現在の行の先頭に移動）
+<tr>
+<td><tt>'\t'</tt>
+<td>タブ<td>（次のタブストップに移動）
+</table>
+</blockquote>
+
+' や " や \ という文字自体を表したいときは、
+いずれも \ を左に置いて、
+その文字が持つ特殊な意味を取り消す（エスケープする）必要があります。
+
+<blockquote>
+<pre>
+'\''  '\"'  '\\'
+</pre>
+</blockquote>
+
+printf で文字を表示するには、変換指定子として %c を使います。
+
+<blockquote>
+<pre>
+printf("これは %c という文字です", 'A');
+</pre>
+</blockquote>
+
+<a name="mojicode">
+<hr>
+
+<h3>文字コード</h3>
+</a>
+
+コンピュータの内部では、
+文字は文字コード（文字の番号）を表す数値で表現されています。
+例えば 'A' の文字コードは十進数で 65 です (ASCII コードの場合)。
+Ｃ言語では文字型のデータを文字コードを表す整数値として取り扱うため、
+実際には整数型のデータとかわりはありません。
+すなわち char 型は「文字コードの範囲」の整数だけを表すことのできる
+整数型だといえます。
+
+<blockquote>
+<pre>
+printf("%d\n", 'A');
+</pre>
+</blockquote>
+
+'A' の文字コード 65 が出力されます。
+
+<blockquote>
+<pre>
+printf("%c\n", 65);
+</pre>
+</blockquote>
+
+'A' が出力されます。
+
+<blockquote>
+<pre>
+printf("%c\n", 'A' + 1);
+</pre>
+</blockquote>
+
+'B' が出力されます。
+<p>
+
+文字定数において、
+\ の後に文字コードを表す３桁以下の８進数を置けば、
+前述の方法で表すことのできない特殊な文字を表現することができます。
+
+<blockquote>
+<pre>
+'\012'  '\101'  '\0'
+</pre>
+</blockquote>
+
+これらは左から '\n'、'A'、文字コード 0 の文字を表します。
+文字コード 0 の文字は整数の 0 と等価です。
+<p>
+
+<a href="k14.html"><h3 align="center">■課題１４■</h3></a>
+
+<hr>
+
+<h2>３．その他のデータ型</h2>
+
+<hr>
+
+char 型は実際には int 同様整数を表すデータ型ですが、
+整数を扱うデータ型には他にもいくつかのバリエーションがあります。
+これを精度で分類すると、次のようになります。
+<p>
+<blockquote>
+<table width="90%" border>
+<tr>
+<th>データ型<th>説明<th>値の範囲
+<tr>
+<td>char<td>文字型<td>-128〜127
+<tr>
+<td>short<td>短精度整数型<td>-32768〜32767
+<tr>
+<td>long<td>長精度整数型<td>-2147483648〜2147483647
+</table>
+</blockquote>
+
+<ul>
+
+<li>これは char 型が 8 ビット、short 型が 16 ビット、
+long 型が 32 ビットの場合です。
+これはコンピュータによって異なりますが、
+世間の大半のコンピュータは、
+この通りです。
+<p>
+
+<li>int 型は short 型か long 型のどちらか一方と同じ精度をもちます。
+どちらと同じになるかはコンピュータによって異なりますが、
+通常そのコンピュータにとって最も効率の良いものが選ばれます。
+例えば 16 ビットコンピュータなら short、
+32 ビットコンピュータなら long と一致します。
+<p>
+
+<li>short と long は、
+それぞれ short int、long int と書くこともできます。
+
+</ul>
+
+さらに、これらに対して符号付き／符号なしを指定することができます。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<th>修飾子<th>説明
+<tr>
+<td>signed<td>符号付き整数
+<tr>
+<td>unsigned<td>符号なし整数
+</table>
+</blockquote>
+
+<ul>
+
+<li>signed/unsigned を省略すると、signed だと見なされます
+（一部 char を符号なし整数として扱う処理系もあるので注意してください）。
+<p>
+
+<li>char/short/int/long を省略すると、int であると見なされます。
+
+<ul>
+<li>signed = int
+<li>unsigned = unsigned int
+</ul>
+
+</ul>
+
+全部を列挙すると、
+<a href="h08.html">この表</a>のようになります。
+<p>
+
+各データ型の printf における変換指定子は、
+それぞれ次のようになります。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<th>データ型<th>変換指定子
+<tr>
+<td>short<td>%hd
+<tr>
+<td>unsigned short<td>%hu
+<tr>
+<td>int<td>%d
+<tr>
+<td>unsigned int<td>%u
+<tr>
+<td>long<td>%ld
+<tr>
+<td>unsigned long<td>%lu
+</table>
+</blockquote>
+
+なお char/unsigned char は、
+それぞれ int/unsigned int に変換して printf の引数に渡されるので、
+これを整数として（文字ではなく）出力する場合は、
+それそれ %d/%u を使います。
+
+<a href="k15.html"><h3 align="center">■課題１５■</h3></a>
+<a href="k16.html"><h3 align="center">■課題１６■</h3></a>
+
+</body>

@@ -1,0 +1,51 @@
+<head>
+<title>情報基礎演習II − 課題６４</title>
+</head>
+
+<body>
+
+<h3>課題６４</h3>
+
+<hr>
+
+<ol>
+
+<li>/etc/passwd というファイルの行数を数える
+プログラムを作成してください。
+<p>
+
+<li>ファイルの中の１行を丸ごと読み込むには、
+fgets を使うと便利です。
+
+<blockquote>
+<pre>
+char line[100];
+fgets(line, sizeof line, fp);
+</pre>
+</blockquote>
+
+fgets の戻り値は第１引数に指定した格納場所のポインタ
+（この例では line）ですが、入力の終りに達した場合などには、
+NULL を返します。
+<p>
+
+sizeof というのも演算子のひとつで、
+右側にある要素の大きさ（バイト数）を返します。
+
+<blockquote>
+<pre>
+char line[100];
+</pre>
+</blockquote>
+
+なら、sizeof line は 100（バイト）になります。
+<p>
+
+<li>ソースプログラムのファイル名は kadai64.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai63 としてください。
+
+</ol>
+
+</body>

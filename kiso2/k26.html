@@ -1,0 +1,67 @@
+<head>
+<title>情報基礎演習II − 課題２６</title>
+</head>
+
+<body>
+
+<h3>課題２６</h3>
+
+<hr>
+
+<ol>
+
+<li>ある大学では、試験の点数が６０点未満なら「不可」、
+６０点以上７０点未満なら「可」、
+７０点以上８０点未満なら「良」、
+８０点以上なら「優」という成績を付けています。
+<p>
+
+<li>次のソースプログラムはその大学の成績判定プログラムです。
+空欄（????）を埋めて、プログラムを完成させてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai26
+** 動作: 成績判定プログラム？
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int mark;       /* 点数   */
+
+    printf("試験の点数を入れてください：");
+    scanf("%d", &mark);
+
+    if ( ???? ) {
+        printf("この点数では不可です。落ちなさい。\n");
+    }
+    else if ( ???? ) {
+        printf("なんとか可です。単位をあげましょう。\n");
+    }
+    else if ( ???? ) {
+        printf("良です。よくできました。\n");
+    }
+    else {
+        printf("優です。たいへんよくできました。\n");
+    }
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>ソースプログラムのファイル名は kadai26.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai26 としてください。
+
+</ol>
+
+</body>

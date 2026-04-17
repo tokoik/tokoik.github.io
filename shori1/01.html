@@ -1,0 +1,534 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第１回：概要説明，Webブラウザの設定と操作，eメールの設定と送受信</title>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第１回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>この講義の目的を知る</LI>
+  <LI>演習用コンピュータの使い方を知る</LI>
+  <LI>日本語の入力方法を知る</LI>
+  <LI>Webブラウザの初期設定を行う</LI>
+  <LI>メールを書いてみる</LI>
+  <LI>システム情報学センターについて知る</LI>
+  <LI>LiveCampus について知る</LI>
+</OL>
+<div class="footer"><a href="./">講義概要</a></div>
+<H2>１．概要説明</H2>
+<H3>１．１　この講義の目的</H3>
+<UL>
+  <LI>大学生活で必要になるコンピュータの基本的な操作方法を習得すること．</LI>
+  <LI>今後の講義で必要になるコンピュータに関する基礎的な知識を学習すること．</LI>
+</UL>
+<P>この演習室のコンピュータは普通のパソコンですが，この講義は Windows ではなく，<A href="http://www.linux.or.jp/general/linux.html" target="_blank">Linux</A> を使って進めます．実社会では Windows が<a href="http://news.mynavi.jp/news/2012/04/09/027/index.html" target="_blank">８割以上を占める</a>ため，その<EM>使い方</EM>について学ぶことは非常に重要だとは思います．</P>
+<P>ですが，この講義では，<strong>あえて Linux を使います！</strong></P>
+<P>その理由は<em>もちろんある</em>のですが，長くなるので<a href="10.html">追々説明する</a>ことにします．とりあえずここでは，コンピュータの使い方（あるいは Windows の使い方）よりももっと基本的な，コンピュータというシステムを形作っているさまざまな<EM>考え方</EM>に触れるために，Linux を使うんだということにします．</P>
+<BLOCKQUOTE><div class="header">Windows の利用について</div><div class="body">演習室のコンピュータは Windows も使えるようになっているので，必要な人は自分で勉強してください（基礎教養セミナーにおいて論文の書き方やプレゼンの仕方を指導する場合があるので，その時に教えてもらえるかもしれません）．</div></BLOCKQUOTE>
+<BLOCKQUOTE><div class="header">自宅での Linux の利用について</div>
+<div class="body">Linux という名称は特定のソフトウェア（のパッケージ）を指したものではなく，それに準じたいくつものパッケージが存在します．それをディストリビューションと言います．Linux のディストリビューションの中には無料で入手できるものがあります．Vine Linux もその一つです．これらを自宅のパソコンに導入することも可能です．詳しくは授業担当教員や基礎教養セミナー担当教員に聞いてください．</div></BLOCKQUOTE>
+<H3>１．２　質問</H3>
+<OL>
+  <LI>ところで，Linux って知ってますか？</LI>
+  <LI>自宅や下宿・寮に自分のパソコンを持っていますか？</LI>
+  <LI>持っているパソコンは Windows PC ですか？ Mac ですか？ それともこれら以外ですか？</LI>
+  <LI>持っているパソコンの CPU は何ですか？</LI>
+  <LI>前の質問の意味はわかりますか？</LI>
+  <LI>メインの連絡方法はパソコンのメールですか？携帯のメールですか？それとも LINE ですか？</LI>
+  <LI>ホームページを作ったり，ブログ（<a href="http://d.hatena.ne.jp/" target="_blank">はてな</a>，<a href="http://ameblo.jp/" target="_blank">アメブロ</a>，<a href="http://www.cocolog-nifty.com/" target="_blank">ココログ</a>，<a href="https://www.blogger.com/" target="_blank">Blogger</a>，<a href="http://www.tumblr.com/" target="_blank">Tumblr</a> 等）を書いたりしていますか？</LI>
+  <LI>ソーシャルネットワークサービスやミニブログ（<a href="http://ja-jp.facebook.com/" target="_blank">facebook</a>, <a href="https://plus.google.com/?hl=ja" target="_blank">Google+</a>, <a href="http://lang-8.com/" target="_blank">lang-8</a>, <a href="http://mixi.jp/" target="_blank">mixi</a>, <a href="http://gree.jp/" target="_blank">GREE</a>, <a href="http://twitter.com/" target="_blank">twitter</a> 等）を使ってますか？</LI>
+  <LI>iPhone や Android，Windows Phone 端末を使っていますか？</LI>
+  <LI>プログラミングの経験はありますか？</LI>
+</OL>
+<H3>１．３　お願い</H3>
+<P>この講義では皆さんのコンピュータの使用経験にかかわらず，みんな同じスタートラインに立つものして進めます．したがって，</P>
+<DL>
+  <DT>コンピュータの使用経験が少ない人には</DT>
+  <DD>できるだけ平易な説明をするよう心がけますが，わからないことがあればどんどん質問してください．</DD>
+  <DT>コンピュータの使用経験が豊富な人には</DT>
+  <DD>自分でどんどん先に進んで構いません．でも，近くで困っている人を見かけたら手伝ってあげてください．</DD>
+</DL>
+<DIV class="figure"><IMG src="chat.gif" width="640" height="120" border="0" alt="私語推奨"></DIV>
+<p>ただし，<em>ほかの人の迷惑にならない程度</em>でお願いします．</p>
+<H3>１．４　使用するコンピュータ</H3>
+<DL>
+  <DT>コンピュータ本体</DT>
+  <DD>富士通 <a href="http://www.fmworld.net/biz/fmv/esprimo/d582g/" target="_blank">FMV-D582G</a> （CPU: Intel Core i5-3470 3.2GHz, メモリ: 8GB)</DD>
+  <DT>オペレーティングシステム</DT>
+  <DD><a href="http://linuxmint-jp.net/" target="_blank">Linux MInt</a> 16 Petra Cinammon  あるいは Windows 7 (いずれも 64bit 版)</DD>
+</DL>
+<P>※ この講義（および，続く「<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip2/" target="_blank">情報処理II</a>」「<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip3/" target="_blank">情報処理III</a>」等）では <a href="http://linuxmint-jp.net/" target="_blank">Linux MInt</a> を使用します．</P>
+<DIV class="figure"><IMG src="machine.jpg" width="800" height="350" border="0" alt="コンピュータ本体"></DIV>
+<BLOCKQUOTE>
+  <DIV class="header">CPUとメモリ</DIV>
+  <DIV class="body">コンピュータは計算をする機械ですが，そのためには計算の対象となる<EM>データ</EM>や<EM>計算の手順</EM>をどこかに覚えておく必要があります．そのための機構が<EM>メモリ</EM>であり，<EM>CPU</EM> (Central Processing Unit: 中央演算処理装置) は，メモリから計算の手順やデータを取り出しながら計算を進め答えを求める，コンピュータの<EM>心臓部</EM>です．CPUの計算は一定のタイミングに沿って規則的に進められますが，そのタイミングは動作周波数（動作クロック）で決まります．一般に，この値が高いほど速く計算できることになります．3GHz（ギガヘルツ）は3&times;10<SUP>9</SUP>Hzです．またメモリが大きいほどたくさんのデータやプログラムを一度に扱えることになります．1GB（ギガバイト）は1024&times;1024&times;1024バイト，英字で10億文字あまりを記憶できます．ちなみに
+    Core i7, Core 2 Duo, Pentium, Celeron, Athron, Phenom, PowerPC, ARM などは，CPU に付けられた<EM>ブランド名</EM>です．</DIV>
+</BLOCKQUOTE>
+<H3>１．５　ネットワーク</H3>
+<P>それぞれのパソコンはこの教室内の<EM>ローカルエリアネットワーク (LAN)</EM> に接続され，和歌山大学全体の LAN を通じて大学の外のネットワーク，いわゆる<A href="01-h1.html">インターネット</A>に（常時）接続されています．したがって，皆さんはこのコンピュータを使っていつでも自由に<EM>メール</EM>（電子メール，Eメール）を送ったり <EM>Web サーフィン</EM>（「インターネット」の「ホームページ」を「見る」こと）を行うことができます．もちろん，ワープロを使ってレポートを書いたり，自分の <EM>Web ページ</EM>や CG を作ったりすることもできます．</P>
+<P>皆さんがこのコンピュータ上で作成した<EM>ファイル</EM>（データやプログラム等）は，通常のパソコンとは異なり，LAN を介して別の場所にある<EM>ファイルサーバと</EM>呼ばれる<EM>コンピュータ</EM>に保存されます．したがって，この教室のどのコンピュータを使っても，以前に保存したデータやプログラムを取り出すことができます．また，メールは<EM>メールサーバ</EM>に蓄えられます．なお下図の <EM>RAID ドライブ</EM>は冗長構成をとることによって装置の一部が故障してもデータは保全される記憶装置，<EM>ハブ</EM>はネットワークの<em>集線装置</em>，<EM>ルータ</EM>はネットワーク同士を相互に接続する<EM>交換機</EM>です．</P>
+<DIV class="figure"><IMG src="network.gif" width="512" height="325" alt="演習室のネットワーク"></DIV>
+<BLOCKQUOTE>
+  <DIV class="header">学内無線 LAN</DIV>
+  <DIV class="body">大学内のほとんどのところで無線 LAN が使えます．これを使って自分のコンピュータを大学のネットワークに接続できます．ただし，利用にはこの講義でお渡しする利用承認書に書かれているユーザ名とパスワードが必要になります．詳しくは<a href="http://www.center.wakayama-u.ac.jp/setting/wireless.html" target="_blank">学内無線 LAＮ 接続サービス</a>の Web ページを見てください．</DIV>
+</BLOCKQUOTE>
+<H3>１．６　共有ディスプレイ</H3>
+<P>コンピュータとコンピュータの間にあるディスプレイには，教員用のコンピュータの画面やビデオ，スライド等を表示します．教員の指示に従って<em>電源を入れてください</em>．</P>
+<DIV class="figure"><IMG src="kyozai.jpg" width="512" height="360" alt="教材提示装置"></DIV>
+<H3><A class="label" name="enshushitsu">１．７　コンピュータ演習室</A></H3>
+<UL>
+  <LI>このコンピュータ演習室は，講義等で使用していなければ自由に使用できます．</LI>
+  <LI>皆さんは<strong>学生証</strong>を使って24時間出入りすることができます（<em>宿泊してはいけません</em>）．</LI>
+</UL>
+<P>皆さんは，ここ（システム工学部A棟601号室）を含めて，以下の場所にあるコンピュータを使用できます．</P>
+<DL>
+  <DT>システム工学部A棟803号室</DT>
+  <DD>デザイン情報学科の学生が使用できます．主に実験や実習で使用します．</DD>
+  <DT>システム工学部A棟601号室</DT>
+  <DD>情報通信システム学科とデザイン情報学科の学生が使用できます．主に講義で使用します．</DD>
+  <DT>システム工学部A棟301号室</DT>
+  <DD>システム工学部の学生が使用できます．主に講義で使用します．</DD>
+  <DT>システム情報学センター</DT>
+  <DD>全学の学生が使用できます．下の写真の建物です．</DD>
+</DL>
+<DIV class="figure"><IMG src="center.jpg" width="512" height="380" alt="システム情報学センター"></DIV>
+<P>この<A href="http://www.center.wakayama-u.ac.jp/" target="_blank">システム情報学センター</A>には，３つの<EM>演習室</EM>に加えて２つの<EM>オープンスペースラボラトリー (OSL)</EM>があり，自習等に使用することができます．</P>
+<H3>１．８　注意事項</H3>
+<P>大学内のコンピュータを使用する場合は，いくつかの注意点があります．特に，演習室では以下の行為は<STRONG>厳禁</STRONG>です．利用マナーが悪い場合は，ユーザアカウント（利用権）を停止する場合があります．ユーザアカウントが停止されると，いくつかの重要な講義が受講できなくなります．</P>
+<DL>
+  <DT>喫煙や飲食</DT>
+  <DD>誤ってキーボードやコンピュータ本体に飲み物をかけてしまったり，食べかすを目当てに発生したゴキブリがコンピュータ内部に侵入して故障させたりと，色々なトラブルの原因になります．<strong>喫煙はもってのほか</strong>です．</DD>
+  <DT>長時間の占有</DT>
+  <DD>多くの人が共有しているコンピュータですから，長時間の占有は他の人の学習機会を奪うことになります．CGのレンダリングなどで長時間連続使用する必要があるときは，教員に相談してください．</DD>
+  <DT>教育・研究目的以外の大量印刷</DT>
+  <DD>不必要な印刷は避けてください．特に，クラブ・サークル等でチラシ作成のために大量に印刷するようなことはやめてください．一人当たりの<em>印刷枚数</em>には<em>上限</em>を設けていますので，大量に印刷すると作品制作やレポート作成などで必要なときに印刷できなくなります．</DD>
+</DL>
+<P>上記のほかにも，大学のコンピュータやインターネットを使用する上での注意事項があります．一つは<EM>セキュリティ上の事項</EM>，もう一つは<EM>法律上の事項</EM>です．以下に，この演習室特有の事項について述べます．</P>
+<DL>
+  <DT>パスワードの管理について</DT>
+  <DD>お渡ししたコンピュータ利用承認書に書かれているユーザ名とパスワードは，この演習室のコンピュータを使用するために必要になるだけでなく，大学のコンピュータやネットワーク設備を使用する際の<EM>鍵</EM>となるものです．この鍵の管理が悪ければ，<EM>不正アクセス</EM>等により，あなただけでなく他の人や大学全体，場合によっては他の機関にまで不利益が及ぶ場合があります．<EM>鍵の管理</EM>は<EM>徹底</EM>して行ってください．<EM>パスワード</EM>は<EM>他人に教えない</EM>でください．特に，自分のユーザ名を他人に使用させることは絶対行わないでください．パスワードの変更方法については，次回以降で説明します．<EM><STRONG>パスワードがわからなければ，この講義を受けることができません</STRONG></EM>．</DD>
+  <DT>個人のデータの取り扱いについて</DT>
+  <DD><em>個人のデータ</em>は，皆さんの目の前にあるコンピュータではなく，<em>ファイルサーバに保管</em>されます．ファイルサーバ上のデータは，基本的には他の利用者が中身を見たり操作したりできないようにはなっていますが，この設定は利用者自身が変更することができます．そのため，他人と共有すべきではないデータは演習室のコンピュータに保存すべきではありません．特に，<STRONG>楽曲データ</STRONG>など<STRONG>他人の財産権を侵害する恐れのあるデータ</STRONG>は，演習室のコンピュータには<STRONG>絶対に保存してはいけません</STRONG>．発見した場合は承諾なしに削除します．</DD>
+  <DT><A class="label" name="p2p">ファイル共有ソフトの使用について</A></DT>
+  <DD>インターネットの使い方について精通している人は，ファイル共有ソフトの問題に関する知識も持っていると思います．この種のソフトの利用は他人の著作権や財産権を侵害する恐れがあるだけでなく，大学のネットワークに対して非常に大きな負荷をかけることにもなります．もし使用した場合には，大学のネットワークを管理している<em>専任のスタッフ</em>によって<em>発見</em>され，彼らがソフトウェアの使用停止の<STRONG>お願い</STRONG>にやってきます．</DD>
+</DL>
+<H2>２．電源の投入</H2>
+<H3>２．１　電源スイッチ</H3>
+<UL>
+  <LI>電源スイッチは本体上部の<EM>丸いボタン</EM>です．</LI>
+  <LI>ディスプレイの電源は本体と連動しています．本体の電源を入れれば，ディスプレイの電源も入るはずです．もし本体の電源を入れてもディスプレイの電源が入らなければ，ディスプレイの電源スイッチも押してみてください．</LI>
+  <LI>ディスプレイのパイロットランプがオレンジ色のときは<EM>節電モード</EM>になっています．このとき本体はスクリーンセーバーが動いているかスリープしているので，何かキーをタイプするかマウスを動かしてみてください．</LI>
+</UL>
+<DIV class="figure"><IMG src="switch.jpg" width="640" height="240" alt="本体のボタンとランプ"></DIV>
+<H3>２．２　オペレーティングシステムの選択</H3>
+<P>電源を入れると，起動処理の後，起動するオペレーティングシステムの選択画面が出ます．</P>
+<DIV class="figure"><IMG src="boot.jpg" width="640" height="360" alt="オペレーティングシステムの選択画面"></DIV>
+<P>このまま何もせずにいれば５秒後に Linux (現在は Linux Mint 16) が起動しますので，そのまま待っていているか， <KBD>[Enter]</KBD> キーをタイプしてください．Windows (現在は Windows 7) を使用する場合は，この画面が現れてから<strong>５秒以内に</strong>上下の矢印キー<KBD>[&uarr;][&darr;]</KBD>を動かし，Windows を選んでから <KBD>[Enter]</KBD> キーをタイプしてください．</P>
+<DIV class="figure"><IMG src="select.jpg" width="640" height="360" alt="オペレーティングシステムの選択画面"></DIV>
+<P>その後，コンピュータの起動に成功すると，下のような<em>ログイン画面</em>が現れます．</P>
+<DIV class="figure"><IMG src="login.jpg" width="640" height="360" alt="ログインウィンドウ"></DIV>
+<P>もし Windows 7 を起動してしまったときは，Windows 7 のログイン画面の右下にある赤いボタンの右側のから<EM>再起動</EM>を選んでください．</P>
+<DIV class="figure"><IMG src="reboot.png" width="640" height="240" alt="ログインウィンドウ"></DIV>
+<H2><A name="login" class="label">３．ログイン</A></H2>
+<H3>３．１　ログインの仕方</H3>
+<P>Linux や Unix 系オペレーティングシステムでは，コンピュータを利用するために，まずそのコンピュータの<EM>ユーザアカウント</EM>（利用権）を取得する必要があります．皆さんのユーザアカウントは，演習室のコンピュータを使用するために，既にシステム情報学センターから取得してあります．皆さんの手元にある<em>利用承認書</em>には，そのユーザアカウントを使用するための登録名（<EM>ログイン名</EM>）と，その暗証番号（<EM>パスワード</EM>）が記載されています．</P>
+<P>演習室のコンピュータを使用するには，まずそのログイン名とパスワードを使って，<EM>ログイン</EM>という作業を行う必要があります．それでは，皆さんがお持ちの利用承認書に書かれているログイン名（ユーザ名）とパスワードを使ってコンピュータにログインしてください．なお，このログイン名とパスワードは，「<A href="#enshushitsu">１．５　コンピュータ演習室について</A>」に挙げたいずれの演習室でも共通に使用できます．また，Windows を使う場合も同じユーザ名とパスワードを使用します．</P>
+<DIV class="figure"><IMG src="loginname.jpg" width="640" height="360" alt="ユーザ名の入力"></DIV>
+<P>「ログイン名」の欄にログイン名を入力します．承認書に書かれているログイン名を，キーボードをタイプして入力してください．打ち間違えたときは，<KBD>[Backspace]</KBD>キーをタイプすれば１文字消すことができます．全部打ち終えたら <KBD>[Enter]</KBD> キーをタイプしてください．すると打ち込んだユーザ名が消えて，次にパスワードの入力を求めてきます．</P>
+<DIV class="figure"><IMG src="passwd.jpg" width="640" height="360" alt="パスワードの入力"></DIV>
+<P>ここには承認書に書かれているパスワードをキーボードをタイプして入力してください．他人に見られないようにするために，タイプしたパスワードは<EM>画面には表示されません</EM>．大文字をタイプするには <KBD>[Shift]</KBD> キーを押しながらその文字をタイプしてください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">ログイン名やパスワードを打ち間違えたとき</DIV>
+  <DIV class="body">ログイン名やパスワードを間違えると，<em>数秒待った後</em>，再度ログイン名の入力画面が現れます．この場合はもう一度ログイン名から入れなおしてください．</DIV>
+</BLOCKQUOTE>
+<P>ログインに成功すると Web ブラウザの Firefox が起動します．初めてログインしたときは，次のような Web ページが現れることがあります．この講義では Linux を使っているので Windows の設定は関係ありませんが，ここでは一応「Install Now」をクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox-setup0.gif" width="486" height="383" alt="ログイン直後の画面"></DIV>
+<P>その後，次のようなウィンドウが現れたら，そのまま「Finish」をクリックしてください．</P>
+<DIV class="figure"></DIV>
+<DIV class="figure"><IMG src="firefox-setup1.gif" width="486" height="383" alt="ログイン直後の画面"></DIV>
+<P>Firefox が起動して「システム工学部ポータルサイト」が表示されます．この Web ページには演習室のスケジュールなどが書かれていますので，一応目を通してください．その後，<em>右上の「&times;」</em>（閉じる）をクリックして，ウィンドウを閉じてください．</P>
+<DIV class="figure"><IMG src="desktop1.jpg" width="640" height="481" alt="ログイン直後の画面"></DIV>
+<P>次のような背景（デスクトップ）が表示されます．</P>
+<DIV class="figure"><IMG src="desktop2.jpg" width="640" height="360" alt="ログイン直後の画面"></DIV>
+<H2>４．X Window System の操作</H2>
+<H3><A class="label" name="window">４．１　X Window System について</A></H3>
+<P>コンピュータを起動すると，まず<A href="01.html#os">オペレーティングシステム</A>が起動します．このオペレーティングシステムの重要な役割のひとつに，ディスプレイやキーボードなどの<EM>入出力装置の管理</EM>があります．特に最近のオペレーティングシステムでは，ディスプレイ上に複数の仮想的な画面（ウィンドウ，窓）を開いて複数の作業を同時にこなすことができる<EM>ウィンドウシステム</EM>を搭載することが一般的です．Microsoft の Windows や Apple の Mac OS X では，ウィンドウシステムがオペレーティングシステムと<EM>一体化</EM>していますが，この講義で使う Linux や Unix では，<A href="http://www.mit.edu/">MIT</A>(マサチューセッツ工科大学） で開発された <A href="http://www.x.org/">X Window System</A> という (オペレーティングシステムとは独立した)ソフトウェアがよく使用されます．</P>
+<P>X Window System に対応した<EM>アプリケーションソフトウェア</EM>は，自分が行おうとする画面表示をウィンドウシステムに対して<EM>要求</EM>します．X Window System はこの要求に基づいて画面表示を行います．言わば，X Window System はお客の要求にしたがって食事を出す<EM>サーバ</EM>（給仕）であり，アプリケーションソフトウェアはサーバーに対して要求を出す<EM>クライアント</EM>（客)の役割を果たします．したがって，このようなソフトウェアの形態を<EM>サーバ・クライアントモデル</EM>と呼びます．</P>
+<P>X Window System では，画面表示用のハードウェア（ビデオカード等）を制御するソフトウェアのことを <EM>X サーバ</EM>，X サーバに対して画面表示を要求するソフトウェアのことを <EM>X クライアント</EM>と呼びます．X Window System における X サーバと X クライアント間の<EM>通信</EM>はネットワークに対して<EM>透過的</EM>であり，ある X クライアントの画面表示を，LAN 等を介して他のコンピュータ上で稼動している X サーバに出力することができます．</P>
+<H3><A name="prompt" class="label">４．２　ウィンドウを開く</A></H3>
+<P>画面の左下に，次のような文字や絵記号の列が描かれていると思います．このようにシンボル化されたオブジェクト（対象）を一般に<EM>アイコン</EM>（図記号・絵記号）と呼びます．また，画面の下部のこの領域は<EM>パネル</EM>と呼びます．</P>
+<DIV class="figure"><IMG src="panel1.jpg" width="640" height="160" alt="上部のパネル"></DIV>
+<P>では，この中の<EM>端末</EM>（コマンド・ライン端末）のアイコンを<em>マウスの左ボタン</em>でクリックしてみてください．すると，下のような &quot;ウィンドウ&quot; が現れると思います．以降，特に断らない限り，「クリックする」と指示された時には<EM>マウスの左ボタン</EM>を使ってください．</P>
+<DIV class="figure"><IMG src="gnome-term.gif" width="663" height="434" alt="ターミナルウィンドウ"></DIV>
+<P>端末は，実際には <EM>gnome-terminal</EM> というアプリケーションソフトウェアです．この中でさらに<EM>シェル</EM>と呼ばれるプログラムが稼動しています．シェルは<EM>プロンプト</EM>（入力促進符号）を表示して，利用者が<EM>コマンド</EM>（指令）を入力するのを待っています．</P>
+<P>このウィンドウの周囲の<EM>枠</EM>は端末自身のものではなく，<A href="#windowmanager">ウィンドウマネージャ</A>という別のソフトウェアが付けています（<EM>スクロールバー</EM>は端末自身のものです)．</P>
+<P>ウィンドウを開くと，画面の上部にあるパネルの中にある<EM>タスク・リスト</EM>に，そのウィンドウを示すボタンが現れます．選択されているウィンドウ（利用者の操作の対象になっているウィンドウ）に対応するボタンは「へこんで」表示されます．隠されたウィンドウに対応するボタンは「グレー」になっています．このボタンをクリックして操作するウィンドウを切り替えたり，ウィンドウを隠したりできます．</P>
+<DIV class="figure"><IMG src="panel2.gif" width="720" height="540" alt="下部のパネル"></DIV>
+<H3><A class="label" name="windowmanager">４．３　ウィンドウマネージャについて</A></H3>
+<P>ウィンドウマネージャはウィンドウシステム上の個々のウィンドウを管理し，マウスの操作などの情報をウィンドウシステムやアプリケーションソフトウェアに伝達します．ウィンドウを移動したり，ウィンドウのサイズを変えたり，ウィンドウを閉じたりする操作は，このウィンドウマネージャによって実現されています．</P>
+<P>X Window System ではウィンドウマネージャがウィンドウシステムやオペレーティングシステムから<EM>独立</EM>しているために，ウィンドウマネージャや<EM>デスクトップ環境</EM>が<EM>交換可能</EM>です．これらを別のものに交換することによって，コンピュータの画面の見かけや操作方法を全く異なるものに変更することができます．この講義では <em>metacity</em> というウィンドウマネージャを使用しています．</P>
+<BLOCKQUOTE>
+  <DIV class="header">デスクトップ環境について</DIV>
+  <DIV class="body">デスクトップ環境とは，画面の背景部分やメニューなどを管理するソフトウェアです．Linux で使われる代表的なものに，<A href="http://www.gnome.org/">GNOME</A> と <A href="http://www.kde.org/">KDE</A> (K Desktop Environment) があります．Muffin は Linux Mint の Cinnamon ですぷトップ環境で使われているウィンドウマネージャです．</DIV>
+</BLOCKQUOTE>
+<H3>４．４　ウィンドウを移動する</H3>
+<P>ウィンドウを移動するには，<EM>タイトルバー</EM>をドラッグしてください．</P>
+<DIV class="figure"><IMG src="move.jpg" width="800" height="540" alt="ウィンドウの移動"></DIV>
+<H3>４．５　ウィンドウのサイズを変える</H3>
+<P>ウィンドウのサイズを変更するには，<EM>ウィンドウフレーム</EM>をドラッグしてください．</P>
+<DIV class="figure"><IMG src="resize.jpg" width="800" height="600" alt="ウィンドウのリサイズ"></DIV>
+<H3>４．６　奥のウィンドウを手前に出す</H3>
+<P>他のウィンドウで隠されてしまったウィンドウを前面に出すには，<EM>タイトルバー</EM>をクリックしてください．あるいは，画面上の<em>タスク・リスト</em>からウィンドウを選択するか，画面右上の<em>ウィンドウ・セレクタ</em>からウィンドウを選択してください．</P>
+<DIV class="figure"><img src="raise.png" width="800" height="414" alt="ウィンドウの順序の入れ替え"></DIV>
+<H3>４．７　手前のウィンドウを奥に送る</H3>
+<P>手前のウィンドウが邪魔なときは，<EM>タイトルバー</EM>をマウスの<EM>中央ボタン</EM>でクリックしてください．</P>
+<DIV class="figure"><IMG src="push.jpg" width="800" height="200" alt="ウィンドウの順序の入れ替え"></DIV>
+<H3>４．８　ウィンドウを最小化する（隠す）</H3>
+<P>ウィンドウを最小化するには，「最小化」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="minimize.jpg" width="800" height="140" alt="ウィンドウを最小化する"></DIV>
+<p>最小化したウィンドウを元に戻すには，画面上の<EM>タスク・リスト</EM>に表示されている，対応する<EM>タスク</EM>をクリックしてください．</p>
+<DIV class="figure"><IMG src="tasklist.jpg" width="800" height="96" alt="最小化したウィンドウを元に戻す"></DIV>
+<H3>４．９　ウィンドウを最大化する</H3>
+<P>ウィンドウを最大化するには，「最大化」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="maximize.jpg" width="800" height="140" alt="ウィンドウを最大化する"></DIV>
+<p>最大化したウィンドウを元に戻すには，<EM>もう一度</EM>「最大化」ボタンをクリックしてください．</p>
+<H3>４．１０　ウィンドウを閉じる</H3>
+<P>次の２つの方法があります．</P>
+<OL>
+  <LI>アプリケーションソフトウェアを<EM>終了</EM>する．</LI>
+  <LI>「閉じる」ボタンをクリックする．</LI>
+</OL>
+<p>端末を終了させるには，その中で動いているシェルを終了させます．シェルを終了させるには，<EM>exit</EM> コマンドを使います．<KBD>Ctrl-D</KBD> をタイプ（<KBD>[Ctrl]</KBD>キーを押しながら <KBD>D</KBD> のキーをタイプ）してもシェルを終了することができます．</p>
+<DIV class="figure"><IMG src="exit.jpg" width="800" height="140" alt="シェルを終了する"></DIV>
+<p>タイトルバーの右端にある「閉じる」ボタンは，単にそのウィンドウを閉じます．ウィンドウを閉じたことによってアプリケーションソフトウェアがこれ以上動作している必要がないと自分で判断した場合に，アプリケーションソフトウェアは終了します．</p>
+<DIV class="figure"><IMG src="close.jpg" width="800" height="140" alt="「閉じる」ボタンで閉じる"></DIV>
+<UL>
+  <LI>通常はアプリケーションソフトウェアを<EM>終了</EM>させて，ウィンドウを閉じてください．</LI>
+</UL>
+<H3>４．１１　ポップアップメニューによる操作</H3>
+<P>タイトルバーやウィンドウフレーム上でマウスの<EM>右ボタン</EM>でクリックすると，<EM>ポップアップメニュー</EM>が現れます．</P>
+<DIV class="figure"><IMG src="menu.jpg" width="800" height="320" alt="ポップアップメニュー"></DIV>
+<P>ポップアップメニューからはこれまでに述べたウィンドウ操作のほか，より高度な操作が行えるようになっています．</P>
+<H2>５．日本語の入力</H2>
+<H3>５．１　Input Method</H3>
+<P>日本語を使うためには，ログイン時に日本語の<EM>入力方法 (Input Methid: IM)</EM> を指定する必要があります（演習室では自動的に選択されています）．この講義では，日本語の入力に <em>iBus</em> と <em>Mozc</em> というシステムを組み合わせて使います．キーボードから入力されたローマ字やカナの文字列を iBus が受け取り，Mozc を使って漢字かなまじりの文字列に変換します．なお，Mozc は <a href="http://googlejapan.blogspot.jp/2010/05/google_10.html" target="_blank">Google 日本語入力</a>のオープンソース版です．</P>
+<H3>５．２　日本語の入力方法</H3>
+<P>まず，日本語を入力するアプリケーション（ウィンドウ）を選択します．ここでは試しに<EM>端末</EM>を使ってみましょう．</P>
+<DIV class="figure"><IMG src="terminal1.jpg" width="512" height="72" alt="Gnome ターミナルのアイコン"></DIV>
+<P>ウィンドウが現れて<EM>プロンプト</EM>が表示されたら，<kbd>[半角/全角]</kbd> キーをタイプしてください．</P>
+<DIV class="figure"><IMG src="ibus00.jpg" width="512" height="56" alt="入力待ち状態"></DIV>
+<P>すると，画面の右上のキーボードのアイコンが（あ）に変わります．これで日本語入力のモードに切り替わります．</P>
+<DIV class="figure"><IMG src="ibus01.jpg" width="512" height="64" alt="日本語入力開始"></DIV>
+<P>そのまま<EM>ローマ字</EM>でタイプすると，それが<EM>ひらがな</EM>になって入力されます．変換の候補が現れますので，その中に適当なものがあれば <kbd>[Tab]</kbd> キーをタイプして選択してください．</P>
+<DIV class="figure"><IMG src="ibus02.jpg" width="512" height="64" alt="ローマ字で入力"></DIV>
+<P><kbd>スペースバー</kbd>または<kbd>変換キー</kbd>をタイプすると，入力したひらがなが<EM>漢字かな混じり文</EM>に変換されます．変換を取り消すには <kbd>[ESC]</kbd> をタイプします．</P>
+<DIV class="figure"><IMG src="ibus03.jpg" width="512" height="56" alt="スペースで漢字変換"></DIV>
+<P>上の例では「今日は」と「医者へ」の間で文節が切れています．「今日」の文節を縮めるには，<kbd>[Shift]</kbd> を押しながら<kbd>&larr;</kbd>（左矢印）キーをタイプしてください．逆に文節を伸ばすには，<kbd>[Shift]</kbd> を押しながら<kbd>&rarr;</kbd>（右矢印）キーをタイプしてください．</P>
+<DIV class="figure"><img src="ibus04.jpg" width="512" height="56" alt="スペースで漢字変換"></DIV>
+<P>変換対象の文節を右に移動するには，<kbd>&rarr;</kbd>（右矢印）をタイプします．左に移動するには<kbd>&larr;</kbd>（左矢印）をタイプします．</P>
+<DIV class="figure"><img src="ibus05.jpg" width="512" height="56" alt="スペースで漢字変換"></DIV>
+<P>ここでは「は医者へ」を「歯医者へ」に直したいので，<kbd>[Shift]</kbd> を押しながら<kbd>&rarr;</kbd>（右矢印）キーをタイプして文節を伸ばします．</P>
+<DIV class="figure"><img src="ibus06.jpg" width="512" height="56" alt="スペースで漢字変換"></DIV>
+<P><kbd>スペースバー</kbd>または<kbd>変換キー</kbd>を二回以上タイプすると，変換の候補一覧が現れます．さらに<kbd>スペースバー</kbd>，<kbd>変換キー</kbd>，あるいは<kbd>&darr;</kbd>（下矢印）をタイプすれば次の候補，<kbd>&uarr;</kbd>（上矢印）キーをタイプすれば前の候補を選択できます．直接<em>カタカナ</em>に変換するには，スペースバーや変換キーの代わりに，ファンクションキーの<kbd>F7</kbd>，<em>ひらがな</em>に戻すには<kbd>F6</kbd>，<em>全角英字</em>に変換するには<kbd>F9</kbd>，<em>半角文字</em>に変換するには<kbd>F8</kbd>を使います．</P>
+<DIV class="figure"><IMG src="ibus07.jpg" width="512" height="224" alt="文節の区切りの変更"></DIV>
+<P>所望の変換結果が得られたら，<KBD>[Enter]</KBD> をタイプして<EM>確定</EM>します．</P>
+<DIV class="figure"><IMG src="ibus08.jpg" width="512" height="56" alt="文節の移動"></DIV>
+<P>もう一度 <kbd>[半角/全角]</kbd> キーをタイプするか，<KBD>[Shift]</KBD> キーを押しながら<KBD>スペースバー</KBD>をタイプすれば，日本語入力のモードから抜け出ます．</P>
+<H2>６．Web ブラウザの操作</H2>
+<h3>６．１　Web ブラウザについて</h3>
+<P>インターネットの代名詞とも言える <em>WWW</em> (World Wide Web) を参照するソフトウェアを，「<em>Web ブラウザ</em>」と言います． これには
+  Windows に組み込まれている <a href="http://www.microsoft.com/japan/windows/products/winfamily/ie/default.mspx" target="_blank">Internet Explorer</a> が最もよく使われていますが，Linux 用の Internet Explorer
+  は（今のところ）ありません．代わりに Linux 上では，Internet Explorer 以前に広く普及し現在のインターネットブームを起こした立役者でもあった <A href="http://www.netscape.com/">Netscape</A> （開発終了）をはじめ，Netscape をもとにオープンソースで開発された <A href="http://www.mozilla-japan.org/products/mozilla1.x/" target="_blank">Mozilla</A> （開発終了，後継は <a href="http://www.mozilla-japan.org/projects/seamonkey/" target="_blank">SeaMonkey</a>），<A href="http://galeon.sourceforge.net/" target="_blank">Galeon</A>，<a href="http://projects.gnome.org/epiphany/" target="_blank">Ephiphany</a>，KDE上で開発されている <A href="http://www.konqueror.org/" target="_blank">Konqueror</A>，Google の <a href="http://www.google.com/chrome/intl/ja/landing.html?hl=ja&hl=ja" target="_blank">chrome</a> / <a href="http://code.google.com/intl/ja/chromium/" target="_blank">chromium</a>，ノルウェーのオペラソフトウェアの <a href="http://jp.opera.com/" target="_blank">Opera</a>，テキストベースの <a href="http://lynx.isc.org/" target="_blank">lynx</a> や <a href="http://w3m.sourceforge.net/index.ja.html" target="_blank">w3m</a>，テキストエディタ <a href="http://www.gnu.org/software/emacs/" target="_blank">Emacs</a> の中で動く <a href="http://emacs-w3m.namazu.org/" target="_blank">w3m.el</a>，それにファイル管理ソフトウェアである <a href="http://live.gnome.org/Nautilus" target="_blank">Nautilus</a> など，さまざまなものがあります．この講義では <a href="http://www.mozilla-japan.org/products/mozilla1.x/" target="_blank">Mozilla</a> から派生した <A href="http://mozilla.jp/firefox/" target="_blank">Firefox</A> を使うことにします．</P>
+<H3>６．２　Firefox の起動</H3>
+<P>画面左下の下図のアイコンをクリックしてくださいFirefox が起動します．</P>
+<DIV class="figure"><IMG src="firefox01.jpg" width="640" height="96" border="0"></DIV>
+<P>この講義の Web ページを開きます．アドレスバーに次の URL を入力してください．<KBD>Ctrl-L</KBD> をタイプすれば，アドレスバーの変更がすぐにできます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>講義資料</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/" target="_blank">http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この URL の中の &quot;<KBD>~</KBD>&quot;（<em>チルダ</em>）を入力するには，<KBD>[Shift]</KBD> を押しながら <KBD>[Backspace]</KBD> の<em>一つおいて左側</em>にある &quot;<em><kbd>^</kbd></em>&quot; のキーをタイプしてください．</P>
+<P align="center"><IMG src="tilda.jpg" width="512" height="112" alt="チルダ (~)　キー"></P>
+<BLOCKQUOTE>
+  <DIV class="header">&quot;<KBD>~</KBD>&quot;（チルダ）の字形について</DIV>
+  <DIV class="body">
+    <P>&quot;<KBD>~</KBD>&quot;（チルダ）は画面表示に使う<EM>字体（フォント）</EM>によって， 上の方にあったり，波線だったり，直線だったりしますが， <EM>字形が異なるだけ</EM>ですから気にしないで下さい．</P>
+  </DIV></BLOCKQUOTE>
+<DIV class="figure"><IMG src="firefox07.jpg" width="640" height="144" border="0"></DIV>
+<P>URL を入力後 <KBD>[Enter]</KBD> をタイプしてください．</P>
+<DIV class="figure"><IMG src="firefox08.jpg" width="810" height="448" border="0"></DIV>
+<p>この講義は，今後この Web ページを使って進めます．</P>
+<H3>６．３　ブックマークに加える</H3>
+<P><EM>ブックマーク</EM>は， よく参照するページを覚えておく機能です．現在，この講義の Web ページが表示されていると思いますから，これをブックマークに登録しておいてください．メニューの「ブックマーク」から「このページをブックマーク」を選ぶか，<KBD>Ctrl-D</KBD> をタイプしてください</P>
+<DIV class="figure"><IMG src="firefox09.jpg" width="640" height="286" border="0"></DIV>
+<P>現在見ているページをブックマークに登録するかどうか確認するウィンドウが出ますので，フォルダに「ブックマークメニュー」が指定されていることを確認して，「完了」をクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox10.jpg" width="640" height="374" border="0"></DIV>
+<P>これ以降メニューのブックマークをクリックすると， 登録されている Web ページの<EM>一覧</EM>の中に，現在表示しているページが追加されます．以降はこれを選ぶだけで， すぐこのページを表示することができます．</P>
+<DIV class="figure"><IMG src="firefox11.jpg" width="640" height="306" border="0"></DIV>
+<P>すでにいくつかのブックマークが登録されていますが，必要に応じて自分で整理してください．「ブックマークの管理」を選ぶか <KBD>Ctrl-Shift-B</KBD> をタイプすれば， ブックマークの管理ウィンドウが現れます．なお，以下の<em>デザイン情報学科学生ポータルサイト</em>もよく使いますので，ブックマークに加えておいてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>デザイン情報学科 学生ポータル</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><a href="http://sakaedani.sys.wakayama-u.ac.jp/di/" target="_blank">http://sakaedani.sys.wakayama-u.ac.jp/di/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A class="label" name="otherbrowser">６．４　その他の Web ブラウザ</A></H3>
+<P>ここのシステム（Linux 側）で使用できる Web を閲覧するためのソフトウェア（Web ブラウザ）には，以下のものがあります．興味があれば使ってみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">Web の閲覧に使うソフトウェア</TH>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://mozilla.jp/firefox/" target="_blank">Firefox</a></EM></TD>
+      <TD class="action">高機能な Web ブラウザ</TD>
+    </TR>
+    <TR>
+      <TD><em><a href="http://www.google.co.jp/chrome/" target="_blank">Google Chrome</a></em></TD>
+      <TD class="action">Google 社が開発している高機能な Web ブラウザ</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://jp.opera.com/" target="_blank">Opera</a></EM></TD>
+      <TD class="action">ノルウェーのオペラ<em>・</em>ソフトウェアが開発している高機能な Web ブラウザ</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://projects.gnome.org/epiphany/" target="_blank">Epiphany</a></EM></TD>
+      <TD class="action">GNOME デスクトップの一部として開発されている Web ブラウザ</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://lynx.isc.org/" target="_blank">lynx</a></EM></TD>
+      <TD class="action">コマンドラインで使えるテキストベースのウェブブラウザ</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://w3m.sourceforge.net/index.ja.html" target="_blank">w3m</a></EM></TD>
+      <TD class="action">コマンドラインで使えるテキストベースのウェブブラウザ（日本人が開発している）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A class="label" name="quitfirefox">６．５　Firefox の終了</A></H3>
+<P>Firefox を終了するには，「ファイル」メニューから「終了」を選びます．タイトルバーの<em>右上の「&times;」</em>でも構いません．でも，<em>講義はまだ続きます</em>ので，ここでは<strong>まだ終了しない</strong>でください．</P>
+<DIV class="figure"><IMG src="firefox12.jpg" width="640" height="302" border="0"></DIV>
+<p>プリントによる解説は，ここで終わりです．以降は Web 上の講義資料を参照してください．</p>
+<DIV class="figure"><IMG src="continue.gif" width="640" height="120" border="0"></DIV>
+<H2>７．和歌山大学システム情報学センターと教育サポートシステム (LiveCampus)</H2>
+<p>システム情報学センターは大学のコンピュータやネットワーク設備の運用管理，およびそれらに関する各種サービスを提供しています．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>和歌山大学システム情報学センターホームページ URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.center.wakayama-u.ac.jp/" target="_blank">http://www.center.wakayama-u.ac.jp/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h3>７．１　Web メール</h3>
+<p>システム情報学センターでは大学宛のメールを Web ブラウザを使って読み書きする Web メールサービスも提供しています．これを利用するにはシステム情報学センターのホームページから <a href="https://mail.center.wakayama-u.ac.jp/am_bin/amlogin" target="_blank">Active! mail</a> のページを開き，利用承認書のユーザ名とパスワードを入力してログインしてください．携帯電話からは<a href="https://mail.center.wakayama-u.ac.jp/am_bin/mlogin">モバイル版</a>を開いてください．</p>
+<DIV class="figure"><IMG src="activemail0.jpg" width="640" height="343" border="0" alt="システム情報学センター"></DIV>
+<p>利用承認書に書かれているユーザ名とパスワードを指定してください．</p>
+<DIV class="figure"><IMG src="activemail1.jpg" width="640" height="400" border="0" alt="Active! mail"></DIV>
+<H3>７．２　教育サポートシステム (LiveCampus) へのアクセス</H3>
+<P>受講登録やレポート提出，休講通知の閲覧などは，「<a href="https://wlcampus.center.wakayama-u.ac.jp/portalUI/html/start.htm" target="_blank">教育サポートシステム (LiveCampus)</a>」を使用して行う必要があります．LiveCampus はシステム情報学センターの<a href="http://www.center.wakayama-u.ac.jp/portal.html" target="_blank">学生ポータル</a>からアクセスできます（和歌山大学のホームページの<a href="http://www.wakayama-u.ac.jp/life.html" target="_blank">キャンパスライフ</a>にもリンクがあります）．</P>
+<div class="figure"><IMG src="livecampus0.jpg" width="640" height="343" border="0"></div>
+<p>学生ポータルのページが開いたら，「LiveCampus」をクリックしてください．</p>
+<div class="figure"><IMG src="livecampus1.jpg" alt="和歌山大学ホームページ" width="640" height="312" border="0"></div>
+<p>「教育サポートシステム (LiveCampus)」のログイン画面が表示されます．</p>
+<div class="figure"><IMG src="livecampus2.jpg" alt="LiveCampus" width="640" height="460" border="0"></div>
+<h3>７．３　教育サポートシステム (LiveCampus)</h3>
+<p>LiveCampus のログイン画面の左側にある「アカウント」と「パスワード」の欄に，それぞれ「利用承認書のユーザ名」と「利用承認書のパスワード」を入力して，「ログイン」をクリックしてください．</p>
+<div class="figure"><IMG src="livecampus4.jpg" alt="LiveCampus へのログイン" width="640" height="190" border="0"></div>
+<h3>７．４　新入生アンケート</h3>
+<p>新入生の皆さんに対して，アンケートを実施しています．<em>ご協力をお願いします</em>．LiveCampus のホームページの上部にある「トップメニュー」から「授業サポート」を選んでください．</p>
+<div class="figure"><IMG src="questionnaire.jpg" alt="アンケート" width="640" height="240" border="0"></div>
+<p>この時間中に入力が終わらなければ，別の空き時間に入力をお願いします．</p>
+<BLOCKQUOTE>
+  <DIV class="header">アンケート内容の取り扱いについて</DIV>
+  <DIV class="body">アンケート回答内容はLiveCampus管理者（事務係）が集計を行い，担当教員には回答の有無のみ通知され，各人の回答内容を個別に確認することはありません．また，回答内容は個人を特定しない形で集計のうえ本学の入学者選抜の検討に利用します．</DIV>
+</BLOCKQUOTE>
+<h3>７．５　履修登録</h3>
+<p>履修登録を行うには，画面の上部にある「ホーム」をクリックして LiveCampus のホームページに戻り，左側の「システム関連リンク」にある「教務システム」をクリックしてください．<strong>これは後で時間のある時にやってください</strong>．</p>
+<div class="figure"><IMG src="function.jpg" alt="機能連携" width="640" height="456" border="0"></div>
+<H2><A class="label" name="nsmail">８．メール</A></H2>
+<H3>８．１　Thunderbird の起動</H3>
+<P>この講義では，電子メールの読み書きするのに，Thunderbird というアプリケーションを使います．画面左下の「Menu」から「インターネット」&rarr;「Thunderbird 電子メールクライアント」の順に選んでください．Thunderbird
+  が起動します．</P>
+<DIV class="figure"><IMG src="thunderbird01.jpg" width="720" height="608" border="0"></DIV>
+<H3>８．２　Thunderbird の設定</H3>
+<P> 皆さんが和歌山大学において（和歌山大学のメールアドレスを用いて）メールをやり取りするためのパソコンの設定は，<a href="http://www.center.wakayama-u.ac.jp/" target="_blank">システム情報学センター</a>の <a href="http://www.center.wakayama-u.ac.jp/system/mail.html" target="_blank">Configuration for mail clients using CIS servers</a> という Web ページで解説されています．ここでは Tunderbird でのメールのアカウント設定について解説します．Thunderbird を初めて<em>ここで初めて</em>起動すると，最初に「メールサーバのパスワードの設定」を行うウィンドウが現れます．</P>
+<DIV class="figure"><IMG src="thunderbird02.gif" width="507" height="194" border="0" alt="メールアカウント設定"></DIV>
+<P>Thunderbird を使うたびにパスワードを設定するのが面倒なら，「パスワードを記憶する」にチェックを入れておいてください．設定が完了したら，「続ける」をクリックしてください．なお，皆さんのメールアドレスは，（利用承認書に書かれている）<EM>ユーザ名@center.wakayama-u.ac.jp</EM> です．ユーザ名が s123456 なら，メールアドレスは以下のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自分のメールアドレスの例（利用承認書を確認してください）</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">s123456@center.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>皆さん宛てのメールは，mail.center.wakayama-u.ac.jp というメールサーバに届きます．自宅や配属された研究室など，演習室以外の場所からこのメールを読むには，自分のパソコンのメールソフトに <em>IMAP</em> のアカウントを作成し，メールサーバに下記を設定してください．くれぐれも <em>POP3</em> でアカウントを<strong>作成しない</strong>よう<em>注意</em>してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>システム情報学センターメールサーバ</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">mail.center.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>メールサーバからメールを読み出す方法には，IMAP の他に <EM>POP3</EM> というものもあります．多くのインターネット接続サービスで POP3 が使用されていますが，和歌山大学ではいろんなところからメールを読み出せるように，<em>IMAP</em> を使うようにしています．</P>
+<BLOCKQUOTE>
+  <DIV class="header"><A class="label" name="imap">POP3 と IMAP の違い</A></DIV>
+  <DIV class="body"><EM>POP3</EM> (Post Office Protocol 3) はメールサーバからメールを取り出す機能だけを提供しますが，<EM>IMAP</EM> (Internet Message Access Protocol) はメールサーバにメールを戻したり整理したりするする機能も提供します．したがって，POP3 では読んだメールをクライアント（パソコン）側に取り込んで管理しますが，IMAPではメールサーバ上に置いたまま管理することができます．このため，複数のパソコンで同じメールアカウントを使用した場合，POP3 では読んだメールがそれらのパソコンに分散して保存されてしまいます．これに対してIMAPでは，どのパソコンからも同じ内容の「受信箱」が利用できます．</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="pop-imap.gif" width="588" height="248" border="0" alt="POPとIMAPの違い"></DIV>
+<BLOCKQUOTE>
+  <DIV class="header">STARTTLS / SSL について</DIV>
+  <DIV class="body">メールを読み込むためには，メールサーバとの間でユーザ名とパスワードやメールの本文などの通信データをやりとりする必要があります．その際，通信データを暗号化していないと，ネットワークに流れる通信データを覗き見ることにより，第３者やメールの内容を知ることができてしまいます．STARTTLS はメールサーバに接続した後，通信を SSL による暗号化します．</DIV>
+</BLOCKQUOTE>
+<P>アカウントの作成に成功すると，「システム統合」のウィンドウが現れる場合があります．これが現れたら，そのまま「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird05.jpg" width="497" height="198" border="0" alt="システム統合"></DIV>
+<P>これで Thunderbird が使用可能になります．</P>
+<DIV class="figure"><IMG src="thunderbird06.gif" width="640" height="400" border="0" alt="メールアカウント設定の完了"></DIV>
+<P>アカウント設定を修正します．左側の枠のアカウント名（メールアドレス）を選択してください．そして右側の枠の「このアカウントの設定を表示する」をクリックしてください． </P>
+<DIV class="figure"><img src="thunderbird07.gif" width="640" height="512" border="0" alt="アカウント設定"></DIV>
+<P>「アカウント設定」のウィンドウが表示されたら，左側の枠の自分のメールアドレスを選択してください．「既定の差出人情報」が表示されますから，「名前」を確認し，「組織」を設定してください．また，必要なら「署名」も設定してください．</P>
+<DIV class="figure"><IMG src="thunderbird08.jpg" width="640" height="398" border="0" alt="サーバ設定"></DIV>
+<P>次に，左側の枠の「編集とアドレス入力」を選んでください．この設定の「HTML 形式でメッセージを編集する」のチェックをはずしてください．また，「キャレットの初期状態」は，メールの返信時のテキストカーソルの初期位置を指定します．これを「引用部の<em>上</em>」に切り替えることもできます．</P>
+<DIV class="figure"><IMG src="thunderbird09.jpg" width="640" height="398" border="0" alt="サーバ設定"></DIV>
+<P>左の枠の「編集とアドレス入力」を選んでください．「編集」のところの「HTML 形式でメッセージを編集する」にチェックが入っていたら，<em>チェックをはずして</em>ください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">HTML形式のメッセージについて</DIV>
+  <DIV class="body">Thunderbird ではホームページなどで用いられる<EM>HTML</EM> (Hypter Text Markup Language) を使ってメールを作成することができます．しかし，メールの受信者が使っているメールソフトによっては，この形式のメールを読めない場合があります．携帯電話などでも<em>いまだに</em>対応できない機種があるようです．また，仮に相手がこの形式のメールが読める場合でも，人によってはあまり喜ばれない場合もあります．そこで，相手のメール環境がわからない場合には，<em>HTML形式のメールを送らないのがマナー</em>だと考えます．</DIV>
+</BLOCKQUOTE>
+<P>以上の設定が完了したら，最後に「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird10.jpg" width="640" height="80" border="0" alt="送信サーバ設定の終了"></DIV>
+<P>メールを書いてみます．「受信トレイ」を選択するか，「メッセージを読む」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird11.gif" width="640" height="320" border="0" alt="受信トレイの選択"></DIV>
+<P>もしかしたら，既に誰かからメールが届いているかもしれません．</P>
+<H3>８．３　メールを作成する</H3>
+<P>メールの設定が完了したら，自分宛にメールを書いてみて，ちゃんと届くかどうか確認してみてください．ウィンドウの上方にあるアイコンの列（ツールバー）の中の「作成」をクリックするか，「メッセージを書く」をクリックしてください</P>
+<DIV class="figure"><IMG src="thunderbird12.gif" width="640" height="320" border="0" alt="新しいメッセージの作成"></DIV>
+<P>メールの作成ウィンドウが開きますから，「宛先」に自分のメールアドレスを指定し，「件名」や本文に適当な文章を書いて，最後に「送信」をクリックしてください．<KBD>[TAB]</KBD> キーをタイプすれば，欄を移動できます．</P>
+<DIV class="figure"><IMG src="thunderbird13.jpg" width="640" height="396" border="0" alt="メッセージを書いて送信"></DIV>
+<H3>８．４　メールを受信する</H3>
+<P>ウィンドウの上方にあるアイコンの列（ツールバー）の中の「受信」をクリックするか，「受信トレイ」あるいは「メッセージを読む」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird14.gif" width="640" height="320" border="0" alt="メッセージを読む"></DIV>
+<P>自分宛のメールが届いていたでしょうか？もし何も届いていなかったり，MAILER-DAEMON からメールが届いていたりした場合は，何か設定に問題があります．その場合はもう一度設定を確かめてください．原因がわからなければ質問してください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">MAILER-DAEMON からのメール</DIV>
+  <DIV class="body">出したメールが宛先の間違いや何らかのトラブルで相手に届けられなかったときは，<EM>MAILER-DAEMON</EM> からメールが送り返されてきます．これはコンピュータが自動的に発送するメールなので，このメールには<EM>返事を書かない</EM>でください．</DIV>
+</BLOCKQUOTE>
+<P>自分宛のメールを読むことができれば，今度は担当教員 <A href="mailto:tokoi@sys.wakayama-u.ac.jp">tokoi@sys.wakayama-u.ac.jp</A> 宛てに何かメッセージを書いてください（たとえば，好きなものを一つ教えてください）．届いたメールにはごく簡単に返事を書きます．</P>
+<BLOCKQUOTE>
+  <DIV class="header">注意事項</DIV>
+  <H4>ネチケット</H4>
+  <DIV class="body">人と人とがメールや Web，チャットなんかでつながった「ネットワークコミュニティ」を，実社会とは別の「仮想世界」のように感じてしまうかもしれません．しかし実際にはそこは，普通の社会の一つの断面に過ぎません．そこでの振舞いには，実社会と同じモラルやマナーが求められます．ただ，媒体として通信ネットワークが介在するために，さらにネットワークコミュニティ特有の配慮も必要になります．ネットワークコミュニティにおけるこのようなエチケットのことを「ネチケット」と呼んでいます．ネチケットについては，下記に優れたなリンク集があります．</DIV>
+  <UL>
+    <LI><A href="http://www.cgh.ed.jp/netiquette/index-j.html" target="_blank">ネチケットホームページ</A></LI>
+  </UL>
+  <DIV class="body">あなたの目の前のコンピュータの向こう側にも， 「人」がいるんだと言うことを忘れないでください．</DIV>
+  <H4>セキュリティ</H4>
+  <DIV class="body">インターネットの世界の中にある「悪意」から自分自身を守るには，いくつか知っておかなければならない事項があります．メールに関しては，<EM>添付ファイル</EM>は中身が確認できなければ<STRONG>絶対開かない</STRONG>ことを肝に銘じておいてください．添付ファイルでなくても<EM>チェーンメール</EM>（「不幸の手紙」みたいなもの）や<EM>ネズミ講の勧誘</EM>，犯罪を誘発しそうな Web サイトへの誘いなど，さまざまな「悪意」が送りつけられてきます．嫌な言い方ですが，「他人の言うことは，とりあえず信用しない」ことを基本姿勢にすることが，そういう悪意から身を守る第一歩でしょう．</DIV>
+  <UL>
+    <LI><A href="http://www.ipa.go.jp/security/awareness/end-users/end-users.html" target="_blank">情報セキュリティ対策実践情報</A>（<A href="http://www.ipa.go.jp/" target="_blank">IPA 情報処理振興事業協会</A>）</LI>
+    <LI><A href="http://www.telesa.or.jp/guideline/self_difence.html" target="_blank">インターネット自己防衛マニュアル</A>（<A href="http://www.telesa.or.jp/" target="_blank">社団法人テレコムサービス協会</A>）</LI>
+  </UL>
+</BLOCKQUOTE>
+<H3><A class="label" name="quitthunderbird">８．５　Thunerbird の終了</A></H3>
+<P>Thunderbird を終了するには，右上の <kbd>[&equiv;]</kbd> のボタンをクリックして現れるメニューから「終了」を選んでください．タイトルバーの<em>右上の「&times;」</em>でも構いません．</P>
+<DIV class="figure"><img src="thunderbird15.jpg" width="640" height="400" border="0" alt="Firefox の終了"></DIV>
+<H2>９．ログアウトとシャットダウン</H2>
+<blockquote>以下の手順の前に，<a href="#quitfirefox">Firefox を終了して</a>ください．Firefox を終了させずにパソコンの電源を切ると，次回 Firefox が起動できなくなることがあります．</blockquote>
+<P>コンピュータの使用が終わったら，コンピュータに<EM>ログインする前の状態に戻します</EM>．この操作のことを<em>ログアウト</em>といいます．画面の左下にある「Menu」をクリックして，左側の下から二つ目のボタンをクリックしてください．なお，今のところログアウトが正常にできないという不具合が起こることがあります．その場合は「電源スイッチ」を押してください．</P>
+<DIV class="figure"><IMG src="logout0.jpg" width="720" height="216" alt="ログアウト"></DIV>
+<P>次に，「このシステムから今すぐログアウトしますか？」というウィンドウが現れますので，「ログアウト」をクリックするか，<KBD>[Enter]</KBD> キーをタイプしてください．これでログイン画面に戻ります．</P>
+<DIV class="figure"><IMG src="logout1.jpg" width="640" height="200" alt="ログアウトの確認"></DIV>
+<P><EM>電源を切る場合</EM>は，画面の左下にある「Menu」をクリックして，左側の一番下のボタンをクリックしてください．このコンピュータを停止する操作のことを<EM>シャットダウン</EM>といいます．</P>
+<DIV class="figure"><IMG src="shutdown0.jpg" width="720" height="216" alt="シャットダウン"></DIV>
+<P>次に，「このシステムを今すぐシャットダウンしますか？」というウィンドウが現れますので，「シャットダウン」をクリックするか，<KBD>[Enter]</KBD> キーをタイプしてください．これでコンピュータが停止し，自動的に電源が切れます．</P>
+<DIV class="figure"><IMG src="shutdown1.jpg" width="640" height="200" alt="ログアウトの確認"></DIV>
+<P>なお，<em>ログアウト後に電源を切る場合</em>は，ログイン画面の<em>オプション</em>をクリックして<em>停止</em>を選んだ後，「停止」をクリックしてください．あるいは，<strong>いきなり電源スイッチを押してもかまいません</strong>．</P>
+<BLOCKQUOTE>
+  <DIV class="header">不具合が発生したとき</DIV>
+  <DIV class="body">
+  <p>演習室のコンピュータは <em>Windows と Linux の両方が使える</em>ようになっていますが，そのために <em>Web ブラウザやメールソフトの設定を共有</em>する設定をしています．しかし，実際には Windows 側と Linux 側でソフトウェアのバージョンが一致しない場合があり，この設定により<em>不具合を起こす場合</em>もあります．そのような場合は<em>教員やシステム情報学センターに問い合わせ</em>てください．</p>
+  <p>なお，<em>Firefox</em> と <em>Thunderbird</em> が<strong>起動していない</strong>状態で，<em>端末</em>に次の内容をタイプして，最後にキーボードの <kbd>[Enter]</kbd> をタイプすれば，<em>設定を初期化</em>することができます．ただし，設定は最初からやり直す必要があります．</p></DIV>
+<DIV class="figure"><img src="initialize0.gif" width="502" height="120" alt="設定の初期化"></DIV>
+<p>次に，<em>Thunderbird</em> を起動してください．するとメールアドレスを取得するウィンドウが表示されますが，<em>既にシステム情報学センターのアカウントを持っている</em>ので，ここでは「メールアカウントを設定する」をクリックしてください．</p>
+<DIV class="figure"><img src="initialize1.gif" width="646" height="507" alt="アカウントの作成"></DIV>
+<p>自分の名前（本名）のほか，システム情報学センターの利用承認書に書かれている「メールアドレス」と「パスワード」を設定し，「パスワードを記憶する」にチェックが入っているのを確認して，「続ける」をクリックしてください．</p>
+<DIV class="figure"><img src="initialize2.gif" width="524" height="418" alt="アカウントの設定"></DIV>
+<p>正しいメールアドレスを設定してれば，メールアドレスから使用するサーバが推定され，自動的に受信サーバと送信サーバが設定されます．「完了」をクリックします．</p>
+<DIV class="figure"><img src="initialize3.gif" width="524" height="418" alt="アカウントの作成完了"></DIV>
+<p>これでアカウントの作成は完了です．なお，<em>Firefox</em> の方はブックマーク以外，特に設定することはありません．</p></BLOCKQUOTE>
+<H2><A name="kadai" class="label">宿題</A></H2>
+<div class="assign">(1) 以下の質問に対する回答を <em>Linux から</em>メールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-01">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-01 にしてください（そうしないと採点できません）．期限は次週の水曜日中までです．</div>
+<OL>
+  <LI>自己紹介してください．</LI>
+  <LI>今回の講義でわかりにくかったことを挙げてください．</LI>
+  <LI>今回の講義でもっと知りたかったことを挙げてください．</LI>
+  <LI>あなたがコンピュータを使ってしたいことを３つ挙げてください．</LI>
+  <LI>「ログイン」という作業がなぜ必要なのか簡単に説明してください．</LI>
+</OL>
+<p>学外（携帯）からのメールに関してお願いです．</p>
+<BLOCKQUOTE>
+  <DIV class="header">自宅等学外からの宿題メール送信について</DIV>
+  <p>今回の宿題は<em>大学の設備を使ってメールを出せるかどうかの確認も兼ねている</em>ので，自宅や携帯からメールを送ってもらっても嬉しくありません．自宅等の環境も有効に活用して欲しいとは思うので学外からの宿題メールも受け取りますが，その際にもメールの
+    From: は，できれば大学のメールアドレスにしてください．そうしないと<em>私がメールを受信する時に自動振り分けされない</em>ため，宿題メールを見落としてしまう可能性があります．それから，HTML 形式のメールもスパム（迷惑メール）と間違えて読まない可能性があるので気を付けてください．この講義では皆さんに「HTML 形式のメールを送らない設定」をしていただいているので，問題ないと思います
+    :-)</p>
+</BLOCKQUOTE>
+<p>蛇足ながら，一応，捕捉しておきます．</p>
+<blockquote>
+<div class="header">見たいページを探す</div>
+<P>自分の見たいページを探すには，<EM>サーチエンジン</EM>と呼ばれる Web ページを利用します． インターネット上には多くのサーチエンジンがありますが，これらはおおまかに次の２つのタイプに分類することができます．</P>
+<DL>
+  <DT>ディレクトリ型</DT>
+  <DD>人手によって Web ページの情報を分類・整理し，階層的なデータベースにしたものです．代表的なものには，以下のようなものがあります．
+    <UL>
+      <LI><A href="http://dir.yahoo.co.jp/" target="_blank">http://dir.yahoo.co.jp/</A></LI>
+      <LI><A href="http://dir.goo.ne.jp/" target="_blank">http://dir.goo.ne.jp/</A></LI>
+      <LI><A href="http://dir.livedoor.com/" target="_blank">http://dir.livedoor.com/</A></LI>
+      <LI><A href="http://allabout.co.jp/" target="_blank">http://allabout.co.jp/</A></LI>
+      <LI><A href="http://joyjoy.com/JOY.html" target="_blank">http://joyjoy.com/JOY.html</A></LI>
+      <LI><A href="http://dmoz.org/World/Japanese/" target="_blank">http://dmoz.org/World/Japanese/</A></LI>
+    </UL>
+  </DD>
+  <DT>全文検索型</DT>
+  <DD>ロボット（クローラー）と呼ばれるプログラムでインターネットのあらゆるページの情報を自動的に集め，全文検索データベースを構築します．代表的なものには，以下のようなものがあります．
+    <UL>
+      <LI><A href="http://www.google.co.jp/" target="_blank">http://www.google.co.jp/</A></LI>
+      <LI><A href="http://www.bing.com/" target="_blank">http://www.bing.com/</A></LI>
+      <LI><a href="http://www.yahoo.co.jp/" target="_blank">http://www.yahoo.co.jp/</a></LI>
+      <LI><A href="http://www.goo.ne.jp/" target="_blank">http://www.goo.ne.jp/</A></LI>
+      <LI><A href="http://www.excite.co.jp/" target="_blank">http://www.excite.co.jp/</A></LI>
+      <LI><a href="http://www.naver.jp/" target="_blank">http://www.naver.jp/</a></LI>
+      <LI><a href="http://www.baidu.jp/" target="_blank">http://www.baidu.jp/</a></LI>
+    </UL>
+  </DD>
+</DL>
+<P>ディレクトリ型は人手によって整理されているために，無駄な情報が少なく興味のあるカテゴリのページを見つけやすいという特徴があります．その反面，漏れや更新の遅れが大きいと考えられます．</P>
+<P>全文検索型は Web ページに含まれるキーワードを機械的に抜き出してデータベースを構築するので，漏れが少なく更新も早いと考えられますが，検索結果の中からすばやく本当に必要な情報を見つけるには多少の経験が必要です．</P>
+<P>最近は全文検索型が主流になっていますが，上記のものを含むほとんどのところで，ディレクトリ型と全文検索型の両方の機能を持たせています．これらのほかに学術論文を対象にした <a href="http://scholar.google.co.jp/" target="_blank">Google Scholar</a> や<a href="http://arxiv.org/" target="_blank"> arXiv.org</a> とか，図書館の蔵書を検索する<a href="http://calil.jp/" target="_blank">カーリル</a>のようにターゲットを絞ったもの，<A href="http://www.hatena.ne.jp/" target="_blank">人力検索サイト「はてな」</A>，意思決定エンジン <a href="http://hunch.com/" target="_blank">Hunch</a>，キーワードでなく画像そのもので検索する <a href="http://www.tineye.com/" target="_blank">TinEye</a> など多様なものがあります．<a href="http://www.wolframalpha.com/">Wolfram|Alpha</a> はなんでも「計算」で答を出してくれる，とても興味深い知能エンジンです．微分・積分のような記号計算もできます． </P>
+</blockquote>
+<div class="footer"><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

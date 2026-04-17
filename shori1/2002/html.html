@@ -1,0 +1,1032 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<head>
+<title>HTML の概要</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<hr>
+<h2>HTML の概要</h2>
+<hr>
+
+<h3><a name="index">目次</a></h3>
+<blockquote>
+<ul>
+<li><a href="#outline">HTML の全体構成</a></li>
+<li><a href="#title">タイトルをつける</a></li>
+<li><a href="#headding">見出しをつける</a></li>
+<li><a href="#paragraph">段落を設ける</a></li>
+<li><a href="#division">文章を区分する</a></li>
+<li><a href="#newline">強制改行</a></li>
+<li><a href="#list">箇条書き（リスト表示）</a></li>
+<li><a href="#enumerate">番号つきリスト</a></li>
+<li><a href="#description">記述（定義）形式のリスト</a></li>
+<li><a href="#quote">引用する</a></li>
+<li><a href="#centering">中央に揃える</a></li>
+<li><a href="#preformat">そのまま表示する</a></li>
+<li><a href="#link">リンクを張る</a></li>
+<li><a href="#image">画像を埋め込む</a></li>
+<li><a href="#hline">水平線を引く</a></li>
+<li><a href="#fontstyle">字体を変える</a></li>
+<li><a href="#fontsize">文字の大きさを変える</a></li>
+<li><a href="#fontcolor">文字の色を変える</a></li>
+<li><a href="#default">文字や背景色の標準設定</a></li>
+<li><a href="#background">背景に画像を貼り付ける</a></li>
+<li><a href="">&lt;, &gt;, &amp; を表示する</a></li>
+</ul>
+</blockquote>
+
+<h3><A name="outline">HTML の全体構成</a></h3>
+<p>HTML 文書は、ヘッダ部と本文（ボディ）の２つの部分からなります。
+最初の１行は DOCTYPE Declaration といい、
+使用している HTML のバージョンを示しています。
+ここでは HTML 3.2 を指定しています。
+なお、このタグは HTML のものではなく、
+HTML のベースとなっている SGML（Standard Generalized Markup Language
+～コンピュータによる文書交換のための標準規格）のものです。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 3.2//EN&quot;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;タイトル&lt;/title&gt;
+    ：　　（ヘッダ部）
+  &lt;/head&gt;
+  &lt;body&gt;
+    ：　　（本文）
+  &lt;/body&gt;
+&lt;/html&gt;</pre></td></tr>
+</table></center>
+
+<blockquote>
+<dl>
+  <dt>ヘッダ部</dt>
+  <dd>ここにヘッダ情報を書きます。 ヘッダ情報にはタイトルやキーワードなど、文書の本文に現れない情報を記述します。タイトルは省略できません。</dd>
+  <dt>本文</dt>
+  <dd>ここに本文を書きます。 この部分に書いたものが Web ブラウザに表示されます。</dd>
+</dl>
+</blockquote>
+
+<p><tt><font color="#004488">&lt;html&gt;</font></tt>、
+<tt><font color="#004488">&lt;/html&gt;</font></tt>、
+<tt><font color="#004488">&lt;head&gt;</font></tt>、
+<tt><font color="#004488">&lt;/head&gt;</font></tt>、
+<tt><font color="#004488">&lt;body&gt;</font></tt>、
+<tt><font color="#004488">&lt;/body&gt;</font></tt>
+は省略できますが、
+<tt><font color="#004488">&lt;title&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/title&gt;</font></tt> は省略できません。</p>
+
+<p>この文書は（<font color="#ff0000">古い</font>）
+<a href="http://www.w3.org/TR/REC-html32.html">HTML 3.2</a>
+の（<font color="#ff0000">非常に片寄った</font>）抜粋です。現在
+<a href="http://www.w3.org">W3C (World Wide Web Consortium)</a> は
+<a href="http://www.w3.org/TR/html4/">HTML 4.01</a> を
+<a href="http://www.xml.org/">XML</a> で定義し直した
+<a href="http://www.w3.org/TR/xhtml1/">XHTML 1.0</a>
+を<a href="http://www.w3.org/MarkUp/">推奨</a>しています。また、この文書では Web
+ページのレイアウトに <tt>align=</tt> や <tt>color=</tt> といった HTML
+属性を使用していますが、文書の論理的（意味的）構造とレイアウトを分離するという視点からは、
+今後はこれに代えて <a href="http://www.w3.org/Style/CSS/">CSS
+(Cascading Style Sheets)</a> を使用するべきでしょう。</p>
+
+<p>XHTML 1.0 の仕様書の邦訳は<a href="http://www.doraneko.org/xml/xhtml10/">
+ XHTML 1.0: 拡張可能ハイパーテキストマークアップ言語</a>に、HTML 4.01
+の仕様書の邦訳は<a href="http://www.asahi-net.or.jp/~sd5a-ucd/rec-html40j/">
+HTML 4 仕様書邦訳計画</a>にあります。</p>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="title">タイトルをつける</a></h3>
+<p>Web ページのタイトルは、<tt><font color="#004488">&lt;title&gt;</font> ～
+<font color="#004488">&lt;/title&gt;</font></tt> にはさんでヘッダ部に置きます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;head&gt;
+　&lt;title&gt;ここにタイトルを書きます&lt;/title&gt;
+&lt;/head&gt;</pre></td></tr>
+</table></center>
+
+<p>このタイトルは本文ではなく、Web ブラウザのウィンドウの枠などに現れます。日本語は、Web
+ブラウザ（あるいはコンピュータ）の種類によっては正常に表示できないことがあります。
+タイトルは必ず付けなければなりません。</p>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="headding">見出しをつける</a></h3>
+<p>見出しは <tt><font color="#004488">&lt;h(数字)&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/h(数字)&gt;</font></tt> にはさんで書きます。
+(数字) は１～６で、１が一番“重要度”の高い見出しになります。
+ブラウザは通常この重要度を文字の大きさとして表現します。
+また見出しが目立つように字体を太字にし、前後の行間をあけます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;h1&gt;これはh1の見出しです&lt;/h1&gt;
+&lt;h2&gt;これはh2の見出しです&lt;/h2&gt;
+&lt;h3&gt;これはh3の見出しです&lt;/h3&gt;
+&lt;h4&gt;これはh4の見出しです&lt;/h4&gt;
+&lt;h5&gt;これはh5の見出しです&lt;/h5&gt;
+&lt;h6&gt;これはh6の見出しです&lt;/h6&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、こんな具合いになります。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<h1>これはh1の見出しです</h1>
+<h2>これはh2の見出しです</h2>
+<h3>これはh3の見出しです</h3>
+<h4>これはh4の見出しです</h4>
+<h5>これはh5の見出しです</h5>
+<h6>これはh6の見出しです</h6>
+</td></tr>
+</table></center>
+
+<p>見出しの水平位置も指定できます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;h2 align=&quot;left&quot;&gt;これは align=&quot;left&quot; の見出しです&lt;/h2&gt;
+&lt;h2 align=&quot;center&quot;&gt;これは align=&quot;center&quot; の見出しです&lt;/h2&gt;
+&lt;h2 align=&quot;right&quot; &gt;これは align=&quot;right&quot; の見出しです&lt;/h2&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、下のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<h2 align="left">これは align="left" の見出しです</h2>
+<h2 align="center">これは align="center" の見出しです</h2>
+<h2 align="right" >これは align="right" の見出しです</h2>
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="paragraph">段落を設ける</a></h3>
+<p>段落を設ける場合には、文章を <tt><font color="#004488">&lt;p&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/p&gt;</font></tt> で挟みます。
+<tt><font color="#004488">&lt;/p&gt;</font></tt> は省略可能なので、各段落の先頭に
+<tt><font color="#004488">&lt;p&gt;</font></tt> を置くだけでもかまいません。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;p&gt;一つ目の段落です。一つ目の段落です。一つ目の段落です。
+一つ目の段落です。一つ目の段落です。一つ目の段落です。&lt;/p&gt;
+&lt;p&gt;二つ目の段落です。二つ目の段落です。二つ目の段落です。
+二つ目の段落です。二つ目の段落です。二つ目の段落です。&lt;/p&gt;</pre></td></tr>
+</table></center>
+
+<p>段落は次のように、改行した上で行間をあけて表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<p>一つ目の段落です。一つ目の段落です。一つ目の段落です。
+一つ目の段落です。一つ目の段落です。一つ目の段落です。</p>
+<p>二つ目の段落です。二つ目の段落です。二つ目の段落です。
+二つ目の段落です。二つ目の段落です。二つ目の段落です。</p>
+</td></tr>
+</table></center>
+
+<p>段落単位で行揃え位置を指定できます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;p align=&quot;left&quot;&gt;
+左揃えの段落です。&lt;br&gt;
+左揃えの段落です。左揃えの段落です。&lt;br&gt;
+左揃えの段落です。左揃えの段落です。左揃えの段落です。&lt;br&gt;
+&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+中央揃えの段落です。&lt;br&gt;
+中央揃えの段落です。中央揃えの段落です。&lt;br&gt;
+中央揃えの段落です。中央揃えの段落です。中央揃えの段落です。&lt;br&gt;
+&lt;/p&gt;
+&lt;p align=&quot;right&quot;&gt;
+右揃えの段落です。&lt;br&gt;
+右揃えの段落です。右揃えの段落です。&lt;br&gt;
+右揃えの段落です。右揃えの段落です。右揃えの段落です。&lt;br&gt;
+&lt;/p&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、下のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<p align="left">左揃えの段落です。<br>左揃えの段落です。左揃えの段落です。<br>
+左揃えの段落です。左揃えの段落です。左揃えの段落です。<br></p>
+<p align="center">中央揃えの段落です。<br>中央揃えの段落です。中央揃えの段落です。<br>
+中央揃えの段落です。中央揃えの段落です。中央揃えの段落です。<br></p>
+<p align="right">右揃えの段落です。<br>右揃えの段落です。右揃えの段落です。<br>
+右揃えの段落です。右揃えの段落です。右揃えの段落です。<br></p>
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="division">文章を区分する</a></h3>
+<p>一連の要素（文章など）をひとつのまとまりとして区分するためには、文章を
+<tt><font color="#004488">&lt;div&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/div&gt;</font></tt> で挟みます。
+<a href="#paragraph">段落</a>とは異なり、
+<tt><font color="#004488">&lt;/div&gt;</font></tt> は省略できません。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;div&gt;一つ目の区分です。一つ目の区分です。一つ目の区分です。
+一つ目の区分です。一つ目の区分です。一つ目の区分です。&lt;/div&gt;
+&lt;div&gt;二つ目の区分です。二つ目の区分です。二つ目の区分です。
+二つ目の区分です。二つ目の区分です。二つ目の区分です。&lt;/div&gt;</pre></td></tr>
+</table></center>
+
+<p>区分は次のように、改行して表示されます。行間は開きません。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<div>一つ目の区分です。一つ目の区分です。一つ目の区分です。
+一つ目の区分です。一つ目の区分です。一つ目の区分です。</div>
+<div>二つ目の区分です。二つ目の区分です。二つ目の区分です。
+二つ目の区分です。二つ目の区分です。二つ目の区分です。</div>
+</td></tr>
+</table></center>
+
+<p>区分単位で行揃え位置を指定できます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;div align=&quot;left&quot;&gt;
+左揃えの区分です。&lt;br&gt;
+左揃えの区分です。左揃えの区分です。&lt;br&gt;
+左揃えの区分です。左揃えの区分です。左揃えの区分です。&lt;br&gt;
+&lt;/div&gt;
+&lt;div align=&quot;center&quot;&gt;
+中央揃えの区分です。&lt;br&gt;
+中央揃えの区分です。中央揃えの区分です。&lt;br&gt;
+中央揃えの区分です。中央揃えの区分です。中央揃えの区分です。&lt;br&gt;
+&lt;/div&gt;
+&lt;div align=&quot;right&quot;&gt;
+右揃えの区分です。&lt;br&gt;
+右揃えの区分です。右揃えの区分です。&lt;br&gt;
+右揃えの区分です。右揃えの区分です。右揃えの区分です。&lt;br&gt;
+&lt;/div&gt;</pre></td></tr></table></center>
+
+<p>これは、下のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<div align="left">左揃えの区分です。<br>左揃えの区分です。左揃えの区分です。<br>
+左揃えの区分です。左揃えの区分です。左揃えの区分です。</div>
+<div align="center">中央揃えの区分です。<br>中央揃えの区分です。中央揃えの区分です。<br>
+中央揃えの区分です。中央揃えの区分です。中央揃えの区分です。</div>
+<div align="right">右揃えの区分です。<br>右揃えの区分です。右揃えの区分です。<br>
+右揃えの区分です。右揃えの区分です。右揃えの区分です。<br></div>
+</td></tr></table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="newline">強制改行</a></h3>
+<p>HTML ではテキスト中の改行や空白は無視されてしまいます。本文に</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>本当はここ→
+←に改行が入っています。
+</pre></td></tra></table></center>
+
+<p>と書いても、Web ブラウザ上では</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">本当はここ→ ←に改行が入っています。</td></tr>
+</table></center>
+
+<p>と表示されてしまいます。積極的に改行するには文章を<a href="#paragraph">段落</a>や
+<a href="#division">区分</a>に分けるか、
+<tt><font color="#004488">&lt;br&gt;</font></tt> を入れます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>本当はここ→&lt;br&gt;
+←に改行が入っています。</pre></td></tr>
+</table></center>
+
+<p>とすれば、</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">本当はここ→<br>←に改行が入っています。</td></tr></table></center>
+
+<p>となります。</p>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="list">箇条書き（リスト表示）</a></h3>
+<p>箇条書きを行う部分は <tt><font color="#004488">&lt;ul&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/ul&gt;</font></tt> ではさんで、各項目を
+<tt><font color="#004488">&lt;li&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/li&gt;</font></tt>
+ではさみます。<tt><font color="#004488">&lt;/li&gt;</font></tt>
+は省略可能なので、項目の先頭に <tt><font color="#004488">&lt;li&gt;</font></tt>
+を置くだけでもかまいません。</p>
+
+<p><tt><font color="#004488">&lt;ul&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/ul&gt;</font></tt> の中に
+<tt><font color="#004488">&lt;ul&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/ul&gt;</font></tt>
+を置いて、リストを入れ子構造にすることもできます。HTML
+の記述のインデント（字下げ、行頭の空白）は HTML
+ソースを見やすくするためのもので、Web ページ上のレイアウトには影響を与えません。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;ul&gt;
+  &lt;li&gt;項目１&lt;/li&gt;
+  &lt;li&gt;項目２&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;項目２－１&lt;/li&gt;
+    &lt;li&gt;項目２－２&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li&gt;項目３&lt;/li&gt;
+&lt;/ul&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+  <tr><td bgcolor="#ffffff"><ul>
+        <li>項目１</li>
+        <li>項目２
+        <ul>
+          <li>項目２－１</li>
+          <li>項目２－２</li>
+        </ul>
+        </li>
+        <li>項目３</li>
+      </ul>
+   
+  </td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="enumerate">番号つきリスト</a></h3>
+<p>各項目に番号をつけたリストも作成するには、その部分を
+<tt><font color="#004488">&lt;ol&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/ol&gt;</font></tt> ではさんで、 各項目を
+<tt><font color="#004488">&lt;li&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/li&gt;</font></tt>
+ではさみます。<tt><font color="#004488">&lt;/li&gt;</font></tt>
+は省略可能なので、項目の先頭に <tt><font color="#004488">&lt;li&gt;</font></tt>
+を置くだけでもかまいません。これもリストを入れ子構造にできます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;ol&gt;
+  &lt;li&gt;項目１&lt;/li&gt;
+  &lt;li&gt;項目２&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;項目２－１&lt;/li&gt;
+    &lt;li&gt;項目２－２&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li&gt;項目３&lt;/li&gt;
+&lt;/ol&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+  <tr><td bgcolor="#ffffff"><ol>
+        <li>項目１</li>
+        <li>項目２
+        <ol>
+          <li>項目２－１</li>
+          <li>項目２－２</li>
+        </ol>
+        </li>
+        <li>項目３</li>
+      </ol>
+  </td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="description">記述（定義）形式のリスト</a></h3>
+<p>単語リストのように、あるキーワードに対して説明を加える時などに使えるリストです。
+これはリスト表記する部分を <tt><font color="#004488">&lt;dl&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/dl&gt;</font></tt> ではさんで、各項目のキーワード部分を
+<tt><font color="#004488">&lt;dt&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/dt&gt;</font></tt> ではさみ、記述部分を
+<tt><font color="#004488">&lt;dd&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/dd&gt;</font></tt>
+ではさみます。<tt><font color="#004488">&lt;/dt&gt;</font></tt> や
+<tt><font color="#004488">&lt;/dd&gt;</font></tt>
+は省略できます。これもリストを入れ子構造にできます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;dl&gt;
+  &lt;dt&gt;札幌ラーメン&lt;/dt&gt;
+    &lt;dd&gt;麺は太めのちじれ麺であり、
+    醤油、塩、味噌などのバリエーションがあるが、
+    特に味噌ラーメンが重視されている。
+    具は一般的なものに加えてコーンを加えることが多い。
+    バターをのせることもある。&lt;/dd&gt;
+  &lt;dt&gt;博多ラーメン&lt;/dt&gt;
+    &lt;dd&gt;細いストレート麺が主流で、
+    中でも長浜ラーメンの麺はかなり細い。
+    スープはトンコツが主体で、
+    色の白いスープが多い。
+    かなり脂っこいものもある。
+    付け合わせに紅しょうが・からし高菜を用いるようだ。&lt;/dd&gt;
+  &lt;dt&gt;和歌山ラーメン&lt;/dt&gt;
+    &lt;dd&gt;細目の麺だが、
+    博多ラーメンほどではない。
+    わりと伸び気味にゆでるせいか、
+    スープで麺が太っていることもある。
+    スープはトンコツベースの醤油味。
+    いっしょに早すし（早熟れ鮨、あせ巻き寿司）を食べる。
+    和歌山市内では次の２つの流派に別れるようだ。&lt;/dd&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;井手派&lt;/dt&gt;
+        &lt;dd&gt;スープはかなりこってりしており、
+        味も濃い。&lt;/dd&gt;
+      &lt;dt&gt;車庫前派&lt;/dt&gt;
+        &lt;dd&gt;スープはあっさりしていて、
+        東京ラーメンにかなり近い。&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;dt&gt;京風ラーメン&lt;/dt&gt;
+    &lt;dd&gt;「京風」ラーメンをうたう店は、
+    全国にあるようだが、
+    京都（市内）でそういうラーメンにお目にかかったことはない。
+    天下一品が「京風ラーメン」だと思う人はいないだろう。
+    現実の京都は“全国のラーメンの博覧会”状態である。&lt;/dd&gt;
+&lt;/dl&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+  <tr><td bgcolor="#ffffff"><dl>
+        <dt>札幌ラーメン</dt>
+        <dd>麺は太めのちじれ麺であり、醤油、塩、味噌などのバリエーションがあるが、
+        特に味噌ラーメンが重視されている。
+        具は一般的なものに加えてコーンを加えることが多い。
+        バターをのせることもある。</dd>
+        <dt>博多ラーメン</dt>
+        <dd>細いストレート麺が主流で、中でも長浜ラーメンの麺はかなり細い。
+        スープはトンコツが主体で、色の白いスープが多い。かなり脂っこいものもある。
+        付け合わせに紅しょうが・からし高菜を用いるようだ。</dd>
+        <dt>和歌山ラーメン</dt>
+        <dd>細目の麺だが、博多ラーメンほどではない。
+        わりと伸び気味にゆでるせいか、 スープで麺が太っていることもある。
+        スープはトンコツベースの醤油味。
+        いっしょに早すし（早熟れ鮨、あせ巻き寿司）を食べる。
+        和歌山市内では次の２つの流派に別れるようだ。
+        <dl>
+          <dt>井手派</dt>
+          <dd>スープはかなりこってりしており、 味も濃い。</dd>
+          <dt>車庫前派</dt>
+          <dd>スープはあっさりしていて、 東京ラーメンにかなり近い。</dd>
+        </dl>
+        </dd>
+        <dt>京風ラーメン</dt>
+        <dd>「京風」ラーメンをうたう店は全国にあるようだが、
+        京都（市内）でそういうラーメンにお目にかかったことはない。
+        天下一品が「京風ラーメン」だと思う人はいないだろう。
+        現実の京都は“全国のラーメンの博覧会”状態である。</dd>
+      </dl>
+  </td></tr>
+</table></center>
+
+<p>なお、<tt><font color="#004488">&lt;dl compact&gt;</font></tt>
+を使うと、キーワードが短いときに、
+キーワードと記述部分の間に改行を入れないようにしてくれます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;dl compact&gt;
+&lt;dt&gt;☆&lt;/dt&gt;
+&lt;dd&gt;白い星&lt;/dd&gt;
+&lt;dt&gt;★&lt;/dt&gt;
+&lt;dd&gt;黒い星&lt;/dd&gt;
+&lt;dt&gt;○&lt;/dt&gt;
+&lt;dd&gt;白丸&lt;/dd&gt;
+&lt;dt&gt;●&lt;/dt&gt;
+&lt;dd&gt;黒丸&lt;/dd&gt;
+&lt;/dl&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+  <tr><td bgcolor="#ffffff"><dl compact>
+        <dt>☆</dt>
+        <dd>白い星</dd>
+        <dt>★</dt>
+        <dd>黒い星</dd>
+        <dt>○</dt>
+        <dd>白丸</dd>
+        <dt>●</dt>
+        <dd>黒丸</dd>
+      </dl>
+  </td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="quote">引用する</a></h3>
+<p>引用部分は <tt><font color="#004488">&lt;blockquote&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/blockquote&gt;</font></tt>
+ではさみます。この部分の行の長さは本文より短くなります。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+&lt;blockquote&gt;
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+&lt;/blockquote&gt;
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+<blockquote>
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+ここは引用文。ここは引用文。ここは引用文。ここは引用文。
+</blockquote>
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+ここは本文。ここは本文。ここは本文。ここは本文。
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="centering">中央に揃える</a></h3>
+<p>中央揃えを行う場合は、<a href="#headding">見出し</a>や
+<a href="#paragraph">段落</a>、
+<a href="#division">区分</a>などに用意されている align=&quot;center&quot;
+属性が使用できます。この他に中央に揃えたい部分を
+<tt><font color="#004488">&lt;center&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/center&gt;</font></tt>
+ではさむ方法もあります。</p>
+
+<p>いずれの場合も、中央揃えする部分に
+<tt><font color="#004488">&lt;br&gt;</font></tt> や
+<tt><font color="#004488">&lt;p&gt;</font></tt>
+が入っていないと詰め込みが行われて、うまく中央に揃えられない場合があります。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;center&gt;
+1&lt;br&gt;
+1 1&lt;br&gt;
+1 2 1&lt;br&gt;
+1 3 3 1&lt;br&gt;
+1 4 6 4 11&lt;br&gt;
+1 5 10 10 5 1&lt;br&gt;
+1 6 15 20 15 6 1&lt;br&gt;
+&lt;/center&gt;</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+  <tr><td bgcolor="#ffffff">
+<center>1<br>
+1 1<br>
+1 2 1<br>
+1 3 3 1<br>
+1 4 6 4 1<br>
+1 5 10 10 5 1<br>
+1 6 15 20 15 6 1<br>
+</center>
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="preformat">そのまま表示する</a></h3>
+<p>HTML 中では改行や空白は無視されてしまいますが、それだと不便なことがあります。
+改行や空白によるレイアウトを活かして表示するためには、その部分を
+<tt><font color="#004488">&lt;pre&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/pre&gt;</font></tt>
+ではさみます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;pre&gt;
+    ○┃×┃×
+    ━╋━╋━
+    ×┃○┃○
+    ━╋━╋━
+    ○┃○┃×
+&lt;/pre&gt;</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>
+    ○┃×┃×
+    ━╋━╋━
+    ×┃○┃○
+    ━╋━╋━
+    ○┃○┃×
+</pre></td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="link">リンクを張る</a></h3>
+<p>現在表示しているページに、他のページを参照するための“ホットスポット”
+（マウスでクリックすると何かが起こる場所）を埋め込むことを、そのページに
+<font color="#ff0000">リンクする</font>
+とか
+<font color="#ff0000">リンクを張る</font>
+などと言います。これは“ホットスポット”として使いたい文字列を、
+<tt><font color="#004488">&lt;a href="リンク先のURL"&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/a&gt;</font></tt>
+ではさみます。和歌山大学のホームページにリンクするには、次のように書きます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><tt><font color="#004488">&lt;a href="http://www.wakayama-u.ac.jp/"&gt;</font>和歌山大学<font color="#004488">&lt;/a&gt;</font></tt></td></tr>
+</table></center>
+
+<p>リンク先がリンク元と同じ場所にあれば、URL の一部を省略することができます。例えば、</p>
+
+<blockquote>http://www.somewhere.ac.jp/X/<font color="#0000ff">a</font>.html</blockquote>
+
+<p>というページから、そのページと同じディレクトリにある</p>
+
+<blockquote>http://www.somewhere.ac.jp/X/<font color="#ff0000">b</font>.html</blockquote>
+
+<p>にリンクを張る場合、 http://www.somewhere.ac.jp/X/ を省略して、</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><tt><font color="#004488">&lt;a href="b.html"&gt;</font>b.html にリンク<font color="#004488">&lt;/a&gt;</font></tt></td></tr>
+</table></center>
+
+<p>と書くことができます。また a.html から、同じサーバの別のディレクトリにある</p>
+
+<blockquote>http://www.somewhere.ac.jp/<font color="#ff0000">Y</font>/c.html</blockquote>
+
+<p>にリンクするには、</p><center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><tt><font color="#004488">&lt;a href="/Y/c.html"&gt;</font>c.html にリンク<font color="#004488">&lt;/a&gt;</font></tt></td></tr>
+</table></center>
+
+<p>と書くことができます。</p>
+
+<A name="alert"></a>
+<center><table border align="center" width="90%">
+<tr><th bgcolor="#ff0000"><font size="+1" color="#ffffff">他人のホームページへのリンクについて</font></th></tr>
+<tr><td bgcolor="#ffffcc">
+      <p>公開されているホームページは多くの人に見てもらうために作られているわけですから、
+      個人的にそういうページにリンクを張ることは、原則的に自由だと考えられています
+      （<a href="http://www.cric.or.jp/multimedia/QA/Q15.html">著作権情報センターのＱ＆Ａ</a>）。</p>
+      <p>しかし、中にはリンクを禁止していたり、
+      事前にメールなどで了解を求めているところもあります。</p>
+      <p>他人のホームページにリンクを張るときは、
+      そのページだけではなく、 そのページの所有者の他のページも良く読んで、
+      そういう記述がないかどうか十分に確かめましょう。
+      また、そういう記述がなくても、
+      リンクを張る場合には事前の問い合わせがあって当然と考えている人もいるので、
+      できるだけメール等でそのページの所有者に確認を取った方がいいでしょう。</p>
+      <p>ただ、そういうメールにいちいち返事を書くのが面倒という人もいるので、</p>
+      <blockquote>「××様のホームページ http://www.yourhost.xx.jp/yourpage.html に、<br>
+      http://www.sys.wakayama-u.ac.jp/~USER/mypage.html から<br>
+      リンクを張らせて頂きました。もしご都合が悪いようでしたら、<br>
+      USER@sys.wakayama-u.ac.jp までお知らせ下さい。」</blockquote>
+      <p>というような内容のメールを送ることを勧めます…が、
+      これも一概には言えないので世の中ややこしい…</p>
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="image">画像を埋め込む</a></h3>
+<p>Web ページに画像を埋め込むには、
+<tt><font color="#004488">&lt;img src="画像ファイルのURL"
+alt="その画像ファイルの説明"&gt;</font></tt> を書きます。
+bomb.gif
+という画像ファイルを埋め込むには、次のように書きます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>爆弾→
+&lt;img src=&quot;http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/bomb.gif&quot; alt=&quot;爆弾&quot;&gt;
+←</pre></td></tr>
+</table></center>
+
+<p>これは、次のように表示されます。<font color="#006600">alt="..."</font>
+で指定した文字は、この画像が表示されなかったとき
+（画像の転送に失敗した、画像が表示できない Web ブラウザ
+～文字や音声でページを表示するものがあります～ を使っていた、など）、
+かわりに表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">爆弾→
+<IMG src="bomb.gif">
+←</td></tr>
+</table></center>
+
+<p>このように画像は、
+Web ページのレイアウトの上では文字と同様に扱われます。
+画像の同一行内での文字に対する高さ（ベースライン）を調整するには
+align= 属性を使います。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>top→&lt;img src=&quot;bomb.gif&quot; align=&quot;top&quot;&gt;
+middle→&lt;img src=&quot;bomb.gif&quot; align=&quot;middle&quot;&gt;
+bottom→&lt;img src=&quot;bomb.gif&quot; align=&quot;bottom&quot;&gt;</pre></td></tr>
+</table></center>
+
+<p>これは下のように表示されます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+top→<img src="bomb.gif" align="top">
+middle→<img src="bomb.gif" align="middle">
+bottom→<img src="bomb.gif" align="bottom">
+</td></tr>
+</table></center>
+
+<p>align= 属性で水平位置 (&quot;left&quot;, &quot;right&quot;)
+を指定したときは、画像の周囲に文字が回り込みます
+（&quot;center&quot; は上の &quot;middle&quot; と同じです）。
+文字の回り込みをやめるには <tt><font color="#004488">&lt;br clear="all"&gt;</font></tt>
+を使います。画像と文章とのスペースは hspace=（水平）、vspace=（垂直）で指定します。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;img src=&quot;bomb.gif&quot; align=&quot;left&quot;&gt;
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+&lt;br clear=&quot;all&quot;&gt;
+&lt;p&gt;
+&lt;img src=&quot;bomb.gif&quot; align=&quot;right&quot;
+hspace=&quot;20&quot; vspace=&quot;10&quot;&gt;
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+&lt;br clear=&quot;all&quot;&gt;
+</pre></td></tr>
+</table></center>
+
+<p>これは下のようにレイアウトされます。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+<img src="bomb.gif" align="left">
+<p>この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+この左上に画像。この左上に画像。この左上に画像。この左上に画像。
+<br clear="all"></p>
+
+<p><img src="bomb.gif" align="right" hspace="20" vspace="10">
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+この右上に画像。この右上に画像。この右上に画像。この右上に画像。
+<br clear="all"></p>
+</td></tr>
+</table></center>
+
+<p>画像を“ホットスポット”に使うこともできます。
+<tt><font color="#004488">&lt;img src="..."&gt;</font></tt> を
+<tt><font color="#004488">&lt;a href="..."&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/a&gt;</font></tt>
+ではさんでください。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff"><pre>ここをクリックすると目次に戻ります→
+&lt;a href=&quot;index.html&quot;&gt;&lt;img src=&quot;bomb.gif&quot;&gt;&lt;/a&gt;</pre></td></tr>
+</table></center>
+
+<p>これは、この授業の目次のページに戻るホットスポットになります。</p>
+
+<center><table border align="center" width="90%">
+<tr><td bgcolor="#ffffff">
+ここをクリックすると目次に戻ります→
+<a href="index.html"><img src="bomb.gif"></a>
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="hline">水平線を引く</a></h3>
+<p><tt><font color="#004488">&lt;hr&gt;</font></tt>
+で下のような水平線を引くことができます。</p>
+
+<hr>
+
+<p><tt><font color="#004488">&lt;hr noshade&gt;</font></tt>
+とすると、立体感のない線になります。</p><hr noshade><p>横幅（長さ）は
+width=、太さは size=、水平位置は align= で指定します。 width= や size=
+はピクセル数で指定します。width= を %
+で指定すると、ブラウザの表示幅に対する比率になります。align= には
+&quot;left&quot;, &quot;center&quot;, &quot;right&quot; が指定できます。</p>
+
+<p><tt><font color="#004488">&lt;hr width="100" size="100"
+align="left"&gt;</font></tt></p>
+
+<p><hr width="100" size="100" align="left">
+<p><tt><font color="#004488">&lt;hr width="50%" size="100"
+align="right" noshade&gt;</font></tt></p>
+
+<p><hr width="50%" size="100" align="right" noshade>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="fontstyle">字体を変える</a></h3>
+<p>文字に<u>下線</u>を付けたり、<b>太字</b>や<i>斜体</i>にすることができます。ただし、Web
+ブラウザによっては、これはうまく反映されない場合があります。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>この文字は&lt;b&gt;Bold face（太字）&lt;/b&gt;です。&lt;br&gt;
+この文字は&lt;i&gt;Italic face（斜体）&lt;/i&gt;です。&lt;br&gt;
+この文字は&lt;tt&gt;Typewriter face（等幅）&lt;/tt&gt;です。&lt;br&gt;
+この文字は &lt;sup&gt;Superscript（上付き文字）&lt;/sup&gt;です。&lt;br&gt;
+この文字は &lt;sub&gt;Subscript（下付き文字）&lt;/sub&gt;です。&lt;br&gt;
+この文字には &lt;u&gt;Underline（下線）&lt;/u&gt;が付けてあります。&lt;br&gt;
+この文字には &lt;s&gt;Strike line（打ち消し線）&lt;/s&gt;が付けてあります。</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff">
+この文字は <b>Bold face（太字）</b>です。<br>
+この文字は <i>Italic face（斜体）</i>です。<br>
+この文字は <tt>Typewriter face（等幅）</tt>です。<br>
+この文字は <sup>Superscript（上付き文字）</sup>です。<br>
+この文字は <sub>Subscript（下付き文字）</sub>です。<br>
+この文字には <u>Underline（下線）</u>が付けてあります。<br>
+この文字には <s>Strike line（打ち消し線）</s>が付けてあります。
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="fontsize">文字の大きさを変える</a></h3>
+<p>見出しではなく、文中の文字の大きさを変えたいときがあります。
+そのときは、サイズを変更したい文字を
+<tt><font color="#004488">&lt;font size="(数字)"&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/font&gt;</font></tt>
+ではさみます。 (数字) は１～７で、７が一番大きくなります。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>この文字は&lt;font size=&quot;7&quot;&gt;size=7&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;6&quot;&gt;size=6&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;5&quot;&gt;size=5&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;4&quot;&gt;size=4&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;3&quot;&gt;size=3&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;2&quot;&gt;size=2&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font size=&quot;1&quot;&gt;size=1&lt;/font&gt;です。</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff">
+この文字は<font size="7">size=7</font>です。<br>
+この文字は<font size="6">size=6</font>です。<br>
+この文字は<font size="5">size=5</font>です。<br>
+この文字は<font size="4">size=4</font>です。<br>
+この文字は<font size="3">size=3</font>です。<br>
+この文字は<font size="2">size=2</font>です。<br>
+この文字は<font size="1">size=1</font>です。
+</td></tr>
+</table></center>
+
+<p>また、標準の文字の大きさからの相対指定もできます。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>この文字は&lt;font size=&quot;+2&quot;&gt;size=+2&lt;/font&gt;で、
+この文字は&lt;font size=&quot;-1&quot;&gt;size=-1&lt;/font&gt;です。</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff">
+この文字は<font size="+2">size=+2</font>で、
+この文字は<font size="-1">size=-1</font>です。
+</td></tr>
+</table></center>
+
+<p>なお、標準の文字の大きさは <tt><font color="#004488">&lt;basefont
+size="(数字)"&gt;</font></tt> で指定します。これも (数字) は１～７で、
+７が一番大きくなります。</p>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="fontcolor">文字の色を変える</a></h3>
+<p>文字の色を変えるには、 色を変えたい文字を
+<tt><font color="#004488">&lt;font color="#(色コード)"&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/font&gt;</font></tt>
+ではさみます。なお、<tt><font color="#004488">&lt;font size="(数字)"
+color="#(色コード)"&gt;</font></tt> ～
+<tt><font color="#004488">&lt;/font&gt;</font></tt>
+という具合いに、色とサイズの両方を同時に指定しても構いません。</p>
+
+<p>色コードの説明は<a href="colors.html">ここ</a>にあります。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>この文字は&lt;font color=&quot;#000000&quot;&gt;黒色&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#ff0000&quot;&gt;赤色&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#00ff00&quot;&gt;緑色&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#0000ff&quot;&gt;青色&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#ffff00&quot;&gt;黄色&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#ff00ff&quot;&gt;マゼンタ&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#00ffff&quot;&gt;シアン&lt;/font&gt;です。&lt;br&gt;
+この文字は&lt;font color=&quot;#ffffff&quot;&gt;白色&lt;/font&gt;です。</pre></td></tr>
+</table></center>
+
+<p>これは次のように表示されます。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#cccccc">
+この文字は<font color="#000000">黒色</font>です。<br>
+この文字は<font color="#ff0000">赤色</font>です。<br>
+この文字は<font color="#00ff00">緑色</font>です。<br>
+この文字は<font color="#0000ff">青色</font>です。<br>
+この文字は<font color="#ffff00">黄色</font>です。<br>
+この文字は<font color="#ff00ff">マゼンタ</font>です。<br>
+この文字は<font color="#00ffff">シアン</font>です。<br>
+この文字は<font color="#ffffff">白色</font>です。
+</td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="default">文字や背景色の標準設定</a></h3>
+<p>そのページ全体の文字や背景色の標準設定は、
+<tt><font color="#004488">&lt;body&gt;</font></tt> タグの属性で行います。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;body text=&quot;#ffffff&quot; bgcolor=&quot;#0000ff&quot;&gt;</pre></td></tr>
+</table></center>
+
+<p>上の例では<a href="kanji.html">こんな風</a>になります。</p>
+
+<p>他に、リンクのホットスポットになっている文字の色もここで指定できます。
+link= でまだクリックしていないホットスポットの色、
+vlink= で一度クリックしたホットスポットの色、
+alink= でホットスポットをクリックした瞬間の色を指定します。</p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;body text=&quot;#ffffff&quot; bgcolor=&quot;#0000ff&quot;
+link=&quot;#ff0000&quot; vlink=&quot;#880000&quot; alink=&quot;#00ff00&quot;&gt;</pre></td></tr>
+</table></center>
+
+<p>これだとホットスポットは<font color="#ff0000">赤色</font>になり、
+クリックした瞬間<font color="#00ff00">緑色</font>になったあと、
+<font color="#880000">暗い赤</font>になります。</p>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="background">背景に画像を貼り付ける</a></h3>
+<p><img src="bomb.gif" align="right"><tt><font color="#004488">&lt;body&gt;</font></tt> タグでは、背景に張り込む画像を指定することもできます。これは
+background=&quot;画像ファイルのURL&quot;
+という属性で行います。bomb.gif（右の画像）を背景画像として貼り付けるには、
+下のように書きます。 <br clear="all"></p>
+
+<center><table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;body text=&quot;#ffffff&quot; bgcolor=&quot;#902810&quot; background=&quot;bomb.gif&quot;&gt;</pre></td></tr>
+</table></center>
+
+<p>この例は、<a href="bomb.html">このページ</a>のようになります。
+このページを見れば分かる通り、画像はタイリング
+（タイルを敷き詰めるような繰り返し表示）
+で表示されます。 従って、下のような画像を背景画像として用いると、
+<A href="kanji.html">このページ</a>のようになります。</p>
+
+<center><img src="line.gif"></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+<h3><A name="#special">&lt;, &gt;, &amp; を表示する</a></h3>
+<p>&lt; &gt; &amp; などのいくつかの特殊記号は HTML
+の制御文字として扱われるため、そのままでは表示されません。
+これらを表示するときは、以下の表記を用います。</p>
+
+<center><table align="center" width="90%">
+<tr><td bgcolor="#ffffaa"><tt>&lt;</tt></td><td bgcolor="#ffeeaa"><tt>&amp;lt;</tt></td></tr>
+<tr><td bgcolor="#ffffaa"><tt>&gt;</tt></td><td bgcolor="#ffeeaa"><tt>&amp;gt;</tt></td></tr>
+<tr><td bgcolor="#ffffaa"><tt>&amp;</tt></td><td bgcolor="#ffeeaa"><tt>&amp;amp;</tt></td></tr>
+<tr><td bgcolor="#ffffaa"><tt>&quot;</tt></td><td bgcolor="#ffeeaa"><tt>&amp;quot;</tt></td></tr>
+</table></center>
+
+<p align="right"><a href="#index"><img src="back.gif" alt="BACK"></a></p>
+
+</body>

@@ -1,0 +1,775 @@
+<head>
+<title>情報処理 II － 第１１回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１１回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．データ型の定義</h2>
+
+<hr>
+
+<p>char や int など、最初から用意されているもの以外に、
+自分でデータ型を定義することもできます。
+このために <font color="#ff0000"><b>typedef</b></font>
+というキーワードを使います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>typedef</b> unsigned short word;
+</table>
+</center>
+
+<p>上の定義によって、
+word という新しいデータ型が使えるようになります。
+これは unsigned short と同じです。
+この名前の決め方は<a href="02.html#identifier">変数名と同じ</a>です。
+この定義の後から、
+次のような変数宣言ができるようになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>word</b> w;
+</table>
+</center>
+
+<p>配列のように複数の要素を持ったデータ型を定義することもできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>typedef float vector[3];
+</table>
+</center>
+
+<p>上の例の場合、
+vector は float 型の３個の要素を持つ配列のデータ型になります。
+従ってこの定義の後、次のように変数宣言を行うと、
+normal は３つの要素を持った配列変数として宣言されます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>vector normal;
+</table>
+</center>
+
+<p>定義した型をもとに、さらに新しい型を作ることもできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>typedef vector matrix[3];
+</table>
+</center>
+
+<p>上によって定義された matrix は
+３×３の要素を持つ２次元配列変数を宣言します。</p>
+
+<hr>
+
+<h2>課題３３</h2>
+
+<hr>
+
+<p>以下で定義されている配列変数 grid の要素の数を数えてください。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>typedef int line[10];
+typedef line plane[5];
+typedef plane cube[4];
+
+cube grid[2];
+</table>
+</center>
+
+<p>答えをメールで
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai33">tokoi</a>
+まで送ってください。Subject: は kadai33 としてください。</p>
+
+<hr>
+
+<h2>２．構造体</h2>
+
+<hr>
+
+<p>プログラムを書いていると、
+複数のデータをひとつにまとめて取り扱いたいと思う場面が
+少なからずあります。
+成績のデータを例にとって考えてみましょう。</p>
+
+<ul>
+<li>国語
+<li>数学
+<li>英語
+</ul>
+
+<p>これが一人分のデータだとすれば、
+配列を使って次のように表すことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int tensu[3];
+</table>
+</center>
+
+<p>この例では、
+配列変数 tensu[0] に国語、
+tensu[1] に数学、
+tensu[2] に英語の点数を格納すると決めておけば、
+tensu という配列変数ひとつで、
+一人分のデータを保存することができます。</p>
+
+<p>次に、このデータに学生の氏名も含めようと考えたとします。
+国語、数学、英語の点数は数値でしたから、
+これらはいずれも int 型のデータとして統一できました。
+しかし氏名は文字列で表す必要があります。
+これは int 型の配列である tensu に含めることはできません。</p>
+
+<p>そう言う場合には<font color="#ff0000">構造体
+(<b>struct</b>)</font>というデータ型が使えます。</p>
+
+<a name="shiken">
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>struct</b> shiken {
+  char namae[20];
+  int tensu[3];
+} data;    // shiken というデータ型の data という変数の宣言
+</table>
+</center>
+</a>
+
+<p>これにより学生の指名を格納する char 型の配列変数 namae
+と各教科の点数を格納する int 型の tensu
+という配列変数をひとまとめにした、shiken という新しいデータ型が定義され、
+そのデータ型の data
+という<font color="#ff0000">構造体変数</font>が宣言されます。。
+なお、構造体変数の宣言 (data) を省略すると、構造体の定義のみを行います。</p>
+
+<p>namae や tensu
+などの構造体の要素のことを<font color="#ff0000">メンバ</font>と言います。
+構造体の各メンバを利用するには、構造体変数名の後に .（ピリオド、
+<font color="#ff0000">ドット演算子</font>）に続けてメンバ名を書きます。
+上の例で宣言された構造体変数 data の各メンバは、
+次のように指定します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>// 成績のデータを格納
+strcpy(<b>data.namae</b>, "和歌山健太郎");
+<b>data.tensu</b>[0] = 88;
+<b>data.tensu</b>[1] = 72;
+<b>data.tensu</b>[2] = 66;
+</table>
+</center>
+
+<p>構造体を一度定義すれば、
+同じ構造をもつ構造体変数は
+構造体名（上の例では shiken）をデータ型として宣言できます。
+同じ構造体同士なら丸ごと代入できます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>shiken</b> anotherData;  // shiken 型の anotherData という変数の宣言
+anotherData = data;  // anotherData に data を代入
+</table>
+</center>
+
+<p>同じ構造体変数を別のところで宣言する必要がなければ、
+構造体名も省略することができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>struct {
+  float x, y;
+} point;
+</table>
+</center>
+
+<p>構造体変数の初期化の方法は、
+配列の初期化に準じます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>shiken wakayama = {
+  // 和歌山健太郎の成績データ
+  "和歌山健太郎",
+  88,
+  72,
+  66
+};
+</table>
+</center>
+
+<hr>
+
+<h2>課題３４</h2>
+
+<hr>
+
+<p>次のようなデータがあるとします。</p>
+
+<center>
+<table border width="50%">
+<tr><th>shouhin<th>tanka<th>kosuu
+<tr><td>mikan<td align="right">200<td align="right">30
+<tr><td>ringo<td align="right">400<td align="right">20
+<tr><td>banana<td align="right">300<td align="right">15
+<tr><td>suika<td align="right">2000<td align="right">3
+</table>
+</center>
+
+<ol>
+
+<li>下のプログラム中のコメントの部分 (1) を、
+このデータを保持する構造体の定義で置き換えてください。</li>
+
+<li>下のプログラム中のコメントの部分 (2) を、
+上のデータを保持するための配列変数の宣言に置き換え、
+上の表に従ってそれに初期値を与えてください。</li>
+
+<li>下は上のデータを集計するプログラムです。
+空欄 __(3)__, __(4)__, __(5)__ を埋めて、
+プログラムを完成させてください。</li>
+
+</ol>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+<font color="#808080">  /*
+   * (1) 構造体の定義をここに書いてください
+   */
+
+  /*
+   * (2) 配列変数の宣言をここに書いてください
+   */</font>
+
+  int i, sum = 0;
+
+  for (i = 0; i < <font color="#808080">__(3)__</font>; i++) {
+    sum += <font color="#808080">__(4)__</font> * <font color="#808080">__(5)__</font>;
+  }
+  cout &lt;&lt; "売上げ合計は" &lt;&lt; sum &lt;&lt; "円" &lt;&lt; endl;
+
+  return 0;
+}
+</table>
+</center>
+
+<p>作成したソースプログラムをメールに添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai34">tokoi</a>
+まで送ってください。Subject:（件名）は kadai34 としてください。</p>
+
+<hr>
+
+<a name="class">
+<h2>３．クラス</h2></a>
+
+<hr>
+
+<p>構造体のところで例にあげた <a href="#shiken">shiken</a> という構造体は、
+名前に終端文字 '\0' を除いて 19 文字までしか格納できないという制限があります。
+また、点数が百点満点であれば、100 点を越える点数や 0
+点未満の点数をデータとして取り扱わないようにしなければなりません。</p>
+
+<p>したがって、このデータ型を使ったプログラムを作成するときには、
+常にこれら制限について留意しておく必要があります。
+仮にプログラム中にこの成績データを操作する部分がいくつも存在するとすれば、
+下のようなデータの正当性のチェックを、
+プログラム中の至るところに書く必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>//
+// 点数の範囲を検査する関数
+//
+int checkRange(int tensu) {
+  if (tensu &gt;= 0 &amp;&amp; tensu &lt;= 100) {
+    return 1;  // 真～範囲内にある
+  }
+  else {
+    cout &lt;&lt; "点数が範囲を越えています" &lt;&lt; endl;
+    return 0;  // 偽～範囲外にある
+  }
+}
+
+//
+// 成績データの設定を行う関数
+//
+void setdata(char *name, int kokugo, int suugaku, int eigo) {
+  if (strlen(name) &lt;= 19) {
+    strcpy(data.namae, name);
+  }
+  else {
+    cout &lt;&lt; "名前が長すぎます" &lt;&lt; endl;
+  }
+  if (checkRange(kokugo)) {
+    data.tensu[0] = kokugo;
+  }
+  if (checkRange(suugaku)) {
+    data.tensu[1] = suugaku;
+  }
+  if (checkRange(eigo)) {
+    data.tensu[2] = eigo;
+  }
+}
+</table>
+</center>
+
+<p>しかしプログラムが大きくなると、
+プログラムの各部に散在するこのようなチェックが互いに矛盾しないようにする
+（プログラムの整合性を保つ）
+のは結構骨の折れる作業になります。
+また、
+仮に「成績の上限を 120 点にする」というような変更が必要になったとすれば、
+そのすべての部分について同じ変更を加えるのはたいへん面倒な作業になります。</p>
+
+<p>もし、構造体のように自分で構造を持ったデータ型を作成したときに、
+そのメンバの利用を特定の関数に制限できれば、
+プログラムの局所性を高め、保守性を向上することができます。</p>
+
+<p>このような機能を持ったデータ型を<font color="#ff0000">クラス
+(<b>class</b>)</font>と言います。
+クラスには、それに属する関数（<font color="#ff0000">メンバ関数</font>）
+を定義することができます。
+クラスの他のメンバ（変数、関数）は、
+特に指定しない限り同じクラスのメンバ関数からだけアクセスできます
+（構造体でも同じようにメンバ関数を定義できますが、
+いずれのメンバもメンバ関数以外からアクセスできます）。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">seiseki.h
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>class</b> seiseki {
+  char namae[20];           // ここから下はプライベートメンバ
+  int tensu[3];             // ↓
+<b>public:</b>
+  void setNamae(char *);    // ここから下はパブリックメンバ
+  void setKokugo(int);      // ↓
+  void setSuugaku(int);     // ↓
+  void setEigo(int);        // ↓
+<b>private:</b>
+  int checkRange(int);      // ここからまたプライベートメンバ
+};
+</table>
+</center>
+
+<p>クラスを用いて定義したデータ型を用いて、
+変数を宣言することができます。
+この変数を<font color="#ff0000">クラス変数</font>と呼びます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>seiseki who;  // seiseki というデータ型の who という変数の宣言
+</table>
+</center>
+
+<p>この who のようなクラス変数は、
+メンバ関数という形で自分自身の処理方法が定義されている点から、
+<a href="11-h1.html">オブジェクト</a>とも呼ばれます。
+またメンバ関数はオブジェクトの処理方法ですから、
+<font color="#ff0000">メソッド</font>とも呼ばれます。</p>
+
+<p>こうしてメンバ関数を介して値の設定を行うようにして、
+値の正当性のチェックをそこに集中させることができます。
+もちろんメンバ関数もそのままではメンバ関数以外からアクセスできません。
+このようなメンバを<font color="#ff0000">プライベートメンバ</font>と言います。
+メンバをメンバ関数以外からアクセスできるようにするには、
+<font color="#ff0000"><tt>public:</tt></font> というラベルを付けます。
+このようなメンバを<font color="#ff0000">パブリックメンバ</font>と言います。
+パブリックメンバの定義からプライベートメンバの定義に戻すには、
+<font color="#ff0000"><tt>private:</tt></font> というラベルを付けます。</p>
+
+<p>上のクラス seiseki では、public: ラベルより後の
+setNamae(), setKokugo(), setSuugaku(), setEigo() の４つの関数が、
+メンバ関数以外からアクセスできます。
+このようにクラスの外部とメンバとの仲立ちをするためのメンバ関数を、
+特に<font color="#ff0000">インタフェース関数</font>と呼びます。</p>
+
+<p>ここで setNamae() は引数に指定した文字列を
+namae というメンバにコピーするメンバ関数、
+setKokugo(), setSuugaku(), setEigo() はそれぞれ国語、数学、英語の点数を
+tensu[0], tensu[1], tensu[2] に格納するメンバ関数だとします。</p>
+
+<p>これらメンバ関数の宣言には、関数の中身（本体、ボディ）がありません。
+これは<font color="#ff0000">関数プロトタイプ</font>といい、
+関数のインタフェース情報（関数名、戻り値や仮引数のデータ型、引数の数など）
+だけを宣言します。
+引数の情報は、ここでは数とデータ型だけを明らかにすれば良いので、
+仮引数名はあってもなくても構いません
+（char *string ではなく char * と書ける）。</p>
+
+<a name="header">
+<p>このソースプログラムを、例えば seiseki.h というファイル名で保存します。
+拡張子が .h のファイルは<font color="#ff0000">ヘッダファイル</font>といい、
+iostream.h や string.h のようにクラスや関数の宣言を記述します。</p>
+</a>
+
+<p>メンバ関数の本体は別のファイル、例えば seiseki.c というファイル名で、
+次のように定義します。
+このファイルの先頭には、
+cout を使用したときに iostream.h を <tt>#include</tt>
+でプログラムの先頭部分に埋め込むのと同様に、
+プログラムの先頭部分で seiseki.h を <tt>#include</tt> を使って埋め込みます。
+iostream.h と違って最初から用意されているものではないので、
+ファイル名は <tt>&lt;...&gt;</tt>
+ではなく二重引用符 <tt>"..."</tt> ではさみます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">seiseki.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include &lt;strings.h&gt;
+<b>#include "seiseki.h"</b>
+
+// 点数の範囲を検査するメンバ関数
+int seiseki::checkRange(int tensu) {
+  if (tensu &gt;= 0 &amp;&amp; tensu &lt;= 100) {
+    return 1;  // 真～範囲内にある
+  }
+  else {
+    cout &lt;&lt; "点数が範囲を越えています" &lt;&lt; endl;
+    return 0;  // 偽～範囲外にある
+  }
+}
+
+// メンバ変数 namae に文字列を格納する
+void seiseki::setNamae(char *string) {
+  if (strlen(string) &lt;= 19) {
+    strcpy(namae, string);
+  }
+  else {
+    cout &lt;&lt; "名前が長すぎます" &lt;&lt; endl;
+  }
+}
+
+// メンバ変数 tensu[0] に国語の点数を格納する
+void seiseki::setKokugo(int kokugo) {
+  if (checkRange(kokugo)) {
+    tensu[0] = kokugo;
+  }
+}
+
+// メンバ変数 tensu[1] に数学の点数を格納する
+void seiseki::setSuugaku(int suugaku) {
+  if (checkRange(suugaku)) {
+    tensu[1] = suugaku;
+  }
+}
+
+// メンバ変数 tensu[2] に英語の点数を格納する
+void seiseki::setEigo(int eigo) {
+  if (checkRange(eigo)) {
+    tensu[2] = eigo;
+  }
+}
+</table>
+</center>
+
+<p>上の関数名に使われている <tt>::</tt>
+は<font color="#ff0000">スコープ演算子</font>と呼ばれ、
+この関数が seiseki というクラスのメンバ関数であることを示します。
+メンバ関数の引数名やメンバ関数内で宣言した変数名などが、
+クラスのメンバ名と一致してしまう場合にも、
+このスコープ演算子を用いてクラスのメンバであることを明示できます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>// メンバ変数 namae に文字列を格納する
+void seiseki::setNamae(char *<b>namae</b>) {
+  if (strlen(<b>namae</b>) &lt;= 19) {        // namae は引数
+    strcpy(<b>seiseki::namae</b>, <b>namae</b>);  // seiseki::namae はメンバ
+  }
+  else {
+    cout &lt;&lt; "名前が長すぎます" &lt;&lt; endl;
+  }
+}
+</table>
+</center>
+
+<p>さて、これでいよいよこの
+seiseki というクラスを使用したプログラムを作ります。
+このソースプログラムのファイル名例えば、を main.cc とします。
+この最初の部分でも <tt>#include</tt> で seiseki.h を埋め込みます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">main.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+<b>#include "seiseki.h"</b>
+
+int main(void) {
+  seiseki who;  // クラス変数（オブジェクト）の定義
+
+  // クラス変数 who にデータを設定
+  who.setNamae("和歌山健太郎");
+  who.setKokugo(88);
+  who.setSuugaku(72);
+  who.setEigo(66);
+
+  // クラス変数 who を出力
+  who.print();
+
+  return 0;
+}</table>
+</center>
+
+<p>上の main() 関数において、
+who の後ろの .（ピリオド、<font color="#ff0000">ドット演算子</font>）を使って、
+who の個々のメンバ（メンバ関数を含む）を利用しています。</p>
+
+<p>以上の３つのファイルの関係を図に示すと、下のようになります。
+seiseki.h には seiseki クラスの定義が記述されており、
+main.cc ではそれにしたがってクラス変数の生成が行われます。
+一方 seiseki.cc には seiseki クラスのメンバ関数の本体が記述され、
+メソッドの実装が具体化されます。
+main.cc と seiseki.cc は seiseki.h
+を介することでクラスの定義を共有しています。</p>
+
+<a name="module">
+<center>
+<img src="11-01.gif">
+</center>
+<p>
+</a>
+
+<p>このように、複数のファイルに分割されたファイルをコンパイルするには、
+ヘッダファイル以外のソースファイルを CC コマンドの引数に指定します。
+ヘッダファイルは <tt>#include</tt> で拡張子
+.cc ソースファイルに埋め込まれるので、
+CC コマンドの引数に指定する必要はありません。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC main.cc seiseki.cc<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+
+<p>実際には、これらは必ずしも別のファイルにする必要はありません。
+特にメンバ関数の本体をクラス定義の中で定義する
+（メソッドの本体をクラス定義の中に書く）こともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">クラス定義中にメンバ関数を書いた場合
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include &lt;string.h&gt;
+
+//
+// seiseki クラスの定義
+//
+class seiseki {
+  char namae[17];              // 名前
+  int tensu[3];                // 点数
+
+// 点数の範囲を検査するメンバ関数
+int checkRange(int tensu) {
+  if (tensu &gt;= 0 &amp;&amp; tensu &lt;= 100) {
+    return 1;  // 真～範囲内にある
+  }
+  else {
+    cout &lt;&lt; "点数が範囲を越えています" &lt;&lt; endl;
+    return 0;  // 偽～範囲外にある
+  }
+}
+
+public:
+
+// メンバ変数 namae に文字列を格納する
+void setNamae(char *string) {
+  if (strlen(string) &lt;= 19) {
+    strcpy(namae, string);
+  }
+  else {
+    cout &lt;&lt; "名前が長すぎます" &lt;&lt; endl;
+  }
+}
+
+// メンバ変数 tensu[0] に国語の点数を格納する
+void setKokugo(int kokugo) {
+  if (checkRange(kokugo)) {
+    tensu[0] = kokugo;
+  }
+}
+
+// メンバ変数 tensu[1] に数学の点数を格納する
+void setSuugaku(int suugaku) {
+  if (checkRange(suugaku)) {
+    tensu[1] = suugaku;
+  }
+}
+
+// メンバ変数 tensu[2] に英語の点数を格納する
+void setEigo(int eigo) {
+  if (checkRange(eigo)) {
+    tensu[2] = eigo;
+  }
+};</table>
+</center>
+
+<p>上のようにすると、seiseki.cc において
+setNamae() などの定義は不要になります。
+しかし、
+問題を抽象化したオブジェクトの組み合わせでプログラムを作成しようとするなら、
+その実装であるメソッドは隠されていた方が望ましいと考えます。
+プログラムの骨格部分（この場合 main.cc）を記述している際には、
+オブジェクトの実装部分（メソッドの記述、この場合
+seiseki.cc）を見ずに、その仕様記述（この場合
+seiseki.h）にしたがってプログラム作成（コーディング）を行うようにした方が、
+保守性のよいプログラムを作成できます。</p>
+
+<hr>
+
+<h2>課題３５</h2>
+
+<hr>
+
+<p>実は上の main.cc で使用しているクラス変数 who（のクラス seiseki）には、
+print() というメンバ関数は定義されていません。
+そこで、これにクラス seiseki に print() というメンバ関数の定義を追加して、
+main.cc と seiseki.cc
+をコンパイルして作成した実行プログラムを実行したときに、
+下のように who というクラス変数のメンバが表示されるようにしてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+名前：和歌山健太郎
+国語：88点
+数学：72点
+英語：66点
+</table>
+</center>
+
+<p>print() というメンバ関数を追加した
+seiseki.h と seiseki.cc をメールに添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai35">tokoi</a>
+まで送ってください。Subject:（件名）は kadai35 としてください。</p>
+
+<hr>
+
+<h2>４．構造体変数／クラス変数へのポインタ</h2>
+
+<hr>
+
+<p>構造体変数やクラス変数へのポインタは、
+通常の変数同様 &amp; 演算子によって得られます。
+またポインタ変数も通常の変数と同様 * 演算子を付けて定義あるいは宣言します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>struct shiken {
+  char namae[20];
+  int tensu[3];
+};
+
+//
+// 試験データの設定
+//
+void setShikenData(shiken *p) {
+  strcpy(<b>(*p).</b>namae, "和歌山健太郎");
+  <b>(*p).</b>tensu[0] = 88;
+  <b>(*p).</b>tensu[1] = 72;
+  <b>(*p).</b>tensu[2] = 66;
+}
+
+int main(void) {
+  shiken wakayama;
+
+  setShikenData(&wakayama);
+
+  return 0;
+}
+</table>
+</center>
+
+<p>構造体のポインタ変数の要素の指定は、
+.（ピリオド、ドット演算子）の優先順位が * よりも高いため、
+上のように括弧を使う必要があります。
+しかし、この記法は繁雑なので、
+代わりに <tt>-&gt;</tt> という演算子が用意されています。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>//
+// 試験データの設定
+//
+void setShikenData(shiken *p) {
+  strcpy(<b>p-></b>namae, "和歌山健太郎");
+  <b>p-></b>tensu[0] = 88;
+  <b>p-></b>tensu[1] = 72;
+  <b>p-></b>tensu[2] = 66;
+}
+</table>
+</center>
+
+<p>同様にメンバ関数も <tt>-&gt;</tt> を使って呼び出すことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>class seiseki {
+  char namae[20];
+  int tensu[3];
+public:
+  void setNamae(char *);
+  void setKokugo(int);
+  void setSuugaku(int);
+  void setEigo(int);
+private:
+  int checkRange(int);
+};
+
+//
+// 成績データの設定
+//
+void setdata(seiseki *p) {
+  // クラス変数のポインタの示す場所 p にデータを設定
+  <b>p-></b>setNamae("和歌山健太郎");
+  <b>p-></b>setKokugo(88);
+  <b>p-></b>setSuugaku(72);
+  <b>p-></b>setEigo(66);
+}
+
+int main(void) {
+  seiseki wakayama;
+
+  setdata(&wakayama);
+
+  return 0;
+}
+</table>
+</center>
+
+</body>

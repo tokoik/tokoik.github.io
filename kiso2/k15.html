@@ -1,0 +1,61 @@
+<head>
+<title>情報基礎演習II − 課題１５</title>
+</head>
+
+<body>
+
+<h3>課題１５</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai15.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai15
+** 動作: 符号付き整数と符号なし整数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    signed char s = -1;
+    unsigned char u;
+    int x = 3, y, z;
+
+    u = s;
+
+    y = x * s;
+    z = x * u;
+    printf("x * s = %d, x * u = %d\n", y, z);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai15 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai15 を実行して出力を確かめてください。
+<p>
+
+<li>このプログラムでは２つの変数 u と s は u = s; によって
+同じ値が格納されているにも関わらず、
+x * s と x * u の値は一致しません。
+その理由を考察して、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai15 としてください。
+
+</ol>
+
+</body>

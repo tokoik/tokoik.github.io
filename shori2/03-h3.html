@@ -1,0 +1,96 @@
+<head>
+<title>情報処理 II － 補足：算術関数について</title>
+</head>
+
+<body bgcolor="#ffffcc">
+
+<h2>補足：算術関数について</h2>
+
+<hr>
+
+以下は math.h で定義されている算術関数の一覧です。
+個々の関数の使い方を調べるには、man コマンドを使ってください。
+たとえば cos() 関数の使い方は、
+次のコマンドで表示されます。
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>man cos<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+<p>
+
+<hr>
+<p>
+<table width="90%">
+<tr><td bgcolor="#ccccee">acos</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">acosf</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">acosh</td><td bgcolor="#cceecc">inverse hyperbolic function </td></tr>
+<tr><td bgcolor="#ccccee">asin</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">asinf</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">asinh</td><td bgcolor="#cceecc">inverse hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">atan</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">atanf</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">atanh</td><td bgcolor="#cceecc">inverse hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">atan2</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">atan2f</td><td bgcolor="#cceecc">inverse trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">cabs</td><td bgcolor="#cceecc">complex absolute value</td></tr>
+<tr><td bgcolor="#ccccee">cabsf</td><td bgcolor="#cceecc">complex absolute value</td></tr>
+<tr><td bgcolor="#ccccee">cbrt</td><td bgcolor="#cceecc">cube root</td></tr>
+<tr><td bgcolor="#ccccee">ceil</td><td bgcolor="#cceecc">integer no less than</td></tr>
+<tr><td bgcolor="#ccccee">ceilf</td><td bgcolor="#cceecc">integer no less than</td></tr>
+<tr><td bgcolor="#ccccee">copysign</td><td bgcolor="#cceecc">copy sign bit</td></tr>
+<tr><td bgcolor="#ccccee">cos</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">cosf</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">cosh</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">coshf</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">drem</td><td bgcolor="#cceecc">remainder</td></tr>
+<tr><td bgcolor="#ccccee">erf</td><td bgcolor="#cceecc">error function</td></tr>
+<tr><td bgcolor="#ccccee">erfc</td><td bgcolor="#cceecc">complementary error function</td></tr>
+<tr><td bgcolor="#ccccee">exp</td><td bgcolor="#cceecc">exponential</td></tr>
+<tr><td bgcolor="#ccccee">expf</td><td bgcolor="#cceecc">exponential</td></tr>
+<tr><td bgcolor="#ccccee">expm1</td><td bgcolor="#cceecc">exp(x)-1</td></tr>
+<tr><td bgcolor="#ccccee">expm1f</td><td bgcolor="#cceecc">exp(x)-1</td></tr>
+<tr><td bgcolor="#ccccee">fabs</td><td bgcolor="#cceecc">absolute value</td></tr>
+<tr><td bgcolor="#ccccee">fabsf</td><td bgcolor="#cceecc">absolute value</td></tr>
+<tr><td bgcolor="#ccccee">finite</td><td bgcolor="#cceecc">floating point arithmetic</td></tr>
+<tr><td bgcolor="#ccccee">floor</td><td bgcolor="#cceecc">integer no greater than</td></tr>
+<tr><td bgcolor="#ccccee">floorf</td><td bgcolor="#cceecc">integer no greater than</td></tr>
+<tr><td bgcolor="#ccccee">fmod</td><td bgcolor="#cceecc">remainder function</td></tr>
+<tr><td bgcolor="#ccccee">fmodf</td><td bgcolor="#cceecc">remainder function</td></tr>
+<tr><td bgcolor="#ccccee">hypot</td><td bgcolor="#cceecc">Euclidean distance</td></tr>
+<tr><td bgcolor="#ccccee">hypotf</td><td bgcolor="#cceecc">Euclidean distance</td></tr>
+<tr><td bgcolor="#ccccee">j0</td><td bgcolor="#cceecc">bessel function</td></tr>
+<tr><td bgcolor="#ccccee">j1</td><td bgcolor="#cceecc">bessel function</td></tr>
+<tr><td bgcolor="#ccccee">jn</td><td bgcolor="#cceecc">bessel function</td></tr>
+<tr><td bgcolor="#ccccee">lgamma</td><td bgcolor="#cceecc">log gamma function</td></tr>
+<tr><td bgcolor="#ccccee">log</td><td bgcolor="#cceecc">natural logarithm</td></tr>
+<tr><td bgcolor="#ccccee">logf</td><td bgcolor="#cceecc">natural logarithm</td></tr>
+<tr><td bgcolor="#ccccee">logb</td><td bgcolor="#cceecc">exponent extraction</td></tr>
+<tr><td bgcolor="#ccccee">log10</td><td bgcolor="#cceecc">logarithm to base</td></tr>
+<tr><td bgcolor="#ccccee">log10f</td><td bgcolor="#cceecc">logarithm to base</td></tr>
+<tr><td bgcolor="#ccccee">log1p</td><td bgcolor="#cceecc">log(1+x)</td></tr>
+<tr><td bgcolor="#ccccee">log1pf</td><td bgcolor="#cceecc">log(1+x)</td></tr>
+<tr><td bgcolor="#ccccee">pow</td><td bgcolor="#cceecc">exponential x**y</td></tr>
+<tr><td bgcolor="#ccccee">powf</td><td bgcolor="#cceecc">exponential x**y</td></tr>
+<tr><td bgcolor="#ccccee">rint</td><td bgcolor="#cceecc">round to nearest integer</td></tr>
+<tr><td bgcolor="#ccccee">sin</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">sinf</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">sinh</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">sinhf</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">sqrt</td><td bgcolor="#cceecc">square root</td></tr>
+<tr><td bgcolor="#ccccee">sqrtf</td><td bgcolor="#cceecc">square root</td></tr>
+<tr><td bgcolor="#ccccee">tan</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">tanf</td><td bgcolor="#cceecc">trigonometric function</td></tr>
+<tr><td bgcolor="#ccccee">tanh</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">tanhf</td><td bgcolor="#cceecc">hyperbolic function</td></tr>
+<tr><td bgcolor="#ccccee">trunc</td><td bgcolor="#cceecc">truncate to whole number</td></tr>
+<tr><td bgcolor="#ccccee">truncf</td><td bgcolor="#cceecc">truncate to whole number</td></tr>
+<tr><td bgcolor="#ccccee">y0</td><td bgcolor="#cceecc">bessel function</td></tr>
+<tr><td bgcolor="#ccccee">y1</td><td bgcolor="#cceecc">bessel function</td></tr>
+<tr><td bgcolor="#ccccee">yn</td><td bgcolor="#cceecc">bessel function</td></tr>
+</table>
+</center>
+
+</body>

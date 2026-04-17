@@ -1,0 +1,123 @@
+<head>
+<title>情報基礎演習II − 課題５６</title>
+</head>
+
+<body>
+
+<h3>課題５６</h3>
+
+<hr>
+
+<ol>
+
+<li>次のような内容のＣ言語のソースプログラムを作成してください。
+ファイル名はそれぞれ kadai56a.c および kadai56b.c としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>kadai56a.c</b>
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai56a
+** 動作: ボール投げ（メイン）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+#include "kadai56.h"
+
+#define LENGTH 100
+
+int width;
+
+int main(void)
+{
+    int i;
+
+    do {
+        printf("高さを入力してください（1〜%dの間）：", MAXWIDTH);
+        scanf("%d", &width);
+    }
+    while (width < 1 || width > MAXWIDTH);
+
+    for (i = 0; i < LENGTH; i++) {
+        printf("%s*\n", bar(bound(i)));
+    }
+
+    return 0;   
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>kadai56b.c</b>
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai56b
+** 動作: ボール投げ（サブ）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include "kadai56.h"
+
+#define G 0.5 /* 加速度 */
+#define D 0.9 /* 減衰率 */
+
+/*
+** 位置を計算する
+*/
+float bound(int i)
+{
+    static float v0 = 1.0;      /* 初速度　　　　　　　　 */
+    static int t0 = 0;          /* 基準時間　　　　　　　 */
+    float t = (i - t0) * 0.1;
+    float x = (v0 - 0.5 * G * t) * t;
+
+    if (x < 0.0) {
+        v0 *= D;
+        t0 = i;
+        x = 0.0;
+    }
+
+    return x;
+}
+
+/*
+** 長さ x 文字の棒グラフを作成する
+*/
+char *bar(float x)
+{
+    static char line[MAXWIDTH]; /* 空白を格納する配列　　 */
+    int n = x * width + 0.5;    /* 小数点以下を四捨五入　 */
+    int i;
+
+    for (i = 0; i < n; i++) {
+        line[i] = '=';
+    }
+    line[i] = '\0';             /* 文字列の最後　　　　　 */
+
+    return line;                /* 文字列のポインタを返す */
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムが正常にコンパイル／リンクでき、
+正しく実行できるように、
+記号定数の定義や
+<a href="10.html#prototype">関数プロトタイプ</a>、
+<a href="10.html#extern">外部変数</a>の宣言などを記述した
+ヘッダファイルを作成してください。
+<p>
+
+<li>ヘッダファイルのファイル名は  kadai56.h とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai56 としてください。
+
+</ol>
+
+</body>

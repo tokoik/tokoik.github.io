@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第２回：日本語の入力，Webブラウザの設定と操作，eメールの設定と送受信</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第２回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>日本語の入力方法を知る
+  <LI>Webブラウザの初期設定を行う
+  <LI>eメールを書いてみる
+</OL>
+<H2>１．日本語の入力</H2>
+<H3>１．１　Input Method</H3>
+<P>日本語を使うためには，ログイン時に日本語の<EM>入力方法 (Input Methid: IM)</EM> を指定する必要があります．この講義では，日本語の入力に <EM>Wnn7/kinput2</EM> というシステムを使います．<EM>Wnn7</EM> が入力したかなやローマ字を漢字に変換するシステムで，<EM>kinput2</EM> がキーボードからの入力を Wnn7 に送り，変換結果をアプリケーションプログラムに渡します．</P>
+<H3>１．２　漢字入力の選択</H3>
+<P>ログインしている場合は，一旦ログアウトしてください．Wnn7/kinput2 を用いて日本語の入力を行うには，ログインウィンドウで<EM>ユーザ名</EM>と<EM>パスワード</EM>を入力する<STRONG>前</STRONG>に，<EM>漢字入力</EM> のメニューから <EM>Wnn7</EM> を選んでおいてください．なお，次回以降はこの操作は不要です．</P>
+<DIV class="figure"><IMG src="im.gif" width="400" height="160" alt="漢字入力の選択"></DIV>
+<H3>１．３　日本語の入力方法</H3>
+<P>まず，日本語を入力するアプリケーション（ウィンドウ）を選択します．ここでは試しに<EM>ターミナル</EM>を使ってみましょう．</P>
+<DIV class="figure"><IMG src="terminal.gif" width="48" height="48" alt="ターミナルのアイコン"></DIV>
+<P>ウィンドウが現れて，その中に<EM>プロンプト</EM>が表示されたら，<KBD>[Shift]</KBD> キーを押しながら<kbd>スペース</kbd>バーをタイプしてください．</P>
+<DIV class="figure"><IMG src="kinput0.gif" width="400" height="40" alt="入力待ち状態"></DIV>
+<P>すると，どこかに<IMG src="a.gif" width="36" height="22" alt="[あ]" align="middle">という小さなウィンドウが現れます．これで日本語入力のモードに切り替わります．</P>
+<DIV class="figure"><IMG src="kinput1.gif" width="400" height="40" alt="日本語入力開始"></DIV>
+<P>そのまま<EM>ローマ字</EM>でタイプすると，それが<EM>ひらがな</EM>になって入力されます．</P>
+<DIV class="figure"><IMG src="kinput2.gif" width="400" height="40" alt="ローマ字で入力"></DIV>
+<P><EM>スペースバー</EM>をタイプすると，入力したひらがなが<EM>漢字かな混じり文</EM>に変換されます．</P>
+<DIV class="figure"><IMG src="kinput3.gif" width="400" height="40" alt="スペースで漢字変換"></DIV>
+<P>上の例では「強-歯医者へ」でひとつの文節になっています．これを短くするには，<kbd>Ctrl-I</kbd> をタイプ(<KBD>[Ctrl]</KBD> を押しながら <KBD>I</KBD> をタイプ）するか，<KBD>[Shift]</KBD>を押しながら<KBD>←</KBD>（左矢印）キーをタイプします．文節を伸ばすには <kbd>Ctrl-O</kbd> をタイプするか，<KBD>[Shift]</KBD>を押しながら<KBD>→</KBD>（右矢印）キーをタイプします．</P>
+<DIV class="figure"><IMG src="kinput4.gif" width="400" height="40" alt="文節の区切りの変更"></DIV>
+<P>変換対象の文節を右に移動するには <kbd>Ctrl-F</kbd> をタイプするか，<KBD>→</KBD>（右矢印）をタイプします．左に移動するには <kbd>Ctrl-B</kbd> をタイプするか，<KBD>←</KBD>（左矢印）をタイプします．</P>
+<DIV class="figure"><IMG src="kinput5.gif" width="400" height="40" alt="文節の移動"></DIV>
+<P>次の変換候補を呼び出すには<EM>スペースバー</EM>あるいは <kbd>Ctrl-N</kbd> あるいは<KBD>↓</KBD>（下矢印），前の候補を呼び出すには<kbd>Ctrl-P</kbd> あるいは<KBD>↑</KBD>(上矢印）をタイプします．なお，カタカナに変換するにはファンクションキーの<EM>F7</EM>，ひらがなに戻すには<EM>F8</EM>を使います．</P>
+<DIV class="figure"><IMG src="kinput6.gif" width="400" height="40" alt="次候補・前候補"></DIV>
+<P><kbd>Ctrl-M</kbd> か <kbd>Ctrl-l</kbd> か <KBD>[Enter]</KBD> をタイプすれば，変換結果が<EM>確定</EM>します．</P>
+<DIV class="figure"><IMG src="kinput7.gif" width="400" height="40" alt="確定"></DIV>
+<P>再度，<KBD>[Shift]</KBD>キーを押しながら<EM>スペースバー</EM>をタイプすれば，日本語入力のモードから抜け出ます．</P>
+<DIV class="figure"><IMG src="kinput8.gif" width="400" height="40" alt="日本語入力の終了"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">日本語がうまく入力できないとき</DIV>
+<DIV class="body">日本語がうまく入力できないときは，一旦ログアウトして「漢字入力」に Wnn7
+を選びなおしてみてください．それでもだめなら「かんな」を選んでみてください．どうしてもだめなら教員に相談してください．</DIV>
+</BLOCKQUOTE>
+<H2>２．Ｗｅｂブラウザの操作</H2>
+<P>インターネットの代名詞でもある WWW (World Wide Web) を 参照するソフトウェアを「Web
+ブラウザ」と言います． これには Windows に組み込まれている Internet Explorer
+が最もよく使われていますが，その Linux 用のものは（今のところ）ありません．代わりに
+Linux 上ではオープンソースで開発が進められている <A href="http://www.mozilla.org/">Mozilla</A> をはじめ，GNOME 標準で Mozilla をベースにしたタブブラウザ <A href="http://galeon.sourceforge.net/" target="_blank">Galeon</A>，KDE上で開発されている <A href="http://www.konqueror.org/" target="_blank">Konqueror</A>，テキストベースの <EM>lynx</EM> や <EM>w3m</EM>，テキストエディタ Emacs の中で動く <EM>w3</EM>，それにファイルマネージャである <EM>Nautilus</EM> など，さまざまなものがあります．この講義では Mozilla から派生した（そして，Internet
+Explorer 以前に広く普及し現在のインターネットブームを起こした立役者でもあった）
+<A href="http://www.netscape.com/">Netscape</A> を使用します．</P>
+<H3>２．１　Netscape の起動</H3>
+<P>画面下部のパネルにある Netscape のアイコンをクリックしてください．</P>
+<DIV class="figure"><IMG src="netscape1.gif" width="400" height="56" alt="パネル上のNetscapeアイコン"></DIV>
+<P>すると，Netscape が起動します（ちょっと時間がかかります）．最初に Netscape
+を起動すると，「Netscape の登録」のウィンドウが現れます(次回以降このウィンドウは現れません)．</P>
+<DIV class="figure"><IMG src="netscape2.jpg" width="397" height="395" alt="Netscapeの登録"></DIV>
+<P>スクリーンネームは取得してもかまいませんが（Netscape 社から無料のメールアドレスがもらえますし，AOL
+Internet Messenger も使えるようになります），この講義では必要ないので，ここでは「キャンセル」をクリックしてください．すると<EM>念押し</EM>のウィンドウが現れます．</P>
+<DIV class="figure"><IMG src="netscape3.jpg" width="480" height="100" alt="Netscapeの登録ウィザードのキャンセル"></DIV>
+<P>ここでは「はい」をクリックしてください．しばらく待っていると，Netscape
+の本体が起動します．</P>
+<DIV class="figure"><IMG src="netscape4.jpg" width="500" height="364" alt="Netscapeの最初の画面"></DIV>
+<P>このページは最初に Netscape を起動したときのみ現れます．</P>
+<H3>２．２　Netscape の初期設定</H3>
+<P>Netscape を使うにあたり，いくつか初期設定を行っておく必要があります．まず最初に，メニューバーの「編集」メニューから「設定」を選んでください．</P>
+<DIV class="figure"><IMG src="netscape5.jpg" width="400" height="304" alt="設定メニュー"></DIV>
+<P>下のようなダイアログウィンドウが現れます．</P>
+<DIV class="figure"><IMG src="netscape6.gif" width="400" height="352" alt="設定ダイアログ"></DIV>
+<P>「カテゴリ」という枠の中の「詳細」の左にある<EM>三角マーク</EM>をクリックしてください． そこに下層のメニューが広がります．</P>
+<DIV class="figure"><IMG src="netscape7.gif" width="500" height="448" alt="プロキシ設定"></DIV>
+<P>プロキシを選択し，「自動プロキシ構成 URL:」を<EM>選択</EM>した後，その下の欄に，以下の内容を設定してください．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自動プロキシ構成 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.sys.wakayama-u.ac.jp/proxy.pac</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>最後に OK をクリックしてください．</P>
+<DIV class="figure"><IMG src="netscape8.gif" width="400" height="64" alt="OKをクリック"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">プロキシサーバについて</DIV>
+<DIV class="body">Web ブラウザ（クライアント）が Web サーバに対して見たい Web ページを要求すれば，Web
+サーバはそのページのデータを Web ブラウザに送信します．上記の設定は，この閲覧要求を相手の
+Web サーバに直接送る代わりに別のプロキシ (Proxy, 代理) サーバに送り，Web
+サーバとのやり取りを中継してもらいます．和歌山大学のプロキシサーバには，複数のコンピュータから同じサーバにアクセスがあったときにデータを共有するキャッシュサーバの機能と，Webページを通じて悪意のあるプログラム等が侵入することを防ぐ機能を提供しています．</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="proxy.gif" width="328" height="228" alt="Proxyサーバの役割"></DIV>
+<H3><A class="label" name="url">２．３　URL を開く</A></H3>
+<P>和歌山大学のホームページを開いてみましょう（もしかしたら既に「ホーム」に設定されているかもしれません）．メニューバーの<EM>ファイル</EM>メニューから「Webの場所を開く」を選ぶか，<kbd>Ctrl-Shift-L</kbd> をタイプしてください．</P>
+<DIV class="figure"><IMG src="open.gif" width="400" height="336" alt="Webの場所を開く"></DIV>
+<P>すると，次のようなウィンドウが現れます．</P>
+<DIV class="figure"><IMG src="openurl.gif" width="489" height="163" alt="http://www.wakayama-u.ac.jp/ を開く"></DIV>
+<P>和歌山大学のホームページを開くには，ここに次の <EM>URL</EM> (Universal Resouce Locator) を指定してください．URL は Web ページの<EM>場所</EM>（住所）です．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>和歌山大学ホームページ URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/" target="_blank">http://www.wakayama-u.ac.jp/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>ここに上の URL をタイプし， その後「開く」のボタンをクリックしてください．和歌山大学のホームページが表示されると思います．</P>
+<DIV class="figure"><IMG src="wadai.jpg" width="600" height="504" alt="和歌山大学ホームページ"></DIV>
+<P>なお，Netscape 本体のウィンドウ上部にある欄に書かれている内容を直接書き換えた後，<KBD>[Enter]</KBD> をタイプしてページを開くこともできます．「サイドバー」が邪魔なら，その上部にある<EM>×</EM>印をクリックしてください．システム工学部のホームページを開くには，「システム工学部・システム工学研究科」をクリックしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">URLとURI</DIV>
+<DIV class="body">Webページの住所は一般的に URL と呼ばれますが，現在ではより広義の <A href="http://www.w3.org/Addressing/" target="_blank">URI (Universal Resource Identifier)</A> が用いられています．なお「ホームページアドレス」などという言い方は，ちょっと恥ずかしいので使わないほうがいい気がします．</DIV>
+</BLOCKQUOTE>
+<P>なお，この資料自体は次の URL にあります．今後はこの Web ページを使って講義を進めますので，同様にして開いてください．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>講義資料 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/" target="_blank">http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>&quot;<KBD>~</KBD>&quot;（チルダ）は <KBD>[Shift]</KBD> を押しながら <KBD>[Backspace]</KBD> の左側にある &quot;<KBD>0</KBD>&quot; のキーあるいは &quot;<em><KBD>^</KBD></em>&quot; のキーをタイプしてください．</P>
+<P align="center"><IMG src="tilda.jpg" width="186" height="50" alt="チルダ (~)　キー"></P>
+<blockquote>
+<div class="header">&quot;<KBD>~</KBD>&quot;（チルダ）の字形について</div>
+<div class="body">
+<P>&quot;<KBD>~</KBD>&quot;（チルダ）は画面表示に使う<EM>字体（フォント）</EM>によって， 上の方にあったり，波線だったり，直線だったりしますが， <EM>字形が異なるだけ</EM>ですから気にしないで下さい．</P>
+</div>
+</blockquote>
+<H3>２．４　ブックマークに加える</H3>
+<P><EM>ブックマーク</EM>は， よく参照するページを覚えておく機能です．現在，この講義のホームページが表示されていると思いますから，これをブックマークに登録しておいてください．</P>
+<DIV class="figure"><IMG src="bookmark1.gif" width="500" height="297" alt="ブックマークに加える"></DIV>
+<P>ブックマークのボタンをクリックすると， 登録されている Web ページの<EM>一覧</EM>が現れます．この一覧の一番上の「このページにブックマークを付ける Ctrl+D」を選ぶか
+<kbd>Ctrl-D</kbd> をタイプしてください．</P>
+<DIV class="figure"><IMG src="bookmark2.gif" width="500" height="88" alt="追加したブックマーク"></DIV>
+<P>すると，この一覧の一番下に現在表示されているページが登録されます．以降はこれを選ぶだけで，
+すぐこのページを表示することができます．</P>
+<P>すでにいくつかのブックマークが登録されていますが，日本からでは使いようのないものも結構あるので，必要に応じて自分で整理してください．「ブックマークの管理
+Ctrl+B」を選ぶか <kbd>Ctrl-B</kbd> をタイプすれば， ブックマークの管理ウィンドウが現れます．</P>
+<H3><A class="label" name="search">２．５　見たいページを探す</a></H3>
+<P>自分の見たいページを探すには，<EM>サーチエンジン</EM>と呼ばれる Web ページを利用します． インターネット上には多くのサーチエンジンがありますが，これらはおおまかに次の２つのタイプに分類することができます．</P>
+<DL>
+  <DT><EM>ディレクトリ型</EM>
+  <DD>人手によって Web ページの情報を分類・整理し，階層的なデータベースにしたものです．代表的なものには，以下のようなものがあります．
+  <UL>
+    <LI><A href="http://www.yahoo.co.jp/" target="_blank">http://www.yahoo.co.jp/</A>
+    <LI><A href="http://www.lycos.co.jp/" target="_blank">http://www.lycos.co.jp/</A>
+    <LI><A href="http://search.biglobe.ne.jp/" target="_blank">http://search.biglobe.ne.jp/</A>
+    <LI><A href="http://www.fresheye.com/" target="_blank">http://www.fresheye.com/</A>
+    <LI><A href="http://www.inetg.com/" target="_blank">http://www.inetg.com/</A>
+    <LI><A href="http://www.isize.com/" target="_blank">http://www.isize.com/</A>
+  </UL>
+  <DT><EM>全文検索型</EM>
+  <DD>ロボットと呼ばれるプログラムでインターネットのあらゆるページの情報を自動的に集め，全文検索データベースを構築します．代表的なものには，以下のようなものがあります．
+  <UL>
+    <LI><A href="http://www.google.co.jp/" target="_blank">http://www.google.com/</A>
+    <LI><A href="http://www.goo.ne.jp/" target="_blank">http://www.goo.ne.jp/</A>
+    <LI><A href="http://japan.infoseek.com/" target="_blank">http://www.infoseek.co.jp/</A>
+    <LI><A href="http://www.altavista.com/" target="_blank">http://www.altavista.com/</A>
+    <LI><A href="http://www.excite.co.jp/" target="_blank">http://www.excite.co.jp/</A>
+    <LI><A href="http://infonavi.infoweb.ne.jp/" target="_blank">http://infonavi.infoweb.ne.jp/</A>
+  </UL>
+</DL>
+<P>ディレクトリ型は人手によって整理されているために，無駄な情報が少なく興味のあるカテゴリのページを見つけやすいという特徴がありますが，その分，漏れや更新の遅れが大きいと考えられます．</P>
+<P>全文検索型は Web ページに含まれるキーワードを機械的に抜き出してデータベースを構築するので，漏れが少なく更新も早いと考えられますが，検索結果の中からすばやく本当に必要な情報を見つけるには多少の経験が必要です．</P>
+<P>ただし，最近はこれらを含むほとんどのところで，ディレクトリ型と全文検索型の両方の機能を持たせています．また複数のサーチエンジンを横断して検索できる「メタサーチ」と呼ばれるものもありますが，ここでは割愛します．</P>
+<H2><A class="label" name="nsmail">４　電子メール</A></H2>
+<H3>４．１　Netscape Mail の起動</H3>
+<P>Web ブラウザの Netscape にはメール機能 (Netscape Mail) を持っています．これは
+Web ブラウジング中にメールの送信を行う場合などにも用いられます．正しくメールの送受信ができるように，Netscape
+Mail のアカウント設定を行います．NetNetscape のウィンドウの左下隅にある<EM>封筒</EM>のボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="netscape9.gif" width="400" height="64" alt="Netscape Mail のアイコン"></DIV>
+<H3>４．２　Netscape Mail の設定</H3>
+<P>最初に Netscape Mail を起動したときは，「アカウントウィザード」が開きます．</P>
+<DIV class="figure"><IMG src="mail1.gif" width="397" height="395" alt="アカウントウィザード"></DIV>
+<P>「新規アカウントの設定」では，「電子メールアカウント」を選択し，「次へ」をクリックしてください．</P>
+<DIV class="figure"><IMG src="mail2.gif" width="397" height="395" alt="個人情報の設定"></DIV>
+<P>「個人情報」では「名前」の欄に<EM>自分の名前</EM>（ローマ字推奨），電子メールのアドレスは「自分のユーザ名@sys.wakayama-u.ac.jp」にしてください．ユーザ名が<EM> s085000</EM> なら，メールアドレスは次のようになります(メールアドレスは<EM>利用承認書</EM>にも記載されています)．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自分のメールアドレスの例（利用承認書を確認してください）</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">s085000@sys.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>「次へ」をクリックして，メールサーバの情報を設定します．</P>
+<DIV class="figure"><IMG src="mail3.gif" width="397" height="395" alt="サーバ情報の設定"></DIV>
+<P>「サーバ情報」では，<EM>使用する受信サーバ</EM>のタイプとして，必ず <EM>IMAP</EM> を選択してください．また，<EM>受信サーバ</EM>，<EM>送信サーバ</EM>とも，以下の内容を設定してください．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>システム工学部メールサーバ</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">mail.sys.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<BLOCKQUOTE>
+<DIV class="header"><A class="label" name="imap">POPとIMAPの違い</A></DIV>
+<DIV class="body"><EM>POP</EM> (Post Office Protocol) はメールサーバからメールを取り出す機能だけを提供しますが，<EM>IMAP</EM> (Internet Message Access Protocol) はメールサーバにメールを戻したり整理したりするする機能も提供します．したがって，POPでは読んだメールをクライアント（パソコン）側に取り込んで管理する必要がありますが，IMAPではメールサーバ上に置いたまま管理することができます．このため，複数のパソコンで同じメールアカウントを使用した場合，POPでは読んだメールがそれらのパソコンに分散して保存されてしまいますが，IMAPではどのパソコンからも同じ「受信箱」が利用できます．</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="pop-imap.gif" width="441" height="186" alt="POPとIMAP"></DIV>
+<P>設定できたら「次へ」をクリックしてください．</P>
+<DIV class="figure"><IMG src="mail4.gif" width="397" height="395" alt="ユーザ名の設定"></DIV>
+<P><EM>ユーザ名</EM>には自分の<EM>ユーザ名</EM>を指定してください．</P>
+<DIV class="figure"><IMG src="mail5.gif" width="397" height="395" alt="アカウント名の設定"></DIV>
+<P>「アカウント名」は<EM>そのまま</EM>で結構です(変えてもかまいません)．</P>
+<DIV class="figure"><IMG src="mail6.gif" width="397" height="395" alt="メール設定の確認"></DIV>
+<P>これで基本的なメールの設定が<EM>完了</EM>しました．設定が正しいかどうか確認してください．間違っていれば「戻る」のボタンをクリックして訂正してください．</P>
+<P>「完了」をクリックすれば，Netscape の Mail が起動します．「名前」の欄にあるアカウント名をクリックすれば，そのアカウントの操作画面が現れます．自分宛てのメールを読むには，「メッセージを読む」をクリックしてください．そうすると<EM>パスワード</EM>を聞いてきます．</P>
+<DIV class="figure"><IMG src="mail8.gif" width="382" height="131" alt="メールのパスワード"></DIV>
+<P><EM>ログイン</EM>のときに使う<EM>パスワード</EM>を入力してください．メールを読むたびにパスワードを入力するのが面倒なら，パスワードを<EM>記憶</EM>させておいてください．記憶させると下のようなウィンドウが現れますので，「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="savepassword.gif" width="400" height="153" alt="パスワード保存の確認"></DIV>
+<P>これでメールを使用する準備ができました．「受信箱」には，もしかしたら何かしらメールが入っているかもしれません．</P>
+<P>最後に追加の設定変更を一つだけ行います．</P>
+<DIV class="figure"><IMG src="mailsetting.gif" width="500" height="372" alt="Netscape Mail の画面"></DIV>
+<P>Netscape Mail の左側のメニューから，先ほど作成したメールアカウント名を選択し，「このアカウントの設定を表示」をクリックしてください．</P>
+<DIV class="figure"><IMG src="nohtml.gif" width="561" height="395" alt="HTML形式でメッセージを作成しない"></DIV>
+<P>「HTML形式でメッセージを作成する」のチェックマークを消した後，「OK」をクリックしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">HTML形式のメッセージについて</DIV>
+<DIV class="body">Netscape Mail ではホームページなどで用いられる<EM>HTML</EM> (Hypter Text Markup Language) を使ってメールを作成することができます．しかし，メールの受信者が使っているメールソフトによっては，この形式のメールを読めない場合があります．また，携帯電話などでも対応できない場合があるようです．仮に相手がこの形式のメールが読める場合でも，人によってはあまり喜ばれない場合もあります．そこで，相手のメール環境がわからない場合には，HTML形式のメールを送らないのがマナーだと考えます．</DIV>
+</BLOCKQUOTE>
+<H3>４．３　電子メールを作成する</H3>
+<P>メールの設定が完了したら，自分宛にメールを書いてみて，ちゃんと届くかどうか確認してみてください．</P>
+<DIV class="figure"><IMG src="sendmail1.gif" width="500" height="372" alt="新しいメッセージの作成"></DIV>
+<P>ウィンドウの上方にあるアイコンの列（ツールバー）の中の「作成」をクリックするか，「新しいメッセージを作成」をクリックしてください．</P>
+<DIV class="figure"><IMG src="sendmail2.gif" width="500" height="395" alt="メールの作成"></DIV>
+<P>「宛先」に自分のメールアドレスを指定し，「件名」と「本文」を書き加えてから，ツールバーの「送信」をクリックしてください．<EM>TAB</EM> キーをタイプすれば，欄を移動できます．</P>
+<H3>４．４　電子メールを受信する</H3>
+<P>ウィンドウの上方にあるアイコンの列（ツールバー）の中の「受信」をクリックするか，「メッセージを読む」をクリックしてください．</P>
+<DIV class="figure"><IMG src="sendmail3.gif" width="500" height="372" alt="メッセージを読む"></DIV>
+<P>自分宛のメールが届いていたでしょうか？もし何も届いていなかったり，MAILER-DAEMON
+からメールが届いていたりした場合は，何か設定に問題があります．その場合はもう一度設定を確かめてください．原因がわからなければ質問してください．</P>
+<P>自分宛のメールを読むことができれば，今度は担当教員 tokoi@sys.wakayama-u.ac.jp
+宛てに何かメッセージを書いてください．届いたメールにはごく簡単に返事を書きます．</P>
+<blockquote>
+  <div class="header">MAILER-DAEMON からのメール</div>
+ <div class="body">出したメールが宛先の間違いや何らかのトラブルで相手に届けられなかったときは，<EM>MAILER-DAEMON</EM> からメールが送り返されてきます．これはコンピュータが自動的に発送するメールなので，このメールには<EM>返事を書かない</EM>でください．</div>
+</blockquote>
+<H2>５．パスワードの変更とメールの転送設定</H2>
+<P>パスワードの変更やメールの転送設定についての説明を<A href="/~tokoi/lecture/local/settings.html">ここ</A>に用意しています．</P>
+<H2>課題</H2>
+<P>次のキーワードに関する情報を Web を利用して調べ，簡単に説明してください．なお，それぞれ情報源とした
+Web ページの URL も示してください．</P>
+<UL>
+  <LI>フォトンマッピング
+  <LI>劣化ウラン弾
+  <LI>LightWave
+  <LI>チキンガーリックステーキが神戸チキンジョージでライブをする日
+  <LI>自分と同姓同名の人物
+</UL>
+<P>情報が見つからないキーワードの解答は省略して構いません．解答は４月２８日までにeメールで<A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-2003/4/23">tokoi</A>に送ってください．</P>
+<BLOCKQUOTE>
+<DIV class="header">自宅等学外からの課題メール送信について</DIV>
+<DIV class="body">今回の課題は大学の設備を使ってメールを出せるかどうかの確認も兼ねているので，自宅や携帯からメールを送ってもらっても本当はあまり嬉しくありません．自宅等の環境も有効に活用して欲しいとは思うので学外からの課題メールも受け取りますが，その際にもメールの
+From: は，できれば大学のメールアドレスにしてください．そうしないと私がメールを受信する時に自動振り分けされないため，課題メールを見落としてしまう可能性があります．それから，HTML形式のメールもスパムと間違えて読まない可能性があるので気を付けてください．この講義では皆さんに「HTML形式のメールを送らない設定」をしていただいているので，問題ないと思います
+:-)</DIV>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

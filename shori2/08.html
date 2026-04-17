@@ -1,0 +1,532 @@
+<head>
+<title>情報処理 II － 第８回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第８回</h1>
+
+講義に入る前に shori2 にカレントディレクトリを移しておいてください。
+<p>
+
+<hr>
+
+<h2>１．ファイル操作（SSI の使い方）</h2>
+
+<hr>
+
+<p>みなさんのホームディレクトリ以下には、mule
+などのテキストエディタで作成した文書や受け取ったメール、
+camera でキャプチャしたり netscape などを使ってダウンロードした画像など、
+様々なデータがファイルとして保存されていると思います。
+ここでは自分でファイルの操作を行うプログラムを作ってみましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">kaku.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;fstream.h&gt;
+
+int main(void) {
+  ofstream ofile("data");      // ファイル data を開く
+
+  if (ofile != 0) {            // ofile が非０
+    ofile &lt;&lt; "はろ～" &lt;&lt; endl;  // data に出力
+  }
+  else {
+    cerr &lt;&lt; "ファイルが開けませんでした" &lt;&lt; endl;
+  }
+
+  return 0;
+}
+</table>
+</center>
+
+<ul>
+
+<li><p>このプログラムでは ofstream 型の変数 ofile
+を定義して、それを "data" という文字列で初期化しています。
+<pre>ofstream ofile("data");</pre></p></li>
+
+<li><p>この初期化によって data
+という名前のファイルが<font color="#ff0000">書き込み</font>モードで開かれ、
+それが ofile に結び付けられます。
+この処理は
+<a href="12.html#constructor">コンストラクタ関数</a>
+によって実行されます。</p></li>
+
+<li><p>この時、開かれたファイルに書かれていた内容は消されます。
+ファイルが無ければ<font color="#ff0000">新規に作成</font>されます。</p></li>
+
+<li><p>何らかの理由でファイルが開けなかったり、作成に失敗したりすると、
+ofile の内容が 0 になります。</p></li>
+
+<li><p>cerr は
+cout 同様出力（画面表示）を行うストリームを指すオブジェクトですが、
+これはエラーメッセージなどを表示するために使う
+<font color="#ff0000">標準エラー出力</font>に結び付けられています。
+標準エラー出力はコマンドに "&gt;" を付けても
+<a href="../shori1/05.html#redirect">リダイレクト</a>されません。</p></li>
+
+<li><p>この ofile には、出力ストリーム cout と同様に挿入演算子
+&lt;&lt; によってデータを出力することができます。
+cout は標準出力（画面）にデータを出力するオブジェクトですが、
+ofile は変数を生成したときの初期値 "data"
+という名前のファイルにデータを出力するオブジェクトです。</p></li>
+
+</ul>
+
+<p>では、上のプログラムをコンパイルして実行してみてください。
+実行ファイル名は kaku にしましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC kaku.cc -o kaku<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>kaku<b><font color="#00cc66">[Enter]</font></b></u></font>
+</table>
+</center>
+
+<p>このプログラムを実行しても何も起こらないように見えますが、
+カレントディレクトリ上には data というファイルが出来ているはずです。
+ls コマンドで確かめてみましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#808080">...</font> data <font color="#808080">...</font></font>
+</table>
+</center>
+
+<p>では、このファイルの中に何が入っているのか cat コマンドで見てみましょう。
+オブジェクト ofile に出力した文字列が入っていると思います。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat data<b><font color="#00cc66">[Enter]</font></b></u>
+はろ～</font>
+</table>
+</center>
+
+<p>それでは、今度はこのデータを読むプログラムを作成してみましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">yomu.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;fstream.h&gt;
+
+int main(void) {
+  ifstream ifile("data");              // data を開く
+
+  if (ifile != 0) {                    // ifile が非０
+    char line[80];
+
+    ifile.getline(line, sizeof line);  // data から入力して line に格納
+    cout &lt;&lt; line &lt;&lt; endl;              // 画面に出力
+  }
+
+  return 0;
+}
+</table>
+</center>
+
+<ul>
+
+<li><p>先と同様に、このプログラムでは ifstream 型の変数 ifile
+を定義して "data" という文字列で初期化し、data
+という名前のファイルを<font color="#ff0000">読み出しモード</font>
+で開いています。data というファイルは変数 ifile に結び付けられます。</p></li>
+
+<li><p>ファイルが無ければ<font color="#ff0000">エラーになり</font>、
+ifile の内容が 0 になります。</p></li>
+
+<li><p>この変数 ifile からは、入力ストリーム cin と同様に抽出演算子
+&gt;&gt; によってデータを入力することができます。
+cin は標準入力（キーボード）からデータを受け取るオブジェクトですが、
+ifile は変数を生成したときの初期値 "data"
+という名前のファイルからデータを読み込むオブジェクトです。</p></li>
+
+</ul>
+
+<p>ところで、このプログラムは cout を使っているのに
+<tt>#include &lt;iostream.h&gt;</tt> が無くても正常にコンパイルできます。
+実は ifstream, ofstream はそれぞれ istream（cin のデータ型）,
+ostream（cout のデータ型）から<a href="12.html#deliver">派生した</a>
+（これらを元に作成した）
+データ型（<a href="11.html#class">クラス</a>）なのです。
+このため、fstream.h の中には
+<tt>#include &lt;iostream.h&gt;</tt> が既に入っているのです。</p>
+
+<p>このプログラムをコンパイルして実行してみてください。
+実行ファイル名は、今度は yomu にしましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC yomu.cc -o yomu<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>yomu<b><font color="#00cc66">[Enter]</font></b></u></font>
+はろ～</table>
+</center>
+
+<hr>
+
+<h2>課題２５</h2>
+
+<hr>
+
+<p>実行するたびに、
+そのプログラムが実行された回数を出力するプログラム
+mycounter を作成してください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+1
+% <u>mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+2
+% <u>mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+3
+%</font>
+</table>
+</center>
+
+<p>プログラムが確保したメモリは、
+たとえ静的変数であってもプログラムが終了したときにはすべて解放されます。
+このため、プログラム内で変数にデータを格納しても、
+そのプログラムの実行が終了してしまえば、
+もう一度そのプログラムを動かしても、
+以前その変数に格納した内容を取り出すことはできません。
+そこで、プログラムを次に実行したときに以前のデータが取り出せるよう、
+プログラムが終了する前にデータをファイルに保存しておきます。
+以下の手順を参考にしてください。</p>
+
+<ol>
+
+<li>データを保存するファイルのファイル名を mycount とします。</li>
+
+<li>mycount から読み出したデータを格納する unsigned int 型の変数 count
+を用意します。</li>
+
+<li>mycount を読み出しモードで開きます。もし mycount が無ければ、count
+に 0 を代入します。</li>
+
+<li>mycount があれば、そこに書かれているデータ（回数～整数値）を
+count に格納します。</li>
+
+<li>mycount を閉じます。</li>
+
+<li>mycount を、今度は書き込みモードで開きます。</li>
+
+<li>count を１増し、それをファイルに出力します。</li>
+
+<li>mycount を閉じます。</li>
+
+<li>count を出力ストリームにも出力します。</li>
+
+</ol>
+
+<p>開かれたファイルは、
+そのファイルを指している変数が無効になった時点で自動的に閉じられますが、
+この課題では一度読み出しモードで開いた後、
+書き込みモードで開く前に一旦ファイルを閉じる必要があります。
+明示的にファイルを閉じるには close() を使います。</p>
+
+<blockquote><pre>
+ifstream ifile("mycount");   // ファイル "mycount" を開く
+<font color="#808080">...</font>
+ifile.close();               // ファイル "mycount" を閉じる
+<font color="#808080">...</font>
+ofstream ofile("mycount");   // ファイル "mycount" を開く
+</pre></blockquote>
+
+<p>ファイルに書かれている数字を数値として count に格納するには、
+cin から読み込むのと同様抽出演算子 &gt;&gt; を使うことに気をつけてください。
+作成したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai25">tokoi</a>
+まで送ってください。Subject:（件名）は kadai25 としてください。</p>
+
+<hr>
+
+<h2>課題２６</h2>
+
+<hr>
+
+<p>Web サーバの SSI (Server Side Include) という機能を使えば、
+mycounter を使って簡単なアクセスカウンタが実現できます
+（本当は複数の人から同時にアクセスされたときに
+勘定し損なわないようファイルをロックすべきなんですが、
+その辺は将来の課題ということで）。
+mycounter を public_html の下にコピーしてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cp mycounter ~/public_html<b><font color="#00cc66">[Enter]</font></b></u></font>
+</table>
+</center>
+
+<p>次に、public_html に下のような HTML ファイルを作成してください。
+ファイル名は mycounter.shtml とでもしてください。
+以前に作成した Web ページに組み込んでも構いません。
+拡張子が .<font color="#ff0000">s</font>html
+になっていることに気をつけてください。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">mycounter.shtml
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;head&gt;
+&lt;title&gt;counter test&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+あなたは &lt;!--#exec cmd="./mycounter"--&gt; 番目の訪問者です。
+
+&lt;/body&gt;</table>
+</center>
+
+<p>こうすると、このページにアクセスするたびに mycounter が実行されて、
+&lt;!--<font color="#808080">...</font>--&gt;
+の部分がその出力に置き換わります。
+このように、Web ページに他のファイルやプログラムの出力を埋め込む機能を、
+SSI (Server Side Include) と呼びます。</p>
+
+<p>ところが、このままでは何度アクセス (reload)
+してもカウンタは増えないと思います。
+chmod コマンドを使って mycounter に setuid ビットを立ててください
+（setuid ビットについては注意事項がありますので、
+あとの文章も必ず読んでください）。
+reload してカウントが進むようになったら、
+Netscape の「ファイル」メニューにある「リンクを送信」で、
+そのページを私
+(<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai26">tokoi</a>)
+に知らせてください。Subject:（件名）は kadai26 としてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd ~/public_html<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls -l mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+-rwxr-xr-x    1 s035000  student    17816   1月 13日 10時50分  mycounter
+% <u>chmod u+s mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls -l mycounter<b><font color="#00cc66">[Enter]</font></b></u>
+-rw<font color="#ffff00">s</font>r-xr-x    1 s035000  student    17816   1月 13日 10時50分  mycounter</font>
+</table>
+</center>
+
+<p>ls コマンドにオプション -l を付けると、
+ファイル名の他にファイルの様々な情報を表示します。
+各欄は左から、アクセス権、リンク数、所有者 (user)、グループ (group)、
+ファイルサイズ（バイト）、最終修正日時、ファイル名を示しています。</p>
+
+<ul>
+
+<li><p>アクセス権 (permission) というのは、
+そのファイルを「誰」が
+「どのように」取り扱うことができるかという情報です。</p></li>
+
+<li><p><tt>ls -l</tt> で表示される各行の最初の <tt>-</tt> は、
+そのファイルが（ディレクトリなどでない）
+通常のファイルであることを示します。</p></li>
+
+<li><p>次の <tt>rwx</tt> の３文字は、
+所有者 (user) がそのファイルを読み (r-ead) 書き (w-rite)
+実行 (e-x-eculte) できることを示します。</p></li>
+
+<li><p>その右も３文字ずつに区切られており、
+<tt>r-x</tt> はファイルのグループに属する所有者以外の利用者 (group) に対して、
+そのファイルの読み出しと実行が許可されていることを示します。
+<tt>w</tt> の位置が <tt>-</tt>
+になっているので、書き込みは許されていません。</p></li>
+
+<li><p>残りの３文字は所有者およびグループ以外の他の全利用者
+(others) に対するもので、
+この場合はグループと同じになっています。</p></li>
+
+<li><p>実行ファイルの所有者のアクセス権に setuid ビットを立てると、
+その <tt>x</tt> が <tt>s</tt> に変わります。</p></li>
+
+<li><p>リンクはファイル名とファイルの本体を結び付きのことを言います。
+ファイルは、実は一つの本体に対して複数のリンク（ファイル名）を持つことができ、
+リンク数はその数になります。ほとんどのファイルのリンク数は１です。
+なお、シンボリックリンクはリンク数には反映されません。</p></li>
+
+</ul>
+
+<p>みなさんのホームページには、和歌山大学以外からのアクセスもあります。
+そういう人達はこのコンピュータには登録されていませんから、
+本当はこのコンピュータを利用したり、
+コンピュータのデータを見たりすることはできないきません。
+そこで、Web ページへのアクセスについては、
+nobody という利用者として扱うことにしています。
+すなわち、Web ページの HTML ファイルには、
+nobody という利用者が読み出せるようにアクセス権を設定する必要があります。</p>
+
+<p>たいていのファイルには、others
+に対しても読み出し権と（実行ファイルの場合は）実行権が設定されていますから、
+読み出すだけなら特別なことをしなくても何も問題はありませんでした。
+しかし、mycounter は mycount というファイルにデータを書き込みますから、
+これが許されていないためにカウントが増えないのです。</p>
+
+<p>実行プログラムに setuid ビットを立てると、
+そのプログラムは実行した人ではなく所有者によって実行されたことになります。<p>
+
+<p>すなわち mycounter に setuid ビットを立てなければ、
+nobody によって実行された mycounter は nobody として mycount
+データを書き込もうとして失敗しますが、
+setuid ビットを立てておけば mycounter は mycounter
+の所有者（＝ mycount の所有者）によって実行されたのと同じになりますから、
+mycount への書き込みは成功します。</p>
+
+<p>ただ、こうするとあなた以外のいかなるユーザも、
+このプログラムを通じて、
+あなたの所有するすべてのファイルにアクセスできる可能性が出てきます
+（下手をするとあなたの名をかたって他で悪さを働くこともできます）。
+したがって、setuid ビットを立てるプログラムは、
+他のユーザがこのプログラムを使って他のことができないよう
+（myconter なら
+<font color="#ff0000">プログラム中でファイル名を
+/usr/people/ユーザ名/public_html/mycount
+というようにフルパス名で指定し、この以外のファイルが操作できないよう
+</font>）
+注意深くプログラムを作成する必要があります。</p>
+
+<p>もし、そういう自信がないなら、
+プログラムに setuid ビットを立てる代りに、
+データファイルの方のアクセス権を誰もが書き込めるように設定してください。
+また Perl スクリプトや sh スクリプトに
+setuid ビットを立てても効果はないので、
+その場合も同様です。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls -l mycount<b><font color="#00cc66">[Enter]</font></b></u>
+-rw-r--r--    1 s035000  student        3   1月 13日 10時50分  mycount
+% <u>chmod go+w mycount<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls -l mycount<b><font color="#00cc66">[Enter]</font></b></u>
+-rw-rw-rw-    1 s035000  student        3   1月 13日 10時50分  mycount</font>
+</table>
+</center>
+
+<p>ただしこうすると、
+そのファイルを他の利用者が好きなように修正できるようになります。</p>
+
+<hr>
+
+<h2>課題２７</h2>
+
+<hr>
+
+<p>mycount.cc を修正して、
+カウント数の各桁の数字に下のような画像
+（自分で作った画像でも構いません）
+を使ったグラフィカルなアクセスカウンタを作成してください。</p>
+
+<center>
+<table border width="50%">
+<tr>
+<td bgcolor="#ffeeaa">/icons/0.gif</td>
+<td bgcolor="#ffeeaa">/icons/1.gif</td>
+<td bgcolor="#ffeeaa">/icons/2.gif</td>
+<td bgcolor="#ffeeaa">/icons/3.gif</td>
+<td bgcolor="#ffeeaa">/icons/4.gif</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa" align="center"><img src="/icons/0.gif"></td>
+<td bgcolor="#ffffaa" align="center"><img src="/icons/1.gif"></td>
+<td bgcolor="#ffffaa" align="center"><img src="/icons/2.gif"></td>
+<td bgcolor="#ffffaa" align="center"><img src="/icons/3.gif"></td>
+<td bgcolor="#ffffaa" align="center"><img src="/icons/4.gif"></td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa">/icons/5.gif</td>
+<td bgcolor="#ffeeaa">/icons/6.gif</td>
+<td bgcolor="#ffeeaa">/icons/7.gif</td>
+<td bgcolor="#ffeeaa">/icons/8.gif</td>
+<td bgcolor="#ffeeaa">/icons/9.gif</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"  align="center"><img src="/icons/5.gif"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="/icons/6.gif"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="/icons/7.gif"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="/icons/8.gif"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="/icons/9.gif"></td>
+</tr>
+</table>
+</center>
+
+<ul>
+
+<li><p>www.sys.wakayama-u.ac.jp の Web サーバソフトウェアは、
+<tt>&lt;img src="/icons/0.gif"&gt;</tt> によって
+<img src="/icons/0.gif">
+という数字の画像を貼り込めるように設定してあります。</p></li>
+
+<li><p>これ（または自分で作成した画像）を使って、たとえばカウントが 345 なら、
+<img src="/icons/3.gif"><img src="/icons/4.gif"><img src="/icons/5.gif">
+と表示されるようにしてください。</p></li>
+
+<li><p>これを実現するには、mycounter で 345 と数字を出力する代りに、
+<pre>&lt;img src="/icons/3.gif"&gt;&lt;img src="/icons/4.gif"&gt;&lt;img src="/icons/5.gif"&gt;</pre>
+と出力すればいいことになります。</p></li>
+
+<li><p>このために、unsigned int 型の変数 counter に格納されている数値を、
+文字列に直します。それには sprintf() という便利な関数や
+strstream クラスなどが使えますが、
+ここでは次のような方法でやってみます。
+
+<pre>
+// この文字列を格納する char 型の配列 digit[] を用意します。
+// unsigned int 型の桁数は最大 10 桁なので
+// digit[] の要素数は 10 以上にします。
+char digit[10];
+
+// 一の位は count を 10 で割った余りですから、これを数字に直して
+// digit[9] に格納します。その後 count を 10 で割り、結果が 0 に
+// なるまでこれを繰り返します。
+int i = 10;
+
+do {
+  digit[--i] = count % 10 + '0';  // '0' を足して数字の文字コードを得る
+  count /= 10;
+} while (count != 0);
+</pre></p></li>
+
+<li><p>これで、count が文字列に変換され、digit + i に格納されます。
+これを頭から１文字ずつ取り出して、HTML タグに直して出力します。
+
+<pre>
+// digit[i] を i &lt; 10 の間１文字ずつ出力します。前後に“タグ”を付けます。
+while (i &lt; 10) {
+  cout &lt;&lt; "&lt;img src=\"/icons/" &lt;&lt; digit[i++] &lt;&lt; ".gif\"&gt;";
+}
+</pre></p></li>
+
+<li><p>なお、桁数を固定して上位の桁を０で埋める場合は、
+<pre>} while (count != 0)</pre>
+を
+<pre>} while (i > 0)</pre>
+に変更してください。</p></li>
+
+</ul>
+
+<p>うまくできたら、Netscape の「ファイル」メニューにある「リンクを送信」で、
+そのページを私
+(<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai27">tokoi</a>)
+に知らせてください。Subject:（件名）は kadai27 としてください。</p></li>
+
+<p>この方法は CGI (Common Gateway Interface)
+を使う方法に比べれば「ベタ」な方法ですが、
+画像データ自体を加工せずに済むので簡単です。
+しかし、排他制御（複数の人が同時にカウンタにアクセスしないようにすること）
+を行っていないので、
+アクセスが集中するとカウンタの値が壊れてしまう恐れがあります。
+ということで、このプログラムはあんまり「実用」にはなりません。</p>
+
+</body>

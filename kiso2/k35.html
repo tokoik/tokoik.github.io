@@ -1,0 +1,125 @@
+<head>
+<title>情報基礎演習II − 課題３５</title>
+</head>
+
+<body>
+
+<h3>課題３５</h3>
+
+<hr>
+
+<ol>
+
+<li>次の３つのソースプログラム (kadai35a, kadai35b, kadai35c) の中に、
+間違いを含んでいるためコンパイル時にエラーになるものがあります。
+<p>
+
+<li>プログラム中の間違いのある箇所を指摘し、その理由を述べてください。
+解答はメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai35 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai35a
+** 動作: switch の使い方（その１）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    float x;
+
+    printf("数を入れてください：");
+    scanf("%f", &x);
+
+    switch (x) {
+    case 1.0:
+        printf("これは1.0です\n");
+        break;
+    case 2.0:
+        printf("これは2.0です\n");
+        break;
+    default:
+        printf("これは1.0でも2.0でもありません\n");
+        break;
+    }
+    return 0;
+}
+</pre>
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai35b
+** 動作: switch の使い方（その２）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int label[] = { 0, 1 };
+
+int main(void)
+{
+    int x;
+
+    printf("数を入れてください：");
+    scanf("%d", &x);
+
+    switch (x) {
+    case label[0]:
+        printf("これは%dです\n", label[0]);
+        break;
+    case label[1]:
+        printf("これは%dです\n", label[1]);
+        break;
+    default:
+        printf("これは%dでも%dでもありません\n",
+            label[0], label[1]);
+        break;
+    }
+    return 0;
+}
+</pre>
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai35c
+** 動作: switch の使い方（その３）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char line[100];
+
+    printf("文字を入れてください：");
+    scanf("%99s", line);
+
+    switch (line[0]) {
+    case 'u':
+        printf("上に上がります\n");
+        break;
+    case 'd':
+        printf("下に下がります\n");
+        break;
+    default:
+        printf("そちらには行けません\n");
+        break;
+    }
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+</ol>
+
+</body>

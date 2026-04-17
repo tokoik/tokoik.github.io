@@ -1,0 +1,917 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第１５回：Python による Blender の制御</title>
+</head>
+
+<BODY>
+<H1> 情報処理 I - 第１５回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>Python で Blender を制御する</LI>
+</OL>
+<ul>
+<li><a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-14/">前回の宿題の状況（動作確認が完了しないと提出したことにはなりません）</a></li>
+</ul>
+<div class="footer"><a href="14.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．Python で Blender を操作する</H2>
+<h3>１．１　Python と Blender</h3>
+<p>Python は<em>モジュール</em>によって機能を拡張することが可能なため，非常に多彩なモジュールが提供され，さまざまな目的に使用することができます．その一方で，Python 自体をアプリケーションソフトウェアに組み込むことによって，そのアプリケーションソフトウェアの機能を拡張できるようにすることも行われています．<a href="07.html#gimp">GIMP</a> や <a href="03.html">Blender</a> も，Python によって機能を拡張することができます．</p>
+<h3>１．２　Blender を起動する</h3>
+<p>Blender を起動します．Blender の Python スクリプトのメッセージは<em>標準出力</em>あるいは<em>標準エラー出力</em>に出力される場合があるので，今回は<em>メニュー</em>から<strong>ではなく</strong>，<em>端末</em>を開いて <em>blender コマンドを実行</em>して起動してください．</p>
+<DIV class="figure"><IMG src="blender70.png" alt="コマンドで Blender を起動する" width="663" height="434" border="0"></DIV>
+<blockquote>
+<div class="header">Blender の初期設定を最初に起動したときの状態に戻す</div>
+<div class="body">Blender を使っていると，初期設定が変わってしまっていることがあります．その場合は，File メニューから Load Factory Settings を選んでください．</div>
+<DIV class="figure"><IMG src="blender-init.png" alt="Blender を初期設定に戻す" width="640" height="360" border="0"></DIV>
+</blockquote>
+
+
+<h3>１．３　Python コンソールを表示する</h3>
+<p>Blender には Python コマンドを対話モードで実行できるコンソール（端末のようなもの）やスクリプトの編集を行うことができるテキストエディタが組み込まれています．画面上部のメニューから，Blender の画面レイアウトを &quot;Scripting&quot; に切り替えてください．</p>
+<DIV class="figure"><IMG src="blender71.png" alt="Scripting レイアウトに変更する" width="640" height="320" border="0"></DIV>
+<p>この下側の部分が Python の対話モードのコンソールになっています．</p>
+<DIV class="figure"><IMG src="blender72.png" alt="Scripting レイアウト" width="640" height="480" border="0"></DIV>
+<p>コンソールには Blender に組み込まれた Python の情報が表示されています．この Blender の Python のバージョンは 3.2 になっています．また，<em>bpy</em> というモジュールが既に組み込まれています．さらにその下に &quot;<em>&gt;&gt;&gt;</em>&quot; というプロンプトを表示して，Python スクリプト（プログラム）の入力を待っています．</p>
+<DIV class="figure"><IMG src="blender73.png" alt="Python コンソール" width="640" height="176" border="0"></DIV>
+<h3>１．４　Python のスクリプトを実行する</h3>
+<p>このコンソールに Python のスクリプトを書いて <kbd>[Enter]</kbd> をタイプすれば，その都度実行されて，結果が出力されます．また実行した内容によっては，結果が右上のシーンに反映されます．まず，<a href="12.html">第１２回</a>と同様に，Blender に組み込まれた Python を電卓として使ってみましょう．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Blender 内蔵の Python を対話モードで使う</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">1+1<kbd>[Enter]</KBD></span>
+2</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この Python のバージョンは 3 なので，整数の割り算でも小数点以下を求めます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>整数の割り算は実数になる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">1/2<kbd>[Enter]</KBD></span>
+0.5</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>また，文字の出力には print 文ではなく <em>print() 関数</em>を使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字の出力には print() 関数を使う</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">print 5/3<kbd>[Enter]</KBD></span>
+  File &quot;&lt;blender_console&gt;&quot;, line 1
+    print 5/3
+          ^
+SyntaxError: invalid syntax        <span class="anon">&larr; エラー</span>
+
+&gt;&gt;&gt; <span class="type">print(5/3)<kbd>[Enter]</KBD></span>
+1.6666666666666667</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>Python から Blender を操作するには，<em>bpy</em> モジュールを使います．Blender の Python コンソールでは，起動時に <em>import</em> されています．また，入力の途中で <kbd>Ctrl-スペース</kbd> をタイプすれば，残りの部分を補完や候補の表示が行われます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Ctrl-スペース で候補を表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">bpy.<kbd>Ctrl-スペース</KBD></span>
+        app
+        context
+        data
+        ops
+        path
+        props
+        types
+        utils
+&gt;&gt;&gt; <span class="type">bpy.data.<kbd>Ctrl-スペース</KBD></span>
+             actions
+                <span class="anon">:</span>
+             cameras
+                <span class="anon">:</span>
+             lamps
+                <span class="anon">:</span>
+             objects
+                <span class="anon">:</span>
+             scenes
+             screens
+                <span class="anon">:</span>
+             worlds
+&gt;&gt;&gt; <span class="type">bpy.data.screens<kbd>[Enter]</KBD></span>
+&lt;bpy_collection[7], BlendDataScreens&gt;</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この <em>bpy.data.screens</em> には Blender の画面レイアウトの情報が格納されています．これを <em>list() 関数</em>によってリスト化すれば，内容を確認することができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>bpy.data.screens をリスト化する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type"><em>list(</em>bpy.data.screens<em>)</em><kbd>[Enter]</KBD></span>
+[bpy.data.screens['Animation'], bpy.data.screens['Compositing'], bpy.data.screens['Default'],
+bpy.data.screens['Game Logic'], bpy.data.screens['Scripting'], bpy.data.screens['UV Editing'],
+bpy.data.screens['Video Editing']]</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>従って <em>for</em> ～ <em>in</em> を使って，要素を一つずつ取り出すことができます．個々の要素の「名前」を取り出すには，要素に <em>.name</em> を追加します．２行目の字下げは <kbd>[Tab]</kbd> キーで行で行うことができます．３行目は <kbd>[Enter]</KBD> のみをタイプしてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>bpy.data.screens の要素の名前を表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type"><em>for</em> screen <em>in</em> bpy.data.screens:<kbd>[Enter]</KBD></span>
+...     <span class="type">print(screen.name)<kbd>[Enter]</KBD></span>
+... <span class="type"><kbd>[Enter]</KBD></span>
+Animation
+Compositing
+Default
+Game Logic
+Scripting
+UV Editing
+Video Editing</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これは Blender の画面上部にある画面レイアウトの切り替えの内容です．</p>
+<h3>１．５　Python で Blender を操作する</h3>
+<p><em>bpy.data.objects</em> には，現在 Blender が保持するオブジェクトが格納されています．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>bpy.data.objects の内容を表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">list(bpy.data.objects)<kbd>[Enter]</KBD></span>
+[bpy.data.objects['Camera'], bpy.data.objects['Cube'], bpy.data.objects['Lamp']]
+
+&gt;&gt;&gt; <span class="type">for object in bpy.data.objects:<kbd>[Enter]</KBD></span>
+...     <span class="type">print(object.name)<kbd>[Enter]</KBD></span>
+... <span class="type"><kbd>[Enter]</KBD></span>
+Camera
+Cube
+Lamp</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この時，シーンは下図のようになっています．</p>
+<DIV class="figure"><IMG src="blender74.png" alt="シーンの初期状態" width="640" height="480" border="0"></DIV>
+<p>このシーンには左から '<em>Camera</em>'（カメラ），'<em>Cube</em>'（立方体），それに '<em>Lamp</em>'（光源）があることがわかります．それでは，この 'Cube' の位置を変更します．'Cube' の x 座標値 <em>bpy.data.objects['Cube'].location.x</em> に値を代入します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>'Cube' の位置を変更する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">bpy.data.objects['Cube'].location.x = 1<kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'Cube' の位置が X 方向（手前方向）に 1（マス目一つ分）移動しました．</p>
+<DIV class="figure"><IMG src="blender75.png" alt="Cube を x 方向に移動" width="640" height="480" border="0"></DIV>
+<p>これで，右上に表示されているシーン中の立方体の位置が変わります．しかし，これではちょっと長いので，<em>bpy.data.objects['Cube']</em> への<em>参照</em>を別の変数に代入しておきます．代入する変数を <em>cube</em> とします．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>'Cube' のオブジェクトを cube で参照できるようにする</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube = bpy.data.objects['Cube']<kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>そうすると，この変数 <em>cube</em> を使ってオブジェクト 'Cube' を操作することができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数 cube を使って 'Cube' のオブジェクトを操作する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.location.y = 2<kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'Cube' の位置がさらに y 方向（右方向）に 2（マス目二つ分）移動しました．</p>
+<DIV class="figure"><IMG src="blender76.png" alt="Cube を y 方向に移動" width="640" height="480" border="0"></DIV>
+<p><a href="12.html#tuple">タプル</a>や<a href="12.html#list">リスト</a>を使って，xyz 全部を一度に指定することもできます．タプル／リストのどちらを使っても同じです．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数 cube を使って 'Cube' のオブジェクトを操作する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.location = (-2, -1, 3)<kbd>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">cube.location = [-2, -1, 3]<kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'Cube' の中心は (-2, -1, 3) の位置になります．</p>
+<DIV class="figure"><IMG src="blender77.png" alt="Cube の xyz 座標値を設定" width="640" height="480" border="0"></DIV>
+<p>回転の設定方法は複数あります．<em>cube.ro</em> までタイプして，直後に <kbd>Ctrl-スペース</kbd> をタイプしてみてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cube.ro に続く候補を表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.ro<kbd>Ctrl-スペース</KBD></span>
+&gt;&gt;&gt; cube.rotation_
+                  axis_angle
+                  euler
+                  mode
+                  quaternion
+&gt;&gt;&gt; cube.rotation_</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>現在の回転のモードを調べます．上の状態に続けて <em>mode</em> とタイプして（<em>m</em><kbd>Ctrl-スペース</KBD> でも可），<kbd>[Enter]</KBD> をタイプしてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>回転のモードを調べる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; cube.rotation_<span class="type">mode<kbd>[Enter]</KBD></span>
+'XYZ'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'<em>XYZ</em>' は x 軸中心の回転角，y 軸中心の回転角，z 軸中心の回転角，すなわちオイラー (Euler) 角をそれぞれ設定するモードです．この時，角度は <em>cube.rotation_euler</em> に (x, y, z) あるいは [x, y, z] で設定します．また回転は x 軸中心 &rarr; y 軸中心 &rarr; z 軸中心の順に適用されます．もしこれが '<em>YXZ</em>' なら，回転は y 軸中心 &rarr; x 軸中心 &rarr; z 軸中心の順に適用されます．なお，回転角の単位は<strong>ラジアン</strong>なので注意してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 軸中心に 0.52 radian （約 30&deg;）回転する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.rotation_euler.x = 0.52<kbd>[Enter]</KBD></span>                 <span class="anon">#</span>
+&gt;&gt;&gt; <span class="type">cube.rotation_euler = (0.52, 0, 0)<kbd>[Enter]</KBD></span>           <span class="anon"># どれも同じ</span>
+&gt;&gt;&gt; <span class="type">cube.rotation_euler = [0.52, 0, 0]<kbd>[Enter]</KBD></span>           <span class="anon">#</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>x 軸（赤い矢印）中心に 0.52 ラジアン（約 30&deg;）回転します．</p>
+<DIV class="figure"><IMG src="blender78.png" alt="x 軸中心の回転角を 0.52 radian に設定" width="640" height="480" border="0"></DIV>
+<p><em>rotation_axis_angle</em> はオブジェクトの中心を通る軸の方向ベクトルと回転角で指定する方法です．この方法で回転を設定するには，あらかじめ <em>rotation_mode</em> に '<em>AXIS_ANGLE</em>' を設定しておきます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>軸と角度を指定して回転する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.rotation_mode = 'AXIS_ANGLE'<kbd>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">cube.rotation_axis_angle = [1, 1, 0, 0.3]<kbd>[Enter]</KBD></span>  <span class="anon"># 軸の方向ベクトルの x, y, z 成分，回転角</span>
+&gt;&gt;&gt; <span class="type">cube.rotation_axis_angle[3] = 0.6<kbd>[Enter]</KBD></span>          <span class="anon"># 軸はそのままにして角度だけ変更</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>(1, 1, 0) を軸に 0.6 ラジアン回転します．</p>
+<DIV class="figure"><IMG src="blender79.png" alt="軸と角度を指定して回転" width="640" height="480" border="0"></DIV>
+<h3>１．６　オペレータ</h3>
+<p>Python から Blender のメニューに用意されている機能（<em>オペレータ</em>，<em>bpy.ops</em>）を呼び出して，シーンを操作することができます．まず，操作の対象となるオブジェクトを選択します．これはマウスなどを使って選択することもできますが，次のようにスクリプトで選択することも可能です．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>'Lamp' を選択する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">bpy.data.objects['Lamp'].<em>select</em> = <em>True</em><kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>既に 'Cube' が選択されていれば，これで 'Cube' と 'Lamp' が両方選択されます．</p>
+<DIV class="figure"><IMG src="blender80.png" alt="オブジェクトの選択" width="640" height="480" border="0"></DIV>
+<p>選択を解除するには <em>select</em> に False を代入します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>選択を解除する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">bpy.data.objects['Lamp'].<em>select</em> = <em>False</em><kbd>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">cube.<em>select</em> = <em>False</em><kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'Cube' と 'Lamp' の選択が解除されます．</p>
+<DIV class="figure"><IMG src="blender81.png" alt="選択の解除" width="640" height="480" border="0"></DIV>
+<p>選択したオブジェクトを削除できます．まず，'Cube' を選択します．それから <em>bpy.ops.object.delete()</em> で選択中のオブジェクト（複数可）を削除します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>選択したオブジェクトを削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">cube.select = True</em><kbd>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">bpy.<em>ops</em>.object.delete()<kbd>[Enter]</KBD></span>
+{'FINISHED'}</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'Cube' が削除されました．</p>
+<DIV class="figure"><IMG src="blender82.png" alt="選択したオブジェクトの削除" width="640" height="480" border="0"></DIV>
+<h2>２．Blender-Python スクリプトの作成</h2>
+<h3>２．１　テキストエディタ</h3>
+<p>Blender の Python スクリプトも通常のテキストエディタを使って作成できますが，Blender 自体にも Python スクリプトを作成するためのテキストエディタが装備されています．今回はこれを使います．Blender の画面の左側中央にある &quot;New&quot; のところをクリックしてください．</p>
+<DIV class="figure"><IMG src="blender83.png" alt="テキストファイルの新規作成" width="640" height="640" border="0"></DIV>
+<p>これで<em>テキストファイルが新規作成</em>されます．</p>
+<DIV class="figure"><IMG src="blender84.png" alt="新規作成されたテキストファイル" width="640" height="480" border="0"></DIV>
+<p>ここにスクリプトをタイプします．日本語は入力できません．</p>
+<pre class="source"><span class="type">#!BPY</span>
+<span class="type">import bpy</span></pre>
+<p>通常のスクリプトでは，１行目で #! に続けてそのスクリプトを解釈するコマンドを指定しますが，Blender の Python スクリプトでは，解釈は Blender 内蔵の Python によって行われるので，この行は意味ありません．したがって，無くても問題ありませんが，<a href="07.html#magic">第７回で解説した magic</a>（マジックナンバー）により内容を判断できるように，一応付けておきます．また <em>import bpy</em> によって，Python から Blender を制御するための <em>bpy</em> モジュールを導入します．これは，Blender のコンソールでは自動的に導入されていますが，スクリプトファイルでは明示的に導入する必要があります．</p>
+<p>このスクリプトを実行するには，右クリックで現れるメニューから &quot;Run Script&quot; を選ぶか <kbd>Alt-P</kbd> （<kbd>[Alt]</kbd> キーを押しながら <kbd>P</kbd>）をタイプすれば，スクリプトが<em>実行</em>されます．</p>
+<DIV class="figure"><IMG src="blender85.png" alt="スクリプトの実行" width="640" height="160" border="0"></DIV>
+<p>出力はテキストエディタの上部にあるウィンドウに表示されます．エラーもここに表示されます．ただし，この部分を <em>スクロールしないと現れない</em>場合があります．あと，エラーの詳細が<em>端末の方に出ている</em>こともあります．</p>
+<DIV class="figure"><IMG src="blender86.png" alt="スクリプトの出力" width="640" height="320" border="0"></DIV>
+<h3>２．２　オブジェクトを追加する</h3>
+<p>それでは，このスクリプトに現在のシーンからすべての 'MESH' オブジェクト（立方体や球など）および材質データを削除する処理を追加します．こうしないとこのスクリプトを繰り返し実行したときに，オブジェクトやメッシュ，材質がどんどん増えてしまいます．そこで，スクリプトの最初でシーンに既に存在しているデータを削除します．３行目以降に次の内容を追加してください．なお，この処理はこの講義を進めるために行うもので，本来は必要ありません（この講義でも，無くてもメモリが足らなくなったりとかの弊害は出ないと思いますが）．</p>
+<PRE class="source">#!BPY
+import bpy
+
+<span class="type">for item in bpy.context.scene.objects:</span>
+<span class="type">    if item.type == 'MESH':</span>
+<span class="type">        bpy.context.scene.objects.unlink(item)</span>
+<span class="type">for item in bpy.data.objects:</span>
+<span class="type">    if item.type == 'MESH':</span>
+<span class="type">        bpy.data.objects.remove(item)</span>
+<span class="type">for item in bpy.data.meshes:</span>
+<span class="type">    bpy.data.meshes.remove(item)</span>
+<span class="type">for item in bpy.data.materials:</span>
+<span class="type">    bpy.data.materials.remove(item)</span></PRE>
+<blockquote><div class="header">シーンから MESH オブジェクトを削除する</div>
+<ol>
+<li>現在のシーンに結合されているオブジェクト bpy.context.scene.objects の個々の要素 item のうち，種類 item.type が 'MESH' のものをシーンから bpy.context.scene.objects.unlink(item) によって切り離します．</li>
+<li>その後 bpy.data.objects の個々の要素 item のうち，同様に種類 item.type が 'MESH' のものを bpy.data.objects.remove(item) によって削除します．</li>
+<li>そして，それらのオブジェクトのもとのメッシュをすべて削除します．</li>
+<li>bpy.data.material の個々の要素 item 削除します．</li>
+</ol>
+</blockquote>
+<DIV class="figure"><IMG src="blender87.png" alt="空になったシーン" width="640" height="480" border="0"></DIV>
+<p>これを実行すると，カメラと光源以外何もなくなってしまいます．そこで，これに球 'Isosphere' を一つ追加します．'Icosphere' は ポリゴンの集まり 'MESH' で表された球の基本形状 (Primitives) です．この球の属性は，分割レベル subdivisions = 3，半径 size = 0.5 とします．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+<span class="type">bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5)</span></PRE>
+<p>これを実行すると，球が一個現れます．</p>
+<DIV class="figure"><IMG src="blender88.png" alt="球を一個追加" width="640" height="480" border="0"></DIV>
+<p>追加する球の位置を指定するには，引数 location に座標を指定します．座標は (0, 1, 0) とします．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5<span class="type">, location = (0, 1, 0)</span>)</PRE>
+
+<DIV class="figure"><IMG src="blender89.png" alt="球の位置を指定して追加する" width="640" height="480" border="0"></DIV>
+<p>もう一つ球を追加します．この球は (0, -1, 0) の位置に配置します．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (0, 1, 0))
+<span class="type">bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (0, -1, 0))</span></PRE>
+<p>実行すると球が二個現れます．</p>
+<DIV class="figure"><IMG src="blender90.png" alt="球をもう一つ配置する" width="640" height="480" border="0"></DIV>
+<h3>２．３　図形を並べて配置する</h3>
+<p>もし同じ図形をたくさん並べたいなら，どうすればよいでしょうか？一つ一つ，手で配置するでしょうか．スクリプト（プログラム）が使えるなら，そこで<a href="13.html#iteration"><em>繰り返し</em></a>の出番です．</p>
+<BLOCKQUOTE>
+  <DIV class="header">プログラマについて</DIV>
+  <div class="body">プログラマは，もしかしたら，とても面倒くさがり屋の人に向いている職業かも知れません．面倒くさがり屋だから，面倒な仕事を与えられた時に，それを楽にやるにはどうすればいいかを考えてしまいます．そして，そのままやると１時間はかかってしまう仕事に対して，それを自動化するプログラムを３時間かけて作るのが，プログラマの習性なのかもしれません．（冗談だからね）</div>
+</BLOCKQUOTE>
+<p>例えば，球を下図のように５個並べるとします．球の位置の y と z はともに 0 だとします．球の番号 i は 0 ～ 4 とし，それぞれの位置の x は -2 ～ 2 にします．</p>
+<DIV class="figure"><IMG src="blender83.gif" alt="球を一列に配置する" width="640" height="175" border="0"></DIV>
+<p>一定回数の繰り返しは <em>for</em> ～ <em>in</em> と（Python のバージョン 3 では xrange() ではなく）<em>range()</em> を使って，次のように書くことができます．</p>
+<PRE class="source">for i in range(5):
+    <span class="anon"># ここに繰り返す内容を書く</span></PRE>
+<p>したがって，ここでシーンに図形（球）を追加する処理を行えば，シーンに複数の球を追加することができます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+<span class="type">for i in range(5):</span>
+<span class="type">    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5)</span></PRE>
+<p>しかし，このままではすべての球が原点 (0, 0, 0) に重なって配置されてしまいます．球ごとに異なる位置に配置するためには，繰り返しごとに異なる位置を指定する必要があります．</p>
+<p>反復子 (iterator) の range(5) は [0, 1, 2, 3, 4] を返しますから，i には 0 ～ 4 の値が入ります．球の番号 i と位置 x との関係は <em>x = 2i - 4</em> ですから，次のように書けば i 番目の球の x を指定することができます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+for i in range(5):
+<span class="type">    x = 2 * i - 4</span>
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5<span class="type">, location = (x, 0, 0)</span>)</span></pre>
+<p>これを実行すると，次のように五個の球が現れると思います．</p>
+<DIV class="figure"><IMG src="blender91.png" alt="球を一列に配置するスクリプトの実行結果" width="640" height="480" border="0"></DIV>
+<p>なお，range() は range(<em>初期値</em>，<em>上限値</em>，<em>増分</em>） のように指定することもできるので，range(<em>-4, 5, 2</em>) とすれば上の x のような値の組 [-4, -2, 0, 2, 4] を直接生成することができます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+for <span class="type">x</span> in range(<span class="type">-4, 5, 2</span>):
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, 0, 0))</PRE>
+<p>下図のように図形を二次元（縦横）に配置する場合は，繰り返しを二重にします（二重ループ）．</p>
+<DIV class="figure"><IMG src="blender85.gif" alt="球を二次元に配置する" width="640" height="524" border="0"></DIV>
+<p>各列は先ほど作った球を一列に配置するスクリプトで作成することができますから，これをさらに y = [-3, -1, 1, 3] について繰り返します．これは for y in range(-3, 4, 2): で実行できます．これを for x in range(-4, 5, 2): の前に挿入し，for x in range(-4, 5, 2): 以降に<em>インデント（字下げ）を追加</em>します．また，球の位置 location を (x, y, 0) に変更します．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+<span class="type">for y in range(-3, 4, 2):</span>
+<span class="type">    </span>for x in range(-4, 5, 2):
+<span class="type">    </span>    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, <span class="type">y</span>, 0))</pre>
+<p>これを実行すると，次のように球が配置されます．</p>
+<DIV class="figure"><IMG src="blender92.png" alt="球を二次元に配置するスクリプトの実行結果" width="640" height="480" border="0"></DIV>
+<h3>２．４　math（数値計算）モジュールの使用</h3>
+<p>今度は，下図のように球を円形に配置してみましょう．</p>
+<DIV class="figure"><IMG src="blender87.gif" alt="球を円形に配置する" width="640" height="582" border="0"></DIV>
+<p>ここでは三角関数 sin，cos を使用します．三角関数のような数学関数を使用する場合には，<em>math</em> モジュールを導入します．
+また，配置する球の数を n，配置する円の半径を r とします．とりあえず n = 12，r = 4 にしておきます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+<span class="type">import math</span>
+
+<span class="type">n = 12</span>
+<span class="type">r = 4</span></pre>
+<p>この場合も <em>for</em> ～ <em>in</em> と <em>range()</em> を使って n 個の球をシーンに追加します．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+<span class="type">for i in range(n):</span>
+<span class="type">    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5)</span></pre>
+<p>変数 i を使って角度 t を求めます．i は 0 ～ n - 1 の値を持ちます．n = 12 なら 0 ～ 11 です．そうすると，i 番目の球の角度 t は，<em>t = 2&pi;i / n</em> になります．円周率<em>&pi;</em> は，math モジュールでは <em>math.pi</em> に入っています．また三角関数 sin，cos は <em>math.sin()</em>，<em>math.cos()</em> で呼び出すことができます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+for i in range(n):
+<span class="type">    t = 2.0 * math.pi * i / n</span>
+<span class="type">    x = r * math.cos(t)</span>
+<span class="type">    y = r * math.sin(t)</span>
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5<span class="type">, location = (x, y, 0)</span>)</pre>
+<p>このスクリプトを実行すると，球が円形に配置されます．</p>
+<DIV class="figure"><IMG src="blender93.png" alt="球を円形に配置するスクリプトの実行結果" width="640" height="480" border="0"></DIV>
+<h3>２．５　材質を設定する</h3>
+<p>図形に色を付けるには，材質 (material) のデータを作成し，それを図形に設定します．材質のデータ作成は <em>bpy.data.materials.new(</em>name<em>)</em> で行います．name はこの材質に付ける名前の文字列です．作成されたデータに色などのパラメータを設定し，<em>data.materials.append(</em>材質<em>)</em> によってオブジェクトデータに追加します．直前に <em>bpy.ops.mesh.primitive_ico_sphere_add()</em> で作られたオブジェクトデータは，<em>bpy.context.object</em> で得られます．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+<span class="type">material = bpy.data.materials.new('Red')</span>
+<span class="type">material.diffuse_color = (1, 0, 0)</span>
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+<span class="type">    bpy.context.object.data.materials.append(material)</span></PRE>
+<p>色のデータは<a href="12.html#tuple">タプル</a> <kbd>(</kbd>r, g, b<kbd>)</kbd> や<a href="12.html#list">リスト</a> <kbd>[</kbd>r, g, b<kbd>]</kbd> で指定します．r, g, b はそれぞれ光の三原色の赤，緑，青の反射率で，それぞれの値の範囲は 0～1 です．このスクリプトを実行すると，次のようなレンダリング結果が得られます．</p>
+<DIV class="figure"><IMG src="blender94.png" alt="材質の設定" width="640" height="480" border="0"></DIV>
+<p>図形ごとに色を変えるには，色ごとに材質を作成します．下の例では変数 material を<a href="12.html#list">リスト</a>にして，その六つの要素にそれぞれ異なる色を登録しています．</p>
+<pre class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+<span class="type">materials = []</span>
+<span class="type">for i in range(1, 7):</span>
+<span class="type">    materials.append(bpy.data.materials.new('Color' + str(i)))</span>
+<span class="type">    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)</span>
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(<span class="type">materials[i % 6]</span>)</pre>
+<blockquote>
+<DIV class="header">プログラミング言語の演算子</DIV>
+<div class="body">プログラミング言語には，四則演算（加減乗除）を表す +, -, *, / の演算子の他に，さまざまな演算子が用意されています．以下の Python の演算子は，C 言語を由来としています．
+  <dl>
+<dt>&gt;&gt;</dt>
+<dd>ビットシフト演算子．たとえば，整数の 5 は二進数では 101 になります．これを |0|1|0|1| と表したとします．&gt;&gt; の右側が 1 のとき，左側の整数の各桁（ビット）を右に 1 ケタずらします．その際，右からあふれた桁は捨てられます．この結果は |0|0|1|0| になりますので，二進数で 10，十進数で 2 になります．これは整数を 2 で割って余りを捨てるのと同じです．同様に <em>&lt;&lt;</em> という演算子もあります．これは各桁を左にずらします．5 &lt;&lt; 1 は |0|1|0|1| を |1|0|1|0| にしますから，これは十進数の 10 になります．二倍するのと同じです．</dd>
+<dt>&amp;</dt>
+<dd>ビット論理積演算子．これは整数を二進数で表したときの各桁の論理積を求めます．5 &amp; 2 は |0|1|0|1| と |0|0|1|0| の両方の対応する桁が 1 の時その桁が 1 になりますので，結果は |0|0|0|0| すなわち 0 になります．5 &amp; 1 は |0|1|0|1| と |0|0|0|1| ですから結果は |0|0|0|1| すなわち 1 になります．&amp; の右側が 1 のとき，左側の整数の二進数表記における最下位桁を取り出します．したがって，左側が偶数なら 0，奇数なら 1 になります．このような演算子には，他に |（ビット論理和），^（ビット排他的論理和），それに単項演算子（左側にしか数値を置かない）の ~（ビット論理否定・ビット反転）があります．</dd>
+<dt>%</dt>
+<dd>整数の剰余．割り算の余りを求めます．11 % 3 は 11 &divide; 3 = 3 あまり 2 なので 2 になります．i % 6 は i がどのような値であっても 0 ～ 5 の間の整数になります．</dd>
+</dl>
+したがって，((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1) は i = 0 &rarr; (0, 0, 0)，i = 1 &rarr; (0, 0, 1)，i = 2 &rarr; (0, 1, 0)，i = 3 &rarr; (0, 1, 1)，i = 4 &rarr; (1, 0, 0)，i = 5 &rarr; (1, 0, 1)，i = 6 &rarr; (1, 1, 0)，i = 7 &rarr; (1, 1, 1) になります．</div>
+</BLOCKQUOTE>
+<p>このスクリプトを実行すると，次のようなレンダリング結果が得られます．</p>
+<DIV class="figure"><IMG src="blender95.png" alt="図形ごとに材質を設定" width="640" height="480" border="0"></DIV>
+<h3>２．６　光源を配置する</h3>
+<p>それでは，このシーンをレンダリングするために，まず光源の位置と方向を設定します．現在のシーン中の光源のオブジェクトデータは <em>bpy.data.objects['Lamp']</em> で得ることができますから，一旦，変数 <em>lamp</em> に代入します．そして <em>lamp.location</em> に位置，<em>lamp.rotation_euler</em> に角度（オイラー角）を設定します．光源の種類は <em>lamp.data.type</em> に設定します．'POINT'（点光源），'SUN'（平行光線），'SPOT'（スポットライト），'HEMI'（半球光源），'AREA'（エリアライト）などが代入できます．<em>lamp.data.falloff_type</em> は光源からの距離による光の強度の減衰の設定で，デフォルトの 'INVERSE_SQUARE'（距離の二乗に反比例）では暗くなりすぎるので，'INVERSE_LINEAR' を設定しています．また，この光源によって影を発生させる場合には <em>lamp.data.shadow_method</em> に 'RAY_SHADOW'，影を発生させないなら 'NOSHADOW' を代入します．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+materials = []
+for i in range(1, 7):
+    materials.append(bpy.data.materials.new('Color' + str(i)))
+    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(materials[i % 6])
+
+<span class="type">lamp = bpy.data.objects['Lamp']</span>
+<span class="type">lamp.location = (20, 10, 10)</span>
+<span class="type">lamp.rotation_euler = (-0.2, -0.4, 0)</span>
+<span class="type">lamp.data.falloff_type = 'INVERSE_LINEAR'</span>
+<span class="type">lamp.data.shadow_method = 'NOSHADOW'</span></PRE>
+<p>変更が完了したら，このスクリプトを一度実行した後 <kbd>[F12]</kbd> キーをタイプしてレンダリングしてみてください．元のウィンドウに戻すには <kbd>[Esc]</kbd> キーをタイプします．</p>
+<h3>２．７　カメラを配置する</h3>
+<p>同様に，カメラの位置と方向を設定します．これも現在のシーン中のカメラのオブジェクトデータを <em>bpy.data.objects['Camera']</em> で得ることができますから，これを一旦，変数 <em>camera</em> に代入します．そして <em>camera.location</em> に位置，<em>camera.rotation_euler</em> に角度（オイラー角）を設定します．また <em>camera.data.type</em> に 'PERSP' を代入すれば透視投影 (perspective)，'ORTHO' を代入すれば直交（平行）投影 (orthographic) になります．透視投影の場合，カメラの画角を設定するには <em>camera.data.angle</em> に角度を単位をラジアンで代入します．</p>
+<pre class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+materials = []
+for i in range(1, 7):
+    materials.append(bpy.data.materials.new('Color' + str(i)))
+    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(materials[i % 6])
+
+lamp = bpy.data.objects['Lamp']<br>lamp.location = (20, 10, 10)<br>lamp.rotation_euler = (-0.2, -0.4, 0)<br>lamp.data.falloff_type = 'INVERSE_LINEAR'<br>lamp.data.shadow_method = 'NOSHADOW'<br>
+<span class="type">camera = bpy.data.objects['Camera']</span>
+<span class="type">camera.location = (15, 0, 15)</span>
+<span class="type">camera.rotation_euler = (0, 1, 0)</span>
+<span class="type">camera.data.type = 'PERSP'</span>
+<span class="type">camera.data.angle = 1</span></pre>
+<p>変更が完了したら，このスクリプトを一度実行した後 <kbd>[F12]</kbd> キーをタイプしてレンダリングしてみてください．元のウィンドウに戻すには <kbd>[Esc]</kbd> キーをタイプします．</p>
+<h3>２．８　背景色を指定する</h3>
+<p>背景色は <em>bpy.data.objects['World']</em> で得られる現在のワールドオブジェクトデータに設定します．これを一旦，変数 <em>world</em> に代入し，<em>world.horizon_color</em> に水平線方向の空の色，<em>world.zenith_color</em> に天頂方向の空の色を設定します．そして <em>world.use_sky_blend</em> に True を代入しておけば，背景が水平線方向から天頂方向へのグラデーションになります．</p>
+<pre class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+materials = []
+for i in range(1, 7):
+    materials.append(bpy.data.materials.new('Color' + str(i)))
+    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(materials[i % 6])
+
+lamp = bpy.data.objects['Lamp']
+lamp.location = (20, 10, 10)
+lamp.rotation_euler = (-0.2, -0.4, 0)
+lamp.data.falloff_type = 'INVERSE_LINEAR'
+lamp.data.shadow_method = 'NOSHADOW'
+
+camera = bpy.data.objects['Camera']
+camera.location = (15, 0, 15)
+camera.rotation_euler = (0, 1, 0)
+camera.data.type = 'PERSP'<br>camera.data.angle = 1
+
+<span class="type">world = bpy.data.worlds['World']</span>
+<span class="type">world.horizon_color = (0.2, 0.4, 0.6)</span>
+<span class="type">world.zenith_color = (0.0, 0.0, 0.2)</span>
+<span class="type">world.use_sky_blend = True</span></span></pre>
+<p>変更が完了したら，このスクリプトを一度実行した後 <kbd>[F12]</kbd> キーをタイプしてレンダリングしてみてください．元のウィンドウに戻すには <kbd>[Esc]</kbd> キーをタイプします．</p>
+<h3>２．９　レンダリング設定</h3>
+<p>いよいよ，シーンの最終的なレンダリングを行います．シーンのレンダリング設定は，処理対象となっているシーンを <em>bpy.context.scene</em> から得て，それに対して行います．シーン名 'Scene' を <em>bpy.data.scenes['Scene']</em> で明示的に指定して得ることもできます．シーンには多数の設定項目がありますが，ここではレンダリング画像の xy 方向の解像度 <em>scene.resolution_x</em>，<em>scene.resolushon_y</em> および実際にレンダリングする画像サイズの百分率 <em>scene.resolution_percentage</em> を設定します．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+materials = []
+for i in range(1, 7):
+    materials.append(bpy.data.materials.new('Color' + str(i)))
+    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(materials[i % 6])
+
+lamp = bpy.data.objects['Lamp']
+lamp.location = (20, 10, 10)
+lamp.rotation_euler = (-0.2, -0.4, 0)
+lamp.data.falloff_type = 'INVERSE_LINEAR'
+lamp.data.shadow_method = 'NOSHADOW'
+
+camera = bpy.data.objects['Camera']
+camera.location = (15, 0, 15)
+camera.rotation_euler = (0, 1, 0)
+camera.data.type = 'PERSP'<br>camera.data.angle = 1
+
+world = bpy.data.worlds['World']
+world.horizon_color = (0.2, 0.4, 0.6)
+world.zenith_color = (0.0, 0.0, 0.2)
+world.use_sky_blend = True
+
+<span class="type">scene = bpy.context.scene</span><br><span class="type">scene.render.resolution_x = 640</span><br><span class="type">scene.render.resolution_y = 360</span><br><span class="type">scene.render.resolution_percentage = 100</span></PRE>
+<p>変更が完了したら，このスクリプトを一度実行した後 <kbd>[F12]</kbd> キーをタイプしてレンダリングしてみてください．元のウィンドウに戻すには <kbd>[Esc]</kbd> キーをタイプします．</p>
+<h3>２．１０　レンダリングと画像の保存</h3>
+<p>スクリプト内でレンダリングを実行するには，<em>bpy.ops.render.render()</em> を使うと便利です．ただし，この場合はレンダリング結果は画面には表示されません．レンダリング結果は <em>bpy.data.images['Render Result']</em> に入っているので，この save_render() メソッドを使ってファイルに保存します．保存するファイル名は<em>絶対パス</em>で指定する必要があります．</p>
+<p>そこで，ホームディレクトリの絶対パスを得るために，<em>import os</em> によって Python から OS（オペレーティングシステム）の機能を呼び出す <em>os</em> モジュールを導入します．この <em>os.environ</em> によって，<a href="11.html#environ">環境変数</a>を取得することができます．<em>os.environ['HOME']</em> は環境変数 HOME の内容を得ます．これには <em>Unix</em>/<em>Linux</em> および Unix をベースにしている <em>Mac OS X</em> におけるホームディレクトリが設定されています．これにディレクトリの区切り文字 '<em>/</em>' で区切ったファイル名の文字列を連結します．なお，<em>Windows</em>（多分 <em>Vista 以降</em>）で「ドキュメント (My Documents)」に保存するには，filepath = os.environ['HOMEPATH'] + '/My Documents/image.png' とすればいいんじゃないかと思います．</p>
+<PRE class="source">#!BPY
+import bpy
+
+for item in bpy.context.scene.objects:
+    if item.type == 'MESH':
+        bpy.context.scene.objects.unlink(item)
+for item in bpy.data.objects:
+    if item.type == 'MESH':
+        bpy.data.objects.remove(item)
+for item in bpy.data.meshes:
+    bpy.data.meshes.remove(item)
+for item in bpy.data.materials:
+    bpy.data.materials.remove(item)
+
+import math
+
+n = 12
+r = 4
+
+materials = []
+for i in range(1, 7):
+    materials.append(bpy.data.materials.new('Color' + str(i)))
+    materials[-1].diffuse_color = ((i &gt;&gt; 2) &amp; 1, (i &gt;&gt; 1) &amp; 1, i &amp; 1)
+
+for i in range(n):
+    t = 2.0 * math.pi * i / n
+    x = r * math.cos(t)
+    y = r * math.sin(t)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions = 3, size = 0.5, location = (x, y, 0))
+    bpy.context.object.data.materials.append(materials[i % 6])
+
+lamp = bpy.data.objects['Lamp']
+lamp.location = (20, 10, 10)
+lamp.rotation_euler = (-0.2, -0.4, 0)
+lamp.data.falloff_type = 'INVERSE_LINEAR'
+lamp.data.shadow_method = 'NOSHADOW'
+
+camera = bpy.data.objects['Camera']
+camera.location = (15, 0, 15)
+camera.rotation_euler = (0, 1, 0)
+camera.data.type = 'PERSP'<br>camera.data.angle = 1
+
+world = bpy.data.worlds['World']
+world.horizon_color = (0.2, 0.4, 0.6)
+world.zenith_color = (0.0, 0.0, 0.2)
+world.use_sky_blend = True
+
+scene = bpy.context.scene<br>scene.render.resolution_x = 640<br>scene.render.resolution_y = 360<br>scene.render.resolution_percentage = 100<br>
+<span class="type">import os</span>
+
+<span class="type">bpy.ops.render.render()</span>
+<span class="type">bpy.data.images['Render Result'].save_render(filepath = os.environ['HOME'] + '/image.png')</span></PRE>
+<p>このスクリプトを実行すると，レンダリングしている間待たされた後，次のようなレンダリング結果がファイルに保存されます．</p>
+<DIV class="figure"><IMG src="blender96.png" alt="レンダリング結果" width="640" height="360" border="0"></DIV>
+<H2><A name="kadai" class="label">宿題</A></H2>
+<p>次の (1)～(2) の作業を行い，それぞれの結果と (3) の内容をメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-15">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-15 にしてください．期限は次週の水曜日中までです．</p>
+<div class="assign">(1) 下のレンダリング結果を得る Python のスクリプトを作成してください．輪と輪は z 方向に 2 ずつ間隔があります．色の付け方はこの通りでなくても構いませんが，可能ならこのような付け方をするにはどうすればいいか考えてみてください．作成したスクリプトをメールの本文に<a href="04.html#copyandpaste">コピー＆ペースト</a>してください．</div>
+<DIV class="figure"><IMG src="blender97.png" alt="図形を重ねて表示する" width="640" height="360" border="0"></DIV>
+<div class="assign">(2) Python によるスクリプトで自分なりに好きなシーンを作成してください．そのスクリプトをメールの本文に<a href="04.html#copyandpaste">コピー＆ペースト</a>し，レンダリング結果の<em>画像を添付</em>してください．</div>
+<DIV class="assign">(3) 今回の講義に対する意見と改善点．</DIV>
+<H2><A name="enquete" class="label">授業評価アンケートのお願い</A></H2>
+<P>授業評価アンケート調査を行っています．協力をお願いします．下記のページ（リンクになっています）からアンケートのページを開いて入力してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>アンケートページの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.sys.wakayama-u.ac.jp/enquete/">http://www.sys.wakayama-u.ac.jp/enquete/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>期間は平成25年7月10日（木）～8月8日（金）です．よろしくお願いします．</p>
+<div class="footer"><a href="14.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</html>

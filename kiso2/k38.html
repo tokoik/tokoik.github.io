@@ -1,0 +1,56 @@
+<head>
+<title>情報基礎演習II − 課題３８</title>
+</head>
+
+<body>
+
+<h3>課題３８</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+実行時にエラーになります
+（core というファイルができると思いますが、
+それは rm core として消してください）。
+その理由を考察し、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai38 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai38
+** 動作: ポインタによるデータの操作
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a;
+    int *pa;
+
+    a = 10;
+
+    printf("a=%d\n", a);
+
+    *pa = a;
+
+    ++*pa;
+
+    printf("a=%d\n", a);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+</ol>
+
+</body>

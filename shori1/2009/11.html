@@ -1,0 +1,783 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第１１回：タイピングのテスト、ホームページ作成（基本編）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第１１回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>タイピングのテスト</LI>
+  <LI>シェルスクリプトを作ってみる</LI>
+  <LI>シェルの初期化ファイルを作成する</LI>
+</OL>
+<DIV class="book"><SPAN class="book">教科書２４３～２５０ページ</SPAN></DIV>
+<H2>１．タイピングのテスト</H2>
+<H3>１．１　テスト用テキスト</H3>
+<P>typing コマンドにある引数を指定すれば，テスト用のテキストを使うことができます．引数は口頭で伝えます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>テスト用テキストの使用</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>typing <EM>ないしょ</EM><KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>２．シェルスクリプト</H2>
+<H3>２．１　コマンドとして csh を起動してみる</H3>
+<P>ターミナルのウィンドウを開いたときに実行されるシェル (csh) 自体も，ひとつのコマンドです．したがって，これをコマンドとして実行することもできます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">csh</TH>
+    </TR>
+    <TR>
+      <TD width="45%">csh を起動してみる．</TD>
+      <TD class="action">
+      <PRE>% <U>csh<KBD>[Enter]</KBD></U>
+%              <SPAN class="anon">←何も起こらなかったように見える</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">実は csh の<EM>中で</EM> csh が起動している．だから，それまでと変わらずコマンドが使える．</TD>
+      <TD class="action">
+      <PRE>% <U>date<KBD>[Enter]</KBD></U>
+2003年 7月 2日(水曜日) 11時38分38秒 JST</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>csh を終了してみる．シェルを終了させるには <EM>exit</EM> コマンドを使う．</TD>
+      <TD class="action">
+      <PRE>% <U>exit<KBD>[Enter]</KBD></U>
+%              <SPAN class="anon">←やっぱり何も起こらなかったように見える</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>もう一度 exit コマンドを入力してみる． こんどはターミナルのウィンドウが閉じる．</TD>
+      <TD class="action">
+      <PRE>% <U>exit<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>cshコマンドを実行しても，何も起こらなかったように見えます．しかし，これは元の
+csh とは異なる，<EM>別の csh</EM> が次のコマンドの入力を待っている状態です．だから，この状態でも他のコマンドを実行することができます．</P>
+<P>この状態で exit コマンドを実行すると，先ほどコマンドとして実行した csh
+が終了し，もとの csh が次のコマンドを待っている状態になります．だから，この場合も何も起こらなかったように見えます．</P>
+<P>そして<EM>もう一度</EM> exit コマンドを入力すると，ターミナルのウィンドウが閉じて（消えて）しまいます．これはターミナル
+(gnome-terminal) が起動したシェル (csh) の終了をずっと待っており，シェルが終了するとターミナル自身も終了するように作られているからです．</P>
+<DIV class="figure"><IMG src="process2.gif" width="600" height="293" border="0"></DIV>
+<P>なお，シェルで exit コマンドの代わりに <KBD>Ctrl-D</KBD> をタイプすること（すなわち入力データの終了）でも，シェルを終了することができます（これを無効にする設定もあります）．利用者が入力するコマンドは，<EM>シェルにとっては入力データ</EM>というわけです．</P>
+<H3>２．２　シェルにファイルからコマンドを与えてみる</H3>
+<P>シェルへのコマンド入力がシェルにとっては入力データに他ならないなら，シェルに入力するコマンドを一旦ファイルに記録しておいて，それをシェルの入力に与えることもできるはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェルへのデータ入力</TH>
+    </TR>
+    <TR>
+      <TD width="45%">date, cal, pwd コマンドを連続して実行してみる．</TD>
+      <TD class="action">
+      <PRE>% <U>date<KBD>[Enter]</KBD></U>
+2003年 7月 2日(日曜日) 11時38分38秒 JST
+% <U>cal</U><U><KBD>[Enter]</KBD></U>
+      7月 2003
+日 月 火 水 木 金 土
+       1  2  3  4  5
+ 6  7  8  9 10 11 12
+13 14 15 16 17 18 19
+20 21 22 23 24 25 26
+27 28 29 30 31
+
+% <U>pwd<KBD>[Enter]</KBD></U>
+/home/s3/s085000</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">cat コマンドを使って，a というファイルの中に date，cal，pwd を書き込んでみる．</TD>
+      <TD class="action">
+      <PRE>% <U>cat &gt; a<KBD>[Enter]</KBD></U>
+<U>date<KBD>[Enter]</KBD></U>
+<U>cal<KBD>[Enter]</KBD></U>
+<U>pwd<KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ファイル a の内容を見てみる．</TD>
+      <TD class="action">
+      <PRE>% <U>cat a<KBD>[Enter]</KBD></U>
+date
+cal
+pwd</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ファイル a の内容を csh の入力に流し込んでみる．</TD>
+      <TD class="action">
+      <PRE>% <U>csh &lt; a<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>つまりシェルのコマンドを，キーボードからではなくファイルから与えることによって，一連のコマンドを連続して実行することが可能になります．これは同じ作業を繰り返す場合などに便利です．また，実はシェルも
+cat と同様に，引数に与えたファイル名のファイルからデータを読み取ることができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェルの引数</TH>
+    </TR>
+    <TR>
+      <TD width="45%">csh コマンドの引数にファイル名を指定する．</TD>
+      <TD class="action">
+      <PRE>% <U>csh a<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="magic" class="label">２．３　自分専用のコマンドを作る</A></H3>
+<P>ファイルの先頭でコマンドを解釈するシェルを明示し，そのファイルに実行権を与えれば，それを新しいコマンドとして使えるようになります．このようなファイルを<EM>シェルスクリプト</EM>と呼びます．csh 用のシェルスクリプトは，<EM>csh スクリプト</EM>と呼びます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェルスクリプト（csh スクリプト）の作成</TH>
+    </TR>
+    <TR>
+      <TD width="45%">cat コマンドを使って c というファイルを作る．中身は１行だけ．</TD>
+      <TD class="action">
+      <PRE>% <U>cat &gt; c<KBD>[Enter]</KBD></U>
+<U>#!/bin/csh -f</U><U><KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">cat コマンドを使って，c の後ろに a の内容を追加する．</TD>
+      <TD class="action">
+      <PRE>% <U>cat a &gt;&gt; c<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ファイル a の内容を見てみる．c の内容に a の内容が追加されていなければやり直し．</TD>
+      <TD class="action">
+      <PRE>% <U>cat c<KBD>[Enter]</KBD></U>
+#!/bin/csh -f
+date
+cal
+pwd</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>最初の行の &quot;<EM>#!</EM>&quot; によって，そのシェルスクリプトを解釈するシェルを指定します（シェルには
+csh のほかに sh や bash，ksh，zsh など複数のものがあります）．上のシェルスクリプトでは
+/bin というディレクトリにある csh コマンドによって解釈しますから，それを<A href="05.html#directory">絶対パス</A>で指定します．csh に与えているオプション <TT>-f</TT> は，csh 起動時の設定ファイルの読み込みを省略します．詳しくは man tcsh
+を読んでください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2"><A name="executable" class="label">ファイルを実行可能にする</A></TH>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル c の<EM>保護モード</EM>を確認する．</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l c<KBD>[Enter]</KBD></U>
+-rw-r--r--    1 s085000  students       27 May  7 09:30 c</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>chmod</EM> コマンドを使って c に<EM>実行許可</EM>を追加する．</TD>
+      <TD class="action">
+      <PRE>% <U>chmod +x c<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ファイル c の保護モードに x が追加されたことを確認する．</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l c<KBD>[Enter]</KBD></U>
+-rwxr-xr-x    1 s085000  students       27 May  7 09:30 c</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，ファイルによっては x のところが t や s になっていることがあります．それぞれ特別な意味を持ちますが，ここでは割愛します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェルスクリプトの実行</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル c を実行する．</TD>
+      <TD class="action">
+      <PRE>% <U>./c<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>&quot;<TT>./c</TT>&quot; は<EM>カレントディレクトリ</EM> (<TT><EM>.</EM></TT>) にある c を実行するということです．ちゃんと実行できたでしょうか？</P>
+<H2>３．シェル変数</H2>
+<H3>３．１　変数とは</H3>
+<P>変数はプログラム中でデータを一時的に格納しておく入れ物です．プログラミング言語において変数は，最も基本的で重要な要素です．これまでに述べたようにシェルもプログラミング言語としての側面を持っていますから，変数を活用すればさらに柔軟な処理を行うことが可能になります．また一部の変数は，シェル自身の動作を制御するためにも使用されます．</P>
+<H3>３．２　csh のシェル変数</H3>
+<P>csh の場合，シェル変数へ値を格納するには <EM>set コマンド</EM>を使います．また変数の値を参照する（取り出す）には，変数名に &quot;<EM><TT>$</TT></EM>&quot; を付けます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェル変数 (csh) と set コマンド</TH>
+    </TR>
+    <TR>
+      <TD width="45%">変数 name に ichiro を代入してみる．変数 name は自動的に作られる．</TD>
+      <TD class="action">
+      <PRE>% <U>set name=ichiro<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>echo</EM> コマンドを使って，name の内容を見てみる．echo コマンドは引数をそのまま<EM>標準出力</EM>に出力する．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $name<KBD>[Enter]</KBD></U>
+ichiro</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>echo には複数の引数が指定できる．</TD>
+      <TD class="action">
+      <PRE>% <U>echo My name is $name<KBD>[Enter]</KBD></U>
+My name is ichiro</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>代入する文字がスペースを含むときは　<EM>&quot;</EM>～<EM>&quot;</EM> や <EM>'</EM>～<EM>'</EM> でくくる．</TD>
+      <TD class="action">
+      <PRE>% <U>set my=&quot;My name is&quot;<KBD>[Enter]</KBD></U>
+% <U>echo $my $name<KBD>[Enter]</KBD></U>
+My name is ichiro</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>set コマンドは複数の変数への代入ができる．expr は引数を数式とみなして計算するコマンド．'+'
+      の前後の空白は省略できない．</TD>
+      <TD class="action">
+      <PRE>% <U>set v1=10 v2=20<KBD>[Enter]</KBD></U>
+% <U>echo $v1 $v2<KBD>[Enter]</KBD></U>
+10 20
+% <U>expr $v1 + $v2<KBD>[Enter]</KBD></U>
+30</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>値が数値なら set の代わりに &quot;<EM>@</EM>&quot; を使うと，変数への代入のときに計算ができる．</TD>
+      <TD class="action">
+      <PRE>% <U>@ v3=$v1 + $v2<KBD>[Enter]</KBD></U>
+% <U>echo $v3<KBD>[Enter]</KBD></U>
+30</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>set コマンド単独で実行するとシェル変数を全部表示する．</TD>
+      <TD class="action">
+      <PRE>% <U>set<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>シェル変数を消去するには <EM>unset</EM> コマンドを使う．</TD>
+      <TD class="action">
+      <PRE>% <U>unset v1 v2 v3<KBD>[Enter]</KBD></U>
+% <U>echo $v1<KBD>[Enter]</KBD></U>
+v1: 変数を定義していません．</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>３．３　特別なシェル変数</H3>
+<P>シェル変数の中には，シェルの動作の制御などに使われるものがあります．</P>
+<P>シェルにおいても，入力の終了（EOF = End of File）を示す <KBD>Ctrl-D</KBD> をタイプすると，シェルが終了してしまいます．これを防ぐためには <EM>ignoreeof</EM>（ignore EOF = EOF を無視する）というシェル変数を設定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ignoreeof 変数</TH>
+    </TR>
+    <TR>
+      <TD width="45%">シェルで <KBD>Ctrl-D</KBD> をタイプしてみる．多分，シェルが終了して，ターミナルのウィンドウが閉じる．</TD>
+      <TD class="action">
+      <PRE>% <U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">もう一度ターミナルを開いて，シェル変数 <EM>ignoreeof</EM> をセットする．</TD>
+      <TD class="action">
+      <PRE>% <U>set ignoreeof<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>また <KBD>Ctrl-D</KBD> をタイプしてみる．今度はシェルが終了しない．</TD>
+      <TD class="action">
+      <PRE>% <U><KBD>Ctrl-D</KBD></U>
+csh終了は&quot;exit&quot;を使用して下さい</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>exit コマンドで csh が終了する．</TD>
+      <TD class="action">
+      <PRE>% <U>exit<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>csh を終了したので，ターミナルのウィンドウが閉じてしまいます．もう一度ターミナルを開いてください．</P>
+<P>コマンドの標準出力をファイルに<EM>リダイレクト</EM>したとき，リダイレクト先のファイルが既に存在すれば，もとからあった内容は消えて，リダイレクトしたデータと置き換わってしまいます．リダイレクトによって間違ってファイルの内容を消してしまわないようにするには，<EM>noclobber</EM> というシェル変数を設定します（clobber = 不注意な上書きによるデータ破壊）．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">noclobber 変数</TH>
+    </TR>
+    <TR>
+      <TD width="45%">echo コマンドを使って，a に「かばやねん」を入れる．a には「かばやねん」が入っている．</TD>
+      <TD class="action">
+      <PRE>% <U>echo かばやねん &gt; a<KBD>[Enter]</KBD></U>
+% <U>cat a<KBD>[Enter]</KBD></U>
+かばやねん</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">echo コマンドを使って，a に「たこやねん」を入れる．それまでに a に入っていた「かばやねん」は消えて，かわりに「たこやねん」が入っている．</TD>
+      <TD class="action">
+      <PRE>% <U>echo たこやねん &gt; a<KBD>[Enter]</KBD></U>
+% <U>cat a</U><U><KBD>[Enter]</KBD></U>
+たこやねん</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>シェル変数 noclobber を作る．</TD>
+      <TD class="action">
+      <PRE>% <U>set noclobber<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>echo コマンドを使って，e に「いかやねん」を入れてみる．こんどはエラーになる．</TD>
+      <TD class="action">
+      <PRE>% <U>echo いかやねん &gt; a<KBD>[Enter]</KBD></U>
+a と言うファイルは既に存在します.  <SPAN class="anon">←エラーになる</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>でも &quot;<EM>&gt;!</EM>&quot; を使うと無理やり入れることができる．</TD>
+      <TD class="action">
+      <PRE>% <U>echo いかやねん <EM>&gt;!</EM> a<KBD>[Enter]</KBD></U>  <SPAN class="anon">←エラーにならない</SPAN>
+% <U>cat a</U><U><KBD>[Enter]</KBD></U>
+いかやねん</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>今度は<EM>プロンプト</EM>（入力促進符号，シェルがコマンド待ちであることを示す記号，ここでは % のこと）を変えてみましょう．プロンプトは
+<EM>prompt</EM> というシェル変数を使って設定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">prompt 変数</TH>
+    </TR>
+    <TR>
+      <TD width="45%">prompt 変数に値を代入してみる．引用符号 (<EM><TT>&quot;</TT></EM>) は日本語の入力モードを抜けてから入力すること．</TD>
+      <TD class="action">
+      <PRE>% <U>set prompt=&quot;なんやねん &quot;<KBD>[Enter]</KBD></U>
+なんやねん </PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">プロンプトにカレントディレクトリを含めることができる．%c がカレントディレクトリ名に置き換わる．&quot;<EM>~</EM>&quot; はホームディレクトリを示す．これは tcsh の拡張機能である．</TD>
+      <TD class="action">
+      <PRE>なんやねん <U>set prompt=&quot;%~ &gt;&quot;<KBD>[Enter]</KBD></U>
+~ &gt;<U>cd /usr/bin</U><U><KBD>[Enter]</KBD></U>
+/usr/bin &gt;<U>cd<KBD>[Enter]</KBD></U>
+~ &gt;</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>プロンプトに<EM>イベント番号</EM>（何回目のコマンドコマンドか）を含める．&quot;!&quot; は csh では特別な意味を持つ文字なので，前に
+      &quot;\&quot; を付けてその意味を打ち消す．<STRONG>&quot;<EM>＼</EM>&quot;(バックスラッシュ)は，画面やキーボード上では&quot;<EM>￥</EM>&quot;（円記号）で表示されることがあります．</STRONG></TD>
+      <TD class="action">
+      <PRE>~ &gt;<U>set prompt=&quot;%~ \!&gt; &quot;<KBD>[Enter]</KBD></U>
+~ 6&gt; <U>echo $prompt<KBD>[Enter]</KBD></U>
+%~ !&gt;  <SPAN class="anon">←&quot;\&quot;自体は残らない</SPAN>
+~ 7&gt;  <SPAN class="anon">←コマンドを実行するたびに数が増える</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>これらの設定を解除するには，<EM>unset</EM> コマンドを使ってシェル変数を消去します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">unset コマンド</TH>
+    </TR>
+    <TR>
+      <TD width="45%">prompt 変数を消去すると，シェルのプロンプトが現れなくなる．</TD>
+      <TD class="action">
+      <PRE>% <U>unset prompt<KBD>[Enter]</KBD></U>
+  <SPAN class="anon">←プロンプトが表示されない</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">ignoreeof 変数を消去すると，<KBD>Ctrl-D</KBD> でシェルが終了するようになる．</TD>
+      <TD class="action">
+      <PRE>% <U>unset ignoreeof<KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U>
+<SPAN class="anon">（シェルが終了するため，ウィンドウが閉じる）</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>４．コマンドのサーチパス</H2>
+<P>通常使うコマンドは，/usr/bin など，どこか他のディレクトリに収められています．コマンドを実行するには，それが収められている場所も含めて指定する必要があります．しかし，それではコマンドが長くなりすぎるので，<EM>サーチパス</EM>を設定して，どこにあるコマンドを使うのかを指定しています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">サーチパス</TH>
+    </TR>
+    <TR>
+      <TD width="45%">date コマンドを実行してみる．</TD>
+      <TD class="action">
+      <PRE>% <U>date<KBD>[Enter]</KBD></U>
+2002年  5月  8日 水曜日 11:30:45 JST</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">which コマンドを使えば，どこにあるコマンドを実行したのか調べることができる．</TD>
+      <TD class="action">
+      <PRE>% <U>which date<KBD>[Enter]</KBD></U>
+/bin/date  <SPAN class="anon">←date コマンドは /bin ディレクトリにある</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>コマンドを絶対パス名で指定することもできる．</TD>
+      <TD class="action">
+      <PRE>% <U>/bin/date<KBD>[Enter]</KBD></U>
+2002年  5月  8日 水曜日 11:31:22 JST</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>サーチパスに含まれないところにあるコマンドは実行できない．</TD>
+      <TD class="action">
+      <PRE>% <U>fortune<KBD>[Enter]</KBD></U>
+fortune: コマンドが見つかりません．</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>しかし，これもコマンドの絶対パス名を指定すれば実行できる．fortune は「今日の一言」みたいなコマンド．</TD>
+      <TD class="action">
+      <PRE>% <U>/usr/games/fortune<KBD>[Enter]</KBD></U>
+<SPAN class="anon">(何かメッセージが出る）</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>シェル変数 path を表示する．コマンドはこれらのディレクトリの中から，この順番に探される(表示される内容はこの限りではない）．/usr/games
+      は含まれていない．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $path<KBD>[Enter]</KBD></U>
+/usr/local/bin /bin /usr/bin /usr/X11R6/bin</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>path に /usr/games を追加する．</TD>
+      <TD class="action">
+      <PRE>% <U>set path=( $path /usr/games )<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>path を確認する．/usr/games が含まれいているはず．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $path<KBD>[Enter]</KBD></U>
+/usr/local/bin /bin /usr/bin /usr/X11R6/bin /usr/games</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>もう一度 fortune を実行してみる．今度は実行できるはず．</TD>
+      <TD class="action">
+      <PRE>% <U>fortune<KBD>[Enter]</KBD></U>
+<SPAN class="anon">(何かメッセージが出る）</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，set コマンドや次節の history コマンド，alias コマンドなどは csh の<EM>組み込みコマンド</EM>と呼ばれ，csh 自身が処理しています．したがって ls のように独立したコマンドはありません．</P>
+<H2>５．history 機能</H2>
+<P>プログラミングなどをしていると，何度も同じコマンドを入力することがよくありますが，コマンドが長かったりすると結構面倒です．csh
+には以前に入力したコマンドを記録しておく機能がありますので，それを使って以前のコマンドを再利用できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">history</TH>
+    </TR>
+    <TR>
+      <TD width="45%">シェル変数 history に，記録するコマンドの数を設定する．</TD>
+      <TD class="action">
+      <PRE>% <U>set history=100<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">history コマンドでこれまでに入力したコマンドの一覧が表示される．</TD>
+      <TD class="action">
+      <PRE>% <U>history<KBD>[Enter]</KBD></U>
+     1  11:00 set prompt=&quot;なんやねん &quot;
+   <SPAN class="anon">(中略)</SPAN>
+    17  11:20 history</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>&quot;!!&quot; で直前に実行したコマンドを再度実行できる．</TD>
+      <TD class="action">
+      <PRE>% !!<U><KBD>[Enter]</KBD></U>
+history          <SPAN class="anon">←再実行するコマンドが表示される</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>イベント番号 1 のコマンドを再度実行する．</TD>
+      <TD class="action">
+      <PRE>% <U>!1<KBD>[Enter]</KBD></U>
+set prompt=&quot;なんやねん &quot;
+なんやねん </PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>最近に実行した &quot;ec&quot; で始まるコマンドを再度実行する．</TD>
+      <TD class="action">
+      <PRE>なんやねん <U>!ec<KBD>[Enter]</KBD></U>
+echo $prompt
+なんやねん </PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>シェル変数 savehist を設定しておけば，csh 終了後もコマンドの履歴を覚えていてくれる．</TD>
+      <TD class="action">
+      <PRE>なんやねん <U>set savehist=100<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">history 置換</DIV>
+<DL>
+  <DT>!!</DT>
+  <DD>直前に実行したコマンドを再度実行する．</DD>
+  <DT>!<I>番号</I></DT>
+  <DD><I>番号</I>に指定したイベント番号のコマンドを再度実行する</DD>
+  <DT>!<I>コマンド</I></DT>
+  <DD><I>コマンド</I>で始まる最近のコマンドを再度実行する</DD>
+</DL>
+</BLOCKQUOTE>
+<P>なお，tcsh では矢印キーを使って以前のコマンドを呼び出したり，編集したりすることができます．他にもたくさんの機能がありますから，<A href="10.html#man">man コマンド</A>を使って調べてください．</P>
+<H2>６．コマンドの別名</H2>
+<P>alias （エイリアス）コマンドを使って，コマンドに別名をつけることができます．alias
+の設定を解除するには，unalias コマンドを使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">alias</TH>
+    </TR>
+    <TR>
+      <TD width="45%">&quot;ls -l&quot; に ll という別名を付ける．ll で ls -l が実行される．</TD>
+      <TD class="action">
+      <PRE>% <U>alias ll 'ls -l'<KBD>[Enter]</KBD></U>
+% <U>ll<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">rm コマンドは有無を言わさずにファイルを消してしまう．</TD>
+      <TD class="action">
+      <PRE>% <U>touch xxx<KBD>[Enter]</KBD></U>  <SPAN class="anon">←適当なファイル xxx を作る</SPAN>
+% <U>rm xxx<KBD>[Enter]</KBD></U>
+%                    <SPAN class="anon">←何も言わずにファイルを消してしまう</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>それではちょっと怖いので，rm に -i オプションを付ける．一応確認してくれる．消すなら
+      y，消さないなら n を入力する．</TD>
+      <TD class="action">
+      <PRE>% <U>touch xxx<KBD>[Enter]</KBD></U>  <SPAN class="anon">←適当なファイル xxx を作る</SPAN>
+% <U>rm -i xxx<KBD>[Enter]</KBD></U>
+rm: remove `xxx'? <U>y</U> <SPAN class="anon">←一応聞いてくれる</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>rm で必ず &quot;rm -i&quot; が実行されるようにする．</TD>
+      <TD class="action">
+      <PRE>% <U>alias rm 'rm -i'<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>rm コマンドを使ってファイルを消してみる．今度は -i オプションを付けなくても確認してくれる．</TD>
+      <TD class="action">
+      <PRE>% <U>touch xxx<KBD>[Enter]</KBD></U>  <SPAN class="anon">←適当なファイル xxx を作る</SPAN>
+% <U>rm xxx<KBD>[Enter]</KBD></U>
+rm: remove `xxx'? <U>y</U> <SPAN class="anon">←こんどは -i を付けなくても聞いてくれる</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>別名の<EM>途中</EM>にコマンドの引数を置きたいときは，!* を使う．この場合も &quot;\&quot; を使って
+      &quot;!&quot; がもつ特別な意味を打ち消す．</TD>
+      <TD class="action">
+      <PRE>% <U>alias lm 'ls -l \!* | less'<KBD>[Enter]</KBD></U>
+% <U>lm .*<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>alias の設定を解除するには，unalias コマンドを使う．</TD>
+      <TD class="action">
+      <PRE>% <U>unalias lm<KBD>[Enter]</KBD></U>
+% <U>lm .*<KBD>[Enter]</KBD></U>
+lm: コマンドが見つかりません.</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2><A name="environ" class="label">７．環境変数</A></H2>
+<P>環境変数はシェル変数と似ていますが，シェル変数がシェル内でのみ有効な変数なのに対して，環境変数はそのシェルから起動したプログラムに引き継がれます．環境変数自体は<EM>オペレーティングシステム自体の機能</EM>です．</P>
+<P>環境変数の設定には setenv コマンド，解除には unsetenv コマンド，一覧には
+printenv コマンドを使います．set コマンドとは異なり，setenv コマンドでは
+&quot;=&quot; は使いません．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">環境変数 (csh)</TH>
+    </TR>
+    <TR>
+      <TD width="45%">HENSU という変数を表示するだけのスクリプト b を作る</TD>
+      <TD class="action">
+      <PRE>% <U>cat &gt; b<KBD>[Enter]</KBD></U>
+<U>#!/bin/csh -f<KBD>[Enter]</KBD></U>
+<U>echo $HENSU<KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">b を実行可能にする．</TD>
+      <TD class="action">
+      <PRE>% <U>chmod +x b<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">b を実行してみる．多分エラーになる．</TD>
+      <TD class="action">
+      <PRE>% <U>./b<KBD>[Enter]</KBD></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">set コマンドでシェル変数に値を与えてもエラーになる．</TD>
+      <TD class="action">
+      <PRE>% <U>set HENSU=10<KBD>[Enter]</KBD></U>
+% <U>./b<KBD>[Enter]</KBD></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">setenv コマンドで環境変数に値を与える．今度は多分うまくいく．</TD>
+      <TD class="action">
+      <PRE>% <U>setenv HENSU 10<KBD>[Enter]</KBD></U>
+% <U>./b<KBD>[Enter]</KBD></U>
+10</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>シェル変数 path と環境変数 PATH や シェル変数 term と環境変数 TERM など，一部のシェル変数は環境変数と同期しています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェル変数 path と環境変数 PATH</TH>
+    </TR>
+    <TR>
+      <TD width="45%">シェル変数 path を見てみる．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $path<KBD>[Enter]</KBD></U>
+/usr/local/bin /bin /usr/bin /usr/X11R6/bin /usr/games</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">環境変数 PATH を見てみる．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $PATH<KBD>[Enter]</KBD></U>
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin:/usr/games</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">シェル変数 path をひとつ切り詰めてみる．$path[1-4] は path の１番目から４番目までの要素を切り出す（最初
+      path には５つの要素が入っているとする）．</TD>
+      <TD class="action">
+      <PRE>% <U>set path=( $path[1-4] )<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">シェル変数 path をもう一度見てみる．ひとつ切り詰められている．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $path<KBD>[Enter]</KBD></U>
+/usr/local/bin /bin /usr/bin /usr/X11R6/bin</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">環境変数 PATH をもう一度見てみる．これも切り詰められている．</TD>
+      <TD class="action">
+      <PRE>% <U>echo $PATH<KBD>[Enter]</KBD></U>
+/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>８．シェルの初期設定</H2>
+<P>ホームディレクトリの .cshrc というファイルに書いたコマンドは，シェルの起動時にあらかじめ実行されます．これを使ってシェルの初期設定ができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">.cshrc の作成</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ホームディレクトリに戻る（今どこにいるのかわからないので）．</TD>
+      <TD class="action">
+      <PRE>% <U>cd<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>たとえば set history=100 を .cshrc に入れてみる．</TD>
+      <TD class="action">
+      <PRE>% <U>cat &gt; .cshrc<KBD>[Enter]</KBD></U>
+<U>set history=100<KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，この読み込みは csh の起動時にしか行われないので，.cshrc の設定は新たに開いたターミナルで有効になります．現在使っているシェルでその設定を有効にするには
+source コマンドを使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">.cshrc の読み込み</TH>
+    </TR>
+    <TR>
+      <TD width="45%">source コマンドを使って，.cshrc を現在使っている csh に読み込む．</TD>
+      <TD class="action">
+      <PRE>% <U>source .cshrc<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>.cshrc は csh の起動時に読み込まれるので，.cshrc を変更しなければ source
+コマンドを使用する必要はありません．</P>
+<H2>課題</H2>
+<DIV class="assign">（１）man tcsh か jman tcsh を見て，プロンプトに現在時刻を含める設定を考えてください．そのコマンドを報告してください．</DIV>
+<DIV class="assign">（２）cp，mv，rm コマンドについて，それらが常に -i オプション付きで実行されるようにする alias の設定を， .cshrc に追加してください．.cshrc
+に誤った設定を行うと，シェルが正常に使用できなくなることがあります．設定が完了したら，設定内容を報告してください．</DIV>
+<DIV class="assign">（３）二つの<EM>環境変数</EM> X と Y の<EM>和</EM>を出力する csh スクリプト add を作成してください．X と Y は add を起動する前に，あらかじめ設定されているものとします．作成したcsh
+スクリプトの内容を報告してください．また，setenv コマンドを使って X と
+Y に適当な数値を設定し，その後 add コマンドを実行して正しい結果が出力されることを確かめてください．この過程をメールの本文に<A href="04.html#copyandpaste">コピーアンドペースト</A>してください．</DIV>
+<P>報告はメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-11">tokoi@sys.wakayama-u.ac.jp</A> まで送ってください．Subject:（件名）は kadai11 としてください．期限は次週の水曜日までとします．</P>
+</BODY>
+</HTML>

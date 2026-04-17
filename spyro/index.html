@@ -1,0 +1,634 @@
+<html>
+
+<head>
+<title>課題７ マクロ定数+Makefile+へッダファイル</title>
+</head>
+
+<body>
+
+<h1>課題７ マクロ定数+Makefile+へッダファイル</h1>
+
+<h2>マクロ定数（記号定数）</h2>
+
+<p>下のプログラム main.c は OpenGL と GLUT
+を用いて何らかの２次元図形を描くプログラムです。
+ただし、どんな図形を描くのかまだ決めていません。</p>
+
+<blockquote><a href="main.c">main.c</a></blockquote>
+
+<p>まず、このプログラムをダウンロードしてください。</p>
+
+<blockquote><font size="-1">Netscape でファイルをダウンロードするには、
+上のリンクのところ（文字の色が変っているところ）で、
+キーボードの <tt>[Shift]</tt> キーを押しながら
+<font color="#ff0000">マウスの左ボタン</font>
+を押してください。</font></blockquote>
+
+<p>ダウンロードできたら、
+このプログラムをコンパイルしてみてください。</p>
+
+<p>このプログラムを何も考えずにコンパイルすると、
+"LOOPS", "WIDTH" および "HEIGHT"
+の３つの「識別子」が
+<font color="#ff0000">未定義</font>
+だというエラーが出ます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cc main.c<b><font color="#00cc66">[Enter]</font></b></u>
+main.c: In function `display':
+main.c:46: `LOOPS' undeclared (first use in this function)
+main.c:46: (Each undeclared identifier is reported only once
+main.c:46: for each function it appears in.)
+main.c: In function `main':
+main.c:159: `WIDTH' undeclared (first use in this function)
+main.c:159: `HEIGHT' undeclared (first use in this function)
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>これらは本来、
+プログラムの先頭で次のように定義すべき
+<font color="#ff0000">マクロ定数</font>（記号定数）です。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>#define WIDTH  512      /* 最初に開くウィンドウの幅     */
+#define HEIGHT 512      /* 最初に開くウィンドウの高さ   */
+#define LOOPS  10000    /* 計算回数（多いほど滑らか）   */
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>このエラーを無くすには、
+プログラム中でこれらを定義してやる必要があります。
+しかし、次のようなコマンドの
+<font color="#ff0000">オプション</font>
+をつけてコンパイルすれば、
+プログラムを修正せずに記号定数を定義することができます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cc <b>-DWIDTH=512 -DHEIGHT=512 -DLOOPS=1000</b> main.c<b><font color="#00cc66">[Enter]</font></b></u></pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>上のコマンドで main.c をコンパイルしてください。</p>
+
+<p>これで、確かにこの３つの記号定数が未定義だという
+コンパイラのエラーは出なくなります。
+しかし、その代りに
+「"glなんとか" が見つからない」という
+<font color="#ff0000">リンカ</font>
+のエラーが大量に出てしまいます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>/tmp/cctjyzoh.o: In function `display':
+/tmp/cctjyzoh.o(.text+0xf): undefined reference to `glClear'
+/tmp/cctjyzoh.o(.text+0x17): undefined reference to `glPushMatrix'
+/tmp/cctjyzoh.o(.text+0x4c): undefined reference to `glRotated'
+/tmp/cctjyzoh.o(.text+0x59): undefined reference to `glBegin'
+/tmp/cctjyzoh.o(.text+0x95): undefined reference to `sin'
+/tmp/cctjyzoh.o(.text+0xc4): undefined reference to `cos'
+
+<font color="#ffff00">（途中略）</font>
+
+/tmp/cctjyzoh.o: In function `main':
+/tmp/cctjyzoh.o(.text+0x353): undefined reference to `glutInit'
+/tmp/cctjyzoh.o(.text+0x360): undefined reference to `glutInitDisplayMode'
+/tmp/cctjyzoh.o(.text+0x375): undefined reference to `glutInitWindowSize'
+/tmp/cctjyzoh.o(.text+0x385): undefined reference to `glutCreateWindow'
+/tmp/cctjyzoh.o(.text+0x395): undefined reference to `glutReshapeFunc'
+/tmp/cctjyzoh.o(.text+0x3a5): undefined reference to `glutMouseFunc'
+/tmp/cctjyzoh.o(.text+0x3b5): undefined reference to `glutMotionFunc'
+/tmp/cctjyzoh.o(.text+0x3c5): undefined reference to `glutKeyboardFunc'
+/tmp/cctjyzoh.o(.text+0x3d5): undefined reference to `glutDisplayFunc'
+/tmp/cctjyzoh.o(.text+0x3ee): undefined reference to `glClearColor'
+/tmp/cctjyzoh.o(.text+0x3f6): undefined reference to `glutMainLoop'
+collect2: ld returned 1 exit status</pre></font>
+</td></tr></table>
+</center>
+
+<p>これは、このプログラムの中で使用している
+関数が見つからないというエラーです。
+これらの関数は、
+このコンピュータに最初から用意されている
+<font color="#ff0000">ライブラリファイル</font>
+の中に入っています。
+ライブラリファイルの中に入っている関数を使うには、
+コマンドのオプションでそのライブラリファイル指定する必要があります。</p>
+
+<p>"glなんとか" という関数は OpenGL 関連のものですから、
+さらに次のようなオプションを追加して、
+OpenGL（と X Windows） のライブラリファイルを指定します。</p>
+
+<blockquote><font size="-1">-l の l は<font color="#ff0000">アルファベットのＬの小文字</font>です。</font></blockquote>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cc -DWIDTH=512 -DHEIGHT=512 -DLOOPS=1000 main.c <b>-L/usr/X11R6/lib -lglut -lGLU -lGL -lXi -lXmu -lXext -lX11<font color="#00cc66">[Enter]</font></b></u></pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>上のコマンドで main.c をコンパイルしてください。</p>
+
+<p>しかし、これでもまだ次のようなメッセージが出ます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>/tmp/ccOSnV43.o: In function `display':
+/tmp/ccOSnV43.o(.text+0xf8): undefined reference to `position'
+collect2: ld returned 1 exit status</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>このページの最初で、
+「このプログラムは図形を描くプログラム」だが、
+「描く図形はまだ決めていない」と書いていました。
+３行目の "position" が見つからないというエラーは、
+この描く図形を決める関数です。
+この関数をまだ作っていないために、
+このエラーが出ています。</p>
+
+<p>そこで、ここではとりあえず main.c
+をコンパイル<font color="#ff0000">のみ</font>おこなうことにして、
+オブジェクトファイル main.o を作っておきます。
+そのためには -c というオプションを使います。</p>
+
+<blockquote><font size="-1">「コンパイラ」
+「リンカ」
+「オブジェクトファイル」
+「ライブラリファイル」
+などの意味が分からない人は、
+情報処理IIの第１回目の
+<a href="/~tokoi/lecture/shori2/01.html#step">４．プログラム作成の手順</a>
+を復習してください。</font></blockquote>
+
+<h2>問題7-1</h2>
+
+<p>cc コマンドに -c オプションを付けて main.c をコンパイルし、
+オブジェクトファイル main.o を作成してください。-c
+オプションを付けると cc コマンドはオブジェクトファイルのリンクを行わず、
+コンパイルのみを行います。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cc -DWIDTH=512 -DHEIGHT=512 -DLOOPS=1000 <b>-c</b> main.c<font color="#00cc66">[Enter]</font></b></u></pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>次に、この図形を描く関数を決めましょう。関数 position
+は main.c の中で次のような形式で呼び出されています。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>double t;     /* 角度（ラジアン） */
+double p[2];  /* 角度 t における位置、X座標→p[0]、Y座標→p[1] */
+
+position(t, p);</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>関数 position は、引数 t で与えられた角度 t（0≦t≦2π）から、
+何らかの方法で XY 平面上のある点の位置を求め、
+それを配列変数 p の各要素に代入するように作ります。</p>
+
+<p>では、X 座標に cos(t)、Y 座標に sin(t)
+を設定する関数 position を、position.c
+というファイル名で作成してください。</p>
+
+<blockquote><font size="-1">sin や cos
+もライブラリファイルに入っている関数（ライブラリ関数）です。
+これらを使用するときは、ソースプログラム
+（のこれらを使用している部分より前）に 
+<tt>#include &lt;math.h&gt;</tt> を忘れずに入れておいてください。
+</font></blockquote>
+
+<p>ソースプログラムができたら、
+これをコンパイル<font color="#ff0000">のみ</font>して
+position.o を作成してください。</p>
+
+<blockquote><font size="-1">position.c は main.c
+のように LOOPS や WIDTH、HEIGHT などの記号定数を使っていませんから、
+これをコンパイルするときには問題7-1で指定した
+"-DWIDTH=512 -DHEIGHT=512 -DLOOPS=1000"
+というオプションは不要です。</font></blockquote>
+
+<p>最後に、二つのオブジェクトファイル main.o、position.o
+をリンクして実行ファイル a.out を作成し、実行してみてください。
+色の付いた円が描かれたでしょうか？</p>
+
+<blockquote><font size="-1">cc コマンドは
+引数にオブジェクトファイルを指定すると、
+そのファイルはコンパイルせずにリンクのみを行います。また、
+リンク時には記号定数の定義のようなコンパイル時のオプションは意味を持ちません。
+</font></blockquote>
+
+<p>しかし、リンク時にはライブラリファイルを指定する必要があります。
+このプログラムでは OpenGL のライブラリおよび sin、cos
+などの算術計算ライブラリを使用しています。</p>
+
+<blockquote><dl>
+<dt>OpenGL（と X Windows）のライブラリの指定</dt>
+<dd><tt>-L/usr/X11R6/lib -lglut -lGLU -lGL -lXi -lXmu -lXext -lX11</tt></dd>
+<dt>算術計算ライブラリの指定</dt>
+<dd><tt>-lm</tt></dd>
+</dl></blockquote>
+
+<p>以上の手順において、cc（あるいは CC）コマンドを３回使用しました。
+それぞれが引数やオプションを含めてどのようなコマンド行になったかを、
+position.c を印刷した用紙の空白部分に書き込んで提出してください。</p>
+
+<h2>Makefile</h2>
+
+<p>プログラム開発の時には、
+コンパイルやリンクを繰り返し行うことになります。
+また、上で挙げた例のように、
+コンパイル時やリンク時に複雑な引数やオプションを
+指定しなければならない場合もあります。</p>
+
+<p>そういうときにいちいち長ったらしいコマンドを打つのは面倒ですし、
+他の人がそのプログラムをコンパイルできるように、
+コンパイルに必要なオプションや引数をどこかに書き留めておく必要もあります
+（自分がコンパイルするときでも、時間が経ってしまうと
+『あれ、このプログラムどうやってコンパイルするんだっけな？』という
+ことはよくあります）。</p>
+
+<p>そういうときは、<font color="#ff0000">Makefile</font>
+というファイルにプログラムを作成する時の
+<font color="#ff0000">規則</font>
+（手順）を記述しておけば、<font color="#ff0000">make</font>
+コマンド一発で自動的にその手順を実行してくれます。</p>
+
+<p>Makefile の書式は以下のようなものです。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>fileA: fileB fileC
+<font color="#00ff00">--Tab--&gt;</font><u>fileB と fileC から fileA を作るコマンド</u>
+<font color="#88ff88">--Tab--&gt;</font><u><font color="#808080">fileB と fileC から fileA を作るコマンド</font></u>
+<font color="#88ff88">--Tab--&gt;</font><u><font color="#808080">...</font></u>
+fileB: fileD
+<font color="#00ff00">--Tab--&gt;</font><u>fileD から fileB を作るコマンド</u>
+fileC: fileE
+<font color="#00ff00">--Tab--&gt;</font><u>fileE から fileC を作るコマンド</u>
+<font color="#88ff88">--Tab--&gt;</font><u><font color="#808080">...</font></u>
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<ul>
+<li>まず、:（コロン）の左に作成する目的のファイルのファイル名を書きます。
+これを<font color="#ff0000">ターゲット"</font>と呼びます。</li>
+<li>: の左側には、
+ターゲットを作成するのに必要なもののファイル名を列挙します。</li>
+<li>その次の行以降に、
+ターゲットを作成するためのコマンド行を書きます。
+<ul>
+<li>ターゲットを作成するコマンドを１行で書くことができなれば、
+それを複数の行に別けて続けて書いてください。</li>
+<li>各行の行頭には<font color="#00aa00">タブ
+(TAB)</font>を一つ入れて下さい。</li>
+</ul>
+</li>
+<li>これがターゲットを作成するための規則です。</li>
+<li>作成するターゲットは、make コマンドの引数に指定します。
+引数を省略したときは、最初の規則に書かれたターゲット (fileA)
+を作成します。</li>
+</ul>
+
+<p>Makefile ができたら、make コマンドを実行すれば
+fileA が作成されます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>make</u></pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>最初のターゲット以外のターゲットを作成する場合は、
+それを make コマンドの引数に指定します。
+つぎの場合は fileB と fileC が作成されますが、
+fileA は作成されません。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>make fileB fileC</u></pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>なお、一度 fileA が作成されると、もう一度 make
+コマンドを実行しても、fileA を再び作成しようとはしません。
+make コマンドは関係するファイルの
+<font color="#ff0000">変更時間</font>
+を調べて、ターゲットが、その元になるファイルより
+<font color="#ff0000">新しい</font>ときは、
+ターゲットを作り直しません。</p>
+
+<p>prog.c を cc コマンドでコンパイルして a.out
+を作成する Makefile は次のようになります。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>a.out: prog.c
+<font color="#00ff00">--Tab--&gt;</font>cc prog.c
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>また以下のようにすれば、
+ターゲットのファイル名を a.out 以外のもの (prog) にできます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>prog: prog.c
+<font color="#00ff00">--Tab--&gt;</font>cc prog.c
+<font color="#00ff00">--Tab--&gt;</font>mv a.out prog
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>でも、これは普通、cc コマンドの -o オプションを使って、
+次のように書きます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>prog: prog.c
+<font color="#00ff00">--Tab--&gt;</font>cc prog.c -o prog
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>２つ以上のソースファイルから実行プログラムを作成する場合も、
+上と同様に書くことができます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>prog: prog1.c prog2.c
+<font color="#00ff00">--Tab--&gt;</font>cc prog1.c prog2.c -o prog
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>しかしこれだと、例えば prog1.c を修正して prog
+を作り直す度に、修正されていない prog2.c
+までコンパイルし直すことになり、時間の無駄が生じます。</p>
+
+<p>そこで、こういう場合は次のように、
+プログラム作成の段階を別けて書きます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>prog: prog1.<font color="#ff0000">o</font> prog2.<font color="#ff0000">o</font>
+<font color="#00ff00">--Tab--&gt;</font>cc prog1.o prog2.o -o prog
+prog1.o: prog1.c
+<font color="#00ff00">--Tab--&gt;</font>cc -c prog1.c
+prog2.o: prog2.c
+<font color="#00ff00">--Tab--&gt;</font>cc -c prog2.c
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>cc コマンドは -c というオプションを与えると、
+ソースプログラムのコンパイルのみを行い、実行プログラム a.out
+の代りにオブジェクトファイル (prog1.o, prog2.o) を生成します。</p>
+
+<p>さらに cc コマンドは、オブジェクトファイルに対してはコンパイル
+を行わずに、リンクのみを行って実行プログラムを作成します。</p>
+
+<p>なおターゲットが完成し、
+これ以上ソースプログラムを修正する必要がない場合には、
+オブジェクトファイルは不要になります。
+そこで、例えば clean という（仮の）ターゲットを使って
+次のような規則を追加しておきます
+（clean というファイルは作成されません）。
+なお、このとき mule/Emacs が作成するバックアップファイル
+（ファイル名の末尾に ~ が付いたファイル）もついでに削除することにします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>prog: prog1.o prog2.o
+<font color="#00ff00">--Tab--&gt;</font>cc prog1.o prog2.o -o prog
+prog1.o: prog1.c
+<font color="#00ff00">--Tab--&gt;</font>cc -c prog1.c
+prog2.o: prog2.c
+<font color="#00ff00">--Tab--&gt;</font>cc -c prog2.c
+clean: 
+<font color="#00ff00">--Tab--&gt;</font><font color="#ff0000">-</font>rm -f *.o *~
+</pre></font>
+</td></tr>
+</table>
+</center>
+
+<p>rm コマンドに -f というオプションをつけた場合は、
+ファイルが書き込み保護されていてもメッセージを出さずに削除します。
+また rm コマンドのすぐ左に - をつけると、rm コマンドが削除に失敗
+（ファイルが見つからないとか）しても、make
+コマンドはそれを無視します（通常 make
+はターゲットを作成するためのコマンドの実行に失敗すると、
+そこで処理を打ち切ってしまいます）。</p>
+
+
+<h2>問題7-2</h2>
+
+<p>問題7-1 のプログラムを作成する Makefile を作成して、
+いったん make clean を実行したあと、
+make を実行してプログラムが再作成されることを確かめてください。
+その後 Makefile を印刷して提出してください。</p>
+
+<h2>問題7-3</h2>
+
+<p>問題7-1/7-2 で作成したプログラムは、点 (x,y)
+を以下のように設定することで円を描きました。</p>
+
+<blockquote>
+x = cos(t)<br>
+y = sin(t)
+</blockquote>
+
+<p>これらの三角関数の周波数や位相を変化させると、
+様々な形の曲線（リサージュ曲線）を描くことができます。</p>
+
+<blockquote>
+x = cos(A t + B)<br>
+y = sin(C t + D)
+</blockquote>
+
+<p>または、次のように複数の三角関数を合成しても、
+様々な形の曲線（円トロコイド曲線）を描くことができます
+（<a href="http://www.zusaku.com/2kspiro.html">スピログラフ作成</a>
+を参照のこと）。</p>
+
+<blockquote>
+x = B cos(A t) + D cos(C t)<br>
+y = B sin(A t) + D sin(C t)
+</blockquote>
+
+<p>問題7-1 で作成した関数 position を上記のいずれかの形に変更し、
+A, B, C, D の４つの定数をマクロ定数で与えるようにしてください。</p>
+
+<p>position.c をコンパイルする際に
+A, B, C, D を与えることによって、
+一つの position.c から次の４つのオブジェクトファイルを作成できるよう、
+Makefile を修正してください。</p>
+
+<center>
+<table border>
+<tr><th>A</th><th>B</th><th>C</th><th>D</th><th>オブジェクトファイル名</th></tr>
+<tr><td>1</td><td>0.2</td><td>1</td><td>0.8</td><td>position1.o</td></tr>
+<tr><td>2</td><td>0.7</td><td>3</td><td>1.2</td><td>position2.o</td></tr>
+<tr><td>3</td><td>1.2</td><td>2</td><td>1.2</td><td>position3.o</td></tr>
+<tr><td>5</td><td>0.5</td><td>3</td><td>1.0</td><td>position4.o</td></tr>
+</table>
+表１
+</center>
+
+<p>上のオブジェクトファイルの一つ一つと main.o をリンクして、
+４つの実行プログラム prog1, prog2, prog3, prog4
+を同時に作成するよう Makefile を修正してください。</p>
+
+<blockquote><font size="-1">
+<p>複数のターゲットを同時に作成するためには、
+Makefile の先頭に、
+例えば次のような仮のターゲットを作成する規則を追加します。
+この規則にはターゲットを作成するコマンドを記述しません。</p>
+
+<pre>all: prog1 prog2 prog3 prog4</pre>
+
+<p>こうすると、all というターゲットを作成するためには
+prog1～prog4 が必要ということになり、先にこれらが作成されます。
+その後 all を作成することになりますが、
+all を作成するコマンドを書いていないために all
+は作成されないまま make は終了します。</p>
+</font></blockquote>
+
+<p>作成した Makefile を印刷して提出してください。</p>
+
+<h2>条件コンパイル</h2>
+
+<p>C 言語（のプリプロセッサ）には、
+「条件コンパイル」という機能があります。
+これを使えば、マクロ定数の値などを条件にして、
+プログラムの一部分をコンパイルしたりしなかったりできます。
+</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>#ifdef DEBUG
+void debug(char *message)
+{
+  fprintf(stderr, "DEBUG: %s\n", message);
+}
+#endif</pre>
+</td></tr>
+</table>
+</center>
+
+<p>上の例では、DEBUG という記号定数が定義されているときのみ、
+debug() という関数がコンパイルされます。
+DEBUG が定義されていないときは、
+この関数定義はコンパイルされません（無いものとして扱われます）。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff" valign="top"><font color="#000000">
+<pre>
+void printmessage(void)
+{
+#if defined(DEBUG) && LEVEL >= 5
+  fprintf(stderr, "レベルは５以上\n");
+#else
+  fprintf(stderr, "レベルは５未満\n");
+#endif
+}</pre>
+</td></tr>
+</table>
+</center>
+
+<p>上の例では、記号定数 DEBUG が定義されており、かつ、記号定数
+LEVEL の値が５以上なら「レベルは５以上」、
+そうでなければ「レベルは５未満」と出力します。</p>
+
+関数 printmessage() の中身を変えることができます。</p>
+
+<blockquote><font size="-1">DEBUG や LEVEL は記号定数なので、
+その内容を
+<font color="#ff0000">プログラムの実行時に変更することはでき
+ません。</font></font>
+</blockquote>
+
+<h2>問題7-4</h2>
+
+<p>問題7-3 の表１の定数を、
+次のようにしてプログラム内で宣言することを考えてください。</p>
+
+<p>表１では、一つの記号定数について、４つの値を割り当てますから、
+そのままでは宣言が重複してしまいます。
+そこで、新しい記号定数 LEVEL を導入することにします。
+すなわち、表２のように LEVEL の値にしたがって、
+記号定数 A, B の宣言を切り替えるプログラムを作成してください。</p>
+
+<p>そのソースプログラムのファイル名は param.h としてください。</p>
+
+<center>
+<table border>
+<tr><th>LEVEL</th><th>A</th><th>B</th><th>C</th><th>D</th><th>オブジェクトファイル名</th></tr>
+<tr><th>1</th><td>1</td><td>0.2</td><td>1</td><td>0.8</td><td>position1.o</td></tr>
+<tr><th>2</th><td>2</td><td>0.7</td><td>3</td><td>1.2</td><td>position2.o</td></tr>
+<tr><th>3</th><td>3</td><td>1.2</td><td>2</td><td>1.2</td><td>position3.o</td></tr>
+<tr><th>4</th><td>5</td><td>0.5</td><td>3</td><td>1.0</td><td>position4.o</td></tr>
+</table>
+表２
+</center>
+
+<p>position.c の先頭部分で、この param.h をヘッダファイルとして読み込むよう、
+position.c を修正してください。ヘッダファイルの意味が分からない人は、
+情報処理II の<a href="/~tokoi/lecture/shori2/11.html#header">
+第１１回</a>
+あたりを復習してください。
+あるいは、
+<a href="http://www.sys.wakayama-u.ac.jp/~tokoi/lecture/kiso2/12.html">
+ここ</a>を参考にしてみてください。</p>
+
+<p>問題7-3 と同様に、今度は記号定数 LEVEL に 1 から 4 の値を設定して、
+４つの実行プログラムを作成する Makefile を作成してください。</p>
+
+<p>param.h と Makefile を印刷して提出してください。</p>
+
+</body>
+
+</html>

@@ -1,0 +1,871 @@
+<head>
+<title>情報処理II － 第３回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第３回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．コンソール入力</h2>
+
+<hr>
+
+<p>キーボードからタイプした文字や数値を変数に入れることができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int tate, yoko;
+
+  <b>cin &gt;&gt; tate &gt;&gt; yoko;</b>    // tate と yoko をキーボードから入力
+
+  cout &lt;&lt; "縦 " &lt;&lt; tate &lt;&lt; " メートル、";
+  cout &lt;&lt; "横 " &lt;&lt; yoko &lt;&lt; " メートルの長方形の面積は ";
+  cout &lt;&lt; tate * yoko &lt;&lt; " 平方メートル" &lt;&lt; endl;
+}</table>
+</center>
+
+<p>このプログラムをコンパイルして実行すると、
+止まってしまったように見えます。
+これは <tt>cin &gt;&gt; tate &gt;&gt; yoko</tt> のところで変数
+tate と yoko に入れるデータの入力を待っているからです。この cin
+は<font color="#ff0000">入力ストリーム</font>と呼ばれ、
+標準入力（キーボード）からデータを入力する
+<font color="#ff0000">オブジェクト</font>を示しています。
+<tt>&gt;&gt;</tt> は入力ストリームからデータを取り出す
+<font color="#ff0000">抽出演算子</font>です。</p>
+
+<p>では、キーボードをタイプして、数値を二つ入力してみましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>10<b><font color="#00cc66">[Enter]</font></b></u>
+<u>20<b><font color="#00cc66">[Enter]</font></b></u>
+縦 10 メートル、横 20 メートルの長方形の面積は 200 平方メートル
+</font></table>
+</center>
+
+<p>一つ一つの数値の区切りは改行（<tt>[Enter]</tt>）の他、
+スペースやタブなどの<font color="#ff0000">空白文字</font>でも構わないので、
+次のように入力することもできます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>10 20<b><font color="#00cc66">[Enter]</font></b></u>
+縦 10 メートル、横 20 メートルの長方形の面積は 200 平方メートル
+</font></table>
+</center>
+
+<p>しかし、
+データを入力するときに止まってしまったように見えると、
+このプログラムを使う人が悩んでしまうかも知れません。
+そこで今どういうデータの入力を待っているのかを表示するようにしてみましょう。
+こういう表示を
+<font color="#ff0000">プロンプト（入力促進記号）</font>といいます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int tate, yoko;
+
+  <b>cout &lt;&lt; "縦の長さは何メートルですか？";</b>
+  <b>cin &gt;&gt; tate;</b>
+  <b>cout &lt;&lt; "横の長さは何メートルですか？";</b>
+  <b>cin &gt;&gt; yoko;</b>
+
+  cout &lt;&lt; "縦 " &lt;&lt; tate &lt;&lt; " メートル、";
+  cout &lt;&lt; "横 " &lt;&lt; yoko &lt;&lt; " メートルの長方形の面積は ";
+  cout &lt;&lt; tate * yoko &lt;&lt; " 平方メートル" &lt;&lt; endl;
+}</table>
+</center>
+
+<p>"（二重引用符）は全角文字（”）ではなく半角文字 (") を使ってください。
+このプログラムをコンパイルして実行すると、次のようになります。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+縦の長さは何メートルですか？<u>10<b><font color="#00cc66">[Enter]</font></b></u>
+横の長さは何メートルですか？<u>20<b><font color="#00cc66">[Enter]</font></b></u>
+縦 10 メートル、横 20 メートルの長方形の面積は 200 平方メートル
+</font></table>
+</center>
+
+<p>ちょっとイタズラをして、
+このプログラムに数値ではないものを入力してみましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+縦の長さは何メートルですか？<u>aho<b><font color="#00cc66">[Enter]</font></b></u>
+横の長さは何メートルですか？縦 0 メートル、横 nan0xf2fc40fa メートルの
+長方形の面積は nan0x7fffffff 平方メートル
+</font></table>
+</center>
+
+<p>なんかムチャクチャなことになりましたね。
+「縦の長さ」に "aho" を入れて改行した瞬間、
+「横の長さ」を入れる間もなくでたらめな答えを出してしまいました。
+このように入力ストリーム cin から抽出演算子 &gt;&gt;
+を使ってデータを入力するときは、
+入力データのデータ型がデータを格納する変数のデータ型と一致していないと、
+期待した動作をしてくれません。</p>
+
+<p>しかし、人間はミスをするものです。
+たとえプログラムを作る人が「ここは数値を入力するところだ」と決めていても、
+プログラムを使う人がその通りにしてくれるとは限りません。
+そこでプログラムを作るときは、そういうことも想定しておく必要があります。
+ところが抽出演算子 &gt;&gt; を使って数値を変数に直接入力すると、
+そういう配慮をしたプログラムを作るのが面倒になってしまいます。
+このため普通は入力されたものを文字列のまま変数に格納し、
+あとで数値への変換を行います。この方法は後述します。</p>
+
+<hr>
+
+<h2>課題６</h2>
+
+<hr>
+
+<p>二つの倍精度の実数値をキーボードから入力し、
+それらの和、差、積、商を求めるプログラムを作成してください。
+ユーザインタフェースは下のようになるようにしてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+x= <u>10<b><font color="#00cc66">[Enter]</font></b></u>
+y= <u>20<b><font color="#00cc66">[Enter]</font></b></u>
+x+y= 30
+x-y= -10
+x*y= 200
+x/y= 0.5
+</font></table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai6">tokoi</a>
+まで送ってください。Subject:（件名）は kadai6 としてください。</p>
+
+<a name="function">
+<hr>
+
+<h2>２．関数</h2>
+
+<hr>
+</a>
+
+<p>数学の関数は、例えば <i>f</i>(x) = x<sup>2</sup> と定義されているとき、
+<i>f</i>(2) = 4, <i>f</i>(3) = 9 になります。
+すなわち、
+パラメータとして与えた値を定義された式で計算した値と等しいもの
+として扱います。</p>
+
+<center>
+<img src="03-01.gif">
+</center>
+
+<p>したがって、<i>g</i>(x) = <i>f</i>(x) * x と言うように、
+定義した関数を別の関数定義の中で利用することもできます。</p>
+
+<center>
+<img src="03-02.gif">
+</center>
+
+<p>C++ 言語においても、
+関数はなんらかのデータを得て、
+それを処理し、
+なんらかの結果を返します。
+これが C++ 言語のプログラムの単位になります。
+結果を返す関数は、
+<a href="02.html#constant">定数</a>や<a href="02.html#variable">変数</a>と同様に<font color="#ff0000">値を持つ</font>ものとして扱われます。
+数学の関数と違うところは、
+その定義が<a href="01.html#procedure">手続き</a>であるところです。</p>
+
+<p><i>f</i>(x) や <i>g</i>(x) を C++ 言語の関数として表せば、
+次のようになります。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+double f(double x) {
+  double y;
+
+  y = x * x;
+
+  return y;
+}
+
+double g(double x) {
+  double y;
+
+  y = f(x) * x;
+
+  return y;
+}</table>
+</center>
+
+<p>関数 g(x) は関数 f(x) を評価してその値を求め、
+それに仮引数 x をかけたものを自分自身の値としています。
+このように関数も変数同様、<font color="#ff0000">値</font>を持ちます。
+この値を関数の<a href="#retval">戻り値</a>と言います。
+関数 f(x) および g(x) の左の double はこの戻り値のデータ型、
+すなわちこの関数自体のデータ型を示します。
+また関数は、
+それを利用している場所より前で宣言（定義）されている必要があります。
+上の例では f(x) は g(x) より前で宣言されていなければなりません。</p>
+
+<p>main() も一つの関数です。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;iostream.h&gt;
+
+int main(void) {
+  double y;
+
+  y = f(2);
+  cout << y << endl;
+
+  return 0;
+}</table>
+</center>
+
+<p>この例は引数に 2 を与えて関数 f() を呼び出し、
+その戻り値を y に代入した後、
+y を出力するという関数 main() を定義しています。
+main() の最後の
+<tt>return 0;</tt> は、main() の戻り値を 0 にすることを意味します。
+この値は、この関数を評価して（呼び出して）いるところ
+（<a href="03-h1.html">オペレーティングシステム</a>）に戻されます。
+main() 関数のデータ型は <font color="#ff0000">int</font> です。</p>
+
+<center>
+<img src="03-03.gif">
+</center>
+
+<ol>
+
+<li><p>プログラムを実行すると、
+オペレーティングシステムは最初にこの関数 main() を評価します。
+すると main() の中身が、上から順に評価されていきます。</p></li>
+
+<li><p><tt>y = f(2);</tt> が評価されると関数 f() が呼び出され、
+その仮引数 x を 2 に設定して、
+f() の中身が上から順に評価されていきます。</p></li>
+
+<li><p><tt>return y;</tt> を評価すると、y の値を f()
+の戻り値に設定し、f() を呼び出した main() に戻ります。</p></li>
+
+<li><p>関数 main() が <tt>return 0;</tt>
+で終了しているので、main() を評価した値は 0 になります。
+オペレーティングシステムはこれを
+<a href="03-h2.html">終了ステータス</a>に設定して、
+プログラムを終了します。</p></li>
+
+</ol>
+
+<p>この main のような名前を関数名といいます。
+関数名の付け方は
+<a href="02.html#identifier">変数名と同じ</a>です。
+ただし main は、上で述べたように
+オペレーティングシステムがプログラムの実行を開始するときの
+<font color="#ff0000">目印</font>として使いますから、
+プログラム中に一つだけ存在する必要があります。</p>
+
+<hr>
+
+<h2>課題７</h2>
+
+<hr>
+
+<p>上の例で示した関数 f(x) と g(x) を使って、
+キーボードから入力した数値の２乗および３乗を出力するプログラムを作ります。
+下のプログラムの main() 関数に中身を書いてください
+（<tt>/*</tt> ～ <tt>*/</tt> に挟まれた部分は
+<a href="01-h2.html">コメント</a>です）。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+double f(double x) {
+  return x * x;
+}
+
+double g(double x) {
+  return f(x) * x;
+}
+
+int main(void) {
+  <font color="#808080">/*
+     この部分にプログラムを書いてください。
+  */</font>
+  return 0;
+}</table>
+</center>
+
+<p>ユーザインタフェースは次のようにしてください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+x= <u>10<b><font color="#00cc66">[Enter]</font></b></u>
+x^2= 100
+x^3= 1000
+</font></table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai7">tokoi</a>
+まで送ってください。Subject:（件名）は kadai7 としてください。</p>
+
+<hr>
+
+<a name="library">
+<h3>２．１．ライブラリ関数</h3></a>
+
+<p>三角関数など様々な関数が最初から用意されています。
+このような関数を<font color="#ff0000">ライブラリ関数</font>と言います。
+三角関数のような算術関数を使用するときは、
+それを使っている場所より前に
+<tt>#include &lt;math.h&gt;</tt> を置いてください。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;iostream.h&gt;
+<b>#include &lt;math.h&gt;</b>
+
+int main(void) {
+    cout &lt;&lt; <b>sin(1.5707963268)</b> &lt;&lt; endl;
+    return 0;
+}</table>
+</center>
+
+<p>この例では、
+main() から cos() という関数を呼び出し、
+それに 1.5707963268（≒π/2）というデータを与えています。
+このように関数に与えるデータのことを引数（ひきすう）と呼びます。
+sin() は引数に与えられたデータの正弦を戻り値として返します。</p>
+
+<p>ライブラリ関数はプログラム中では定義していませんが、
+これは<a href="01.html#linker">リンク</a>
+のときにライブラリファイルから取り出されて、
+main() 関数と結合されます。</p>
+
+<p>このプログラムの最初にある、</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;iostream.h&gt;
+#include &lt;math.h&gt;</table>
+</center>
+
+<p>は、別のディレクトリ（/usr/include や /usr/include/CC）にある
+iostream.h や math.h
+というファイルをソースファイルのこの位置に埋め込みます。</p>
+
+<font size="-1">
+<ul>
+
+<li><p>新しい C++
+コンパイラには<font color="#ff0000">名前空間</font>という概念が追加されており、
+<tt>#include &lt;iostream&gt;</tt> のようにファイル名の拡張子 ".h"
+を書かない場合があります。</p></li>
+
+<li><p>この講義では使用しません。</p></li>
+
+</ul>
+</font>
+
+<p>iostream.h には cin、cout
+などの入出力ストリームを扱うオブジェクトの定義が記述されています。
+また math.h には三角関数 sin()、cos()、tan() のほか、平方根を求める sqrt()、
+自然対数を求める log()、指数関数 exp()、べき乗 pow() など、
+<a href="03-h3.html">様々な算術関数</a>の定義が記述されています。</p>
+
+<p><a name="libmath">
+なお、算術関数を使用するときは、コンパイル（リンク）の際に CC
+コマンドに <tt>-lm</tt>
+という<font color="#ff0000">オプション</font>を付ける必要があります。</a></p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC program.cc <b>-lm<font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<hr>
+
+<h2>課題８</h2>
+
+<hr>
+
+<p>借金を debt、利率を interest、返済回数を n としたとき、
+月々の返済額 payment は次の式で計算することができます。 </p>
+
+<blockquote>
+payment = debt * interest / (1 - (1 + interest)<sup>-n</sup>) 
+</blockquote>
+
+<p>debt, interest, n を入力すれば、
+月々の返済額を計算してくれるプログラムを作ってください。 
+x<sup>y</sup> は pow(x, y) で計算できます。</p>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai8">tokoi</a>
+まで送ってください。Subject:（件名）は kadai8 としてください。</p>
+
+<hr>
+
+<a name="definefunc">
+<h3>２．２．関数を定義する</h3></a>
+
+<p>自分でも関数を作ることができます。
+自分で関数を作ることで、
+プログラムを複数の部分に分割することができます。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+<b>void sub1(void)</b> {
+  cout &lt;&lt; "関数sub1を実行しています。" << endl;
+}
+
+<b>void sub2(void)</b> {
+  cout &lt;&lt; "関数sub2を実行しています。" << endl;
+}
+
+int main(void) {
+  cout &lt;&lt; "関数mainを実行しています。" << endl;
+  <b>sub1()</b>;
+  <b>sub2()</b>;
+  cout &lt;&lt; "関数mainが終了しました。" << endl;
+  return 0;
+}</table>
+</center>
+
+<p>この例では、
+main() の中から sub1() と sub2() を順に呼び出しています。</p>
+
+<hr>
+
+<h2>課題９</h2>
+
+<hr>
+
+<p>次のプログラムをコンパイルして実行すると、
+止まらなくなってしまいます。
+その理由を考察して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai9">tokoi</a>
+にメールで送ってください。
+Subject:（件名）は kadai9 としてください。
+ソースファイルを添付する必要はありません。</p>
+
+<p>なお、実際にプログラムをコンパイルして実行する必要はありません。
+もし実行してしまったなら、<tt>Ctrl-C</tt>
+をタイプして強制終了してください。
+また core ファイルができてしまったら削除してください。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+void sub(void) {
+  cout &lt;&lt; "関数subを実行しています。" << endl;
+  sub();
+}
+
+int main(void) {
+  cout &lt;&lt; "関数mainを実行しています。" << endl;
+  sub();
+  cout &lt;&lt; "関数mainが終了しました。" << endl;
+  return 0;
+}</table>
+</center>
+
+<hr>
+
+<a name="argument">
+<h3>２．３．引数</h3></a>
+
+<p>関数にデータを渡すには、<font color="#ff0000">引数</font>を用います。
+下の例では main() において関数 add() に
+10 と 20 の二つの引数を与えてそれを呼び出しています。
+関数 add() 内では二つの変数 a, b にそれぞれ 10 と 20 が入っています。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+void add(<b>int a</b>, <b>int b</b>) {   
+  // a, b は仮引数
+  cout &lt;&lt; <b>a</b> &lt;&lt; '+' &lt;&lt; <b>b</b> &lt;&lt; '=' &lt;&lt; <b>a</b> + <b>b</b> &lt;&lt; endl;
+}
+
+int main(void) {
+  add(<b>10</b>, <b>20</b>); // 10, 20 は実引数。10→a、20→b に渡される
+  return 0;
+}</table>
+</center>
+
+<p>関数が引数を受けとるときは、
+関数名（上では add）に続く ( ～ ) 内に
+引数を受け取るデータ型と変数名の対をコンマで区切って列挙します。
+この変数を<font color="#ff0000">仮引数</font>と呼びます。</p>
+
+<p>次のように、仮引数の並びが void のときは、
+この関数が引数を使用しないことを表します。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+void sub(<b>void</b>) {
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>一方、
+関数を呼び出すときに実際に与えるデータを<font color="#ff0000">実引数</font>と呼びます。
+仮引数と実引数のデータ型は一致させておいてください。
+一致していなくても両方が数値データなら自動的に変換されるのでエラーにはなりませんが、
+例えば実引数が double で仮引数が int のときは、double → int
+の変換によって精度が落ちる場合があります。</p>
+
+<p>仮引数には実引数の<font color="#ff0000">値</font>が複写（コピー）されます。
+したがって関数内で仮引数の値を変更しても実引数は変更されません。
+これを引数の<font color="#ff0000">値渡し</font>と言います。</p>
+
+<p><a name="reference">
+関数内での仮引数の変更を実引数に反映したいときは、
+仮引数に
+<font color="#ff0000">&</font>（アンパーサント）を付けて宣言します。</a></p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>void sub(int <b>&</b>x, int <b>&</b>y) {  // ← x, y に & を付ける
+  <font color="#808080">...</font>
+  x = <font color="#808080">...</font> ;                 // 仮引数 x の内容を変更
+  y = <font color="#808080">...</font> ;                 // 仮引数 y の内容を変更
+  <font color="#808080">...</font>
+}</table>
+</center>
+
+<p>これを引数の<font color="#ff0000">参照渡し</font>と言います。
+参照は「<font color="#ff0000">リファレンス</font>」とも言います。
+<u>仮引数が参照渡し</u>で宣言されている場合は実引数に値が戻される場合があるので、
+<u>実引数は変数</u>にしてください。
+定数や式を渡した場合はコンパイラが一時的な変数を作成して値をそれに代入し、
+この変数を実引数に使います（警告が出ます）。</p>
+
+<hr>
+
+<a name="kadai10">
+<h2>課題１０</h2></a>
+
+<hr>
+
+<p>下のプログラム中の関数 swap() は、
+与えられた二つの引数の内容を交換するものです。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+void swap(int x, int y) {
+  int t;  // 交換のために一時的に値を待避しておく変数
+
+  cout &lt;&lt; "引数を交換" &lt;&lt; endl;
+  t = x;
+  x = y;
+  y = t;
+}
+
+int main(void) {
+  int a = 1, b = 2;
+
+  cout &lt;&lt; "a=" &lt;&lt; a &lt;&lt; ", b=" &lt;&lt; b  &lt;&lt; endl;
+  swap(a, b); // a→b、b→a となるよう交換
+  cout &lt;&lt; "a=" &lt;&lt; a &lt;&lt; ", b=" &lt;&lt; b  &lt;&lt; endl;
+  return 0;
+}</table>
+</center>
+
+<p>しかし、このままではこのプログラムをコンパイルして実行しても、
+main() 二つの変数 a, b の内容は交換されていません。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+a=1, b=2
+引数を交換
+a=1, b=2  <font color="#ffff00">（←交換されていない！）</font>
+</font></table>
+</center>
+
+<p>関数 swap() が main() で与えられた実引数の内容を交換するよう、
+関数 swap() を修正してください。
+メールに修正したソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai10">tokoi</a>
+まで送ってください。Subject:（件名）は kadai10 としてください。</p>
+
+<hr>
+
+<a name="retval">
+<h3>２．４．戻り値</h3></a>
+
+<p>関数からは、戻り値を使って
+関数を呼び出した側にデータを返すことができます。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+/*
+** 引数に与えられた整数の和を返す関数の定義
+*/
+<b>int</b> add(int a, int b) {
+  int c;
+
+  c = a + b;
+  <b>return c;</b>               // 結果を返す。return a + b; でも可。
+}
+
+/*
+** メイン関数の定義
+*/
+int main(void) {
+  int i, j, k;
+
+  i = 10;
+  j = 20;
+  k = <b>add(i, j)</b>;          // 関数 add() の戻り値を k に代入。
+
+  return 0;
+}</table>
+</center>
+
+<p>return に続く式の値が、その関数の戻り値になります。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>int add(int a, int b) {
+  return <b>a + b</b>;
+}</table>
+</center>
+
+<p>関数は戻り値によって呼び出した側に値を返すことができるので、
+呼び出した側では関数を定数や変数と同様に式の中で使用できます。
+関数 add() を次のように使うこともできます。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>  <font color="#808080">...</font>
+  k = <b>add(10, 20)</b> * 3;    // (10 + 20) * 3
+  <font color="#808080">...</font></table>
+</center>
+
+<p>main()
+関数の戻り値はプログラムの
+<a href="03-h2.html">終了ステータス</a>になります。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>int main(void) {
+  <font color="#808080">...</font>
+  return <b>0</b>;               // 0 は正常終了を示す終了ステータス
+}</table>
+</center>
+
+<p>戻り値がある関数は、
+戻り値のデータ型を関数自身の型として宣言しておく必要があります。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre><b>int</b> add(int a, int b) {   // add は int 型
+  <b>int c;</b>
+  <font color="#808080">...</font>
+  return <b>c</b>;               // c も int 型
+}</table>
+</center>
+
+<p>戻り値の型が省略された関数は
+<font color="#ff0000">int 型</font>だとみなされます。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>main(void) {              // main() は int 型
+  <font color="#808080">...</font>
+  return <b>0</b>;               // 0 は int 型 の定数
+}</table>
+</center>
+
+<p>戻り値のない関数は、
+そのことを明示するために
+<font color="#ff0000">void 型</font>として宣言しておくべきです。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr>
+<td valign="top" width="50%">
+<pre><b>void</b> sub(void) {
+  cout &lt;&lt; "Hello" &lt;&lt; endl;
+}</td>
+<td valign="top" width="*">
+<pre><b>void</b> sub(void) {
+  cout &lt;&lt; "Hello" &lt;&lt; endl;
+  <b>return</b>;
+}</table>
+</center>
+
+<p>上の二つは同じです。
+関数中に return が無ければ、
+その関数の終りでこの関数を呼び出している所に戻ります。</p>
+
+<p>return は関数の途中に書くこともできます。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>int main(void) {
+  sub1();
+  <b>return 1;</b>               // ここでプログラムが終わってしまう
+  sub2();
+  return 0;
+}</table>
+</center>
+
+<p>この場合、関数 sub2 は実行されません。</p>
+
+<hr>
+
+<h2>課題１１</h2>
+
+<hr>
+
+<p>次のプログラム中の関数 add() と mul()
+は、それぞれ引数に与えられた二つの実数の和と積を返す関数です。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+double add(double x, double y) {
+  return x + y;
+}
+
+double mul(double x, double y) {
+  return x * y;
+}
+
+int main(void) {
+  cout &lt;&lt; <font color="#808080">/*____ここにプログラムを書いてください____*/</font> &lt;&lt; endl;
+  return 0;
+}</table>
+</center>
+
+<p>この二つの関数を使って
+10 + 20 * (30 + 40) を計算し、結果を表示するプログラムを作ります。
+main() 関数の<a href="01-h2.html">コメント</a>の部分を<a href="02.html#expression">式</a>で置き換えてください。
+もちろんこの式には + や *
+といった<font color="#ff0000">演算子を使ってはいけません</font>。
+答えはこの式を自分の頭で計算するとき、
+どういう順番で計算するか考えれば分かると思います。</p>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai11">tokoi</a>
+まで送ってください。Subject:（件名）は kadai11 としてください。</p>
+
+<hr>
+
+<a name="overload">
+<h3>２．５．関数の多重定義</h3></a>
+
+<p>引数の<font color="#ff0000">数</font>や<font color="#ff0000">データ型</font>が異なれば、
+同じ関数名で異なる関数を定義できます。
+これを関数の
+<font color="#ff0000">多重定義（オーバーローディング）</font>
+と言います。ただし<a href="#retval">戻り値</a>の型の違いで多重定義することはできません。</p>
+
+<center>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+void <b>output(<u>double</u> x)</b> {
+  cout &lt;&lt; x &lt;&lt; " は double の値です" &lt;&lt; endl;
+}
+
+void <b>output(<u>int</u> x)</b> {
+  cout &lt;&lt; x &lt;&lt; " は int の値です" &lt;&lt; endl;
+}
+
+int main(void) {
+  <u>int a</u> = 10;
+  <u>double b</u> = 10.0;
+
+  output(<b>a</b>);
+  output(<b>b</b>);
+  return 0;
+}</table>
+</center>
+
+<p>このプログラムでは引数のデータ型が異なる二つの output()
+という関数を定義しています。
+これをコンパイルして実行すると、次のような出力が得られます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+10 は int の値です
+10 は double の値です
+</font></table>
+</center>
+
+<p>二つの output() が引数のデータ型で使い分けられています。</p>
+
+<p>なお、main() 関数の多重定義はできません。</p>
+
+</body>

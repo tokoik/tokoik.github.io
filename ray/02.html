@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０２：球と視線の交差判定</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０２：球と視線の交差判定</h1>
+
+<h2>（１）球の方程式</h2>
+
+<p>最初に，球をレイトレーシングで描画することを考えます．
+中心が <b>P</b><sub>c</sub> = (cx, cy, cz)
+にあり，半径が r の球の方程式を求めてください．</p>
+
+<div class="figure">
+<img src="02-01.gif" width="360" height="270" alt="球">
+</div>
+
+<p class="hint">
+<a href="02-h1.html">どうしても分からなければ…</a></p>
+
+<h2>（２）視線の方程式</h2>
+
+<p>いま視点が <b>P</b><sub>e</sub> = (ex, ey, ez)
+の位置にあり，視線は <b>V</b> = (vx, vy, vz)
+の方向を向いているとします．</p>
+
+<div class="figure">
+<img src="02-02.gif" width="360" height="270" alt="視線">
+</div>
+
+<p>この視線の方程式を媒介変数 t を用いて表してください</p>
+
+<pre class="source">x = ?
+y = ?
+z = ?</pre>
+
+<p class="hint">
+<a href="02-h2.html">どうしても分からなければ…</a></p>
+
+<h2>（３）視線と球の交差検出</h2>
+
+<p>この視線が球と交差するかどうかを調べます．</p>
+
+<div class="figure">
+<img src="02-03.gif" width="360" height="270" alt="視線と球の交差">
+</div>
+
+<p>視線の方程式を球の方程式に代入し，
+At<sup>2</sup> + 2Bt + C = 0
+という形に変形してください．
+この係数 A, B, C を求めてください．</p>
+
+<pre class="source">A = ?
+B = ?
+C = ?</pre>
+
+<p class="hint">
+<a href="02-h3.html">どうしても分からなければ…</a></p>
+
+<p>視線が球と交差するかどうかは，
+この２次方程式が解を持つかどうかで判断できます．
+２次方程式が解を持つかどうかは，
+次の判別式によって調べることができます．</p>
+
+<pre class="source">D = B<sup>2</sup> - A * C</pre>
+
+<p>この D が負であれば，この２次方程式は解を持ちません．
+これは視線が球と交点を持たないことを意味します．
+この D が 0 であれば，この２次方程式は１つの解を持ちます．
+これは視線が球と１点で接していることを意味します．
+この D が正であれば，この２次方程式は２つの解を持ちます．
+これは視線が球と２点で交差することを意味します．</p>
+
+<div class="figure">
+<img src="02-04.gif" width="360" height="270" alt="判別式と交差の関係">
+</div>
+
+<h2>（４）交差判定の関数</h2>
+
+<p>そこで<a href="02.html">課題０１</a>で作成した関数 trace()
+を，視点の位置 <b>P</b><sub>e</sub>
+と視線の方向 <b>V</b> を引数にして，
+この視線が球と交差するかどうかを判定し，
+交差していれば引数 col に白色を，
+交差していなければ青色を設定するよう変更してください．</p>
+
+<pre class="source">
+void trace(<em>const float *pe, const float *v,</em> float *col)
+{
+  /*
+  ** 視線が球と交差していれば col に白，
+  ** 交差していなければ col に青を設定する
+  */
+}
+</pre>
+
+<p>なお，球のデータは Sphere という構造体の変数 sphere
+の要素 p に中心位置 <b>P</b><sub>c</sub> = (cx，cy，cz)，
+要素 r に半径 r を格納するものとします．</p>
+
+<pre class="source">
+struct Sphere {
+  float p[3];  /* 球の中心位置 <b>P</b><sub>c</sub> */
+  float r;     /* 球の半径 r */
+};
+
+/*
+** 球のデータ
+*/
+struct Sphere sphere = {
+  { 0.0, 0.0, 4.0 },
+  2.0,
+};
+</pre>
+
+<p class="hint">
+<a href="diy.html">どうしても分からなければ…</a></p>
+
+<h2>（５）スクリーンの配置</h2>
+
+<p>次に，下図のような右手座標系において，
+視点は原点にあり，Ｚ軸の正の方向を向いているとします．
+またスクリーンは高さ 2，幅 2a の大きさで，
+その中心をＺ軸が垂直に貫いているとします．
+a はスクリーンのアスペクト比です．</p>
+
+<div class="figure">
+<img src="02-05.jpg" width="360" height="336" alt="座標系とスクリーン">
+</div>
+
+<p>このスクリーンを通して，
+視点の反対側（Ｚ軸上正の方向）の空間を見た画像の作成について考えます．
+このスクリーンを視点側から見ると，
+下図の左のように見えます．</p>
+
+<div class="figure">
+<img src="02-06.gif" width="360" height="165" alt="スクリーンの座標系">
+</div>
+
+<p>このスクリーンの左端の位置は
+a，右端の位置は -a，上端の位置は 1，下端の位置は -1 です．
+このスクリーンを通して見えるシーンを，
+同図右のように幅 xw，高さ yw の画像として出力します．
+スクリーンの中心は，出力画像の (xw/2, yw/2) の位置にあります．
+この位置を (xc, yc) とします．</p>
+
+<p>この条件で，出力画像上の点 (x,y) に対応する，
+スクリーン上の点 (xs, ys) を求めてください．</p>
+
+<pre class="source">
+xs = ?
+ys = ?
+</pre>
+
+<p class="hint">
+<a href="02-h4.html">どうしても分からなければ…</a></p>
+
+<h2>（６）視線ベクトルの算出</h2>
+
+<p>この視点から出てスクリーン上の１点を通る半直線，
+すなわち視線を求めます．</p>
+
+<div class="figure">
+<img src="02-07.gif" width="360" height="120" alt="スクリーンと視線，球の関係">
+</div>
+
+<p>視点は原点にありますから，<b>P</b><sub>e</sub> = (0, 0, 0)
+です．そこで，視点とスクリーンの距離を h として，
+原点にある視点とスクリーン上の１点 (xs, ys)
+を通る直線の方向ベクトル（視線ベクトル）
+<b>V</b> = (vx, vy, vz)
+を求めてください．</p>
+
+<pre class="source">vx = ?
+vy = ?
+vz = ?</pre>
+
+<p class="hint">
+<a href="02-h5.html">どうしても分からなければ…</a></p>
+
+<h2>（７）視線と球の交差部分を描く</h2>
+
+<p>以上をもとに，
+
+<ul>
+<li>視点の位置 <b>P</b><sub>e</sub> = (0, 0, 0)</li>
+<li>視点とスクリーンの距離 h = 1</li>
+<li>スクリーンのアスペクト比 a = xw / yw</li>
+<li>球の中心 <b>P</b><sub>c</sub> = (cx, cy, cz) = (0, 0, 4)</li>
+<li>球の半径 r = 2</li>
+</ul>
+
+という条件で，trace() を使って視線が球と交差する場合は白い点，
+交差しない場合は青い点を打つよう render()
+を変更してください．</p>
+
+<div class="figure">
+<img src="02-08.gif" width="360" height="288" alt="シーン">
+</div>
+
+<p>視点の位置 <b>P</b><sub>e</sub> と視点とスクリーンの距離 h
+は，それぞれ Camera という構造体の変数 camera
+の要素 p と要素 h に格納するものとします．</p>
+
+<pre class="source">
+struct Camera {
+  float p[3];  /* 視点の位置 <b>P</b><sub>e</sub> */
+  float h;     /* 視点とスクリーンの距離 h */
+};
+
+/*
+** 視点のデータ
+*/
+struct Camera camera = {
+  { 0.0, 0.0, 0.0 },
+  1.0,
+};
+</pre>
+
+<p class="hint">
+<a href="diy.html">どうしても分からなければ…</a></p>
+
+<p><a href="03.html">【次：課題０３】</a></p>
+</body>
+</html>

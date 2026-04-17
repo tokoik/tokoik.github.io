@@ -1,0 +1,76 @@
+<head>
+<title>情報基礎演習II − 課題３２</title>
+</head>
+
+<body>
+
+<h3>課題３２</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+配列変数の先頭の要素から探して、
+0 でない要素を見つけたらその添字を答えるプログラムです。
+この例のように、for によって繰り返される処理を書かない場合もあります。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+int data[] = { 0, 0, 0, 0, 0, 10, 0, 20, 0 };
+int main(void)
+{
+    int i;
+    for (i = 0; data[i] == 0; i++) /* 何もしない */;
+    printf("%d 番目に %d があります\n", i, data[i]);
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>上の例を参考にして、
+入力した行の長さ（文字数）を求めるプログラムを作成してください。
+ソースプログラムのファイル名は kadai32.c としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai32
+** 動作: 文字列の長さ
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char line[100];
+    int length;
+
+    scanf("%99s", line);
+
+    /* この部分にプログラムを書く */
+        
+    printf("行の長さは %d 文字\n", length);
+    return 0;
+}
+</pre>
+</table>
+</p>
+
+<li>kadai32.c をコンパイル／リンクして kadai32 という実行プログラムを
+作ってください。
+<p>
+
+<li>kadai32 が正常に実行できたら、 kadai32.c をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai32 としてください。
+
+</ol>
+
+</body>

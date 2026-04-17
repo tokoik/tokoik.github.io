@@ -1,0 +1,601 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<head>
+<title>情報処理 I － 第１２回：ホームページ作成（応用編）</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<H1>情報処理 I - 第１２回</H1>
+<HR>
+<H2>１．ホームページ作成（応用編）</H2>
+<HR>
+<H3>１．１　表の作成</H3>
+<P>表は、マス目（セル）の内容を <TT>&lt;td&gt;</TT> ～
+<TT>&lt;/td&gt;</TT> または <TT>&lt;th&gt;</TT> ～
+<TT>&lt;/th&gt;</TT> ではさみ、それらの１行分を <TT>&lt;tr&gt;</TT> ～
+<TT>&lt;/tr&gt;</TT> ではさんで、全体を <TT>&lt;table&gt;</TT> ～
+<TT>&lt;/table&gt;</TT> ではさんで作ります。<TT>&lt;th&gt;</TT> ～
+<TT>&lt;/th&gt;</TT> は<B>表の見出し欄</B>に使います。</P>
+<P>３行４列の表（うち１行と１列は見出し）を書くには、次のように記述します。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>&lt;table&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;&lt;/th&gt;
+  &lt;th&gt;第１列&lt;/th&gt;
+  &lt;th&gt;第２列&lt;/th&gt;
+  &lt;th&gt;第３列&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;第１行&lt;/th&gt;
+  &lt;td&gt;第１行第１列&lt;/td&gt;
+  &lt;td&gt;第１行第２列&lt;/td&gt;
+  &lt;td&gt;第１行第３列&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;第２行&lt;/th&gt;
+  &lt;td&gt;第２行第１列&lt;/td&gt;
+  &lt;td&gt;第２行第２列&lt;/td&gt;
+  &lt;td&gt;第２行第３列&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これは下のような表になります。</P>
+<CENTER>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH></TH>
+      <TH>第１列</TH>
+      <TH>第２列</TH>
+      <TH>第３列</TH>
+    </TR>
+    <TR>
+      <TH>第１行</TH>
+      <TD>第１行第１列</TD>
+      <TD>第１行第２列</TD>
+      <TD>第１行第３列</TD>
+    </TR>
+    <TR>
+      <TH>第２行</TH>
+      <TD>第２行第１列</TD>
+      <TD>第２行第２列</TD>
+      <TD>第２行第３列</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>マス目の間に罫線を引くには、 <TT>&lt;table <B>border</B>&gt;</TT> ～ <TT>&lt;/table&gt;</TT> とします。</P>
+<CENTER>
+<TABLE border="">
+  <TBODY>
+    <TR>
+      <TH></TH>
+      <TH>第１列</TH>
+      <TH>第２列</TH>
+      <TH>第３列</TH>
+    </TR>
+    <TR>
+      <TH>第１行</TH>
+      <TD>第１行第１列</TD>
+      <TD>第１行第２列</TD>
+      <TD>第１行第３列</TD>
+    </TR>
+    <TR>
+      <TH>第２行</TH>
+      <TD>第２行第１列</TD>
+      <TD>第２行第２列</TD>
+      <TD>第２行第３列</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BLOCKQUOTE>
+<DL>
+  <DT>表全体の幅と高さ
+  <DD>表全体の幅や高さは、<TT>&lt;table&gt;</TT> タグにそれぞれ width=、height= 属性を付けて指定します。
+  数値（ピクセル数）で指定した場合は固定幅になります。
+  % をつけると Web ブラウザのウィンドウのサイズからの割合になります。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table width=&quot;512&quot; height=&quot;100%&quot;&gt;</TT> ～ <TT>&lt;/table&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>表の外枠の太さ
+  <DD>表の外枠の太さは、<TT>&lt;table&gt;</TT> タグに border= 属性をつけて指定します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table border=&quot;10&quot;&gt;</TT> ～ <TT>&lt;/table&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>罫線の太さ
+  <DD>罫線の太さは、<TT>&lt;table&gt;</TT> タグに cellspacing= 属性をつけて指定します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table border cellspacing=&quot;10&quot;&gt;</TT> ～ <TT>&lt;/table&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>罫線とデータとの間隔
+  <DD>罫線とマス目内のデータとの間隔は、<TT>&lt;table&gt;</TT> タグに cellpadding= 属性をつけて指定します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table border cellpadding=&quot;10&quot;&gt;</TT> ～ <TT>&lt;/table&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>マス目の幅と高さ
+  <DD>マス目の幅や高さは、<TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグにそれぞれ width=、height= 属性を付けて指定します。
+  数値（ピクセル数）で指定した場合は固定幅になります。
+  % をつけると Web ブラウザの表全体のサイズからの割合になります。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td width=&quot;20%&quot; height=&quot;30&quot;&gt;</TT> ～ <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>マス目の背景色
+  <DD>マス目の背景色は、<TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグに bgcolor= 属性を付けて指定します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td bgcolor=&quot;#ff0000&quot;&gt;</TT> ここは赤色のマス目 <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>マス目内のデータの水平位置
+  <DD>データをマス目のどの部分のそろえるかは、
+  <TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグに align= 属性を付けて指定します。 align=
+  には &quot;left&quot;, &quot;center&quot;,
+  &quot;right&quot; が指定できます。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td align=&quot;center&quot;&gt;</TT> ここは中央揃え <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>マス目内のデータの垂直位置
+  <DD>データをマス目のどの高さに表示するかは、
+  <TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグに valign= 属性を付けて指定します。
+  valign= には &quot;bottom&quot;, &quot;middle&quot;,
+  &quot;top&quot; が指定できます。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td valign=&quot;top&quot;&gt;</TT> ここはマス目の上端 <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>複数行にわたるマス目
+  <DD>複数行にわたるマス目を作るには、 <TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグに rowspan= 属性を使用します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td rowspan=&quot;2&quot;&gt;</TT> ここは２行にわたるマス目 <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>複数列にわたるマス目
+  <DD>複数列にわたるマス目を作るには、 <TT>&lt;td&gt;</TT> または <TT>&lt;th&gt;</TT> タグに colspan= 属性を使用します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;td colspan=&quot;2&quot;&gt;</TT> ここは２列にわたるマス目 <TT>&lt;/td&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <DT>表のキャプション
+  <DD>表のキャプションは、 <TT>&lt;caption&gt;</TT> ～ <TT>&lt;/caption&gt;</TT> タグを使ってつけます。 キャプションの位置は
+  align= 属性で指定します。<BR>
+  <TABLE border="" width="80%">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table width=&quot;512&quot; height=&quot;100%&quot;&gt;</TT><BR>
+        <TT>&lt;caption&gt;</TT>表のキャプション（説明）<TT>&lt;/caption&gt;</TT><BR>
+        <TT>...<BR>
+        &lt;/table&gt; </TT></TD>
+      </TR>
+      <TR>
+        <TD bgcolor="#ffffff"><TT>&lt;table width=&quot;512&quot; height=&quot;100%&quot;&gt;</TT><BR>
+        <TT>&lt;caption align=&quot;bottom&quot;&gt;</TT>このキャプションは表の下<TT>&lt;/caption&gt;</TT><BR>
+        <TT>...<BR>
+        &lt;/table&gt;</TT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+</DL>
+</BLOCKQUOTE>
+<H3>１．２　クリッカブルマップ</H3>
+<P>ホットスポットとして画像を使用したとき、
+通常では画像全体で一つの URL にリンクします。
+これを、<B>画像上のクリックした位置によって異なる URL
+にリンクする</B>ようにしたものを、<B>クリッカブルマップ</B>と呼びます。</P>
+<P>クリッカブルマップの実現方法には、 <B>サーバーサイド</B>と<B>クライアントサイド</B>という２つの方法があります。 サーバーサイドは
+Web サーバ側でクリッカブルマップを実現する方法で、以前から用いられていますが実現方法にいくつかのバリエーションがあります。</P>
+<P>クライアントサイドは Web ブラウザ側で実現する方法で、これにも２つの方法があります。その一つは、表を使う方法です。下の左のような画像を、右のように要素ごとに分解します。
+この作業は Photoshop などでできます。</P>
+<CENTER>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TD rowspan="4"><IMG src="map.gif"></TD>
+      <TD rowspan="4">→</TD>
+      <TD colspan="2"><IMG src="map1.gif"></TD>
+    </TR>
+    <TR>
+      <TD rowspan="3"><IMG src="map5.gif"></TD>
+      <TD><IMG src="map2.gif"></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="map3.gif"></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="map4.gif"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これを、<TT>&lt;table border=&quot;0&quot; cellspacing=&quot;0&quot;
+cellpadding=&quot;0&quot;&gt;</TT> で<B>罫線の太さを 0</B> にして表のマス目の中に置けば、１枚の画像のように見えます。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>&lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
+
+&lt;tr&gt;
+&lt;td colspan=&quot;2&quot;&gt;&lt;a href=&quot;http://www.wakayama-u.ac.jp/&quot;&gt;
+&lt;img src=&quot;map1.gif&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td rowspan=&quot;3&quot;&gt;&lt;img src=&quot;map5.gif&quot;&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.edu.wakayama-u.ac.jp/&quot;&gt;
+&lt;img src=&quot;map2.gif&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.eco.wakayama-u.ac.jp/&quot;&gt;
+&lt;img src=&quot;map3.gif&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;http://www.sys.wakayama-u.ac.jp/&quot;&gt;
+&lt;img src=&quot;map4.gif&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>そして、この一つ一つの画像をホットスポットにすれば、
+クリッカブルマップが出来上がります。 その際、<TT>&lt;img src=&quot;...&quot; border=&quot;0&quot;&gt;</TT> として、 画像をホットスポットにしたときに現れる枠を消しておきます。</P>
+<CENTER>
+<TABLE border="0" cellspacing="0" cellpadding="0">
+  <TBODY>
+    <TR>
+      <TD colspan="2"><A href="http://www.wakayama-u.ac.jp/"><IMG src="map1.gif" border="0"></A></TD>
+    </TR>
+    <TR>
+      <TD rowspan="3"><IMG src="map5.gif"></TD>
+      <TD><A href="http://www.edu.wakayama-u.ac.jp/"><IMG src="map2.gif" border="0"></A></TD>
+    </TR>
+    <TR>
+      <TD><A href="http://www.eco.wakayama-u.ac.jp/"><IMG src="map3.gif" border="0"></A></TD>
+    </TR>
+    <TR>
+      <TD><A href="http://www.sys.wakayama-u.ac.jp/"><IMG src="map4.gif" border="0"></A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><P>クライアントサイドでクリッカブルマップを作るもうひとつの方法は、
+<TT>&lt;map name=&quot;マップ名&quot;&gt;</TT> タグを使う方法です。ただし、こちらの方法は古い
+Web ブラウザでは表示できません。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>&lt;map name=&quot;organization&quot;&gt;
+&lt;area
+  shape=&quot;rect&quot;
+  coords=&quot;34,155,244,189&quot;
+  href=&quot;http://www.sys.wakayama-u.ac.jp/&quot;&gt;
+&lt;area
+  shape=&quot;rect&quot;
+  coords=&quot;34,115,244,149&quot;
+  href=&quot;http://www.eco.wakayama-u.ac.jp/&quot;&gt;
+&lt;area
+  shape=&quot;rect&quot;
+  coords=&quot;34,75,244,109&quot;
+  href=&quot;http://www.edu.wakayama-u.ac.jp/&quot;&gt;
+&lt;area
+  shape=&quot;rect&quot;
+  coords=&quot;9,14,224,59&quot;
+  href=&quot;http://www.wakayama-u.ac.jp/&quot;&gt;
+&lt;/map&gt;
+
+&lt;img src=&quot;map.gif&quot; usemap=&quot;#organization&quot;&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI><TT>&lt;map name=&quot;マップ名&quot;&gt;</TT> ～ <TT>&lt;/map&gt;</TT> でマップを定義し、 そのマップ名を <TT>&lt;img src=&quot;マップ画像&quot; usemap=&quot;#マップ名&quot;&gt;</TT> で指定します。
+  <LI><TT>&lt;area&gt;</TT> タグの shape= 属性は、マップ画像上のホットスポットにする領域の形で、
+  &quot;rect&quot;（長方形）、&quot;circle&quot;（円）が指定できます。また
+  coord= 属性は、 shape= 属性で指定したホットスポットの座標を定義します。
+  shape=&quot;rect&quot; の場合は長方形の左上の頂点と右下の頂点の位置を指定します。
+  shape=&quot;circle&quot; の場合は中心の位置と半径を指定します。
+  <UL>
+    <LI>&lt;area shape=&quot;<B>rect</B>&quot; coords=&quot;<EM>左上のx座標</EM>,<EM>左上のy座標</EM>,<EM>右下のx座標</EM>,<EM>右下のy座標</EM>&quot; href=&quot;<EM>url</EM>&quot;&gt;
+    <LI>&lt;area shape=&quot;<B>circle</B>&quot; coords=&quot;<EM>中心位置のx座標</EM>,<EM>中心位置のy座標</EM>,<EM>半径</EM>&quot; href=&quot;<EM>url</EM>&quot;&gt;
+  </UL>
+  <LI><TT>&lt;area&gt;</TT> タグの href= 属性は、 そのホットスポットにリンクする
+  URL を指定します。
+  <LI>全体の枠を消したければ、&lt;img&gt; タグに
+  border=&quot;0&quot; を追加してください。
+</UL>
+<P><MAP name="organization">
+  <AREA shape="rect" coords="34,155,244,189" href="http://www.sys.wakayama-u.ac.jp/">
+  <AREA shape="rect" coords="34,115,244,149" href="http://www.eco.wakayama-u.ac.jp/">
+  <AREA shape="rect" coords="34,75,244,109" href="http://www.edu.wakayama-u.ac.jp/">
+  <AREA shape="rect" coords="9,14,224,59" href="http://www.wakayama-u.ac.jp/">
+</MAP></P>
+<CENTER><IMG src="map.gif" usemap="#organization"></CENTER>
+<H3>１．３　アニメーション GIF</H3>
+<P>複数の GIF ファイルをもとに、 パラパラ漫画のような簡単なアニメーションを作ることができます。</P>
+<CENTER>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><IMG src="movie1.gif"><BR>
+      movie1.gif</TH>
+      <TH><IMG src="movie2.gif"><BR>
+      movie2.gif</TH>
+      <TH><IMG src="movie3.gif"><BR>
+      movie3.gif</TH>
+      <TH><IMG src="movie4.gif"><BR>
+      movie4.gif</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>上の４つの GIF ファイルをもとにアニメーション
+GIF ファイルを作成すると、下のようになります。</P>
+<CENTER><IMG src="movie.gif"><BR>
+<B>movie.gif</B></CENTER>
+<P>このような図は Adobe ImageRady などで作成できます。</P>
+<H3>１．４　アクセスカウンタ</H3>
+<P>SSI (Server Side Include) という機能を使えば、Web
+ページ中にコマンドの出力を埋め込むことができます。この機能を使って<A href="07.html#kadai">第７回の課題</A>で作成した counter.sh の出力を Web ページに埋め込めば、簡単なアクセスカウンタが実現できます。</P>
+<CENTER>
+<TABLE border="" align="center" width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">注意</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">
+      <P>SSI は間違った使い方をするとサーバにトラブルを起こしたり、大きなセキュリティホールを作る場合があります。</P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>counter.sh を public_html の下にコピーしてください。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cp counter.sh ~/public_html</U><STRONG>[Enter]</STRONG></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER></CENTER>
+<P>次に、public_html に下のような HTML ファイルを作成してください。
+ファイル名は counter.<B>s</B>html とでもしてください。 以前に作成した
+Web ページに組み込んでも構いません。 その場合は拡張子を
+.<FONT color="#ff0000">s</FONT>html に変更してください。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;counter test&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+あなたは <B>&lt;!--#exec cmd=&quot;./counter.sh&quot;--&gt;</B> 番目の訪問者です。
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>こうすると、このページにアクセスするたびに
+counter.sh が実行されて、その出力が <B>&lt;!--<FONT color="#808080">...</FONT>--&gt;</B> の部分と置き換わります。counter.sh の出力が
+1234 なら、この部分は次のようになります。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>あなたは <B>1234</B> 番目の訪問者です。</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>参考までに、別のファイル（下の例では file.txt）を埋め込むときには次のようにします。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>あなたは <B>&lt;!--#include file=&quot;file.txt&quot;--&gt;</B> 番目の訪問者です。</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE border="" align="center" width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">注意</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">
+      <P>counter.sh はカウントデータ (count.dat) の更新時にファイルをロックしていないので、複数の人が同時にアクセスしたときなどにカウントが狂ってしまいます。ほとんど実用にはなりませんので、注意してください。</P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>グラフィカルなカウンタを作るためには、<a href="07.html#perl">Perl</a> で
+<a href="http://stein.cshl.org/WWW/software/GD/">GD</a>
+（日本語訳は<a href="http://member.nifty.ne.jp/hippo2000/perltips/GD.html">ここ</a>）というモジュールを使ったりすると便利なのですが、ここでは
+counter.sh の出力を工夫してみます。まず、次のような数字の画像を
+public_html 内に用意したとします。</P>
+<center>
+<table border width="50%">
+<tr>
+<td bgcolor="#ffffaa" align="center"><img src="0.png"></td>
+<td bgcolor="#ffffaa" align="center"><img src="1.png"></td>
+<td bgcolor="#ffffaa" align="center"><img src="2.png"></td>
+<td bgcolor="#ffffaa" align="center"><img src="3.png"></td>
+<td bgcolor="#ffffaa" align="center"><img src="4.png"></td>
+</tr>
+<tr>
+<th bgcolor="#ffeeaa">0.png</th>
+<th bgcolor="#ffeeaa">1.png</th>
+<th bgcolor="#ffeeaa">2.png</th>
+<th bgcolor="#ffeeaa">3.png</th>
+<th bgcolor="#ffeeaa">4.png</th>
+</tr>
+<tr>
+<td bgcolor="#ffffaa"  align="center"><img src="5.png"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="6.png"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="7.png"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="8.png"></td>
+<td bgcolor="#ffffaa"  align="center"><img src="9.png"></td>
+</tr>
+<tr>
+<th bgcolor="#ffeeaa">5.png</th>
+<th bgcolor="#ffeeaa">6.png</th>
+<th bgcolor="#ffeeaa">7.png</th>
+<th bgcolor="#ffeeaa">8.png</th>
+<th bgcolor="#ffeeaa">9.png</th>
+</tr>
+</table>
+</center>
+
+<p>このとき、HTML で次のように表現すれば、<img src="1.png"><img src="2.png"><img src="3.png"><img src="4.png"> という表示が得られます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#ffffff"><pre>&lt;img src=&quot;<B>1</B>.png&quot;&gt;&lt;img src=&quot;<B>2</B>.png&quot;&gt;&lt;img src=&quot;<B>3</B>.png&quot;&gt;&lt;img src=&quot;<B>4</B>.png&quot;&gt;</pre></td></tr>
+</table>
+</center>
+<P>つまり、counter.sh の 1234 といった出力を上記のように<B>変換</B>すれば、グラフィカルなカウンタが実現できます。このような<B>文字列の置き換え</B>を行うには、<B>sed</B> というコマンドを使うと便利です。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>% <U>echo 1234 | <B>sed 's/\(.\)/&lt;img src=&quot;\1.png&quot;&gt;/g'</B></U><STRONG>[Enter]</STRONG>
+&lt;img src=&quot;1.png&quot;&gt;&lt;img src=&quot;2.png&quot;&gt;&lt;img src=&quot;3.png&quot;&gt;&lt;img src=&quot;4.png&quot;&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>したがって、上の sed コマンド（<B>太字</B>部分）を counter.sh で<B>数値を出力している部分</B>に組み込めば（<A href="03.html#pipe">パイプ</A>するわけですね）、グラフィカルなアクセスカウンタが実現できます。</P>
+<H3>１．５　メールをもらう</H3>
+<P>自分の Web ページを見てくれた人からメールをもらいたいときは、
+自分のメールアドレスを Web ページに明記しておきましょう。
+これは、メールをもらうだけでなく、 そのページの責任の所在（文責）を明らかにするという点でも、
+意味のあることです。</P>
+<P><TT>&lt;a href=&quot;mailto:メールアドレス&quot;&gt;</TT> ～ <TT>&lt;/a&gt;</TT> というように、 ホットスポットのリンク先に
+Web ページの URL ではなく &quot;mailto:自分のメールアドレス&quot;
+を指定すると、 そのホットスポットをクリックしたときに
+Web ブラウザのメール機能を呼び出すようにできます。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>&lt;a href=&quot;mailto:tokoi@sys.wakayama-u.ac.jp&quot;&gt;
+&lt;img src=&quot;mail.gif&quot; align=&quot;middle&quot; border=&quot;0&quot;&gt;
+&lt;font size=&quot;+2&quot;&gt;メール下さい&lt;/font&gt;&lt;/a&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これは下のようになります。この絵か文字をクリックしてみてください。</P>
+<CENTER>
+<TABLE border="" width="90%">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><A href="mailto:tokoi@sys.wakayama-u.ac.jp"><IMG src="mail.gif" align="middle" border="0"> <FONT size="+2">メール下さい</FONT></A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<HR>
+<H2>課題</H2>
+<HR>
+<P>以下のページをつくり、 自分の index.html
+からリンクせよ。</P>
+<UL>
+  <LI>自分の時間割の表のページ
+  <LI>クリッカブルマップを含むページ
+  <LI>アクセスカウンタを含むページ
+</UL>
+<P>課題ができたら、メールで tokoi@sys.wakayama-u.ac.jp
+まで知らせてください。私が確認したら返事を書きますので、それ以降は自由に変更していただいて結構です。時間割へのリンクなんかははずしておいてください。</P>
+</BODY>

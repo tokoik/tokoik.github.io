@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="style.css">
+<TITLE>ログイン，ウィンドウシステム，Webブラウザ，ログアウト</TITLE>
+</HEAD>
+<BODY>
+<H1>ログイン，ウィンドウシステム，Webブラウザ，ログアウト</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>この講義の目的を知る
+  <LI>演習用コンピュータの使い方を知る
+  <LI>Web ブラウザの初期設定を行う
+</OL>
+<H2>１．概要説明</H2>
+<H3>１．１　講義の目的</H3>
+<P>この演習室のコンピュータは普通のパソコンですが，この講義は Windows ではなく
+<A href="http://www.linux.or.jp/general/linux.html" target="_blank">Linux</A> を使って進めます．実社会では Windows が９割以上を占めるため，その<EM>使い方</EM>について学ぶことは非常に重要ですが，この講義の目的はコンピュータの使い方を学ぶことではなく，Web
+というメカニズムを用いたサービスを提供する方法を学ぶところにあります．</P>
+<H3>１．２　質問</H3>
+<OL>
+  <LI>自宅にパソコンを持っていますか？
+  <LI>持っているパソコンでは Windows PC ですか？ Macintosh ですか？
+  <LI>持っているパソコンの CPU は，次のうちのどれですか？
+Pentium III, Pentium 4, Celeron, Athron, Duron, PowerPC, その他
+  <LI>質問 3 の意味はわかりますか？
+  <LI>インターネットを使ったことはありますか？
+  <LI>自宅でインターネットに接続していますか？
+  <LI>インターネットのメールアドレスを持っていますか（携帯以外）？
+  <LI>ホームページを持っていますか？
+</OL>
+<H3>１．３　お願い</H3>
+<P>この講義では，皆さんのコンピュータの使用経験にかかわらず，皆，同じスタートラインに立つものして進めます．したがって，</P>
+<DL>
+  <DT>コンピュータの使用経験が少ない人には
+  <DD>できるだけ平易な説明をするよう心がけますが，わからないことがあればどんどん質問してください．
+  <DT>コンピュータの使用経験が豊富な人は
+  <DD>自分でどんどん先に進んで構いません．でも，近くで困っている人を見かけたら手伝ってあげてください．
+</DL>
+<H3>１．４　使用するコンピュータ</H3>
+<DL>
+  <DT>コンピュータ本体
+  <DD>IBM IntelliStation E Pro (CPU: Pentium III 1GHz, メモリ 128MB)
+  <DT>オペレーティングシステム
+  <DD>Red Hat Linux 7.1, 他に Windows 2000 も使用可能
+</DL>
+<BLOCKQUOTE>
+<DIV class="header">メモリとCPU</DIV>
+<dl>
+<dt>メモリ</dt>
+<dd>コンピュータは計算をする機械ですが，そのためには計算の対象となる<EM>データ</EM>や<EM>計算の手順</EM>をどこかに覚えておく必要があります．そのための機構が<EM>メモリ</EM>です．メモリの容量が大きいほど，たくさんのデータやプログラムを一度に扱えることになります．128MB（メガバイト）は
+128×1024×1024 バイト，英字で１億３千万文字あまりを記憶できます．なお，Pentium,
+Celeloon, Athron, Duron, PowerPC などは，CPU に付けられた<EM>ブランド名</EM>です．</dd>
+<dt>CPU</dt>
+<dd>CPU (Central Processing Unit: 中央演算処理装置) は，メモリから計算の手順やデータを取り出しながら計算を進め答えを求める，コンピュータの<EM>心臓部</EM>です．CPUの計算は一定のタイミングに沿って規則的に進められますが，そのタイミングは動作周波数（動作クロック）で決まります．一般に，この値が高いほど速く計算できることになります．1GHz（ギガヘルツ）は
+10<SUP>9</SUP>Hzです．</dd>
+</dl>
+</BLOCKQUOTE>
+<H3>１．５　ネットワーク</H3>
+<P>それぞれのパソコンはこの教室内の<EM>ローカルエリアネットワーク (LAN)</EM> に接続され， 和歌山大学全体の LAN を通じて大学の外のネットワーク，いわゆる<A href="http://www.wakayama-u.ac.jp/%7Etokoi/lecture/shori1/01-h1.html">インターネット</A>に（常時）接続されています． したがって，皆さんはこのコンピュータを使っていつでも自由に<EM>メール</EM>（電子メール，Eメール）を送ったり <EM>Web サーフィン</EM>（「インターネット」の「ホームページ」を「見る」こと）を行うことができます．もちろん，ワープロを使ってレポートを書いたり，自分の
+<EM>Web ページ</EM>や CG を作ったりすることもできます．</P>
+<P>皆さんがこのコンピュータ上で作成した<EM>ファイル</EM>（データやプログラム等）は， LAN を介して別の場所にある<EM>ファイルサーバと</EM>呼ばれる<EM>コンピュータ</EM>に保存されます． したがって，この教室の<EM>どのコンピュータを使っても</EM>， 以前に保存したデータやプログラムを取り出すことができます．また，メールは<EM>メールサーバ</EM>に蓄えられます．</P>
+<DIV class="figure"><IMG src="01_files/network.gif" alt="演習室のネットワーク" height="332" width="601"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">上図にある機器の説明</DIV>
+<dl>
+<dt>RAID ドライブ</dt>
+<dd>冗長構成をとることによって，装置の一部が故障してもデータは保全される記憶装置です．</dd>
+<dt>ハブ</dt>
+<dd>ネットワークの<EM>集線装置</EM>です．</dd>
+<dt>ルータ</dt>
+<dd>ネットワーク同士を相互に接続する<EM>交換機</EM>です．</dd>
+</dl>
+</BLOCKQUOTE>
+<H2>２．電源の投入</H2>
+<H3>２．１　電源スイッチ</H3>
+<UL>
+  <LI>電源スイッチは本体右側にある<EM>丸いボタン</EM>です．
+  <LI>ディスプレイの電源は本体と連動していません．先にディスプレイの電源を入れてから，本体の電源を入れてください．
+  <LI>ディスプレイのパイロットランプが点滅しているときは<EM>節電モード</EM>になっています． この場合は本体の電源だけを入れてください．
+</UL>
+<DIV class="figure"><IMG src="01_files/switch.jpg" alt="本体のボタンとランプ" height="300" width="400"></DIV>
+<H3>２．２　オペレーティングシステムの選択</H3>
+<P>電源を入れると，最初に<EM>オペレーティングシステム</EM>の選択画面が現れます．</P>
+<DIV class="figure"><IMG src="01_files/kidou.jpg" alt="オペレーティングシステムの選択画面" height="300" width="400"></DIV>
+<P>このまま何もせずにいれば Windows 2000 が起動してしまいますので，すぐに<KBD>[↓]</KBD>をタイプして <EM>RedHat 7.1</EM> を選んでください．</P>
+<DL>
+  <DT>オペレーティングシステム
+  <DD>コンピュータ自体を管理するソフトウェアです．
+  <DT>Linux
+  <DD>「リナックス」あるいは「リーナックス」と読みます．「ライナックス」と読むと嫌われることがあるようです．Unix
+  互換のオペレーティングシステムのひとつで，一般の商用ソフトウェアとは異なり自由に配布することができます．Linux
+  に関する情報は，「<A href="http://www.linux.or.jp/" target="_blank">日本の Linux 情報</A>」などから入手できます． Linux が何であるかを知るには，ここの「<A href="http://www.linux.or.jp/beginners/index.html" target="_blank">初心者必見</A>」を読んでみて下さい．
+  <DT>Unix
+  <DD>「ユニックス」と読みます．もともとは AT&amp;T ベル研究所で開発された，歴史のあるオペレーティングシステムです．現在でもサーバ用
+  OS として広く使われているほか，Windows をはじめ，現在のオペレーティングシステムにも大きな影響を与えています．
+</DL>
+<P>コンピュータの起動に成功すると，次のようなログインウィンドウが現れます．もし
+Windows 2000 Professional を起動してしまったときは，<KBD>[Ctrl]</KBD> キーと <KBD>[Alt]</KBD> キーを同時に押しながら <KBD>[Delete]</KBD> キーをタイプ (<KBD>Ctrl-Alt-Del</KBD>) し， Windows 2000 のログインパネルから<EM>再起動</EM>を選んでください．</P>
+<DIV class="figure"><IMG src="01_files/login.jpg" alt="ログインウィンドウ" height="300" width="400"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">システム工学部情報通信システム学科・デザイン情報学科の学生の皆さんへの注意</DIV>
+<P>システム情報学センターの Linux (Red Hat Linux 7.1) は，システム工学部Ａ棟６０１・６０２号室の演習室の
+Linux (Vine Linux 2.6) との<EM>互換性が十分ではありません</EM>．そのため，システム工学部で Linux を使用したことがある場合，システム情報学センターでは
+Linux が<STRONG>正常に動作しない</STRONG>場合があります．また，これとは逆にシステム情報学センターの Linux を使用した場合も，その後にシステム工学部の
+Linux が正常に動作しなくなることがあります．</P>
+<P>これを避けるためには，ユーザの初期設定ファイルを削除する作業が必要になります．それには，まず上のログインウィンドウの「セッション」で「failsafe」を選んでからログインしてください．するとターミナルのウィンドウが一つだけ開きますから，そこで次のコマンドを実行してください．&quot;$&quot;
+はプロンプトです．</P>
+<PRE class="source">$ \rm -rf .gnome* .sawfish*</PRE>
+<P>failsafe モードからログアウトするには，ターミナルのウィンドウで<KBD>Ctrl-D</KBD>をタイプするか，exit とタイプして改行してください．</P>
+</BLOCKQUOTE>
+<H3><A class="label" name="os">２．３　オペレーティングシステムについて</A></H3>
+<P><EM>オペレーティングシステム</EM>というソフトウェアには，大雑把に言って次の２つの<EM>役割</EM>があります．</P>
+<OL>
+  <LI>コンピュータのもつ&#65378;資源&#65379;の管理
+  <LI>コンピュータの「機能」の抽象化
+</OL>
+<P>コンピュータは <EM>CPU</EM> をはじめ，<EM>メモリ</EM>，ハードディスク，ディスプレイ，キーボード，マウスなど，数多くの<EM>部品</EM>で構成されています．このような部品や，その<EM>部品の集まりであるコンピュータの本体</EM>のことを，私たちはコンピュータの<EM>ハードウェア</EM>と呼んでいます．私たちがコンピュータを使うときは，このハードウェアの機能をうまく組み合わせて動作させるための<EM>知識</EM>が必要になります．例えばワープロに１文字打ち込むという何でもない作業でも，コンピュータはタイプされたキーの文字が何であるかを調べ，それを画面に表示し，記憶している文書の中に挿入するという仕事をしています．つまり，こういった細々とした知識（手順）をコンピュータが知っているからこそ，利用者は自分の目的だけに専念して作業を進めることができるのです．このような知識のことを，私たちはコンピュータの<EM>ソフトウェア</EM>と呼んでいます．</P>
+<P>このソフトウェアのうち，利用者が実際に仕事をするために使うワープロなどのソフトウェアのことを，<EM>アプリケーションソフトウェア</EM>と呼びます．一方，コンピュータのハードウェア自体を制御したり，アプリケーションソフトウェアがハードウェアの機能を使うときに，その仲立ちをするための知識として働くソフトウェアのことを，「基本ソフトウェア」あるいは「<EM>オペレーティングシステム(OS)</EM>」と言います．</P>
+<P>コンピュータの個々の部品や，それらが果たす機能（CPUなら計算する機能，メモリやディスクなら記憶する機能）は有限ですから（無限に速く計算することもできないし，記憶できる情報の量にも限界がある），これらは限りある資源のようなものです．したがって，このようなものをコンピュータの<EM>資源</EM>（リソース）と呼んだりします．</P>
+<P>オペレーティングシステムは，この資源を効率よく使えるように<EM>管理</EM>するソフトウェアです．そしてオペレーティングシステムは，アプリケーションソフトウェアに対して，自分が管理しているハードウェアの機能を使用するための<EM>抽象化</EM>された<EM>インタフェース</EM>を提供します．</P>
+<H2>３．キーボードの操作</H2>
+<H3>３．１　キーボードの各キーの役割</H3>
+<P>キーボードのキーにはいくつかの種類があります．</P>
+<DL>
+  <DT>文字キー
+  <DD>アルファベットやアルファベットの上にある数字／記号のキーは，そのキーをタイプすればその文字が現れます．
+  <DT>スペースバー
+  <DD>アルファベットのキーの下にある横に長いキーで，<EM>空白文字</EM>が現れます．単語の区切りなどに使います．
+  <DT>Backspace
+  <DD>バックスペースキーと言います．直前にタイプした文字を１文字消します．
+  <DT>Enter
+  <DD>改行キーとも言います． キーボードによっては Return と書かれているものもあります．タイピング中に改行するときに使いますが，コンピュータにおいて「改行する」ことは，
+  しばしばそれまでタイプした文字を<EM>コンピュータ側に送る</EM>（入力する）ことを意味します．
+  <DT>Shift
+  <DD>シフトキーと言います． アルファベットの<EM>大文字</EM>をタイプするには，このキーを<EM>押しながら</EM>アルファベットのキーをタイプしてください．また，このキーを押しながら数字キーをタイプすると，そのキーの上に書かれている<EM>記号</EM>が出力されます．
+  <DT>Ctrl
+  <DD>コントロールキーと言います． このキーを押しながら文字キーをタイプすると，<EM>制御文字</EM>（コントロールキャラクタ）がコンピュータに送られます．<KBD>[Ctrl]</KBD>キーを押しながら <KBD>A</KBD> のキーをタイプすることを，ここでは <KBD>Ctrl-A</KBD> と表記します．
+  <DT>Alt
+  <DD>オルタナティブキーと言います． このキーも <KBD>[Ctrl]</KBD> キーと同様，他のキーと組み合わせて使用します．<KBD>[Alt]</KBD> キーを押しながら <KBD>A</KBD> のキーをタイプすることを，ここでは <KBD>Alt-A</KBD> と表記します．
+  <DT>Caps Lock
+  <DD><KBD>[Shift]</KBD> を押しながらこのキーを一度押すと，キーボードの右側にある 'A' と書かれたところのランプが点灯し，シフトキーを押さない状態で大文字のアルファベットがタイプできます．もう一度押すと元に戻ります．
+  <DT>Num Lock
+  <DD>このキーを一度押すと， キーボードの右側にある '1' と書かれたところのランプが点灯し，
+  テンキー（キーボードの右側にある数字キー）で数字がタイプできるようになります．もう一度押すと元に戻ります．
+</DL>
+<DIV class="figure"><IMG src="01_files/keyboard.jpg" alt="キーボード" height="228" width="600"></DIV>
+<P>キーボードにはこのほかに矢印キーや種々のファンクションキーがありますが，
+それらに付いては適宜解説します．</P>
+<H2><A name="login" class="label">４．ログイン</A></H2>
+<H3>４．１　ログインの仕方</H3>
+<P>Linux や UNIX 系オペレーティングシステムでは，コンピュータを利用するために，まずそのコンピュータの<EM>ユーザアカウント</EM>（利用権）を取得する必要があります．皆さんのユーザアカウントは，既にシステム情報学センターから取得しているはずです．システム情報学センターの利用登録時に配布される「利用承認書」には，そのユーザアカウントを使用するための登録名（<EM>ユーザ名</EM>）と， その暗証番号（<EM>パスワード</EM>）が記載されています．</P>
+<P>演習室のコンピュータを使用するには，まずそのユーザ名とパスワードを使って，<EM>ログイン</EM>という作業を行う必要があります．それでは，皆さんのユーザ名（ログイン名）とパスワードを使ってコンピュータにログインしてください．なお，Windows
+を使う場合も同じユーザ名とパスワードを使用します．</P>
+<DIV class="figure"><IMG src="01_files/loginname.gif" width="400" height="213" border="0" alt="ユーザ名の入力"></DIV>
+<P>「Login:」の欄にユーザ名を入力します．承認書に書かれているユーザ名を，
+キーボードをタイプして入力してください．打ち間違えたときは，<KBD>[Backspace]</KBD>キーをタイプすれば１文字消すことができます．全部打ち終えたら <KBD>[Enter]</KBD> キーをタイプしてください． すると打ち込んだユーザ名が消えて，次にパスワードの入力を求めてきます．</P>
+<BLOCKQUOTE>今は「セッション」と「言語」を<EM>変更しない</EM>でください．</BLOCKQUOTE>
+<DIV class="figure"><IMG src="01_files/passwd.gif" width="400" height="213" border="0" alt="パスワードの入力"></DIV>
+<P>「Password:」の欄が現れたら，ここにはあなたのパスワードをタイプして入力してください．他人に見られないようにするために，タイプしたパスワードは<EM>画面には表示されません</EM>． 大文字をタイプするには <KBD>[Shift]</KBD> キーを押しながらその文字をタイプしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">ユーザ名やパスワードを打ち間違えたとき</DIV>
+<p>ユーザ名やパスワードを間違えると， 再度ユーザ名の入力画面が現れます．この場合はもう一度ユーザ名から入れなおしてください．</p>
+</BLOCKQUOTE>
+<P>ログインに成功すると次のような画面が現れます．</P>
+<DIV class="figure"><IMG src="01_files/desktop.jpg" alt="ログイン直後の画面" height="300" width="400"></DIV>
+<P>ログイン直後は「Gnome ヒント」というウィンドウが表示されます．コンピュータのしよう上のヒントが示されていますが，一読したら「閉じる」をクリックしてください．</P>
+<H2>５．マウスの操作</H2>
+<H3>５．１　マウスボタンの押し方</H3>
+<P>マウスを机の上で滑らすように動かすと， それにつれて画面上の矢印（マウスカーソル，これは場合によって
+I や時計などいろいろ形を変えます）が動きます．このマウスを動かしてマウスカーソルを“目的地”の上に移動し，そこでボタンを押して，コンピュータの操作をします．</P>
+<P>このボタンの押し方には，いくつかのパターンがあります．</P>
+<DL>
+  <DT>クリック
+  <DD>ボタンを“カチッ”と１回押してすぐに離します．
+  <DT>ダブルクリック
+  <DD>ボタンを“カチカチッ”と２回続けて（0.5 秒以内？）クリックします．
+  <DT>ドラッグ
+  <DD>マウスのボタンを押しながら，マウスを動かします．たいてい，マウスカーソルの位置にある“何か”が，それに引きずられて移動します．
+</DL>
+<H2>６．X Window System の操作</H2>
+<H3><A class="label" name="window">６．１　X Window System について</A></H3>
+<P>コンピュータを起動すると，まず<A href="01.html#os">オペレーティングシステム</A>が起動します． このオペレーティングシステムの重要な役割のひとつに， ディスプレイやキーボードなどの<EM>入出力装置の管理</EM>があります．特に最近のオペレーティングシステムでは， ディスプレイ上に複数の仮想的な画面（ウィンドウ，窓）を開いて複数の作業を同時にこなすことができる
+<EM>ウィンドウシステム</EM>を搭載することが一般的です．Microsoft の Windows や Apple の MacOS では，ウィンドウシステムはオペレーティングシステムに<EM>組み込まれて</EM>いますが， この講義で使う Linux や Unix では <A href="http://www.mit.edu/">MIT</A>（マサチューセッツ工科大学）で開発された <A href="http://www.x.org/">X Window System</A> というオペレーティングシステムとは独立したソフトウェアがよく使用されます．</P>
+<P><EM>ターミナル</EM>などのウィンドウシステムに対応した<EM>アプリケーションソフトウェア</EM>は，自分が行おうとする画面表示をウィンドウシステムに対して<EM>要求</EM>します．ウィンドウシステムは，この要求に基づいて画面表示を行います．したがってウィンドウシステムは，お客の要求に応じて食事を出す<EM>サーバ</EM>（給仕）のような役割を果たします．これに対してアプリケーションソフトウェアは，サーバに対して要求を出す<EM>クライアント</EM>（客）のような位置付けになります．このようなソフトウェアの形態を，<EM>サーバ・クライアントモデル</EM>と呼びます．</P>
+<P>X Window System では，画面表示用のハードウェア（ビデオカード等）を制御するソフトウェアのことを
+<EM>X サーバ</EM>，X サーバに対して画面表示を要求するソフトウェアのことを <EM>X クライアント</EM>と呼びます．X Window System における X サーバと X クライアント間の<EM>通信</EM>はネットワークに対して<EM>透過的</EM>であり，ある X クライアントの画面表示を，LAN 等を介して他のコンピュータ上で稼動している
+X サーバに出力することができます．</P>
+<H3><A name="prompt" class="label">６．２　ウィンドウを開く</A></H3>
+<P>画面の左下には，多分，以下のような絵記号の列が描かれていると思います．このようにシンボル化されたオブジェクト（対象）を一般に<EM>アイコン</EM>（図記号・絵記号）と呼びます．画面の下部のアイコンが並んでいる<EM>場所</EM>は，ここでは<EM>パネル</EM>と呼んでいます．</P>
+<DIV class="figure"><IMG src="01_files/panel1.gif" alt="下部のパネル" height="64" width="500"></DIV>
+<CENTER></CENTER>
+<P>では，この中の<EM>ターミナル</EM>のアイコンをマウスの左ボタンでクリックしてみてください．すると，下のような「<em>ウィンドウ</em>」が現れると思います．以降，特に断らない限り，「<EM>クリックする</EM>」と指示された時には<EM>マウスの左ボタン</EM>を使ってください．</P>
+<DIV class="figure"><IMG src="01_files/gnome-term.gif" alt="ターミナルウィンドウ" height="288" width="400"></DIV>
+<P>ターミナルは，<EM>gnome-terminal</EM> というアプリケーションソフトウェアです．この中でさらに<EM>シェル</EM>と呼ばれるプログラムが稼動しています．シェルは<EM>プロンプト</EM>（入力促進符号）を表示して，利用者が<EM>コマンド</EM>（指令）を入力するのを待っています．</P>
+<P>このウィンドウの周囲の<EM>枠</EM>はターミナル自身のものではなく，<A href="#windowmanager">ウィンドウマネージャ</A>という別のソフトウェアが付けています（<EM>スクロールバー</EM>はターミナル自身のものです)．</P>
+<P>ウィンドウを開くと，画面の下部にあるパネルの中にある<EM>タスク・リスト</EM>に，そのウィンドウを示すボタンが現れます（下図はタスクリストを画面の上部に置いています）．選択されているウィンドウ（利用者の操作の対象になっているウィンドウ）に対応するボタンは「へこんで」表示されます．隠されたウィンドウに対応するボタンは「グレー」になっています．このボタンをクリックして操作するウィンドウを切り替えたり，ウィンドウを隠したりできます．</P>
+<DIV class="figure"><IMG src="01_files/panel2.gif" width="400" height="180" border="0" alt="タスク・リスト"></DIV>
+<H3><A class="label" name="windowmanager">６．３　ウィンドウマネージャについて</A></H3>
+<P>ウィンドウマネージャはウィンドウシステム上の個々のウィンドウを管理し，マウスの操作などの情報をウィンドウシステムやアプリケーションソフトウェアに伝達します．ウィンドウを移動したり，ウィンドウのサイズを変えたり，ウィンドウを閉じたりする操作は，このウィンドウマネージャによって実現されています．</P>
+<P>X Window System ではウィンドウマネージャがウィンドウシステムやオペレーティングシステムから<EM>独立</EM>しているために，ウィンドウマネージャや<EM>デスクトップ環境</EM>が<EM>交換可能</EM>です． これらを別のものに交換することによって， コンピュータの画面の見かけや操作方法を全く異なるものに変更することができます．この講義では
+<A href="http://sawfish.gnome.gr.jp/index-ja.html">sawfish</A> というウィンドウマネージャを使用しています．</P>
+<BLOCKQUOTE>
+<DIV class="header">デスクトップ環境について</DIV>
+<p>デスクトップ環境とは，画面の背景部分やメニューなどを管理するソフトウェアです．Linux
+で使われる代表的なものに，<A href="http://www.gnome.org/">GNOME</A> と <A href="http://www.kde.org/">KDE</A> (K Desktop Environment) があります．sawfish は GNOME と組み合わせて使われるウィンドウマネージャです．</p>
+</BLOCKQUOTE>
+<P>ウィンドウマネージャやデスクトップ環境の切り替えは，ログインウィンドウの「<EM>セッション</EM>」のメニューで行います．最初は <EM>GNOME</EM> が選択されており， この講義も GNOME を前提にしています．もし他のものを選択した場合は，一旦<A href="#logout">ログアウト</A>して GNOME に戻すか，自分の選択したものを自分で勉強して使ってください．</P>
+<DIV class="figure"><IMG src="01_files/session.gif" width="400" height="213" border="0" alt="セッションの選択"></DIV>
+<H3>６．４　ウィンドウを移動する</H3>
+<P>ウィンドウを移動するには，次の２つの方法があります．</P>
+<OL>
+  <LI><EM>タイトルバー</EM>をドラッグする．
+  <LI><EM>ウィンドウフレーム</EM>をマウスの<EM>中ボタン</EM>でドラッグする．
+</OL>
+<DIV class="figure"><IMG src="01_files/move.jpg" alt="ウィンドウの移動" height="300" width="400"></DIV>
+<H3>６．５　ウィンドウのサイズを変える</H3>
+<P>ウィンドウのサイズを変更するには，次の２つの方法があります．</P>
+<OL>
+  <LI><EM>タイトルバー</EM>をマウスの<EM>中ボタン</EM>でドラッグする．
+  <LI><EM>ウィンドウフレーム</EM>をドラッグする．
+</OL>
+<DIV class="figure"><IMG src="01_files/resize.jpg" alt="ウィンドウのリサイズ" height="300" width="400"></DIV>
+<H3>６．６　奥のウィンドウを手前に出す</H3>
+<P>他のウィンドウで隠されてしまったウィンドウを前面に出すには，次の２つの方法があります．</P>
+<OL>
+  <LI><EM>タイトルバー</EM>か<EM>ウィンドウフレーム</EM>をクリックする．
+  <LI><EM>タイトルバー</EM>か<EM>ウィンドウフレーム</EM>をマウスの<EM>右ボタン</EM>でクリックする（クリックするたびに順序が入れ替わります)．
+</OL>
+<DIV class="figure"><IMG src="01_files/raise.gif" alt="ウィンドウの順序の入れ替え" height="360" width="400"></DIV>
+<UL>
+  <LI>この他に，タスク・リストや画面の右上隅のボタンを使って表に出したいウィンドウを選択することができます．
+</UL>
+<DIV class="figure"><IMG src="01_files/task.jpg" alt="ウィンドウの切り替え" height="300" width="400"></DIV>
+<H3>６．７　手前のウィンドウを奥に送る</H3>
+<P>手前にあるウィンドウを奥に送って隠れているウィンドウを表に出す方法は，前節の２と同じです．</P>
+<OL>
+  <LI><EM>タイトルバー</EM>か<EM>ウィンドウフレーム</EM>をマウスの<EM>右ボタン</EM>でクリックする（クリックするたびに順序が入れ替わります)．
+</OL>
+<H3>６．８　ウィンドウを最小化する（隠す）</H3>
+<P>ウィンドウを最小化するには，「<EM>最小化</EM>」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="01_files/minimize.gif" alt="ウィンドウを最小化する" height="100" width="400"></DIV>
+<UL>
+  <LI>最小化したウィンドウを元に戻すには， 画面下の<EM>タスク・リスト</EM>に表示されている，対応する<EM>タスク</EM>をクリックしてください．
+</UL>
+<DIV class="figure"><IMG src="01_files/tasklist.gif" width="400" height="100" border="0" alt="タスク・リストを使って最小化したウィンドウを元に戻す"></DIV>
+<H3>６．９　ウィンドウを最大化する</H3>
+<P>ウィンドウを最大化するには，「<EM>最大化</EM>」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="01_files/maximize.gif" alt="ウィンドウを最大化する" height="100" width="400"></DIV>
+<UL>
+  <LI>「最大化」ボタンをマウスの<EM>中ボタン</EM>でクリックすると<EM>縦方向</EM>に，<EM>右ボタン</EM>でクリックすると<EM>横方向</EM>に最大化します．
+  <LI>最大化したウィンドウを元に戻すには，<EM>もう一度</EM>「最大化」ボタンをクリックしてください．
+</UL>
+<H3>６．１０　ウィンドウを折りたたむ</H3>
+<P>タイトルバーを<EM>ダブルクリック</EM>すると，ウィンドウがを折りたたまれます．</P>
+<DIV class="figure"><IMG src="01_files/fold.gif" alt="ウィンドウを折りたたむ" height="100" width="400"></DIV>
+<UL>
+  <LI>たたんだウィンドウを元に戻すには，<EM>もう一度</EM>タイトルバーをダブルクリックしてください．
+</UL>
+<H3>６．１１　ウィンドウを閉じる</H3>
+<P>次の２つの方法があります．</P>
+<OL>
+  <LI>アプリケーションソフトウェアを<EM>終了</EM>する．
+  <LI>「<EM>閉じる</EM>」ボタンをクリックする．
+</OL>
+<UL>
+  <LI>ターミナルを終了させるには，その中で動いているシェルを終了させます．シェルを終了させるには
+  <EM>exit</EM> というコマンドを使います．<KBD>Ctrl-D</KBD> をタイプ（<KBD>[Ctrl]</KBD>キーを押しながら <KBD>D</KBD> のキーをタイプ）してもシェルを終了することができます．
+</UL>
+<DIV class="figure"><IMG src="01_files/exit.gif" alt="シェルを終了する" height="104" width="400"></DIV>
+<UL>
+  <LI>タイトルバーの下にある<EM>メニューバー</EM>は，アプリケーションソフトウェア自身に備わっているものです．この「ファイル」メニューから「端末を閉じる」を選びます．
+</UL>
+<DIV class="figure"><IMG src="01_files/quit.gif" alt="メニューを使って閉じる" height="113" width="400"></DIV>
+<UL>
+  <LI>タイトルバーの右端にある「閉じる」ボタンは，単にそのウィンドウを閉じます．ウィンドウを閉じたことによってアプリケーションソフトウェアがこれ以上動作している必要がないと自分で判断した場合に，アプリケーションソフトウェアは終了します．
+</UL>
+<DIV class="figure"><IMG src="01_files/close.gif" alt="「閉じる」ボタンで閉じる" height="100" width="400"></DIV>
+<UL>
+  <LI>通常はアプリケーションソフトウェアを<EM>終了</EM>させて，ウィンドウを閉じてください．
+</UL>
+<H3>６．１２　ポップアップメニューによる操作</H3>
+<P>タイトルバーの左端隅をクリックしたり，「閉じる」ボタンや「最小化」ボタンをマウスの<EM>右ボタン</EM>でクリックすると，<EM>ポップアップメニュー</EM>が現れます．</P>
+<DIV class="figure"><IMG src="01_files/menu.gif" alt="ポップアップメニュー" height="270" width="400"></DIV>
+<P>ポップアップメニューからはこれまでに述べたウィンドウ操作のほか，より高度な操作が行えるようになっています．</P>
+<H3>６．１３　アプリケーションソフトウェアの強制終了</H3>
+<P>X Window Ssytem 上で動作しているアプリケーションソフトウェアが通常の方法では終了できなくなったり，「閉じる」ボタンをクリックしてもウィンドウが閉じなくなったときは，<EM>強制終了</EM>することができます．</P>
+<UL>
+  <LI><EM>タスク・リスト</EM>の終了したい<EM>タスク</EM>の上でマウスの<EM>右ボタン</EM>をクリックし，表示される<EM>ポップアップメニュー</EM>から「殺す」を選ぶ．
+</UL>
+<DIV class="figure"><IMG src="01_files/kill.gif" width="400" height="113" border="0" alt="アプリケーションを強制終了する"></DIV>
+<UL>
+  <LI>他に<EM>シェル</EM>（ターミナル)で <EM>xkill</EM> というコマンドを実行する方法や，プロセス ID を調べてシグナルを送る方法などがあります．
+</UL>
+<H2>７．Ｗｅｂブラウザの操作</H2>
+<P>インターネットの代名詞でもある <EM>WWW</EM> (World Wide Web) を 参照するソフトウェアを <EM>Web ブラウザ</EM>と言います． これには Windows に組み込まれている <EM>Internet Explorer</EM> が最もよく使われていますが，その Linux 用のものは（今のところ）ありません．代わりに
+Linux 上では，オープンソースで開発が進められている <A href="http://www.mozilla.org/"><EM>Mozilla</EM></A> をはじめ，Mozilla を軽量化した <A href="http://www.mozilla.org/products/firefox/" target="_blank"><EM>FireFox</EM></A>，Mozilla をベースに GNOME 標準のユーザインタフェースを付けた <A href="http://galeon.sourceforge.net/" target="_blank"><EM>Galeon</EM></A>，KDE上で開発されている <A href="http://www.konqueror.org/" target="_blank"><EM>Konqueror</EM></A>，テキストベースの <EM>lynx</EM> や <EM>w3m</EM>，テキストエディタ Emacs の中で動く <EM>w3</EM>，それにファイルマネージャである <EM>Nautilus</EM> など，さまざまなものがあります．この講義では Mozilla を使用します．</P>
+<BLOCKQUOTE>システム情報学センターの <EM>Netscape</EM> は<EM>バージョンが非常に古い</EM>ので，この講義では<STRONG>使用できません</STRONG>．</BLOCKQUOTE>
+<H3>７．１　Mozilla の起動</H3>
+<P>「ターミナル」を開いて，<KBD>mozilla</KBD> とタイプして改行してください．すると Mozilla が起動します．はじめて Mozilla
+を起動するときは，ちょっと時間がかかります．</P>
+<DIV class="figure"><IMG src="01_files/mozilla.gif" width="400" height="128" border="0" alt="Mozilla の起動"></DIV>
+<H3>７．２　Mozilla の初期設定</H3>
+<P>Mozilla を使うにあたり，いくつか初期設定を行っておく必要があります．まず最初に，メニューバーの「編集
+(Edit)」メニューから「設定 (Preference)」を選んでください．</P>
+<DIV class="figure"><IMG src="01_files/mozilla2.gif" width="640" height="480" border="0" alt="Mozilla の初期設定"></DIV>
+<P>すると，下のようなダイアログウィンドウが現れます．</P>
+<DIV class="figure"><IMG src="01_files/mozilla3.gif" width="633" height="518" border="0" alt="ホームページの設定"></DIV>
+<P>左側の「カテゴリ (Category)」では「Navigator」が選択されているはずです．この「場所
+(Location)」の欄に和歌山大学のホームページの <EM><a class="label" name="url">"URL</a></EM> を設定してください．URL とは <EM>Universal Resouce Locator</EM> の略で，Web ページの<EM>インターネット上における場所</EM>を表します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>和歌山大学ホームページ URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/" target="_blank">http://www.wakayama-u.ac.jp/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">URLとURI</DIV>
+<p>Webページの場所は一般的に URL と呼ばれますが，現在ではより広義の <A href="http://www.w3.org/Addressing/" target="_blank">URI (Universal Resource Identifier)</A> が用いられています．なお「ホームページアドレス」などという言い方は，ちょっと恥ずかしい感じがします．</p>
+</BLOCKQUOTE>
+<P>左側の「カテゴリ (Category)」という枠の中の「詳細 (Advanced)」の左にある「＋」マークをクリックしてください．
+その下に下層のメニューが広がります．</P>
+<DIV class="figure"><IMG src="01_files/mozilla4.gif" width="633" height="518" border="0" alt="プロキシサーバの設定"></DIV>
+<P>現れたメニューの中から「プロキシ (Proxies)」を選択し，「自動プロキシ構成
+(Automatic proxy configuration) URL:」を<EM>選択</EM>した後，その下の欄に，以下の内容を設定してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自動プロキシ構成 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.wakayama-u.ac.jp/proxy.pac</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>最後に「<EM>OK</EM>」をクリックしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">プロキシサーバについて</DIV>
+<p>Web ブラウザ（クライアント）が Web サーバに対して見たい Web ページを要求すれば，Web
+サーバはそのページのデータを Web ブラウザに送信します．上記の設定は，この閲覧要求を相手の
+Web サーバに直接送る代わりに別のプロキシ (Proxy, 代理) サーバに送り，Web
+サーバとのやり取りを中継してもらいます．和歌山大学のプロキシサーバには，複数のコンピュータから同じサーバにアクセスがあったときにデータを共有するキャッシュサーバの機能と，Webページを通じて悪意のあるプログラム等が侵入することを防ぐ機能を提供しています．</p>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="01_files/proxy.gif" alt="Proxyサーバの概要" border="0" height="304" width="437"></DIV>
+<H3><A class="label" name="openurl">７．３　URL を開く</A></H3>
+<P>和歌山大学のホームページを開いてみましょう（もしかしたら既に「ホーム」に設定されているかもしれません）．メニューバーの「<EM>ファイル</EM> (File)」メニューから「<EM>Webの場所を開く</EM> (Open Web Location)」を選ぶか，<KBD>Ctrl-Shift-L</KBD> をタイプしてください．</P>
+<DIV class="figure"><IMG src="01_files/mozilla5.gif" width="640" height="480" border="0" alt="Webの場所を開く"></DIV>
+<P>すると，次のようなウィンドウが現れます．ここに以下の URL（この講義資料がある場所）を指定して，「<EM>開く</EM> (Open)」をクリックしてください．</P>
+<DIV class="figure"><IMG src="01_files/mozilla6.gif" width="489" height="145" border="0" alt="URLを指定して開く"></DIV>
+<P>この講義資料が Web ブラウザに表示されます．今後はこの Web ページを使って講義を進めます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>講義資料 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/%7Etokoi/lecture/webprg/" target="_blank">http://www.wakayama-u.ac.jp/~tokoi/lecture/webprg/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，上の URL に含まれる 「<KBD>~</KBD>」（<EM>チルダ</EM>）という文字を入力するには，<KBD>[Shift]</KBD> を押しながら <KBD>[Backspace]</KBD> の左側にある &quot;<KBD>0</KBD>&quot; のキーあるいは &quot;<EM><KBD>^</KBD></EM>&quot; のキーをタイプしてください．</P>
+<P align="center"><IMG src="01_files/tilda.jpg" alt="チルダ (~)　キー" height="50" width="186"></P>
+<BLOCKQUOTE>
+<DIV class="header">&quot;<KBD>~</KBD>&quot;（チルダ）の字形について</DIV>
+<P>&quot;<KBD>~</KBD>&quot; は画面表示に使う<EM>字体（フォント）</EM>によって，上の方にあったり，波線だったり，直線だったりしますが，これは<EM>自体によって字形が異なっている</EM>だけです．</P>
+</BLOCKQUOTE>
+<H3>７．４　ブックマークに加える</H3>
+<P><EM>ブックマーク</EM>は， よく参照するページを覚えておく機能です．現在，この講義の Web ページが表示されていると思いますから，これをブックマークに登録しておいてください．</P>
+<DIV class="figure"><IMG src="01_files/mozilla7.gif" width="640" height="480" border="0" alt="ブックマークに加える"></DIV>
+<P>ブックマークのボタンをクリックすると， 登録されている Web ページの<EM>一覧</EM>が現れます．この一覧の一番上の「<EM>このページにブックマークを付ける</EM> (Bookmark This Page)」を選ぶか <KBD>Ctrl-D</KBD> をタイプしてください．</P>
+<DIV class="figure"><IMG src="01_files/mozilla8.gif" width="640" height="480" border="0" alt="ブックマークからWebページを開く"></DIV>
+<P>すると，この一覧の一番下に現在表示されているページが登録されます．以降はこれを選ぶだけで，
+すぐこのページを表示することができます．</P>
+<P>すでにいくつかのブックマークが登録されていますが，日本からでは使いようのないものも結構あるので，必要に応じて自分で整理してください．「<EM>ブックマークの管理</EM> (Manage Bookmarks)」を選ぶか <KBD>Ctrl-B</KBD> をタイプすれば， ブックマークの管理ウィンドウが現れます．</P>
+<H3><A class="label" name="search">７．５　見たいページを探す</A></H3>
+<P>自分の見たいページを探すには，<EM>サーチエンジン</EM>と呼ばれる Web ページを利用します． インターネット上には多くのサーチエンジンがありますが，これらはおおまかに次の２つのタイプに分類することができます．</P>
+<DL>
+  <DT><EM>ディレクトリ型</EM>
+  <DD>人手によって Web ページの情報を分類・整理し，階層的なデータベースにしたものです．代表的なものには，以下のようなものがあります．
+  <UL>
+    <LI><A href="http://dmoz.org/" target="_blank">http://dmoz.org/</A>
+    <LI><A href="http://www.yahoo.co.jp/" target="_blank">http://www.yahoo.co.jp/</A>
+    <LI><A href="http://search.biglobe.ne.jp/" target="_blank">http://search.biglobe.ne.jp/</A>
+    <LI><A href="http://www.fresheye.com/" target="_blank">http://www.fresheye.com/</A>
+    <LI><A href="http://www.inetg.com/" target="_blank">http://www.inetg.com/</A>
+    <LI><A href="http://www.isize.com/" target="_blank">http://www.isize.com/</A>
+  </UL>
+  <DT><EM>全文検索型</EM>
+  <DD>ロボットと呼ばれるプログラムでインターネットのあらゆるページの情報を自動的に集め，全文検索データベースを構築します．代表的なものには，以下のようなものがあります．
+  <UL>
+    <LI><A href="http://www.google.co.jp/" target="_blank">http://www.google.co.jp/</A>
+    <LI><A href="http://www.teoma.com/" target="_blank">http://www.teoma.com/</A>
+    <LI><A href="http://www.content.overture.com/d/?mkt=jp" target="_blank">http://www.overture.com/</A>
+    <LI><A href="http://www.altavista.com/" target="_blank">http://www.altavista.com/</A>
+    <LI><A href="http://www.goo.ne.jp/" target="_blank">http://www.goo.ne.jp/</A>
+    <LI><A href="http://www.kuamp.kyoto-u.ac.jp/labs/infocom/mondou/" target="_blank">http://www.kuamp.kyoto-u.ac.jp/labs/infocom/mondou/</A>
+    <LI><A href="http://japan.infoseek.com/" target="_blank">http://www.infoseek.co.jp/</A>
+    <LI><A href="http://www.excite.co.jp/" target="_blank">http://www.excite.co.jp/</A>
+  </UL>
+</DL>
+<P>ディレクトリ型は人手によって整理されているために，無駄な情報が少なく興味のあるカテゴリのページを見つけやすいという特徴がありますが，その分，漏れや更新の遅れが大きいと考えられます．</P>
+<P>全文検索型は Web ページに含まれるキーワードを機械的に抜き出してデータベースを構築するので，漏れが少なく更新も早いと考えられますが，検索結果の中から本当に必要な情報をすばやく見つけるには多少の経験が必要です．</P>
+<P>ただし，最近はこれらを含むほとんどのところで，ディレクトリ型と全文検索型の両方の機能を持たせています．また複数のサーチエンジンを横断して検索できる「メタサーチ」と呼ばれるものもありますが，ここでは割愛します．これらのほかに，<A href="http://www.rock.co.jp/" target="_blank">音楽専門サーチエンジン</A>のようにターゲットを絞ったものとか，<A href="http://www.hatena.ne.jp/">人力検索サイト「はてな」</A>など，多様なものがあります．</P>
+<H2><A name="logout">８．ログアウト</A></H2>
+<P>コンピュータの使用が終わったら， コンピュータに<EM>ログインする前の状態に戻します</EM>．画面の左下にある「足跡」のアイコンをクリックして，現れたメニューの中から「ログアウト」を選択してください．</P>
+<DIV class="figure"><IMG src="01_files/logout.gif" width="400" height="256" border="0" alt="ログアウト"></DIV>
+<P>次に，「本当にログアウトしますか？」というウィンドウが現れますので，「はい」をクリックするか，<KBD>[Enter]</KBD> キーをタイプしてください．これでログアウト完了です．</P>
+<P>なお，<EM>電源を切る場合</EM>は，ログインウィンドウの「システム」のメニューの中から「停止」を選択して「はい」をクリックしてください．そのあと<EM>ディスプレイ</EM>の電源を切ってください．</P>
+<DIV class="figure"><IMG src="01_files/shutdown.gif" width="400" height="213" border="0" alt="システムの停止"></DIV>
+<h2>９．VDT作業について</h2>
+<p>パソコンを使った作業は，それなりに疲れます．「<A href="http://www.wakayama-u.ac.jp/%7Ematunobe/education/vdt.htm" target="_blank">VDT作業について</A>」を参照してください．</p>
+<UL>
+  <LI>空調を調整しましょう（温度、湿度、風速）。周囲の人や教員にも相談してください
+  <LI>ディスプレイを調整しましょう（映り込み、角度、位置、輝度、コントラスト）
+  <LI>姿勢（ディスプレイとの位置、椅子の高さ調整）
+  <LI>作業時間と休息（休憩は１時間に10分以上意識してもうけましょう）
+  <LI>ときどき，周りの人と会話し，気分転換しましょう
+  <LI>ストレス，不眠が強くなったら周りのひとに相談したり，保健管理センターなどを気軽に受診しましょう
+</ul>
+</BODY>
+</HTML>

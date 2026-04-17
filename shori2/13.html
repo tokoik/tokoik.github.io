@@ -1,0 +1,313 @@
+<head>
+<title>情報処理 II － 第１３回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１３回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<a name="inherit">
+<h2>１．継承</h2></a>
+
+<hr>
+
+<p>既に定義されている<a href="08.html#class">クラス</a>に
+データ（メンバ）や機能（メソッド）を追加して、
+別のクラスを定義することができます。
+このようにして新しいクラスを定義することを
+<font color="#ff0000">継承</font>といいます。</p>
+
+<p>例えば、直線上の「現在位置」を表現するクラス position
+を以下のように定義したとします。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">position.h
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>class position {
+  double p;                              // プライベートメンバ（現在位置）
+public:
+  position(void);                        // デフォルトコンストラクタ
+  position(const position &amp;);            // コピーコンストラクタ
+  position(double);                      // コンストラクタ（初期位置）
+  ~position(void);                       // デストラクタ
+  void shift(double);                    // インタフェース関数
+  double where(void);                    // インタフェース関数
+};
+</table>
+<br>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">position.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include "position.h"
+
+// デフォルトコンストラクタ
+position::position(void) {
+  p = 0.0;
+}
+
+//コピーコンストラクタ
+position::position(const position &amp;p) {
+  position::p = p.p;
+}
+
+// コンストラクタ（初期位置）
+position::position(double p) {
+  position::p = p;
+}
+
+// デストラクタ
+position::~position(void) {
+  // とりあえず何もすることはない
+}
+
+// インタフェース関数（移動）
+void position::shift(double s) {
+  position::p += s;
+}
+
+// インタフェース関数（現在位置の取り出し）
+double position::where(void) {
+  return p;
+}
+</table>
+</center>
+
+<p>このクラス position のプライベートメンバ x および
+y（現在位置）に値を設定するには、絶対位置を初期値として与えるか、
+メンバ関数 shift() を使用して相対位置を与えます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">pmain.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include "position.h"
+
+int main(void) {
+  position p1(10);  // 初期位置は 10
+  position p2 = p1;
+
+  p2.shift(30);
+
+  cout &lt;&lt; "現在位置は " &lt;&lt; p1.where() &lt;&lt; endl;
+  cout &lt;&lt; "現在位置は " &lt;&lt; p2.where() &lt;&lt; endl;
+
+  return 0;
+}
+</table>
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC pmain.cc position.cc<b><font color="#00cc66">[Enter]</font></b></u>
+pmain.cc:
+position.cc:
+% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+現在位置は 10
+現在位置は 40
+</font>
+</table>
+</center>
+
+<p>このクラスを継承して、
+「速度」と「時間」によって現在位置を設定するクラス
+velocity を定義してみます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">velocity.h
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include "position.h"
+
+class velocity <b>: public position</b> {       <font color="#ff0000">// velocity は position を継承</font>
+  double v;                              // プライベートメンバ（速度）
+public:
+  velocity(void);                        // デフォルトコンストラクタ
+  velocity(const velocity &amp;);            // コピーコンストラクタ
+  velocity(double, double);              // コンストラクタ（初期位置と初速度）
+  ~velocity(void);                       // デストラクタ
+  void speed(double);                    // 速度変化
+  void time(double);                     // 経過時間
+};
+</table>
+<br>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">velocity.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include "velocity.h"
+
+// デフォルトコンストラクタ
+velocity::velocity(void) {
+  v = 0.0;
+}
+
+// コピーコンストラクタ…………<font color="#ff0000">基底クラスのコンストラクタの指定↓</font>
+velocity::velocity(const velocity &amp;v) <b>: position(v)</b> {
+  velocity::v = v.v;
+}
+
+// コンストラクタ…………………<font color="#ff0000">基底クラスのコンストラクタの指定↓</font>
+velocity::velocity(double p, double v) <b>: position(p)</b> {
+  velocity::v = v;
+}
+
+// デストラクタ
+velocity::~velocity(void) {
+  // とりあえず何もすることはない
+}
+
+// 速度変化の設定
+void velocity::speed(double v) {
+  velocity::v += v;
+}
+
+// 経過時間の設定
+void velocity::time(double t) {
+  shift(v * t);
+}
+</table>
+</center>
+
+<p><a name="deliver">
+クラス定義において <tt>class velocity <b>: public position</b> { <font color="#808080">...</font></tt>
+のように <tt>: public</tt> を使ってもとになるクラスを指定することで、
+そのクラスを<font color="#ff0000">継承</font>した新しいクラスを定義できます。
+このもとのクラスを<font color="#ff0000">基底クラス</font>、
+新しく定義したクラスを<font color="#ff0000">派生クラス</font>あるいは
+<font color="#ff0000">導出クラス</font>と呼びます。</p></a>
+
+<p>派生クラスのクラス変数を生成する際には、
+先に基底クラスのコンストラクタが実行され、
+そのあと派生クラスのコンストラクタが実行されます。
+実行する基底クラスのコンストラクタを指定するには、
+コンストラクタの定義（実体）の関数名の後ろに :（コロン）を置き、
+それに続けて実行する基底クラスのコンストラクタと引数を書きます。
+これを指定しなければデフォルトコンストラクタが実行されます。</p>
+
+<p>一方、派生クラスのクラス変数を消去する際は、
+生成するときとは逆に、派生クラスのデストラクタを実行した後、
+基底クラスのデストラクタが呼び出されます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">vmain.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include "velocity.h"
+
+int main(void) {
+  velocity v1(20, 10);  // 初期位置 20、初速度 10
+  velocity v2 = v1;
+
+  v1.time(10);   // v1 は１０秒経過
+  v2.shift(30);  // v2 は位置を３０移動
+
+  cout &lt;&lt; "現在位置は " &lt;&lt; v1.where() &lt;&lt; endl;
+  cout &lt;&lt; "現在位置は " &lt;&lt; v2.where() &lt;&lt; endl;
+
+  return 0;
+}
+</table>
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC vmain.cc velocity.cc position.cc<b><font color="#00cc66">[Enter]</font></b></u>
+vmain.cc:
+velocity.cc:
+position.cc:
+% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+現在位置は 120
+現在位置は 50
+</font>
+</table>
+</center>
+
+<p>上の例で使用している speed(), time()
+はいずれも velocity クラスのメソッドですが、
+shift() や where() は velocity 型ではなく、その基底クラスの
+position のメソッドです。
+すなわち、派生クラスのクラス変数に対して
+基底クラスの public（あるいは protected）メンバを適用することができます。</p>
+
+<hr>
+
+<h2>課題３８</h2>
+
+<hr>
+
+<p>初速度 <i>v</i><sub>0</sub> から加速度 <i>a</i> で <i>t</i> 秒間加速すると、
+速度は <i>v</i> = <i>at</i> + <i>v</i><sub>0</sub> になり、
+その間に <i>s</i> = <i>at</i><sup>2</sup> / 2 + <i>v</i><sub>0</sub><i>t</i>
+進みます。
+この加速度 <i>a</i> と加速時間 <i>t</i> を与えて現在位置を設定するクラス
+acceleration を、上で定義したクラス velocity
+を継承して定義してください。</p>
+
+<ul>
+<li>オブジェクトには初期値として
+初期位置、速度（初速度）と加速度を与えられるようにしてください。
+<li>オブジェクトの加速時間は time()
+というメソッドで与えられるようにし、
+この時間を元に現在の位置や速度を求めるようにしてください。
+<li>下のプログラムをメインプログラムとして実行プログラムを作成し、
+正しく実行できることを確かめてください。
+</ul>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">amain.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include "acceleration.h"
+
+int main(void) {
+  acceleration a(0, 10, -1); // 初期位置 0、初速度 10、加速度 -1
+  int h;
+
+  while ((h = a.where()) >= 0) {
+    for (int i = 0; i < h; i++) {
+      cout &lt;&lt; ' ';
+    }
+    cout &lt;&lt; "*" &lt;&lt; endl;
+    a.time(1);
+  }
+  return 0;
+}
+</table>
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+*
+         *
+                  *
+                         *
+                                *
+                                     *
+                                          *
+                                             *
+                                                *
+                                                 *
+                                                  *
+                                                 *
+                                                *
+                                             *
+                                          *
+                                     *
+                                *
+                         *
+                  *
+         *
+*
+</font>
+</table>
+</center>
+
+<p>作成したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai38">tokoi</a>
+まで送ってください。Subject:（件名）は kadai38 としてください。</p>
+</body>

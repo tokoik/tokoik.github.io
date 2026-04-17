@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第６回：ホームページ制作（テーブル編），ホームページ制作（スタイル編）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第６回　補足</H1>
+<H2>１．ホームページ制作（CSS に頼らないテーブル編）</H2>
+<H3>１．１　CSS を使わずに枠線を表示する</H3>
+<P>セルに枠線を引くには，<code class="tag">&lt;table <EM>border=&quot;1&quot;</EM>&gt;</code> ～ <code class="tag">&lt;/table&gt;</code> とします．<EM>border</EM> は枠線の有無を指定する<EM>属性</EM>で，数字は<EM>外枠の太さ</EM>です．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table<U> border=&quot;1&quot;</U>&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;第１列&lt;/th&gt;
+      &lt;th&gt;第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table11.gif" width="560" height="80" border="0"></div>
+<H3>１．２　外枠の太さを変更する</H3>
+<P>外枠を太くすると，出っ張ったような陰影を付けます．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table border=&quot;<U>10</U>&quot;&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;第１列&lt;/th&gt;
+      &lt;th&gt;第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table12.gif" width="560" height="96" border="0"></div>
+<H3>１．３　セルの間隔を変更する</H3>
+<P>セルの間隔は <EM>cellspacing=&quot;数値&quot;</EM> という属性で指定します．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table border=&quot;10&quot;<U> cellspacing=&quot;7&quot;</U>&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;第１列&lt;/th&gt;
+      &lt;th&gt;第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table13.gif" width="560" height="120" border="0"></div>
+<H3>１．４　セルの枠と中身の間隔を調整する</H3>
+<P>セルの枠と中身との間隔は <EM>cellpadding=&quot;数値&quot;</EM> という属性で指定します．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table border=&quot;10&quot; cellspacing=&quot;7&quot;<U> cellpadding=&quot;5&quot;</U>&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;第１列&lt;/th&gt;
+      &lt;th&gt;第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td&gt;第１行第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第２列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table14.gif" width="560" height="144" border="0"></div>
+<H3>１．５　周囲に罫線を引く</H3>
+<P>border と cellspacing の代わりに <EM>frame=&quot;線を引く場所&quot;</EM> という属性を使うと，外枠を線（罫線）にできます．線を引く場所には <EM>void</EM>（外枠なし），<EM>abobe</EM>（上端のみ），<EM>below</EM>（下端のみ），<EM>hsides</EM>（上端と下端），<EM>lhs</EM>（左端のみ），<EM>rhs</EM>（右端のみ），<EM>vsides</EM>（左端と右端），<EM>box</EM>（全周囲），<EM>border</EM>（全周囲）が指定できます．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table <U>frame=&quot;hsides&quot;</U> cellpadding=&quot;5&quot;&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th colspan=&quot;2&quot;&gt;第１列と第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td rowspan=&quot;2&quot;&gt;第１行と第２行の第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table8.gif" width="560" height="96" border="0"></div>
+<H3>１．６　セルの間に罫線を引く</H3>
+<P><EM>rules=&quot;線を引く場所&quot;</EM> という属性を使うと，セルの間に罫線を引くことができます．線を引く場所には
+<EM>none</EM>（罫線なし），<EM>rows</EM>（行間のみ），<EM>cols</EM>（列間のみ），<EM>all</EM>（全部）が指定できます．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table frame=&quot;hsides&quot;<U> rules=&quot;all&quot;</U> cellpadding=&quot;5&quot;&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th colspan=&quot;2&quot;&gt;第１列と第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td rowspan=&quot;2&quot;&gt;第１行と第２行の第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table9.gif" width="560" height="96" border="0"></div>
+<P><CODE class="tag">&lt;thead&gt;</CODE>～<CODE class="tag">&lt;/thead&gt;</CODE>，<CODE class="tag">&lt;tbody&gt;</CODE>～<CODE class="tag">&lt;/tbody&gt;</CODE>，<CODE class="tag">&lt;tfoot&gt;</CODE>～<CODE class="tag">&lt;/tfoot&gt;</CODE>および<CODE class="tag">&lt;colgroup&gt;</CODE>を用いてセルをグループ化しておけば，線を引く場所に <EM>groups</EM> を指定してグループ単位に罫線を引くことができますが，ここでは説明を割愛します．</P>
+<h3>１．７　表にキャプションを付ける</h3>
+<P>表の見出し（キャプション）は<CODE class="tag">&lt;caption&gt;</CODE>～<CODE class="tag">&lt;/caption&gt;</CODE>でマークアップします．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;TABLE&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;table frame=&quot;hsides&quot; rules=&quot;all&quot; cellpadding=&quot;5&quot;&gt;
+
+<U>    &lt;caption&gt;表の例&lt;/caption&gt;</U>
+
+    &lt;tr&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th colspan=&quot;2&quot;&gt;第１列と第２列&lt;/th&gt;
+      &lt;th&gt;第３列&lt;/th&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第１行&lt;/th&gt;
+      &lt;td&gt;第１行第１列&lt;/td&gt;
+      &lt;td rowspan=&quot;2&quot;&gt;第１行と第２行の第２列&lt;/td&gt;
+      &lt;td&gt;第１行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+    &lt;tr&gt;
+      &lt;th&gt;第２行&lt;/th&gt;
+      &lt;td&gt;第２行第１列&lt;/td&gt;
+      &lt;td&gt;第２行第３列&lt;/td&gt;
+    &lt;/tr&gt;
+
+  &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<div class="figure"><IMG src="table10.gif" width="560" height="112" border="0"></div>
+</BODY>
+</HTML>

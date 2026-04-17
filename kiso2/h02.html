@@ -1,0 +1,53 @@
+<head>
+<title>情報基礎演習II − 補足２</title>
+</head>
+
+<body>
+
+<h3>補足２：エラーについて</h3>
+
+<hr>
+
+エラーとはプログラムになんらかの誤りがあることを言います。
+cc コマンドの実行時に報告されるエラーには、
+次の２つのタイプがあります。
+
+<blockquote>
+<pre>
+% cc hello.c
+ccom: Error: hello.c, line 5: newline in string or char constant
+        printf("Hello!\n);
+      --------------------^
+ccom: Error: hello.c, line 6: syntax error
+      }
+      ^
+%
+</pre>
+</blockquote>
+
+これはソースプログラムに構文上の誤りがある場合に、
+コンパイラによって報告されるエラーです。
+この例では "Hello!\n という文字列の最後に " がありません。
+
+<blockquote>
+<pre>
+% cc hello.c
+ld:
+Undefined:
+print
+%
+</pre>
+</blockquote>
+
+これは構文上に誤りはないものの、
+存在しない
+<a href="03.html#kansu">関数</a>を使用してるために、
+リンカによって報告されているエラーです。
+この例の print はどこにも定義されていません。
+<p>
+
+なお、printf は
+<a href="03.html#library">ライブラリ関数</a>
+として、あらかじめ用意されています。
+
+</body>

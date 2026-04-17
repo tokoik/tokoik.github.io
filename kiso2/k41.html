@@ -1,0 +1,71 @@
+<head>
+<title>情報基礎演習II − 課題４１</title>
+</head>
+
+<body>
+
+<h3>課題４１</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムに含まれる関数 swap は、
+仮引数の２つの変数の内容を入れ替えます。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai41
+** 動作: ポインタを使ったデータの入れ替え
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+void swap(int a, int b)
+{
+    int t;
+
+    t = a;
+    a = b;
+    b = t;
+
+    printf("swap の中: a = %d, b = %d\n", a, b);
+}
+
+int main(void)
+{
+    int a, b;
+
+    a = 10;
+    b = 20;
+
+    printf("swap の前: a = %d, b = %d\n", a, b);
+
+    swap(a, b);
+
+    printf("swap の後: a = %d, b = %d\n", a, b);
+}
+</pre>
+</table>
+<p>
+
+<li>しかし、その結果は実引数にはもどされないため、
+swap の後も main の a, b の内容は変化しません。
+<p>
+
+<li>この関数 swap の引数にポインタを使うようにして、
+swap の後に main の a, b の内容も入れ代わるようにしてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai41.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai41 としてください。
+
+</ol>
+
+</body>

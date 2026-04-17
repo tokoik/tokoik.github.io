@@ -1,0 +1,90 @@
+<head>
+<title>情報基礎演習II − 課題６１</title>
+</head>
+
+<body>
+
+<h3>課題６１</h3>
+
+<hr>
+
+<ol>
+
+<li>バイオリズムとは、
+身体、感情、知性のアクティビティーが、
+生まれた日を起点として、
+それぞれ２３日、２８日、３３日単位で周期的に変化することを
+いいます。
+<p>
+
+<li>ある人の今日のバイオリズムを計算するには、
+次のような手順で行います。
+<p>
+
+<li>まず、その人の誕生日から今日までの日数を計算します。
+これは次の関数で計算できます。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;time.h&gt;
+
+/*
+** 誕生日から今日までの日数（１９７０年以降）
+**
+** year - 生まれた年
+** month - 生まれた月
+** day - 生まれた日
+*/
+int days(int year, int month, int day)
+{
+    struct tm birth;
+    int ret;
+
+    birth.tm_sec = 1;
+    birth.tm_min = 0;
+    birth.tm_hour = 0;
+    birth.tm_mday = day;
+    birth.tm_mon = month - 1;
+    birth.tm_year = year - 1900;
+    birth.tm_isdst = -1;
+
+    ret = mktime(&birth);
+
+    if (ret == -1) {
+        printf("計算できません\n");
+        exit(1);
+    }
+
+    return (time(0) - ret) / (60 * 60 * 24);
+}
+</pre>
+</table>
+<p>
+
+<li>次に、その日数を 23、28、33 で割った余りを求めます。
+<p>
+
+<li>得られた余りをそれぞれ、
+2.0 * 3.14159 / 23.0 倍、
+2.0 * 3.14159 / 28.0 倍、
+2.0 * 3.14159 / 33.0 倍します。
+<p>
+
+<li>それぞれの正弦が、今日のバイオリズムの値となります。
+この値は 100 倍して、百分率で表すと分かりやすいでしょう。
+<p>
+
+<li>誕生日を入力すると、
+今日のバイオリズムを計算するプログラムを作ってください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai61.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai61 としてください。
+
+</ol>
+
+</body>

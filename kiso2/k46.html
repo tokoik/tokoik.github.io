@@ -1,0 +1,61 @@
+<head>
+<title>情報基礎演習II − 課題４６</title>
+</head>
+
+<body>
+
+<h3>課題４６</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムでは、
+1 から 10 までの整数について、
+1 からその数までの合計を逐次求めようとしています。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai46
+** 動作: ブロックの中の変数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+
+    for (i = 1; i <= 10; i++) {
+        int sum = 0;
+
+        sum += i;
+
+        printf("1 から %2d までの合計は %2d\n", i, sum);
+    }
+}
+</pre>
+</table>
+<p>
+
+<li>しかし実際には、
+変数 sum の内容は積算されません。
+<p>
+
+<li>その理由を考察すると供に、
+上のプログラム中のどれか１行の場所を移動して、
+上記の目的どおりにプログラムが動くようにしてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai46.c とし、
+それと考察を
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai46 としてください。
+
+</ol>
+
+</body>

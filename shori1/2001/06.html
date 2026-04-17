@@ -1,0 +1,589 @@
+<head>
+<title>情報処理I － 第６回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第６回</h1>
+
+<hr>
+
+<h2>１．テキストエディタ</h2>
+
+<hr>
+
+<p>テキストファイル（文字だけからなるファイル、文書ファイル）は、
+前回行ったように cat コマンドの出力をファイルにリダイレクトして
+作成することができます。
+でもこの方法では、間違えたときに、
+その部分だけを修正する方法がありません。
+そこで、普通テキストファイルの作成には、
+そういう編集機能を持った、
+テキストエディタと呼ばれるアプリケーションソフトウェアを使います。</p>
+
+<p>これはワードプロセッサみたいなものですが、
+ワードプロセッサには文書のレイアウトや印刷の機能が備えられているのに対して、
+テキストエディタは文書の編集に使う機能が充実しています。</p>
+
+<p>IRIX には結構いろんなテキストエディタが用意されています。
+ラインエディタは、
+まだブラウン管を使うタイプの端末装置が普及していなかった頃（つまり昔）、
+紙に印字しながらタイプするタイプライタ型の端末装置で使うことを考えて
+作られています。
+ed などは紙を無駄にしないため？に、
+メッセージなどもほとんど出さない不親切な作りになってますが、
+これはこれで使い込めばほかのエディタではできないような凝ったことができます。
+</p>
+
+<p>ex/vi は UNIX における基本的なエディタの一つです。
+vi は ex をスクリーンモード（画面上で編集するモード）にしたものです。
+将来 UNIX を使い込むつもりがあるなら、
+使い方を覚えておいて損はないでしょう。
+ちなみに、vi のキー操作は、
+jnethack というゲームをやると自然と身に付きます（ウソ）。</p>
+
+<p>mule/emacs/xemacs は emacs 系エディタと呼ばれ、
+この中のエディタではもっとも高機能な、
+自己拡張可能なエディタです。
+mule は以前の emacs を多国語対応にしたもので、
+日本語のみならず中国語（大陸、台湾）、韓国語、タイ語など、
+多国語に対応しています。
+今の emacs は mule のこの機能を取り込み多国語に対応しています。
+xemacs はこの emacs に対して X Window System 関係の機能を拡張したものです。
+</p>
+
+<center>
+<table width="512">
+<tr>
+<td bgcolor="#ffeeaa"><b>ed</b></td>
+<td bgcolor="#ffffaa">ラインエディタ、玄人向け？</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>ex</b></td>
+<td bgcolor="#ffffaa">ラインエディタ、基本です。</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>vi</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（端末モード用）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>jot</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（ウィンドウモード用、日本語不可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>nedit</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（ウィンドウモード用、日本語不可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>ieditor</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（ウィンドウモード用、日本語可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>xedit</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（ウィンドウモード用、日本語可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>mule</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（端末／ウィンドウモード両用、日本語可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>emacs</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（端末／ウィンドウモード両用、日本語可）</td>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa"><b>xemacs</b></td>
+<td bgcolor="#ffffaa">スクリーンエディタ（端末／ウィンドウモード両用、日本語可）</td>
+</tr>
+</table>
+</center>
+
+<p>ここでは教科書でも取り上げている mule を基本に解説していきます。
+<font color="#ff0000">教科書の 45 ページ以降</font>に詳しい説明があります。
+emacs や xemacs も基本的な操作方法は mule と同じです
+（xemacs はちょっと「重量級」です）。
+なお、emacs と、その Windows 版の Meadow についての丁寧な解説が、
+<a href="/~s011020/">栗原祐介氏</a>の
+<a href="/~s011020/Emacs/">With Emacs</a>
+というページにあります。</p>
+
+<h3>mule の起動</h3>
+
+<p>mule を起動するには、
+“コンソール”あるいは“UNIXシェル”から mule とタイプして改行します
+（mule はアイコン・カタログ等には登録されていません）。</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule<b><font color="#00cc66">[Enter]</font></b></u></td></tr>
+</table>
+</center>
+
+<p>起動すると、下のようなウィンドウが現れます
+（実際にはもっと大きなウィンドウが開きます）。</p>
+
+<center>
+<img src="06-02.gif">
+</center>
+
+<p>起動すると、ウィンドウ内に簡単な解説が表示されます。
+これは何かキーをタイプすると消えます。</p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">アイコンをダブルクリックした時に mule が起動するようにする</th></tr>
+<tr><td bgcolor="#ffffcc">
+<p>テキストファイルのアイコンをダブルクリックすると、
+おそらく mule 以外のテキストエディタが起動します。
+この時に mule を起動するようにするためには、
+Toolchest の“デスクトップ”メニューから“カスタマイズ”→“ユーティリティ”
+という順にメニューを選び、
+“ビューアとエディタのデフォルト・ユーティリティ”のウインドウの
+“テキスト・エディタ”のポップアップメニューで“その他...”を選んで、
+“エディタ・コマンド"として /usr/local/bin/mule を設定してください。
+その後 "OK" をクリックし、“閉じる”をクリックしてください。</p>
+<center>
+<img src="06-01.jpg">
+</center>
+</td></tr>
+</table>
+</center>
+
+<h3>mule の操作</h3>
+
+<p>mule は大半の操作をキーボードから行います。
+メニューバーのメニューでも操作できますが、
+端末モード（mule -nw というように -nw オプションを付けて mule を起動する場合）
+などではメニューバーが使えないので、
+ここではキー操作についてのみ説明します。</p>
+
+<center>
+<table width="512">
+<tr><th colspan="2" bgcolor="#ffeeee">キー操作の表記</th></tr>
+<tr><td bgcolor="#ccccff"><tt><b>C-x</b></tt><td bgcolor="#ccffcc"><tt><b>[Ctrl]</b></tt>キーを押し<font color="#ff0000">ながら</font>、x をタイプする (Ctrl-X)</td></tr>
+<tr><td bgcolor="#ccccff"><tt><b>C-x C-c</b></tt><td bgcolor="#ccffcc"><tt><b>C-x</b></tt> をタイプした後、<tt><b>C-c</b></tt> をタイプする</td></tr>
+<tr><td bgcolor="#ccccff"><tt><b>M-x</b></tt><td bgcolor="#ccffcc"><tt><b>[Esc]</b></tt>キーをタイプした<font color="#ff0000">後</font>、x をタイプする</td></tr>
+</table>
+</center>
+
+<p>  mule において編集対象のテキストファイルを保持する機構のことを、
+<font color="#ff0000">バッファ</font>と呼びます。
+mule は同時に複数のバッファを管理することができます。
+通常はそのうち一つのバッファの内容がウィンドウに表示されています
+（画面を分割して、複数のバッファを同時に表示することもできます）。</p>
+
+<p>コマンドやファイル名などの入力を行うときには、
+カーソルがウィンドウの最下行に移動します。
+この場所は<font color="#ff0000">ミニバッファ</font>と呼ばれます。</p>
+
+<center>
+<table width="512">
+<tr><th colspan="2" bgcolor="#ffeeee">キー操作</th></tr>
+<tr>
+<td bgcolor="#ffffaa">ファイルを開く</td>
+<td bgcolor="#ffeebb"><tt><b>C-x C-f</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">別のファイルを読み込む</td>
+<td bgcolor="#ffeebb"><tt><b>C-x i</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">文字入力</td>
+<td bgcolor="#ffeebb">その文字をタイプ</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">一字削除</td>
+<td bgcolor="#ffeebb"><tt><b>[Backspace]</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">挿入／上書き切り替え</td>
+<td bgcolor="#ffeebb"><tt><b>[Insert]</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">カーソル移動</td>
+<td bgcolor="#ffeebb" align="center"><img src="06-10.gif"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">文字列の検索</td>
+<td bgcolor="#ffeebb" align="center"><img src="06-11.gif"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">文字列の置換</td>
+<td bgcolor="#ffeebb" align="center"><img src="06-12.gif"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">１行空ける</td>
+<td bgcolor="#ffeebb"><tt><b>C-o</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">行末まで削除</td>
+<td bgcolor="#ffeebb"><tt><b>C-k</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">カーソル位置にマークを付ける</td>
+<td bgcolor="#ffeebb"><tt><b>C-</b></tt>スペース</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">カーソル位置とマーク位置の入れ替え</td>
+<td bgcolor="#ffeebb"><tt><b>C-x C-x</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">マーク位置からカーソル位置まで削除</td>
+<td bgcolor="#ffeebb"><tt><b>C-w</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">マーク位置からカーソル位置まで複写</td>
+<td bgcolor="#ffeebb"><tt><b>M-w</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">削除／複写した内容を復活</td>
+<td bgcolor="#ffeebb"><tt><b>C-y</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">変更取り消し</td>
+<td bgcolor="#ffeebb"><tt><b>C-_</b></tt> または <b><tt>C-x u</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">操作の中止</td>
+<td bgcolor="#ffeebb"><tt><b>C-g</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">ファイルの保存</td>
+<td bgcolor="#ffeebb"><tt><b>C-x C-s</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">名前を付けてファイルを保存</td>
+<td bgcolor="#ffeebb"><tt><b>C-x C-w</b></tt></td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa">mule を終了</td>
+<td bgcolor="#ffeebb"><tt><b>C-x C-c</b></tt></td>
+</tr>
+</table>
+</center>
+
+
+<h3>ファイル名の指定</h3>
+
+<p><img src="06-08.gif" align="right">
+保存されているファイルを開くためには、
+<tt><b>C-x C-f</b></tt> をタイプします。
+するとミニバッファにファイル名を聞いてきます。
+<br clear="all"></p>
+
+<p><img src="06-09.gif" align="right">
+指定したファイルが見つからなければ、
+そのファイルの新規作成を行います（New File と表示されます）。
+<br clear="all"></p>
+
+<p>mule の起動時に引数でファイル名を指定することもできます。</p>
+
+<p>ミニバッファにおいてコマンドやファイル名を入力する際に、
+途中まで文字をタイプしたあと
+<font color="#226622">スペース</font> や
+<font color="#226622">Tab</font> をタイプすると、
+残りの文字を補完（<font color="#ff0000">コンプリーション</font>）してくれます。
+補完の結果、コマンドやファイル名が一意に決まらないときは、
+その一覧を表示します。</p>
+
+<h3>mule のチュートリアル</h3>
+
+<p>mule のチュートリアルを読むには、
+ここで <tt><b>C-h T j [スペース] [Enter]</b></tt> とタイプします。</p>
+
+<center>
+<table border width="512">
+<tr>
+<td><tt><b>C-h</b></tt>をタイプすると</td>
+<td><img src="06-03.gif"></td>
+</tr>
+<tr>
+<td><tt><b>T（大文字）</b></tt>をタイプすると</td>
+<td><img src="06-04.gif"></td>
+</tr>
+<tr>
+<td><tt><b>j</b></tt>をタイプすると</td>
+<td><img src="06-05.gif"></td>
+</tr>
+<tr>
+<td><b>スペースバー</b>をタイプすると</td>
+<td><img src="06-06.gif"></td>
+</tr>
+</table>
+</center>
+
+<p>この後 <tt><b>[Enter]</b></tt> をタイプすれば、
+ウィンドウ内にチュートリアルが表示されます。
+このウィンドウに表示されているものは編集対象のテキストファイルです。
+mule において編集対象のテキストファイルを保持する機構のことを
+<font color="#ff0000">バッファ</font>と呼びます。
+mule は同時に複数のバッファを管理することができ、
+そのうちの一つがウィンドウ内に表示されています。</p>
+
+<center>
+<img src="06-07.gif">
+</center>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+<p>チュートリアルを読みながら、
+指示に従って操作の練習をせよ。</p>
+
+<ul>
+<li><p>間違ったキー操作により先に進めなくなってしまったときは、
+<tt><b>C-g</b></tt>（中止）を数回タイプしてください。</p></li>
+<li><p>mule を終了するには、
+<tt><b>C-x C-c</b></tt> をタイプしてください。
+ファイルを保存するかどうか聞いてくるので、
+保存する場合は y をタイプしてください。</p></li>
+<li><p>チュートリアルで &lt;Delete&gt; となっているところは、
+<tt><b>[Backspace]</b></tt> を使ってください。</p></li>
+<li><p><tt><b>[Insert]</b></tt>キーを押してしまうと、
+上書きモードになってしまいます。
+元の挿入モードに戻すには、
+もう一度<tt><b>[Insert]</b></tt>キーをタイプしてください。</p></li>
+<li><p>この課題で TUTORIAL.jp というファイルが保存されますが、
+これはチュートリアルで使った文書なので、
+削除しても構いません。</p></li>
+<li><p>"#TUTORIAL.jp#" のように、
+ファイル名の前後が "#" のファイルは、
+mule の作業用のファイルです。
+mule が起動していないときに残っているようなら、
+このファイルも削除しても構いません。
+（このファイルは mule が異常終了したときに残るので、
+そのときは <tt><b>M-x recover-file</b></tt> でこのファイルを指定して、
+編集内容を復活することができます）。</p></li>
+</ul>
+
+<hr>
+
+<h2>２．日本語の入力</h2>
+
+<hr>
+
+<p>mule での日本語の入力方法として、
+教科書では Canna（かんな）というシステムについて解説されていますが、
+みなさんの使っているコンピュータでは Egg（たまご）というシステムを使います。
+</p>
+
+<p>それでは、mule で rensyu というファイル名のテキストファイルを作りましょう。
+<p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule rensyu<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+
+<p>なお、このようにして mule を起動すると、
+mule が動いている間は“コンソール”や“端末 - winterm”が
+他のコマンドを受け付けなくなります。
+そこで次のようにコマンドの最後に "&amp;" を付けると、
+すぐに次のプロンプトが現れ、
+続けてコマンドを入力できるようになります。
+この方法を
+“コマンドを<font color="#ff0000">バックグラウンド</font>で実行する”
+と言います。</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule rensyu <font color="#ffff00">&amp;</font><b><font color="#00cc66">[Enter]</font></b></u></td></tr>
+</table>
+</center>
+
+<p>mule が起動すると、
+次のようなウィンドウが現れます。
+もし rensyu というファイルが無ければ、
+バッファのウィンドウには何も表示されず、
+ミニバッファには (New File) と表示されているはずです。</p>
+
+<center>
+<img src="06-13.gif">
+</center>
+
+<p>日本語の入力を行うには、
+ここで <tt><b>C-\</b></tt> をタイプします。
+するとウィンドウの下から２行目の左端が、
+“[--]”から“[あ]”に変化します。
+そのあとローマ字で日本語の文章をタイプし、
+<font color="#ff0000">スペース</font> をタイプすると
+漢字への変換が行われます。
+入力中の日本語は <tt>| .. |</tt> で挟まれおり
+（<font color="#ff0000">フェンスモード</font>）、
+文節の間にスペースが空いています。</p>
+
+<center>
+<table border width="512">
+<tr><td><tt><b>C-\</b></tt> をタイプすると</td><td><img src="06-14.gif"></td></tr>
+<tr><td>ローマ字でタイプすると</td><td><img src="06-15.gif"></td></tr>
+<tr><td>スペースをタイプすると</td><td><img src="06-16.gif"></td></tr>
+<tr><td><tt><b>C-i</b></tt> をタイプすると</td><td><img src="06-17.gif"></td></tr>
+<tr><td><tt><b>C-f</b></tt> を３回タイプすると</td><td><img src="06-18.gif"></td></tr>
+<tr><td>スペースを数回タイプすると</td><td><img src="06-19.gif"></td></tr>
+<tr><td><tt><b>[Enter]</b></tt>をタイプすると</td><td><img src="06-20.gif"></td></tr>
+</table>
+</center>
+
+<p>日本語の入力モードから抜け出るには、
+もう一度 <tt><b>C-\</b></tt> をタイプしてください。</p>
+
+<center>
+<table width="512">
+<tr><th colspan="2" bgcolor="#ffeeee">キー操作</th></tr>
+<tr><td bgcolor="#ffffaa">日本語入力開始／終了</td>
+<td bgcolor="#ffeebb"><tt><b>C-\</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">漢字に変換</td>
+<td bgcolor="#ffeebb">スペース</td></tr>
+<tr><td bgcolor="#ffffaa">次候補</td>
+<td bgcolor="#ffeebb">スペース または <tt><b>C-n</b></tt> または ↓</td></tr>
+<tr><td bgcolor="#ffffaa">前候補</td>
+<td bgcolor="#ffeebb"><tt><b>C-p</b></tt> または ↑</td></tr>
+<tr><td bgcolor="#ffffaa">文節を伸ばす</td>
+<td bgcolor="#ffeebb"><tt><b>C-o</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">文節を縮める</td>
+<td bgcolor="#ffeebb"><tt><b>C-i</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">次の文節</td>
+<td bgcolor="#ffeebb"><tt><b>C-f</b></tt> または →</td></tr>
+<tr><td bgcolor="#ffffaa">前の文節</td>
+<td bgcolor="#ffeebb"><tt><b>C-b</b></tt> または ←</td></tr>
+<tr><td bgcolor="#ffffaa">最初の文節</td>
+<td bgcolor="#ffeebb"><tt><b>C-a</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">最後の文節</td>
+<td bgcolor="#ffeebb"><tt><b>C-e</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">確定する</td>
+<td bgcolor="#ffeebb"><tt><b>[Enter]</b></tt> または <tt><b>C-l</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">平仮名に変換</td>
+<td bgcolor="#ffeebb"><tt><b>M-h</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">片仮名に変換</td>
+<td bgcolor="#ffeebb"><tt><b>M-k</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">候補一覧表示</td>
+<td bgcolor="#ffeebb"><tt><b>M-s</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">記号入力など</td>
+<td bgcolor="#ffeebb"><tt><b>C-^</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">取り消し</td>
+<td bgcolor="#ffeebb"><tt><b>C-g</b></tt></td></tr>
+<tr><td bgcolor="#ffffaa">単語登録</td>
+<td bgcolor="#ffeebb"><tt><b>M-x toroku-region</b></tt></td></tr>
+</table>
+</center>
+
+<h3>辞書登録</h3>
+
+<p>変換しても一発で出てこない単語で、
+自分の名前など結構良く使うものは、
+登録しておくと便利です。</p>
+
+<p>とりあえず、mule のバッファのウィンドウ上に、
+“なんとかして”その単語を表示させてください。
+そしてその単語の先頭に <tt><b>C-</b></tt>スペース でマークをつけ、
+カーソルを移動して単語全体を選択したあと、
+<tt><b>M-x toroku-region[Enter]</b></tt> をタイプします
+（コマンドは一部をタイプ後スペースをタイプすれば補完されます）。</p>
+
+<center>
+<table border width="512">
+<tr><td>単語の先頭で <tt><b>C-</b></tt>スペース</td><td><img src="06-22.gif"></td></tr>
+<tr><td>単語の後ろに移動</td><td><img src="06-23.gif"></td></tr>
+<tr><td>コマンド実行</td><td><img src="06-24.gif"></td></tr>
+<tr><td>読みの入力</td><td><img src="06-25.gif"></td></tr>
+<tr><td>辞書は ud を選択</td><td><img src="06-26.gif"></td></tr>
+<tr><td>品詞（大分類）を選択</td><td><img src="06-27.gif"></td></tr>
+<tr><td>品詞（小分類）を選択</td><td><img src="06-28.gif"></td></tr>
+</table>
+</center>
+
+<p><img src="06-29.gif" align="right">
+なお、単語の範囲をマウスでドラッグしたりダブルクリックしても、
+その部分の選択を行うことができます。
+<br clear="all"></p>
+
+<h3>記号文字</h3>
+
+<p>“z+１文字”で日本語のいくつかの記号文字を入力することができます。</p>
+
+<center>
+<table border width="512">
+<tr><td width="10%"><tt>z1</tt><td width="10%">○<td width="10%"><tt>z2</tt><td width="10%">▽<td width="10%"><tt>z3</tt><td width="10%">△<td width="10%"><tt>z4</tt><td width="10%">□<td width="10%"><tt>z5</tt><td width="10%">◇
+<tr><td><tt>z6</tt><td>☆<td><tt>z7</tt><td>◎<td><tt>z8</tt><td>￠<td><tt>z9</tt><td>♂<td><tt>z0</tt><td>♀
+<tr><td><tt>z!</tt><td>●<td><tt>z@</tt><td>▼<td><tt>z#</tt><td>▲<td><tt>z$</tt><td>■<td><tt>z%</tt><td>◆
+<tr><td><tt>z^</tt><td>★<td><tt>z&</tt><td>￡<td><tt>z*</tt><td>×<td><tt>z(</tt><td>【<td><tt>z)</tt><td>】
+<tr><td><tt>zq</tt><td>《<td><tt>zw</tt><td>》<td><tt>zr</tt><td>々<td><tt>zt</tt><td>〆<td><tt>zp</tt><td>〒
+<tr><td><tt>zQ</tt><td>〈<td><tt>zW</tt><td>〉<td><tt>zR</tt><td>仝<td><tt>zT</tt><td>§<td><tt>z.</tt><td>…
+<tr><td><tt>zv</tt><td>※<td><tt>zh</tt><td>←<td><tt>zj</tt><td>↓<td><tt>zk</tt><td>↑<td><tt>zP</tt><td>→
+</table>
+</center>
+
+<p>また、“Z+アルファベット１文字”で、
+全角文字のアルファベット（本当は『全角文字』とは言いたくない）を入力できます。
+</p>
+
+<center>
+<table border width="512">
+<tr><td width="10%"><tt>ZA</tt><td width="10%">Ａ<td width="10%"><tt>ZB</tt><td width="10%">Ｂ<td width="10%"><tt>ZC</tt><td width="10%">Ｃ<td width="10%"><tt>ZD</tt><td width="10%">Ｄ<td width="10%"><tt>ZE</tt><td width="10%">Ｅ
+</table>
+</center>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+<p>下の文章は日本国憲法の「前文」である。
+この内容の kenpou というファイル名のテキストファイルを作れ。
+最後に自分の名前とログイン名を書いておくこと。</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<img src="06-30.gif"></td></tr>
+</table>
+</center>
+
+<ul>
+<li><p>「ゐ」と「ゑ」は、それぞれ wi、we で入力できます。</p></li>
+<li><p><tt><b>M-q</b></tt> をタイプすると、
+カーソルのある段落
+（次のスペースで始まる行や空行までの間）の行末がそろうように、
+改行を追加します。
+１行の文字数は、例えば 60 文字（日本語で 30 文字）にするには、
+あらかじめ <tt><b>C-u 6 0 C-x f</b></tt> とタイプしておきます。
+<blockquote>
+mule は「テキストエディタ」なので、
+文書の見栄えのレイアウトをするような機能はほとんど持っていません。
+長い行はウィンドウの右端で折り返しますが、
+これもあくまで表示のために便宜的に行っているに過ぎず、
+それが「１行」として取り扱われていることには変わりありません
+（<tt><b>C-n</b></tt> や <tt><b>C-p</b></tt> をするとわかります）。
+</blockquote></p></li>
+</ul>
+
+<hr>
+
+<h2>３．テキストファイルの印刷</h2>
+
+<hr>
+
+<p>シェル上でテキストファイルの印刷を行うには、
+lp あるいは lpr コマンドを用います。
+但し、lpr コマンドの場合は a2ps というコマンドを介する必要があります
+（a2ps は lp コマンドでも使えます）。</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>lp ファイル名<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>a2ps ファイル名 | lpr<b><font color="#00cc66">[Enter]</font></b></u></td></tr>
+</table>
+</center>
+
+<p>といっても、紙やトナー（印刷用の黒い粉）がもったいないので、
+むやみやたらと印刷しないでください。</p>
+
+</body>

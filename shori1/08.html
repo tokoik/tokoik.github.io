@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第８回：文書の浄書（１）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第８回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>LaTeXによる文書の作成方法について知る</LI>
+  <LI>LaTeX文書の印刷方法について知る</LI>
+</OL>
+<UL>
+<li><a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-07/">提出された前回の宿題</a></li>
+</UL>
+<div class="footer"><a href="07.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．LaTeX による文書の浄書</H2>
+<H3>１．１　LaTeX とは</H3>
+<P>emacs などのテキストエディタには， ワードプロセッサのようなレイアウト機能はありません．
+そこで，ここでは論文のように書式の定まった印刷物を作成するのに用いられる
+<EM>LaTeX</EM>（ラテック） と，その下地となっている <EM>TeX</EM>（テック）というシステムについて解説します．理系にとって LaTeX は，<strong>論文作成のための「標準」</strong>です．</P>
+<blockquote><div class="header">LaTeX に関する情報</div>
+<div class="body">LaTeX に関する情報は，三重大学の奥村先生による <a href="http://oku.edu.mie-u.ac.jp/~okumura/texwiki/" target="_blank">TeX Wiki</a> に網羅されています．Windows や Mac OS X で使用するための情報もあります．</div>
+</blockquote>
+<P>パソコンのワードプロセッサのように，画面上でレイアウトを整えて印刷するような場合を，<EM>WYSIWYG</EM> （What You See Is What You Get ～見ているものが手に入る）と言います．この方法はわかりやすく，見た目の通りにに文書のレイアウトを行うことができます．しかしその反面，長い文書では全体のレイアウトを統一するのに結構骨が折れますし，文字のサイズや用紙のサイズを変更したりするとレイアウトをはじめからやり直さなければならないということもしばしば起こります．</P>
+<P>これに対して TeX というシステムでは，Web ページのレイアウトを HTML で行ったのと同様に，文書のレイアウトを一種のプログラミング言語のような形式を用いて行います．この方法ではレイアウトをすぐに画面上で確認することはできませんが，長文でも統一の取れたレイアウトを保ちやすいというメリットがあります．また
+TeX は組版，すなわち印刷所で植字工がレイアウトの美しさを考えながら活字を詰めていく方法にならって設計されており，TeX
+の処理系（ソフトウェア）自身が仕上がりの美しさを考えながら，文字間隔などを自動的に決定してくれます．このように，様々な処理をまとめて一気に実行してしまう方式を，<EM>バッチ式</EM>と言います．</P>
+<P>TeX とワープロでは，「どっちが楽か」という点で良く議論が起こります．取っつきやすさと言う点では，もちろんワープロに軍配が上がるでしょう．しかし，少なくとも私は，ワープロできれいに文書をレイアウトする手間を考えると，TeX
+に勝手にやってもらった方がずっと楽だと感じています．</P>
+<P>ただ，TeX 自体はかなり細かな書式制御が可能な反面，論文のような定型的な文書を作成するのには手間がかかりすぎます．そこで
+HTML のように，「見出し」や「本文」のような<EM>文書の論理的構成要素</EM>を指定して書式を制御できるように TeX を拡張したものしたものが <EM>LaTeX </EM>です（歴史的には HTML より LaTeX の方が古いのですが）．しばしば，「TeX
+がマニュアル式の車だとすると， LaTeX はオートマチック車だ」という比喩が用いられます．</P>
+<H3>１．２　kenpou.txt を清書する</H3>
+<P>TeX や LaTeX を用いた文書は，書式を制御するための「コマンド」 （HTML における「タグ」に相当）を埋め込みます．
+このようなテキストファイルを <EM>TeX ソースファイル</EM>あるいは <EM>LaTeX ソースファイル</EM>と呼びます．</P>
+<P>それでは，以前作成した「日本国憲法の前文」を， LaTeX を使って清書してみましょう．
+テキストエディタを使って，kenpou.tex という LaTeX ソースファイルを作成してください．TeX や LaTeX のソースファイルの拡張子は &quot;<EM>.tex</EM>&quot; です．「アプリケーション」の「オフィス」にある <em>TeXworks</em> は TeX / LaTeX 専用のテキストエディタです．また <em>Geany</em> なら，Geany の「ファイル」メニューにある「テンプレートから新規作成」から <em>file.tex</em> を選べば TeX / LaTeX 用のモードで新規の文書が作成されます．<em>emacs</em> の場合は引数に kenpou<em>.tex</em> というファイル名を指定してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>kenpou.tex を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type">emacs kenpou.tex &amp;<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，このように して emacs を起動すると，画面が二分割されてしまいます．kenpou.tex が表示されている（空の）ウィンドウのほうで <kbd>C-x 1</kbd> をタイプしてください．その後，下の内容をタイプしてください． なお，<kbd>￥</kbd> (通貨記号) と<kbd>＼</kbd> (バックスラッシュ) は，<em>ここでは</em>字形が違うだけで同じ文字です.</P>
+<div class="figure"><IMG src="backslash.gif" width="512" height="256" alt="バックスラッシュキー"></div>
+<PRE class="source">\documentclass{jarticle}
+
+\begin{document}
+
+\end{document}</PRE>
+<P><EM>\begin{document}</EM> と <EM>\end{document}</EM> の間に，以前作成した kenpou<EM>.txt</EM> というファイルを読み込みます．別のテキストエディタで kenpou.tex を開いて，全文を <EM>\begin{document}</EM> と <EM>\end{document}</EM> の間にコピー＆ペーストしてください．emacs の場合は <EM>\begin{document}</EM> と <EM>\end{document}</EM> の中間にカーソルを移動し，そこで <KBD>C-x i</KBD> をタイプしてください．すると， このバッファに読み込むファイル名を聞いてきますので， ここにファイル名
+(kenpou.txt) をタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルを編集中のファイルに読み込む</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x i</KBD> をタイプし，ミニバッファに読み込むファイル名をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs15.gif" width="256" height="40" border="0" alt="ファイルの読み込み"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">kenpou.txt が読み込めないとき</DIV>
+<DIV class="body">
+<P>おそらく，この emacs はホームディレクトリで起動していると思います．しかし，emacs
+をほかのディレクトリで起動していたり，あるいは　kenpou.txt の方をホームディレクトリ以外に置いている場合は，このままではファイルを読み込むことができません．</P>
+<P>ファイル名の入力中にタブキー <kbd>[Tab]</kbd> を<em>２回</em>タイプすると，ファイルやディレクトリの一覧を表示します．そこでファイル名の代りにディレクトリ名をタイプして，もう一度 <kbd>[Tab]</kbd> を<em>２回</em>タイプすれば，そのディレクトリの中にあるファイルの一覧を表示しますから，こうして目的のファイルを探してください．</P>
+</DIV>
+</BLOCKQUOTE>
+<P>次のように，kenpou.txt の内容が取り込まれます．</P>
+<PRE class="source">\documentclass{jarticle}
+
+\begin{document}
+
+    日本国憲法「前文」（昭和21年11月3日公布，昭和22年5月3日施行）
+
+　日本国民は，正当に選挙された国会における代表者を通じて行動し，われら
+とわれらの子孫のために，諸国民との協和による成果と，わが国全土にわたっ
+て自由のもたらす恵沢を確保し，政府の行為によつて再び戦争の惨禍が起るこ
+とのないやうにすることを決意し，ここに主権が国民に存することを宣言し，
+この憲法を確定する．そもそも国政は，国民の厳粛な信託によるものであつて，
+その権威は国民に由来し，その権力は国民の代表者がこれを行使し，その福利
+は国民がこれを享受する．これは人類普遍の原理であり，この憲法は，かかる
+原理に基くものである．われらは，これに反する一切の憲法，法令及び詔勅を
+排除する．
+　日本国民は，恒久の平和を念願し，人間相互の関係を支配する崇高な理想を
+深く自覚するのであつて，平和を愛する諸国民の公正と信義に信頼して，われ
+らの安全と生存を保持しようと決意した．われらは，平和を維持し，専制と隷
+従，圧迫と偏狭を地上から永遠に除去しようと努めてゐる国際社会において，
+名誉ある地位を占めたいと思ふ．われらは，全世界の国民が，ひとしく恐怖と
+欠乏から免かれ，平和のうちに生存する権利を有することを確認する．
+　われらは，いづれの国家も，自国のことのみに専念して他国を無視してはな
+らないのであつて，政治道徳の法則は，普遍的なものであり，この法則に従ふ
+ことは，自国の主権を維持し，他国と対等関係に立たうとする各国の責務であ
+ると信ずる．
+　日本国民は，国家の名誉にかけ，全力をあげてこの崇高な理想と目的を達成
+することを誓ふ．
+
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　和歌山健太郎
+
+\end{document}</PRE>
+<P>これに対して次の変更を加えてください．</P>
+<OL>
+  <LI>タイトル（『日本国憲法 ～ 施行）』の部分）を削除してください．</LI>
+  <LI>自分の名前や学籍番号を削除してください．</LI>
+  <LI>段落の行頭の空白を削除してください．</LI>
+  <LI><EM>段落</EM>間を<EM>１行あけて</EM>ください．</LI>
+</OL>
+<P>こうして，下のような体裁にします． プログラムで行末の処理を行うので， この
+LaTeX のソースファイルで <STRONG>行末をそろえる必要はありません</STRONG>．むしろ下のように句読点で積極的に改行しておくと，編集するときに便利です．</P>
+<PRE class="source">\documentclass{jarticle}
+
+\begin{document}
+
+日本国民は，正当に選挙された国会における代表者を通じて行動し，
+われらとわれらの子孫のために，諸国民との協和による成果と，
+わが国全土にわたって自由のもたらす恵沢を確保し，
+政府の行為によつて再び戦争の惨禍が起ることのないやうにすることを決意し，
+ここに主権が国民に存することを宣言し，この憲法を確定する．
+そもそも国政は，国民の厳粛な信託によるものであつて，
+その権威は国民に由来し，その権力は国民の代表者がこれを行使し，
+その福利は国民がこれを享受する．
+これは人類普遍の原理であり，この憲法は，かかる原理に基くものである．
+われらは，これに反する一切の憲法，法令及び詔勅を排除する．
+
+日本国民は，恒久の平和を念願し，
+人間相互の関係を支配する崇高な理想を深く自覚するのであつて，
+平和を愛する諸国民の公正と信義に信頼して，
+われらの安全と生存を保持しようと決意した．
+われらは，平和を維持し，専制と隷従，
+圧迫と偏狭を地上から永遠に除去しようと努めてゐる国際社会において，
+名誉ある地位を占めたいと思ふ．
+われらは，全世界の国民が，ひとしく恐怖と欠乏から免かれ，
+平和のうちに生存する権利を有することを確認する．
+
+われらは，いづれの国家も，
+自国のことのみに専念して他国を無視してはならないのであつて，
+政治道徳の法則は，普遍的なものであり，この法則に従ふことは，
+自国の主権を維持し，他国と対等関係に立たうとする各国の責務であると信ずる．
+
+日本国民は，国家の名誉にかけ，
+全力をあげてこの崇高な理想と目的を達成することを誓ふ．
+
+\end{document}</PRE>
+<P>ここまでできたら <KBD>C-x C-s</KBD> をタイプして， ファイルを保存してください．次に，このファイルをコンパイルします．ターミナルのウィンドウで次のコマンドを実行してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>LaTeX ソースファイルのコンパイル</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>platex</EM> kenpou<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>もし，エラーが発生していなければ， kenpou<EM>.dvi</EM> というファイルが作成されるはずです．</P>
+<BLOCKQUOTE>
+<DIV class="header">platex でエラーが発生したとき</DIV>
+<DIV class="body">
+<P>platex が次のようなメッセージを出した時は，LaTeX ソースファイルの書き方に<EM>誤り</EM>があります．</P>
+<PRE class="source">% platex kenpou.tex
+This is pTeX, Version p2.1.5, based on TeX, Version 3.14159 (EUC) (Web2c 7.0)
+(kenpou.tex
+pLaTeX2e &lt;1997/07/02&gt;+2 (based on LaTeX2e &lt;1996/12/01&gt; patch level 0)
+(/usr/local/share/texmf/tex/platex/jarticle.cls
+Document Class: jarticle 1997/09/03 v1.1h Standard pLaTeX class
+(/usr/local/share/texmf/tex/platex/jsize12.clo))
+! Undefined control sequence.
+l.3 \begn
+         {document}
+? <span class="type"><EM>x</EM></span></PRE>
+<P>この時は，最後の ? のところに <EM>x</EM> をタイプして改行し， platex を終了してから kenpou.tex を修正してください．</P>
+</DIV>
+</BLOCKQUOTE>
+<P>kenpou.dvi は TeX (LaTeX) によってレイアウトを整えた印刷用のデータファイルで，<EM>DVI ファイル</EM>と言います．それでは <EM>xdvi</EM> コマンドを使って，このファイルの内容を画面上で確認してみましょう．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>kenpou.dvi ファイルのプレビュー</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>xdvi</EM> kenpou &amp;<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>次のようなウィンドウが現れます．LaTeX ソースファイル (kenpou.tex) の<EM>改行は無視</EM>され，<EM>空行で段落</EM>が改められています．</P>
+<DIV class="figure"><IMG src="xdvi.gif" width="542" height="528"></DIV>
+<P>レイアウトが確認できたら，<KBD>q</KBD> をタイプするか「Quit」のボタンをクリックして xdvi を終了してください．</P>
+<H4>(1) タイトルを入れる</H4>
+<P>次に，この文書にタイトルや著者名を追加します．emacs を閉じてしまったときは，もう一度
+emacs で kenpou.tex を開いてください．</P>
+<PRE class="source">\documentclass{jarticle}
+
+\begin{document}
+
+日本国民は，正当に選挙された国会における代表者を通じて行動し，われら
+<SPAN class="anon">（以下略）</SPAN></PRE>
+<P>この <EM>\begin{document}</EM> の前後に， 次の内容（下線部）を追加してください．</P>
+<PRE class="source">\documentclass{jarticle}
+
+<span class="type">\title{日本国憲法「前文」</span>
+<span class="type">(昭和21年11月3日公布，昭和22年5月3日施行)}</span>
+
+<span class="type">\author{和歌山健太郎}</span>
+
+\begin{document}
+
+<span class="type">\maketitle</span>
+
+日本国民は，正当に選挙された国会における代表者を通じて行動し，われら
+<SPAN class="anon">（以下略）</SPAN></PRE>
+<P>変更できたらファイル (kenpou.tex) を保存して， 先ほどと同様に platex コマンドを使って
+kenpou.tex をコンパイルし，xdvi を使って作成された kenpou.dvi を見てみてください．</P>
+<H4>(2) 改行する</H4>
+<P>段落を改めるのではなく，行の途中で<EM>改行</EM>したいときは， そこに <EM>\\</EM> を置いてください． 上の例のタイトルを途中で改行するには， 例えば下のようにします．</P>
+<PRE class="source">\title{日本国憲法「前文」<span class="type">\\</span>
+(昭和21年11月3日公布，昭和22年5月3日施行)}</PRE>
+<H4>(3) 文書クラスを変更する</H4>
+<P>文書クラス（スタイル）は <EM>\documentclass{ .. }</EM> で指定します．これは文書のレイアウトの規則を目的別に設定するものです．
+kenpou.tex で指定している <EM>jarticle</EM> は論文などを作成する際に用いるレイアウトです． ほかに本を執筆する <EM>jbook</EM> やレポート用の <EM>jreport</EM> が用意されています．</P>
+<H4>(4) 用紙サイズを変更する</H4>
+<P>標準では，B5 版の用紙を想定したレイアウトが行われます． 演習室のプリンタには
+A4 版の用紙しか入っていないので， そのまま印刷すると周囲の余白が大きすぎます．</P>
+<P>A4 用紙にあったレイアウトを行うには， \documentclass<EM>[a4j]</EM>{jarticle} のように，\documentclass コマンドに <EM>a4j</EM> というオプションを与えます．</P>
+<PRE class="source">\documentclass<EM>[a4j]</EM>{jarticle}</PRE>
+<P>用紙サイズには，ほかに <EM>a5j</EM> <EM>b4j</EM> <EM>b5j</EM> が指定できます．</P>
+<H4>(5) 基準の文字サイズを変更する</H4>
+<P>標準では，本文などに使用される文字のサイズは <EM>10pt</EM>（10 ポイント， １ポイントは 1/72.27 インチ）です． これをひとまわり大きな
+11pt に変更するには， \documentclass コマンドに <EM>11pt</EM> というオプションを付けます．</P>
+<PRE class="source">\documentclass[<EM>11pt</EM>]{jarticle}</PRE>
+<P>もちろん，これは用紙サイズといっしょに指定できます． この場合は &quot;,&quot;（コンマ）で区切ります．</P>
+<PRE class="source">\documentclass[<EM>a4j</EM>,11pt]{jarticle}</PRE>
+<P>ここに指定できる文字サイズは <EM>10pt</EM> <EM>11pt</EM> <EM>12pt</EM> です．</P>
+<H4>(6) ２段組や両面印刷の指定を行う</H4>
+<P>２段組のレイアウトを行うときは，<EM>twocolumn</EM> というオプションを付けます． 両面印刷に対応したレイアウトを行うときは，<EM>twoside</EM> というオプションを付けます． ただし，これはレイアウト上そうなると言うだけで，
+実際に両面印刷が行われるわけではありません． また，演習室のプリンタには両面印刷の機能はありません．</P>
+<PRE class="source">\documentclass[a4j,11pt,<EM>twocolumn</EM>]{jarticle}</PRE>
+<H4>(7) 印刷する</H4>
+<P>TeX は印刷物を作成するためのシステムです．紙に印刷するには <EM>dvips</EM> コマンドを使って <EM>PostScript</EM> ファイルを作成してください．PostScript ファイルはプリンタ制御用の言語（ページ記述言語）です．なお，一般的なプリンタは
+Postscript に対応していません．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>DVI ファイルから PostScript ファイルの作成</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>dvips</EM> kenpou<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このコマンドを実行すれば，kenpou<EM>.ps</EM> という PostScript ファイルが作成されるはずです．PostScript ファイルを印刷するには，それを
+<EM>lpr</EM> コマンドでプリンタに送ります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript ファイルの印刷</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"> <EM>lpr</EM> kenpou.ps<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>紙がもったいない</em>ので，今は<strong>印刷する必要はありません</strong>．今後，レポートを作成するときなどに思い出してください．</p>
+<H4>(8) PDF ファイルを作成する</H4>
+<P><EM>PDF</EM> (Portable Document Format) 形式のファイルを作成すれば，PostScript に対応しないプリンタで文書を印刷したり，Windows
+PC や Macintosh でも文書の表示や印刷を行うことができます．DVI ファイルから PDF ファイルを作成するには，dvipdfmx
+コマンドを使用します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PDF ファイルの作成</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>dvipdfmx</EM> kenpou<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>これで kenpou<EM>.pdf</EM> というファイルが作成されます．これは <em>evince</em> コマンド (「アクセサリ」の「ドキュメントビューアー」) や <em>acroread</em> (Adobe Reader) を使って表示したり印刷したりできます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PDF ファイルの表示</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>evince</EM> kenpou.pdf<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．３　まとめ</H3>
+<P>ここまでを簡単にまとめると，次のようになります．</P>
+<BLOCKQUOTE>以下は「まとめ」ですので，実際に作業する必要はありません．宿題を実行する際の参考にしてください．</BLOCKQUOTE>
+<H4>(1) LaTeX ソースファイルの作成</H4>
+<UL>
+  <LI>LaTeX のソースファイルは <EM>\documentclass{jarticle}</EM> という行から始まる．
+  <UL>
+    <LI><EM>jarticle</EM> は論文用の文書レイアウトで， ほかに <EM>jbook jreport</EM> が指定できる．</LI>
+    <LI>用紙サイズや文字サイズは， <EM>\documentclass[a4j,11pt]{jarticle}</EM> というオプションで与える．</LI>
+    <LI>用紙サイズは <EM>a4j a5j b4j b5j</EM> が指定できる．</LI>
+    <LI>文字サイズは <EM>10pt 11pt 12pt</EM> が指定できる．</LI>
+    <LI>２段組にするときは <EM>twocolumn</EM> オプションを指定する．</LI>
+    <LI>両面印刷に対応したレイアウトにするためには <EM>twoside</EM> オプションを指定する．</LI>
+  </UL></LI>
+  <LI>本文は <EM>\begin{document} ～ \end{document}</EM> の間に書く．</LI>
+  <LI><EM>\title{ ... }</EM> の間にタイトルを書き， <EM>\author{ ... </EM>} の間に著者名を書いたあと， <EM>\maketitle</EM> を置くとタイトルページが作成される．
+  <UL>
+    <LI>著者名を書きたくないときは <EM>\author{}</EM> とすればよい．</LI>
+    <LI>日付を書きたくないときは <EM>\date{}</EM> を追加すればよい．</LI>
+  </UL></LI>
+  <LI>段落を改めるときは<STRONG>１行あける</STRONG>．</LI>
+  <LI>強制的に改行するときは <EM>\\</EM> を置く．</LI>
+  <LI>引用符にはダブルクォーテーションマーク (&quot;) ではなく， <EM>``</EM>～<EM>''</EM> というように，バッククォーテーションマーク (`) とシングルクォーテーションマーク
+  (') を<EM>それぞれ２回</EM>使う．</LI>
+</UL>
+<H4>(2) LaTeX ソースファイルのコンパイル</H4>
+<P>LaTeX による文書作成の手順は，まずテキストエディタを使って LaTeX のソースファイルを作成します．このファイルのファイル名の拡張子は
+<EM>.tex</EM> とします．次に <EM>platex</EM> コマンドを使って，その LaTeX ソースファイルを<EM>コンパイル</EM>（一括編集）します．これで <EM>.dvi</EM> という拡張子のファイル（<EM>DVI ファイル</EM>）が出力されます．ソースファイルのファイル名が report<EM>.tex</EM> なら，次のようにします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>LaTeX ソースファイルのコンパイル</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>platex</EM> report<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(3) DVI ファイルのプレビュー</H4>
+<P>上のコマンドによって，report<EM>.dvi</EM> というファイルが作られます（ほかに report.log や report.aux というファイルもできます）．DVI
+ファイルを画面上で確認（プレビュー）するには，<EM>xdvi</EM> コマンドを使います．xdvi コマンドを終了するには <KBD>q</KBD> をタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>DVI ファイルのプレビュー</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>xdvi</EM> report &amp;<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(4) PostScript ファイルの作成</H4>
+<P>印刷する場合には，まず <EM>dvips</EM> コマンドを使って，この DVI ファイルから <EM>PostScript</EM> ファイルを作成します．印刷しない場合は (7) に進んでください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>DVI ファイルから PostScript ファイルの作成</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>dvips</EM> report<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>上のコマンドでは report<EM>.ps</EM> というファイルが作成されます．</P>
+<H4>(5) PostScript ファイルのプレビュー</H4>
+<P>PostScript ファイルを画面上で確認するには <em>evince</em> コマンドまたは <em>gv</em> コマンドを使います．gv コマンドを終了するには <KBD>q</KBD> をタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScriptファイルのプレビュー</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>gv</EM> report.ps &amp;<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(6) PostScript ファイルの印刷</H4>
+<P>PostScript ファイルを <EM>lpr</EM> コマンドでプリンタに送れば，印刷が開始されます．印刷する場合はいきなりプリンタに送らずに，必ず一旦
+gv コマンドなどでプレビューして仕上がりを確認してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PostScript ファイルの印刷</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>%<span class="type"> <EM>lpr</EM> kenpou.ps<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>(7) PDF ファイルの作成</H4>
+<P>DVI ファイルから <EM>PDF</EM> (Portable Document Format) 形式のファイルを作成するには <em>dvipdfmx</em> コマンドを使用します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PDF ファイルの作成</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>dvipdfmx</EM> report<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>これで report<EM>.pdf</EM> というファイルが作成されます．</P>
+<H4>(8) PDF ファイルの表示と印刷</H4>
+<P>PDF ファイルを画面に表示したり印刷したりするには，<em>evince</em> コマンドや <em>acroread</em> コマンドなどが使えます．ですが，今は<strong>印刷する必要はありません</strong>．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PDF ファイルの表示</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>% <span class="type"><EM>evince</EM> kenpou.pdf<KBD>[Enter]</KBD></span>
+% <span class="type"><EM>acroread</EM> kenpou.pdf<KBD>[Enter]</KBD></span></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2><A class="label" name="kadai">宿題</A></H2>
+<p>次の (1), (2) の作業を行ってください．その後，メールの本文に (3) の内容を書き，(2) で作成した PDF ファイルを添付して <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-08">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-08 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1)「私の密かな楽しみ」というタイトルで簡単なレポートを LaTeX を使って作成してください．</DIV>
+<UL>
+  <LI>LaTeX ソースファイル名は <em>report.tex</em> としてください（拡張子は必ず
+  &quot;<EM>.tex</EM>&quot;）．</LI>
+  <LI>文書クラスは <EM>jarticle</EM>，用紙サイズは <EM>a4j</EM>，文字サイズは <EM>11pt</EM> にしてください．</LI>
+  <LI>タイトルは必ず付けてください．またタイトルに付ける著者名は「学籍番号 名前」という形式にしてください．</LI>
+  <LI>以下の項目ごとに節（セクション）を設けて，それぞれに見出しをつけてください．セクションに見出しをつけるには，<EM>\section{</EM> ～ <EM>}</EM> を使います．詳細は <A href="latex.html" target="_blank">LaTeX の概要</A>を参考にしてください．<OL>
+    <LI><em>はじめに</em>
+<UL>
+  <LI>自分が楽しいと思うことの，世間一般における位置づけや，</LI>
+      <LI>その楽しみを得るに至った経緯を書いてください．</LI>
+    </UL></LI>
+    <LI><em>楽しみの内容</em>（この見出しは自分で考えてください）
+<UL>
+      <LI>その楽しさが他人にも理解できるように説明してください．</LI>
+    </UL></LI>
+    <LI><em>今後の展開</em>（この見出しは自分で考えてください）
+<UL>
+      <LI>今後の人生でその楽しみをどのように活かすことができるか考えてください．</LI>
+    </UL></LI>
+    <LI><em>おわりに</em>
+<UL>
+  <LI>その楽しみによって自分が得たこと，学んだことについてまとめてください．</LI>
+    </UL></LI>
+    <LI><em>時間割</em></LI>
+  </OL></LI>
+  <LI>「時間割」のような表を書く場合は <EM>\begin{tabular}</EM> ～ <EM>\end{tabular}</EM> を使います．これも詳細は <A href="latex.html" target="_blank">LaTeX の概要</A>を参考にしてください．</LI>
+  <LI>インターネット上にも TeX や LaTeX に関連したホームページがあります．三重大学の奥村先生の <A href="http://oku.edu.mie-u.ac.jp/~okumura/texwiki/" target="_blank">TeX Wiki</A> には非常に豊富な情報が集められています．アスキーの <A href="http://ascii.asciimw.jp/pb/ptex/" target="_blank">The publishing TeX</A> のページも参考になると思います．</LI>
+  <LI>分量は <EM>A4 用紙 1 枚以上 4 枚以内</EM>にしてください．</LI>
+</UL>
+<DIV class="figure"><IMG src="tanoshimi.gif" width="640" height="449" alt="私の密かな楽しみ"></DIV>
+<div class="assign">(2) 作成した LaTeX ソースファイルをコンパイルし，さらに PDF ファイルを作成してください．<em>report.pdf</em> というファイルが作成されますから，それを <em>public_html の中に移して</em>ください．</div>
+<div class="assign">(3) 今回の講義に対する意見と改善点．</div>
+<div class="footer"><a href="07.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

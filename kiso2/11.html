@@ -1,0 +1,334 @@
+<head>
+<title>情報基礎演習II − 第１１回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第１１回</h1>
+
+<hr>
+
+<h2>１．データ型の定義</h2>
+
+<hr>
+
+char や int など、最初から用意されているもの以外に、
+自分でデータ型を定義することもできます。
+
+<blockquote>
+<pre>
+typedef unsigned short word;
+</pre>
+</blockquote>
+
+上の定義によって、
+word という新しいデータ型が使えるようになります。
+これは unsigned short と同じです。
+この定義の後から、
+次のような変数宣言ができるようになります。
+
+<blockquote>
+<pre>
+word w;
+</pre>
+</blockquote>
+
+配列のように複数の要素を持ったデータ型を定義することもできます。
+
+<blockquote>
+<pre>
+typedef float vector[3];
+</pre>
+</blockquote>
+
+上の例の場合、
+vector は float 型の３個の要素を持つ配列のデータ型になります。
+従ってこの定義の後、次のように変数宣言を行うと、
+normal は３つの要素を持った配列変数として宣言されます。
+
+<blockquote>
+<pre>
+vector normal;
+</pre>
+</blockquote>
+
+定義した型をもとに、さらに新しい型を作ることもできます。
+
+<blockquote>
+<pre>
+typedef vector matrix[3];
+</pre>
+</blockquote>
+
+上によって定義された matrix は
+３×３の要素を持つ２次元配列変数を宣言します。
+<p>
+
+<a href="k49.html"><h3 align="center">■課題４９■</h3></a>
+
+<hr>
+
+<h2>２．構造体</h2>
+
+<hr>
+
+プログラムを書いていると、
+複数のデータをひとつにまとめて取り扱いたいと思う場面が
+少なからずあります。
+健康診断のデータを例にとって考えてみましょう。
+
+<ul>
+<li>身長
+<li>体重
+<li>胸囲
+</ul>
+
+これが一人分のデータだとすれば、
+配列を使って次のように表すことができます。
+
+<blockquote>
+<pre>
+float data[3];
+</pre>
+</blockquote>
+
+この例では、
+配列変数 data[0] に身長、
+data[1] に体重、
+data[2] に胸囲を格納すると決めておけば、
+data という配列変数ひとつで、
+一人分のデータを保存することができます。
+<p>
+
+次に、このデータに被験者の氏名も含めようと考えたとします。
+身長や体重、胸囲は数値でしたから、
+これらはいずれも float 型のデータとして統一できましたが、
+氏名は文字列で表す必要があります。
+これは float 型の配列である data に含めることはできません。
+<p>
+
+そう言う場合に、<b>構造体</b>というデータ型を用います。
+<p>
+
+<blockquote>
+<pre>
+struct kenshin {
+    char name[20];
+    float height;
+    float weight;
+    float bust;
+} data;
+</pre>
+</blockquote>
+
+
+変数の宣言（上の例では data）は省略できます。
+この場合、構造体の定義のみを行います。
+<p>
+
+構造体の各要素を指定するには、
+構造体変数名の後に .（ピリオド）に続けて要素名を書きます。
+上の例で宣言された構造体変数 data の各要素は、
+次のように指定します。
+
+<blockquote>
+<pre>
+/* i-dic による鈴木杏樹のデータ */
+strcpy(data.name, "Anju Suzuki");
+data.height = 161.0;
+data.weight = 43.0;
+data.bust = 81.0;
+</pre>
+</blockquote>
+
+構造体を一度定義すれば、
+同じ構造をもつ構造体変数は
+構造体名（上の例では kenshin）のみを指定して宣言できます。
+
+<blockquote>
+<pre>
+struct kenshin anotherData;
+</pre>
+</blockquote>
+
+同じ構造体変数を別のところで宣言する必要がなければ、
+構造体名も省略することができます。
+
+<blockquote>
+<pre>
+struct {
+    float x, y;
+} point;
+</pre>
+</blockquote>
+
+また typedef を使用して、
+新しいデータ型を定義する方法もよく用いられます。
+
+<blockquote>
+<pre>
+typedef struct {
+    char name[20];
+    float height;
+    float weight;
+    float bust;
+} Kenshin;
+</pre>
+</blockquote>    
+
+構造体の変数の初期化の方法は、
+配列の初期化に準じます。
+
+<blockquote>
+<pre>
+struct kenshin miho = {
+    /* i-dic による菅野美穂のデータ */
+    "Miho Kan'no",
+    160.0,
+    40.0,
+    81.0
+};
+</pre>
+</blockquote>
+
+<a href="k50.html"><h3 align="center">■課題５０■</h3></a>
+
+<hr>
+
+<h2>３．共用体</h2>
+
+<hr>
+
+<img src="11-1.gif" align="right" hspace="10" vspace="10">
+
+共用体は構造体に非常によく似ていますが、
+各要素が同一のメモリを共用する点が異なります。
+
+<blockquote>
+<pre>
+union kenshin {
+    char name[20];
+    float height;
+    float weight;
+    float bust;
+} data;
+</pre>
+</blockquote>
+
+従って、
+共用体のひとつの要素に代入を行うと、
+他の要素の内容は破壊されてしまいます。
+このため、共用体では一度にひとつの要素だけが使用できます。
+<p>
+
+<br clear="all">
+
+<a href="k51.html"><h3 align="center">■課題５１■</h3></a>
+
+<hr>
+
+<h2>４．ビットフィールド </h2>
+
+<hr>
+
+構造体や共用体の要素には、
+任意の精度（ビット数）をもつ整数を含めることができます。
+精度は要素名の後に :（コロン）を置いて指定します。
+
+<blockquote>
+<pre>
+struct bitfield {
+    signed x:12;
+    unsigned y:4;
+};
+</pre>
+</blockquote>
+
+但し、精度は要素の型の精度を越えることはできません。
+
+<blockquote>
+<pre>
+struct bitfield {
+    char x:12;         /* ←エラー */
+    unsigned char y:4;
+};
+</pre>
+</blockquote>
+
+<a href="k52.html"><h3 align="center">■課題５２■</h3></a>
+
+<hr>
+
+<h2>５．構造体／共用体のポインタ</h2>
+
+<hr>
+
+構造体や共用体の変数へのポインタは、
+通常の変数同様 &amp; 演算子によって得られます。
+またポインタ変数も通常の変数と同様 * 演算子を付けて宣言します。
+
+<blockquote>
+<pre>
+struct kenshin {
+    char name[20];
+    float height;
+    float weight;
+    float bust;
+};
+
+void sub(struct kenshin *p)
+{
+    /* i-dic による永作博美のデータ */
+    strcpy((*p).name, "Hiromi Nagasaku");
+    (*p).height = 156.0;
+    (*p).weight = 42.0;
+    (*p).bust = 82.0;
+}
+
+int main(void)
+{
+    struct kenshin nagasaku;
+
+    sub(&nagasaku);
+}
+</pre>
+</blockquote>
+
+構造体のポインタ変数の要素の指定は、
+.（ピリオド）の優先順位が * よりも高いため、
+上のように括弧を使う必要があります。
+
+<blockquote>
+<pre>
+(*p).height = 156.0;
+</pre>
+</blockquote>
+
+この記法は繁雑なので、
+代わりに <tt>-></tt> という演算子が用意されています。
+
+<blockquote>
+<pre>
+p->height = 156.0;
+</pre>
+</blockquote>
+
+従って、上の例の関数 sub は、
+下のように書くことができます。
+
+<blockquote>
+<pre>
+void sub(struct kenshin *p)
+{
+    /* i-dic による永作博美のデータ */
+    strcpy(p->name, "Hiromi Nagasaku");
+    p->height = 156.0;
+    p->weight = 42.0;
+    p->bust = 82.0;
+}
+</pre>
+</blockquote>
+
+<a href="k53.html"><h3 align="center">■課題５３■</h3></a>
+
+</body>

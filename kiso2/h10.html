@@ -1,0 +1,150 @@
+<head>
+<title>情報基礎演習II − 補足１０</title>
+</head>
+
+<body>
+
+<h3>補足１０：scanf を使わないコンソール入力</h3>
+
+<hr>
+
+<p>scanf は「使うな」とか「初心者には教えるな」とか、
+いろいろ評判の悪い関数ですが、
+仕様さえきちっと守って使えば（それが難しい関数なんですが）
+それなりに便利に使えます。
+しかし、無理に scanf を使ってトラブルを抱え込むよりは、
+それを使わないというのも一つの見識です。
+scanf の代替案としては、fgets を使って入力の１行全体を読み込み、
+それを分解して使うという方法がよく用いられます。</p>
+
+<blockquote>
+<pre>char inputline[10];
+
+fgets(inputline, sizeof inputline, stdin);</pre>
+</blockquote>
+
+<p>fgets によって標準入力（キーボード）から入力した文字列が、
+最後の改行を含めて char 型の配列 inputline に格納されます。
+入力した文字列が 9 文字（10 文字 - 1 文字）より長ければ、
+10文字目（imputline の最後の要素）に '\0' を代入して、
+入力の残りは次の入力に回されます。</p>
+
+<blockquote><pre>
+abcde[改行]</pre>
+</blockquote>
+
+<p>という入力であれば、inputline には</p>
+
+<blockquote>
+<pre>"abcde\n"</pre>
+</blockquote>
+
+<p>という文字列が格納され、</p>
+
+<blockquote>
+<pre>abcdefghijklmno[改行]</pre>
+</blockquote>
+
+<p>という入力であれば、</p>
+
+<blockquote>
+<pre>"abcdefghi"</pre>
+</blockquote>
+
+<p>という文字列が格納され、残りの "jklmno\n" は次に
+fgets のような入力関数が実行されたときに読み込まれます。</p>
+
+<p>sizeof inputline は配列 inputline のサイズを求めています。
+stdin は standard in、すなわち標準入力を示すファイルポインタです。</p>
+
+<p>これを数値に変換するには atoi などの関数を用います。
+これらの関数を利用するには、stdlib.h を include しておく必要があります。</p>
+
+<blockquote>
+<pre>#include &lt;stdio.h&gt;
+<b>#include &lt;stdlib.h&gt;</b>
+
+void func(void)
+{
+    char inputline[100];
+
+    if (fgets(inputline, sizeof inputline, stdin) != NULL) {
+        int i;
+        long l;
+        unsigned long u;
+        double d;
+
+        i = atoi(inputline);          /* int に変換           */
+        l = strtol(inputline, NULL);  /* long に変換          */
+        u = strtoul(inputline, NULL); /* unsigned long に変換 */
+        d = atof(inputline);          /* double に変換        */
+        d = strtod(inputline, NULL);  /* double に変換        */
+    }
+
+    ...
+}</pre>
+</blockquote>
+
+<p>改行ごとにひとつの数値しか入力しないのであれば上のような方法で十分です。
+１行で複数の数値を入力する場合は、それを切り分ける必要があります。
+それには strtok が便利です。
+strtok を使うには、string.h を #include しておきます。</p>
+
+<blockquote>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+<b>#include &lt;string.h&gt;</b>
+
+void func(void)
+{
+    char inputline[100];
+    int i[10], n = 0;
+
+    if (fgets(inputline, sizeof inputline, stdin) != NULL) {
+        static char separator[] = " \t\n";
+        char *token;
+
+        if ((token = <b>strtok</b>(<u>inputline</u>, separator)) != NULL) {
+            do {
+                i[n] = atoi(token);
+            }
+            while (++n < 10 && (token = <b>strtok</b>(<u>NULL</u>, separator)) != NULL);
+        }
+    }
+
+    ...
+}</pre>
+</blockquote>
+
+<p>strtok は第２引数に指定した文字列をセパレータにして
+第１引数に指定した文字列を分解し、
+その最初の文字列（トークン）へのポインタを戻り値として返します。
+第１引数に NULL を指定すると、
+以前に strtok を呼び出したときの文字列の残りの部分からトークンを切り出します。
+第２引数にはコンマ、スペース、タブ、改行をセパレータに指定しており、
+区切り文字はこのどれでもかまいません。</p>
+
+<p>もう一つ、<b>s</b>scanf という関数を用いることもできます。
+この動作は scanf と同じですが、
+標準入力ではなく文字列を対象にします。</p>
+
+<blockquote>
+<pre>#include &lt;stdio.h&gt;
+
+void func(void)
+{
+    char inputline[100];
+    double x, y, z;
+
+    if (fgets(inputline, sizeof inputline, stdin) != NULL) {
+        <b>sscanf</b>(inputline, "%lf %lf %lf", &x, &y, &z);
+
+        ...
+    }
+}</pre>
+</blockquote>
+
+<p>第１引数に変換する文字列を指定します。
+第２引数以降は scanf の第１引数以降と同じです。</p>
+
+</body>

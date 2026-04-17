@@ -1,0 +1,79 @@
+<head>
+<title>ScreamerNet レンダリング</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<hr>
+
+<h2>ScreamerNet レンダリング</h2>
+
+<hr>
+
+<p>長編ムービーを作成するときは、
+複数のコンピュータを使って並列に処理することで、
+レンダリングにかかる時間を短縮できます。</p>
+
+<p>ムービーは静止画で保存する設定にしてください。</p>
+
+<ul>
+<li>“レンダー”のボタンをクリックして "Render Panel" を表示します。</li>
+<li>"Save Animation" を非選択にして、
+ムービーファイルとして保存しないようにします。</li>
+<li>"Save RGB Images" を選択して、
+ホームディレクトリにファイルを作成します。</li>
+<li>"Output Filename Format" で "Name0001.xxx" を選んで、
+ファイル名に連番と拡張子が付くようにします。</li>
+<li>"RGB Image Format" は "LW_SGI24" あるいは "LW_TIFF24"
+などを選んでおくといいでしょう。 </li>
+</ul>
+
+<p>レンダリングするシーンのシーンファイルを保存した後、
+次の操作を行ってください。</p>
+
+<ol>
+
+<li>まず、ホームディレクトリに作業用のディレクトリを作ってください。
+ここでは仮に、そのディレクトリ名を sn とします。<br>
+<table width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mkdir ~/sn<b><font color="#00cc66">[Enter]</font></b></u>
+</table></li>
+
+<li>レイアウト (LW) を起動し“ネットワーク”ボタンをクリックして、
+"Net Rendering Method" を "ScreamerNet II" に、
+"Command Directory" に /usr/people/ユーザ名/sn を設定してください。
+このとき“初期化するか”と聞いてきますが、
+今は "No" をクリックしてください。</li>
+
+<li>LW を使っているコンピュータ以外で、
+空いているコンピュータを複数台起動してください。</li>
+
+<li>次のコマンドを繰り返して、
+起動したマシンで lwsn というコマンドを遠隔実行します。
+nachi?? は起動したマシンのホスト名です。<br>
+<table width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>rsh nachi?? lwsn -2 /usr/people/ユーザ名/sn/{job,ack}<font color="#ff0000">1</font><b><font color="#00cc66">[Enter]</font></b></u>
+% <u>rsh nachi?? lwsn -2 /usr/people/ユーザ名/sn/{job,ack}<font color="#ff0000">2</font><b><font color="#00cc66">[Enter]</font></b></u>
+% <u>rsh nachi?? lwsn -2 /usr/people/ユーザ名/sn/{job,ack}<font color="#ff0000">3</font><b><font color="#00cc66">[Enter]</font></b></u>
+...
+</table></li>
+
+<li>"Maximum CPU Number" に
+lwsn を起動したマシンの台数を指定してください。</li>
+
+<li>"Screamer Init" ボタンをクリックしてください。</li>
+
+<li>すべての CPU が Ready になったのを確認したら、
+"Screamer Render" ボタンをクリックしてください。</li>
+
+<li>レンダリングが完了したら、"Screamer Shutdown"
+をクリックしてください。</li>
+
+</ol>
+
+<p>これを使うとサーバの負荷がかなり上昇します。O2 は 75 台ありますが、
+lwsn を起動するマシンは、多分10くらいが限度じゃないかと思います。</li>
+
+</body>

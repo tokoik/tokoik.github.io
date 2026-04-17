@@ -1,0 +1,922 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第１０回：ジョブコントロール，保護モード，コマンドへのデータ入力</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第１０回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>コンピュータについてもう一度考える
+  <LI>ファイルのアクセス制御について知る
+  <LI>ジョブのコントロール方法について知る
+  <LI>コマンドへのデータ入力について知る
+  <LI>オンラインマニュアルの使い方を知る
+</OL>
+<DIV class="book"><SPAN class="book">教科書１７９～２１０ページ</SPAN></DIV>
+<H2>１．「デザイン情報学科」について</H2>
+<P>この講義の第１回目に，「あなたがコンピュータを使ってしたいことを３つ挙げてください」という<A href="01.html#kadai">課題</A>を課しました．ここでは仮に，それを「ホームページ制作，ＣＧ制作，グラフィックデザイン」だったとします（一応「デザイン情報学科」だから）．ということは，これらの仕事にコンピュータが使えるということを，皆さんは既にご存知だということになります．そこで今回は，どうやったらそういう仕事をコンピュータにさせられるのかについて考えてみたいと思います．</P>
+<BLOCKQUOTE>普通，こういう話は講義の第１回目でやるべきことだとは思うのですが，第１回目だと多分実感が湧かないと思ったので，一通りやってからすることにしました（観念的な話なのでわかりにくかったら御免）．</BLOCKQUOTE>
+<DIV class="figure"><IMG src="00intro00.gif" width="400" height="300" border="0"></DIV>
+<P>コンピュータは，日本語で「電子計算機」と言ったりします．つまり，コンピュータの本来の仕事は「計算」なんです．この他に「記憶」と「判断」も，コンピュータの主要な機能です．ＣＧなんてのは「計算で絵を作ってるな」という感じがしますが，よく考えると，こういう仕事が「計算」と「記憶」と「判断」で実現できるというのは結構不思議です．実は，こういったコンピュータのアプリケーション（用途）と，コンピュータ本来の機能との間には，大きなギャップ（隔たり）があるのです．そして，このギャップを埋めているのが<EM>ソフトウェア</EM>です．</P>
+<DIV class="figure"><IMG src="00intro02.gif" width="400" height="300" border="0"></DIV>
+<P>ソフトウェアによって，コンピュータは様々な目的に使うことのできる道具になります．でも，ここでよ～く考えてみましょう．コンピュータで文章を書くためには，その前に文章を書く能力自体が必要です．ゲームで遊ぶときも，遊び方がわからなければ面白くありません．テレビを見るにしても，見たい番組がなければ見る気は起こりません．作曲するにしても，出版するにしても，そういう<EM>知識</EM>や<EM>能力</EM>や<EM>興味</EM>がなければ，<EM>コンピュータは使えない</EM>のです．</P>
+<DIV class="figure"><IMG src="00intro03.gif" width="400" height="300" border="0"></DIV>
+<P>皆さんは<A href="05.html#cpmv">mv コマンド</A>が何をするコマンドか覚えているでしょうか？ファイルを保存する場所を間違えたりしてファイルを移動しなければならない状況になって，はじめて
+mv コマンドの<EM>意味</EM>が理解できたりします．つまり，自分にとってそれが<EM>必要</EM>だという状況（目的）を持つことは，<EM>コンピュータを学ぶ上で非常に重要</EM>なことなのです．英単語を覚えるようにコマンドを<EM>覚えても</EM>，そのコマンドを実際には<EM>使えない</EM>でしょう．</P>
+<P>ところで，mv コマンドと同じことは<EM>ファイルマネージャ</EM>を使っても可能です．でもファイルマネージャを使うと，この<EM>意味</EM>が少し見えにくくなってしまいます．一番の問題は，ファイルマネージャで見えているものが，コンピュータのファイルの実体だと思ってしまうことです．ファイルマネージャはコンピュータの複雑な動作を，<EM>アイコン</EM>に置き換えた<EM>仮の姿を見せている</EM>に過ぎないのです．</P>
+<DIV class="figure"><IMG src="00intro04.gif" width="400" height="300" border="0"></DIV>
+<P>ソフトウェアは，人間の要求をコンピュータに指示するための<EM>インタフェース</EM>（介在物，接続点）に過ぎません．人間の要求はコンピュータ自体を使うことではなく，それを使って<EM>何かを成し遂げる</EM>ところにありますから，そういう<EM>要求</EM>のないところにソフトウェアは存在し得ないのです．</P>
+<P>「Webページ」をソフトウェアとして捉えた場合，それが成し遂げようとする目的，すなわち<EM>コンセプト</EM>が明確でなければ，そのソフトウェアはうまく機能しない（レイアウトが乱れるというとかそういう話ではなくて，誰にも見てもらえないという
+Web ページがもつ情報公開の機能が有効に働いていない状況）ことになります．</P>
+<DIV class="figure"><IMG src="00intro05.gif" width="400" height="300" border="0"></DIV>
+<P>だから「コンピュータの勉強」とは，たとえば「ワープロで字を大きくする方法」や「Webページで文字を中央にそろえる方法」を知ることではないと考えています．字を大きくしたり中央にそろえたりするのは，「何か」を<EM>目に見える形に置き換える手段</EM>に過ぎません．そしてその「何か」とは，そこで表現しようとする<EM>コンセプトそのもの</EM>のはずです．</P>
+<P>「Webページ」を例にとれば，その主要なコンテントである<EM>文書</EM>という「ソフトウェア」の<EM>設計</EM>（すなわち<EM>デザイン</EM>）を考えることのほうが，もっと大事な問題なのです．設計の悪い文書は，コンセプトをうまく表現できません．また，レイアウトするときにも余計に手間がかかります．そこで場当たり的なレイアウトを行ったりすると，結果的に非常に読みにくい，あるいは使いにくいものに仕上ってしまいます．</P>
+<P>「デザイン」するという本当に人間にしかできない仕事を，コンピュータを「うまく」使って，もっと楽に，もっと上手に，もっと創造力豊かに行えるようにしようというのが，「デザイン情報学科」のコンセプトです．</P>
+<H2>２．オペレーティングシステムについて</H2>
+<H3>２．１　Linux について</H3>
+<P>アプリケーションとコンピュータの機能との間のギャップは非常に大きいので，その間を単一のソフトウェアで埋めることには，大きな困難が伴います．そこで，このギャップをいくつかの「層」に分けて個別にソフトウェアを作成し，それらを組み合わせて一つの大きな仕事を達成しようという戦略が採られます．最も大きな分け方をした場合，これは実際に仕事をする「アプリケーションソフトウェア」と，その土台となる「<A href="01.html#os">オペレーティングシステム</A>」の２つの層に分けることができます．</P>
+<DIV class="figure"><IMG src="02os00.gif" width="400" height="300" border="0"></DIV>
+<P>この講義で使っている Linux というオペレーティングシステムは，Unix というオペレーティングシステムの影響を受けて開発されました．影響を受けたと言うより，ほとんど同じものを別の人が一から作り直したもの，と言った方がいいかもしれません．作り始めたのは
+Linus Torvalds というフィンランドのヘルシンキ大学の大学院生（当時）です．</P>
+<DIV class="figure"><IMG src="02os01.gif" width="400" height="300" border="0"></DIV>
+<P>1965年，当時のコンピュータ技術の粋を集めた最先端のオペレーティングシステムの開発が始まりました．Multics
+(Multiplexed Information and Computing Service) と呼ばれたそのオペレーティングシステムは，あらゆることが可能な理想のオペレーティングシステムになるはずでした．しかし当時のコンピュータにとって，それはあまりにも大きく，遅いものになってしまいました．Unix
+はこの反省から，Multics の持つ機能の大半を削り落とし，非常にシンプルでコンパクトなオペレーティングシステムとして1969年に生まれました．</P>
+<P>機能を削ったと言っても，Unix には<A href="05.html#directory">階層型のファイルシステム</A>など，現在のオペレーティングシステムの基本となる要素が数多く含まれていました．その後1972年には，Unix
+は <EM>C 言語</EM>（情報処理II以降で学習します）を使って書き直され，1975年頃からそのソースコード（ソフトウェアの設計図）が教育や研究の素材として世界中の大学や研究機関に販売されたこともあって，コンピュータサイエンスの世界で爆発的に普及していきました．</P>
+<P>この過程で Unix はどんどん機能を増していきました．機能が増えたことで Unix
+も Multics 同様大きく重くなってしまいましたが，コンピュータのハードウェア性能の向上により，それはあまり気にならなくなっていました．それよりも機能が増えて実用性が高まった
+Unix は，それまでの教育や研究の素材としてだけではなく，企業が実際の業務で使用するコンピュータのオペレーティングシステムとして大きな価値を持つようになりました．</P>
+<P>そしてこのことは，それまで教育や研究のためにそれを使っていた（ソースコードを見て勉強したり，自分で新しい機能を作ったりしていた）人の手から，Unix
+を遠ざける結果を招いてしまいました．しかし，何人かの人たちは，「それじゃあ同じものを自分で作ってしまおう」と考えたわけです．Linus
+Torvalds もそういう一人でした．</P>
+<DIV class="figure"><IMG src="02os02.gif" width="400" height="300" border="0"></DIV>
+<P>ここで Linus は他の人とちょっと違うことを二つやりました．一つは，「それ（つまり
+Unix と同じもの）」を作るときに，まず自分が作ったソースコードを包み隠さず公開したことです．こういうやり方は<EM>オープンソース</EM>と呼ばれます．Unix が結果的にそうなってしまったように，ソースコードは隠すのが普通です．ソースコードはアイデアの塊ですから，それを公開することは，そのアイデアから得られるであろう利益をみすみす捨ててしまうことのようにも思えます．</P>
+<P>もう一つは，公開したソースコードを元に，「みんな」で一緒になって「それ」を作り上げていくことにしたことです．この「みんな」というのが，当時のほかの人たちには信じられないことでした．つまり，「それ」を作るのに携わる人は，お互いの能力を把握している気心？の知れたメンバーに限るのが普通でしたから，どこの誰ともわからない人まで巻き込んでワイワイとやるやり方がうまくいくとは誰も思っていませんでした．</P>
+<P>しかし，結果的にこのやり方は，ものすごいエネルギーを持って「それ」を作り上げることに成功してしまいました．もちろんこの背景には，電子メールやネットニュースといった新しい通信手段の存在があったことは言うまでもありません．そして，その後のインターネットが普及は，これを爆発的に加速させました．こうして出来上がった「それ」，すなわちオペレーティングシステムが
+Linux です．</P>
+<P>このようなソフトウェア開発手法に関する考察として，<A href="http://catb.org/~esr/" target="_blank">Eric S. Raymond</A> 著 <A href="http://www.catb.org/~esr/writings/cathedral-bazaar/" target="_blank">The Cathedral and the Bazaar</A> （山形浩生氏の訳「<A href="http://cruel.org/freeware/cathedral.html" target="_blank">伽藍とバザール</A>」）という有名な論文があります．</P>
+<H3><A name="function" class="label">２．２　Unix/Linux の機能</A></H3>
+<P>初期の Unix からは省かれた機能（だから Multi- じゃなくて Uni- になった）ですが，現在の
+Unix あるいは Linux の重要な機能に「マルチタスク機能」があります．これは同時に複数の「仕事」を処理できる機能です．</P>
+<DIV class="figure"><IMG src="02os03.gif" width="400" height="300" border="0"></DIV>
+<P>たとえばテキストエディタを使っているとき，実際にコンピュータが仕事をするのは，キーをタイプして編集中のテキストを更新し，その結果が画面に表示されるまでの間です．これは<EM>一瞬</EM>に行われます．つまり，キーをタイプして次のキーをタイプするまでの間は，コンピュータは<EM>ほとんど遊んでいる</EM>のです．したがって，その余った処理能力を他の仕事や他の人に回せば，時間や消費電力やコンピュータの台数など，様々な無駄を省くことができます．</P>
+<BLOCKQUOTE>w コマンドや top コマンドを使うと，コンピュータがどれだけ忙しいか，どんな仕事にどれだけ時間を割いているのか知ることができます．また
+xload コマンドは現在の忙しさ（負荷）をグラフで表示してくれます．<A href="04.html#panel">アプレット</A>の「モニタ」の中にも，これらを表示するものがいくつかあります．</BLOCKQUOTE>
+<P>処理能力を他の人に回すことができれば，１台のコンピュータを複数の人で同時に使用できるようになります．以前は１台のコンピュータに複数の<A href="04.html#shell">端末装置</A>を接続し，多人数で利用することが一般的でした（パソコン，すなわち個人用のコンピュータ<EM>以外</EM>の世界では今でも行われています）．このような機能を「マルチユーザ機能」と言います．</P>
+<DIV class="figure"><IMG src="02os04.gif" width="400" height="300" border="0"></DIV>
+<P>ただし，これを実現するには異なる利用者の仕事が邪魔しあったりしないように，それらの利用者の仕事やデータを「管理」する機能が必要になります．「<A href="01.html#login">ユーザアカウント</A>」は，ファイルやディレクトリ，あるいは実行中のコマンドの<EM>所有権</EM>に結び付けられていて，他人が所有するデータを勝手に変更したり，他人が実行しているコマンドを勝手に止めたりできないようになっています．</P>
+<DIV class="figure"><IMG src="02os05.gif" width="400" height="300" border="0"></DIV>
+<P>唯一，root というユーザだけが，このような制限を越えてプログラムやデータを操作できるようになっています．このようなユーザアカウントを「特権ユーザ」と呼びます．これはシステムの管理用なので，一般の利用者の仕事には使用しません．</P>
+<DIV class="figure"><IMG src="02os06.gif" width="400" height="300" border="0"></DIV>
+<P>さて，ユーザアカウントを取得すると，いくつかのものが用意されます．ユーザ名（ログイン名）は，自分のコンピュータに
+Linux を入れたときには自分で決められるのですが，演習室のコンピュータで使用する学生用のユーザアカウントはあらかじめ用意しているので，勝手に決めることはできません．所属するグループも，学生の場合は
+students に統一しています．なお，ユーザは複数のグループに所属することができ，これを使って特定のグループに属するユーザだけがアクセス可能なファイルやディレクトリを作成することもできます．</P>
+<H2>３．ジョブコントロール</H2>
+<P>実際に複数の仕事を並行して実行できるところを確かめてみましょう．もちろん画面上には同時に動いているウィンドウやアイコンがいくつか存在すると思いますが，ここではコマンドを使って試してみます．</P>
+<H3>３．１　コマンドを使ってターミナルを開く</H3>
+<P>たとえば，ターミナルの<A href="04.html#shell">シェル</A>から，コマンドによって別のターミナルのウィンドウを開くことができます．以下の例は
+rxvt というコマンドを使用していますが，これは gnome-terminal 同様，ターミナルのウィンドウを開くコマンドです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">コマンドでターミナルを開く</TH>
+    </TR>
+    <TR>
+      <TD width="45%">rxvt コマンドを実行する</TD>
+      <TD class="action">
+      <PRE>% <U>rxvt<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>rxvt コマンドを実行すると，同じようなターミナルのウィンドウが開きます．設定によって，この図とは異なる場合があります．このターミナルのウィンドウ内では<EM>シェル</EM>が起動され，ユーザのコマンド入力を待っています．</P>
+<DIV class="figure"><IMG src="job1.gif" width="400" height="500" border="0"></DIV>
+<P>新しく開いたターミナルのウィンドウでも，同じようにコマンドが実行できます．しかし，もとのターミナルのターミナルのウィンドウでは，コマンドを受け付けなくなります．</P>
+<DIV class="figure"><IMG src="job2.gif" width="400" height="500" border="0"></DIV>
+<P>これは，もとのターミナルのウィンドウ内で起動されている<EM>シェル</EM>が，そこから起動した rxvt コマンドの終了を待っているからです．</P>
+<H3>３．２　キーボードによる割り込み</H3>
+<P>仕方がないので，もとのターミナルで <KBD>Ctrl-C</KBD> をタイプして，新しく起動したターミナルのウィンドウに<EM>割り込み</EM>をかけてください．するとターミナルのコマンドが<EM>終了</EM>するため，新しく起動したもう一方のウィンドウは消えてしまいます．</P>
+<DIV class="figure"><IMG src="job3.gif" width="400" height="500" border="0"></DIV>
+<H3>３．３　コマンドの一旦停止</H3>
+<P>もう一度 rxvt を起動してターミナルのウィンドウを開き，今度は <KBD>Ctrl-Z</KBD> をタイプしてください．今度はもう一方のウィンドウは消えません．しかし，もう一方のウィンドウは全く応答してくれません．</P>
+<DIV class="figure"><IMG src="job4.gif" width="400" height="500" border="0"></DIV>
+<P><KBD>Ctrl-Z</KBD> は，コマンドの実行を<EM>一旦停止</EM>させます．</P>
+<H3>３．４　一旦停止したコマンドの再開</H3>
+<P>停止しているコマンドを再開するには，<EM>fg</EM> コマンドを使用します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">フォアグラウンドで動かす</TH>
+    </TR>
+    <TR>
+      <TD width="45%">fg コマンドを実行する</TD>
+      <TD class="action">
+      <PRE>% <U>fg<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><EM>fg</EM> コマンドを実行すると，再びもう一方のウィンドウが動き出します．しかし，もとのウィンドウは再びコマンドを受け付けなくなります．これは，もとのウィンドウのシェルがコマンドの<EM>終了を待っている</EM>からです．コマンドがシェルを待たせて動作している状態を，<EM>フォアグラウンドで走っている</EM>と言います．</P>
+<DIV class="figure"><IMG src="job5.gif" width="400" height="500" border="0"></DIV>
+<H3>３．５　バックグラウンドジョブ</H3>
+<P>もとのウィンドウでもう一度 <KBD>Ctrl-Z</KBD> をタイプし，今度は <EM>bg</EM> コマンドを実行してください．<EM>bg</EM> コマンドも停止しているコマンドの実行を再開しますが，その際にシェルを待たせません．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">バックグラウンドで動かす</TH>
+    </TR>
+    <TR>
+      <TD width="45%">bg コマンドを実行する</TD>
+      <TD class="action">
+      <PRE>% <U>bg<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>したがって <EM>bg</EM> コマンドを使った場合には，コマンドで起動した rxvt がもとのシェルと<EM>並行して（同時に）</EM>動くため，両方のウィンドウが使えるようになります．このようにコマンドが起動したシェルと並行して動いている状態を<EM>バックグラウンドで走っている</EM>といいます．</P>
+<DIV class="figure"><IMG src="job6.gif" width="400" height="500" border="0"></DIV>
+<P>もとのウィンドウで <EM>jobs</EM> コマンドを実行すれば，このシェルのバックグラウンドで走っているコマンド（<EM>バックグラウンドジョブ</EM>）の一覧が表示されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ジョブの一覧を見る</TH>
+    </TR>
+    <TR>
+      <TD width="45%">jobs コマンドを実行する</TD>
+      <TD class="action">
+      <PRE>% <U>jobs<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>下図の状態では，新しいターミナルのウィンドウ (rxvt) が，元のウィンドウのシェルと並行して実行されています．</P>
+<DIV class="figure"><IMG src="job7.gif" width="400" height="500" border="0"></DIV>
+<P>コマンドを実行する際に <EM>&amp;</EM> を後ろにつけると，そのコマンドを最初からバックグラウンドで動かすことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">コマンドをバックグラウンドで起動する</TH>
+    </TR>
+    <TR>
+      <TD width="45%">rxvt コマンドを<EM>バックグラウンド</EM>で実行する</TD>
+      <TD class="action">
+      <PRE>% <U>rxvt <EM>&amp;</EM><KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>したがって，<EM>&amp;</EM> を付けてコマンドを実行した場合には，すぐに<A href="01.html#prompt">プロンプト</A>が現れます．</P>
+<DIV class="figure"><IMG src="job8.gif" width="400" height="500" border="0"></DIV>
+<P>このように，シェルは複数のコマンドを同時に実行できます．実行中のコマンドのことを<EM>ジョブ</EM>と言います．上の図では，jobs コマンドで<EM>バックグラウンドジョブが２つ</EM>走っていることがわかります．jobs コマンドの出力の各行の先頭の <EM>[数字]</EM> は，<EM>ジョブ番号</EM>と言います．<EM>kill</EM> コマンドの引数に &quot;<EM>%ジョブ番号</EM>&quot; を指定すれば，そのジョブに割り込みをかけて終了させることができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">kill コマンドを使ってジョブを制御する</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ジョブに割り込みをかける</TD>
+      <TD class="action">
+      <PRE>% <U>kill <EM>%1</EM><KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ジョブを停止させる</TD>
+      <TD class="action">
+      <PRE>% <U>kill <EM>-STOP</EM> %1<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>ジョブを強制的に終了させる</TD>
+      <TD class="action">
+      <PRE>% <U>kill <EM>-KILL</EM> %1<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>kill コマンドにオプションをつけなければ，ターミナルのウィンドウで <KBD>Ctrl-C</KBD> をタイプしたのと同じです．&quot;-STOP&quot; オプションを付けた場合は<KBD>Ctrl-Z</KBD> をタイプしたのと同じです．&quot;-KILL&quot; オプションを付けたときは，コマンドに有無を言わさず終了させます．</P>
+<DIV class="figure"><IMG src="job9.gif" width="400" height="500" border="0"></DIV>
+<P><EM>fg</EM> コマンドや <EM>bg</EM> コマンドも，引数にジョブ番号を指定できます．ジョブ番号を省略したときは，最後に関わったジョブ（jobs
+コマンドの出力に <EM>+</EM> がついているもの）が指定されます．</P>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>fg</EM>
+  <DD>コマンドの実行をフォアグラウンドで再開します．
+  <DT><EM>bg</EM>
+  <DD>コマンドの実行をバックグラウンドで再開します．
+  <DT><EM>jobs</EM>
+  <DD>実行中あるいは停止中のコマンド（ジョブ）の一覧を表示します．
+  <DT>kill
+  <DD>コマンドにシグナルを送ります．オプションを省略すれば <EM>-INT</EM>（キーボード割り込み） を指定したとみなされます．これはキーボードから <KBD>Ctrl-C</KBD> をタイプして割り込みをかけるのと同じです．<EM>-KILL</EM>（強制終了）は，割り込みをかけても終了しないジョブを強制的に終了終了します．
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H2><A name="permission" class="label">４．保護モード</A></H2>
+<P>利用者のホームディレクトリ以下のファイルやサブディレクトリは，普通その利用者しか変更できないようになっています．ファイルやディレクトリには<EM>所有権</EM>が設定されており，<EM>所有者</EM>や所有者が属している<EM>グループ</EM>にもとづいて，そのファイルやディレクトリへのアクセス（読み出したり変更したりする行為）を制御できます．この制御情報を<EM>保護モード</EM>と呼びます．</P>
+<H3>４．１　ファイルの保護モードを調べる</H3>
+<P>ls コマンドに -l オプションをつけると，ファイルの詳細な情報を表示します．
+以下の出力例は人によって違います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルやディレクトリの詳細情報を表示する</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ls に -l オプションをつければ，カレントディレクトリにあるファイルの詳細な情報を表示する</TD>
+      <TD class="action">
+      <PRE>% <U>ls <EM>-l</EM><KBD>[Enter]</KBD></U>
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 Desktop
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 Mail
+<SPAN class="anon">（以下略）</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">引数にサブディレクトリ名を指定すれば，その中にあるファイルの詳細な情報を表示する</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l <EM>Mail</EM><KBD>[Enter]</KBD></U>
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 draft
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 queue
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 trash
+<SPAN class="anon">（以下略）</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">-d オプションを追加すれば，そのサブディレクトリ自体の詳細な情報を表示する（-ld
+      は-l -d と同じ）</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l<EM>d</EM> Mail<KBD>[Enter]</KBD></U>
+drwxr-xr-x    1 s085000  students       27 May  7 09:30 Mail<SPAN class="anon"></SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>先頭の１文字はファイルの<EM>タイプ</EM>を示し，これが &quot;-&quot; なら通常のファイル，&quot;d&quot; ならディレクトリであることを示します．続く９文字はファイルの<EM>保護モード</EM>を示します．これは３文字ずつに区切られ，それぞれファイルの所有者，グループに属するユーザ，それら以外のユーザに対する，そのファイルへのアクセスの可否を表しています．</P>
+<DIV class="figure"><IMG src="permission.gif" width="639" height="183" border="0"></DIV>
+<P>上の例では，ファイル c の保護モードは次のように示されています．</P>
+<UL>
+  <LI>所有者は「読み出し」「書き込み（変更）」「実行」が可能
+  <LI>students というグループに属しているほかの利用者は「読み出し」と「実行」が可能
+  <LI>そのほかの利用者は「読み出し」と「実行」が可能
+</UL>
+<P>このほかに，このファイルは 27 バイト（英文字 27 文字分）のファイルサイズをもち，「今年」の５月２７日午前９時３０分に作成あるいは変更されたことが示されています．</P>
+<BLOCKQUOTE>
+<DIV class="header">実行許可 &quot;x&quot; について</DIV>
+<DIV class="body">
+<P>ファイルの保護モードに <EM>x</EM> が含まれる場合は，そのファイルが実行可能，すなわちコマンドとして使用できることを意味します．</P>
+<P>一方，ディレクトリの保護モードの <EM>x</EM> は意味が異なり，これはそのディレクトリに cd したり，<A href="05.html#cd">パス</A>名にそのディレクトリを含めることができること意味します．</P>
+</DIV>
+</BLOCKQUOTE>
+<H3>４．２　ファイルの保護モードを変更する</H3>
+<P>ファイルやディレクトリの保護モードを変更するには，chmod コマンドを使用します．皆さんのホームディレクトリには
+report.tex というファイルがあるはずですから，これを他人が読み出せないようにしてみましょう．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルの保護モードを変更する</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル report.tex の保護モードを確認する</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l report.tex<KBD>[Enter]</KBD></U>
+-rw-r--r--    1 s085000  students    2770 May  7 09:30 c</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>chmod</EM> コマンドを使って report.tex から読み出し許可と書き込み許可を取り除く</TD>
+      <TD class="action">
+      <PRE>% <U>chmod -rw report.tex<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル report.tex の保護モードを確認する</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l report.tex<KBD>[Enter]</KBD></U>
+----------    1 s085000  students    2770 May  7 09:30 c</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">cat コマンドを使って report.tex を読み出そうとしても読み出せなくなる</TD>
+      <TD class="action">
+      <PRE>% <U>cat report.tex<KBD>[Enter]</KBD></U>
+cat: report.tex: 許可がありません</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">自分だけは report.tex を読み書きできるようにする</TD>
+      <TD class="action">
+      <PRE>% <U>chmod u+rw report.tex<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル report.tex の保護モードを確認する</TD>
+      <TD class="action">
+      <PRE>% <U>ls -l report.tex<KBD>[Enter]</KBD></U>
+-rw-------    1 s085000  students    2770 May  7 09:30 c</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">今度は cat コマンドで読み出せる</TD>
+      <TD class="action">
+      <PRE>% <U>cat report.tex<KBD>[Enter]</KBD></U>
+<SPAN class="anon">（report.tex の内容）</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>保護モードの指定は，<EM>u</EM>（所有者），<EM>g</EM>（グループ）， <EM>o</EM>（他人）のいずれかに，<EM>r</EM>（読み出し許可），<EM>w</EM>（書 き込み許可），<EM>x</EM>（実行許可）のいずれかを，<EM>+</EM>（付与）したり <EM>-</EM>（削除）したりすることにより行います．<EM>ugo</EM> と <EM>rwx</EM> はそれぞれまとめて指定でき，<EM>go-rwx</EM> と指定すれば，自分以外の利用者はそのファイルやディレクトリの読み出し・書き込み・実行（カレントディレクトリの変更）がすべてできなくなります．</P>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>ｃhmod</EM>
+  <DD>ファイルやディレクトリの保護モードを変更します．
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H2>５．コマンドへのデータ入力</H2>
+<P>ここではソフトウェアをコンピュータの機能とアプリケーションの間にあるギャップを埋めるインタフェースだと定義付けました．ところが，このギャップは結構大きくて深いために，それを埋めるのには結構苦労します．そのために<A href="http://www.sys.wakayama-u.ac.jp/di/course/course-computer.html" target="_blank">ソフトウェア工学</A>という分野があるくらいで，たくさんの人が日夜このギャップを埋めようと努力しています．だから，「どうやったらそういう仕事をコンピュータにさせられるか」ということを考えるには，それなりの時間と努力が必要になります．</P>
+<H3>５．１　コマンドのとらえ方</H3>
+<P>そこで，ここではコンピュータの動作を非常に単純なモデルで表すことにします．</P>
+<DIV class="figure"><IMG src="01comp00.gif" width="400" height="300" border="0"></DIV>
+<P>コンピュータはいろんなことができるといっても，それがやっていることを（誤解を恐れずに）ものすごく大雑把に捉えれば，「入力されたデータを加工して出力している」だけに過ぎません．</P>
+<DIV class="figure"><IMG src="01comp01.gif" width="400" height="300" border="0"></DIV>
+<P>ワープロを使うときも，コンピュータはキーボードをタイプしたことによって発生した<EM>電気信号</EM>を「文字コード」と呼ばれるデータに変換し，それをワープロの文書内の特定の位置に埋め込んで，その結果を画面に出力（表示）しています．</P>
+<DIV class="figure"><IMG src="01comp02.gif" width="400" height="300" border="0"></DIV>
+<P>「Webページをプリンタに印刷する」というシチュエーションでも，インターネットから入力された（HTML
+などの）データを，コンピュータが人間が読みやすいように（スタイル定義などに従って）レイアウトし，プリンタの制御データに変換しているわけです．</P>
+<DIV class="figure"><IMG src="01comp03.gif" width="400" height="300" border="0"></DIV>
+<P>ここでコンピュータは「情報を加工する機械」として動作していると言えます．</P>
+<DIV class="figure"><IMG src="01comp04.gif" width="400" height="300" border="0"></DIV>
+<P>したがって，ここでは（何をしているのかわからない）コンピュータの使い方を，とりあえずデータの「入力」「加工」「出力」の３つの段階に分けて考えることにします．</P>
+<H3><A name="stdin" class="label">５．２　キーボードからのデータ入力</A></H3>
+<P>コマンドの中には実行開始<EM>後</EM>にキーボードからのデータ入力を必要とするものがあります．</P>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH colspan="2">コマンドへのデータ入力</TH>
+    </TR>
+    <TR>
+      <TD width="45%">
+      <P>bc コマンドを実行すると，プロンプトは表示されない．ｊこれは bc コマンドがデータの入力を待っている状態．</P>
+      <P>コマンドは入力されたデータを加工し，結果を出力する． 結果は通常画面に表示される．</P>
+      <P>コマンドへのデータ入力を終了するには， <KBD>Ctrl-D</KBD> をタイプ（<KBD>Ctrl</KBD> キーを押しながら <KBD>D</KBD> をタイプ）する． これは<EM>入力データの終り</EM>(EOF : End of File) を意味する．</P>
+      <P>bc コマンドは入力データとして与えられた数式を計算して， 結果を出力する“電卓”コマンドである．</P>
+      </TD>
+      <TD class="action">
+      <PRE>% <U>bc<KBD>[Enter]</KBD></U>
+<U>2+3<KBD>[Enter]</KBD></U> <SPAN class="anon">←データ入力（プロンプトは出ない）</SPAN>
+5       <SPAN class="anon">←出力</SPAN>
+<U><KBD>Ctrl-D</KBD></U>  <SPAN class="anon">←入力終了</SPAN>
+% <SPAN class="anon">←プロンプトが出てくる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>bc</EM>
+  <DD>標準入力から与えら得た式を計算し，結果を標準出力に出力します．
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<P>コマンドはキーボードなどの入力装置から得たデータをコンピュータに加工させるための「指示書」のようなものです．bc
+コマンドはコンピュータに対して，入力された数式を計算して答えを出力せよと言う指示を出します．コマンドに標準的に割り当てられているデータの入り口のことを<EM>標準入力</EM>と言い，通常はキーボードがつながっています．</P>
+<DIV class="figure"><IMG src="03command01.gif" width="400" height="300" border="0"></DIV>
+<P>しかし Unix では，コマンド自体が「単純な機能を持ったコンピュータ」だというとらえ方をしたほうが馴染みやすいのではないかと思います．</P>
+<DIV class="figure"><IMG src="03command02.gif" width="400" height="300" border="0"></DIV>
+<H3><A class="label" name="redirect">５．３　標準入力の切り替え</A></H3>
+<P>ファイルに保存されているデータをデータ入力に使うこともできます．この操作を<EM>標準入力のリダイレクト</EM>といいます．</P>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルからの入力</TH>
+    </TR>
+    <TR>
+      <TD width="45%">cat コマンドを引数なしで実行すると， bc 同様キーボードからのデータ入力を待つ．
+      適当な文字をタイプすれば， 改行する度にそれがおうむ返しに画面に出力される．</TD>
+      <TD class="action">
+      <PRE>% <U>cat<KBD>[Enter]</KBD></U>
+<U>saitou<KBD>[Enter]</KBD></U>
+saitou
+<U>suzuki<KBD>[Enter]</KBD></U>
+suzuki
+<U>tanaka<KBD>[Enter]</KBD></U>
+tanaka
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">同様に cat を引数なしで実行し， その出力を c というファイルに保存する．</TD>
+      <TD class="action">
+      <PRE>% <U>cat &gt; c<KBD>[Enter]</KBD></U>
+<U>2+3<KBD>[Enter]</KBD></U>
+<U>4*5+7<KBD>[Enter]</KBD></U>
+<U>(3+4)*29<KBD>[Enter]</KBD></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル c の内容を cat コマンドの入力データに使う． ファイル c の内容がそのまま表示される．
+      <STRONG>&quot;&lt;&quot; の向きに注意．</STRONG></TD>
+      <TD class="action">
+      <PRE>% <U>cat <EM>&lt;</EM> c<KBD>[Enter]</KBD></U>
+2+3
+4*5+7
+(3+4)*29</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">ファイル c の内容を bc コマンドの入力データに使う． ファイル c の内容の計算結果が出力される．</TD>
+      <TD class="action">
+      <PRE>% <U>bc <EM>&lt;</EM> c<KBD>[Enter]</KBD></U>
+5
+27
+203</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">標準入力のリダイレクト</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>&quot;&lt;&quot;という記号の役割</EM>
+  <DD>&quot;&lt;&quot; という文字は，コマンドへのデータ入力を， キーボードをタイプする代りにファイルから行います．
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="05redirect01.gif" width="400" height="300" border="0"></DIV>
+<BLOCKQUOTE>cat コマンドは引数を指定せずに実行すると，標準入力に与えられたデータをそのまま標準出力に出力します．したがって
+&quot;cat <EM>&lt;</EM> c&quot; と &quot;cat c&quot; は同じ動作になります．</BLOCKQUOTE>
+<P>cat コマンドと bc コマンドでは，同じファイル c の内容を標準入力に加えても，標準出力に出力される結果が異なります．bc
+コマンドの動作と cat コマンドの動作と比べると，次のようになります．</P>
+<DIV class="figure"><IMG src="03command00.gif" width="400" height="300" border="0"></DIV>
+<H3><A name="pipe" class="label">５．４　ほかのコマンドの出力を使う</A></H3>
+<P>あるコマンドの出力を別のコマンドの入力データに使うこともできます．この機能のことを<EM>パイプ</EM>と呼びます．</P>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH colspan="2">コマンドの出力を別のコマンドに入力</TH>
+    </TR>
+    <TR>
+      <TD width="45%">このようにしても同じ結果が得られる． この場合は cat コマンドの出力をそのまま
+      bc コマンドの入力に流し込んでいる．これを「パイプ」と言う．</TD>
+      <TD class="action">
+      <PRE>% <U>cat c <EM>|</EM> bc<KBD>[Enter]</KBD></U>
+5   <SPAN class="anon">(↑２つ↑のコマンドが同時に動く)</SPAN>
+27
+203</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">パイプ</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>&quot;|&quot;という記号の役割</EM>
+  <DD>&quot;|&quot; という文字は，あるコマンドの標準出力を別のプログラムの標準入力に入力します．
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="05redirect02.gif" width="400" height="300" border="0"></DIV>
+<P>パイプでつながれた２つのコマンドは並行して動作します．これもマルチタスク機能を応用したものです．</P>
+<H2><A name="filter" class="label">６．フィルタ</A></H2>
+<P>パイプを使って複数のコマンドを組み合わせ，標準入力から入ってきたデータを加工して標準出力から得るというのが，Unix
+伝統の最も基本的なデータ処理のスタイルです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">フィルタコマンドの例</TH>
+    </TR>
+    <TR>
+      <TD><EM>head</EM></TD>
+      <TD class="action">入力データの先頭部分だけを出力する</TD>
+    </TR>
+    <TR>
+      <TD><EM>tail</EM></TD>
+      <TD class="action">入力データの末尾部分だけを出力する</TD>
+    </TR>
+    <TR>
+      <TD><EM>sort</EM></TD>
+      <TD class="action">入力データを並べ替えて出力する</TD>
+    </TR>
+    <TR>
+      <TD><EM>uniq</EM></TD>
+      <TD class="action">ダブった入力データを取り除く</TD>
+    </TR>
+    <TR>
+      <TD><EM>grep</EM></TD>
+      <TD class="action">指定したパターンにマッチする入力データだけを抽出する</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>実際にフィルタを使ってデータを加工してみましょう．仮に<A href="member.txt">こういうデータ</A>があったとします（2002年頃のデータ）．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>こういうデータがありました</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>cat member.txt<KBD>[Enter]</KBD></U>
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このデータに含まれる行数や文字数，単語数を調べてみます．wc コマンドは標準入力に与えられたデータの文字数，単語数，行数を数えるコマンドです．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>行数や文字数，単語数を調べる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>wc</EM> member.txt<KBD>[Enter]</KBD></U>
+      14     131     719 member.txt    <SPAN class="anon">（14行ある？一人多い？）</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>データが一つ多いようです．原因を調べるために，データを並べ替えて見ましょう．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>並べ替えてみよう</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>sort</EM> member.txt<KBD>[Enter]</KBD></U>
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市　　<SPAN class="anon">（一人だぶっている！）</SPAN> 
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>データがダブっていることが判明しました．それでは，ダブったデータを取り除きましょう．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>ダブったデータを取り除く</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort member.txt <EM>| uniq</EM><KBD>[Enter]</KBD></U>
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市　　<SPAN class="anon">（ダブりがなくなった！）</SPAN> 
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>出力されたデータの数が正しいかどうか，wc コマンドを使って確認してみます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>データの数を確認してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort member.txt | uniq <EM>| wc</EM><KBD>[Enter]</KBD></U>
+      13     122     670 <SPAN class="anon">（13行になった！）</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>どうやら正しいようなので，この出力をファイルに保存しておきます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>正しいデータを保存しておこう</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort member.txt | uniq <EM>&gt; morning.txt</EM><KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このデータは苗字の順に並んでいますが，苗字は漢字なので，必ずしも名簿順（五十音順）に並んでいるとは限りません．そこで，読み仮名を使ってこのデータを並べ替えてみます．読み仮名はデータの３つ目と４つ目の欄にあります．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>名簿順に並べ替える</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort <EM>-k 3,4</EM> morning.txt<KBD>[Enter]</KBD></U>
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>tail コマンドを使って，この出力の最後の２行だけを取り出してみます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>名簿順で最後の二人を取り出す</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort -k 3,4 morning.txt <EM>| tail -2</EM><KBD>[Enter]</KBD></U>
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>今度は誕生日順で並べ替えてみましょう．誕生日は５～７つ目の欄にあります．なお，数字を数値として並べ替えるには，sort
+に -n というオプションを付けます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>誕生日順に並べ替える</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort <EM>-k 5,7 -n</EM> morning.txt<KBD>[Enter]</KBD></U>
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この１行目だけを取り出してみます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>最年長者</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>sort -k 5,7 -n morning.txt <EM>| head -1</EM><KBD>[Enter]</KBD></U>
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>特定の文字列を含むデータだけを抜き出すには，grep コマンドを使います．卒業者だけを取り出してみましょう．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>卒業者</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>grep</EM> &quot;卒業&quot; morning.txt<KBD>[Enter]</KBD></U>
+石黒 彩 いしぐろ あや 1978 5 12 A 北海道札幌市 卒業
+市井 紗耶香 いちい さやか 1983 12 31 A 千葉県船橋市 卒業
+中澤 裕子 なかざわ ゆうこ 1973 6 19 O 京都府福知山市 卒業
+福田 明日香 ふくだ あすか 1984 12 17 B 東京都大田区 卒業</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>grep コマンドに -v オプションを付けると，指定した文字列を含まないデータだけを取り出すことができます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>未卒業者</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>grep <EM>-v</EM> &quot;卒業&quot; morning.txt<KBD>[Enter]</KBD></U>
+安倍 なつみ あべ なつみ 1981 8 10 A 北海道室蘭市<SPAN class="anon"></SPAN> 
+加護 亜依 かご あい 1988 2 7 AB 奈良県大和高田市
+吉澤 ひとみ よしざわ ひとみ 1985 4 12 O 埼玉県入間郡
+後藤 真希 ごとう まき 1985 9 23 O 東京都江戸川区
+石川 梨華 いしかわ りか 1985 1 19 A 神奈川県横須賀市
+辻 希美 つじ のぞみ 1987 6 17 O 東京都板橋区
+飯田 圭織 いいだ かおり 1981 8 8 A 北海道室蘭市
+保田 圭 やすだ けい 1980 12 06 A 千葉県富津市
+矢口 真里 やぐち まり 1983 1 20 A 神奈川県横浜市</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，grep コマンドに指定する文字列には，<EM class="label"><A name="regex" class="label">正規表現</A></EM>と呼ばれるパターンを用いることができます．正規表現の説明は割愛します．</P>
+<DIV class="figure"><IMG src="regex1.gif" width="400" height="300" border="0"></DIV>
+<DIV class="figure"><IMG src="regex2.gif" width="400" height="300" border="0"></DIV>
+<H2>７．ページャ</H2>
+<P>テキストファイルを編集せず単に中身を見たいだけなら，cat コマンドが使えます．しかし
+cat コマンドはファイルの中身を全部出力してしまうので，長いテキストファイルだと，表示が流れていってしまいます．そこで，<EM>ページャ</EM>と呼ばれるテキストファイルの表示専用のコマンドが用意されています．これには
+<EM>more</EM> や，more を強化した <EM>less</EM> などがあります．</P>
+<P>たとえば，report.tex を編集せずに中身を見るだけなら，less コマンドを使った方が
+emacs を起動するより手っ取り早く中身を表示できます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>less コマンドでファイル report.tex の中身を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>less</EM> report.tex<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ページャを使ってテキストファイルを表示すると，まずそのファイルの先頭部分が表示されます．以下のキー操作によって，見たいところを表示してください．</P>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH colspan="2">ページャのキー操作</TH>
+    </TR>
+    <TR>
+      <TD>１画面分次に進む</TD>
+      <TD class="action"><TT><KBD>スペース</KBD></TT></TD>
+    </TR>
+    <TR>
+      <TD>１画面分前に戻る</TD>
+      <TD class="action"><TT><KBD>b</KBD></TT></TD>
+    </TR>
+    <TR>
+      <TD>１行進む</TD>
+      <TD class="action"><TT><KBD>[Enter]</KBD></TT></TD>
+    </TR>
+    <TR>
+      <TD>現在位置から下方に向かって <I>word</I> という語句があるところを検索する</TD>
+      <TD class="action"><TT><KBD>/</KBD></TT><I>word</I></TD>
+    </TR>
+    <TR>
+      <TD>前回の検索を繰り返す</TD>
+      <TD class="action"><KBD>n</KBD></TD>
+    </TR>
+    <TR>
+      <TD>前回の検索を反対方向に向かって繰り返す</TD>
+      <TD class="action"><KBD>N</KBD></TD>
+    </TR>
+    <TR>
+      <TD>ページャを終了する</TD>
+      <TD class="action"><KBD>q</KBD></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>また，ls -l のように出力が多くて表示が流れていってしまうような場合は，<EM>パイプ</EM> (<EM>|</EM>)を使ってその出力を more や less に入力します．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>ls コマンドの出力を less を通して見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>ls -l <EM>|</EM> less<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2><A name="man" class="label">８．オンラインマニュアル</A></H2>
+<P>コマンドの使い方などを調べるときには，オンラインマニュアルを使います．これには（伝統の）man
+コマンドと，info コマンドがあります．man コマンドは，調べたいコマンドを引数に指定します．manコマンドで表示されるマニュアルは長いので，通常ページャを通して表示されます．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>man コマンドで ls コマンドの使い方を調べる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>man</EM> ls<KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>man コマンドに関連するコマンドとして，他に whatis と apropos があります．man
+コマンドがマニュアルを表示するのに対し，whatis はそのコマンドの簡単な説明だけを表示します．また
+apropos コマンドは，引数に指定したキーワードに関連したコマンドの一覧を表示してくれるので，使いたい機能を持つ<EM>コマンドを探すときに便利</EM>です．</P>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH colspan="2">man 三兄弟</TH>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>man</EM> コマンド：引数に指定したキーワード（コマンド等）の<EM>マニュアル</EM>を出力する．</TD>
+      <TD class="action">
+      <PRE>% <U><EM>man</EM> bc<KBD>[Enter]</KBD></U>
+bc(1)                                            bc(1)
+
+NAME
+       bc - An arbitrary precision calculator language
+
+SYNTAX
+       bc [ -hlwsqv ] [long-options] [  file ... ]
+<SPAN class="anon">(以下略)</SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>whatis</EM> コマンド：引数に指定した<EM>キーワードの簡単な説明</EM>を表示する．</TD>
+      <TD class="action">
+      <PRE>% <U><EM>whatis</EM> bc<KBD>[Enter]</KBD></U>
+bc   (1)  - An arbitrary precision calculator language</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>apropos</EM> コマンド：引数に指定した<EM>キーワードに関連したコマンド等</EM>の一覧を表示する．この例では calculator（計算機）に関連したコマンド等の一覧を表示する</TD>
+      <TD class="action">
+      <PRE>% <U><EM>apropos</EM> calculator<KBD>[Enter]</KBD></U>
+bc   (1)  - An arbitrary precision calculator language
+dc   (1)  - an arbitrary precision calculator
+<SPAN class="anon">(bc の他に dc という calculator もあることがわかる)</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>info コマンドは起動するとメニューが現れるので，調べたいコマンドのところにカーソルを移動して，
+<KBD>[Enter]</KBD> をタイプしてください．カーソルの移動には矢印キーが使えます．info コマンドを終了するには
+<KBD>q</KBD> をタイプしてください．</P>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH>info コマンドの起動</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U><EM>info</EM><KBD>[Enter]</KBD></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>課題</H2>
+<DIV class="assign">（１）ホームディレクトリにある Mail というサブディレクトリの保護モードを，自分以外は読み出し・書き込み・そこへのカレントディレクトリの移動が行えないように保護モードの設定を変更しなさい．使用したコマンドを報告してください．</DIV>
+<DIV class="assign">（２）ls コマンドは通常アルファベット順にファイル名を出力します．これをファイルを最後に変更した時間の順に出力するオプションを，man
+コマンドを使って調べてください．オプションを報告してください．</DIV>
+<DIV class="assign">（３）ls コマンドに -a オプションをつけた場合と付けなかった場合は何が違うか，オンラインマニュアルや
+ls の出力を見て考えてください．違いについて報告してください．</DIV>
+<DIV class="assign">（４）bc コマンドを使って次の計算をしなさい．
+<DIV style="margin-left: 4em;">(a) 4298*(2347+832*2453)</DIV>
+<DIV style="margin-left: 4em;">(b) 直交する２辺の長さがそれぞれ３と７の直角三角形の斜辺の長さ</DIV>
+4<SUP>2</SUP> は 4^2 で計算できます．sqrt(2) で２の平方根が計算できます．先に scale=10
+と入力しておくと、それ以降は小数点以下10桁まで計算します．bc コマンドを起動してからの計算過程を，メールの本文に<A href="04.html#copyandpaste">コピーアンドペースト</A>してください．</DIV>
+<DIV class="assign">（５）wc コマンドは標準入力に与えられたデータの文字数，単語数，行数を数えるコマンドです．このコマンドを
+ls コマンドと組み合わせて，/usr/bin ディレクトリ（ここにはよく使うコマンドが置かれています）にあるコマンドの数を数えてください．</DIV>
+<P>報告はメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai10">tokoi@sys.wakayama-u.ac.jp</A> まで送ってください．Subject:（件名）は「kadai10」としてください．期限は６月３０日中とします．</P>
+</BODY>
+</HTML>

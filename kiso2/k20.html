@@ -1,0 +1,70 @@
+<head>
+<title>情報基礎演習II − 課題２０</title>
+</head>
+
+<body>
+
+<h3>課題２０</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラム中の誤りを修正し、
+さらに "firstname" と "lastname" を書き換えて、
+自分のフルネームを "My name is ????" というように出力する
+プログラムを作ってください。
+<p>
+
+<li>これも配列変数の要素の数などを
+自分の名前の文字数に合わせることを忘れないようにしてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai20.c としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai20
+** 動作: 自己紹介パート２
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+{
+    char first[10]; /* 苗字を入れる配列変数   */
+    char last[10];  /* 名前を入れる変数       */
+    char full[20];  /* フルネームを入れる変数 */
+
+    strcpy(first, "firstname"); /* あなたの苗字を入れてください */
+    strcpy(last, "lastname");   /* あなたの名前を入れてください */
+
+    strcpy(full, first);
+    strcat(full, ' ');          /* 苗字と名前の間に空白をあける */
+    strcat(full, last);
+
+    printf("My name is %s.\n", full);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai20 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai20 を実行して思うとおりの結果が得られたら、
+ソースプログラム（kadai20.c）をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai20 としてください。
+
+</ol>
+
+</body>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題１０：屈折処理</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題１０：屈折処理</h1>
+
+<p>個々の物体に屈折率 K<sub>n</sub> を与えて，
+視線が物体に入射する前の屈折率と K<sub>n</sub> の比が 1
+でなく，かつ透明度 K<sub>t</sub> が 0 でないものは，
+向こう側が屈折して見えるようにしてください．
+何もない部分の屈折率は 1 とします．
+K<sub>n</sub> は，構造体 Material
+の要素に n を追加し，
+この構造体の変数のそれぞれの要素に格納するものとします．</p>
+
+<pre class="source">
+struct Material {
+  float a[3];  /* 環境光に対する反射係数 K<sub>a</sub> */
+  float d[3];  /* 物体表面の拡散反射係数 K<sub>d</sub> */
+  float s[3];  /* 物体表面の鏡面反射係数 K<sub>s</sub> */
+  float e;     /* ハイライトの広がり */
+  float r;     /* 映り込みの反射率 */
+  float t;     /* 透明度 */
+  <em>float n;     /* 屈折率 */</em>
+};
+
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  0.5,
+  <em>1.5,</em>
+};
+
+struct Material green = {
+  { 0.1, 0.5, 0.1 },
+  { 0.1, 0.5, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  0.8,
+  <em>1.5,</em>
+};
+
+struct Material blue = {
+  { 0.1, 0.1, 0.5 },
+  { 0.1, 0.1, 0.5 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  0.3,
+  <em>1.5,</em>
+};
+</pre>
+
+<p class="hint">
+<a href="10-h1.html">どうしても分からなければ…</a></p>
+
+<p>このとき，映り込みも同時に実現してください．</p>
+
+<p><a href="11.html">【次：課題１１】</a></p>
+
+</body>
+</html>

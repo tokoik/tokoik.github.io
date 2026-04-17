@@ -1,0 +1,555 @@
+<head>
+<title>情報処理I － 第８回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第８回</h1>
+
+<hr>
+
+<h2>１．ホームページ作成（基本編）</h2>
+
+<hr>
+
+<h3>「ホームページ」について</h3>
+
+<p>インターネット上で現在もっとも人気のあるアプリケーションである
+WWW (World Wide Web) において閲覧されるコンテンツのことを、
+普通<font color="#ff0000">ホームページ</font>と呼びます。
+ただし、厳密な意味での「ホームページ」は、
+ある単位のコンテンツの集まりの<font color="#ff0000">起点</font>となっている
+コンテンツのことを指します。
+これは、例えばみなさんの「ホームページ」は、
+みなさんのホームページを開いたときに最初に出てくる画面になります。
+したがって、この起点以外のコンテンツを含めた一般的なものを指す場合には、これを
+<font color="#ff0000">Web ページ</font>と呼んだ方が正確でしょう。</p>
+
+<p>なお、ここではみなさん自身に関する内容（コンテンツ）を作成しますから、
+以降ではその Web ページを指すものとして
+「ホームページ」という用語を用います。</p>
+
+<h3>URL について</h3>
+
+<p>Web ページが保存（登録）されている“場所”は、
+URL (Universal Resource Locator) という記法
+（厳密には URI - Universal Resource Indicator）で表されます
+（最近は URN - Universal Resource Name という記法も用いられます）。
+メールアドレス同様、
+既にみなさん自身のホームページの URL が存在します。
+<font color="#000088">
+"~"（チルダ）は
+<tt><b>[Shift]</b></tt>を押しながら
+<tt><b>[Tab]</b></tt>の上のキーをタイプしてください。</font>
+</p>
+
+<table align="center" width="512">
+<tr><td bgcolor="#ffffaa"><font color="#ff0000">システム工学部（６Ｆ演習室）の URL</font>
+<td bgcolor="#ffeeaa"><address>http://www.sys.wakayama-u.ac.jp/~ユーザ名/</address>
+<tr><td bgcolor="#ffffaa">システム情報学センター（３Ｆ演習室ほか）の URL
+<td bgcolor="#ffeeaa"><address>http://www.center.wakayama-u.ac.jp/~ユーザ名/</address>
+</table>
+
+<p><font color="#ff0000">では、
+自分自身の<u>システム工学部の</u>ホームページを開いてみてください。</font></p>
+
+<p>URL を指定して開く方法は
+<a href="02.html#url">第２回</a>で説明しています。
+みなさんはまだホームページを作っていない（ハズな）ので、
+"File not found" と表示されるはずです。</p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">システム情報学センター側のホームページについて
+<tr><td bgcolor="#ffffcc">
+３階やシステム情報学センターの演習室を一度でも使ったことがある人は、
+システム情報学センター側にホームページが既につくられてると思います。
+IRIX にはもともと、
+はじめてログインした時に、
+その人のホームページを自動的に作る機能があるのですが、
+６階ではその機能を止めています。
+</table>
+
+<p>それでは、自分ホームページの作成をはじめましょう。</p>
+
+<h3>public_html の作成</h3>
+
+<p>まず最初に、ホームディレクトリの直下に
+<tt>public_html</tt>
+というディレクトリを作ってください。
+<font color="#ff0000">public と html は "_"
+（アンダースコア）でつながっている</font>ことに気をつけてください。
+<font color="#000088">"_" を入力するには
+<tt><b>[Shift]</b></tt>を押しながら
+<tt><b>[Backspace]</b></tt>の２つ左のキーをタイプしてください。</font></p>
+
+<p>これはディレクトリウィンドウで行えます
+（<a href="05.html#mkdir">第５回参照</a>）。
+コマンドで行うなら、
+“コンソール”か“UNIXシェル”を開いて次のコマンドを実行してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people/ユーザ名 <font color="#ffee00">←ホームディレクトリであることを確認</font>
+% <u>mkdir public_html<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>ここで Netscape の再読み込み (Reload) ボタンをクリックしてみてください。
+今度は "File not found" にはならなかったでしょう？</p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">"~"（チルダ）について
+<tr><td bgcolor="#ffffcc">
+
+<p>"~"（チルダ）は画面表示に使う字体（フォント）の種類によって、
+上の方にあったり、波線だったり、直線だったりしますが、
+単に字形の違いですから気にしないで下さい。</p>
+
+<p>"~" は UNIX（というより csh）では“ホームディレクトリ”の意味に使われます。
+例えば、シェルで <tt>ls ~</tt> というコマンドを実行すれば、
+カレントディレクトリがホームディレクトリでなくても、
+ホームディレクトリのファイル一覧が表示されます。
+また <tt>ls ~guest</tt> とすれば、
+guest というユーザのホームディレクトリのファイル一覧が表示されます。</p>
+
+<p>これと同様に、URL における "~USER" は、
+その WWW サーバにおける USER という利用者のホームページの場所、
+という意味で使われています。</p>
+
+</table>
+
+<h3>自己紹介のページを作る</h3>
+
+<p>public_html を作ると、
+ホームページにはそのディレクトリに置かれたファイルの一覧が表示されます。
+まだそのディレクトリには何も入っていないので、
+一覧には "Parent Directory" くらいしか表示されていないと思います。
+では、ここに自己紹介のファイルを置いてみましょう。</p>
+
+<p>シェルでカレントディレクトリを public_html に移し、
+mule で profile.txt というファイルを作成してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd public_html<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>mule profile.txt<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>一応自己紹介なので、
+次のような内容を書いてください（もちろん自分のことを書くように）。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>自己紹介
+
+　　　　名前　　　：　和歌山健太郎
+　　　　出身地　　：　和歌山県和歌山市
+　　　　生年月日　：　昭和52年6月23日
+　　　　趣味　　　：　美食
+　　　　メッセージ：　美食サークルメンバー募集中
+
+</table>
+
+<p>書き終わったら <tt><b>C-x C-s</b></tt> をタイプして、
+ファイルを保存してください
+（mule は終了しないでください）。
+その後 Netscape の再読み込み (Reload) ボタンをクリックすると、
+ホームページのファイル一覧に profile.txt が現れると思います。
+それをクリックして、
+自分の自己紹介が表示されるかどうか見てみてください。
+<font color="#ff0000">
+見終わったら Netscape の“戻る (Back)”ボタンをクリックして、
+ファイル一覧に戻っておいてください。</font></p>
+
+<p>で、このままだとちょっと味気ないので、
+もうちょっと飾りを入れてみましょう。
+profile.txt を下のように変更してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Profile&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;自己紹介&lt;/h1&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;名前&lt;/dt&gt;
+&lt;dd&gt;和歌山健太郎&lt;/dd&gt;
+&lt;dt&gt;出身地&lt;/dt&gt;
+&lt;dd&gt;和歌山県和歌山市&lt;/dd&gt;
+&lt;dt&gt;生年月日&lt;/dt&gt;
+&lt;dd&gt;昭和52年6月23日&lt;/dd&gt;
+&lt;dt&gt;趣味&lt;/dt&gt;
+&lt;dd&gt;美食&lt;/dd&gt;
+&lt;dt&gt;メッセージ&lt;/dt&gt;
+&lt;dd&gt;美食サークルメンバー募集中&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</table>
+
+<p>これを、profile.<u>html</u> というファイル名で保存します。
+<tt><b>C-x C-w</b></tt> をタイプして、
+ファイル名に profile.html とタイプして改行してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>Write file: ~/public_html/<u>profile.html<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>Netscape の再読み込み (Reload) ボタンをクリックしてください。
+ファイルの一覧の中に profile.html が現れたら、
+それをクリックしてみてください。
+今度はレイアウトされたページが表示されたでしょうか？
+<font color="#ff0000">
+では、次に進む前に Netscape の“戻る (Back)”ボタンをクリックして、
+ファイル一覧を表示させておいてください。</font></p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">HTML について
+<tr><td bgcolor="#ffffcc">
+
+<p>Web ページのレイアウト制御は、
+<font color="#ff0000">HTML (Hyper Text Markup Language)</font>
+というある種の“プログラミング言語”によって行います。
+Hyper Text というのは、文書中に関連する情報への指標（ポインタ）を埋め込んだ、
+構造を持った文書のことを言います。Markup
+というのは（文書の）構成要素が何を意味しているのか
+（タイトル、見出し、本文など）を明示することを言います。
+このために使われる
+<tt>&lt;head&gt;</tt> や <tt>&lt;img src="photo.jpg"&gt;</tt> のようなものを、
+<font color="#ff0000">HTML
+タグ</font>（あるいは単に<font color="#ff0000">タグ</font>） と呼びます。
+タグに使用する英文字には、大文字／小文字の区別はありません
+（でも小文字の使用を勧めます）。</p>
+
+</table>
+
+<br>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">ファイルの拡張子について
+<tr><td bgcolor="#ffffcc">
+
+<p>ファイル名の後ろの、"."（ピリオド）に続いた
+"<font color="#004488">.txt</font>" や "<font color="#004488">.html</font>"
+のことを、<font color="#ff0000">ファイル名の拡張子</font>と言います。
+普通、ファイルの種類はファイル名だけでは判別できないので、
+このように拡張子でファイルの種類を明らかにします。
+".txt" は普通のテキストファイル、いわゆるプレーンテキストで、
+".html" は HTML で記述されたテキストファイルであることを示します。</p>
+
+<p>ファイル名の拡張子が ".txt" だと、
+中身が HTML で書いてあっても HTML だと解釈されないので、
+テキストエディタで作成したそのままの内容が表示されます。</p>
+
+</table>
+
+<h3>index.html を作る</h3>
+
+<p>たいていのホームページでは、
+こういうファイルの一覧が表示されることはないと思います。
+これを隠す、あるいは自分で一覧のページを作るためには、
+そのディレクトリに index.html というファイルを作ります。</p>
+
+<p>mule で <tt><b>C-x C-f</b></tt> をタイプして、
+ファイル名に index.html を指定してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>Find file: ~/public_html/<u>index.html<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>このファイルには、
+次のような内容を書いてください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+
+&lt;p&gt;和歌山健太郎のホームページへようこそ。&lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</table>
+
+<p>出来上がったら、
+<tt><b>C-x C-s</b></tt> でファイルを保存してください。
+その後、Netscape の再読み込み (Reload) ボタンをクリックしてください。</p>
+
+<p>これで profile.txt や profile.html を隠すことができたと思います。</p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">index.html について
+<tr><td bgcolor="#ffffcc">
+Web サーバ（www.sys.wakayama-u.ac.jp
+のようにホームページを管理するコンピュータ）の設定にもよりますが、
+URL がディレクトリを指しているとき
+（URL の最後が http://www.sys.wakayama-u.ac.jp/ のように
+"/" で終わっているとき）は、
+そのディレクトリに index.html があれば index.html を表示し、
+無ければそのディレクトリの一覧を表示します。
+</table>
+
+<h3>リンクを張る</h3>
+
+<p>先ほどのファイル一覧のページのように、
+ページ上の特定個所をクリックして、
+別のページを表示できるようにしてみましょう。
+いま、mule は index.html を編集している状態だと思いますから、
+それに下線部のような内容を追加してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+
+&lt;p&gt;和歌山健太郎のホームページへようこそ。&lt;/p&gt;
+
+<u>&lt;a href="profile.html"&gt;自己紹介&lt;/a&gt;</u>
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</table>
+
+<p>出来上がったら、
+<tt><b>C-x C-s</b></tt> でファイルを保存してください。
+その後、Netscape の再読み込み (Reload) ボタンをクリックしてください。</p>
+
+<p>“自己紹介”の文字の色が変わっていると思いますから、
+それをクリックしてください。
+先ほど作った自己紹介のページが表示されましたか？</p>
+
+<a name="image">
+<h3>画像を埋め込む</h3></a>
+
+<p>今度は、自己紹介のページに、自分の写真を埋め込んでみましょう。
+この授業の第３回で<a href="03.html#still">静止画像の取り込み</a>
+をしましたが、
+今回は Web 用に画像を作るため、
+少し手順が違います。
+そこで、おさらいを兼ねて、もう一度画像を取り込みましょう。</p>
+
+<ol>
+<li>デスクトップの camera をダブルクリックして、
+mediarecorder を起動してください。<p>
+<li>静止画像の取り込みを行うために、
+mediarecorder の“顔”の絵のボタンをクリックして、
+“接続されているソースからのイメージ:O2ビデオ・ハードウェア”→
+“システム・カメラ”という順にメニューを選んでください。<br>
+<img src="08-01.gif"><p>
+<li>mediarecorder の“タスク”のメニューから“イメージ”→
+“Web 文書”という順に選んで、
+ホームページ用の画像を作成する設定にしてください。<br>
+<img src="08-02.gif"><p>
+<li>もう一度“タスク”のメニューを開き、
+今度は“タスク設定を表示”を選んでください。<br>
+<img src="08-03.gif">
+<li>タスクとして“Web 文書”を選んでいるので、
+ファイル形式には最初から JFIF（いわゆる JPEG 画像）が設定されていると思います。
+ビデオ・フレームのサイズは、“全体”だと大きすぎるので、
+"1/4" にします。
+その後 "OK" のボタンをクリックして、
+このウィンドウを閉じてください。<br>
+<img src="08-04.gif"><p>
+<li>カメラのシャッターボタンを押すか、
+mediarecorder の“記録”ボタンをクリックすると、
+静止画像が取り込まれます。
+ファイル名は“イメージ(数字).jpg”になっていると思います。<br>
+<img src="08-05.gif"><p>
+<li>ファイル名に日本語が混ざっていると、
+漢字コードの問題で Web ページ上に画像を貼り付けるのに失敗する場合があるので、
+これを photo.jpg という名前に変更します。<br>
+<img src="08-07.gif"><p>
+<a name="put">
+<li>このファイルを public_html の中に入れます。<br></a>
+<img src="08-08.gif"><p>
+</ol>
+
+<p>次に、mule で自己紹介のページ (profile.html) を開きます。</p>
+
+<p>おそらく、今起動している mule のバッファのウィンドウには
+index.html が表示されていると思いますが、
+profile.html もその mule の他のバッファに読み込まれていると思います。</p>
+
+<p>そのときは、<tt><b>C-x b</b></tt> をタイプしてください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>Switch to buffer: (default profile.html) <u><i>profile.html</i><b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>ここで profile.html をタイプして改行します。
+もちろんここでもスペースバーを叩けば、
+バッファ名（ファイル名）のコンプリーション（補完）ができます。
+default が profile.html になっていれば、
+改行するだけで構いません。</p>
+
+<blockquote>
+もし、profile.html が読み込まれておらず、
+バッファのウィンドウ内に下に示す
+profile.html の内容が表示されなければ、
+<tt><b>C-x C-f</b></tt> をタイプして、
+profile.html をバッファに読み込んでください。
+</blockquote>
+
+<p>profile.html を開くことができたら、
+それに下線部の内容を追加してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN"&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Profile&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;自己紹介&lt;/h1&gt;
+
+<u>&lt;img src="photo.jpg" alt="自画像"&gt;</u>
+
+&lt;dl&gt;
+&lt;dt&gt;名前&lt;/dt&gt;
+&lt;dd&gt;和歌山健太郎&lt;/dd&gt;
+&lt;dt&gt;出身地&lt;/dt&gt;
+&lt;dd&gt;和歌山県和歌山市&lt;/dd&gt;
+&lt;dt&gt;生年月日&lt;/dt&gt;
+&lt;dd&gt;昭和52年6月23日&lt;/dd&gt;
+&lt;dt&gt;趣味&lt;/dt&gt;
+&lt;dd&gt;美食&lt;/dd&gt;
+&lt;dt&gt;メッセージ&lt;/dt&gt;
+&lt;dd&gt;美食サークルメンバー募集中&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</table>
+
+<p>出来上がったら、
+<tt><b>C-x C-s</b></tt> でファイルを保存してください。
+その後、Netscape で自己紹介のページを表示させて、
+再読み込み (Reload) ボタンをクリックしてください。</p>
+
+<p>自分の顔写真が自己紹介のページに埋め込まれましたか？</p>
+
+<p><font color="#ff0000">顔写真の公開は、課題の確認まで
+（今日から１週間以内）は継続してください。
+その後は顔写真を削除して頂いて結構です。</font></p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">画像ファイルの種類について
+<tr><td bgcolor="#ffffcc">
+
+<p>画像ファイルの書式（画像フォーマット）には、
+かなり多くの種類があります。
+IRIX の標準の画像フォーマットは SGI RGB という形式
+（拡張子 ".rgb"）ですが、
+Web ブラウザで表示可能なのは、
+GIF（ファイルの拡張子は ".gif"）、
+JFIF（ファイルの拡張子は ".jpg" ".jpeg"）などです。
+また最近のブラウザでは PNG（ファイルの拡張子は ".png"）が表示できます。</p>
+
+<p>SGI RGB 形式の画像データは、
+一般の Web ブラウザでは表示できないので、
+ホームページ用の画像として使うには、
+これを GIF や JFIF に変換する必要があります。</p>
+
+<p>GIF はアメリカのパソコン通信の CompuServe で、
+画像データの交換のために考えられた画像フォーマットです。
+これは約 1677万色中から 256 色を選んで使うインデックスカラー画像なので、
+写真のようなフルカラー画像を保存するには不向きですが、
+画像の一部を透明にしたり、
+簡単なアニメーションを表示するなどの機能があります。</p>
+
+<p>一方 JFIF (JPEG File Interchange Format) は、
+画像の符号化・データ圧縮に JPEG を用いたもので、
+一般に JPEG などと形式と呼ばれます。
+これは写真のようなフルカラー画像を、
+高い圧縮率で保存することができます。</p>
+
+</table>
+
+<a name="kadai">
+<hr>
+
+<h2>課題</h2></a>
+
+<hr>
+
+<p>今作った自分のホームページを、
+自分なりにアレンジせよ。</p>
+
+<ul>
+<li>別のページに
+<a href="08-h4.html">HTML の概要</a>を簡単にまとめておきますから、
+参考にしてください。
+また、WWW 上には HTML の書き方を解説したホームページや、
+ホームページの素材を提供しているホームページがたくさんありますから、
+自分で探して参考にしてみてください。
+Yahoo Japan の
+<a href="http://www.yahoo.co.jp/Computers_and_Internet/Information_and_Documentation/Data_Formats/HTML/">HTML に関するリンク集</a>から探し始めるとよいでしょう。
+<li>他人のホームページ自体を参考にするのも一つの手です。
+そのページの HTML の記述（HTML ソース）は、
+Netscape のメニューバーの "表示" から "ページのソース" を選ぶと表示できます。
+但し、他人の HTML の記述や張り込んである画像をそのままコピーしてはいけません。
+<li>同様に雑誌の写真や音楽のような<font color="#ff0000">他人の著作物</font>を
+無断で利用してはいけません。このあたりの考え方については、
+<a href="http://www.cric.or.jp/">
+(社) 著作権情報センター</a>のホームページをはじめ、
+<a href="http://www.imasy.or.jp/~ume/copyright-ml/inetmag/">
+ネットワーク時代の知的所有権入門</a>などを参考にしてください。
+<li>実は、Netscape 自身で HTML ファイルの編集ができます。
+自分のページを表示して、"ファイル" メニューから
+"ページを編集" を選んでください。
+ファイルを保存するときは、
+ホームディレクトリの下の public_html の下に保存するよう注意してください。
+<li>他に IRIX には CosmoCreate (webmagic) という
+HTML エディタが用意されています。
+これはシェルから CosmoCreate または webmagic コマンドを実行するか、
+アイコンカタログの "WebTools" のページにあります。<br>
+<img src="08-09.gif">
+<li><a href="http://www.sys.wakayama-u.ac.jp/di/students/">
+http://www.sys.wakayama-u.ac.jp/di/students/</a>
+にみなさんの先輩のホームページの一覧があります
+（みなさんのもここから参照できます）。
+ここにはホームページ作成上の注意も書いてありますので、
+良く読んでおいてください。
+また、<a href="08-h4.html#alert">【他人のホームページへのリンクについて】</a>も良く読んでおいてください。
+<li>それと、Web ページをデザインするにあたって、
+もう一つだけ配慮してほしいことがあります。
+日本 IBM の<a href="http://www.ibm.co.jp/accessibility/webaccess/index.html">
+ホームページ作成上の考慮点</a>も、一度は見ておいてください。
+</ul>
+
+</body>

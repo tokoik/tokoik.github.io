@@ -1,0 +1,64 @@
+<head>
+<title>情報基礎演習II − 課題９</title>
+</head>
+
+<body>
+
+<h3>課題９</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを読んでください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai9
+** 動作: いつまでも終わらない
+*/
+
+/* 関数 sub の定義 */
+void sub(void)
+{
+    sub();
+}
+
+/* メインプログラム */
+int main(void)
+{
+    sub();    /* 関数 sub の呼び出し */
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>実は、このプログラムはちょっと実行に時間がかかった後、
+コンピュータのメモリを使い果たして異常終了します。
+<p>
+
+<li>ということで、
+このプログラは実行する必要ありません。
+もし実行した場合は
+メモリを使い尽くす前に Ctrl-C（Ctrl キーを押しながら C のキーを押す）
+で止めてください。
+また core というファイルができていたら、
+それも消してください。
+
+<blockquote>
+% rm core
+</blockquote>
+
+<li>このプログラムの実行に時間がかかり、
+そのうち異常終了してしまう理由を考察して、
+メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai9 としてください。
+
+</ol>
+
+</body>

@@ -1,0 +1,755 @@
+<head>
+<title>情報処理 II － 第１０回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１０回</h1>
+
+講義に入る前に shori2 にカレントディレクトリを移しておいてください。
+<p>
+
+<hr>
+
+<h2>１．記憶クラス</h2>
+
+<hr>
+
+<a name="automatic">
+<h3>１．１．自動変数</h3></a>
+
+<a href="04.html#block">ブロック</a>内で定義された変数は、
+その変数定義のところで<font color="#ff0000">生成</font>（メモリ割り当てや初期化）され、
+そのブロックの終りで<font color="#ff0000">消去</font>（メモリの開放）されます。
+このような変数を<font color="#ff0000">自動変数</font>と言います。
+<p>
+
+自動変数は、プログラムがその変数の有効範囲（<a href="#scope">スコープ</a>）
+以外の部分を実行しているときには存在しません。
+例えば同じ関数を２回呼び出したとき、
+１回目の呼び出しのときの変数の値は、
+２回目の呼び出しのときまで保存されません。
+例えば、次のプログラムでは、
+sub1() の１回目の呼び出しで変数 i に 10 が代入されるものの、
+２回目の呼び出しのときには i に 10 以外のものが入っています。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+//
+// 引数 f が 0 なら i に 10 を代入、非 0 なら i を表示する関数
+//
+void sub1(int f) {
+  int i; // sub1 の中だけで有効な変数（自動変数）
+
+  if (f == 0) {
+    i = 10;
+  }
+  else {
+    cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; endl;
+  }
+}
+
+void sub2(void) {
+  int x = 20;
+}
+
+int main(void) {
+  sub1(0);   // 一回目の呼び出しで sub1 の i に 10 を入れる。
+  sub2();
+  sub1(1);   // 二回目の呼び出しで sub1 の i を表示すると 10 ではない。
+             // i が保存されていれば 10 が表示されるはず。
+  return 0;
+}
+</table>
+</center>
+<p>
+
+自動変数は次のようにして定義しますが、
+<font color="#ff0000">普通 auto は省略されます。</font>
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>auto</b> int i;
+</table>
+</center>
+
+<a name="static">
+<h3>１．２．静的変数</h3></a>
+
+一方、ブロック内で変数された変数が
+ブロックの終了後も保存されるようにするには、
+<font color="#ff0000"><b>static</b></font> を付けて変数を定義します。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>static</b> int i;
+</table>
+</center>
+<p>
+
+このような変数を<font color="#ff0000">静的変数</font>と呼びます。
+静的変数の生成（メモリ割り当てや初期化）はプログラムの実行開始時に行われ、
+プログラムが終了するまで保存されます。
+上のプログラムにおいて sub1()
+の自動変数 i を保存するには、<tt><b>static</b> int i;</tt>
+と定義します。こうすると２回目の呼び出しのときにも i には 10 が入っています。
+<p>
+
+<hr>
+
+<h2>課題２９</h2>
+
+<hr>
+
+次のプログラム中の関数 inc() が、
+呼び出す度と最初 0 を返し、
+それ以降呼び出す度に返す値が１ずつ増えるようにしたいと思います。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int inc(void) {
+  int n = 0;
+
+  return n++;
+}
+
+int main(void) {
+  int i;
+
+  for (i = 0; i &lt; 10; i++) {
+    cout &lt;&lt; "inc() = " &lt;&lt; inc() &lt; &lt; endl;
+  }
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+プログラム中のどこかに <b>static</b> を書き加え、
+上記の目的を果たすようにしてください。
+修正したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai29">tokoi</a>
+まで送ってください。Subject:（件名）は kadai29 としてください。
+<p>
+
+<hr>
+
+<a name="scope">
+<h2>２．スコープ</h2></a>
+
+<hr>
+
+<h3>２．１．局所変数</h3>
+
+<a href="04.html#block">ブロック</a>内で定義した変数は、
+そのブロックの中でのみ利用することができます。
+このような変数を<font color="#ff0000">局所変数</font>と言います。
+<font color="#ff0000">自動変数</font>は局所変数です。
+下の例では、関数 main() 内の変数 i と関数 sub() 内の変数 i
+は別の変数です。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void sub(void) {
+  int i;    // 関数 sub() の中だけで有効
+
+  for (i = 0; i &lt; 10; i++) {
+    cout.width(3);  // 出力欄の幅（桁数）を３に設定
+    cout &lt;&lt; i;
+  }
+  cout &lt;&lt;endl;
+}
+
+int main(void)
+{
+  int i;    // 関数 main の中だけで有効
+
+  for (i = 0; i &lt; 10; i++) {
+    sub();
+  }
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+for によって繰り返されている <tt>{ ... }</tt> の部分も
+ひとつのブロックです。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {                        <---------------+
+  int i;                                                |
+                                                        |
+  for (i = 0; i &lt; 10; i++) {            <-----------+   |
+    int j;                                          |   |
+                                                    |   |
+    for (j = 0; j &lt; 10; j++) {          <-------+   |   |
+      cout.width(3);                            |   |   |
+      cout &lt;&lt; j;                               (1) (2) (3)
+    }                                   <-------+   |   |
+    cout &lt;&lt; endl;                                   |   |
+  }                                     <-----------+   |
+                                                        |
+  return 0;                                             |
+}                                       <---------------+
+</table>
+</center>
+<p>
+
+上の例において (2) のブロックで定義されている変数 j
+は、その内側のブロック (1) でも利用できますが、
+ブロック (2) の外側では利用できません。
+このような変数の有効範囲のことを、
+<font color="#ff0000">スコープ</font>（可視範囲）といいます。
+<p>
+
+<hr>
+
+<h2>課題３０</h2>
+
+<hr>
+
+次のプログラムは y か n が入力されるまで入力を繰り返すプログラムです。
+このプログラムはコンパイルするとエラーになります。
+プログラムが正常に動くように修正してください。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void)
+{
+  for (;;) {
+    cout &lt;&lt; "y(es) か n(o) を入れてください：";
+    char yesno[5];                       // yes + '\n' + '\0' の５文字
+    cin.getline(yesno, sizeof yesno);
+    if (*yesno == 'y' || *yesno == 'n')  // 最初の１文字だけで判別する
+      break;
+  }
+
+  cout &lt;&lt; "入力したのは " &lt;&lt; yesno &lt;&lt; " です" &lt;&lt; endl;
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+修正したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai30">tokoi</a>
+まで送ってください。Subject:（件名）は kadai30 としてください。
+<p>
+
+<hr>
+
+<a name="extern">
+<h3>２．２．大域変数</h3></a>
+
+複数の関数の間で同じ変数を共有したいときは、
+その変数を関数の外側の、
+その変数を共有しようとする全ての関数より前で定義します。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int sum; // 共有しようとする変数
+
+void goukei(int n) {
+  while (n > 0) {
+    sum += n--;
+  }
+}
+
+void hyouji(void) {
+  cout &lt;&lt; "合計は " &lt;&lt; sum;
+}
+
+int main(void) {
+  sum = 0;
+  goukei(100);
+  hyouji();
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+このような変数は<font color="#ff0000">大域変数</font>（グローバル変数、外部変数）と呼ばれます。
+大域変数は特定のブロックには関連づけられていないので、
+プログラムの実行開始時に生成されます。
+すなわち大域変数は<font color="#ff0000">静的変数</font>です。
+<p>
+
+大域変数の定義が、
+その変数を利用している部分より前にないときは、
+その部分より前で
+「どこかにそう言う変数があるよ」という宣言をします。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>extern</b> int x;
+</table>
+</center>
+<p>
+
+この宣言自体は x という変数の生成を行いませんが、
+どこか他のところで定義されている x
+という大域変数を利用することを宣言しています。
+この宣言は関数の内側・外側のいずれにも置くことができます。
+関数の内側においた場合は、そのブロック内でのみ有効になります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+<b>extern</b> int x;
+
+int addx(int x) {
+  return <b>::</b>x + x;    // ::x は大域変数の x
+}
+  
+int main(void) {
+  <b>extern</b> int y;      // この y は main() の中でのみ利用可能
+
+  cout &lt;&lt; "x + y = " &lt;&lt; addx(y) &lt;&lt; endl;
+
+  return 0;
+}
+
+int x = 10, y = 20;  // 大域変数の定義（これが実体）
+</table>
+</center>
+<p>
+
+仮引数や局所変数が大域変数と同じ変数名のときは、
+仮引数や局所変数が優先され大域変数は隠蔽されてしまいます。
+この場合、大域変数を利用するには、
+クラス名を伴わないスコープ演算子 <tt>::</tt>
+（<font color="#ff0000">グローバルスコープ演算子</font>）を用います。
+<p>
+
+<hr>
+
+<h2>課題３１</h2>
+
+<hr>
+
+次のプログラムはコンパイルのときにエラーになります。
+このプログラムに１行追加して（他の部分をいじっちゃいけません）、
+正常にコンパイルできるようにしてください。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void goukei(int n) {
+  while (n > 0) {
+    sum += n--;
+  }
+}
+
+void hyouji(void) {
+  cout &lt;&lt; "合計は " &lt;&lt; sum &lt;&lt; endl;
+}
+
+int sum;  // 共有しようとする変数
+
+int main(void) {
+  sum = 0;
+  goukei(100);
+  hyouji();
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+修正したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai31">tokoi</a>
+まで送ってください。Subject:（件名）は kadai31 としてください。
+<p>
+
+<hr>
+
+<a name="prototype">
+<h3>２．３．関数プロトタイプ</h3></a>
+
+関数も、
+それを利用している場所より前で定義されている必要があります。
+もし、関数の定義が利用している場所より前にないときは、
+大域変数と同様「どこかにそう言う関数があるよ」という宣言をします。 
+この宣言では関数名と戻り値の型、および引数の型を明示します。
+これを<font color="#ff0000">関数プロトタイプ</font>と言います。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+<b>extern</b> void swap(int &, int &);  // これが関数プロトタイプ
+
+int main(void) {
+  int x, y;
+
+  x = 10;
+  y = 20;
+
+  cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; ", y=" &lt;&lt; y;
+  cout &lt;&lt; " のとき x と y を入れ替えると ";
+  swap(x, y);
+  cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; ", y=" &lt;&lt; y;
+  cout &lt;&lt; endl;
+
+  return 0;
+}
+
+//
+// 関数 swap() の定義（これが実体）
+//
+void swap(int &a, int &b) {
+  int t;
+
+  t = a;
+  a = b;
+  b = t;
+}
+</table>
+</center>
+<p>
+
+この例では関数 swap の戻り値の型が void（値を返さない）で、
+２つの引数がいずれも int 型の参照渡しであることを示しています。
+<p>
+
+<hr>
+
+<a name="bunkatu">
+<h2>３．コンパイル単位</h2></a>
+
+<hr>
+
+<a href="08.html#module">クラス</a>のところでも説明した通り、
+ソースプログラムは複数のファイルに分けて作ることができます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">goukei.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>extern</b> int sum; // どこか他で定義されている
+
+//
+// 関数 goukei() の定義
+//
+void goukei(int n) {
+  while (n > 0) {
+    sum += n--;
+  }
+}
+</table>
+<p>
+
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">hyouji.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+<b>extern</b> int sum; // どこか他で定義されている
+
+//
+// 関数 hyouji() の定義
+//
+void hyouji(void) {
+  cout &lt;&lt; "合計は " &lt;&lt; sum;
+}
+</table>
+<p>
+
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">main.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int sum;        // 共有しようとする変数の定義
+
+<b>extern</b> void goukei(int), hyouji(void);  // 関数プロトタイプ
+
+int main(void) {
+  sum = 0;
+  goukei(100);
+  hyouji();
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+この一つ一つのファイルが<font color="#ff0000">コンパイル単位</font>になります。
+このようにファイルを分けた場合は、
+次のようにしてコンパイルします。
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC main.cc goukei.cc hyouji.cc -o prog<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+<p>
+
+これによって main.cc goukei.cc hyouji.cc をそれぞれコンパイルし、
+作成されたオブジェクトファイルを結合して prog という実行ファイルを
+作成します（<tt>-o prog</tt> を省略すれば実行ファイルのファイル名は
+a.out になります）。
+<p>
+
+この例では、大域変数 sum （の実体）は main.cc の中で定義されており、
+goukei.cc、hyouji.cc では、
+下の宣言によってそれぞれのソースプログラムの中以外に
+sum が用意されていることを示しています。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>extern</b> int sum;
+</table>
+</center>
+<p>
+
+大域変数の定義に <font color="#ff0000"><b>static</b></font>
+を加えると、この変数は定義されているコンパイル単位内の、
+定義している場所より後のみで有効になり、
+他のコンパイル単位からは利用できなくなります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>static</b> int sum;
+</table>
+</center>
+<p>
+
+関数も変数同様 <b>static</b> を付けて定義することで、
+他のコンパイル単位からは利用できなくなります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>static</b> void goukei(int n) {
+  while (n > 0) {
+    sum += n--;
+  }
+}
+</table>
+</center>
+<p>
+
+したがって、特定のコンパイル単位内でしか使用しない大域変数や関数は、
+<b>static</b>
+を付けて定義すれば他のコンパイル単位からは隠すことができます。
+こうすると仮に他のコンパイル単位で同じ名前の変数や関数を定義していたとしても、
+それと衝突する（コンピュータがどちらを使えばいいか分からなくなる）ことがなくなるので、
+プログラムの保守性が向上します。
+<p>
+
+<hr>
+
+<h2>課題３２</h2>
+
+<hr>
+
+X 方向と Y 方向のそれぞれについて加速度と時間を設定して、
+その後の位置と速度を求めるプログラムを作ります。
+<p>
+
+加速度 <i>a</i> で <i>t</i> 秒間加速したとき、
+速度は <i>v</i> = <i>at</i> + <i>v</i><sub>0</sub>、位置は
+<i>s</i> = <i>at</i><sup>2</sup> / 2 + <i>s</i><sub>0</sub> です。
+これを X 方向と Y 方向のそれぞれについて計算します。
+速度と位置の初期値は 0 とします。
+<p>
+
+X 方向と Y 方向について、加速度と時間を設定する関数をそれぞれ
+accelerateX(), accelerateY()、現在の速度を取り出す関数をそれぞれ
+velocityX(), velocityY()、現在の位置を取り出す関数をそれぞれ
+positionX(), positionY() とします。
+<p>
+
+次の３つのソースファイルを、
+それぞれ movex.cc movey.cc locate.cc として作成してください。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">movex.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>double velocity = 0.0, position = 0.0;
+
+//
+// t 秒後の移動量を求める
+//     v: t 秒後の速度の増加分
+//
+double shift(double v, double t) {
+  return (v / 2.0 + velocity) * t;
+}
+
+//
+// 加速度と時間の設定
+//
+void accelerateX(double a, double t) {
+  double v = a * t;         // 速度の増加分
+  position += shift(v, t);  // 移動量を現在位置に加える
+  velocity += v;            // 速度の増加分を現在速度に加える
+}
+
+//
+// 速度を取り出す
+//
+double velocityX(void) {
+  return velocity;
+}
+
+//
+// 位置を取り出す
+//
+double positionX(void) {
+  return position;
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">movey.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>double velocity = 0.0, position = 0.0;
+
+//
+// t 秒後の移動量を求める
+//     v: t 秒後の速度の増加分
+//
+double shift(double v, double t) {
+  return (v / 2.0 + velocity) * t;
+}
+
+//
+// 加速度と時間の設定
+//
+void accelerateY(double a, double t) {
+  double v = a * t;         // 速度の増加分
+  position += shift(v, t);  // 移動量を現在位置に加える
+  velocity += v;            // 速度の増加分を現在速度に加える
+}
+
+//
+// 速度を取り出す
+//
+double velocityY(void) {
+  return velocity;
+}
+
+//
+// 位置を取り出す
+//
+double positionY(void) {
+  return position;
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">locate.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+extern void accelerateX(double, double), accelerateY(double, double);
+extern double velocityX(void), velocityY(void);
+extern double positionX(void), positionY(void);
+
+int main(void) {
+  double x, y, t;
+
+  cout &lt;&lt; "X 方向の加速度を入力してください: ";
+  cin &gt;&gt; x;
+  cout &lt;&lt; "Y 方向の加速度を入力してください: ";
+  cin &gt;&gt; y;
+  cout &lt;&lt; "加速時間を入力してください: ";
+  cin &gt;&gt; t;
+
+  accelerateX(x, t);
+  accelerateY(y, t);
+
+  cout &lt;&lt; "現在の位置ベクトルは "
+       &lt;&lt; "(" &lt;&lt; positionX() &lt;&lt; ", " &lt;&lt; positionY() &lt;&lt; ")" &lt;&lt; endl;
+  cout &lt;&lt; "現在の速度ベクトルは "
+       &lt;&lt; "(" &lt;&lt; velocityX() &lt;&lt; ", " &lt;&lt; velocityY() &lt;&lt; ")" &lt;&lt; endl;
+
+  return 0;
+}
+</table>
+</center>
+<p>
+
+このプログラムを次のようにしてコンパイル／リンクしてください。
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC locate.cc movex.cc movey.cc<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+<p>
+
+<li>このプログラムはコンパイル時（リンク時）にエラー（警告）を表示します。
+この３つのプログラムに <b>static</b> を書き加えて、
+プログラムが正常にコンパイルできるように修正してください。
+動作が正しいことも確かめてください。
+<p>
+
+修正したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai32">tokoi</a>
+まで送ってください。Subject:（件名）は kadai32 としてください。
+<p>
+
+</body>

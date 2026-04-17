@@ -1,0 +1,1042 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第１２回：shスクリプト，ホームページ制作（応用編）</title>
+</head>
+
+<BODY>
+<H1>情報処理 I - 第１２回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>shスクリプトの作成
+  <LI>アクセスカウンタの作成
+  <LI>アクセスカウンタの組み込み
+</OL>
+<DIV class="book"><SPAN class="book">教科書２４３～２５０ページ</SPAN></DIV>
+<H2>１．sh スクリプト</H2>
+<H3>１．１　csh スクリプトの復習</H3>
+<P>この授業の<A href="11.html">第１１回</A>では，シェルで実行するコマンドをファイルに書いておき，そのファイルをシェルに読み込ませることでコマンドを実行させる方法について学びました．ただし，第１１回では
+cat コマンドを使ってコマンドをファイルに書き込んでいましたが，シェルスクリプトはテキストファイルなので，普通これも
+emacs などのテキストエディタを使って作成します。</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>テキストエディタでシェルスクリプトを作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>emacs sample.csh &amp;<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>ファイル名の<em>拡張子</em>は，実はここでは<em>何でもいい</em>んですが（付けなくてもいい），csh のスクリプトなので一応
+<em>.csh</em> という拡張子を付けることにします．emacs が起動したら，以下の内容をタイプしてください．</P>
+
+<PRE class="source"><U>#!/bin/csh -f<kbd>[Enter]</kbd></U>
+<U>echo &quot;今日は&quot;<kbd>[Enter]</kbd></U>
+<U>date<kbd>[Enter]</kbd></U>
+<U>echo &quot;です．&quot;<kbd>[Enter]</kbd></U>
+<U>cal<kbd>[Enter]</kbd></U></PRE>
+
+<P>タイプできたら <kbd>C-x C-s</kbd> でファイルを保存してください．このとき emacs を<em>終了させないで</em>おきましょう．次に，このファイルを<em>実行可能</em>に設定します．ターミナルのウィンドウで次のコマンドを実行してください．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>シェルスクリプトを実行可能にする</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>chmod +x sample.csh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>それでは，このスクリプトを実行してみましょう．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>シェルスクリプトを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>./sample.csh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>このシェルスクリプトは csh によって実行されます．しかし
+csh のシェルスクリプトは，実はあまり一般的ではありません．Unix/Linux
+では多くのコマンドがシェルスクリプトで実現されていますが，そのほとんどが
+<em>sh</em> (Bourne shell) に対応したものになっています（Linux の場合，実際には sh
+と互換性のある <em>bash</em> (Bourne again shell) が実行されます）．</P>
+
+<H3>１．２　sh スクリプトの作成</H3>
+<P>それでは sh 用のスクリプトを作成してみましょう．先ほど作成した
+csh 用のシェルスクリプトを，<em>sh 用に変更</em>してみます．emacs は sample.csh を編集している状態になっていると思いますから，これを一旦
+sample.<em>sh</em> というファイル名で保存してください．emacs
+のバッファの内容を別の名前で保存するには，<kbd>C-x</kbd> <kbd>C-w</kbd> を使います．<kbd>C-x</kbd> <kbd>C-w</kbd> をタイプして，保存するファイル名に sample.<EM>sh</EM> を指定してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">sample.sh として保存する</TH>
+    </TR>
+    <TR>
+      <TD><kbd>C-x C-w</kbd> をタイプして，ファイル名に sample.<EM>sh</EM> を指定する．</TD>
+      <TD class="action" width="256"><IMG src="sh1.gif" width="256" height="32" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>保存が完了したら，バッファの<A href="11.html#magic">最初の１行</A>を，csh ではなく <em>sh を起動する</em>ように変更してください．</P>
+
+<PRE class="source"><em>#!/bin/sh</em>
+echo &quot;今日は&quot;
+date
+echo &quot;です．&quot;
+cal</PRE>
+
+<P>変更できたら <kbd>C-x C-s</kbd> でファイルを保存します．このときも emacs
+は<em>バックグラウンドで動かしたまま</em>にしておいてください．そして，ターミナルのウィンドウで
+sample.sh を実行可能に設定したあと，実際に実行してみてください．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>シェルスクリプトを実行可能にして実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>chmod +x sample.sh<kbd>[Enter]</kbd></U>
+% <U>./sample.sh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>このスクリプトは sh で解釈されますが，単にコマンドを順番に実行するだけなので，結果は
+csh の時と同じはずです．それでは，この sh を対話的なシェルとして使って，実際の動作を確かめてみましょう．</P>
+<H3>１．３ sh をシェルとして使う</H3>
+<P>sh コマンドを実行すると，sh をシェルとして使用できるようになります．sh のプロンプトは，ここでは &quot;<EM>$</EM>&quot; １文字であるとします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">sh をシェルとして使う</TH>
+    </TR>
+    <TR>
+      <TD width="45%">sh を起動してみる．</TD>
+      <TD class="action">
+      <PRE>% <U><em>sh</em><kbd>[Enter]</kbd></U>
+$        <span class="anon">←プロンプトが変わる</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">今は csh の<em>中で</em> sh が起動している．sh もシェルなので，コマンドを実行することができる．</TD>
+      <TD class="action">
+      <PRE>$ <U>date<kbd>[Enter]</kbd></U>
+2002年 5月29日(水曜日) 11時38分38秒 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>このように，sh もコマンドを実行するための標準的なシェルとして使用されます．特に
+Linux では，sh と互換性のある bash が<em>ログインシェル</em>（ログイン時やターミナルのウィンドウを開いたときに実行されるシェル）としてよく使われます．sh
+はコマンドを実行する点では csh と同じですが，複雑なことをしようとしたときの<em>書き方</em>（文法）が異なります．sh (bash) の詳細は，man
+bash で調べてください．</P>
+
+<H3>１．４　sh のシェル変数と環境変数</H3>
+<P>sh はシェル変数や環境変数の取り扱い方が csh
+とは異なります．sh ではシェル変数に値を代入する際に
+set コマンドを使用しません．ただし，シェル変数を消去するには
+<em>unset</em> コマンドを使います．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">シェル変数 (sh)</TH>
+    </TR>
+    <TR>
+      <TD width="45%">変数 name に ichiro を代入してみる．変数 name は自動的に作られる．sh では変数への値の格納に <EM>set コマンドを用いない</EM>．また <STRONG>&quot;=&quot; の前後にはスペースを入れない</STRONG>．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>my=</em>&quot;My name is&quot;<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">echo コマンドを使って，name の内容を見てみる．変数の値を参照する(取り出す)には，変数名に
+      &quot;<EM>$</EM>&quot; を付ける．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>$</em>my<kbd>[Enter]</kbd></U>
+My name is</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><em>read</em> コマンドを使えば，<A href="10.html#stdin">標準入力</A>から入力したデータを変数に格納できる．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>read</em> name<kbd>[Enter]</kbd></U>
+<U>Kentaro<kbd>[Enter]</kbd></U>  <span class="anon">←データ入力待ちになるので，何か入れて改行</span>
+$ <U>echo $my $name<kbd>[Enter]</kbd></U>
+My name is Kentaro  <span class="anon">←さっき入れたものが入っている</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>１回で複数の変数への代入ができる．expr は引数を数式とみなして計算するコマンド．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>v1=</em>10 <em>v2=</em>20<kbd>[Enter]</kbd></U>
+$ <U>echo $v1 $v2<kbd>[Enter]</kbd></U>
+10 20
+$ <U>expr $v1 + $v2<kbd>[Enter]</kbd></U>
+30</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><em>set</em> コマンドでシェル変数を全部表示する．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>set</em><kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>シェル変数を消去するには <em>unset</em> コマンドを使う．csh とは異なり，未定義の変数を参照してもエラーメッセージは出ない．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>unset</em> v1 v2 v3<kbd>[Enter]</kbd></U>
+$ <U>echo $v1<kbd>[Enter]</kbd></U>
+                <span class="anon">←何も出力されない</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>sh の<A href="11.html#environ">環境変数</A>はシェル変数と密接に関連しています．環境変数を設定するには，一旦シェル変数を設定し，それを<em>環境に組み込み</em>ます．これには <em>export</em> コマンドを使います．また環境変数の解除には，シェル変数同様
+<em>unset</em> コマンド，環境変数の一覧を表示するには <em>env</em> コマンドを使います．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">環境変数 (sh)</TH>
+    </TR>
+    <TR>
+      <TD width="45%">HENSU という変数を表示するだけの csh スクリプト
+      b を作る．もちろん emacs を使ってもよい．</TD>
+      <TD class="action">
+      <PRE>$ <U>cat &gt; b<kbd>[Enter]</kbd></U>
+<U>#!/bin/csh -f<kbd>[Enter]</kbd></U>
+<U>echo $HENSU<kbd>[Enter]</kbd></U>
+<U><KBD>Ctrl-D</KBD></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">b を実行可能にする．</TD>
+      <TD class="action">
+      <PRE>$ <U>chmod +x b<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">b を実行してみる．多分エラーになる．</TD>
+      <TD class="action">
+      <PRE>$ <U>./b<kbd>[Enter]</kbd></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">シェル変数 HENSU に値を与えてもエラーになる．</TD>
+      <TD class="action">
+      <PRE>$ <U>HENSU=10<kbd>[Enter]</kbd></U>
+$ <U>./b<kbd>[Enter]</kbd></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%"><em>export</em> コマンドを使って，シェル変数 HENSU を環境に組み込む．今度はうまくいく．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>export</em> HENSU<kbd>[Enter]</kbd></U>
+$ <U>./b<kbd>[Enter]</kbd></U>
+10</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>コマンドの左にシェル変数への代入を置くと，そのコマンドに対してだけ一時的に環境変数となります．</TD>
+      <TD class="action">
+      <PRE>$ <U>HENSU=20 ./b<kbd>[Enter]</kbd></U>
+20  <span class="anon">←b では環境変数 HENSU に 20 が入っている</span>
+$ <U>echo $HENSU<kbd>[Enter]</kbd></U>
+10  <span class="anon">←もとのシェルでは HENSU は 10 のまま</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3>１．５　引用符</H3>
+<P>シェルや他のプログラミング言語において，データや画面表示に使う単語や文章のような「文字がならんだデータ」のことを<em>文字列</em>と呼びます．文字列は，それが空白などを含んでいてもひとかたまりのデータとして扱えるように，<em>引用符</em>でくくります．sh や csh では，引用符によって動作が違います．</P>
+<BLOCKQUOTE>
+<div class="header">引用符による動作の違い</div>
+<div class="body">
+<DL>
+  <DT><em>'～'</em>
+  <DD><em>'～'</em>（シングルクォーテーションマーク，シングルクォート）ではさんだものは，スペースなどを含めて単一の文字列として取り扱われます．
+  <DT><em>&quot;～&quot;</em>
+  <DD><em>&quot;～&quot;</em>（ダブルクォーテーションマーク，ダブルクォート）ではさんだものは，スペースなどを含めて単一の文字列として取り扱われます．ただし，<em>変数</em>（シェル変数，環境変数）はその内容に置き換わります．また次の
+  <em>`～`</em>（バッククォーテーションマーク）による置き換えも行われます．
+  <DT><em>`～`</em>
+  <DD><em>`～`</em>（バッククォーテーションマーク，バッククォート）は上の２つとは異なり，この間にはさんだものを<em>コマンド</em>として実行します．そして，その<em>標準出力への出力</em>を，この<em>場所</em>に書かれた文字列として取り扱います．
+</DL>
+</div>
+</BLOCKQUOTE>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">引用符</TH>
+    </TR>
+    <TR>
+      <TD width="45%">echo コマンドで *（アスタリスク）を出力しようと思う．しかし，*
+      は<A href="05.html#wildcard">ワイルドカード</A>なので，ファイル名の一覧が出力されてしまう．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>*</em><kbd>[Enter]</kbd></U>
+<span class="anon">（ファイル名の一覧が出力される）</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>\ を使えば * の効果を打ち消すことができる．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>\</em>*<kbd>[Enter]</kbd></U>
+*</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>'～' や &quot;～&quot; ではさんでも * を出力できる．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>'</em>*<em>'</em><kbd>[Enter]</kbd>
+</U>*
+$ <U>echo <em>&quot;</em>*<em>&quot;</em><kbd>[Enter]</kbd>
+</U>*</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>echo コマンドで $HOME を出力してみる．HOME
+      はホームディレクトリの場所を格納している環境変数．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>$</em>HOME<kbd>[Enter]</kbd></U>
+/home/s3/s085000  <span class="anon">（ホームディレクトリのパス名）</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>\ を使って $ の効果を打ち消すことができる．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>\</em>$HOME<kbd>[Enter]</kbd></U>
+$HOME</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>しかし，&quot;～&quot; ではさんでも $ の効果は生きている．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>&quot;</em>$HOME<em>&quot;</em><kbd>[Enter]</kbd></U>
+/home/s3/s085000</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>'～' では $ がそのまま出力される．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>'</em>$HOME<em>'</em><kbd>[Enter]</kbd></U>
+$HOME</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>`～` にはさんだものは，コマンドとして実行される．右の例は，date
+      コマンドの出力をシェル変数 d に格納する．</TD>
+      <TD class="action">
+      <PRE>$ <U>d=<em>`</em>date<em>`</em><kbd>[Enter]</kbd></U>
+$ <U>echo $d<kbd>[Enter]</kbd></U>
+2003年 7月 9日(水曜日) 11時45分22秒 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>それでは，sample.sh を次のように変更（<em>太字</em>の部分）してください．</P>
+
+<PRE class="source">#!/bin/sh
+echo &quot;今日は&quot;
+date
+echo &quot;です．&quot;
+<em>echo &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo &quot;あなたは何月生まれですか？&quot;
+read month</em>
+<em>echo &quot;あなたの誕生月のカレンダーです．&quot;</em>
+cal <em>$month `expr $year + 1925`</em></PRE>
+
+<P>変更が完了したら <kbd>C-x C-s</kbd> で sample.sh を保存し，ターミナルのウィンドウでそれを実行してみてください．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <U>./sample.sh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>引用符や変数は組み合わせて使用することができます．sample.sh を，次のように変更してみてください．最初に表示している３行を，１行にまとめます．date コマンドの引数について知りたければ，man date で調べてください．</P>
+
+<PRE class="source">#!/bin/sh
+<em>d=`date +'%m月%d日'`
+echo &quot;今日は$dです．&quot;
+</em>echo &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo &quot;あなたは何月生まれですか？&quot;
+read month
+echo &quot;あなたの誕生月のカレンダーです．&quot;
+cal $month `expr $year + 1925`</PRE>
+
+<P><kbd>C-x C-s</kbd> で sample.sh を保存し，ターミナルのウィンドウで
+sample.sh を実行してみてください．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>./sample.sh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>date コマンドは引数で出力する日付と時間の書式を制御できます．詳しくは
+man date を見てください．</P>
+<H3>１．６　プロンプトを出す</H3>
+<P>この sample.sh を実行すると，「あなたは昭和何年生まれですか？」という質問が表示された後，<em>次の行に改行して</em>データの入力待ちになります．「あなたは昭和何年生まれですか？」という表示は，データの入力を促す<em>プロンプト</em>（入力促進符号）なので，ここで改行されないほうが見やすいかもしれません．echo
+コマンドに <em>-n</em> というオプションを付ければ，この改行を抑止できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">echo コマンドの -n オプション</TH>
+    </TR>
+    <TR>
+      <TD width="45%">コマンドを <em>;</em>（セミコロン）で区切れば，１行に複数のコマンドを書くことができる．この例では，ひとつの
+      echo コマンドごとに改行が出力される．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo &quot;This is &quot;<em>;</em> echo &quot;a pen.&quot;<kbd>[Enter]</kbd></U>
+This is 
+a pen.            <span class="anon">←改行が入る</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>echo コマンドに <EM>-n</EM> オプションを付ければ，この改行を抑止できる．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>-n</em> &quot;This is &quot;; echo &quot;a pen.&quot;<kbd>[Enter]</kbd></U>
+This is a pen.    <span class="anon">←改行が入らない</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">echo -n と read の組み合わせ</TH>
+    </TR>
+    <TR>
+      <TD width="45%">read コマンドがデータ入力を待っているときは，<em>プロンプト</em>は表示されない．そこで，echo コマンドを使って自分でプロンプトを出してやることにする．しかし，これではプロンプト（ここでは
+      &quot;x=&quot;）の後に<em>改行が出力</em>されてしまい，read による入力データ待ちと<em>分離</em>してしまう．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo &quot;x=&quot;; read x<kbd>[Enter]</kbd></U>
+x=          <span class="anon">←echo コマンドを使って出したプロンプト</span>
+<U>10<kbd>[Enter]</kbd></U>  <span class="anon">←データ入力待ちになるので何か入れて改行</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>echo コマンドに <EM>-n</EM> オプションを付ければ改行が出力されないため，プロンプトの直後で入力データを待つことができる．</TD>
+      <TD class="action">
+      <PRE>$ <U>echo <em>-n</em> &quot;x=&quot;; read x<kbd>[Enter]</kbd></U>
+x=<U>10<kbd>[Enter]</kbd></U> <SPAN class="anon">←プロンプトのところでデータ入力を待つ</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>それでは，sample.sh の中の２つの echo コマンドに，<em>-n</em> オプションを追加してください．</P>
+
+<PRE class="source">#!/bin/sh
+d=`date +'%m月%d日'`
+echo &quot;今日は$dです．&quot;
+echo <em>-n</em> &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo <em>-n</em> &quot;あなたは何月生まれですか？&quot;
+read month
+echo &quot;あなたの誕生月のカレンダーです．&quot;
+cal $month `expr $year + 1925`</PRE>
+
+<P>追加できたら <kbd>C-x C-s</kbd> で sample.sh を保存し，ターミナルのウィンドウで
+sample.sh を実行してみてください．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <U>./sample.sh<kbd>[Enter]</kbd></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3>１．７　sh の終了</H3>
+<P>実は sh は csh より古く，Unix の初期のログインシェルとして使われていました．現在ではログインシェルとして使用するよりも，プログラミング言語としてよく使われます．ただし
+bash（皆さんが今使っている sh）は，Linux における標準的なログインシェルとしても使われています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">sh を終了する</TH>
+    </TR>
+    <TR>
+      <TD width="45%">sh を終了する．sh の場合も <KBD>Ctrl-D</KBD> か <em>exit</em> コマンドで終了できる．</TD>
+      <TD class="action">
+      <PRE>$ <U><em>exit</em><kbd>[Enter]</kbd></U>
+%    <span class="anon">←csh のプロンプトに戻る</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>２．数を数える sh スクリプトの作成</H2>
+<H3>２．１　カウンタスクリプトの動作</H3>
+<P>次に，sh スクリプトで数を数えるコマンド（<em>カウンタ</em>）を counter.sh というファイル名で作ってみましょう．カウンタとは，下の例のように，実行するたびに出力する数値が１ずつ増えていくコマンドです<STRONG>（以下はあくまでも例ですから，今はまだ実行できません）</STRONG>．</P>
+<table>
+  <TBODY>
+    <TR>
+      <TH>カウンタの動作</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>./counter.sh<kbd>[Enter]</kbd></U>
+1
+% <U>./counter.sh<kbd>[Enter]</kbd></U>
+2
+% <U>./counter.sh<kbd>[Enter]</kbd></U>
+3 <span class="anon">←実行するたびに数が増えていく</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>counter.sh は数値（カウント）を出力するとすぐに終了してしまいますから，counter.sh
+は何らかの方法で前回出力した数値（カウント）が何だったか覚えておく必要があります．ここでは，それをファイルに記録しておくことにします．この段取りは次のようになります．</P>
+<OL>
+  <LI>前回出力したカウントをファイルから取り出す
+  <LI>このカウントに１を加える
+  <LI>この結果を出力する
+  <LI>この結果をファイルに記録しておく
+</OL>
+<P>カウントを記録しておくファイルのファイル名は
+count.dat とします．変数にデータを格納するには
+read コマンドを使用しますが，ここではそのデータを
+count.dat から取り出す必要があります．したがって，このファイルの中からデータを取り出してシェル変数に格納するには，read
+コマンドの標準入力をリダイレクトして，count.dat
+からデータを取り出すようにします．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>ファイルから変数にデータを格納する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>read count &lt; count.dat</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>ただし，最初に counter.sh を実行した時には前回のカウントは調べられませんから，その場合はカウントを
+0 としておく必要があります．最初に counter.sh
+を実行したときには，おそらく count.dat は存在しないでしょうから，このファイルが見つからなければ
+counter.sh を初めて動かしたのだと判断できます．あるファイルが存在するかどうかを調べるには，<em>test</em> コマンドを使います．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">test コマンドと終了ステータス</TH>
+    </TR>
+    <TR>
+      <TD width="45%">コマンドはその実行を終えると，<em>終了ステータス</em>をシェルに報告する．直前に実行したコマンドの終了ステータスは
+      <em>$?</em> という特殊な変数で取り出すことができる．</TD>
+      <TD class="action">
+      <PRE>$ <U>ls<kbd>[Enter]</kbd></U>  <span class="anon">←何かコマンドを実行してみる</span>
+<SPAN class="anon">（ファイル名の一覧が出力される）</SPAN>
+$ <U>echo <em>$?</em><kbd>[Enter]</kbd></U>
+0 <span class="anon">←終了ステータス 0（ls の実行成功）</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>終了ステータスは整数値であり，0 が真（コマンドは正常に実行できた），非
+      0 が偽（コマンドの実行に失敗した）を表す．</TD>
+      <TD class="action">
+      <PRE>$ <U>ls xyz<kbd>[Enter]</kbd></U>  <span class="anon">←引数に存在しないファイル名を指定</span>
+ls: xyz: そのようなファイルやディレクトリはありません
+$ <U>echo <em>$?</em><kbd>[Enter]</kbd></U>
+1 <span class="anon">←終了ステータス 1（ls の実行失敗）</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><em>test</em> コマンドは引数に指定したテストを実行して，結果を終了ステータスでシェルに報告する．tesf
+      -f file だと，file というファイルが存在すれば，終了ステータスは真
+      (0) になる．</TD>
+      <TD class="action">
+      <PRE>$ <U>test -f xyz<kbd>[Enter]</kbd>
+</U>$ <U>echo $?<kbd>[Enter]</kbd>
+</U>1 <span class="anon">←test コマンドは何も言わないが終了ステータスは 1</span>
+$ <U>test -f sample.sh<kbd>[Enter]</kbd>
+</U>$ <U>echo $?<kbd>[Enter]</kbd>
+</U>0 <span class="anon">←sample.sh というファイルはさっき作ったのであるはず</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．２　if（条件判断）による実行制御</H3>
+<P>test コマンドはファイルの有無のほかにも，いろんなことを調べることができます．詳しくは
+man test で調べてください．これと <em>if</em> という制御文を組み合わせれば，終了ステータスをもとにコマンドの実行順序を制御（分岐）できます．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>if と終了ステータス</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>if</em> コマンド
+<em>then</em>
+<span class="anon">    （上の<U>コマンド</U>の実行が<em>成功</em>したときに
+     この部分のコマンドが実行される）</span>
+<em>else</em>
+<span class="anon">    （上の<U>コマンド</U>の実行が<em>失敗</em>したときに
+     この部分のコマンドが実行される）</span>
+<em>fi</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>すなわち，「もし(if)，コマンドの実行が成功した，ならば(then) <EM>前半部分のコマンドを実行する</EM>，さもなければ(else)<EM>後半部分のコマンドを実行する</EM>」という実行順序の制御を行います．ここでは count.dat というファイルが存在すれば，それからデータを取り出し，さもなければ（ファイルが存在しなければ）カウントを
+0 にするという処理を行いますから，これは次のようなスクリプトになります．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>count.dat があるときだけデータを取り出す</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>if</em> test -f count.dat
+<em>then</em>
+    read count &lt; count.dat
+<em>else</em>
+    count=0
+<em>fi</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>これでようやく「前回のカウント」をシェル変数
+count に取り出すことができました．それでは，これに1を加えましょう．シェル変数
+count の値は <em>$</em>count として参照できます．expr コマンドを使って，これに
+1 を加えます．これは expr $count + 1 でできます．この出力を再び
+count に格納します．それには `～` を使います．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>シェル変数 count に 1 を加える</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>count=`expr $count + 1`</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>あとは，このシェル変数 count の値を標準出力に出力し，さらにファイル
+count.dat にも保存すれば完了です．コマンドの出力をファイルに保存するには，<A href="03.html#stdout">標準出力をリダイレクト</A>します．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>シェル変数の値を標準出力とファイルに出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>echo $count
+echo $count &gt; count.dat</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．３　シェルスクリプトの終了</H3>
+<P>すべての処理が終わったら，sh スクリプトを終了します．sh
+スクリプトの終了にも exit コマンドを使いますが，その引数にこのスクリプトの<em>終了ステータス</em>を指定します．sh スクリプトが正しく仕事を完了して終了するなら，通常ここに
+0 を指定します．終了ステータスを指定しなければ，sh
+スクリプト内で最後に実行したコマンドの終了ステータスが，スクリプトの終了ステータスとなります．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>sh スクリプトを終了する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>exit <em>0</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>以上の内容の sh スクリプト counter.sh を作成し（１行目に <TT>#!/bin/sh</TT> を入れるのを忘れないように），それを<A href="11.html#executable">実行可能</A>にしてから実際に実行してみてください．ちゃんと実行回数を数えることができるでしょうか？</P>
+<table>
+  <TBODY>
+    <TR>
+      <TH>カウンタの実行</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <U>./counter.sh<kbd>[Enter]</kbd></U>
+1
+% <U>./counter.sh<kbd>[Enter]</kbd></U>
+2
+% <U>./counter.sh<kbd>[Enter]</kbd></U>
+3<span class="anon"></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>３．アクセスカウンタの作成</H2>
+<H3>３．１　SSI (Server Side Include)</H3>
+<P>Webページ中にカウンタを組み込むめば，Web ページがどのくらいの人に見てもらえたのか数えることができます．このようなカウンタはアクセスカウンタと呼ばれたりします．SSI
+(Server Side Include) という機能を使えば Web ページ中にコマンドの出力を埋め込むことができるので，この機能と前節で作成したカウンタのスクリプト
+counter.sh を使って，簡単なアクセスカウンタを作ってみましょう．</P>
+
+<blockquote>
+<div class="header"><strong>注意</strong></div>
+<div class="body">SSI は間違った使い方をするとサーバにトラブルを起こしたり，大きなセキュリティホール（Webページの改ざんや不正侵入などを可能にしてしまうような不備）を作る場合があるため，スクリプトの作成は慎重に行う必要があります．</div>
+</blockquote>
+
+<P>counter.sh をホームページ作成用の作業ディレクトリ html の下にコピーしてください．</P>
+
+<PRE class="source">% <U>cp counter.sh ~/html</U><kbd>[Enter]</kbd></PRE>
+
+<P>次に，同じディレクトリに下のような HTML ファイルを作成してください． ファイル名は counter.<STRONG>s</STRONG>html としてください． </P>
+
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+  &lt;html&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;counter test&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    あなたは <em>&lt;!--#exec cmd=&quot;./counter.sh&quot;--&gt;</em> 番目の訪問者です．
+
+  &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+
+<P>こうすると，このページにアクセスするたびに
+counter.sh が実行されて，その出力が <em>&lt;!--<FONT color="#808080">...</FONT>--&gt;</em> の部分と置き換わります．counter.sh の出力が
+1234 なら，この部分は次のようになります．</P>
+
+<PRE class="source">あなたは <em>1234</em> 番目の訪問者です．</PRE>
+
+<P>参考までに，別のファイル（下の例では file.txt）を埋め込むときには次のようにします．</P>
+
+<PRE class="source">あなたは <em>&lt;!--#include file=&quot;file.txt&quot;--&gt;</em> 番目の訪問者です．</PRE>
+<P>なお，SSI は Web サーバソフトウェアの機能ですから，これらのファイルを Web
+サーバに<A href="/~tokoi/lecture/local/upload.html">アップロード</A>しなければ機能しません．</P>
+<H3>３．２　Web サーバ上の設定</H3>
+<P>それでは，作成した counter.sh と counter.shtml を Web サーバに<A href="/~tokoi/lecture/local/upload.html">アップロード</A>してください．アップロードできたら，こんどは Web サーバに<EM>遠隔ログイン</EM>します．遠隔ログイン用のコマンドには telnet や rsh などいくつかのものがありますが，ここでは
+<EM>ssh コマンド</EM>を使います．</P>
+<blockquote>
+<div class="header">遠隔ログイン</div>
+<div class="body">Web サーバ用のコンピュータは，皆さんが使っているコンピュータとは別のマシンなので，SSI や CGI などの凝った設定をしたいときには，Web サーバ用のコンピュータに<A href="01.html#login">ログイン</A>して作業する必要があります．離れたところにあるコンピュータにネットワークを介してログインすることを，<EM>遠隔ログイン</EM>あるいは<EM>リモートログイン</EM>と言います．</div>
+</blockquote>
+<P>counter.sh は，それを組み込んだ Web ページ (counter.shtml) へのアクセスによって実行されます．ところが，誰があなたの
+Web ページにアクセスしたのかを知るのは困難なので，このアクセスは（あなたではない）<EM>特別なユーザ</EM>によるアクセスとして取り扱われます．それぞれのファイルの<A href="10.html#permission">保護モード</A>は，このことを考慮して設定しておく必要があります．</P>
+<UL>
+  <LI>ファイルのアップロードの際に counter.sh から<EM>実行許可が外れてしまう</EM>場合がありますので，chmod コマンドを使って実行許可をもう一度設定します．
+  <LI>counter.sh は count.dat が無ければ作るようになっていますが，あなたのホームページを置いているディレクトリは，あなた以外はファイルを作成できません．このために，Web
+  ページへのアクセスによって counter.sh が実行された場合は，count.dat が作成されません．そこで，あらかじめ<EM>あなた自身で count.dat を作成しておく</EM>必要があります．
+  <LI>同様に count.dat の内容（カウント数）も，Web ページへのアクセスによって
+  counter.sh が実行されことによって変更（増加）されます．そのため，この
+  count.dat は<EM>誰もが読み書き可能</EM>にしておく必要があります．
+</UL>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">Web サーバ上での設定</TH>
+    </TR>
+    <TR>
+      <TD width="45%"><EM>ssh コマンド</EM>を使って，students に<EM>遠隔ログイン</EM>する．</TD>
+      <TD class="action">
+      <PRE>% <U>ssh students<kbd>[Enter]</kbd></U>  <span class="anon">←ssh コマンドで students にログイン</span>
+s085000@students's password:<SPAN class="anon">（パスワードを入力する）</SPAN>
+Last login: Mon Jul  7 11:29:07 2003 nachi00
+% <span class="anon">←students でシェルが起動する</span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>counter.sh を<EM>実行可能</EM>にする．</TD>
+      <TD class="action">
+      <PRE>% <U>ls<kbd>[Enter]</kbd></U>  <span class="anon">←ファイルの一覧を確認する</span>
+～ counter.sh ～  <span class="anon">←counter.sh が含まれている</span>
+% <U>chmod <EM>+x</EM> counter.sh<kbd>[Enter]</kbd></U>
+% <U>ls -l counter.sh<kbd>[Enter]</kbd></U>  <span class="anon">←保護モードを確認する</span>
+-rwxr-xr-x  1 s085000  students  179 Jul  7 12:48 counter.sh</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>カウンタの初期値を設定しておく．このファイルは<EM>誰もが読み書き可能</EM>にしておく．</TD>
+      <TD class="action">
+      <PRE>% <U>echo 0 &gt; count.dat<kbd>[Enter]</kbd></U>  <span class="anon">←初期値を0に設定する</span>
+% <U>chmod <EM>ugo+rw</EM> count.dat<kbd>[Enter]</kbd></U>  <span class="anon">←全員読み書き可</span>
+% <U>ls -l count.dat<kbd>[Enter]</kbd></U>  <span class="anon">←保護モードを確認する</span>
+-rw-rw-rw-  1 s085000  students    2 Jul  7 12:48 count.dat</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>students から<EM>ログアウト</EM>する．</TD>
+      <TD class="action">
+      <PRE>% <U>logout<kbd>[Enter]</kbd></U>  <span class="anon">←students からログアウト</span>
+% <span class="anon">←こっちは今使っているマシンのプロンプト</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<blockquote>
+<div class="header"><strong>注意</strong></div>
+<div class="body">遠隔ログインすれば，離れたところにあるコンピュータ上でコマンドを実行できます．したがって，もしあなたのパスワードがわかれば，世界中の誰もがあなたに成り代わって和歌山大学のネットワークに侵入し，やりたい放題できることになります．繰り返しになりますが，パスワードの管理にはくれぐれも気をつけてください．なお，students におけるパスワードを変更するには，<EM>passwd コマンド</EM>を使用してください．</div>
+</blockquote>
+<H3><A name="graphical" class="label">３．３　グラフィカル？なアクセスカウンタ</A></H3>
+<P>グラフィカルなカウンタを作るためには，<A href="http://www.perl.com/" target="_blank">Perl</A> で
+<A href="http://stein.cshl.org/WWW/software/GD/">GD</A>
+（日本語訳は<A href="http://member.nifty.ne.jp/hippo2000/perltips/GD.html">ここ</A>）というモジュールを使ったりすると便利なのですが，ここでは counter.sh の出力を工夫してみます．まず，次のような数字の画像を
+counter.shtml と同じディレクトリ内に用意したとします．</P>
+
+<TABLE width="50%">
+  <tbody>
+    <tr>
+      <TD align="center"><IMG src="0.png" alt="0"></TD>
+      <TD align="center"><IMG src="1.png" alt="1"></TD>
+      <TD align="center"><IMG src="2.png" alt="2"></TD>
+      <TD align="center"><IMG src="3.png" alt="3"></TD>
+      <TD align="center"><IMG src="4.png" alt="4"></TD>
+    </tr>
+    <tr>
+      <th>0.png</th>
+      <th>1.png</th>
+      <th>2.png</th>
+      <th>3.png</th>
+      <th>4.png</th>
+    </tr>
+    <tr>
+      <TD align="center"><IMG src="5.png" alt="5"></TD>
+      <TD align="center"><IMG src="6.png" alt="6"></TD>
+      <TD align="center"><IMG src="7.png" alt="7"></TD>
+      <TD align="center"><IMG src="8.png" alt="8"></TD>
+      <TD align="center"><IMG src="9.png" alt="9"></TD>
+    </tr>
+    <tr>
+      <th>5.png</th>
+      <th>6.png</th>
+      <th>7.png</th>
+      <th>8.png</th>
+      <th>9.png</th>
+    </tr>
+  </tbody>
+</TABLE>
+
+<p>このとき，HTML で次のように表現すれば，<IMG src="1.png"><IMG src="2.png"><IMG src="3.png"><IMG src="4.png"> という表示が得られます．</p>
+
+<pre class="source">&lt;img src=&quot;<em>1</em>.png&quot;&gt;&lt;img src=&quot;<em>2</em>.png&quot;&gt;&lt;img src=&quot;<em>3</em>.png&quot;&gt;&lt;img src=&quot;<em>4</em>.png&quot;&gt;</pre>
+
+<P>つまり，counter.sh の 1234 といった出力を上記のように<em>変換</em>すれば，グラフィカルなカウンタが実現できます．このような<em>文字列の置き換え</em>を行うには，<em>sed</em> というコマンドを使うと便利です．sed は<A href="10.html#regex">正規表現</A>を使って入力データを加工する<A href="10.html#filter">フィルタ</A>コマンドです．</P>
+
+<PRE class="source">% <U>echo 1234 <em>| sed 's/./&lt;img src=&quot;&amp;.png&quot;&gt;/g'</em></U><kbd>[Enter]</kbd>
+&lt;img src=&quot;1.png&quot;&gt;&lt;img src=&quot;2.png&quot;&gt;&lt;img src=&quot;3.png&quot;&gt;&lt;img src=&quot;4.png&quot;&gt;</PRE>
+<UL>
+  <LI>上の sed コマンドの引数は「<EM>s/</EM>置換前<EM>/</EM>置換後<EM>/</EM>」という形式になっており，標準入力から入力されたデータに含まれている「置換前」という文字列を，すべて「置換後」という文字列に置き換えて出力します．ここで「置換前」の文字列に指定している
+  &quot;<EM>.</EM>&quot;（ピリオド）は，正規表現では「任意の１文字」を表すので，入力データに含まれるすべての文字がこの置き換えの対象になります．
+  <LI>したがって入力された文字はすべて「&lt;img src=&quot;<EM>&amp;</EM>.png&quot;&gt;」に置き換えられることになりますが，ここに含まれる &quot;<EM>&amp;</EM>&quot; は「置換前」の文字列を示すので，そこに入力データの１字１字が当てはめられます．
+  <LI>上の sed コマンド（<em>太字</em>部分）を counter.sh で<em>数値を出力している部分</em>に組み込めば（<A href="10.html#pipe">パイプ</A>するわけですね），グラフィカルなアクセスカウンタが実現できます．
+</UL>
+<H2>４．その他の実行制御</H2>
+<P>sh には if 以外に繰り返しを行う for や while，複数の条件に分岐できる
+case などの実行制御機能があります．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>for（個々の引数について繰り返し）</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>for</em> x <em>in</em> this is a pen.
+<em>do</em>
+    echo $x
+<em>done</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P><em>for</em> は <em>in</em> の右側に書かれたものを一つ一つシェル変数
+x に格納し，そのたびに <em>do</em> ～ <em>done</em> の間を実行します．上の例では x に this を入れた後
+echo $x を実行し，次に is を格納して echo
+$x を実行するという具合に，this，is，a，pen.
+の４つに対してそれぞれ echo $x が実行されます．ここに<A href="05.html#wildcard">ワイルドカード</A>を指定すれば，カレントディレクトリにある一つ一つのファイルに対して処理を行うことができます．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>while（条件が満たされている間繰り返し）</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>while</em> read x
+<em>do</em>
+    echo $x
+<em>done</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P><em>while</em> は while の右側に書かれたコマンドの終了ステータスが<em>真</em>の間，<em>do</em> ～ <em>done</em> の間を繰り返し実行します．上の例では read
+が成功している間，すなわちデータの入力が行われている間，echo
+$x が実行されます．データの入力が終了した（ファイルの終わりに達した）場合などに終了ステータスは<em>偽</em>になりますから，繰り返しは終了します．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>case（パターンにあわせて処理を選択）</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>case</em> $x <em>in</em>
+a<em>)</em>
+    echo &quot;$x は a というファイル&quot;
+    <em>;;</em>
+b*<em>)</em>
+    echo &quot;$x は b で始まるファイル&quot;
+    <em>;;</em>
+*<em>)</em>
+    echo &quot;$x はその他のファイル&quot;
+    <em>;;</em>
+<em>esac</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P><em>case</em> は <em>in</em> との間に書かれたものと，&quot;)&quot; のところに書かれた文字列パターン（case
+ラベル）との間で<em>パターンマッチング</em>（文字列パターンの照合）を行います．この文字列パターンにも<A href="05.html#wildcard">ワイルドカード</A>が使用できます．</P>
+
+<table>
+  <TBODY>
+    <TR>
+      <TH>例</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE><em>for</em> file <em>in</em> *<em>
+</em><em>do</em><em>
+</em>    <em>case</em> $file <em>in</em>
+    *.bak|*~<em>)</em>
+        echo &quot;$file はバックアップファイルです．&quot;
+        rm -i $file
+        <em>;;</em>
+    *.txt<em>)</em>
+        echo &quot;$file はテキストファイルです．&quot;
+        echo -n &quot;中身を見ますか？&quot;
+        read answer
+        case $answer in
+        y*)
+            less $file
+        esac
+        <em>;;</em>
+    *<em>)</em>
+    echo &quot;$file はその他のファイルです．&quot;
+    <em>;;</em>
+<em>esac</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>上の例は，カレントディレクトリにあるすべてのファイル
+(<TT>*</TT>) について，ファイル名の最後が &quot;<TT>.bak</TT>&quot; または (<TT>|</TT>) &quot;<TT>~</TT>&quot; のファイルは「バックアップファイル」であるとみなして削除します．また，ファイル名の最後が
+&quot;<TT>.txt</TT>&quot; のファイルは「テキストファイル」とみなして，ページャ
+(less) を使って中身を見るかどうかたずねます．ここで
+yes など y で始まる文字を入力すれば，中身を見ます．</P>
+<H2><A name="assignment" class="label">課題</A></H2>
+<p>以下の内容を一つのメールにまとめて tokoi@sys.wakayama-u.ac.jp まで送ってください．Subject:（件名）は「課題１２」にしてください．</p>
+<div class="assign">（１）「１．５　引用符」のところで使った「<TT>cal $month `expr $year + 1925`</TT>」というコマンド行の動作を説明しなさい．</div>
+<div class="assign">（２）「２．数を数える sh スクリプトの作成」において作成した counter.sh
+の内容をメールの本文に<A href="03.html#copyandpaste">コピーアンドペースト</A>してください．</div>
+<div class="assign">（３）SSI を使って counter.sh の出力を埋め込んで表示する Web ページを counter.shtml
+というファイル名で作成し，「<A href="http://students.sys.wakayama-u.ac.jp/">学外向けサーバ</A>」に<A href="/~tokoi/lecture/local/upload.html">アップロード</A>してください．そして，そのページを Web ブラウザで表示して，アクセス回数が表示されていることを確認してください．また，「<A href="05.html#reload">再読み込み</A>」ボタンをクリックして，アクセス回数が増加することを確認してください．以上が完了したら報告してください．</div>
+<div class="assign">（４）時間があれば <A href="07.html#gimp">gimp</A> 等を用いてカウンタ用の文字画像を作成し，counter.sh をグラフィカルなアクセスカウンタに改造してください．文字画像として「<A href="#graphical">３．３　グラフィカル？なアクセスカウンタ</A>」で使っている 0.png ～ 9.png をそのまま使っても構いません．</div>
+<blockquote>
+<div class="header"><strong>注意</strong></div>
+<div class="body">counter.sh はカウント数のデータファイル (count.dat) の更新時に排他制御をしていないので，複数の人が同時にアクセスしたときなどにカウントが狂ってしまいます．そういう状況が起こらなければ正常にカウントしてくれますが，あまり実用にはなりません．</div>
+<h4>排他制御</h4>
+<div class="body">
+<p>複数の人が同時に counter.shtml にアクセスすると，複数の couter.sh が<A href="10.html#function">同時に実行</A>されます．そうすると，複数の counter.sh が同時に count.dat にデータを出力したり，ある counter.sh が count.dat にデータを出力している最中に別の counter.sh が count.dat からデータを入力してしまうといったことが起こります．この場合，count.dat の内容が変になったり，正常なデータの読み出しが行えなかったりします．</p>
+<p>このようなときには，一つの counter.sh だけがデータファイル count.dat を更新し，他は更新が終わるまで待つという処理を行う必要があります．このような処理を排他制御と言います．</p>
+<p>lockfile というコマンドを用いれば，この排他制御を簡単に実現できます．このコマンドは次のような動作をします．詳しくは man lockfile を見てください．</p>
+<ul>
+<li>引数に指定したファイルが無ければ，それを作成する．</li>
+<li>引数に指定したファイルが存在すれば，そのファイルがなくなるまで待つ．</li>
+</ul>
+<p>これを counter.sh に応用するには，たとえば次のようにします．</p>
+<pre class="source">#!/bin/sh
+lockfile=&quot;lock/counter.lock&quot;
+if lockfile -3 -r 3 -l 10 $lockfile
+then
+
+<span class="anon">（もとの counter.sh の中身）</span>
+
+fi
+
+rm -f $lockfile
+
+exit 0</pre>
+<p>ここで lockfile コマンドのオプション -3 は，ロックファイル (lock/counter.lock)
+が存在すれば３秒待つことを表します．これを３回繰り返し　(-r 3)，その間にロックファイルが無くなればロックファイルを作成して成功とします．もしロックファイルが無くならなければ失敗とします．ただし，存在するロックファイルが作成後１０秒以上経過
+(-l 10) していたら，そのロックファイルを削除して新たにロックファイルを作成して成功とします．最後のオプションは，counter.sh
+が異常終了してロックファイルを消さなかった場合などに有効です．</p>
+<p>ここで counter.sh は Web ページへのアクセスによって実行されるため，そのままではロックファイルが作成できません．そこで誰もが書き込み可能な
+lock というディレクトリを作成しておき，そのディレクトリ内にロックファイルを作成するようにします．</p>
+<pre class="source">% <U>mkdir lock<kbd>[Enter]</kbd></U>
+% <U>chmod ugo+rwxt lock<kbd>[Enter]</kbd></U>
+% <U>ls -ld lock<kbd>[Enter]</kbd></U>
+drwxrwxrwt  1 s085000  students  179 Jul  7 12:48 lock</pre>
+<p>なお，ディレクトリの <EM>t</EM> という保護モードは，そのディレクトリ内のファイルの移動や削除の許可を，そのディレクトリの所有者（上の例では
+s085000）と，ファイルの所有者（作成者）だけに制限します．</p>
+</div></blockquote></BODY></html> 

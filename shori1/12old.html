@@ -1,0 +1,1685 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第１２回：Python スクリプト，ホームページ制作（応用編）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第１２回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>タイピングのテスト</LI>
+  <LI>プログラミング言語 Python</LI>
+  <LI>アクセスカウンタの作成</LI>
+  <LI>アクセスカウンタの組み込み</LI>
+</OL>
+<!--
+<H2><A name="enquete" class="label">授業評価アンケートのお願い</A></H2>
+<P>授業評価アンケート調査を行っています．協力をお願いします．下記のページ（リンクになっています）から希望調査のページを開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>アンケートページの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.sys.wakayama-u.ac.jp/enquete/">http://www.sys.wakayama-u.ac.jp/enquete/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+-->
+<H2>０．タイピングのテスト</H2>
+<P>typing コマンドにある引数を指定すれば，テスト用のテキストを使うことができます．引数は講義中に口頭で伝えます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>テスト用テキストの使用</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">typing <EM>ないしょ</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>１．プログラミング言語 Python</H2>
+<H3>１．１　プログラミング言語</H3>
+<P>コンピュータで動作するソフトウェア（プログラム）を作成するには，人間がコンピュータに対する指示書を書き，それをコンピュータが理解できる形に翻訳します．この，人間が作成するコンピュータに対する指示書のことを<em>ソースプログラム</em>といい，その指示書を書くための言葉を<em>プログラミング言語</em>と言います．前回作成したシェルスクリプトもプログラミング言語の一種であり，csh がそれを解釈してコンピュータに処理を実行させます．</P>
+<H3>１．２　Python</H3>
+<P>プログラミング言語には<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip2/" target="_blank">情報処理II</a>以降で学習する <em>C 言語</em>のほか，C++ 言語，Objective-C，C#，Java など数え切れないほどたくさんものがありますが，ここでは<em>習得が容易</em>なのにもかかわらず<em>非常に高機能</em>な <a href="http://www.python.jp/Zope/intro" target="_blank">Python</a> という言語を使ってみます．まず，Python で書かれたプログラムを実行する Python インタプリタのコマンド <em>python</em> を<em>対話モード</em>で起動します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>対話モードで Python を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type"><EM>python</EM><KBD>[Enter]</KBD></span>
+Python 2.6.6 (r266:84292, Apr 17 2011, 03:36:14)<br>[GCC 4.4.5 20101001 (Vine Linux 4.4.5-3vl6)] on linux2<br>Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.<br>&gt;&gt;&gt;
+</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">インタプリタとコンパイラ</DIV>
+<div class="body">
+ソースプログラムをコンピュータが理解できる形式に翻訳する方法には，インタプリタ方式とコンパイラ方式があります．インタプリタ方式は入力したソースプログラムを逐次翻訳する方法で，Python や Ruby，Perl などがこの方法を採用しています．コンパイラ方式は一括してコンピュータが理解できる形式に翻訳する方法で，C 言語や C++ 言語などがこの方法を採用しています．Java はコンパイラ方式によってソースプログラムを一旦仮想的なコンピュータ（仮想マシン，VM）用の形式に一括して翻訳した後，仮想マシンが翻訳された結果を本来のコンピュータが理解できる形式に逐次翻訳します．</div>
+</BLOCKQUOTE>
+<P>対話モードでは，Python インタプリタは &quot;<em>&gt;&gt;&gt;</em>&quot; というプロンプト（<em>プライマリプロンプト</em>）を表示して，命令の入力を待ちます．このほか，直前の入力によって &quot;<em>...</em>&quot; というプロンプト（<em>セカンダリプロンプト</em>）が表示される場合もあります．</P>
+<H3>１．３　電卓として使ってみる</H3>
+<p>Python は<a href="10.html#stdin">第１０回で使った bc</a> と同じように，電卓として使えます．bc とは異なり　&quot;<em>&gt;&gt;&gt;</em>&quot; というプロンプトが現れますので，そこに数式を入力してください．なお，<em>#</em> から行末までは<em>コメント</em>と呼ばれ，入力しても無視されます（したがって，ここでは入力しなくても構いません）．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>数式を入力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">1+2<KBD>[Enter]</KBD></span>        <SPAN class="anon"># 数式を入力して改行する</SPAN>
+3                   <SPAN class="anon">&larr;計算結果が出力される</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>整数同士の割り算は，小数点以下が切り捨てられてしまいます．商が 1 未満の場合は，0 になってしまいます．また，切り捨ての結果は商を超えない最大の整数になります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>整数同士の割り算の商は切り捨てられる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">1/2<KBD>[Enter]</KBD></span>        <SPAN class="anon"># 整数同士の割り算</SPAN>
+0                   <SPAN class="anon">&larr;計算結果は整数になる</SPAN>
+&gt;&gt;&gt; <span class="type">5/3<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+1<SPAN class="anon"></SPAN>
+&gt;&gt;&gt; <span class="type">-5/3<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+-2                  <SPAN class="anon">&larr;商を越えない最大の整数に切り捨てられる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>除数／被除数のどちらかが実数なら，商も実数になります．<em>小数点</em> &quot;<em>.</em>&quot;（ピリオド）を含む数値は実数として扱われます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>実数の割り算の商は実数になる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">1.0/2<KBD>[Enter]</KBD></span>        <SPAN class="anon"># 実数値の割り算</SPAN>
+0.5                   <SPAN class="anon">&larr;計算結果も実数になる</SPAN>
+&gt;&gt;&gt; <span class="type">5/3.0<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+1.6666666666666667<SPAN class="anon"></SPAN>
+&gt;&gt;&gt; <span class="type">-5/3.0<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+-1.6666666666666667<SPAN class="anon"></SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>計算結果は変数に代入して記憶しておくことができます．この代入によって変数 a が定義されます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数に値を代入する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">a=1+2<KBD>[Enter]</KBD></span>        <SPAN class="anon"># 計算結果を変数に代入する</SPAN>
+&gt;&gt;&gt;                   <SPAN class="anon">&larr;計算結果は出力されない</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数の内容を参照する場合は，シェルとは異なり，<em>変数名に $ を付ける必要はありません</em>．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数の値を参照する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">a<KBD>[Enter]</KBD></span>            <SPAN class="anon"># 変数を入力して改行する</SPAN>
+3                     <SPAN class="anon">&larr;変数の内容が出力される</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>未定義の変数 b を参照しようとするとエラーになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>未定義の変数を参照するとエラーになる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">b<KBD>[Enter]</KBD></span>            <SPAN class="anon"># 未定義の変数を参照する</SPAN>
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'b' is not defined <SPAN class="anon">&larr;'b' という名前 (name) が定義されて (is defined) いない (not)</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数は式の途中でも参照できます．また，この代入で b を定義します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>式の途中で変数を参照する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">b=a+1<KBD>[Enter]</KBD></span>        <SPAN class="anon"># a の内容に 1 を足す</SPAN>
+&gt;&gt;&gt;<SPAN class="anon"></SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>定義した変数は参照できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>代入によって変数は定義される</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">b<KBD>[Enter]</KBD></span>            <SPAN class="anon"># 変数 b の値を参照する</SPAN>
+4                     <SPAN class="anon">&larr;(1+2)+1</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>=</em> でつないで一度に複数の変数に値を代入できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>複数の変数に代入する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x=y=z=5<KBD>[Enter]</KBD></span>      <SPAN class="anon"># 数式を入力して改行する</SPAN>
+&gt;&gt;&gt; <span class="type">x</span>
+5
+&gt;&gt;&gt; <span class="type">y</span>
+5
+&gt;&gt;&gt; <span class="type">z</span>
+5</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>スクリプトで値を表示する場合は <em>print</em> を使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python を電卓として使う</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">print a,b,a+b,a*b<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+3 4 7 12</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">Python 2.x と Python 3.x</DIV>
+<div class="body">
+演習室のコンピュータにインストールされている Python のバージョンは 2.6 です（python2.7 コマンドでバージョン 2.7，python3 でバージョン 3.2 が起動します）．Python の<a href="http://www.python.org/download/releases/" target="_blank">最新バージョン</a>は 3.3 ですが，これは 2.x とは完全な互換性を維持していません．例えば print の使い方が異なるほか，整数同士の割り算でも実数として計算するなどの違いがあります．</div>
+</BLOCKQUOTE>
+<H3>１．４　文字列</H3>
+<p><em>文字列</em>は文字そのものを並べたデータで，数字以外のものも含みます．<kbd>'</kbd>～<kbd>'</kbd> （シングルクォーテーションマーク）や <kbd>&quot;</kbd>～<kbd>&quot;</kbd> （ダブルクォーテーションマーク）ではさまれたものは<em>文字列リテラル</em>（文字列定数）と呼ばれます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列リテラル</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;<span class="type">'1+2'<KBD>[Enter]</KBD></span>        <SPAN class="anon"># 文字列リテラル</SPAN><SPAN class="anon"></SPAN>
+'1+2'</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列リテラルを並べて書くと，間に空白があってもなくても一つの文字列になります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列リテラルの連結</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;&gt;&gt;&gt; <span class="type">'1+2' '3*4'<KBD>[Enter]</KBD></span>  <SPAN class="anon"># 文字列リテラルを並べて書く</SPAN>
+'1+23*4'</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><kbd>'</kbd> （シングルクォーテーションマーク）を含む文字列を使いたいときは，<kbd>'</kbd> の前（左）に <kbd>\</kbd>（バックスラッシュ）を置いてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><kbd>'</kbd>～<kbd>'</kbd> の間に <kbd>'</kbd> を入れたいときは前に <kbd>\</kbd> を置く</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;<span class="type">'don\'t stop me now'<KBD>[Enter]</KBD></span>  <SPAN class="anon"># \ の後に ' をおく</SPAN><SPAN class="anon"></SPAN>
+&quot;don't stop me now&quot;<span class="type"><KBD></KBD></span>   <SPAN class="anon">&larr; \ は現れない</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><kbd>&quot;</kbd>～<kbd>&quot;</kbd> で <kbd>'</kbd> を含む文字列を挟むという方法もあります．この逆も可能です．csh とは異なり，Python では <kbd>'</kbd>～<kbd>'</kbd> と <kbd>&quot;</kbd>～<kbd>&quot;</kbd> に違いはありません．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><kbd>&quot;</kbd>～<kbd>&quot;</kbd> で <kbd>'</kbd> を含む文字列を挟んでも良い</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;<span class="type">&quot;don't stop me now&quot;<KBD>[Enter]</KBD></span>   <SPAN class="anon"># ' を含むなら &quot;～&quot; ではさむ</SPAN><SPAN class="anon"></SPAN>
+&quot;don't stop me now&quot;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列に日本語も使うことができますが，print を使わないとコンピュータ内部での表現がそのまま表示されてしまいます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>日本語の文字列</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">'日本語'<KBD>[Enter]</KBD></span>         <SPAN class="anon">     # 日本語の文字列</SPAN>
+'\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e' <span class="anon">&larr;日本語の内部表現</span>
+&gt;&gt;&gt; print <span class="type">'日本語'</span><span class="type"><KBD>[Enter]</KBD></span>
+日本語</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>しかし，異なるオペレーティングシステムで日本語が文字化けしないようにするには，<kbd>u'</kbd>～<kbd>'</kbd> で挟んだ文字列を使います．これは <em>Unicode 文字列</em>といいます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Unicode 文字列</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;<span class="type">print u'日本語'<KBD>[Enter]</KBD></span>  <SPAN class="anon">     # Unicode 文字列</SPAN>
+日本語</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列も変数に代入することができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列も変数に代入できる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">c='1+2'<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">n=u'日本語'<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">c<KBD>[Enter]</KBD></span>
+'1+2'                <SPAN class="anon">&larr;文字列リテラルの形で出力される</SPAN>
+&gt;&gt;&gt; <span class="type">print c<KBD>[Enter]</KBD></span>
+1+2                  <SPAN class="anon">&larr;print を使うと '～' が出ない</SPAN>
+&gt;&gt;&gt; <span class="type">print n<KBD>[Enter]</KBD></span>
+日本語</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列の場合，<kbd>+</kbd>（加算）は文字列の連結になります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列を加算すると連結される</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">c+'55'<KBD>[Enter]</KBD></span>       <SPAN class="anon"># 文字列に文字列 &quot;55&quot; を加算</SPAN>
+'1+255'</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ただし文字列の連結は，文字列同士でないとエラーになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列に文字列以外のものを連結するとエラーになる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">c+55<KBD>[Enter]</KBD></span>         <SPAN class="anon"># 文字列に数値の 55 を加算</SPAN>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: cannot concatenate 'str' and 'int' objects</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列の場合，<kbd>*</kbd>（乗算）は文字列の繰り返しになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列に整数値をかけると繰り返しになる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">c*5<KBD>[Enter]</KBD></span>          <SPAN class="anon"># 文字列に数値の 5 を乗算</SPAN>
+'1+21+21+21+21+2'   <SPAN class="anon">  &larr; '1+2 が５回繰り返される</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>もちろん，文字列リテラルに直接整数値をかけることもできます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列リテラルにも整数値をかけることができる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">&quot;&lt;===&quot;*3+&quot;|---&quot;*5<KBD>[Enter]</KBD></span>
+'&lt;===&lt;===&lt;===|---|---|---|---|---'</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><kbd>[</kbd>～<kbd>]</kbd> を使を使えば，文字列の一部を取り出すことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><kbd>[</kbd>～<kbd>]</kbd> を使って文字列の一部分を切り出すことができる</TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">d=&quot;abcdef&quot;<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">d[0]<KBD>[Enter]</KBD></span>
+'a'                   <SPAN class="anon">&larr;先頭の文字は０番目</SPAN>
+&gt;&gt;&gt; <span class="type">d[2]<KBD>[Enter]</KBD></span>
+'c'                   <SPAN class="anon">&larr;３文字目は２番目</SPAN>
+&gt;&gt;&gt; <span class="type">d[-2]<KBD>[Enter]</KBD></span>
+'e'                   <SPAN class="anon">&larr;- をつけると最後から数える</SPAN>
+&gt;&gt;&gt; <span class="type">d[3:5]<KBD>[Enter]</KBD></span>
+'de'                  <SPAN class="anon">&larr;３番目から５番目の前まで</SPAN>
+&gt;&gt;&gt; <span class="type">d[3:]<KBD>[Enter]</KBD></span>
+'def'                 <SPAN class="anon">&larr;３番目から残り全部</SPAN>
+&gt;&gt;&gt; <span class="type">d[:5]<KBD>[Enter]</KBD></span>
+'de'                  <SPAN class="anon">&larr;５番目より前全部</SPAN>
+</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><kbd>[</kbd><em>:3</em><kbd>]</kbd> は先頭から<em>３</em>文字目まで，<kbd>[</kbd><em>3:</em><kbd>]</kbd> は先頭から<em>４</em>文字目以降（先頭から３文字を除いた残り）の部分文字列になります．これを使って，文字列の途中に別の文字列を挟み込むことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列に別の文字列をはさみ込む</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">d[:3]+&quot;123&quot;+d[3:]<KBD>[Enter]</KBD></span>
+'abc123def'           <SPAN class="anon">&larr;３番目の前に &quot;123&quot; をはさむ</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><kbd>[</kbd>～<kbd>]</kbd> は文字列リテラルにも使えます．また，文字の位置を変数で指定することもできます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><kbd>[</kbd>～<kbd>]</kbd> は文字列リテラルにも使える．</TD>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">i=10<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">&quot;0123456789abcdef&quot;[i]<KBD>[Enter]</KBD></span>
+'a'                   <SPAN class="anon">&larr;10 進数 i を 16 進数に変換する</SPAN>
+</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列の長さ（文字数）を調べるには，<em>len</em>(文字列) という<em>関数</em>を使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列の長さ（文字数）は関数 len() で調べることができる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>&gt;&gt;&gt; <span class="type">len(d)<KBD>[Enter]</KBD></span>
+6                     <SPAN class="anon">&larr;d は６文字</SPAN>
+&gt;&gt;&gt; <span class="type">len(d[:3]+&quot;123&quot;+d[3:])<KBD>[Enter]</KBD></span>
+9                     <SPAN class="anon">&larr;d に３文字追加</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><a name="tuple" class="label">１．５　タプル</a></H3>
+<p>数値や文字列などのデータを <kbd>,</kbd> （コンマ）で区切ると，タプルと呼ばれる複数のデータをまとめたデータになります．通常これは，それをさらに <kbd>(</kbd>～<kbd>)</kbd> で囲みます．複数のデータをまとめて変数に代入するときや，関数の値として使いたいときなどに使われます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">タプルの処理</TH>
+    </TR>
+    <TR>
+      <TD width="45%">複数のデータを <kbd>,</kbd> （コンマ）で区切って並べるとタプルになる．</TD>
+      <TD width="55%" class="action"><PRE>&gt;&gt;&gt; <span class="type">10,'add',20<KBD>[Enter]</KBD></span>   <SPAN class="anon"># データをコンマで区切って並べる</SPAN>
+(10, 'add', 20) <span class="anon">&larr;タプルになるので (～) ではさまれている</span>
+&gt;&gt;&gt; <span class="type">3+5, 1+2*(3+4)<KBD>[Enter]</KBD></span>
+(8, 15)</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">ただし，タプルであることを明示するために，全体を  <kbd>(</kbd>～<kbd>)</kbd> で囲ったほうがよい．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">(10,'add',20)<KBD>[Enter]</KBD></span> 
+(10, 'add', 20)</PRE></TD>
+    </TR>
+    <TR>
+      <TD>単一の要素のタプルを作成するには，後ろに <kbd>,</kbd> （コンマ）をつける．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">10,<KBD>[Enter]</KBD></span> 
+(10,)
+&gt;&gt;&gt; <span class="type">(10,)<KBD>[Enter]</KBD></span> 
+(10,)</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">タプルも変数に代入できる．もちろん，右辺の括弧は省略できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">e=(10,'add',20)<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">e<KBD>[Enter]</KBD></span>
+(10, 'add', 20)       <span class="anon">&larr;変数 e の内容はタプル</span>
+&gt;&gt;&gt; <span class="type">f='sub',30<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">f<KBD>[Enter]</KBD></span>
+('sub', 30) <span class="anon">          &larr;変数 f の内容もタプル</span></PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">代入の左辺を変数のタプルにすると，右辺のタプルの要素を左辺の個々の変数に代入できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">(x,y,z)=(10,'add',20)<KBD>[Enter]</KBD></SPAN>
+&gt;&gt;&gt; <span class="type">x<KBD>[Enter]</KBD></SPAN>
+10
+&gt;&gt;&gt; <span class="type">y<KBD>[Enter]</KBD></SPAN>
+'add'
+&gt;&gt;&gt; <span class="type">z<KBD>[Enter]</KBD></SPAN>
+20
+&gt;&gt;&gt; <span class="type">(u,v)=f<KBD>[Enter]</KBD></SPAN>
+&gt;&gt;&gt; <span class="type">u<KBD>[Enter]</KBD></SPAN>
+'sub'
+&gt;&gt;&gt; <span class="type">v<KBD>[Enter]</KBD></SPAN>
+30</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">したがって，<kbd>(</kbd>～<kbd>)</kbd> を省略してこのように書くこともできる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x,y,z=10,'add',20<KBD>[Enter]</KBD></SPAN>
+&gt;&gt;&gt; <span class="type">x<KBD>[Enter]</KBD></SPAN>
+10
+&gt;&gt;&gt; <span class="type">y<KBD>[Enter]</KBD></SPAN>
+'add'
+&gt;&gt;&gt; <span class="type">z<KBD>[Enter]</KBD></SPAN>
+20</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">ただし，左辺と右辺の要素数が一致していないとエラーになる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">(x,y,z)=10,20<KBD>[Enter]</KBD></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ValueError: need more than 2 values to unpack <SPAN class="anon">&larr;少ない</SPAN>
+&gt;&gt;&gt; <span class="type">u,v=e<KBD>[Enter]</KBD></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ValueError: too many values to unpack <SPAN class="anon">&larr;多い</SPAN></PRE></TD>
+    </TR>
+    <TR>
+      <TD>タプルを加算すると連結される．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)+(&quot;four&quot;,&quot;five&quot;)<KBD>[Enter]</KBD></span>
+('one', 'two', 'three', 'four', 'five')
+&gt;&gt;&gt; <span class="type">e<KBD>[Enter]</KBD></span>            <span class="anon"># 変数 e の内容を見る</span>
+(10, 'add', 20)
+&gt;&gt;&gt; <span class="type">e=e+('end','bye')<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">e<KBD>[Enter]</KBD></span>            <span class="anon"># もう一度変数 e の内容を見る</span>
+(10, 'add', 20, 'end', 'bye') <span class="anon">&larr;後ろに追加されている</span></PRE></TD>
+    </TR>
+    <TR>
+      <TD>タプルに整数値をかけると要素が繰り返される．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">(1,2,3)*3<KBD>[Enter]</KBD></span>
+(1, 2, 3, 1, 2, 3, 1, 2, 3)
+&gt;&gt;&gt; <span class="type">f*3<KBD>[Enter]</KBD></span>
+('sub', 30, 'sub', 30, 'sub', 30)</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%"><kbd>[</kbd>～<kbd>]</kbd> を使ってタプルの要素を取り出すことができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">e[0]<KBD>[Enter]</KBD></span>
+10                    <SPAN class="anon">&larr;先頭の要素は０番目</SPAN>
+&gt;&gt;&gt; <span class="type">e[2]<KBD>[Enter]</KBD></span>
+20                    <SPAN class="anon">&larr;３つ目の要素は２番目</SPAN>
+&gt;&gt;&gt; <span class="type">e[-1]<KBD>[Enter]</KBD></span>
+'bye'                 <SPAN class="anon">&larr;- をつけると後ろから数える</SPAN>
+&gt;&gt;&gt; <span class="type">e[1:3]<KBD>[Enter]</KBD></span>
+('add', 20)           <SPAN class="anon">&larr;１番目から３番目の前まで</SPAN>
+&gt;&gt;&gt; <span class="type">e[2:]<KBD>[Enter]</KBD></span>
+(20, 'end', 'bye')    <SPAN class="anon">&larr;２番目から残り全部</SPAN>
+&gt;&gt;&gt; <span class="type">e[:-2]<KBD>[Enter]</KBD></span>
+(10, 'add', 20)       <SPAN class="anon">&larr;最後から２番目より前全部</SPAN></PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">タプルの要素数は len() で調べることができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">len(e)<KBD>[Enter]</KBD></span>
+5                     <SPAN class="anon">&larr;要素数は５</SPAN>
+</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><a name="list" class="label">１．６　リスト</a></H3>
+<p>リストもタプルと同様に複数のデータをひとまとめにすることができる便利なデータ構造ですが，個々の要素を入れ替えたりすることができます．リストは <kbd>[</kbd>～<kbd>]</kbd> の間に数値や文字列などのデータを <kbd>,</kbd> （コンマ）で区切って並べます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">リストの処理</TH>
+    </TR>
+    <TR>
+      <TD width="45%"><kbd>[</kbd>～<kbd>]</kbd> の間に数値や文字列などのデータを <kbd>,</kbd> で区切って並べたものがリスト．</TD>
+      <TD width="55%" class="action"><PRE>&gt;&gt;&gt; <span class="type">[&quot;abc&quot;,&quot;def&quot;,10,20]<KBD>[Enter]</KBD></span>  <SPAN class="anon"># リスト</SPAN>
+['abc', 'def', 10, 20]</PRE></TD>
+    </TR>
+    <TR>
+      <TD>リストも変数に代入できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g=[&quot;abc&quot;,&quot;def&quot;,10,20]<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>            <span class="anon"># 変数 g の内容を見る</span>
+['abc', 'def', 10, 20]</PRE></TD>
+    </TR>
+    <TR>
+      <TD>append を使ってリストの末尾に要素を追加できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g.append(30)<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>            <span class="anon"># 変数 g の内容を見る</span>
+['abc', 'def', 10, 20, 30]<span class="anon"> &larr;リストの末尾に追加されている</span></PRE></TD>
+    </TR>
+    <TR>
+      <TD>pop を使ってリストの末尾の要素を取り出すことができる．取り出した要素はリストから取り除かれる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g.pop()<KBD>[Enter]</KBD></span>
+30 <span class="anon">&larr;リストの末尾の要素</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>            <span class="anon"># 変数 g の内容を見る</span>
+['abc', 'def', 10, 20]<span class="anon"> &larr;末尾の要素が取り除かれている</span></PRE></TD>
+    </TR>
+    <TR>
+      <TD>リストを加算すると連結される．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;]+[&quot;four&quot;,&quot;five&quot;]<KBD>[Enter]</KBD></span>
+['one', 'two', 'three', 'four', 'five']
+&gt;&gt;&gt; <span class="type">g=g+[&quot;end&quot;,&quot;bye&quot;]<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>            <span class="anon"># 変数 g の内容を見る</span>
+['abc', 'def', 10, 20, 'end', 'bye'] <span class="anon">&larr;リスト末尾に追加</span></PRE></TD>
+    </TR>
+    <TR>
+      <TD>リストに整数値をかけると要素が繰り返される．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">[1,2,3]*3<KBD>[Enter]</KBD></span>
+[1, 2, 3, 1, 2, 3, 1, 2, 3]</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%"><kbd>[</kbd>～<kbd>]</kbd> を使ってリストの要素を取り出すことができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g[0]<KBD>[Enter]</KBD></span>
+'abc'                 <SPAN class="anon">&larr;先頭の要素は０番目</SPAN>
+&gt;&gt;&gt; <span class="type">g[2]<KBD>[Enter]</KBD></span>
+10                    <SPAN class="anon">&larr;３つ目の要素は２番目</SPAN>
+&gt;&gt;&gt; <span class="type">g[-1]<KBD>[Enter]</KBD></span>
+'bye'                 <SPAN class="anon">&larr;- をつけると後ろから数える</SPAN>
+&gt;&gt;&gt; <span class="type">g[1:3]<KBD>[Enter]</KBD></span>
+['def', 10]           <SPAN class="anon">&larr;１番目から３番目の前まで</SPAN>
+&gt;&gt;&gt; <span class="type">g[2:]<KBD>[Enter]</KBD></span>
+[10, 20, 'end', 'bye']<SPAN class="anon">&larr;２番目から残り全部</SPAN>
+&gt;&gt;&gt; <span class="type">g[:-2]<KBD>[Enter]</KBD></span>
+['abc', 'def', 10, 20]<SPAN class="anon">&larr;末尾から２番目より前全部</SPAN></PRE></TD>
+    </TR>
+    <TR>
+      <TD>要素に代入して置き換えることもできる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g[2]=&quot;ghi&quot;<KBD>[Enter]</KBD></span>   <SPAN class="anon"># ２番目の要素を &quot;ghi&quot; で置き換え</SPAN>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>&quot;<span class="type"><KBD></KBD></span>
+['abc', 'def', 'ghi', 20, 'end', 'bye']<KBD></KBD>
+&gt;&gt;&gt; <span class="type">g[3]=g[3]+5<KBD>[Enter]</KBD></span>  <SPAN class="anon"># ３番目の要素に 5 を加える</SPAN>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>&quot;<span class="type"><KBD></KBD></span>
+['abc', 'def', 'ghi', 25, 'end', 'bye']<KBD></KBD></PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">範囲を指定して代入すれば，それらの要素を置き換えたり，要素を挿入したりできる．置き換えられる要素数が置き換える要素数と一致して無くても構わない．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g[1:3]=[5,6,7]<KBD>[Enter]</KBD></span>  <span class="anon"># &quot;def&quot;, &quot;ghi&quot; を置き換え</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['abc', 5, 6, 7, 25, 'end', 'bye']
+&gt;&gt;&gt; <span class="type">g[1:1]=[&quot;XYZ&quot;]<KBD>[Enter]</KBD></span> <span class="anon"> # １番目の要素の前に &quot;XYZ&quot; を挿入</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['abc', 'XYZ', 5, 6, 7, 25, 'end', 'bye']
+&gt;&gt;&gt; <span class="type">g[:0]=e[-1:]<KBD>[Enter]</KBD></span>    <span class="anon"># 先頭に末尾の要素以降を挿入</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['bye', 'abc', 'XYZ', 5, 6, 7, 25, 'end', 'bye']<span class="anon">&larr;要素数 9</span>
+&gt;&gt;&gt; <span class="type">g[9:]=[g[3],g[5]]<KBD>[Enter]</KBD></span> <span class="anon"># 末尾に３番目と５番目を追加</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['bye', 'abc', 'XYZ', 5, 6, 7, 25, 'end', 'bye', 5, 7]</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">リストの要素を削除するには，空のリスト <kbd>[</kbd><kbd>]</kbd> を代入する．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g[3:8]=[]<KBD>[Enter]</KBD></span><span class="anon">       # ３番目から８番目の前まで削除</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['bye', 'abc', 'XYZ', 'bye', 5, 7]</PRE></TD>
+    </TR>
+    <TR>
+      <TD>要素の削除には del も使える．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">del g[:2]<KBD>[Enter]</KBD></span><span class="anon">       # ２番目まで全部削除</span>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['XYZ', 'bye', 5, 7]</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">リストの要素数は len() で調べることができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">len(g)<KBD>[Enter]</KBD></span>
+4                    <SPAN class="anon">&larr;要素数は 4</SPAN>
+</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="45%">リストを文字列で置き換えると，１文字ずつばらばらにされたリストになる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g=[]<KBD>[Enter]</KBD></span>         <SPAN class="anon"># 変数に空のリストを代入する</SPAN>
+&gt;&gt;&gt; <span class="type">g[:]=&quot;SMTWTFS&quot;<KBD>[Enter]</KBD></span>  <SPAN class="anon"># リスト全体を文字列で置き換える</SPAN>
+&gt;&gt;&gt; <span class="type">g<KBD>[Enter]</KBD></span>
+['S', 'M', 'T', 'W', 'F', 'F', 'S']</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．７　ディクショナリ</H3>
+<p>ディクショナリはキーとデータを対にして保持したリストのようなものです．要素のデータをキーで指定することができます．<kbd>{</kbd>～<kbd>}</kbd> の間にキーとデータを <kbd>:</kbd> （コロン）で結びつけたものを <kbd>,</kbd> （コンマ）で区切って並べます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ディクショナリの処理</TH>
+    </TR>
+    <TR>
+      <TD width="40%"><kbd>{</kbd>～<kbd>}</kbd> の間にキーとデータの対を <kbd>:</kbd> で結んだものを <kbd>,</kbd> で区切って並べたものがディクショナリ．</TD>
+      <TD width="60%" class="action"><PRE>&gt;&gt;&gt; <span class="type">{&quot;aoki&quot;:24,&quot;aoyama&quot;:32,&quot;haruyama&quot;:22}<KBD>[Enter]</KBD></span>
+{'aoki': 24, 'aoyama': 32, 'haruyama': 22}</PRE></TD>
+    </TR>
+    <TR>
+      <TD>ディクショナリも変数に代入できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h={&quot;aoki&quot;:24,&quot;aoyama&quot;:32,&quot;haruyama&quot;:22}<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">h<KBD>[Enter]</KBD></span>
+{'aoki': 24, 'aoyama': 32, 'haruyama': 22}</PRE></TD>
+    </TR>
+    <TR>
+      <TD>ディクショナリは加算（連結）や乗算（繰り返し）はできない．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h+h<KBD>[Enter]</KBD></span>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: unsupported operand type(s) for +: 'dict' and 'dict'
+&gt;&gt;&gt; <span class="type">h*3<KBD>[Enter]</KBD></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: unsupported operand type(s) for *: 'dict' and 'int'</PRE></TD>
+    </TR>
+    <TR>
+      <TD>ディクショナリを格納した変数名に <kbd>[</kbd>～<kbd>]</kbd> でキーを指定すれば，データを取り出すことができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h['aoyama']<KBD>[Enter]</KBD></span>
+32</PRE></TD>
+    </TR>
+    <TR>
+      <TD>存在しないキーを指定してデータを取り出そうとするとエラーになる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h['tanaka']<KBD>[Enter]</KBD></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+KeyError: 'tanaka'</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="40%">キーを指定して値を代入すれば，そのキーのデータを更新できる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h['aoyama']='pass'<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">h<KBD>[Enter]</KBD></span>
+{'aoki': 24, 'aoyama': 'pass', 'haruyama': 22}<SPAN class="anon"></SPAN>
+</PRE></TD>
+    </TR>
+    <TR>
+      <TD>存在しないキーを指定してデータを代入すれば，データが追加される．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">h['tanaka']=44<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+&gt;&gt;&gt; <span class="type">h<KBD>[Enter]</KBD></span>&quot;<span class="type"><KBD></KBD></span>
+{'aoki': 24, 'tanaka': 44, 'aoyama': 'pass', 'haruyama': 22}<KBD></KBD>
+</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="40%">特定のデータを削除するときは del を使う．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">del h['aoyama']<KBD>[Enter]</KBD></span><span class="anon"></span>
+&gt;&gt;&gt; <span class="type">h<KBD>[Enter]</KBD></span>
+{'aoki': 24, 'tanaka': 44, 'haruyama': 22}</PRE></TD>
+    </TR>
+    <TR>
+      <TD width="40%">ディクショナリの要素数は len() で調べることができる．</TD>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">len(h)<KBD>[Enter]</KBD></span>
+3                   <SPAN class="anon">&larr;要素数は 3</SPAN>
+</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．８　Python の対話モードの終了</H3>
+<P>Python の対話モードを終了するには，<em>exit()</em> とタイプして改行するか，<kbd>Ctrl-D</kbd> をタイプします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python の対話モードを終了する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type"><KBD>Ctrl-D</KBD></span>
+</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．９　Python スクリプトの作成</H3>
+<P>それでは Python のスクリプトを作成してみましょう．スクリプト名は sample.py とします．Python スクリプトの拡張子には <em>.py</em> を用いるのが一般的です．テキストエディタを使って，sample.py というファイルを作成してください．emacs は次のようにします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs で Python スクリプトを作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">emacs sample.py &amp;<KBD>[Enter]</KBD></span><span class="type"><KBD></KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このスクリプトを解釈して実行するのは python コマンドなので，スクリプトの１行目には csh スクリプトの場合と同様に <em>#!</em> に続けて python コマンドの絶対パス <em>/usr/bin/python</em> を書きます．また，２行目ではスクリプトで使用する文字コードを指定します．Python にとって必要なのは <em>coding: utf-8</em> の部分だけですが，前後に <em>-*-</em> を書くことで emacs に対してもこのファイルの文字コードが utf-8 であることを伝えます．なお，３行目以降にある <em>#</em> から行末まではコメントなので，プログラムの実行に影響を与えません（無いのと同じ）．</P>
+<PRE class="source"><EM>#!/usr/bin/python
+# -*- coding: utf-8 -*-</EM>
+
+x = 1
+y = 1
+
+print x, '+', y, '='
+print x + y</PRE>
+<P>変更できたら <KBD>C-x C-s</KBD> でファイルを保存します．emacs は終了せず，起動したままにしておきましょう．そしてターミナルのウィンドウで sample.py を実行可能に設定したあと，実際にスクリプトを実行してみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを実行可能にして実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">chmod +x sample.py<KBD>[Enter]</KBD></span>
+% <span class="type">./sample.py<KBD>[Enter]</KBD></span>
+1 + 1 =
+2</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>出力の１行目は <span class="source">x, '+', y, '='</span> の四つのデータをひとつずつ出力しています．また２行目行で x + y という計算の結果を出力しています．</p>
+<BLOCKQUOTE>
+  <DIV class="header">/usr/bin/env コマンドと python コマンド</DIV>
+  <div class="body">python は比較的新しいコマンドなので，/usr/bin 以外の場所に置かれている場合もあります．そのため，python コマンドがどこに置かれていても起動できるように，ほとんどの Unix 系 OS に用意されている /usr/bin/env コマンドを介して python コマンドを起動する方法が採用されることが多いようです．</div>
+  <pre class="source"><em>#!/usr/bin/env python</em>
+...</pre></BLOCKQUOTE>
+<H3>１．１０ スクリプトの引数</H3>
+<P>基本的な Python の機能は非常にシンプルですが，<em>モジュール</em>という機構を使って必要に応じて機能を追加できます．たとえば，<em>sys</em> というモジュールを組み込めば，オペレーティング<em>システム</em>に関連した機能を追加することができます．これを使って，ここでは Python のスクリプトで作成したコマンドに与えた引数を取得してみます．sample.py に下記の太字の部分を追加した後，<KBD>C-x C-s</KBD> でファイルを保存してください．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+<em>import sys      </em><span class="anon"># sys モジュールの導入</span>
+
+<em>print sys.argv  </em><span class="anon"># sys モジュールの変数 argv の出力</span>
+
+x = 1
+y = 1
+
+print x, '+', y, '='
+print x + y</PRE>
+<P><em>import sys</em> は <em>sys</em> というモジュールの導入（読み込み）を指示します．これにより sys モジュールが用意している機能が利用可能になります．<em>print sys.argv</em> は sys モジュールに用意されている argv という変数を出力します．このスクリプトを実行すると，次のような出力が得られます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けずに実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span>
+<span class="hilit">['./sample.py']</span>
+1 + 1 =
+2</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>出力に <em>['./sample.py']</em> が含まれます．これが print sys.argv による出力です．この出力は，実行したコマンド名（スクリプトのファイル名）そのものを唯一の要素とする<em>リスト</em>です．次に，このスクリプトに<em>引数</em>を指定して実行してみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py <em>2</em> <em>3</em><KBD>[Enter]</KBD></span>
+['./sample.py', <span class="hilit">'2'</span>, <span class="hilit">'3'</span>]
+1 + 1 =
+2</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>今度は出力に <em>['./sample.py', '2', '3']</em> が含まれます．スクリプトに指定した引数は，変数 sys.argv に格納されているリストの二番目と三番目の要素に格納されています．したがってこれらを取り出すには，それぞれ sys.argv[1] と sys.argv[2] を使用すればいいことがわかります．そこで，sample.py を次のように書き換えてみます．sys.argv という変数名は長いので，一旦 argv という変数に代入します．ファイルを書き換えたら，<KBD>C-x C-s</KBD> でファイルを保存してください．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+<em>argv =</em> sys.argv   <span class="anon"># 引数のリスト</span>
+
+x = <em>argv[1]       </em><span class="anon"># スクリプトの第１引数</span>
+y = <em>argv[2]       </em><span class="anon"># スクリプトの第２引数
+</span>
+print x, '+', y, '='
+print x + y</PRE>
+<P>先ほどと同様に，このスクリプトに引数を指定して実行します．変数 x と y に代入する値をスクリプトの引数に書き換えたので，出力される数式の数字が引数に与えたものに置き換わっているはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>
+<span class="hilit">2</span> + <span class="hilit">3</span> =
+<span class="hilit">23</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>数字は確かに置き換わりましたが，結果がちょっと<em>微妙</em>です．argv の要素はすべて<em>文字列</em>なので，そのまま <kbd>+</kbd> で加算すると<em>文字列の連結</em>になってしまいます．ちゃんと加算の結果を得るには，これらを<em>数値に変換</em>する必要があります．<em>整数値</em>への変換には <em>int()</em>，<em>実数値</em>への変換には <em>float()</em> を使います．</p>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+
+x = <em>int(</em>argv[1]<em>)</em>   <span class="anon"># スクリプトの第１引数を整数化</span>
+y = <em>int(</em>argv[2]<em>)</em>   <span class="anon"># スクリプトの第２引数を整数化</span>
+
+print x, '+', y, '='
+print x + y</PRE>
+<P>ファイルを書き換えたら <KBD>C-x C-s</KBD> でファイルを保存して，スクリプトを実行してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>
+2 + 3 =
+<span class="hilit">5</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>最後に，print は出力の最後で改行するため，print を二つ書くと，この例のように２行に分かれてしまいます．print で改行したくないときは，print の行の末尾に <kbd>,</kbd> （コンマ）を追加します．ファイルを書き換えたら <KBD>C-x C-s</KBD> でファイルを保存して，スクリプトを実行してください．</p>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+
+x = int(argv[1])
+y = int(argv[2])
+
+print x, '+', y, '='<em>,</em>  <span class="anon"># 末尾にコンマを追加した</span>
+print x + y</PRE>
+<P>こうすると，出力は次のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>
+<span class="hilit">2 + 3 = 5</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このスクリプトの引数に，さまざまなデータを指定して実行してみてください．ただし，引数の数が２個でなかったり，引数が整数値でなかったりするとエラーになってしまいます．</p>
+<H3>１．１１ 条件分岐</H3>
+<P>引数の数は len() を使って変数 sys.argv の要素数を調べればわかります．したがって，引数の数が 2 以外の場合に処理を変更するようにすれば，（引数の数の違いによる）エラーを避けることができます．このような判断には <em>if</em> を使います．引数を２個与えたときには，argv の要素数は 3 （<em>与えた引数の数より１多い</em>）になるはずですから，それ以外の場合はメッセージを出力することにします．<span class="gray">Tab&gt;</span> のところは，実際には <kbd>[Tab]</kbd> キーをタイプします（スペースでも構いません）．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+<em>argc = len(argv)     </em><span class="anon"># 引数の数</span>
+
+<em>if argc == 3:        </em><span class="anon"># 引数の数が２個なら以下を実行する</span>
+<span class="gray">Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;</span>y = int(argv[2])
+
+<span class="gray">Tab&gt;</span>print x, '+', y, '=',
+<span class="gray">Tab&gt;</span>print x + y
+<em>else:                <span class="anon"></span></em><span class="anon"># そうでなければ以下を実行する</span>
+<span class="gray">Tab&gt;</span><em>print u&quot;引数が足りません&quot;</em></PRE>
+<P><em>if</em> や <em>else</em> に続く行の<em>行頭の空白</em> (<span class="gray">Tab&gt;</span> の部分) は<strong>必ず入れてください</strong>．このように行頭に空白を入れてプログラムの行をずらすことを，<em>インデント</em>（字下げ）といいます．Python では，このインデントがプログラムの実行順序の制御に重要な意味を持っています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数の数を変えて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span>        <span class="anon"># 引数なし</span>
+引数が足りません
+% <span class="type">./sample.py 2<KBD>[Enter]</KBD></span>      <span class="anon"># 引数１個</span>
+引数が足りません
+% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>    <span class="anon"># 引数２個</span>
+2 + 3 = 5
+% <span class="type">./sample.py 2 3 4<KBD>[Enter]</KBD></span>  <span class="anon"># 引数３個</span>
+引数が足りません</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><em>if</em> および <em>elif</em> は，その右から <em>:</em> （コロン）までの間に置かれた条件にしたがって，プログラムの実行を制御します．条件が<em>真</em>のとき（成立するとき），それに続く<em>インデントされた行</em>が実行されます．<em>else:</em> に続くインデントされた行は，すべての条件が<em>偽</em>のとき（成立しなかったとき）に実行されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>if ～ elif ～ else</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>if</EM> 条件１<em>:</em>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># <span class="type">条件１</span>が<EM>真</EM>なら（成立すれば）
+<span class="gray">Tab&gt;</span># この部分の処理が実行される</SPAN>
+<EM>elif</EM> 条件２<em>:</em>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># <span class="type">条件１</span>が<em>偽</em>のとき（成立しなかったとき）<span class="type">条件２</span>が<EM>真</EM>なら（成立すれば）
+<span class="gray">Tab&gt;</span># この部分の処理が実行される</SPAN>
+<EM>elif</EM> 条件３<em>:</em>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># <span class="type">条件１・２</span>が<em>偽</em>のとき（成立しなかったとき）<span class="type">条件３</span>が<EM>真</EM>なら（成立すれば）
+<span class="gray">Tab&gt;</span># この部分の処理が実行される
+</SPAN>
+<span class="gray">...</span>
+
+<EM>else:</EM>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># 上のいずれの条件も<em>偽</em>のとき（成立しなかったとき）<span class="type"></span>
+<span class="gray">Tab&gt;</span># この部分の処理が実行される
+</SPAN>
+
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので条件にかかわり無く実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この条件としては，次のようなものが使用できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">条件</TH>
+    </TR>
+    <TR>
+      <TD><em>0</em></TD>
+      <TD class="action">整数の 0 は常に偽</TD>
+    </TR>
+    <TR>
+      <TD><EM>非 0</EM></TD>
+      <TD class="action">0 でない整数は常に真</TD>
+    </TR>
+    <TR>
+      <TD><em>()</em></TD>
+      <TD class="action">空のタプルは常に偽</TD>
+    </TR>
+    <TR>
+      <TD><em>(</em>1,<em>)</em></TD>
+      <TD class="action">空でないタプルは常に真</TD>
+    </TR>
+    <TR>
+      <TD><em>[]</em></TD>
+      <TD class="action">空のリストは常に偽</TD>
+    </TR>
+    <TR>
+      <TD><em>[</em>&quot;aaa&quot;<em>]</em></TD>
+      <TD class="action">空でないリストは常に真</TD>
+    </TR>
+    <TR>
+      <TD><em>{}</em></TD>
+      <TD class="action">空のディクショナリは常に偽</TD>
+    </TR>
+    <TR>
+      <TD><em>{</em>&quot;aaa&quot;:1<em>}</em></TD>
+      <TD class="action">空でないディクショナリは常に真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>==</em> y</TD>
+      <TD class="action">x と y が等しいとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&lt;</em> y</TD>
+      <TD class="action">x が y より小さいとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&gt;</em> y</TD>
+      <TD class="action">x が y より大きいとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&lt;=</em> y</TD>
+      <TD class="action">x が y より小さいか y と等しいとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&gt;=</em> y</TD>
+      <TD class="action">x が y より大きいか y と等しいとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>!=</em> y</TD>
+      <TD class="action">x と y が等しくないとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>and</em> y</TD>
+      <TD class="action">x と y がともに真のとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>or</em> y</TD>
+      <TD class="action">x と y のどちらかが真のとき真</TD>
+    </TR>
+    <TR>
+      <TD><em>not</em> x</TD>
+      <TD class="action">x が真のとき偽，偽のとき真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>in</em> dic</TD>
+      <TD class="action">dic というディクショナリに x というキーが含まれていれば真</TD>
+    </TR>
+    <TR>
+      <TD>x <em>not in</em> dic</TD>
+      <TD class="action"><em>not</em> x <em>in</em> dic と同じ</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．１２ キーボード入力</H3>
+<P>引数の数が合わなかったときにメッセージを出すのではなく，足らないデータを要求するように sample.py を変更してみます．考えなければならないのは引数が０個のとき，１個のとき，２個のとき，そして３個以上のときです．引数が３個以上のときは多すぎると言うメッセージを出し，２個であればそのまま，１個であれば足らない１個のデータを要求し，０個であれば２個のデータを要求して，計算結果を出力するようにします．</P>
+<P>まず最初に，引数の数が２個かどうかを確かめていた部分を，２個<em>以下</em>かどうかに変更します．そうすると，<em>else:</em> 以降が処理されるのは引数の数が３個以上のときになるので，その場合に出すメッセージも変更します．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc <em>&lt;=</em> 3:              <span class="anon"># 引数の数が２個<em>以下</em>なら以下を実行する（== を &lt;= に変更）</span>
+<span class="gray">Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;</span>y = int(argv[2])
+
+<span class="gray">Tab&gt;</span>print x, '+', y, '=',
+<span class="gray">Tab&gt;</span>print x + y
+else:                      <span class="anon"># そうでなければ（３個以上）以下を実行する</span>
+<span class="gray">Tab&gt;</span>print u&quot;引数が<em>多すぎます</em>&quot;</PRE>
+<P>そうすると，最初の <em>if</em> 以降の部分では，引数の数が 0，1，2 の三つの場合を処理する必要が出てきます．そこで，ここでもう一度 <em>if</em> （および <em>elif</em>）を使って場合分けをします．引数の数が 3 の場合の処理は以前と変わりません．ただし，二つ目の <em>if</em> によって実行される部分を，<kbd>[Tab]</kbd> でもう一段階<em>インデント</em>します．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span><em>if argc == 3:</em>           <span class="anon"># 引数の数が２個のとき<em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span><em>x = int(argv[1])</em>
+<span class="gray">Tab&gt;Tab&gt;</span><em>y = int(argv[2])
+</em>
+<span class="gray">Tab&gt;</span>print x, '+', y, '=',
+<span class="gray">Tab&gt;</span>print x + y
+else:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>引数が１個しかないときは，x にそれを使い，y は改めてキーボードから入力してもらうようにします．Python のスクリプトでキーボードから入力を得るには，<em>raw_input()</em> を使うと便利です．raw_input() は (～) に置いた文字列を<em>プロンプト</em>として表示してキーボードからの入力を待ち，入力しされた文字列を値として返します．これを int() を使って整数値に変換して，y に代入します．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span><em>elif argc == 2:</em>         <span class="anon"># 引数の数が１個のとき<em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span><em>x = int(argv[1])</em>
+<span class="gray">Tab&gt;Tab&gt;</span><em>y = int(raw_input('y = '))</em>  <span class="anon"># キーボードからの入力．'y = ' はプロンプト</span>
+
+<span class="gray">Tab&gt;</span>print x, '+', y, '=',
+<span class="gray">Tab&gt;</span>print x + y
+else:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>引数が０個の場合は，x も y もキーボードから入力してもらうようにします．raw_input() を使って得た文字列を，int() により整数値に変換して，x および y に代入します．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span>elif argc == 2:<span class="anon"><em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))<span class="anon"></span>
+<span class="gray">Tab&gt;</span><em>elif argc == 1:</em>         <span class="anon"># 引数の数が０個のとき<em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span><em>x = int(</em><em>raw_input('x = '))</em>  <span class="anon"># キーボードからの入力．'x = ' はプロンプト</span>
+<span class="gray">Tab&gt;Tab&gt;</span><em>y = int(raw_input('y = '))</em>  <span class="anon"># キーボードからの入力．'y = ' はプロンプト</span>
+
+<span class="gray">Tab&gt;</span>print x, '+', y, '=',
+<span class="gray">Tab&gt;</span>print x + y
+else:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>それでは，このスクリプトを実行してみましょう．引数の数を変えて実行して，期待通りの動作をするでしょうか．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を変えながら実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span><br>x = <span class="type">10<KBD>[Enter]</KBD></span><br>y = <span class="type">20<KBD>[Enter]</KBD></span><br>10 + 20 = 30<br>% <span class="type">./sample.py 10<KBD>[Enter]</KBD></span><br>y = <span class="type">20<KBD>[Enter]</KBD></span><br>10 + 20 = 30<br>% <span class="type">./sample.py 10 20<KBD>[Enter]</KBD></span><br>10 + 20 = 30<span class="type"><br>% </span>./sample.py 10 20 30<KBD>[Enter]</KBD><br>引数が多すぎます</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">raw_input() と input()</DIV>
+  <div class="body">実は Python には <em>input()</em> というとっても便利なものがあります．これを使うと int() で整数に変換する必要もなくなります．ただし，これはキーボードからの入力を単なる文字列としてではなく，Python のプログラムとして実行してしまいます（正確には「評価する」と言います）．したがって，そのことを考慮せずにこれを使うと<em>非常に危険</em>です．多くの場合，<em>input() は使わないほうが無難</em>です．なお，これは Python 2.x の機能であり，Python 3.x の input() は raw_input() と同じになります．</div>
+  <pre>&gt;&gt;&gt; <span class="type">x = input('x を入れてください: ')<KBD>[Enter]</KBD></span>
+x を入れてください: <span class="type">1+1<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">x<KBD>[Enter]</KBD></span>
+2               <span class="anon">&larr; raw_input() なら '1+1' という文字列が入っている</span></pre>
+</BLOCKQUOTE>
+<H3><a name="iteration" class="label">１．１３　繰り返し</a></H3>
+<P>コンピュータでは同じことを繰り返す処理が頻繁に現れます．Python の繰り返し処理を行う仕組みには，<em>for</em> や <em>while</em> があります．sample.py は二つの数値 x と y を入力して，その和を出力していますが，これをもとに，x 個の <kbd>*</kbd> からなる文字列の行を y 行出力することを考えてみます．以下に例を示します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を y 行出力する（例）</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'*' という文字列を x 回繰り返して出力するには，'*' * x とします．したがって，sample.py を次のように変更します．</p>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span>elif argc == 2:<span class="anon"><em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))<span class="anon"></span>
+<span class="gray">Tab&gt;</span>elif argc == 1:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(raw_input('x = '))
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))
+
+<span class="gray">Tab&gt;</span><em>print '*' * x</em>        <span class="anon"># '*' を x 回繰り返して出力する</span>
+else:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すると，次のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この出力を y 回繰り返せば，x 個の * が y 行出力されます．このような繰り返しには <em>for</em> が使えます．for は，for の右に置いた変数に，<em>in</em> の右に置いた反復子（タプルやリストなど）の要素を一つ一つ代入して，次行以降のインデントされた行を繰り返します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>for ～ in</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>for </EM>変数 <em>in</em> 反復子<em>:</em>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># <span class="type">反復子</span>の一つ一つの要素を<span class="type">変数</span>に代入して
+<span class="gray">Tab&gt;</span># この部分の処理が実行される</SPAN>
+<EM></EM>
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので繰り返し終了後に実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>例えば，反復子として 'abc' という３文字の文字列を指定すれば，３回繰り返されます．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span>elif argc == 2:<span class="anon"><em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))<span class="anon"></span>
+<span class="gray">Tab&gt;</span>elif argc == 1:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(raw_input('x = '))
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))
+<span class="gray">
+Tab&gt;</span><em>for i in 'abc':</em>    <span class="anon"># 反復子として３文字の文字列を指定する</span>
+<span class="gray">Tab&gt;Tab&gt;</span><em>print '*' * x</em>
+else:
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すると，次のように文字列の長さ（文字数）だけ繰り返されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>したがって，反復子を y 文字の文字列にすれば，y 回繰り返すことができます．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span>elif argc == 2:<span class="anon"><em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))<span class="anon"></span>
+<span class="gray">Tab&gt;</span>elif argc == 1:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(raw_input('x = '))
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))
+<span class="gray">
+Tab&gt;</span>for i in <em>'a' * y</em>:    <span class="anon"># 反復子として y 文字の文字列を指定する</span>
+<span class="gray">Tab&gt;Tab&gt;</span>print '*' * x
+else:
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すれば，期待したどおりの動作をするはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>反復子に文字列を指定した場合</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>反復子としては，文字列以外にタプルやリストも使えます．タプルの場合は (1,) *y，リストの場合は ['a'] * y で同じことができます．しかし，反復子には通常 range() か xrange() を使います．</p>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="gray">Tab&gt;</span>if argc == 3:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(argv[2])<em>
+</em><span class="gray">Tab&gt;</span>elif argc == 2:<span class="anon"><em></em></span>
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(argv[1])
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))<span class="anon"></span>
+<span class="gray">Tab&gt;</span>elif argc == 1:
+<span class="gray">Tab&gt;Tab&gt;</span>x = int(raw_input('x = '))
+<span class="gray">Tab&gt;Tab&gt;</span>y = int(raw_input('y = '))
+<span class="gray">
+Tab&gt;</span>for i in <em>xrange(y):</em>    <span class="anon"># 反復子として xrange(y) を指定する</span>
+<span class="gray">Tab&gt;Tab&gt;</span>print '*' * x
+else:
+<span class="gray">Tab&gt;</span>print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すれば，先ほどと同じ動作をするはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>反復子に xrange() を指定した場合</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">range() と xrange()</DIV>
+  <div class="body">range() は引数に指定した数の整数の要素をもつリストを生成します．range(5) は [0, 1, 2, 3, 4] というリストを生成します．range() は最大で三つの引数を指定できます．range(x, y, z) のように指定した場合，x は初期値として y を超えない最大の整数まで z ずつ増加させながら値を生成します．xrange() は range() と同様に反復子として使用しますが，単体ではリストを生成しません（その分メモリの節約します）．なお，Python 3.x では range() は xrange() と同じになります．</div>
+<pre>&gt;&gt;&gt; <span class="type">range(5)<KBD>[Enter]</KBD></span>
+[0, 1, 2, 3, 4]
+&gt;&gt;&gt; <span class="type">range(3,8,2)<KBD>[Enter]</KBD></span>
+[3, 5, 7]
+&gt;&gt;&gt; <span class="type">xrange(8,3,-2)<KBD>[Enter]</KBD></span>
+xrange(8, 2, -2)    <span class="anon"># xrange() は 'xrange オブジェクト' を生成する</span>
+&gt;&gt;&gt; <span class="type">list(range(8,3,-2))<KBD>[Enter]</KBD></span>
+[8, 6, 4]           <span class="anon"># list() の引数に使うとリストが生成される</span></pre>
+</BLOCKQUOTE>
+<p>繰り返しを行う方法には，他に <em>while</em> があります．<em>else:</em> 以降は省略できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>while ～ else</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>while </EM>条件<em>:</em>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># <span class="type">条件</span>が<em>真</em>の間（成立している限り），
+<span class="gray">Tab&gt;</span># この部分の処理が実行される</SPAN>
+<em>else:</em>
+<span class="gray">Tab&gt;</span><span class="anon"># <span class="type">条件</span>が<em>偽</em>になって繰り返しが終了したら，</span>
+<SPAN class="anon"><span class="gray">Tab&gt;</span># この部分の処理が実行される</SPAN>
+<EM></EM>
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので繰り返し終了後に実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>次のような使い方をします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; i = 0
+&gt;&gt;&gt; while i &lt; 5:
+...     print i
+...     i += 1        <span class="anon"># i に 1 を足す</span>
+... else:
+...     print u&quot;おわり&quot;
+...
+0
+1
+2
+3
+4
+おわり</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>２．数を数える Python スクリプトの作成</H2>
+<H3>２．１　カウンタスクリプトの動作</H3>
+<P>次に，Python スクリプトで数を数えるコマンド（<EM>カウンタ</EM>）を counter.py というファイル名で作ってみましょう．カウンタとは，下の例のように，実行するたびに出力する数値が１ずつ増えていくコマンドです<STRONG>（以下は例ですから，今はまだ実行できません）</STRONG>．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>カウンタの動作</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+1
+% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+2
+% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+3 <SPAN class="anon">&larr;実行するたびに数が増えていく</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>とりあえず emacs を使って counter.py というファイルを作成します．これは Python スクリプトですから，１行目は <em>#!/usr/bin/python</em>，２行目は <em># -*- coding: utf-8 -*-</em> になることに注意してください．それ以降のスクリプトの内容は，以下の文章を読んで，自分で考えてください．</P>
+<P>counter.py は数値（カウント）を出力するとすぐに終了してしまいますから，counter.py は何らかの方法で前回出力した数値（カウント）が<EM>何だったか覚えておく</EM>必要があります．ここでは，それを<EM>ファイルに記録しておく</EM>ことにします．この段取りは次のようになります．</P>
+<OL>
+  <LI>前回出力したカウントをファイルから取り出す</LI>
+  <LI>このカウントに１を加える</LI>
+  <LI>この結果を出力する</LI>
+  <LI>この結果をファイルに記録しておく</LI>
+</OL>
+<P>カウントを記録しておくファイルのファイル名は <EM>count.dat</EM> とします．最初に counter.py を実行した時には，前回のカウントは調べられませんから，その場合はカウントを
+0 としておく必要があります．そのために，前処理として 0 という文字だけが入った count.dat というファイルを作ります．これは emacs でも作成できますが，次のようにして <em>echo</em> コマンドでも作成できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>0 という内容の count.dat というファイルを作る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">echo -n 0 &gt; count.dat<KBD>[Enter]</KBD></span>
+</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．２　カウンタスクリプトの作成</H3>
+<P>それでは，実際に処理の内容を counter.py に追加していきましょう．</P>
+<h4>前回出力したカウントをファイルから取り出す</h4>
+<P>ファイルからデータを読み込むには，最初にファイルを開き (open)，次に開いたファイルからデータを読み出して (read)，最後にファイルを閉じる (close) という手順をとります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルからのデータの読み込み手順</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ファイルを開く．変数 f には開いたファイル（右の場合 count.dat）を示すデータ（ファイルオブジェクト）が代入される．'r' はこのファイルを「読み込みモード」で開くことを示す．</TD>
+      <TD class="action">
+      <PRE>f = <em>open</em>('count.dat', 'r')</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>開いたファイルから，その内容を読み込んで，変数 d に代入する．d には<em>文字列</em>が入っている．</TD>
+      <TD class="action">
+      <PRE>d = f.<em>read</em>()</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>開いたファイルを閉じる．</TD>
+      <TD class="action">
+      <PRE>f.<em>close</em>()</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h4>このカウントに１を加える</h4>
+<P>ファイルから読み出したデータは文字列ですから，これに 1 を加えるには，整数値に直す必要があります．これには int() を使います．また，1 を加えた結果は再び文字列に戻しておきます．整数値から文字列に変換するには str() を使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">カウント処理</TH>
+    </TR>
+    <TR>
+      <TD width="45%">変数 d の内容を整数化して，それに 1 を加えて再び文字列に変換し，変数 c に代入する．</TD>
+      <TD class="action"><PRE>c = <em>str</em>(<em>int</em>(d) + 1)</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h4>この結果を出力する</h4>
+<P>1 を加えた結果の文字列を出力します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">結果の出力</TH>
+    </TR>
+    <TR>
+      <TD width="45%">変数 c の内容を出力する</TD>
+      <TD class="action"><PRE><em>print</em> c</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h4>この結果をファイルに記録しておく</h4>
+<P>出力した結果をファイルにも保存しておきます．ファイルにデータを書き込むには，最初にファイルを開き (open)，次に開いたファイルからデータを書き出して (write)，最後にファイルを閉じる (close) という手順をとります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルへのデータの書き込み手順</TH>
+    </TR>
+    <TR>
+      <TD width="45%">ファイルを開く．変数 f には開いたファイル（右の場合 count.dat）を示すデータ（ファイルオブジェクト）が代入される．'w' はこのファイルを「書き込みモード」で開くことを示す．</TD>
+      <TD class="action"><PRE>f = <em>open</em>('count.dat', 'w')</PRE></TD>
+    </TR>
+    <TR>
+      <TD>開いたファイルに変数 c の内容を書き込む．</TD>
+      <TD class="action"><PRE>f.<em>write</em>(<em></em>c)</PRE></TD>
+    </TR>
+    <TR>
+      <TD>開いたファイルを閉じる．</TD>
+      <TD class="action"><PRE>f.<em>close</em>()</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．３　カウンタスクリプトの実行</H3>
+<P>以上の内容の Python スクリプト counter.py を作成し，それに<A href="11.html#executable">実行許可</A>を与えてから実際に実行してみてください．ちゃんと実行回数を数えることができるでしょうか？</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>カウンタの実行</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+1
+% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+2
+% <span class="type">./counter.py<KBD>[Enter]</KBD></span>
+3</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">実行時のエラー</DIV>
+<DIV class="body">このスクリプトの実行したときによく起こるエラーは，<em>count.dat がない</em>か，count.dat の中に<em>数字以外の文字が入っている</em>場合です．いずれの場合も <em>echo -n 0 &gt; count.dat</em> というコマンドを実行して，count.dat を初期化すれば直ります．0 のところは適当な整数で構いません（その数 +1 からカウントを始めます）．</DIV>
+</BLOCKQUOTE>
+<H2>３．アクセスカウンタの作成</H2>
+<H3>３．１　SSI (Server Side Include)</H3>
+<P>Webページ中にカウンタを組み込むめば，Web ページがどのくらいの人に見てもらえたのか数えることができます．このようなカウンタは<em>アクセスカウンタ</em>と呼ばれたりします．<em>SSI</em> (Server Side Include) という機能を使えば Web ページ中にコマンドの出力を埋め込むことができるので，この機能と前節で作成したカウンタのスクリプト
+counter.py を使って，簡単なアクセスカウンタを作ってみましょう．</P>
+<BLOCKQUOTE>
+<DIV class="header"><STRONG>注意</STRONG></DIV>
+<DIV class="body">SSI は間違った使い方をするとサーバにトラブルを起こしたり，大きな<em>セキュリティホール</em>（Webページの改ざんや不正侵入などを可能にしてしまうような不備）を作る場合があるため，スクリプトの作成は慎重に行う必要があります．</DIV>
+</BLOCKQUOTE>
+<P>counter.py と count.dat をホームページ公開用のディレクトリ public_html の下にコピーしてください．</P>
+<PRE class="source">% <span class="type">cp counter.py count.dat ~/public_html</span><KBD>[Enter]</KBD></PRE>
+<P>次に，public_html に下のような HTML ファイルを作成してください． ファイル名は
+counter.shtml としてください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;counter test&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+ &lt;p&gt;あなたは <EM>&lt;!--#exec cmd=&quot;./counter.py&quot;--&gt;</EM> 番目の訪問者です．&lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>こうすると，http://com.center.wakayama-u.ac.jp/~ユーザ名/counter.shtml にアクセスするたびに
+counter.py が実行されて，その出力が <EM>&lt;!--<SPAN style="color: #808080">...</SPAN>--&gt;</EM> の部分と置き換わります．counter.py の出力が 1234 なら，この部分は次のようになります．</P>
+<PRE class="source">あなたは <EM>1234</EM> 番目の訪問者です．</PRE>
+<P>参考までに，別のファイル（下の例では file.txt）を埋め込むときには次のようにします．</P>
+<PRE class="source">&times;&times;さんは次のように言いました「<EM>&lt;!--#include file=&quot;file.txt&quot;--&gt;</EM>」</PRE>
+<H3><A name="graphical" class="label">３．２　グラフィカル？なアクセスカウンタ</A></H3>
+<P>グラフィカルなカウンタを作るためには Python の <a href="http://newcenturycomputers.net/projects/gdmodule.html" target="_blank"> GD モジュール</a>などを使えば便利なのですが，ここでは counter.py の出力を工夫してみます．まず，次のような数字の画像を
+counter.shtml と同じディレクトリ内に用意したとします．</P>
+<TABLE width="50%">
+  <TBODY>
+    <TR>
+      <TD align="center"><IMG src="0.png" alt="0"></TD>
+      <TD align="center"><IMG src="1.png" alt="1"></TD>
+      <TD align="center"><IMG src="2.png" alt="2"></TD>
+      <TD align="center"><IMG src="3.png" alt="3"></TD>
+      <TD align="center"><IMG src="4.png" alt="4"></TD>
+    </TR>
+    <TR>
+      <TH>0.png</TH>
+      <TH>1.png</TH>
+      <TH>2.png</TH>
+      <TH>3.png</TH>
+      <TH>4.png</TH>
+    </TR>
+    <TR>
+      <TD align="center"><IMG src="5.png" alt="5"></TD>
+      <TD align="center"><IMG src="6.png" alt="6"></TD>
+      <TD align="center"><IMG src="7.png" alt="7"></TD>
+      <TD align="center"><IMG src="8.png" alt="8"></TD>
+      <TD align="center"><IMG src="9.png" alt="9"></TD>
+    </TR>
+    <TR>
+      <TH>5.png</TH>
+      <TH>6.png</TH>
+      <TH>7.png</TH>
+      <TH>8.png</TH>
+      <TH>9.png</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このとき，HTML で次のように表現すれば，<IMG src="1.png"><IMG src="2.png"><IMG src="3.png"><IMG src="4.png"> という表示が得られます．</P>
+<PRE class="source">&lt;img src=&quot;<EM>1</EM>.png&quot;&gt;&lt;img src=&quot;<EM>2</EM>.png&quot;&gt;&lt;img src=&quot;<EM>3</EM>.png&quot;&gt;&lt;img src=&quot;<EM>4</EM>.png&quot;&gt;</PRE>
+<P>つまり，counter.py が 1234 の代わりに上のような出力を行えば，グラフィカルなカウンタが実現できます．そのためには，変数 c を出力している print を加工します．文字列を for の反復子に指定すれば，その内容を 1 文字ずつ取り出すことができます．その前後に '<span class="source">&lt;img src=&quot;</span>' と '<span class="source">.png&quot;&gt;</span>' を追加すればよいので，例えば次のようにします．</P>
+<PRE class="source">for i in c:
+<span class="gray">Tab&gt;</span>print '&lt;img src=&quot;' + i + '.png&quot;&gt;',</PRE>
+<P>この方法だと print が（',' コンマによって）表示内容に<em>空白を追加</em>して出力するので，画像と画像の間に隙間が開いてしまいます．もし隙間を開けずに画像を並べたければ，文字列のまま連結してから出力するようにします（print の代わりに sys.stdout.write() で出力するという方法もあります）．</P>
+<PRE class="source">s = ''    <span class="anon"># 変数 s に空の文字列を代入</span>
+for i in c:
+<span class="gray">Tab&gt;</span>s = s + '&lt;img src=&quot;' + i + '.png&quot;&gt;'
+print s</PRE>
+<p>なお，s = s + '文字列' は s += '文字列' と書くこともできます．</p>
+<H2><A name="assignment" class="label">課題</A></H2>
+<P>次の  (1)～(5) の内容を一つのメールにまとめて <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-12">tokoi@sys.wakayama-u.ac.jp</A>に送ってください．メールの件名 (Subject) は shori1-12 にしてください．期限は次週の水曜日中です．</P>
+<DIV class="assign">(1) 「１．１３ 繰り返し」において作成した sample.py
+を次のような出力が得られるよう修正して，その内容をメールの本文に<A href="04.html#copyandpaste">コピーアンドペースト</A>してください（ヒント：最初の行は i == 0，最後の行は i == y - 1 ですから，これで場合分けすることもできますし，３つの部分を別々に出力するという方法もあると思います）．</DIV>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><p>幅 x 高さ ｙ の箱を * で描く</p></TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*   *
+*   *
+*****
+% <span class="type">./sample.py 8 7<KBD>[Enter]</KBD></span>
+********
+*      *
+*      *
+*      *
+*      *
+*      *
+********</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<DIV class="assign">(2) 「２．２　カウンタスクリプトの作成」において作成した counter.py
+の内容をメールの本文に<A href="04.html#copyandpaste">コピーアンドペースト</A>してください．</DIV>
+<DIV class="assign">(3) SSI を使って counter.py の出力を埋め込んで表示する Web ページを counter.shtml というファイル名で作成してください．そして，そのページをhttp://com.center.wakayama-u.ac.jp/~ユーザ名/counter.shtml
+からアクセスして，アクセス回数が表示されていることを確認してください．また，「<A href="05.html#reload">再読み込み</A>」ボタンをクリックして，アクセス回数が増加することを確認してください．以上が完了したら報告してください．</DIV>
+<DIV class="assign">(4) 時間があれば <A href="07.html#gimp">gimp</A> 等を用いてカウンタ用の文字画像を作成し，counter.py をグラフィカルなアクセスカウンタに改造してください．文字画像として「<A href="#graphical">３．２　グラフィカル？なアクセスカウンタ</A>」で使っている 0.png ～ 9.png をそのまま使っても構いません．</DIV>
+<DIV class="assign">(5) 今回の講義に対する意見．</DIV>
+<BLOCKQUOTE>
+<DIV class="header"><STRONG>注意</STRONG></DIV>
+<DIV class="body">counter.py はカウント数のデータファイル (count.dat) の更新時に排他制御をしていないので，複数の人が同時にアクセスしたときなどにカウントが狂ってしまいます．このためこのスクリプトは，このままではあまり実用的ではありません．</DIV>
+<H4>排他制御</H4>
+<DIV class="body">
+<P>複数の人が同時に counter.shtml にアクセスすると，複数の couter.py が<A href="10.html#function">同時に実行</A>されます．そうすると，複数の counter.py が同時に count.dat にデータを出力したり，ある
+counter.py が count.dat にデータを出力している最中に別の counter.py が
+count.dat からデータを入力してしまうといったことが起こります．この場合，count.dat
+の内容が変になったり，正常なデータの読み出しが行えなかったりします．</P>
+<P>このようなときには，一つの counter.py だけがデータファイル count.dat を更新し，他は更新が終わるまで待つという処理を行う必要があります．このような処理を<em>排他制御</em>と言います．</P>
+<P>Python でこのような排他制御を行うには，Python からオペレーティングシステムの機能（flock など）を呼び出す方法などがありますが，それには counter.py をだいぶ書き換える必要があります．そこで，ここでは lockfile というコマンドを用いる方法を紹介します．このコマンドは，次のような動作をします．詳細は
+  man lockfile を見てください．</P>
+<UL>
+  <LI>引数に指定したファイルが無ければ，それを作成する．</LI>
+  <LI>引数に指定したファイルが存在すれば，そのファイルがなくなるまで待つ．</LI>
+</UL>
+<P>これを counter.py に応用するには，たとえば次のような csh スクリプト counter.csh を用意して，counter.py の代わりに実行するようにします．</P>
+<PRE class="source">#!/bin/csh -f
+set lock=&quot;counter.lock&quot;
+lockfile -3 -r 3 -l 10 $lock &amp;&amp; ./counter.py
+rm -f $lock</PRE>
+<P>ここで lockfile コマンドのオプション -3 は，ロックファイル (counter.lock)
+が存在すれば３秒待つことを表します．これを３回繰り返し　(-r 3)，その間にロックファイルが無くなればロックファイルを作成して成功とします．もしロックファイルが無くならなければ失敗とします．ただし，存在するロックファイルが作成後１０秒以上経過
+(-l 10) していたら，そのロックファイルを削除して新たにロックファイルを作成して成功とします．最後のオプションは，counter.py
+が異常終了してロックファイルを消さなかった場合などに有効です．</P>
+<P>なお，コマンドの後ろに &amp;&amp; を置くと，&amp;&amp; の左のコマンドの実行が成功したときにのみ，&amp;&amp; の右側のコマンドが実行されます．</P>
+</DIV>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

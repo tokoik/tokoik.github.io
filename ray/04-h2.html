@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>鏡面反射光を含んだ反射光強度の求め方</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>鏡面反射光を含んだ反射光強度の求め方</h1>
+
+<p>この場合の反射光強度 I
+は，次式で求めることができる．ここで <b>N</b> および <b>L</b>
+は単位ベクトルである必要がある．また，<b>R</b>
+は反射光ベクトル，<b>V</b> は視線ベクトルである．</p>
+
+<blockquote>
+<b>R</b> = 2(<b>N</b>・<b>L</b>)<b>N</b> - <b>L</b><br> 
+r<sub>s</sub> = (-<b>R</b>・<b>V</b>/|<b>V</b>|)<sup>K<sub>e</sub></sup><br>
+I<sub>s</sub> = r<sub>s</sub> I<sub>l</sub><br>
+I = K<sub>s</sub> I<sub>s</sub> + K<sub>d</sub> I<sub>d</sub> + K<sub>a</sub> I<sub>a</sub>
+</blockquote>
+
+<p>I を求める手順は以下のようになる．</p>
+
+<ol>
+<li><b>N</b>・<b>L</b> = r<sub>d</sub>
+なので，拡散反射光を求めるときに用いた r<sub>d</sub>
+を <b>R</b> を求める時にも使える（<b>R</b> = 2 r<sub>d</sub> <b>N</b> - <b>L</b>）．</li>
+<li>視線ベクトル <b>V</b> と反射光ベクトル <b>R</b>
+は対向しているため，<b>R</b>・<b>V</b> &lt; 0
+の時に鏡面反射（ハイライト）が発生する．したがって，
+<dl>
+<dt>r<sub>s</sub> = <b>R</b>・<b>V</b></dt>
+<dt>もし r<sub>s</sub> &lt; 0 なら</dt>
+<dd>r<sub>s</sub> = (-r<sub>s</sub>/|<b>V</b>|)<sup>K<sub>e</sub></sup><br>
+I<sub>s</sub> = r<sub>s</sub> I<sub>l</sub></dd>
+<dt>それ以外</dt>
+<dd>I<sub>s</sub> = 0</dd>
+</dl>
+として，I = K<sub>s</sub> I<sub>s</sub> + K<sub>d</sub> I<sub>d</sub> + K<sub>a</sub> I<sub>a</sub>
+を求める．</li>
+</ol>
+
+</body>
+</html>

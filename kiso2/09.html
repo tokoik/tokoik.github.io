@@ -1,0 +1,575 @@
+<head>
+<title>情報基礎演習II − 第９回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第９回</h1>
+
+<hr>
+
+<h2>１．ポインタ</h2>
+
+<hr>
+
+<h3>ポインタの正体</h3>
+
+コンピュータは、
+データをメモリに保存します
+（レジスタやディスクなんかはどうなるという突っ込みはしないように）。
+変数名はデータが保存されているどこかのメモリに付けられた
+名前です。
+
+<img src="09-1.gif" align="right" hspace="10" vspace="10">
+<blockquote>
+<pre>
+int a;
+
+a = 100;
+</pre>
+</blockquote>
+
+これはメモリ上に int 型のデータを格納する場所を一つ確保し、
+a という名前を付けて、
+そこに 100 を格納します。
+<p>
+
+実際には、
+メモリのひとつひとつの「記憶単位」に番号が付けられています。
+この番号のことを「番地（address）」と呼びます。
+ポインタはこの番地のような、
+データの格納場所を示す値をデータとして取り扱うデータ型です
+（なんちゅう説明だ…）。
+<p>
+
+図では変数 a は８番地のメモリの内容を指しています。
+変数 a の格納場所を示すポインタを求めるには、
+& という単項演算子を使います。
+
+<blockquote>
+<pre>
+&a
+</pre>
+</blockquote>
+
+なお、この場合 &a は定数です（変数 a の格納場所は固定だからね）。
+これをポインタ定数と呼びます。
+
+<br clear="all">
+<p>
+
+<hr>
+
+<h3>ポインタ変数</h3>
+
+ポインタをデータとして格納する変数を、
+ポインタ変数と呼びます。
+
+<img src="09-2.gif" align="right" hspace="10" vspace="10">
+<blockquote>
+<pre>
+int a;
+int *pa;
+
+a = 10;
+pa = &a;
+</pre>
+</blockquote>
+
+<tt>int *pa;</tt> という宣言によって、
+pa という int 型のポインタ変数が用意されます。
+これは「<tt>*pa</tt>」が int 型であるという宣言であって、
+* が取れた pa が「int 型のポインタ変数」になります。
+<p>
+
+ポインタ変数が保持するデータはポインタ（番地）であり、
+その場所に格納されているデータを取り出すためには、
+* という単項演算子を用います。
+* は掛け算と同じ記号ですが、
+ポインタ型の変数に対する単項演算子として使用した場合は、
+ポインタによって示されている場所に格納されているデータを取り出します。
+
+<blockquote>
+<pre>
+int a, b;
+int *pa;
+
+a = 10;
+pa = &a;
+
+b = *pa;   /* b に 10 が代入される */
+</pre>
+</blockquote>
+
+ポインタの値は、
+オペレーティングシステムによってプログラムに割り当てられたメモリ空間内の、
+どこか一箇所を指していなければなりません
+（どこも指していないということを明示するために 0 という値も用います）。
+* 演算子によってその内容を操作しようとする場合は、
+そのポインタが変数のようにデータを記憶する目的で割り当てられた
+メモリの領域を指していなければなりません。
+もし不正な内容のポインタを * 演算子によって操作しようとすれば、
+プログラムは正常に動かないか、異常終了します。
+<p>
+
+<a href="k37.html"><h3 align="center">■課題３７■</h3></a>
+<p>
+<a href="k38.html"><h3 align="center">■課題３８■</h3></a>
+<p>
+<a href="k39.html"><h3 align="center">■課題３９■</h3></a>
+<p>
+
+<br clear="all">
+<p>
+
+<hr>
+
+<h3>配列とポインタ</h3>
+
+<img src="09-3.gif" align="right" hspace="10" vspace="10">
+
+最初の要素のポインタを得るには、
+次のようにします。
+これは配列として確保されたメモリ領域の先頭を指すポインタです。
+
+<blockquote>
+<pre>
+int a[10];
+int *pa0, *pa1;
+
+pa0 = &(a[0]); /* a[0] のポインタ */
+</pre>
+</blockquote>
+
+配列の各要素はメモリ上に連続して配置されているので、
+２つ目の要素 a[1] のポインタは、
+次のようにして求めることができます。
+
+<blockquote>
+<pre>
+pa1 = pa0 + 1; /* a[1] のポインタ */
+</pre>
+</blockquote>
+
+従って、a[0] および a[1] の内容は、
+それぞれ、次のようにして参照できます。
+
+<tt>
+<ul>
+<li>a[0] は *pa0 によって参照可能
+<li>a[1] は *pa1 あるいは *(pa0 + 1) によって参照可能
+</ul>
+</tt>
+<br clear="all">
+<p>
+
+++ や -- という演算子もポインタ変数に使用することができます。
+
+<blockquote>
+<pre>
+int a[10];
+int *pa0, c;
+
+pa0 = &(a[0]); /* a[0] のポインタ */
+c = *pa0++;
+</pre>
+</blockquote>
+
+* は ++ より優先順位が低いため、
+上の例では c に a[0] の内容が入り、
+その後 pa0 の値は &(a[1]) になります。
+もし *pa（すなわち a[0]）の内容を１増すなら、
+( ) を使う必要があります。
+
+<blockquote>
+<pre>
+c = (*pa0)++;
+</pre>
+</blockquote>
+
+この例では c に a[0] が入りますが、
+その後 a[0] の内容は a[0] + 1 になり、
+pa0 の内容は変化しません。
+なお、
+
+<blockquote>
+<pre>
+c = ++*pa0;
+</pre>
+</blockquote>
+
+この場合は a[0] の内容が１増され、それが c に代入されます
+（* が ++ より pa0 に近いところにあるため）。
+<p>
+
+実は上記において宣言されている配列 a[10] の a は、
+それ自体が配列として確保されたメモリ領域の先頭を指すポインタ定数、
+すなわち &(a[0]) と等しい値を持ちます。
+従って、
+
+<tt>
+<ul>
+<li>a[0] は *a と表すことができる
+<li>a[1] は *(a + 1) と表すことができる
+</ul>
+</tt>
+
+となります。すなわち、
+[ ] は実はポインタに対する演算子であり、
+ポインタ変数 pa0, pa1 に対しても、
+次のように適用できます。
+
+<blockquote>
+<pre>
+int a[10];
+int *pa0, *pa1;
+
+pa0 = &(a[0]); /* a[0] のポインタ */
+pa1 = pa0 + 1; /* a[1] のポインタ */
+</pre>
+</blockquote>
+
+上の例では、
+
+<tt>
+<ul>
+<li>*pa0 は pa0[0] と表すこともできる
+<li>*(pa0 + 1) は pa0[1] と表すこともできる
+<li>*(pa1 - 1) は pa1[-1] と表すこともでき、これは *pa0 と同じ
+</ul>
+</tt>
+
+最後の例から分かるとおり、
+配列はその領域の先頭のポインタのみによって識別され、
+その大きさや添え字の範囲といった情報は、
+プログラム中では管理されていません。
+<p>
+
+従って、確保された領域からはずれるような
+配列の添え字やポインタを使用しても、
+コンパイルの際にはエラーにはなりませんし、
+問題なく実行できるように見えることもあります。
+しかしこれは非常に発見しにくいプログラムの異常動作の原因になりますし、
+大抵は致命的なエラーを引き起こします。
+ポインタを使う場合には細心の注意が必要です。
+<p>
+
+<a href="k40.html"><h3 align="center">■課題４０■</h3></a>
+<p>
+
+文字列の実体は配列ですから、
+これもポインタになります。
+
+<blockquote>
+<pre>
+char *string;
+
+string = "Hello!\n";
+</pre>
+</blockquote>
+
+文字列定数の値は、
+その文字列が格納されている位置を指すポインタ定数になります。
+string[0] は 's'、string[5] は '!' になります。
+
+<blockquote>
+<pre>
+int i;
+char c;
+
+c = "0123456789ABCDEF"[i];
+</pre>
+</blockquote>
+
+上の例は、0〜15 の値を持つ整数 i を、
+それに対応する16進数の文字 c に変換します。
+<p>
+
+<hr>
+
+<h3>ポインタの配列</h3>
+
+ポインタ自身を配列の要素に使う場合もあります。
+
+<blockquote>
+<pre>
+int *p[3];            /* ポインタの配列 */
+int a[4], b[5], c[6];
+
+p[0] = a;
+p[1] = b;
+p[2] = c;
+</pre>
+</blockquote>
+
+こうすると、<tt>*(p[0] + 1)</tt> は <tt>*(a + 1)</tt>
+すなわち <tt>a[1]</tt> になります。
+さらに [ ] はポインタに対する演算子なので、
+<tt>p[0][1]</tt> と書くこともできます。
+すなわち２次元配列のように扱うことができます。
+
+<blockquote>
+<pre>
+p[0][1] = 10;   /* a[1] = 10; */
+p[1][2] = 20;   /* b[2] = 20; */
+p[2][3] = 30;   /* c[3] = 30; */
+</pre>
+</blockquote>
+
+<hr>
+
+<h3>ポインタ引数</h3>
+
+ポインタを引数に使って関数を呼び出すためには、
+仮引数をポインタ変数として宣言します。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void add10(int *a)
+{
+    *a += 10; /* 引数のポインタが指す内容に 10 を足す */
+}
+
+int main(void)
+{
+    int x;
+
+    x = 20;
+
+    add10(&x);
+
+    printf("x = %d\n", x); /* 30 になっている */
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+引数に変数のポインタを使うことによって、
+呼び出した関数から変数に値を戻すことができます。
+<p>
+
+<a href="k41.html"><h3 align="center">■課題４１■</h3></a>
+<p>
+
+配列の場合は、配列名がポインタ定数なので、
+それをそのまま指定すればポインタを渡すことができます。
+<p>
+
+しかし、
+ポインタとして渡されるのは配列の先頭の要素の位置だけなので、
+配列の大きさはこの例のように別に渡してやる必要があります。
+<p>
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void alladd10(int a[], int n)
+{
+    int i;
+
+    /* 配列の全ての要素に１０を足す (/
+    for (i = 0; i < n; i++) {
+        a[i] += 10;
+    }
+}
+
+int main(void)
+{
+    int x[20];
+
+    alladd10(x, 20);
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+仮引数の次のいずれの形で宣言しても構いません。
+
+<ul>
+<li><tt>int *a</tt>
+<li><tt>int a[]</tt>
+</ul>
+
+前者はポインタとして宣言していますが（渡されるのはポインタなので）、
+後者はサイズを指定しない配列として宣言しています。
+<p>
+
+<a href="k42.html"><h3 align="center">■課題４２■</h3></a>
+<p>
+
+ただし、２次元以上の配列の場合は、
+最も左の添え字以外はサイズを省略できません。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void alladd10(int a[][3][2], int n)
+{
+    int i, j, k;
+
+    /* 配列の全ての要素に１０を足す (/
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < 3; j++) {
+            for (k = 0; k < 2; j++) {
+                a[i][j][k] += 10;
+            }
+        }
+    }
+}
+
+int main(void)
+{
+    int x[4][3][2];
+
+    alladd10(x, 4);
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+これは、
+<a href="05.html#multi-dimension">多次元配列</a>も
+メモリ上は１次元に展開されており、
+それがどう分割して使用されているかを明らかにする必要があるからです。
+<p>
+
+ポインタの配列は、
+次のようにして関数に渡すことができます。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void alladd10(int *a[], int *n, int m)
+{
+    int i, j, k;
+
+    /* 配列の全ての要素に１０を足す */
+    for (i = 0; i < m; i++) {
+        for (j = 0; j < n[i]; j++) {
+            a[i][j] += 10;
+        }
+    }
+}
+
+int main(void)
+{
+    int *x[3], n[3];
+    int a[4], b[5], c[6];
+
+    x[0] = a;
+    n[0] = 4;
+
+    x[1] = b;
+    n[1] = 5;
+
+    x[2] = c;
+    n[2] = 6;
+
+    alladd10(x, n, 3);
+
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+ポインタの配列の仮引数の宣言は、
+次のいずれでも構いません。
+
+<ul>
+<li><tt>int *a[]</tt>
+<li><tt>int a[][]</tt>
+<li><tt>int **a</tt>
+</ul>
+
+<hr>
+
+<h3>関数のポインタ</h3>
+
+関数名も、
+配列同様ポインタ定数です。
+この場合、このポインタによって指し示される先の内容は、
+データではなくプログラムです。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+int add(int x, int y)
+{
+    return x + y;
+}
+
+int sub(int x, int y)
+{
+    return x - y;
+}
+
+int main(void)
+{
+    int x;
+    int (*func)(int, int); /* 関数のポインタ変数の宣言 */
+
+    func = add;
+    x = (*func)(2, 3); /* 関数 add が実行される */
+
+    func = sub;
+    x = (*func)(2, 3); /* 関数 sub が実行される */
+}
+</pre>
+</table>
+</blockquote>
+
+もちろん、関数のポインタの配列、なんてものも使えます。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+int add(int x, int y)
+{
+    return x + y;
+}
+
+int sub(int x, int y)
+{
+    return x - y;
+}
+
+int main(void)
+{
+    int x;
+    int (*func[2])(int, int) = { add, sub }; /* 関数のポインタ配列 */
+
+    x = (*func[0])(2, 3); /* 関数 add が実行される */
+
+    x = (*func[1])(2, 3); /* 関数 sub が実行される */
+}
+</pre>
+</table>
+</blockquote>
+<p>
+
+<a href="k43.html"><h3 align="center">■課題４３■</h3></a>
+<p>
+
+</body>

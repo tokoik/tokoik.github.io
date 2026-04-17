@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<head>
+<META name="GENERATOR" content="IBM HomePage Builder 2001 V5.0.4.1 for Windows">
+<title>情報処理I － 第３回：シェルとコマンド、ファイル操作、ファイルシステム</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY background="../right.jpg" bgcolor="#c2e7e3" vlink="#000080">
+
+<P align="right"><IMG src="../shori1.gif" width="288" height="64" border="0" alt="情報処理Ｉ"></P>
+
+<h1>補足：パスワードの変更とメールの転送設定</h1>
+
+<HR>
+<H2>１．パスワードの変更方法</H2>
+<HR>
+
+<P>利用承認書にかかれているパスワードは<B>暫定的</B>なものです。
+これは、本来あなた自身が設定すべきものです。
+できれば<B>定期的にパスワードを変更</B>するようにしてください。</P>
+
+<blockquote><font size="-1">Linux や Unix では、通常 <B>passwd</B>
+コマンドあるいは <B>yppasswd</B> コマンドを使ってパスワードを変更しますが、演習室のマシンでは
+Windows 2000 とパスワードを共有するために、これらのコマンドが使えなくなっています。代わりに　Netscape
+で以下の <B>Web ページ</B>を開いて変更してください。</font></blockquote>
+
+<CENTER>
+<TABLE border width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT><A href="http://ciswas.center.wakayama-u.ac.jp/" target="_blank">
+      http://ciswas.center.wakayama-u.ac.jp/</A></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P>新しく設定するパスワードは、</P>
+
+<UL>
+  <LI>覚えやすくて、</li>
+  <LI>タイプしやすくて、</li>
+  <LI>他人が容易に知り得ることができない</li>
+</UL>
+<P>ものである必要があります。
+また、他人が容易に知り得ることができないようにするためには、</P>
+<UL>
+  <LI>自分の名前などは<B>絶対使わない</B></li>
+  <LI>タレントや有名人の名前も使わない</li>
+  <LI>辞書に載っているような英単語はそのままでは使わない</li>
+  <LI>英文字だけでなく数字や記号も混ぜる</li>
+  <LI>大文字・小文字を混ぜて使う</li>
+</UL>
+<P>というような工夫も必要です。ちょっと頭をひねって考えてください。
+パスワードが決まったら、<b>空き時間</b>に実際にパスワードを変更してみましょう。</P>
+
+<BLOCKQUOTE><FONT size="-1">多くの人がいっせいにパスワードを変更するとトラブルを起こす可能性がありますので、
+変更作業は別の機会に行ってください。</FONT></BLOCKQUOTE>
+
+<P>すでにお話しした通り、あなたの目の前にあるコンピュータは、
+インターネットを通じて世界中のコンピュータにアクセス可能です。
+ということは、世界中からも、あなたの目の前にあるコンピュータへのアクセスも可能なわけです。
+で、悲しいことに、その世界中にいる人が、すべて善良な人であるとは限りません。
+パスワードは、あなたのデータがあなた自身に帰属することを保証するための鍵であると同時に、
+そういう<B>悪意</B>からこのシステム（大学全体を含めて）を<B>守る</B>ための鍵でもあります。
+だから、<A href="http://www.center.wakayama-u.ac.jp/local/passwd.html" target="_blank">
+その鍵の管理は徹底して行ってください。</A></P>
+
+<UL>
+  <LI>自分のログイン名を他人に使用させてはなりません。</li>
+  <LI>利用終了後は必ずログアウトしてください。</li>
+  <LI>パスワードは他人に知られないようにしてください。</li>
+</UL>
+
+<P>なお、パスワードは<B>暗号化されている</B>ため、
+変更したパスワードはあなた以外の人が知り得ることはありません。
+したがって<B>絶対忘れない</B>ようにしてください。
+パスワードがわからなくなってしまったら、
+<A href="http://www.center.wakayama-u.ac.jp/" target="_blank">
+システム情報学センター</A>の事務室(１階にあります)に行って、
+パスワードの<B>再発行</B>を受けてください。</P>
+
+<HR>
+<H2>２．メールの転送設定</H2>
+<HR>
+
+<P>あなたは、あなた宛のメール（利用承認書に書かれているメールアドレスに宛てて出されたメール）を、
+この演習室のコンピュータで読むことができます。
+しかし、学校宛てに届いたメールを、個人で加入しているプロバイダや携帯電話などにも届くようにしたい場合は、
+転送の設定を行ってください。</P>
+
+<P>メールの転送は、以下の Web ページで設定できます。</P>
+
+<CENTER>
+<TABLE border width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT><A href="http://mail.sys.wakayama-u.ac.jp/" target="_blank">http://mail.sys.wakayama-u.ac.jp/</A></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P>なお、転送先を設定する際は「<B>mail.sys（このサーバ）に残す</B>」を<B>選択</B>して
+（チェックマークを入れて）おいてください。
+そうしないとメールがシステム工学部のメールサーバに残らないため、
+演習室で読むことができなくなります。</P>
+<HR>
+<FORM><INPUT type="button" value="戻る" onclick="history.back(-1)"></FORM>
+</BODY>

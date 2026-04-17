@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第２回：ワープロ，プレゼンテーション</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第２回</H1>
+<H3>今回の目標</H3>
+<OL>
+<li>タイピング練習の仕方を知る</li>
+<li>メール関係の設定変更を行う</li>
+<li>Linux とは何かを理解する</li>
+<li>ワードプロセッサのスタイルシート機能について知る</li>
+<li>プレゼンテーションソフトのスライドマスタ機能について知る</li>
+</OL>
+<div class="footer"><a href="01.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．タイピング練習</H2>
+<P>キーボードはマウスと並んで，コンピュータを操作するときにもっとも良く使われる<EM>周辺装置</EM>（ペリフェラル）です．これがうまく使えないと，コンピュータそのものが嫌いになってしまうので，キーボードの練習にはちょっと時間を割きたいと思います．</P>
+<P>コンソールのウィンドウを一度クリックしてください．そしてキーボードから <EM>typing</EM> とタイプし，その後 <KBD>[Enter]</KBD> キーを押してください．</P>
+<DIV class="figure"><IMG src="typing1.jpg" width="502" height="120" alt="typingコマンドの実行"></DIV>
+<P>すると，次のような表示が現れます．表示にしたがって練習を進めてください．途中で終了するときは <KBD>Ctrl-C</KBD>（<KBD>[Ctrl]</KBD>キーを押しながら <KBD>C</KBD> のキーをタイプ）してください．</P>
+<DIV class="figure"><IMG src="typing2.jpg" width="502" height="436" alt="タイピング練習プログラムのメニュー"></DIV>
+<P>毎回１ステップずつ，１０～１５分くらい練習します．途中「５回繰り返せ」「３回繰り返せ」という指示があると思いますが，時間がないので１回練習したらそのまま次に進んでください．次のステップに移行する時に「次に進みますか」という問い合わせが出るので，とりあえずそこまで進んでください．</P>
+<P>この講義の<a href="12.html" target="_blank">１２回目</a>に<EM>タイピング能力のテストを行います</EM>から，うまくできない人は空き時間を使って練習しておいてください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">VDT作業について</DIV>
+  <p>パソコンを使った作業は，それなりに疲れます．「<A href="http://www.wakayama-u.ac.jp/~matunobe/education/vdt.html" target="_blank">VDT作業について</A>」を参照してください．</p>
+    <UL>
+      <LI>空調を調整しましょう（温度、湿度、風速）．周囲の人や教員にも相談してください</LI>
+      <LI>ディスプレイを調整しましょう（映り込み，角度，位置，輝度，コントラスト）</LI>
+      <LI>姿勢（ディスプレイとの位置，椅子の高さ調整）</LI>
+      <LI>作業時間と休息（休憩は１時間に10分以上意識してとるようにしましょう）</LI>
+      <LI>ときどき周りの人と会話するなどして，気分転換しましょう</LI>
+      <LI>ストレスや不眠が強くなったら，まわりの人に相談したり，気軽に<a href="http://www.wakayama-u.ac.jp/hoken/" target="_blank">保健管理センター</a>等を受診しましょう</LI>
+    </UL>
+</BLOCKQUOTE>
+<H2><A name="mail" class="label">２．メールの補足</A></H2>
+<P><A href="01.html">前回</A>，既に Thunderbird を使ったメールの送受信を行っていますが，ここで改めてメールについて取り上げます．</P>
+<H3><A class="label" name="mailaddress">２．１　メールアドレス</A></H3>
+<P>コンピュータ（とネットワーク）を使ってコンピュータの利用者の間でメッセージの交換を行うことができます．これにはいくつかのものがありますが，このうち<EM>電子メール</EM>（Eメール，あるいは単にメール）が現在最も広く使用されています．これはメッセージを書いた<em>テキストファイル</em>を相手に<em>送りつける</em>（相手のコンピュータにコピーする）メカニズムです．以降では，電子メールのことを単にメールと言う事にします．</P>
+<P>手紙を出すには宛名と住所を書かなければならないのと同じように，メールを送る時もメッセージの宛先を指定する必要があります．この宛先を<EM>メールアドレス</EM>と言います．メールアドレスの &quot;<EM>@</EM>&quot;（<EM>アットマーク</EM>)より右側の部分 （center.wakayama-u.ac.jp のところ）を<EM>ドメイン名</EM>と言います．これは &quot;@&quot; より左側にある &quot;利用者&quot; の &quot;住所&quot; に相当します．jp:japan～日本の，ac:academic～学校関係の，wakayama-u～和歌山大学の，center～システム情報学センター，の誰々，という具合になります．</P>
+<H3><A class="label" name="subscribe">２．２　Thunderbird の下書きフォルダや送信済みフォルダを表示する</A></H3>
+<P>Thunderbird では，「受信トレイ」や「ごみ箱」の他に「下書き」や「送信済み」などのフォルダ（メールの置き場所）も自動的に作成されます．しかし演習室のシステムでは，それらが
+Thunderbird の画面上に現れないことがあることがあるようです．もし<em>これらのフォルダが現れていない</em>なら，アカウント名をマウスの右ボタンでクリックして現れるメニューから「購読」を選んで，「Drafts」と「Sent」に購読するように設定した後（購読していればチェックが入っています），一旦
+Thunderbird を終了してみてください．</P>
+<P>もし，それでも「下書き」や「送信済み」が現れないようなら，以下の手順ですべてのフォルダを表示するようにしてみてください．まず，Thunderbird
+の左側の枠のメールアドレスのところを選択し，「このアカウントの設定を表示する」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird07.gif" width="640" height="512" border="0" alt="アカウント設定の表示"></DIV>
+<P>次に左側の枠の中から，「サーバ設定」を選び，右側の「サーバ設定」の枠の中にある「詳細」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird16.jpg" width="775" height="649" border="0" alt="「サーバ設定」を選択"></DIV>
+<P>「アカウントの詳細設定」にある「購読しているフォルダのみ表示する」に付いているチェックマークを<EM>消して</EM>ください．その後「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird17.jpg" width="514" height="424" border="0" alt="「購読フォルダの未表示」のチェックマークをはずす"></DIV>
+<P>設定が終わったら「アカウント設定」のウィンドウの「OK」をクリックして，ウィンドウを閉じてください．その後 Thunderbird を一旦終了してください．</P>
+<H3><A class="label" name="mailreader">２．３　その他のメールクライアント</A></H3>
+<P>ここのシステム（Linux 側）で使用できるメールを読み書きするためのソフトウェア（メールクライアント，メール・ユーザ・エージェント，メールソフト）には，以下のものがあります．興味があれば使ってみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">メールの読み書きに使うソフトウェア</TH>
+    </TR>
+    <TR>
+      <TD><EM>mail</EM>/<EM>Mail</EM></TD>
+      <TD class="action">もっとも基本的なものでコマンドで使用する（演習室では使用不可）</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://mozilla.jp/thunderbird/" target="_blank">Thunderbird</a></EM></TD>
+      <TD class="action">高機能なメールソフト（Windows/Mac 版あり）</TD>
+    </TR>
+    <TR>
+      <TD><em><a href="http://projects.gnome.org/evolution/" target="_blank">Evolution</a></em></TD>
+      <TD class="action">Windows の Outlook に似たメールソフト（カレンダー機能あり）</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://sylpheed.sraoss.jp/ja/" target="_blank">Sylpheed</a></EM></TD>
+      <TD class="action">Vine Linux 標準のもの（Windows 版あり）</TD>
+    </TR>
+    <TR>
+      <TD><EM>RMAIL</EM></TD>
+      <TD class="action">emacs に組み込まれている歴史の長いもの（演習室では使用不可）</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://www.mew.org/ja/" target="_blank">Mew</a></EM></TD>
+      <TD class="action">emacs に組み込まれているもの（初期設定をしないと使えません)</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://www.gohome.org/wl/index.ja.html" target="_blank">Wanderlust</a></EM></TD>
+      <TD class="action">emacs に組み込まれているもの（初期設定がしてあります）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このうち <A href="http://sylpheed.sraoss.jp/ja/" target="_blank">Sylpheed</A> は，日本人の手によって開発されているもので，Windows の Outlook Express に似た雰囲気を持っています．Windows 版もあります．また <A href="http://www.gohome.org/wl/index.ja.html" target="_blank">Wanderlust</A> や <A href="http://www.mew.org/ja/" target="_blank">Mew</A> は非常に有名で高機能な<A href="04.html#editor" target="_blank">テキストエディタ</A>の <A href="http://www.gnu.org/software/emacs/emacs.html" target="_blank">emacs</A> の &quot;中&quot; で使用できるものです．この二つも日本人が開発しています．</P>
+<h3>２．４　メールの転送設定とパスワードの変更</h3>
+<p>メールの転送設定は<a href="http://www.center.wakayama-u.ac.jp/" target="_blank">システム情報学センター</a>のホームページから行えます．「各種設定」の「ユーザ設定情報」を選んでください．</p>
+<DIV class="figure"><IMG src="account0.jpg" width="640" height="504" border="0" alt="ユーザ設定情報を選ぶ"></DIV>
+<p>するとユーザ名とパスワードを聞いてきます．コンピュータ利用承認書に書かれているユーザ名とパスワードを指定して，「OK」をクリックしてください．</p>
+<DIV class="figure"><IMG src="account1.jpg" width="737" height="237" border="0" alt="利用者情報管理ページへのログイン"></DIV>
+<p>「利用者情報管理」のページが現れます．パスワードの変更は，ここでできます．メールの転送先を設定するには，左の「設定変更等」の文字をクリックしてください．</p>
+<DIV class="figure"><IMG src="account2.jpg" width="640" height="583" border="0" alt="利用者情報"></DIV>
+<p>「メールの転送先を変更」を選んでください．</p>
+<DIV class="figure"><IMG src="account3.jpg" width="640" height="583" border="0" alt="利用者情報の管理"></DIV>
+<p>コンピュータ利用承認書のユーザ名とパスワードを指定して，「ログイン」をクリックしてください．</p>
+<DIV class="figure"><IMG src="account4.jpg" width="640" height="570" border="0" alt="メールサーバの設定"></DIV>
+<p>転送先のメールアドレスを指定してください．転送先は複数設定できます．「メールサーバにメールを残しつつ転送する。」にチェックを入れておかないと<em>大学内でメールを読むことができなくなります</em>から，<strong>必ずチェックを入れておいてください</strong>．その後，「転送先を設定」をクリックしてください．</p>
+<DIV class="figure"><IMG src="account5.jpg" width="646" height="920" border="0" alt="転送先を設定する"></DIV>
+<H2><A class="label" name="os">３．オペレーティングシステム (OS) について</A></H2>
+<h3>３．１　オペレーティングシステムとは</h3>
+<P><em>オペレーティングシステム</em>は，<span class="body">コンピュータ自体を制御するソフトウェアです．コンピュータの利用者が実際に使用するワードプロセッサなどの<em>アプリケーションソフトウェア</em>と，CPU やメモリ，ディスプレイなどのコンピュータの<em>ハードウェア</em>との仲立ちをします．<em>基本ソフトウェア</em>あるいは<em>システムソフトウェア</em>とも呼ばれます．</span>パソコン用のオペレーティングシステムには Microsoft 社の <a href="http://www.microsoft.com/japan/windows/" target="_blank">Windows</a> のシリーズのほか，<a href="http://www.jp.freebsd.org/" target="_blank">FreeBSD</a>，そして <em>Linux</em> などがあります．また Apple 社の iMac や MacBook などでは <a href="http://www.apple.com/jp/macosx/" target="_blank">Mac OS X</a> が使用されています．</P>
+<BLOCKQUOTE>
+  <DIV class="header">オペレーティングシステムを使用する機器</DIV>
+  <DIV class="body">CPU を内蔵するほとんどの装置で，オペレーティングシステムが利用されています．携帯電話では <a href="http://www.ertl.jp/ITRON/home-j.html" target="_blank">ITRON</a> や REX OS，<a href="http://www.symbian.org/" target="_blank">Symbian OS</a> などが使用されています．Linux を使用しているものもあります．Apple 社の iPhone では Mac OS X に似た <a href="http://www.apple.com/jp/ios/" target="_blank">iOS</a> が使用されています．これ以外のスマートフォンでは，Microsoft 社の <a href="http://windows.microsoft.com/ja-JP/windows/products/windows-phone" target="_blank">Windows Phone</a> や Linux をもとに作られた Google 社の <a href="http://www.android.com/" target="_blank">Android</a> などが使用されています．またカーナビでも ITRON や Linux のほか，Microsoft 社の <a href="http://www.microsoft.com/japan/auto/default.mspx" target="_blank">Windows CE for Automotive</a> などが使用されています．</DIV>
+</BLOCKQUOTE>
+<P>オペレーティングシステム（略して <em>OS</em>）には，大雑把に言って次の２つの<EM>役割</EM>があります．</P>
+<OL>
+  <LI>コンピュータのもつ資源の管理</LI>
+  <LI>コンピュータの機能の抽象化</LI>
+</OL>
+<P>コンピュータは <EM>CPU</EM> をはじめ，<EM>メモリ</EM>，ハードディスク，ディスプレイ，キーボード，マウスなど，数多くの<EM>部品</EM>で構成されています．このような部品や，その<EM>部品の集まりであるコンピュータの本体</EM>のことを，私たちはコンピュータの<EM>ハードウェア</EM>と呼んでいます．</P>
+<P>私たちがコンピュータを使うためには，このハードウェアの機能をうまく組み合わせることが必要になります．例えばワープロに１文字打ち込むというなんてことはない操作ですら，コンピュータがキーボードでタイプされた文字が何か調べ，それを画面に表示し，そして記憶している文書の中に挿入するというさまざまな<EM>知識</EM>（あるいは手順）を，コンピュータ自身が知っているからこそ実現できるのです．このような知識のことを，私たちはコンピュータの<EM>ソフトウェア</EM>と呼んでいます．</P>
+<P>このソフトウェアのうち，利用者が実際に仕事をするために使うワープロなどのソフトウェアのことを，<EM>アプリケーションソフトウェア</EM>と呼びます．これに対して<em>オペレーティングシステム</em>は，コンピュータのハードウェア自体を制御したり，アプリケーションソフトウェアがハードウェアの機能を使うときに，その仲立ちをするための知識として働くソフトウェアです．</P>
+<P>コンピュータの個々の部品や，それらが果たす機能（CPUなら計算する機能，メモリやディスクなら記憶する機能），それに計算に使える時間などは有限ですから(無限に速く計算することもできないし，記憶できる情報の量にも限界がある)，これらは限りある資源のようなものです．したがって，これらをコンピュータの<EM>資源</EM>（リソース）と呼んだりします．オペレーティングシステムは，この資源を効率よく使えるように<em>管理</em>します．</P>
+<P>また，コンピュータのハードウェアは電気信号によって制御されますが，例えば画面に文字を表示するのに，アプリケーションプログラムがいちいちこの電気信号を使ってハードウェアを制御していたのでは手間がかかりすぎます．そこで，オペレーティングシステムがそのような作業をまとめて行い，アプリケーションプログラムはオペレーティングシステムに対して「画面に文字を表示する」という依頼を送るだけ済むようにします．これをオペレーティングシステムによる<em>機能</em>の<EM>抽象化</EM>と言います．</P>
+<H3><A class="label" name="unix-linux">３．２　Unix と Linux</A></H3>
+<p><em>Unix</em>（ユニックス）は Windows などが普及する前からある，オペレーティングシステムの一種です．最初のものは 1969 年にアメリカの電話会社 <a href="http://www.att.com/" target="_blank">AT&amp;T</a> で開発されました．本来の（商品としての）UNIX には，Sun 社（Oracle 社に買収）の <a href="http://www.oracle.com/technetwork/jp/server-storage/solaris11/index.html" target="_blank">Solaris</a> のほか，Hewlett Packerd 社の <a href="http://h50146.www5.hp.com/products/software/oe/hpux/" target="_blank">HP-UX</a>，IBM 社の <a href="http://www-06.ibm.com/systems/jp/power/software/aix/" target="_blank">AIX</a> などがあります．これらは業務用の（個人用ではない）コンピュータで使用されています．しかし，<em>Unix という名前</em>の最も重要な役割は，それが<em>オペレーティングシステム</em>の一つの<strong>考え方</strong>を表すことにあります．一般に Unix と言ったとき，それは特定の製品を示すものではありません．</p>
+<p><a href="http://ssl.ohmsha.co.jp/cgi-bin/menu.cgi?ISBN=4-274-06406-9" target="_blank">Unix という考え方</a>をもとに，これまで数多くのオペレーティングシステムが作られました．<a href="http://berkeley.edu/" target="_blank">カリフォルニア大学バークレー校</a>は初期の Unix を改良して BSD という系列のオペレーティングシステムを開発しました．現在の Mac OS X は，この BSD をもとにして作られています．他にも Idris や Coherent，UNOS など，さまざまなものが生まれました．これらはいずれも本来の UNIX と同じか，非常によく似ていたので，<em>Unix 的</em>な (UNIX system-like)，あるいは <em>Unix 系</em>のオペレーティングシステムと呼ばれます．Microsoft 社もかつて XENIX という Unix 系 OS を販売していました．実は <em>Windows ですら</em>，Unix の考え方の多くを参考にして構成されています．</p>
+<blockquote>現実には，現在のパソコンの OS のうち Microsoft 社の Windows で無いものは，ほとんど Unix 系 OS です -- 本当は Unix とは出自の異なる OS として，国産の<a href="http://www.chokanji.com/" target="_blank">超漢字</a> (BTRON) のほか，日本人が開発しているものでも <a href="http://monaos.org/" target="_blank">MonaOS</a> とか <a href="http://osask.net/" target="_blank">OSASK</a> とかいろいろあります．</blockquote>
+<p>このため Unix は，単に現在の<em>オペレーティングシステムの手本</em>であるだけでなく，現在に至るコンピュータサイエンスの成果の多くを支えてきた基盤でもあるのです．皆さんが「<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip2/">情報処理II</a>」以降で学習する<em>プログラミング言語 C</em> も，Unix の発展とともに普及しました．Unix という考え方は，コンピュータサイエンスを学ぶ上で欠かすことのできないものなのです．</p>
+<p><em>Linux</em>（リナックス，リヌックス）は，このような Unix の考え方をもとに，一から作られた独自のオペレーティングシステムです．この大きな特徴は，それが特定の組織によって開発されているものではないところにあります．この詳細については後の<a href="10.html">講義</a>で解説する予定ですが，本来の Linux はオペレーティングシステムの核（カーネル）と呼ばれる部分しかありません．それにさまざまなソフトウェアを組み合わせて，一つの Unix 的なオペレーティングシステムとしてパッケージ化したものが，現在 Linux という名前で流通しています．</p>
+<BLOCKQUOTE>
+  <DIV class="header">どうして講義を Windows ではなく Linux でやるのか</DIV>
+  <p>これは毎年聞かれる質問なのですが，簡単に言えば，それを教える必要があると考えているから，です．この情報処理Iをはじめ，後に続く情報処理II，情報処理IIIなどは，講義内容がパソコンすなわち Windows の使い方を教えることを目的にはしていないからです．</p>
+  <p>確かに，かなり多くの人にとって「パソコン＝Windows」であり，「Internet Explorer という Web ブラウザ＝インターネット」なのかもしれませんし，Windows の<em>使い方</em>を教えることは，それが必要な人にとっては重要なことだとは思います．でも，世の中の情報処理システムはそれだけはないというのも事実です．例えば Mac OS X は Unix ですし，iPhone の iOS も Unix です．</p>
+<p>皆さんはここでエンドユーザではなく<em>作り手</em>としての立場で学びます．そこでは使い方よりも<em>作り方</em>を学ぶ方が重要です．そのとき，個々のアプリケーションの使い方を教えるより，その根底に流れる<em>コンピュータサイエンスの成果</em>を知る方が，我々は重要だと考えています．本文で述べた通り Linux がベースとしてる Unix は，Windows をはじめ，現在のコンピュータ技術を構成している多くの<em>考え方の基本</em>となっているものです．</p></div>
+</BLOCKQUOTE>
+<H3><A class="label" name="distribution">３．３　Linux のディストリビューション</A></H3>
+<p>この Linux のパッケージ（<em>ディストリビューション</em>と呼びます）を作る組織がいくつもあるため，異なる名前のついた Linux が数多く存在します．この講義で使用する Vine Linux も，そのようなディストリビューションの一つです．日本でよく利用されているディストリビューションには以下のようなものがありますが，他にも無数にあります．これらは <a href="http://distrowatch.com/">DisroWatch.com</a> で探すことができます．</p>
+<dl>
+  <dt><A HREF="http://linuxmint-jp.net/">Linux Mint</A></dt>
+  <dd>この講義で使用しているものです．</dd>
+  <dt><A HREF="http://www.jp.redhat.com/"></A></dt>
+  <dt><A HREF="http://vinelinux.org/">Vine Linux Home Page</A></dt>
+  <dd>安定志向のコンパクトなディストリビューションであり，日本語の環境が整備されていて使いやすいものです．</dd>
+  <dt><A HREF="http://www.jp.redhat.com/">レッドハット | オープンソース・カンパニー</A></dt>
+  <dd>商用のディストリビューションの最大手です．多くのディストリビューションの基準になっているものです．</dd>
+  <dt><A HREF="http://fedoraproject.org/ja/index">Fedora Project</A></dt>
+  <dd>コミュニティによるディストリビューションです．積極的に最新の技術を取り入れています．レッドハットが支援しています．</dd>
+  <dt><A HREF="http://www.centos.org/">www.centos.org - The Community ENTerprise Operating System</A></dt>
+  <dd>レッドハットの Red Hat Enterprize Linux との互換性をもつ，コミュニティによるディストリビューションです．</dd>
+  <dt><A HREF="http://www.novell.com/ja-jp/linux/">Linux OS | SUSE Linux Enterprise</A></dt>
+  <dd>有力な商用ディストリビューションです．もともとはドイツの商用ディストリビューションでした．</dd>
+  <dt><A HREF="http://ja.opensuse.org/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8">メインページ - openSUSE</A></dt>
+  <dd>SUSE をベースにした，コミュニティによるディストリビューションです．</dd>
+  <dt><A HREF="http://www2.mandriva.com/">Mandriva Linux</A> (<A HREF="http://wiki.mandriva.com/ja/">Mandriva Japan</A>)</dt>
+  <dd>フランスの商用ディストリビューションです．</dd>
+  <dt><A HREF="http://www.debian.org/">Debian GNU/Linux -- ユニバーサルオペレーティングシステム</A> (<A HREF="http://www.debian.or.jp/">Debian JP Project</A>)</dt>
+  <dd>コミュニティによるディストリビューションです．ボランティアにより保守されています．歴史が長く，保守的ながら安定したディストリビューションとして定評があります．</dd>
+  <dt><A HREF="http://www.ubuntulinux.jp/">Home | Ubuntu Japanese Team</A></dt>
+  <dd>Debian GNU/Linux をもとにした，コミュニティによるディストリビューションです．<a href="http://www.canonical.com/">Canonical 社</a>の支援を受けています．使いやすく，現在非常に人気を集めています．</dd>
+  <dt><A HREF="http://www.gentoo.org/">Gentoo Linux -- Gentoo Linux News</A></dt>
+  <dd>非営利法人である Gentoo Foundation, Inc. のボランティアにより作成されているディストリビューションです．さまざまな CPU に対応しています．</dd>
+  <dt><A HREF="http://www.slackware.com/">The Slackware Linux Project</A></dt>
+  <dd>非常に古くからあるディストリビューションであり，構成されているソフトウェアを自分でコンパイルしてインストールする感覚があります．Linux の学習に適しているとされています．</dd>
+  <dt><A HREF="http://www.turbolinux.co.jp/">Turbolinux</A></dt>
+  <dd>日本に本社があるターボリナックス社によって開発されている，歴史の長い商用ディストリビューションです．</dd>
+  <dt><A HREF="http://www.asianux.com/">Welcome to asianux.com | Asianux.com</A></dt>
+  <dd><a href="http://www.oracle.co.jp/">オラクル社</a>のデータベースソフトウェアを動作させることに最適化されていた<A HREF="http://www.miraclelinux.com/">ミラクル・リナックス</A>の後を引き継いだディストリビューションです．日本，中国，韓国，ベトナム，タイの企業が共同で作成しています．</dd>
+  <dt><A HREF="http://www.fixstars.com/products/ydel/index.html">Yellow Dog Enterprise Linux | 製品情報 - フィックスターズ</A></dt>
+  <dd>Fedora や CentOS をもとにしたディストリビューションです．POWER アーキテクチャの IBM 製コンピュータや SONY の <a href="http://www.jp.playstation.com/ps3/">PlayStation 3</a> で動作します．</dd>
+  <dt><A HREF="http://unit.aist.go.jp/itri/knoppix/">KNOPPIX Japanese edition</A></dt>
+  <dd>CD あるいは DVD 一枚で起動できる，Debian GNU/Linux ベースのディストリビューションです．<a href="http://www.aist.go.jp/">産業技術総合研究所</a>で日本語化や日本での利用を想定した最適化を行っています．</dd>
+  <dt><A HREF="http://www.momonga-linux.org/index.html.ja">Momonga Linux</A></dt>
+  <dd>かつて日本に Kondara という非常にクールなディストリビューションがありました．しかし，そのコミュニティはいきなり解散してしまいました．その成果物をベースに，コミュニティの元メンバーが立ち上げたディストリビューションです．</dd>
+  <dt><A HREF="http://www.linet.gr.jp/~kojima/Plamo/">Welcome to Plamo Linux Home Page</A></dt>
+  <dd>Slackware をベースに，日本人が個人レベルで作成しているディストリビューションです．構成は極めてシンプルですが，日本語環境は充実しています．Linux や Unix を勉強するにはお勧めです．</dd>
+  <dt><a href="http://ja.ecolinuxos.com/" target="_blank">The Ecolinux Project</a></dt>
+  <dd>Ubuntu をベースにした軽量なディストリビューションです．KNOPPIX 同様 CD 一枚で起動できます．開発者は高校生のときにこの開発を始めました（2009 年受験のために活動を停止されていましたが，めでたく合格されたようです）．</dd>
+  <dt><a href="http://openlab.jp/puppylinux/" target="_blank">Puppy Linux 日本語版</a></dt>
+  <dd>既に Windows がインストールされているパソコンにもインストールできる，非常にコンパクトなディストリビューションです．Windows が遅くて使い物にならないような古いパソコンでも軽快に動きます．</dd>
+</dl>
+<p>もし使っていない古いパソコン (Windows PC) を持っているなら，自分で Linux をインストールして使ってみてください（今使っているパソコンに Windows と共存させる形でインストールすることもできますが，初心者には勧めません）．お勧めのディストリビューションは，大学と同じ環境を作りたいなら Vine Linux，最先端を追っかけたいなら Fedora，道具として Linux を本格的に使いたいなら Ubuntu か CentOS，インストールせずに試しに使ってみたいなら KNOPPIX，そして Linux の本当の楽しさ（と苦労）を知りたいなら Plamo でしょうか（異論は認めます）．</p>
+<p>ちなみに Mac の場合は，Mac OS X 自体が Unix 系 OS なので，あらためて Linux を入れなくても同じような環境を使うことができます．「アプリケーション」フォルダの中の「ユーティリティ」フォルダに入っている「ターミナル」や 「X11」 を起動してみてください（X11 は OS のインストールディスクから Developer Tools と一緒にカスタムインストールする必要があるかも知れません）．もし Unix としての機能が不足するようなら，<a href="http://www.finkproject.org/" target="_blank">Fink</a> や <a href="http://www.macports.org/" target="_blank">MacPorts</a>, あるいは <a href="https://github.com/mxcl/homebrew">homebrew</a> を使ってソフトウェアを追加してください．</p>
+<H2><A name="ooo" class="label">２．LibreOffice.org</A></H2>
+<P>パソコンの使い方は教えるつもりはないと言った舌の根も乾かないうちに，Linux で使えるワープロやプレゼンテーションソフトなどの紹介をします．こういう事務的な情報処理に使用されるソフトウェアのパッケージのことを，<EM>オフィススイート</EM>とか<EM>オフィスソフト</EM>などと呼びます．</P>
+<P>しかし，単に使い方の説明をすることが目的ではなく，ここでは<strong>スタイルシート</strong>や<strong>スライドマスター</strong>という機能というか<em>考え方</em>を知ってもらうことを目指します．</P>
+<P>Windows などでは <a href="http://office.microsoft.com/ja-jp/products/default.aspx" target="_blank">Microsoft Office</a> や<a href="http://www.justsystems.com/jp/" target="_blank">ジャストシステム</a>のソフトウェアが有名ですが，これらには
+  Linux 用の物が用意されていません．Linux 上で使用できるオフィススイートには， <A href="http://www.opensource.gr.jp/osd/osd-japanese.html" target="_blank">オープンソース</A>で開発されている <A href="http://www.koffice.org/" target="_blank">KOffice</A> や <a href="http://live.gnome.org/GnomeOffice" target="_blank">Gnome Office</a> などがありますが，ここではこれらと同様にオープンソースで開発されている <A href="http://ja.libreoffice.org/" target="_blank">LibreOffice.org</A> を取り上げます．これは <a href="http://www.openoffice.org/ja/" target="_blank">OpenOffice.org</a> をバックアップしてきた Sun 社が Oracle 社に買収されたのを機に，OpenOffice.org から派生したものです．</P>
+<P>LibreOffice.org は <A href="http://ja.libreoffice.org/" target="_blank">LibreOffice.org</A> から無償で入手することができます．これには Linux 版のほかに Windows 版や Mac OS X 版もあります．いずれも Microsoft Office
+との互換性を持っています．</P>
+<H3>２．１　LibreOffice.org Writer （ワープロ）の起動</H3>
+<P>まず，画面左下の「Menu」から，「オフィス」&rarr;「LibreOffice.org Writer」の順に選んでください．</P>
+<DIV class="figure"><IMG src="ooo01.jpg" width="720" height="600" border="0" alt="LibreOffice.org の起動"></DIV>
+<P>LibreOffice.org の起動中は数秒間スプラッシュウィンドウが表示されます．</P>
+<DIV class="figure"><IMG src="ooo02.jpg" width="576" height="216" border="0" alt="LibreOffice 3.2 へようこそ"></DIV>
+<H3>２．２　LibreOffice.org Writer</H3>
+<P>&quot;Writer&quot; の画面は，次のようなものです．</P>
+<DIV class="figure"><IMG src="writer01.jpg" width="667" height="368" border="0" alt="LibreOffice.org Writer の画面"></DIV>
+<P>このウィンドウの左側にある四角いボタンをクリックすると，「スタイルと書式」と書かれた小さなウィンドウが開かれます．このウィンドウは，このボタンをクリックするたびに，開いたり閉じたりできます．</P>
+<DIV class="figure"><img src="writer02.jpg" width="667" height="368" border="0" alt="「スタイルと書式」ウィンドウを開く"></DIV>
+<P>それでは，ここでレポートを書く場合について考えてみます．レポートの最初には題名と著者の名前を書きます．「段落スタイル」の一番下の欄（「自動」と表示されているところ）をクリックして，ポップアップメニューから「章のスタイル」を選んでください．</P>
+<DIV class="figure"><IMG src="writer03.gif" width="640" height="548" border="0" alt="「スタイルと書式」ウィンドウ"></DIV>
+<P>すると「タイトル」と「副題」という２つのスタイルが表示されるので，「タイトル」を<EM>ダブルクリック</EM>してください．文書のウィンドウのカーソル位置が用紙の中央に移動します．また，そこで文字をタイプすると，文字の大きさや自体がタイトル用のものに切り替わっていることがわかります．</P>
+<DIV class="figure"><IMG src="writer04.jpg" width="667" height="368" border="0" alt="「タイトル」のスタイル"></DIV>
+<P>タイトルをタイプした後 <KBD>[Enter]</KBD> をタイプすれば改行します．このとき次の行のスタイルは，自動的に「副題」に切り替わります．</P>
+<DIV class="figure"><img src="writer05.jpg" width="667" height="368" border="0" alt="「副題」のスタイルに自動的に切り替わる"></DIV>
+<P>そのまま学籍番号と名前をタイプして，改行（<KBD>[Enter] </KBD>をタイプ）します．すると今度はカーソルが文書の左端に移動します．</P>
+<DIV class="figure"><IMG src="writer06.jpg" width="667" height="368" border="0" alt="「副題」のスタイル"></DIV>
+<P>ここで再び「スタイルと書式」の一番下の欄をクリックして，今度は「自動」を選んでください．スタイルが「本文」に切り替わっているはずです．</P>
+<DIV class="figure"><img src="writer07.jpg" width="667" height="368" border="0" alt="「本文」のスタイルに自動的に切り替わる"></DIV>
+<P>ここで，「スタイルと書式」の中の「見出し１」をダブルクリックします．</P>
+<DIV class="figure"><IMG src="writer08.jpg" width="667" height="368" border="0" alt="「見出し１」のスタイルを選択"></DIV>
+<P>見出しを書いて改行すると，スタイルは再び「本文」に戻ります．</P>
+<DIV class="figure"><IMG src="writer09.jpg" width="667" height="368" border="0" alt="「本文」のスタイルに切り替わる"></DIV>
+<P>本文を書いてみます．「本文」のスタイルでは，改行すると段落の間に少し間隔が空きます．</P>
+<DIV class="figure"><IMG src="writer10.jpg" width="667" height="368" border="0" alt="本文を書く"></DIV>
+<P>ここで，「スタイルと書式」の中の「本文」を，マウスの<EM>右ボタン</EM>でクリックし，現れたポップアップメニューから「変更」を選んでください．</P>
+<DIV class="figure"><IMG src="writer11.jpg" width="667" height="368" border="0" alt="スタイルの変更"></DIV>
+<P>本文の体裁を，日本語の文章らしく最初の行を字下げするようにします．「インデントと間隔」のタブを選んで，「最初の行」の下にあるチェックボックスにチェックを入れてください（「最初の行の右側の欄に，字下げの長さを指定しても構いません）．また，行間も１．５行にしてみましょう．</P>
+<DIV class="figure"><IMG src="writer12.jpg" width="667" height="368" border="0" alt="「インデントと間隔」タブの設定"></DIV>
+<P>次に「配置」のタブを選び，「オプション」の中から「両端揃え」を選んでください．</P>
+<DIV class="figure"><IMG src="writer13.jpg" width="667" height="368" border="0" alt="「配置」タブの設定"></DIV>
+<P>最後に「OK」をクリックすると，本文の体裁が全部変更されているはずです．</P>
+<DIV class="figure"><IMG src="writer14.jpg" width="667" height="368" border="0" alt="「本文」のスタイルの変更結果"></DIV>
+<P>新しい見出しを追加します．メニューバーの左側にあるプルダウンメニューの▼マークをクリックして，メニューから「見出し１」のスタイルを選んでください．</P>
+<DIV class="figure"><IMG src="writer15.jpg" width="667" height="368" border="0" alt="次の見出しの設定"></DIV>
+<P>見出しを書いてください．そのあと，その見出しのところにカーソルを戻して置いてください．</P>
+<DIV class="figure"><IMG src="writer16.jpg" width="667" height="368" border="0" alt="次の見出しの入力"></DIV>
+<P>「ツール」メニューから「章番号付け」を選んでください．</P>
+<DIV class="figure"><IMG src="writer17.jpg" width="667" height="368" border="0" alt="「見出し１」の設定の変更"></DIV>
+<P>「番号付け」のタブを選んで，「段落スタイル」に「見出し 1」を，「番号」に「1、2、3、...」を選んでください．そのあと，「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="writer18.jpg" width="667" height="368" border="0" alt="「番号付け」タブの設定"></DIV>
+<P>すると，見出しに自動的に番号が振られます．見出しの順番を変えると章番号も自動的に変わりますから，論文などで章番号を管理する手間が省けます．</P>
+<DIV class="figure"><IMG src="writer19.jpg" width="667" height="368" border="0" alt="「見出し１」スタイルの変更結果"></DIV>
+<P>それでは，ここで Writer を終了します．「ファイル」メニューから「終了」を選ぶか，「閉じる」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="writer20.jpg" width="667" height="416" border="0" alt="Writer の終了"></DIV>
+<P>すると，作成した文章を保存するかどうか利いてきます．「保存」をクリックしてください．</P>
+<DIV class="figure"><IMG src="writer21.jpg" width="667" height="368" border="0" alt="「見出し１」スタイルの変更結果"></DIV>
+<P>「名前」のところを <em>report</em> に書き換えた後，「保存」をクリックしてください．これで <em>report.odt</em> というファイルが作成されます（「名前」の拡張子 <em>.odt</em> は自動的に追加されます）．</P>
+<DIV class="figure"><IMG src="writer22.jpg" width="667" height="368" border="0" alt="「見出し１」スタイルの変更結果"></DIV>
+<P>LibreOffice.org には，他にも様々な機能があります．詳しいことはウィンドウの上部にある「ヘルプ」を参照してください．</P>
+<BLOCKQUOTE>
+<DIV class="header">スタイルシート</DIV>
+<p>このように，文書のスタイル（書式）に名前を付けて管理するものを<EM>スタイルシート</EM>と呼びます．スタイルシートは最近のワープロソフトの重要な機能であるほか，この考え方は Web ページのレイアウトにも導入されています（<A href="06.html" target="_blank">第６回</A>）．スタイルの制御はスタイルシートを使用しなくても可能です．しかし，論文など長文の文書を作成する場合に局所的なスタイル指定を行ってしまうと，文書のレイアウトに統一感を持たせてスタイルを変更することが困難になります．</p>
+</BLOCKQUOTE>
+<P>なお，この講義のほか，後に続く「<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip2/" target="_blank">情報処理II</a>」や「<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip3/" target="_blank">情報処理III</a>」などでは，このようなワープロソフトは<EM>まったく</EM>使用しません（だったら説明するなって？）．その代わり，レポートや論文，あるいはプログラムなどの<em>テキストデータ</em>（文字データ）の作成にはテキストエディタを用います．この講義で扱う文書はプログラムのソースファイルや Web ページの <A href="05.html#html" target="_blank">HTML ファイル</A>が中心になりますが，レポートや論文も<A href="08.html" target="_blank">第８回</A>で解説する <em>LaTeX</em> を用いて作成することができます（３・４年次に配属される研究室によっては，卒業論文を LaTeX で作成することを義務付けているところもあります）．</P>
+<H3>２．３　LibreOffice.org Impress </H3>
+<P>Impress は Microsoft の PowerPoint に相当する，プレゼンテーション用のソフトウェアです．作成したスライドは Impress
+上で再生できるほか，Web ページ，PDF (Portable Document Format) ファイル，それに Adobe Flash
+形式でも出力できます．「アプリケーション」から，「オフィス」&rarr;「LibreOffice.org 2.0 Impress」の順に選んでください．</P>
+<DIV class="figure"><IMG src="ooo07.jpg" width="720" height="600" border="0" alt="LibreOffice.org Impress の起動"></DIV>
+<P>Impress の場合は，始めに「プレゼンテーションウィザード」が起動します．あらかじめ用意されたスライドのデザインを使ってスライドを作るなら「テンプレートから」を選択しますが，ここでは自分でデザインすることにして，「白紙のプレゼンテーション」を選んで「次へ」をクリックしてください．</P>
+<DIV class="figure"><IMG src="impress01.jpg" width="577" height="382" border="0" alt="「オートパイロット プレゼンテーション」の開始"></DIV>
+<P>プレゼンテーション背景は，後で自分で作成するので，このまま「次へ」をクリックしてください．</P>
+<DIV class="figure"><IMG src="impress02.jpg" width="577" height="382" border="0" alt="ページスタイルの選択"></DIV>
+<P>画面の切り替え効果や，切り替えの速度を選んで，最後に「作成」をクリックしてください．</P>
+<DIV class="figure"><IMG src="impress03.jpg" width="577" height="382" border="0" alt="画面の切り替え方法の選択"></DIV>
+<P>最初になにもレイアウトされていない白いページの編集画面が現れます．</P>
+<DIV class="figure"><IMG src="impress04.jpg" width="640" height="424" border="0" alt="LibreOffice.org Impress の起動画面"></DIV>
+<P>真っ白いページというのもなんなので，背景を変えてみることにします．すぺてのページで背景を共通にするために，「マスター」の背景を変更します．「表示」メニューから「マスター」&rarr;「スライドマスター」の順に選んでください．</P>
+<DIV class="figure"><IMG src="impress05.jpg" width="640" height="424" border="0" alt="マスターの編集"></DIV>
+<P>「マスター」はすべてのスライドの基本的なレイアウトとして使用されます．もちろん，スライドごとにレイアウトを変更することもできますが，マスターのレイアウトにあわせておけば，全体として統一感のあるスライドになります．</P>
+<DIV class="figure"><IMG src="impress06.jpg" width="640" height="424" border="0" alt="「スタイルのカタログ」ウィンドウの表示"></DIV>
+<P>Writer と同様に「スタイルと書式」ウィンドウを呼び出し，「背景」のスタイルをマウスの右ボタンでクリックして，「変更」を選んでください．</P>
+<DIV class="figure"><IMG src="impress07.jpg" width="640" height="424" border="0" alt="「スタイルのカタログ」ウィンドウの表示"></DIV>
+<P>「表面」のタブの「塗りつぶし」から「ビットマップ」を選びます．</P>
+<DIV class="figure"><img src="impress08.jpg" width="568" height="441" border="0" alt="「背景」を変更"></DIV>
+<P>好きな画像を選んだ後，「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="impress09.jpg" width="568" height="441" border="0" alt="背景を選ぶ"></DIV>
+<P>選んだ画像が背景に設定されます．この上に図形を描いてみます．ウィンドウの左下から，描く図形を選んでください．</P>
+<DIV class="figure"><IMG src="impress10.jpg" width="640" height="424" border="0" alt="背景が設定されたマスター"></DIV>
+<P>ウィンドウの上部にあるツールバーで図形の色や線の太さなどの属性を設定します．このボタンのうち，右側に▼があるものは，その▼をクリックすると，さらに選択肢が現れます．</P>
+<DIV class="figure"><IMG src="impress11.jpg" width="640" height="424" border="0" alt="図形の追加"></DIV>
+<P>画面の右下にある四角形のボタンは，図形の重なりの順序を変更するときに使います．これを使って描いた図形を最背面に移します．</P>
+<DIV class="figure"><IMG src="impress12.gif" width="640" height="462" border="0" alt="順序の変更"></DIV>
+<P>選択されている図形が文字の背後に移動します．</P>
+<DIV class="figure"><IMG src="impress13.jpg" width="640" height="424" border="0" alt="文字のスタイルの変更"></DIV>
+<P>文字の字体（書体）などを変更するときは，「Ｔ」の形のボタンを選びます（文字枠をクリックすれば自動的に選択されます）．変更したい文字（枠）をマウスで選択してから，字体や文字サイズなどを選んでください．なお，「タイトルテキストの書式を編集するにはクリックします。」の文字は字体を表示するためのサンプルですので，文字そのものを変更しても意味はありません．</P>
+<DIV class="figure"><IMG src="impress14.jpg" width="640" height="424" border="0" alt="文字のスタイルの変更"></DIV>
+<P>背景のレイアウトができたら，通常のページの編集に戻ります．「マスター表示を閉じる」をクリックしてください．</P>
+<DIV class="figure"><IMG src="impress15.jpg" width="640" height="424" border="0" alt="ページの編集に戻る"></DIV>
+<P>通常のページの編集に戻ります．次にスライドのタイトルページを作りますので，ウィンドウの右側の枠の「レイアウト」をクリックして，その中のタイトルページのレイアウトを選んでください．</P>
+<DIV class="figure"><IMG src="impress16.jpg" width="640" height="424" border="0" alt="ページの編集に戻る"></DIV>
+<P>通常のページにあるタイトルの枠とテキストの枠のそれぞれをクリックして，文字をタイプします．タイプできたら，ウィンドウの右上の「スライド」のボタンをクリックして次のスライドを作成します．</P>
+<DIV class="figure"><IMG src="impress17.jpg" width="640" height="424" border="0" alt="タイトルスライドの作成"></DIV>
+<P>新しいページのレイアウトを選びます．一番よく使われる「タイトル，コンテンツ」のレイアウトを選択します．</P>
+<DIV class="figure"><IMG src="impress18.jpg" width="640" height="424" border="0" alt="スライドの追加"></DIV>
+<P>先ほどと同様に，タイトルとアウトラインの枠をそれぞれクリックして，文字を入力します．アウトラインでは，<KBD>[Tab]</KBD> (タブ)キーを使って「レベル」を制御します．<KBD>[Tab]</KBD> をタイプすればレベルが下がり，<KBD>[Shift]</KBD> を押しながら <KBD>[Tab]</KBD> をタイプすればレベルが上がります．</P>
+<DIV class="figure"><IMG src="impress19.jpg" width="640" height="424" border="0"></DIV>
+<P>作成した文書やスライドを保存するには，「ファイル」メニューから「保存する」を選ぶか，フロッピーディスクのアイコンをクリックしてください．「名前をつけて保存」というウィンドウが現れたら，「名前」のところを <em>profile</em> に書き換えた後，「保存」をクリックしてください．これで <em>profile.odp</em> というファイルが作成されます（「名前」の拡張子 <em>.odp</em> は自動的に追加されます）．</P>
+<DIV class="figure"><IMG src="impress20.jpg" width="640" height="424" border="0"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">既存のプレゼンテーションを開く</DIV>
+<p>なお，保存した Impress のスライドは，次回 Impress を起動したときに「プレゼンテーションウィザード」で「既存のプレゼンテーションを開く」を選べば，もう一度開くことができます．</p>
+<DIV class="figure"><IMG src="impress21.jpg" width="659" height="432" border="0"></DIV>
+</BLOCKQUOTE>
+<P>LibreOffice.org で作成した文書やスライドは，他のアプリケーションで使用できる形式でエクスポートできます．「ファイル」メニューから「エクスポート」を選んでください．</P>
+<DIV class="figure"><IMG src="impress22.jpg" width="640" height="424" border="0"></DIV>
+<P>エクスポートする形式を選びます．ここでは Macromedia Flash 形式で保存するので，&quot;Macromedia Flash
+(SWF) (.swf)&quot; を選んでください．Impress で作ったスライドを Macromedia Flash 形式で出力すると，<A href="profile.swf" target="_blank">こういうもの</A>が得られます．また，PDF (Portable Document Format) 形式で出力すると，<A href="profile.pdf" target="_blank">こんなもの</A>が得られます．</P>
+<DIV class="figure"><IMG src="impress23.gif" width="551" height="370" border="0"></DIV>
+<P>それでは Impress を終了します．「ファイル」メニューから「終了」を選ぶか，「閉じる」ボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="impress24.jpg" width="640" height="401" border="0"></DIV>
+<h2>「新入生アンケート」のお願い</h2>
+<p>新入生の皆さんに対して，アンケートを実施しています．ご協力をお願いします．まだ入力していない人は，<strong>明日まで</strong>の空き時間に <a href="https://wlcampus.center.wakayama-u.ac.jp/portalUI/html/start.htm">LiveCampus</a> のホームページの上部にある「アンケート」をクリックしてください．</p>
+<div class="figure"><IMG src="questionnaire.jpg" alt="アンケート" width="640" height="240" border="0"></div>
+<H2>宿題</H2>
+<p>以下のものをメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-02">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-02 にしてください（そうしないと採点できません）．期限は次週の水曜日中までです．</p>
+<div class="assign">
+(1) 結局<em>スタイルシート</em>ってなんでしょうか（<u>ググると CSS の解説がよく出てきますけど今回はそれを聞いているのではありません</u>）．今回作成した形式に準じて，<em>「1 スタイルシートの役割</em>」「<em>2 スタイルシートを利用するメリット</em>」という見出しで，タイトル・著者名を含めてA4用紙1ページ以内の簡単なレポートを <em>LibreOffice を使って</em>作成してください．見出しのスタイルには「<em>見出し1</em>」を用い，作成するファイル名は <em>report.odt</em> としてください．</div>
+<div class="assign">(2) 自分の自己紹介（あるいは出身地や趣味，所属クラブ紹介など何でも）を書いた<em>４枚以上</em>の LibreOffice Impress のスライドを <em>Macromedia Flash 形式</em>で<em>エクスポート</em>して作成した<em> profile.swf</em> というファイルを作成してください．こちらは LibreOffice Impress のファイル (<em>profile.odp</em>) を<strong>送らないで</strong>ください．</div>
+<div class="assign">(3) 今回の講義に対する意見や改善点があれば，<em>メールの本文に書いて</em>ください．</div>
+<BLOCKQUOTE>
+  <DIV class="header">メールにファイルを添付する方法</DIV>
+  <p>デスクトップ（画面の背景部分）にある自分のユーザ名のフォルダのアイコンをダブルクリックすれば自分のファイルの一覧が表示されますので，その中から添付したいファイルを見つけて，作成しているメールの宛先部分にドラッグ＆ドロップしてください．</p>
+<DIV class="figure"><IMG src="attach.jpg" width="640" height="320" border="0"></DIV>
+</BLOCKQUOTE>
+<div class="assign">※ なお，profile.swf は後の講義で使用しますので，<strong>削除しないで</strong>保存しておいてください．</div>
+<div class="footer"><a href="01.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

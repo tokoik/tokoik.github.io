@@ -1,0 +1,1095 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第５回：ファイル操作，ディレクトリ，ホームページ制作（基本編）</TITLE>
+<script src="Scripts/swfobject_modified.js" type="text/javascript"></script>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第５回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>ファイル操作コマンドの使い方を知る</LI>
+  <LI>ディレクトリによるファイルの管理方法について知る</LI>
+  <LI>HTMLを用いて文書にマークを付ける</LI>
+</OL>
+<div class="footer"><a href="04.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2><A class="label" name="assoc">１．アプリケーションの関連付け</A></H2>
+<p>ファイル管理ソフトウェア <em>Nautilus</em> のウィンドウでファイルのアイコンをダブルクリックすれば，そのファイルに関連付けられたアプリケーションが起動します．例えば，&quot;kenpou.txt&quot; のようにファイル名の拡張子が &quot;<em>.txt</em>&quot; のファイルは，演習室のコンピュータでは標準で「テキストエディタ」に関連付けられいます．この関連付けは，次のようにして変更できます．</p>
+<p>まず，変更したいファイルのアイコンをマウスの<em>右ボタン</em>でクリックします．</p>
+<DIV class="figure"><IMG src="assoc0.png" width="524" height="440"></DIV>
+<p>メニューが現れますので，一時的に別のアプリケーションで開くなら，「別のアプリで開く」から開くアプリケーションを選んでください．標準の設定を変更して次回以降ダブルクリックで自動的に開くアプリケーションを違うものにするには，その下にある「別のアプリ... (A)」を選択してください．</p>
+<DIV class="figure"><IMG src="assoc1.png" width="646" height="516"></DIV>
+<p>「ほかのアプリケーションで開く」のウィンドウで開くアプリケーションを選んだ後，「デフォルトに設定」をクリックしてから「閉じる」をクリックしてください．なお，「端末」の中で使用するアプリケーションを起動する場合は，このウィンドウの下の欄に「gnome-terminal -x (起動するアプリケーション)」とすれば，(起動するアプリケーション) に指定したコマンドを，ダブルクリックしたファイルのファイル名を引数として与えて起動します．</p>
+<H2><A class="label" name="file">２．ファイル操作</A></H2>
+<P><a href="04.html" target="_blank">前回</a>に引き続いて，まずコマンドの操作について解説します．今回はコマンドを使ったファイルの操作を行います．最初に<EM>端末</EM>のウィンドウを開いてください．<EM>$</EM> は<EM>プロンプト</EM>を示します．</P>
+<H3><A class="label" name="cp">２．１　ファイルのコピー</A></H3>
+<P>あるファイルと同じ内容のファイルを作成すること（ファイルのコピー）は cat コマンドでもできますが，普通は <EM>cp</EM> コマンドを使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>とりあえずファイル a を作る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">date &gt; a<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>cp コマンドを使って a と同じ内容のファイル b を作ります．ファイル b が既に存在した場合，それまで b に入っていた内容は失われます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cp コマンドで a と同じ内容のファイル b を作る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cp a b<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ファイル a とファイル b の内容を比較してみましょう．内容は同じはずです．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル a とファイル b の内容を比較する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月  8日 木曜日 13:27:13 JST
+$ <span class="type">cat b<KBD>[Enter]</KBD></span>
+2014年  5月  8日 木曜日 12:27:13 JST
+<SPAN class="anon">&uarr;b は a と同じ内容</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A class="label" name="mv">２．２　ファイル名の変更</A></H3>
+<P>ファイル名を変更するには <EM>mv</EM> コマンドを使います．a，b という２つのファイルがあるとします（上で作ったのであるはず）．ls コマンドで確認してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ls コマンドでファイルの一覧を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b firefox public_html rpm thunderbird windows ダウンロード テンプレート &hellip;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ファイル a を ファイル x に移動 (move) します．これは結果的にファイル a のファイル名を x に変更したことになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル a を ファイル x に移動する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">mv a x<KBD>[Enter]</KBD></span></pre>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この後，ls コマンドでファイルの一覧を見てみます．ファイル a が無くなり，代わりに x ができています．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ファイルの異動後のファイルの一覧を見る</th>
+    </tr>
+    <tr>
+      <td class="action">
+      <pre>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+b firefox public_html rpm thunderbird windows <em>x</em> ダウンロード テンプレート &hellip;    <SPAN class="anon">&larr;a が無くなり x ができる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>今度はファイル b の名前を x に変更します．ファイル b をファイル x に移動するので，それまであったファイル x（a の内容が入っている）は無くなります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル b を ファイル x に移動する（それまでの x の内容は失われる）</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">mv b x<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>    <SPAN class="anon">&larr;ファイルの一覧を見る</SPAN>
+firefox public_html rpm thunderbird windows <em>x</em> ダウンロード テンプレート &hellip;    <SPAN class="anon">&larr;b が無くなる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A class="label" name="rm">２．３　ファイルの削除</A></H3>
+<P>不要なファイルを削除するには，<EM>rm</EM> コマンドを使います．rm コマンドで削除したファイルは<strong>復旧できない</strong>ので気を付けてください．「トイ・ストーリー」などのフル CG アニメーション映画で有名な天下の <a href="http://www.pixar.com/" target="_blank">Pixar</a> さまでも，かつて<a href="http://japan.internet.com/webtech/20120515/3.html" target="_blank">こういうこと</a>があったそうです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル x を削除する．</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">rm x<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>rm コマンドの引数には，複数のファイルを指定することもできます．ファイル a とファイル b を同時に削除するには，次のコマンドを実行します．</p>
+<TABLE>
+  <tbody>
+    <TR>
+      <TH>ファイル a とファイル b を同時に削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">rm a b<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>cp</EM></DT>
+  <DD>ファイルをコピーします（同じ内容の別のファイルを作ります）．</DD>
+  <DT><EM>mv</EM></DT>
+  <DD>ファイルの名前を変更します（ファイルを移動します）．</DD>
+  <DT><EM>rm</EM></DT>
+  <DD>ファイルを削除します．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H3><A class="label" name="wildcard">２．４　ワイルドカード～ファイル名の省略</A></H3>
+<P>&quot;<KBD>*</KBD>&quot;や&quot;<KBD>?</KBD>&quot; などの特殊文字を使ってファイル名の<EM>パターン</EM>を表して，複数のファイルを一括して指定することができます．このような文字は<EM>ワイルドカード</EM>と呼ばれます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ワイルドカードに使われる文字</TH>
+    </TR>
+    <TR>
+      <TD width="45%">任意の１文字にマッチする</TD>
+      <TD class="action"><EM>?</EM></TD>
+    </TR>
+    <TR>
+      <TD width="45%">任意の文字列にマッチする</TD>
+      <TD class="action"><EM>*</EM></TD>
+    </TR>
+    <TR>
+      <TD>[ と ] の間のどれか１文字にマッチする</TD>
+      <TD class="action"><EM>[</EM> <em>]</EM></TD>
+    </TR>
+    <TR>
+      <TD width="45%">[^ と ]の間にある文字以外の１文字にマッチする</TD>
+      <TD class="action"><EM>[^ </EM><em>]</em></TD>
+    </TR>
+    <TR>
+      <TD>辞書の順で &quot;文字1&quot; と &quot;文字2&quot; の範囲にある１文字にマッチする</TD>
+      <TD class="action"><EM>[</EM>文字1<em>-</em>文字2<em>]</EM></TD>
+    </TR>
+    <TR>
+      <TD width="45%">辞書の順で &quot;文字1&quot; と &quot;文字2&quot; の範囲にない１文字にマッチする</TD>
+      <TD class="action"><EM>[^</EM>文字1<em>-</em>文字2<em>]</em></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">パターンの例</DIV>
+<DIV class="body">
+<DL>
+  <DT>a*</DT>
+  <DD>a から始まるファイル名のパターン</DD>
+  <DT>a*c</DT>
+  <DD>先頭が a で末尾が c のファイル名のパターン</DD>
+  <DT>???</DT>
+  <DD>３文字のファイル名のパターン</DD>
+  <DT>d[135]</DT>
+  <DD>d1，d3，d5 の３つのファイルのパターン</DD>
+  <DT>[a-z]*</DT>
+  <DD>先頭が小文字のファイル名のパターン</DD>
+  <DT>[^0-9]*</DT>
+  <DD>先頭が数字ではないファイル名のパターン</DD>
+  <DT>s[0-9][0-9]50[0-9][0-9]</DT>
+  <DD>デザイン情報学科の学生のユーザ名のパターン</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ワイルドカードの使用例</TH>
+    </TR>
+    <TR>
+      <TD width="45%">a で始まるファイルの詳細を表示する． ls コマンドに -l オプションを付けるとファイルの詳細を表示する．</TD>
+      <TD class="action">
+      <PRE>$ <span class="type">ls -l a<EM>*</EM><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">末尾が &quot;.doc&quot; のファイルを連結して表示する．</TD>
+      <TD class="action">
+      <PRE>$ <span class="type">cat <EM>*</EM>.doc<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD width="45%">d1.bak，d2.bak，d3.bak の３つのファイルを削除する．</TD>
+      <TD class="action">
+      <PRE>$ <span class="type">rm d<EM>[1-3]</EM>.bak<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2><A class="label" name="directory">３．ディレクトリ</A></H2>
+<H3>３．１　ディレクトリ木</H3>
+<P>コンピュータのファイルを保存したり管理したりするためのメカニズムのことを， <EM>ファイルシステム</EM>と呼びます．このコンピュータのファイルシステムには非常にたくさんのファイルが保存されています．もし仮にそれらが同じ場所にあったとすると，目的のファイルを見つけるのがかなり大変になります．また他人と同じファイル名を付けないようにも気をつけなければならず，とっても面倒なことになります．</P>
+<P>そこで，これらのファイルを<EM>用途</EM>や<EM>所有者</EM>ごとに分類・整理して保存するために，UNIX や Linux をはじめとする近代的なオペレーティングシステムのほとんどのファイルシステムは，<strong>ディレクトリ</strong>と呼ばれる考え方で構成されています．</P>
+<P>これは世界に例えるなら，世界を下図右のような<EM>木構造</EM>で表したものです．これは木がひっくり返った形をしており，一番<EM>根本がてっぺん</EM>にあります．この木構造では，「住所」は&ldquo;／日本／和歌山／和歌山&rdquo;のように表します．</P>
+<DIV class="figure"><IMG src="directory0.gif" width="640" height="240"></DIV>
+<p>演習室の Linux のファイルシステムは，実際には下図のような木構造（<em>ディレクトリ木</em>）になっています．てっぺんのディレクトリ &quot;<EM>/</EM>&quot; は <strong>ルートディレクトリ</strong>と呼び， ファイルシステム全体を表します． その下に bin，etc，usr などの<EM>サブディレクトリ</EM>があり，usr の下にもさらに bin，etc，local などのサブディレクトリがあります．</P>
+<DIV class="figure"><IMG src="directory1.png" width="584" height="347"></DIV>
+<p>それでは，自分が作業してるディレクトリを確認してみましょう．自分が作業しているディレクトリを<strong>カレントディレクトリ</strong>または<em>ワーキングディレクトリ</em>(作業ディレクトリ）と呼びます．カレントディレクトリを確認するには <em>pwd</em> コマンドを使います．</p>
+<TABLE>
+  <tbody>
+    <TR>
+      <TH><A class="label" name="pwd"></A>pwd コマンドでカレントディレクトリを表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <em><span class="type">pwd</span></em><span class="type"><KBD>[Enter]</KBD></span>
+/home/sys/s123456    <SPAN class="anon">&larr;カレントディレクトリのパス</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>端末</em>を開いた直後，その端末内で動作しているシェルの<em>カレントディレクトリ</em>は，利用者のデータを保存する<em>外部記憶装置</em>の領域の<em>起点</em>になっています．この起点のことを<A class="label" name="home"></A><strong>ホームディレクトリ</strong>と呼びます．したがって，上記の &quot;/home/sys/s123456&quot; は，ホームディレクトリを表します．</p>
+<p>ホームディレクトリ以外のほとんどのディレクトリは，他人のホームディレクトリを含めて， 利用者が勝手にファイルを作成したりすることはできないようになっています．
+例外的に &quot;/tmp&quot; などは誰でもファイルを置くことができますが， このディレクトリに置いたファイルはコンピュータを再起動すると削除されてしまいます．また，演習室のコンピュータの &quot;/home&quot; 以下のディレクトリは， 実際には目の前にあるコンピュータ（ワークステーション）ではなく別のコンピュータ（サーバ）上にあり，LAN
+を使って<EM>共有</EM>しています．</p>
+<BLOCKQUOTE>Windows を起動したとき，ホームディレクトリは H: ドライブになります．</BLOCKQUOTE>
+<P>ディレクトリ木の<em>階層</em>は &quot;<EM>/</EM>&quot; で区切ります．あるファイルやディレクトリのある<em>場所の表記</em>を<strong>パス</strong>（経路）と呼びます．<em>パス</em>を<em>ルートディレクトリを起点</em>にして表す場合を，<strong>絶対パス</strong>，<em>カレントディレクトリを起点</em>にして表す場合を<strong>相対パス</strong>と呼びます．上図の「デスクトップ」というディレクトリは，絶対パスだと &quot;/home/sys/s123456/デスクトップ&quot; と表されますが，&quot;/home&quot; というディレクトリからの相対パスで表せば &quot;sys/s123456/デスクトップ&quot; となります．</P>
+<BLOCKQUOTE>
+  <DIV class="header">パス</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>絶対パス</EM></DT>
+  <DD>あるファイルやディレクトリが置かれている場所を，ルートディレクトリを起点にした経路で表す場合．</DD>
+  <DT><EM>相対パス</EM></DT>
+  <DD>あるファイルやディレクトリが置かれている場所を，カレントディレクトリなど特定の場所からの経路で表す場合．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<P>これまでのことを復習します．「スタート」をクリックしてください．</P>
+<DIV class="figure">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="600" height="400" id="directory" title="ディレクトリ木">
+    <param name="movie" value="directory.swf">
+    <param name="quality" value="high">
+    <param name="wmode" value="opaque">
+    <param name="swfversion" value="6.0.65.0">
+    <!-- このパラメータタグにより、Flash Player 6.0 または 6.5 以降を使用して、Flash Player の最新バージョンをダウンロードするようメッセージが表示されます。ユーザにメッセージを表示させないようにする場合はパラメータタグを削除します。 -->
+    <param name="expressinstall" value="Scripts/expressInstall.swf">
+    <!-- 次のオブジェクトタグは IE 以外のブラウザで使用するためのものです。IE では IECC を使用して非表示にします。 -->
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="directory.swf" width="600" height="400">
+      <!--<![endif]-->
+      <param name="quality" value="high">
+      <param name="wmode" value="opaque">
+      <param name="swfversion" value="6.0.65.0">
+      <param name="expressinstall" value="Scripts/expressInstall.swf">
+      <!-- ブラウザには、Flash Player 6.0 以前のバージョンを使用して次の代替コンテンツが表示されます。 -->
+      <div>
+        <h4>このページのコンテンツには、Adobe Flash Player の最新バージョンが必要です。</h4>
+        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Adobe Flash Player を取得" width="112" height="33"></a></p>
+      </div>
+      <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+  </object>
+</DIV>
+<H3><A name="cd" class="label">３．２　カレントディレクトリを変更する</A></H3>
+<P>それでは，カレントディレクトリを変更（移動）してみましょう．カレントディレクトリを変更するには <EM>cd</EM> コマンドを使います．最初に，もう一度 pwd コマンドを実行して，カレントディレクトリを確認してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>pwd コマンドでカレントディレクトリを確認する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys/s123456    <SPAN class="anon">&larr;ホームディレクトリのパス</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>現在は<em>ホームディレクトリ</em>にいると思います．</p>
+<DIV class="figure"><IMG src="cd0.png" width="581" height="343"></DIV>
+<p>カレントディレクトリを一つ上のディレクトリ &quot;/home/sys&quot; に移します．一つ上のディレクトリは &quot;<em>..</em>&quot;（ピリオド２個）で表します．これを<strong>ペアレントディレクトリ</strong>（親ディレクトリ）と呼びます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>一つ上のディレクトリに移動する</TH>
+    </TR>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">cd ..<KBD>[Enter]</KBD></span>    <SPAN class="anon">&larr;ひとつ上に上がる</SPAN>
+$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このディレクトリには自分のホームディレクトリのほか，システム工学部のほかの全学生のホームディレクトリが含まれています．これは <em>ls コマンド</em>で確認できます（いっぱい出てきます）．</p>
+<DIV class="figure"><IMG src="cd1.png" width="581" height="343"></DIV>
+<p>次に，その中にある<em>自分のユーザ名</em>（以下の &quot;s123456&quot; を自分のユーザ名に置き換えてください）のディレクトリに移動してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>カレントディレクトリにある &quot;s123456&quot; というディレクトリに移動する</TH>
+    </TR>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">cd s123456<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;ひとつ下に降りる</SPAN>
+$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys/s123456</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このようにして，カレントディレクトリに内包されているディレクトリにカレントディレクトリを移すことができます．これは<em>相対パス</em>による移動です．</p>
+<DIV class="figure"><IMG src="cd2.png" width="581" height="343"></DIV>
+<p>こんどは，カレントディレクトリをファイルシステムの起点である<em>ルートディレクトリ</em>に移動してみましょう．これは &quot;cd ..&quot; を繰り返してもできますが，<em>絶対パス</em>を指定すれば，いきなりそのディレクトリに移動することができます．&quot;<em>/</em>&quot; はルートディレクトリの絶対パスです．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ルートディレクトリに移動する</TH>
+    </TR>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">cd /<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;ルートディレクトリ</SPAN>
+$ <span class="type">ls<kbd>[Enter]</kbd></span>
+bin boot etc &hellip; tmp usr</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ルートディレクトリの直下には，Linux を稼働させるための，重要なプログラムやデータが置かれています．</p>
+<DIV class="figure"><IMG src="cd3.png" width="581" height="343"></DIV>
+<p>移動先に<em>絶対パス</em>を指定すれば，カレントディレクトリがどこにあっても，指定したディレクトリに移動できます．&quot;/home&quot; を経由せずに &quot;/home/sys&quot; に移動してみましょう．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>絶対パスを指定して移動する</TH>
+    </TR>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">cd /home/sys<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;絶対パス</SPAN>
+$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>カレントディレクトリがルートディレクトリにあればルートディレクトリからの相対パス &quot;home/sys&quot; でも同じ場所に移動できますが，&quot;<strong>/</strong>home/sys&quot; というように &quot;<em>/</em>&quot; から始まる絶対パスを指定することで，カレントディレクトリがどこにあっても，そのディレクトリに移動できます．</p>
+<DIV class="figure"><IMG src="cd4.png" width="581" height="343"></DIV>
+<p><em>cd</em> コマンドを<em>引数を付けずに</em>実行すれば，カレントディレクトリがどこにあっても，ホームディレクトリに戻ることができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cd コマンドに引数を付けなければホームディレクトリに戻る</TH>
+    </TR>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">cd<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;引数なし</SPAN>
+$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys/s123456 <SPAN class="anon">&larr;ホームディレクトリ</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<blockquote>
+<DIV class="header">&quot;.&quot;（ピリオド１個）と &quot;..&quot;（ピリオド２個）</DIV>
+    <DL>
+      <DT><EM>&quot;.&quot;（ピリオド１個）</EM></DT>
+      <DD>カレントディレクトリ（作業ディレクトリ）を表します．</DD>
+      <DT><EM>&quot;..&quot;（ピリオド２個）</EM></DT>
+      <DD>カレントディレクトリのペアレントディレクトリ（親ディレクトリ）を表します．カレントディレクトリがホームディレクトリ (上図では &quot;/home/sys/s123456&quot;) にあるとき，&quot;<EM>..</EM>&quot; は &quot;/home/sys&quot;，&quot;<EM>../..</EM>&quot; は &quot;/home&quot;，&quot;<EM>../../sys</EM>&quot; は &quot;/home/sys&quot; になります．</DD>
+    </DL>
+</blockquote>
+<p>これまでのことを復習します．「スタート」をクリックしてください．</P>
+<DIV class="figure">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="600" height="400" id="changedirectory" title="cd">
+    <param name="movie" value="cd.swf">
+    <param name="quality" value="high">
+    <param name="wmode" value="opaque">
+    <param name="swfversion" value="6.0.65.0">
+    <!-- このパラメータタグにより、Flash Player 6.0 または 6.5 以降を使用して、Flash Player の最新バージョンをダウンロードするようメッセージが表示されます。ユーザにメッセージを表示させないようにする場合はパラメータタグを削除します。 -->
+    <param name="expressinstall" value="Scripts/expressInstall.swf">
+    <!-- 次のオブジェクトタグは IE 以外のブラウザで使用するためのものです。IE では IECC を使用して非表示にします。 -->
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="cd.swf" width="600" height="400">
+      <!--<![endif]-->
+      <param name="quality" value="high">
+      <param name="wmode" value="opaque">
+      <param name="swfversion" value="6.0.65.0">
+      <param name="expressinstall" value="Scripts/expressInstall.swf">
+      <!-- ブラウザには、Flash Player 6.0 以前のバージョンを使用して次の代替コンテンツが表示されます。 -->
+      <div>
+        <h4>このページのコンテンツには、Adobe Flash Player の最新バージョンが必要です。</h4>
+        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Adobe Flash Player を取得" width="112" height="33"></a></p>
+      </div>
+      <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+  </object>
+</DIV>
+<H3>３．３　ディレクトリを作成する</H3>
+<P>ホームディレクトリ内には，自分でディレクトリ（サブディレクトリ）を作成できます．ディレクトリの作成には <EM>mkdir</EM> コマンドを使います．とりあえず，a，b，c の三つのファイルを作成してください．なお，touch コマンドはファイルの修正日時を現在時刻（コマンド実行時の時刻）に変更するコマンドで，引数に指定したファイルが存在しなければ空のファイルを作ります．</P>
+<TABLE>
+  <TBODY>
+    <tr>
+      <th>a, b, c の三つのファイルを作成する</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">date &gt; a<KBD>[Enter]</KBD></span>
+$ <span class="type">cal &gt; b<KBD>[Enter]</KBD></span>
+$ <span class="type">touch c<KBD>[Enter]</KBD></span>    <span class="anon">&larr;空のファイルを作る</span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c  &hellip;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>mkdir</em> コマンドでカレントディレクトリに <em>d</em> というディレクトリを作ります．その後，ファイルの一覧を見てください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>mkdir コマンドでディレクトリ d を作成する</th>
+    </tr>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type"><em>mkdir</em> <em>d</em><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ls コマンドでファイルの一覧を見てみます．ファイル名の後ろに &quot;<em>/</em>&quot; がついていれば，それは通常のファイルではなく<em>ディレクトリ</em>です（ディレクトリファイル）．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ls コマンドでファイルの一覧を見る</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <pre>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c <em>d/</em> &hellip;    <SPAN class="anon">&larr; d ができている</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>それでは，これらのファイル名 (a, b, c, d) を ls コマンドの引数に指定して，ls コマンドを実行してください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ls コマンドの引数にファイル名を指定する</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls a<KBD>[Enter]</KBD></span>
+a    <span class="anon">      &larr;a は通常のファイルなのでそのまま表示される</span>
+$ <span class="type">ls d<KBD>[Enter]</KBD></span>
+$          <SPAN class="anon">&larr;何も表示されずにプロンプトが出る</SPAN>
+$ <span class="type">ls a b c d<KBD>[Enter]</KBD></span>
+a  b  c    <SPAN class="anon">&larr;通常のファイル</SPAN>
+
+d:         <SPAN class="anon">&larr;ディレクトリ</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<blockquote>ls コマンドの引数にディレクトリ d を指定したときに何も出力されないのは，ls コマンドは<em>引数がディレクトリの時</em>，その<em>ディレクトリの中にあるファイルの一覧を表示しようとする</em>からです．ディレクトリ d は今作ったばかりなので<em>中には何も入っていません</em>から，何も出力されませんでした．</blockquote>
+<p>それでは，<em>cd</em> コマンドを使って，カレントディレクトリを移動してみます．試しに最初に a に cd し，その後 d に cd してみてください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>作成したディレクトリにカレントディレクトリを移動する</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cd a<KBD>[Enter]</KBD></span>
+a: ディレクトリではありません．    <SPAN class="anon">&larr;ディレクトリではないので cd できない</SPAN>
+$ <span class="type">cd d<KBD>[Enter]</KBD></span>
+           <SPAN class="anon">&larr;成功すれば何のメッセージも出ない</SPAN>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+$          <SPAN class="anon">&larr;何も表示されずにプロンプトが出る</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>&quot;<em>.</em>&quot;（ピリオド１個）はカレントディレクトリを示しますから，&quot;<em>ls .</em>&quot; は &quot;<em>ls</em>&quot; と同じです．また &quot;<em>..</em>&quot; はペアレントディレクトリを示します．</p>
+<table>
+  <tbody> 
+    <tr>
+      <th>ls コマンドの引数に &quot;.&quot;（ピリオド１個）や &quot;..&quot;（ピリオド２個）を指定する</th>
+    </tr>
+    <TR>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>$ <span class="type">ls .<KBD>[Enter]</KBD></span>
+            <SPAN class="anon">&larr;何も表示されない</SPAN>
+$ <span class="type">ls ..<KBD>[Enter]</KBD></span>
+a b c d/ &hellip; <SPAN class="anon">&larr;ペアレントディレクトリの内容が表示される</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="cpmv" class="label">３．４　別のディレクトリにファイルをコピー／移動する</A></H3>
+<P>ファイルのコピーやファイル名の変更の際にファイル名に<EM>パス</EM>を含めれば，ディレクトリをまたがったファイルのコピーや移動ができます．一旦ホームディレクトリに戻ってください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ホームディレクトリに戻る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cd<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;引数を付けずに cd コマンドを実行するとホームディレクトリに戻る</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>cp コマンドを使って，ファイル a をディレクトリ d にコピーします．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cp コマンドでファイル a をディレクトリ d にコピーする</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cp a d<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>するとディレクトリ d の中に a というファイルができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ディレクトリ d の内容を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls d<KBD>[Enter]</KBD></span>
+a       <span class="anon">&larr;a というファイルができている</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>こんどは b，c 二つのファイルを mv コマンドでディレクトリ d に移動してみます．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>mv コマンドでファイル b, c をディレクトリ d に移動する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">mv b c d<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これでカレントディレクトリにあるファイルの一覧を確認してみます．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>ls コマンドでカレントディレクトリのファイルの一覧を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a d &hellip;    <SPAN class="anon">&larr;b，c が無くなっている</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>もう一度 ls コマンドでディレクトリ d の内容を見てみます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ディレクトリ d の内容を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls d<KBD>[Enter]</KBD></span>
+a b c &hellip;  <SPAN class="anon">&larr;b，c はこっちに移っている</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>コピーや移動の際に，その先でのファイル名を指定することもできます．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>コピー／移動先でのファイル名を指定する</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cp a d/e<KBD>[Enter]</KBD></span>  <SPAN class="anon">&larr;ホームディレクトリにあるファイル a をディレクトリ d の中に e という名前でコピーする</SPAN>
+$ <span class="type">ls d<KBD>[Enter]</KBD></span>
+a b c e &hellip;
+$ <span class="type">cat d/a<KBD>[Enter]</KBD></span>
+$ <span class="type">cat d/e<KBD>[Enter]</KBD></span>
+<SPAN class="anon">      &uarr;d/a と d/e の中身は同じはず</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><a class="label" name="rmdir">３．６　ディレクトリを削除する</a></H3>
+<P>空のディレクトリは，<EM>rmdir</EM> コマンドで削除できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>rmdir でディレクトリ d を削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">rmdir d<KBD>[Enter]</KBD></span>
+d: ディレクトリが空ではありません <SPAN class="anon">&larr;ディレクトリ d は空ではないのでエラーになる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ディレクトリ d の中が空ではなかったので，ディレクトリ d を削除できませんでした．そこで，ディレクトリ d の中を空にしようと思います．一旦，ディレクトリ d にカレントディレクトリ移し，ls コマンドでファイルの一覧を見てください．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>ディレクトリ d にカレントディレクトリを移す</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cd d<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c e    <SPAN class="anon">&larr;ファイルが四つあるはず</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>まず，<em>rm</em> コマンドを使ってファイル a と ファイル e を削除します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>rm コマンドでファイル a と ファイル e を削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <pre>$ <span class="type">rm a e<KBD>[Enter]</KBD></span></pre>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>ファイル b とファイル c は mv コマンドでペアレントディレクトリに移動して，ディレクトリ d からは無くします．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>mv コマンドでファイル b と ファイル c をペアレントディレクトリに移動する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <pre>$ <span class="type">mv b c ..<KBD>[Enter]</KBD></span></pre>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>これで ls コマンドでファイルの一覧を見ても，何もないはずです．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>ls コマンドでディレクトリ d の中を確認する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <pre>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+$        <SPAN class="anon">&larr;何も表示されない</SPAN></pre>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>カレントディレクトリをペアレントディレクトリに戻して，そこで rmdir コマンドを使ってディレクトリ d を削除します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>ペアレントディレクトリで rmdir コマンドによりディレクトリ d を削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <pre>$ <span class="type">cd ..<KBD>[Enter]</KBD></span>
+$ <span class="type">rmdir d<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c &hellip;    <SPAN class="anon">&larr;d が削除された</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>３．７　ディレクトリごとコピー／移動／削除する</H3>
+<P>中身の入っているディレクトリを丸ごとコピーするには，<EM>cp</EM> コマンドに <EM>-r</EM> というオプションを付けます．とりあえず，もう一度ディレクトリ d を作って，そこにファイル a，b，c をコピーしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ディレクトリ d を作ってファイル a, b, c をコピーする</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">mkdir d<KBD>[Enter]</KBD></span>
+$ <span class="type">cp a b c d<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このディレクトリ d を中身ごとコピーして e というディレクトリを作ります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ディレクトリ d と同じ内容のディレクトリ e を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cp <em>-r</em> d e<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このディレクトリ d と e の内容を ls コマンドを使って比べてみます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ls コマンドでディレクトリ d と e の内容を比較する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls d e<KBD>[Enter]</KBD></span>
+d:
+a b c
+e:
+a b c
+<SPAN class="anon">&uarr;d と e に同じファイルが入っている</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>mv コマンドはオプションを付けなくてもディレクトリを丸ごと移動することができます（条件によって移動できない場合もあります）．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>mv コマンドでディレクトリ e をディレクトリ f に移動する</th>
+    </tr>
+    <TR>
+       <TD class="action">
+      <PRE>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c d/ e/ &hellip;
+$ <span class="type">mv e f<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c d/ f/ &hellip;    <SPAN class="anon">&larr;e が f になった</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>これは<EM>ディレクトリ名の変更</EM>に他なりません．また，ディレクトリの移動先として既に存在するディレクトリを指定することもできます．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>mv コマンドを使ってディレクトリ f を既に存在するディレクトリ d に移動する</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">mv f d<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a b c d/ &hellip;    <SPAN class="anon">&larr;f が無くなっている</SPAN></PRE>
+      </TD>
+    </TR>
+  </tbody>
+</table>
+<p>ディレクトリ f はディレクトリ d の中にあります．これは<em>ディレクトリ木の枝の付け替え</em>に相当します．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ls コマンドでディレクトリ d の内容を見る</th>
+    </tr>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls d<KBD>[Enter]</KBD></span>
+a b c f/    <SPAN class="anon">&larr;ディレクトリ d の中に移動した</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，中身の入っているディレクトリを中身ごと全部削除するには，<EM>rm</EM> コマンドに <EM>-r</EM> オプションを付けてディレクトリを削除してください．</P>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+<DIV class="body">
+<DL>
+  <DT><EM>pwd</EM></DT>
+  <DD>カレントディレクトリを表示します．</DD>
+  <DT><EM>cd</EM></DT>
+  <DD>カレントディレクトリを移動します．</DD>
+  <DT><EM>mkdir</EM></DT>
+  <DD>ディレクトリを作成します．</DD>
+  <DT><EM>rmdir</EM></DT>
+  <DD>ディレクトリを削除します．</DD>
+</DL>
+</DIV>
+</BLOCKQUOTE>
+<H2>４．ホームページ制作（基本編）</H2>
+<H3>４．１　「ホームページ」について</H3>
+<P>インターネット上で現在もっとも人気のあるアプリケーションである WWW (World Wide Web) において，閲覧されるコンテント（内容）のことを一般に<EM>ホームページ</EM>と呼びます．ただし，厳密な意味でのホームページは，ある単位のコンテントの集まりの<EM>起点</EM>となっているコンテントのことを指していると考えられます．</P>
+<P>例えば，Firefox などの <em>Web ブラウザ</em>を起動したときに最初に表示される Web ページもホームページと呼ばれますし，もちろんみなさんのホームページを開いたときに最初に表示される Web ページが皆さんのホームページだと言えます．したがって，この起点以外のコンテントを含めた一般的なものを指す場合には，これを Web ページと呼んだ方が正確でしょう．</P>
+<P>なお，ここではみなさん自身に関するコンテントを作成しますから，以降ではその Web ページを指すものとして「ホームページ」という用語を用います．</P>
+<BLOCKQUOTE>
+<DIV class="header"><A class="label" name="html">HTMLについて</A></DIV>
+<DIV class="body">Web ページのレイアウトには，<EM>HTML</EM> (Hyper Text Markup Language) という，一種の &quot;言語&quot; が用いられます．<EM>Hyper Text</EM> とは，文書中に<EM>関連する情報への指標</EM>（ポインタ）を埋め込むことによって，<EM>相互に関連付けられた文書</EM>です．<EM>Markup</EM> とは，語句などが文書中でどのような<EM>構成要素</EM> （タイトル，見出し，本文など）として使われているか<EM>目印をつける</EM>ことを言います． この目印は <CODE class="tag">&lt;head&gt;</CODE> とか <CODE class="tag">&lt;img src=&quot;photo.jpg&quot;&gt;</CODE> といった形式をしており，一般には <EM>HTML タグ</EM>（あるいは単に<EM>タグ</EM>） と呼ばれます．タグに使用する英文字には大文字／小文字の区別はありませんが，小文字の使用を勧めます．</DIV>
+</BLOCKQUOTE>
+<H3><A class="label" name="workdir">４．２　Webページ編集用ディレクトリを作成する</A></H3>
+<P>まず最初に，ホームディレクトリに <EM>html</EM> という名前で，Web ページ用のデータを集めておくディレクトリを作成します．Web ページ用のデータ作成は，このディレクトリ内で行うことにします．まず，カレントディレクトリがホームディレクトリにあることを確認し，そこで mkdir コマンドを使って html という名前のディレクトリを作成してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ホームディレクトリに html ディレクトリを作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys/s123456  <SPAN class="anon">&larr;ホームディレクトリ（違っていれば cd コマンドを引数を付けずに実行する）</SPAN>
+$ <span class="type">mkdir html<KBD>[Enter]</KBD></span>
+$ <span class="type">ls<KBD>[Enter]</KBD></span>
+&hellip; html &hellip;    <SPAN class="anon">&larr;html が含まれているか確認する</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>４．３　自己紹介のテキストファイルを作る</H3>
+<P>では，作成したディレクトリに（また同じネタで申し訳ないけど）<EM>自己紹介を書いたテキストファイル</EM>を置いてみましょう．カレントディレクトリを <EM>html</EM> に移し， テキストエディタで <EM>profile.txt</EM> というファイルを作成してください．以降の emacs は，leafpad，gedit，geany，anjuta，あるいは vim に置き換えてください． </P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自己紹介ファイルの作成</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cd html<KBD>[Enter]</KBD></span>
+$ <span class="type">emacs <EM>profile.txt</EM> &amp;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>一応自己紹介なので， 次のような内容（下線部）を書いてください（もちろん自分のことを書くように）．<EM>空白</EM>部分では<KBD>スペース</KBD>をタイプし，行末では <KBD>[Enter]</KBD> をタイプして<EM>改行</EM>してください．</P>
+<PRE class="source"><span class="type">自己紹介</span>
+<span class="type">        名前　　　：　和歌山健太郎</span>
+<span class="type">        出身地　　：　和歌山県和歌山市</span>
+<span class="type">        生年月日　：　昭和52年6月23日</span>
+<span class="type">        趣味　　　：　美食</span>
+<span class="type">        メッセージ：　美食サークルメンバー募集中</span></PRE>
+<P>書き終わったら，emacs であれば <KBD>C-x C-s</KBD> をタイプして， ファイルを保存してください （emacs は終了しないでください）． 次に，そのファイルを Firefox などの Web ブラウザで開きます．</P>
+<blockquote>
+<DIV class="header">複数のタブ／ウィンドウを開く</DIV>
+<DIV class="body">
+この作業の前に，講義の Web ページと，これから開くファイルの両方を見ることができるよう，Web ブラウザのタブをひとつ新規作成しておきます．Firefox であれば，アドレスバーの上部のタブの右端にある「＋」をクリックするか，「ファイル」メニューから「新しいタブ <kbd>Ctrl-T</kbd>」を選んでください．または，「新しいウィンドウ <kbd>Ctrl-N</kbd>」を選んで新しいウィンドウを開いてください（画面が広ければこちらのほうが便利かも）．
+<DIV class="figure"><IMG src="html01.gif" width="640" height="540"></DIV>
+</DIV>
+</blockquote>
+<P>講義の Web ページを表示していないほうのウィンドウ（あるいはタブ）で，今作った profile.txt というファイルを開いてください．Firefox であれば，「ファイル」メニューから「ファイルを開く」を選ぶか，<KBD>Ctrl-O</KBD> をタイプしてください．</P>
+<DIV class="figure"><IMG src="html02.gif" width="640" height="360" alt="Netscape でファイルを開く"></DIV>
+<P>下のようなダイアログウインドウが現れますから，ファイルの一覧の中から <em>html</em> というディレクトリを探して選択した後，「開く」をクリックしてください．</P>
+<DIV class="figure"><img src="html03.gif" width="640" height="398" alt="html ディレクトリの選択"></DIV>
+<P>これでディレクトリhtmlの中のファイルの一覧が表示されます．もし profile.txt が現れなければ，右下のファイルの種類が「すべてのファイル」になっているかどうか確認してください．なっていなければ「すべてのファイル」に切り替えてください．profile.txt が現れたら，それを選択した後，「開く」をクリックしてください．</P>
+<DIV class="figure"><IMG src="html04.gif" width="640" height="398" alt="テキストファイルの選択"></DIV>
+<P>これで今作成したテキストファイルが Web ブラウザに表示されます．</P>
+<DIV class="figure"><IMG src="html06.gif" width="640" height="360" alt="テキストファイルの表示"></DIV>
+<H3>４．４　テキストファイルを HTML ファイルとして読み込む</H3>
+<P>それでは，このテキストファイルを HTML ファイルだと思って，無理矢理 Web ブラウザで表示させてみます．これは，単にファイル名の拡張子を
+<EM>.html</EM> に変更するだけです．<A href="#mv">mv コマンド</A>も使えますが，ここではファイルを別名で保存することにします．</P>
+<P>ファイルを profile<EM>.html</EM> という<A class="label" name="saveas">ファイル名で保存</A>します．emacs の場合は <KBD>C-x C-w</KBD> をタイプし，ファイル名に profile.html とタイプして改行してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">emacsでファイルをprofile.html というファイル名で保存する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-w</KBD> をタイプ後 <EM>profile.html</EM> というファイル名を指定する</TD>
+      <TD class="action" width="256"><IMG src="html07.gif" width="256" height="40" alt="profile.html でファイルを保存"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>先ほどと同様に Web ブラウザから，今度は profile.html というファイルを開いてください．Firefox であれば，「ファイル」メニューから「<A class="label" name="openfile">ファイルを開く</A>」を選ぶか<KBD>Ctrl-O</KBD> をタイプしてください． ファイルの一覧の中に profile.html が現れたら， それを選択した後「開く」をクリックしてください．</P>
+<DIV class="figure"><IMG src="html08.gif" width="640" height="398" alt="profile.html を開く"></DIV>
+<P>しかし，今度はレイアウトが崩れてしまいます．</P>
+<DIV class="figure"><IMG src="html09.gif" width="640" height="360" alt="HTML ファイルの表示"></DIV>
+<H3>４．５　マークアップについて</H3>
+<P>テキストファイルと言えども，コンピュータにしてみれば単なるデータ（２進数）の塊に過ぎません．そのため，それを画面に表示したりプリンタに印刷したりするときには，<EM>空白文字</EM>や<EM>改行文字</EM>などを手がかりにしてレイアウトを行っています．しかし，これは画面表示用のソフトウェアや印刷用のソフトウェアが，<EM>良かれと思ってやっている</EM>に過ぎません．実際，空白や改行を無視するように作られているソフトウェアは，多くの言語処理系（プログラミング言語を取り扱うソフトウェア）をはじめ少なからず存在します．それに空白文字や改行文字だけでは，複雑な文書を見栄えよくレイアウトすることは困難です．</P>
+<P>テキストファイルに格納されている<EM>文書</EM>データは，一般に<EM>構造を持ったデータである</EM>と言えます．例えばレポートや論文などの文書は，下図のような構造を持っています．文書のレイアウトは，通常このような文書の構造を<EM>視覚的に表現したもの</EM>だと言えます．ところがコンピュータは，人間のように<EM>文章の意味</EM>をもとに<EM>文書の構造を推定</EM>することができませんから，コンピュータが文書をレイアウトして表示するには何らかの<EM>手がかり</EM>が必要になります．</P>
+<DIV class="figure"><IMG src="textdata.gif" width="400" height="500" alt="文書の構造"></DIV>
+<P>そこでテキストファイルに含まれる文書の<EM>構成要素</EM>に<EM>目印（マーク）</EM>を付けることによって，文書の構造を記述する方法が採られます．この作業を<EM>マークアップ</EM>（マーク付け）と呼びます．こうすることによって，コンピュータはマークを見るだけでその部分の表示方法や処理方法を決定できますし，テキストの一部分をデータとして取り出すことも容易になります．</P>
+<P>もちろん，コンピュータが文章を読んで意味を理解し，文書の構造や<EM>構成要素</EM>（どこが<EM>見出し</EM>でどこが<EM>本文</EM>なのかとか）を推定することが可能なら，レイアウトを自動的に決定することが可能になります．これはプログラミング言語のように文法が単純であいまいさが存在しない場合には実用化されています（emacs
+なんかもそういう機能を持っています）．しかし人間が書いた文書，いわゆる自然言語の文書をコンピュータが読んで構造を自動認識する技術は，まだ一般的だとは言えません．</P>
+<H3>４．６　自己紹介のテキストファイルをマークアップしてみる</H3>
+<P>実際に profile.html をマークアップしてみましょう．「自己紹介」の文字の前後に <CODE class="tag">&lt;h1&gt;</CODE> と <CODE class="tag">&lt;/h1&gt;</CODE> という<EM>タグ</EM>を入れてください（下線部）．<CODE class="tag">&lt;h1&gt;</CODE>～<CODE class="tag">&lt;/h1&gt;</CODE>は，この間のテキストが<EM>見出し</EM> (<EM>h</EM>eading) であることを示します．見出しを示すタグには，他に <CODE class="tag">&lt;h2&gt;</CODE>～<CODE class="tag">&lt;/h2&gt;</CODE> から <CODE class="tag">&lt;h6&gt;</CODE>～<CODE class="tag">&lt;/h6&gt;</CODE> まであり，この数字が<EM>小さい</EM>ほど<EM>重要度の高い見出し</EM>であることを示します．</P>
+<PRE class="source"><span class="type">&lt;h1&gt;</span>自己紹介<span class="type">&lt;/h1&gt;</span>
+        名前　　　：　和歌山健太郎
+        出身地　　：　和歌山県和歌山市
+        生年月日　：　昭和52年6月23日
+        趣味　　　：　美食
+        メッセージ：　美食サークルメンバー募集中</PRE>
+<P>追加できたら，ファイルを保存してください． emacs の場合は <KBD>C-x C-s</KBD> をタイプます．そのあと Web ブラウザで「<A name="reload" class="label">再読み込み</A>」を行って，表示がどう変わるか確かめてください．</P>
+<DIV class="figure"><IMG src="html10.gif" width="640" height="360" alt="再読み込みボタン"></DIV>
+<P>このように「ここは見出しである」とタグで印をつけた部分は，Web ブラウザによって<EM>見出しとして適当なスタイル</EM>にレイアウトされます．このように HTML によるマークアップは，Web ブラウザが文書を画面に表示する際のレイアウトを決定するのに使用されます．</P>
+<P>さらに書式を整えていきましょう．HTML は <A href="http://www.w3.org/" target="_blank">W3C (World Wide Web Consortium)</A> という組織によって<A href="http://www.w3.org/TR/html5/" target="_blank">規格化</A>されているので，それにのっとって体裁を整えてやる必要もあります．下線部を追加あるいは修正してください．タイピングに時間がかかるようなら，下線部の内容を Web ブラウザからテキストエディタのウィンドウに<A href="04.html#copyandpaste">コピー＆ペースト</A>して構いません．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE html&gt;</span>
+<span class="type">&lt;html lang=&quot;ja&quot;&gt;</span>
+
+<span class="type">&lt;head&gt;</span>
+<span class="type">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="type">  &lt;title&gt;Profile&lt;/title&gt;</span>
+<span class="type">&lt;/head&gt;</span>
+
+<span class="type">&lt;body&gt;</span>
+
+&lt;h1&gt;自己紹介&lt;/h1&gt;
+        <span class="type">&lt;h2&gt;</span>名前<span class="type">&lt;/h2&gt;</span>       <span class="type">&lt;p&gt;</span>和歌山健太郎<span class="type">&lt;/p&gt;</span>
+        <span class="type">&lt;h2&gt;</span>出身地<span class="type">&lt;/h2&gt;</span>     <span class="type">&lt;p&gt;</span>和歌山県和歌山市<span class="type">&lt;/p&gt;</span>
+        <span class="type">&lt;h2&gt;</span>生年月日<span class="type">&lt;/h2&gt;</span>   <span class="type">&lt;p&gt;</span>昭和52年6月23日<span class="type">&lt;/p&gt;</span>
+        <span class="type">&lt;h2&gt;</span>趣味<span class="type">&lt;/h2&gt;</span>       <span class="type">&lt;p&gt;</span>美食<span class="type">&lt;/p&gt;</span>
+        <span class="type">&lt;h2&gt;</span>メッセージ<span class="type">&lt;/h2&gt;</span> <span class="type">&lt;p&gt;</span>美食サークルメンバー募集中<span class="type">&lt;/p&gt;</span>
+
+<span class="type">&lt;/body&gt;</span>
+
+<span class="type">&lt;/html&gt;</span></PRE>
+<P>追加できたら，ファイルを保存してください．emacs なら <KBD>C-x C-s</KBD> をタイプします．そのあと Web ブラウザで「再読み込み」を行って，表示がどう変わるか確かめてください．今度はどのようにレイアウトされたでしょうか？</P>
+<DIV class="figure"><IMG src="html11.gif" width="640" height="600" alt="HTML ファイルの表示"></DIV>
+<P>表示されたレイアウトは，<CODE class="tag">&lt;h2&gt;</CODE>～<CODE class="tag">&lt;/h2&gt;</CODE> で挟んだ部分が（<CODE class="tag">&lt;h1&gt;</CODE>～<CODE class="tag">&lt;/h1&gt;</CODE> で挟んだ部分より重要度の低い）見出しとして扱われ，<CODE class="tag">&lt;p&gt;</CODE>～<CODE class="tag">&lt;/p&gt;</CODE> で挟んだ部分は本文として表示されます．<CODE class="tag">&lt;p&gt;</CODE>～<CODE class="tag">&lt;/p&gt;</CODE> は，この間のテキストが本文中の１つの<EM>段落</EM> (<EM>p</EM>aragraph) であることを示します．このように HTML では，レイアウトの制御はマーク（タグ）によって行われ，改行やスペースは単なる区切り文字として扱われます．またマークアップされた文書の<EM>構成要素</EM>は，そのマークで示された<EM>意味</EM>をもとにレイアウトされます．</P>
+<H3><a class="label" name="description">４．７　「見出し」の代わりに「リスト」を使う</a></H3>
+<P>最初に pofile.txt で行ったようなリスト形式のレイアウトを行う場合は，<CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE> を使用します．<CODE class="tag">&lt;dl&gt;</CODE>～<CODE class="tag">&lt;/dl&gt;</CODE> の中では，まず <EM>キーワード</EM>を <CODE class="tag">&lt;dt&gt;</CODE>～<CODE class="tag">&lt;/dt&gt;</CODE>でマークアップし，それに続く<EM>キーワードの説明や定義など</EM>を<CODE class="tag">&lt;dd&gt;</CODE>～<CODE class="tag">&lt;/dd&gt;</CODE>でマークアップします．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Profile&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;自己紹介&lt;/h1&gt;
+<span class="type">  &lt;dl&gt;</span>
+        <span class="type">&lt;dt&gt;</span>名前<span class="type">&lt;/dt&gt;</span>       <span class="type">&lt;dd&gt;</span>和歌山健太郎<span class="type">&lt;/dd&gt;</span>
+        <span class="type">&lt;dt&gt;</span>出身地<span class="type">&lt;/dt&gt;</span>     <span class="type">&lt;dd&gt;</span>和歌山県和歌山市<span class="type">&lt;/dd&gt;</span>
+        <span class="type">&lt;dt&gt;</span>生年月日<span class="type">&lt;/dt&gt;</span>   <span class="type">&lt;dd&gt;</span>昭和52年6月23日<span class="type">&lt;/dd&gt;</span>
+        <span class="type">&lt;dt&gt;</span>趣味<span class="type">&lt;/dt&gt;</span>       <span class="type">&lt;dd&gt;</span>美食<span class="type">&lt;/dd&gt;</span>
+        <span class="type">&lt;dt&gt;</span>メッセージ<span class="type">&lt;/dt&gt;</span> <span class="type">&lt;dd&gt;</span>美食サークルメンバー募集中<span class="type">&lt;/dd&gt;</span>
+<span class="type">  &lt;/dl&gt;</span>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>変更できたら，ファイルを保存してください．emacs の場合は <KBD>C-x C-s</KBD> をタイプしてください．そのあと Web ブラウザで「再読み込み」を行って，表示がどう変わるか確かめてください．</P>
+<DIV class="figure"><IMG src="html12.gif" width="640" height="400" alt="定義リスト形式のレイアウト"></DIV>
+<H3>４．８　HTML ファイルの構造</H3>
+<P>この HTML ファイルの構造は下図のように捉えることができます．</P>
+<DIV class="figure"><IMG src="document.gif" width="640" height="517" alt="HTML ファイルの構造"></DIV>
+<blockquote>
+<DIV class="header">HTMLファイルの構造</DIV>
+<DIV class="body">
+<DL>
+  <DT>文書型宣言</DT>
+  <DD>先頭の <CODE class="tag">&lt;!DOCTYPE ....&gt;</CODE> の１行は<A href="http://bakera.jp/yomoyama/doctype" target="_blank">文書型宣言</A>といい，この文書が <A href="http://www.w3.org/TR/html5/" target="_blank">HTML 文書</A>であることを宣言します．これは現在では，Web ブラウザに対して（後方互換モードではなく）標準モードに切り替えるためのスイッチとして働きます．文書型宣言は HTML のタグではありません．</DD>
+  <DT>HTML 文書</DT>
+  <DD><CODE class="tag">&lt;html&gt;</CODE>～<CODE class="tag">&lt;/html&gt;</CODE> でマークされた部分に HTML 文書を記述します．HTML 文書はヘッダ部とボディ部からなります．日本語を使用する場合は，<CODE class="tag">lang</CODE> 属性に ja を指定します．</DD>
+  <DT>ヘッダ部</DT>
+  <DD><CODE class="tag">&lt;head&gt;</CODE>～<CODE class="tag">&lt;/head&gt;</CODE> でマークアップした部分はヘッダ部と呼ばれ，ここに Web ページのタイトルなど，様々な属性情報を記述します．<CODE class="tag">&lt;title&gt;</CODE>～<CODE class="tag">&lt;/title&gt;</CODE> でマークアップしたものが Web ページのタイトルとなり，Web ブラウザのタイトルバー等に表示されます．Web ページには必ず<em>タイトルを付けなければなりません</em>．<CODE class="tag">&lt;meta charset=&quot;</CODE>～<CODE class="tag">&quot;&gt;</CODE> には文書に使用している文字コードを指定します．日本語を表現できる文字コードには，Windows や Mac OS X で使用されている Shift_JIS のほかに EUC-JP や ISO-2022-JP などがありますが，演習室の Linux では<a href="http://ja.wikipedia.org/wiki/ISO/IEC_10646" target="_blank">国際符号化文字集合</a> (<em>UCS</em>) の変換形式のひとつである UTF-8 を採用しています．</DD>
+  <DT>ボディ部</DT>
+  <DD>Web ページの本文は <CODE class="tag">&lt;body&gt;</CODE>～<CODE class="tag">&lt;/body&gt;</CODE> でマークアップした部分に記述します．この部分をボディ部と呼びます．この部分に書いたものが，Web ブラウザ上に表示されます．</DD>
+</DL>
+</DIV>
+</blockquote>
+<H3>４．９　index.html を作る</H3>
+<P>多くの Web サーバソフトウェアは，URL に含まれる HTML ファイルの<EM>ファイル名を省略</EM>したとき（URL の最後が &quot;/&quot; で終っている時）に，<EM>特定の HTML ファイルを表示</EM>するように設定されています（その URL のディレクトリ一覧が表示される場合もあります）．和歌山大学で運用している Web サーバの多くは，この場合
+<EM>index.html</EM> というファイルを表示するよう設定されています．</P>
+<P>例えば <A href="http://www.wakayama-u.ac.jp/">http://www.wakayama-u.ac.jp/</A> を開いた時には，j実際には <A href="http://www.wakayama-u.ac.jp/index.html">http://www.wakayama-u.ac.jp/<EM>index.html</EM></A> が表示されます．そこで，皆さんの Web ページの先頭のページ（トップページ，いわゆるホームページ）を，このファイル名で作成してみましょう．</P>
+<P>テキストエディタで index.html というファイルを作成してください．emacs では <KBD>C-x C-f</KBD> をタイプして，ファイル名に index.html を指定してください．テキストエディタのコマンドの引数に index.html を指定しても構いません（その場合は
+pwd コマンドでホームディレクトリの下の html というディレクトリにいることを確認してください）．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">emacsでindex.html というファイルを作成する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-f</KBD> をタイプ後 <EM>index.html</EM> というファイル名を指定する</TD>
+      <TD class="action" width="256"><IMG src="html13.gif" width="256" height="40" alt="index.html の作成"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このファイルには， 次のような内容を書いてください．言うまでもないと思いますが，&quot;Kentaro's&quot; とか「和歌山健太郎」なんてのは適当に変更してください．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE html&gt;</span>
+<span class="type">&lt;html lang=&quot;ja&quot;&gt;</span>
+
+<span class="type">&lt;head&gt;</span>
+<span class="type">  &lt;meta charset=&quot;utf-8&quot;&gt;</span>
+<span class="type">  &lt;title&gt;Kentaro's page&lt;/title&gt;</span>
+<span class="type">&lt;/head&gt;</span>
+
+<span class="type">&lt;body&gt;</span>
+<span class="type">  &lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;</span>
+<span class="type">  &lt;p&gt;和歌山健太郎のホームページへようこそ．&lt;/p&gt;</span>
+<span class="type">  &lt;ul&gt;</span>
+<span class="type">    &lt;li&gt;自己紹介&lt;/li&gt;</span>
+<span class="type">    &lt;li&gt;時間割&lt;/li&gt;</span>
+<span class="type">  &lt;/ul&gt;</span>
+<span class="type">&lt;/body&gt;</span>
+
+<span class="type">&lt;/html&gt;</span></PRE>
+<P>出来上がったらファイルを保存してください．emacs であれば <KBD>C-x C-s</KBD> をタイプしてください．そして先ほど Web ブラウザで profile.html を読み込んだのと同様にして（Firefox であれば「ファイル」メニューから「<A href="#openfile">ファイルを開く</A>」を選ぶか <KBD>Ctrl-O</KBD> をタイプして）<EM>index.html</EM> を読み込んでください．</P>
+<DIV class="figure"><IMG src="html14.gif" width="640" height="360" alt="定義リスト形式のレイアウト"></DIV>
+<H3><A name="link" class="label">４．１０　リンクを張る</A></H3>
+<P>このページ (index.html) 上の特定個所をクリックして， 別のページを表示できるようにしてみましょう．このように HTML ファイルから別の
+HTML ファイルを参照することを，「リンクを張る」と言います．いまテキストエディタでは index.html を編集している状態だと思いますから，
+それに下線部の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+  &lt;p&gt;和歌山健太郎のホームページへようこそ．&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;<span class="type">&lt;a href=&quot;profile.html&quot;&gt;</span>自己紹介<span class="type">&lt;/a&gt;</span>&lt;/li&gt;
+    &lt;li&gt;時間割&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>出来上がったら <KBD>C-x C-s</KBD> でファイルを保存し，Web ブラウザで「再読み込み」を行ってください．<em>自己紹介</em>の文字の色が変わっていると思いますから， それをクリックしてください．
+先ほど作った自己紹介のページが表示されましたか？</P>
+<DIV class="figure"><IMG src="html15.gif" width="640" height="360" alt="定義リスト形式のレイアウト"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">その他の HTML タグ</DIV>
+<DIV class="body">HTML には他にも多くのタグが存在します．別のページに <A href="html.html">HTML の概要</A>を簡単にまとめてあります．なお，<CODE class="tag">&lt;CENTER&gt;</CODE> や <CODE class="tag">&lt;MARQUEE&gt;</CODE>，<CODE class="tag">&lt;BGSOUND&gt;</CODE> などのタグは，現在では廃止されたか，もともと規定されていません．これらは<strong>使わないでください</strong>．</DIV>
+</BLOCKQUOTE>
+<H2><A class="label" name="kadai">宿題</A></H2>
+<p>次の (1) の作業を行ってください．それが完了したら，そのことをメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-05">tokoi@sys.wakayama-u.ac.jp</A> に知らせるとともに，(2) の内容を送ってください．メールの件名 (Subject) は shori1-05 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) 担当教員のホームディレクトリ (<EM>/home/staff/tokoi</EM> あるいは <EM>~tokoi</EM> でもアクセスできます）の中に <EM>students</EM> というディレクトリがありますから，その中に<EM>自分のユーザ名のディレクトリ</EM>を作成し，作成したディレクトリの中に本日作成した <EM>profile.txt</EM>, <EM>profile.html</EM>, および <EM>index.html</EM> の３つのファイルをコピーしてください．</DIV>
+<div class="assign">(2) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="04.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<script type="text/javascript">
+<!--
+swfobject.registerObject("directory");
+swfobject.registerObject("changedirectory");
+//-->
+</script>
+</BODY>
+</HTML>

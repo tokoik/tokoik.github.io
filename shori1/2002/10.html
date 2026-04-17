@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第１０回</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<H1>情報処理 I - 第１０回</H1>
+<HR>
+<H2>１．画像ファイルとビューア</H2>
+<HR>
+<H3>１．１　テキストデータと図形データ・画像データ</H3>
+<P>Unix/Linux 上で扱う<A href="05.html#editor"><B>文書データ</B></A>や<A href="04.html"><B>シェルスクリプト</B></A>、<A href="08.html"><B>VRML</B></A>、それに図やグラフをプリンタに印刷するときに使った
+<A href="09.html#print"><B>PostScript</B></A> などは、テキストエディタで読み書きできる<B>テキストデータ</B>です。テキストデータは普通そのままターミナル上に表示できますが、テキストデータを読むために便利な機能を備えた
+<B>more</B> や <B>less</B> などの<B><A href="03.html#man">ページャ</A></B>もよく使われます。</P>
+<BLOCKQUOTE><FONT size="-1">PostScript はバイナリデータ（後述）を保持することもあります。</FONT></BLOCKQUOTE>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ページャで VRML ファイルを見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U><B>less</B> data.wrl<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ページャによる VRML ファイルの表示</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>#VRML V2.0 utf8
+DEF ODEN Transform {
+  children [
+
+    Shape {
+      geometry Sphere { radius 2 }    # 球
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.6 0.6 0.6
+          specularColor 0.4 0.4 0.4
+          shininess 1
+        }
+        texture ImageTexture {
+          url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;
+        }
+      }
+    }
+
+    Transform {
+      translation 0 -4 0
+      rotation 0 0 1 1.5708
+      children [
+        Shape {
+:</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>しかし、VRML ファイルを <B>lookat</B> コマンドや <B>gtklookat</B> コマンド（これらは <B>VRML ブラウザ</B>と呼ばれます）で表示したり、PostScript ファイルを
+<B>gv</B> で画面表示したりプリンタに印刷した場合は、テキストデータ（文字データ）としてではなく、それが表す図形として表示されたり印刷されたりします。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">VRML ブラウザで VRML ファイルを見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U><B>gtklookat</B> data.wrl<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="gtklookat.jpg" width="423" height="374" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">VRML ブラウザによる VRML ファイルの表示</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このように<B>データファイル</B>がどのように見えるかは、それを表示するプログラムに依存します。また、図形データや画像データの中には、テキストデータとして扱えないものもあります。そういうものは一般に<B>バイナリファイル</B>と呼ばれます。したがって、データファイルの<B>中身を見る</B>には、適切な表示プログラムを使用する必要があります。</P>
+<H3><A name="filetype">１．２　ファイルの拡張子と magic</A></H3>
+<P>とは言っても、データファイルの種類が何かわからなければ、どのプログラムを使って表示すればいいのか判断できません。Unix/Linux
+では、この判断に次の２つの方法を用います。</P>
+<UL>
+  <LI>ファイル名の拡張子
+  <LI>ファイルの先頭の magic
+</UL>
+<H4>ファイル名の拡張子</H4>
+<P>ファイル名の拡張子は、ファイル名の後ろに
+&quot;<B>.</B>&quot;（ピリオド）に続けてそのファイルの<B>タイプ</B>を示したものです。以下の .ps, .sh, .wrl,
+.obj, .ps の部分がファイル名の拡張子です。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT>kenpou<B>.txt</B>
+  <DD>テキストファイル
+  <DT>counter<B>.sh</B>
+  <DD>sh スクリプト
+  <DT>data<B>.wrl</B>
+  <DD>VRML ファイル
+  <DT>pyramid<B>.obj</B>
+  <DD>Tgif ファイル
+  <DT>graph<B>.ps</B>
+  <DD>PostScript ファイル
+</DL>
+</BLOCKQUOTE>
+<P>但し Unix/Linux におけるファイル名の拡張子の取り扱いは、Windows
+ほど厳密ではありません。オペレーティングシステムから見ればファイル名の拡張子もファイル名の一部に過ぎず、それをどのように扱うかは<A href="01.html#os">アプリケーションソフトウェア</A>に任されています。</P>
+<H4>magic</H4>
+<P>magic とは<B>マジックナンバー</B>のことですが、ファイルのタイプに対して実際に番号が割り振られているわけではありません。これは
+<B>file</B> コマンドがファイルの中身を調べるときに<B>ヒント</B>として使っているファイルの先頭のデータのパターンです。パターンのデータベースは
+/usr/share/magic というファイルにあります。詳しくは
+man file および man magic で表示されるマニュアルを読んでください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">file ～ファイルの種類を調べる</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U><B>file</B> counter.sh</U><STRONG>[Enter]</STRONG><TT>
+counter.sh: Bourne shell script text executable</TT>
+% <U><B>file</B> graph.ps</U><STRONG>[Enter]</STRONG>
+graph.ps: PostScript document text conforming at level 2.0</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>Unix/Linux ではファイル名の拡張子による判断があてにならない（拡張子が付いていないものが多い）ため、これを使って中身を確認するアプリケーションソフトウェアもあります。もちろん、magic
+がデータベースに登録されていないファイルは判断できません。</P>
+<H3>１．３　ベクトルデータとビットマップデータ</H3>
+<P>Tgif では、図を線分や円などの<B>図形要素の組み合わせ</B>で表現しています。このような図のデータは、一般に<B>ベクトルデータ</B>と呼ばれます。PostScript や EPS、PDF などもベクトルデータです。これに対して、写真のように色のついた<B>点（画素、ピクセル）の集合</B>で画像を表現したものは、<B>ビットマップデータ</B>呼ばれます。Windows の画像データである BMP
+や、デジタルカメラや Web で使用される JPEG
+などがビットマップデータです。普通、画像データと言えば、ビットマップデータのことを指します。</P>
+<P>ベクトルデータは拡大縮小してもぼやけたりつぶれたりすることがありませんが、写真のような画像を扱うことが困難です。ただし、ベクトルデータでも図形要素の一つとしてビットマップデータを保持することは可能です。</P>
+<H3><A name="viewer">１．４　ビューアソフトウェア</A></H3>
+<P>図形ファイルや画像ファイルを画面に表示するソフトウェアを、一般に<B>ビューア</B>と言います。ページャも言わばテキストファイルのビューアです。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">拡張子</TH>
+      <TH bgcolor="#ffddaa">ファイルの種類</TH>
+      <TH bgcolor="#ffddaa">ビューア</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.ps</B></TD>
+      <TD bgcolor="#ffeeaa">PostScript</TD>
+      <TD bgcolor="#ffeecc" rowspan="2">gs, gv, ggv, ghostview</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.eps</B></TD>
+      <TD bgcolor="#ffeeaa">Encapsulated PostScript</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.pdf</B></TD>
+      <TD bgcolor="#ffeeaa">Portable Document Format</TD>
+      <TD bgcolor="#ffeecc">xpdf, acroread</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.gif</B></TD>
+      <TD bgcolor="#ffeeaa">Graphics Interchange Format</TD>
+      <TD bgcolor="#ffeecc" rowspan="2">display, ee, eog, gqview, gtksee </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.jpg</B>,<B> .jpeg</B>,<B> .jfif</B></TD>
+      <TD bgcolor="#ffeeaa">JPEG File Interchange Format</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.bmp</B></TD>
+      <TD bgcolor="#ffeeaa">Microsoft Windows Device Independent Bitmap</TD>
+      <TD bgcolor="#ffeecc">display, ee, eog, gtksee</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.tif</B>,<B> .tiff</B></TD>
+      <TD bgcolor="#ffeeaa">Tag Image File Format</TD>
+      <TD bgcolor="#ffeecc">display, ee, eog</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.png</B></TD>
+      <TD bgcolor="#ffeeaa">Portable Network Graphics</TD>
+      <TD bgcolor="#ffeecc">display, ee, eog, gqview</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>.tga</B></TD>
+      <TD bgcolor="#ffeeaa">TrueVision Targa</TD>
+      <TD bgcolor="#ffeecc">display</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>PostScript</B>
+  <DD>Adobe 社が開発したプリンタ制御用の言語。PDL
+  (Page Description Language: ページ記述言語）の一つ。印刷物の「ページ」に文字や図形、画像などを配置します。PostScript
+  は PostScript プリンタに組み込まれた<A href="03.html#shell">インタプリタ</A>によって解釈されますが、gs (Ghostscript)
+  はそれと互換性のあるインタプリタソフトウェアです。gv,
+  ggv, ghostview は gs にユーザインタフェースを付けたものです。
+  <DT><B>Encapsulated PostScript</B>
+  <DD>他の PostScript ファイルに埋め込んで、一つの図形要素として使えるようにカプセル化された
+  PostScript 形式のファイル形式。
+  <DT><B>Portable Document Format</B>
+  <DD>ページのレイアウトを保持したまま文書の交換を行うための、PostScript
+  から派生したデータ形式。異なるコンピュータ間で文書ファイルのレイアウトを正確に再現できるため、マニュアルなどの電子化に用いられている。PostScript
+  ファイルから gs を使って作成できるほか、Tgif
+  でもこの形式でファイルを出力できます。
+  <DT><B>Graphics Interchange Format</B>
+  <DD>パソコン通信 (CompuServe) において画像データを交換するために考えられたファイル形式
+  (GIF)。同時に 256 色までしか表現できないため写真などの表現には向かないが、コンピュータの画面表示など単調な色使いの画像ならかなりデータサイズを小さくできるため、Web
+  のバナーなどに多用されている。ただし、データの符号化方法として使われている
+  LZW (Lempel-Ziv Welch) という手法はコンピュータメーカーの
+  UNISYS 社が特許を持っているため、UNISYS 社が許諾したソフトウェア以外でこの形式の画像ファイルを作成して使用することは問題がある。
+  <DT><B>JPEG File Interchange Format</B>
+  <DD>JPEG (Joint Photographic Expert Group) という団体によって開発された写真画像の符号化方式を用いた、画像ファイルの形式
+  (JFIF)。写真画像を効果的に圧縮できるが、GIF
+  とは逆に単調色使いの画像に用いると、かえって画像が乱れる場合がある。
+  <DT><B>Microsoft Windows Device Independent Bitmap</B>
+  <DD>Microsoft Windows で用いられている画像ファイルの形式。
+  <DT><B>Tag Image File Format</B>
+  <DD>Aldus 社（後に Adobe 社に吸収）と Microsoft
+  社が共同で開発した、さまざまな画像データを保持できる画像ファイルの形式。
+  <DT><B>Portable Network Graphics</B>
+  <DD>GIF の特許問題や色数の制限など問題を回避するために、新しく考えられた画像データの形式。データの符号化方法には
+  LZW より効率がよく特許の問題もない手法が採用されている。また色数も
+  256 色のほかにフルカラー画像も扱えるようになっている。
+  <DT><B>TrueVision Targa</B>
+  <DD>TrueVison 社の画像取り込み装置が出力する画像ファイルの形式。多くのビデオ編集システムで、ひとコマ単位の画像データとして使用されています。LightWave
+  などの CG ソフトウェアでも、この形式で画像を出力できます。
+</DL>
+</BLOCKQUOTE>
+<P>ビューアソフトウェアの中でもっとも手軽に使用できるのは
+<B>ee</B> (ElectricEyes) でしょう。<B>display</B> は ImageMagick という画像管理ソフトウェアの一部で、非常に多機能です。この他に、画像の表示機能はありませんが
+<B>netpbm</B> という<U>コマンド群</U>があり、これを使うとたいていの画像ファイルの形式を別の画像ファイルの形式に変換することができます。</P>
+<HR>
+<H2>２．画像編集</H2>
+<HR>
+<H3>２．１　画像編集ソフトウェア gimp</H3>
+<P><A href="http://www.gimp.org/"><B>gimp</B></A> （このページの日本語訳は<A href="http://airmail.sakura.ne.jp/~komugi/gimp/gimporgja/">ここ</A>）は非常に高機能な画像編集ソフトウェアです。この分野のソフトウェアでは
+Adobe 社の PhotoShop が有名ですが、gimp もそれに劣らない多機能性を誇っています。詳しい使い方は<A href="http://manual.gimp.org/">マニュアル</A>（このページの日本語訳は<A href="http://homepage2.nifty.com/gimpman/">ここ</A>）を読んでください。</P>
+<H3>２．２　gimp の起動</H3>
+<P>ターミナルのウィンドウで gimp コマンドを実行してください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">gimp の起動</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>gimp<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>最初に gimp を起動したときには、初期設定のウィンドウが現れます。</P>
+<P align="center"><IMG src="gimp01.gif" width="400" height="358" border="0"></P>
+<P>このソフトウェアは GPL (GNU General Public
+License: GNU 一般使用許諾) のもとに配布されているソフトウェアです。そのまま「次へ」をクリックしてください。</P>
+<P align="center"><IMG src="gimp02.gif" width="400" height="356" border="0"></P>
+<P>gimp はここでホームディレクトリに .gimp-1.2
+というディレクトリを作り、そこに設定ファイルなど各種のファイルを置きます。そのまま「次へ」をクリックしてください。</P>
+<P align="center"><IMG src="gimp03.gif" width="400" height="373" border="0"></P>
+<P>.gimp-1.2 というディレクトリの作成作業のログを表示します。エラーがなければ「次へ」をクリックしてください。</P>
+<P align="center"><IMG src="gimp04.gif" width="400" height="374" border="0"></P>
+<P>タイルキャッシュサイズが大きいほど、大きな画像の編集作業が軽快になりますが、コンピュータに搭載されているメモリよりも大きな値を指定するとかえって遅くなります。演習用のコンピュータには
+512MegaBytes のメモリが搭載されているので、オペレーティングシステム等他のプログラムが使用するメモリを差し引いても、タイルキャッシュサイズに
+256MegaBytes くらい指定できると思いますが、一応上限は
+128MegaBytes くらいにしておいて下さい。</P>
+<P>編集中にタイルキャッシュに入らなかったデータはスワップディレクトリ内のファイルに書き出されます。標準のスワップディレクトリはホームディレクトリの下に置かれますが、ホームディレクトリはネットワークを介してサーバコンピュータ上にありますから、ここをスワップディレクトリに使うとネットワークの通信量が増えたりサーバの負荷が増大したりしていいことありません。/tmp
+は演習用のコンピュータ自身のハードディスクにありますから、そこをスワップディレクトリに指定します。</P>
+<P align="center"><IMG src="gimp06.gif" width="400" height="374" border="0"></P>
+<P>モニタの解像度は、「測定」ボタンを押して調整しても構わないのですが、今は時間がないのでそのまま「次へ」をクリックしてください。これで
+gimp の初期設定が完了しました。</P>
+<P align="center"><IMG src="gimp08.jpg" width="600" height="433" border="0"></P>
+<P>これが gimp の起動画面です。次回からはここから始まります。</P>
+<P align="center"><IMG src="gimp07.gif" width="516" height="165" border="0"></P>
+<P>毎回起動すると、「今日の技」を教えてくれます。技を会得したら、「閉じる｣をクリックしてください。</P>
+<H3>２．３　画像の新規作成</H3>
+<P>それでは、とにかく何か描いてみましょう。まず、「白紙」の画像を用意します。&quot;<B>The GIMP</B>&quot; ウィンドウの「<B>ファイル</B>｣メニューから「<B>新規</B>」を選ぶか、<TT><B>Ctrl-N</B></TT> をタイプしてください。</P>
+<P align="center"><IMG src="gimp09.gif" width="209" height="249" border="0"></P>
+<P>すると次のウィンドウが現れます。ここで作成する画像の大きさや解像度を指定します。</P>
+<P align="center"><IMG src="gimp10.png" width="291" height="380" border="0"></P>
+<P><B>画像のサイズ</B>は作成する画像を構成する<B>ピクセル（輝点、画素）数</B>です。<B>解像度</B>は、単位がインチなら（コンピュータはアメリカ由来のものなので、単位として結構インチが使われます）<B>１インチあたりのピクセル数</B>です。上の設定のそれぞれの数値には、次のような関係があります。</P>
+<UL>
+  <LI>画像は縦・横ともに 256 ピクセル
+  <LI>これを縦横 3.556 インチで描く（印刷などの場合）
+  <LI>したがって解像度は 256÷3.556≒72.0
+</UL>
+<P><B>画像の種類</B>の RGB はカラー、グレースケールは白黒を意味します。<B>塗り潰しの種類</B>は新規に作成する画像の下地の色です。<B>前景</B>と<B>背景</B>は、&quot;The GIMP&quot; ウィンドウの色設定を使います。</P>
+<P align="center"><IMG src="gimp13.gif" width="160" height="128" border="0"></P>
+<P>設定が完了したら「<B>了解</B>」をクリックしてください。「<B>名称未設定</B>」というタイトルが付いた作画ウィンドウが現れます。同時に、「<B>レイヤー、チャンネル &amp; パス</B>」ウィンドウに「<B>背景</B>」という項目が現れます。</P>
+<P align="center"><IMG src="gimp11.png" width="306" height="347" border="0"><IMG src="gimp12.png" width="264" height="365" border="0"></P>
+<H3>２．４　ペンで描く</H3>
+<P>それではここに何か描いてみましょう。最初に会得した「技」のとおり、GIMP
+のほとんどの機能は、この作画ウィンドウ上でマウスの右ボタンをクリックして現れるメニューで呼び出すことができます。</P>
+<H4>前景色を設定する</H4>
+<P>まず、ペンの色を決めます。<B>前景色</B>は描画に使う色です。前景色を設定するには、&quot;The
+GIMP&quot; ウィンドウの「前景色の設定」をクリックしてください。</P>
+<P align="center"><IMG src="gimp14.gif" width="102" height="80" border="0"></P>
+<P>すると「<B>色選択</B>」のウィンドウが現れます。色の選択方法は４種類ありますが、そのうちの
+&quot;GIMP&quot; について解説します。</P>
+<P align="center"><IMG src="gimp15.jpg" width="470" height="351" border="0"></P>
+<P>使いたい色の<B>色相</B> (<U>H</U>ue) を真ん中の縦棒から選びます。そして左側の領域で<B>彩度</B> (<U>S</U>aturation) と<B>明度</B> (<U>V</U>alue) を調整します。この順番はどうでも構いません。もちろん、右側のスライダをドラッグしても調整できます。このウィンドウは、邪魔なら閉じても構いませんが、開きっぱなしでも問題ありません。</P>
+<H4>ペンを選択する</H4>
+<P>次に作画に使う画材を選択します。試しに「<B>絵筆</B>」を選んでみましょう。</P>
+<P align="center"><IMG src="gimp16.gif" width="209" height="248" border="0"></P>
+<P>そして、絵筆の<B>ブラシ形状</B>を選択します。ここでは小さ目の、くっきりとしたブラシを選択してみます。</P>
+<P align="center"><IMG src="gimp17.gif" width="231" height="283" border="0"></P>
+<P>その後、作画ウィンドウでマウスを動かします。失敗したと思ったら、<TT><B>Ctrl-Z</B></TT> をタイプするかマウスの<B>右ボタン</B>をクリックして「<B>編集</B>｣メニューから「<B>アンドゥ</B>」を選べば、<B>操作を取り消す</B>ことができます。ちなみに「<B>リドゥ</B>｣は、取り消した操作をもう一度<B>やり直し</B>ます。</P>
+<P align="center"><IMG src="gimp18.gif" width="524" height="495" border="0"></P>
+<H4>塗り潰す</H4>
+<P>上の絵のように閉じた領域には、「<B>ペンキ缶</B>」を使って色を流し込むことができます。ここではパターンで塗り潰すことにします。「<B>塗り潰しツール</B>（ペンキ缶）」を選んだ後、「<B>パターン設定</B>｣をクリックしてください。</P>
+<P align="center"><IMG src="gimp19.gif" width="209" height="249" border="0"></P>
+<P>「ペンキ缶」を選ぶと「<B>ツールオプション</B>」のウィンドウが「<B>塗りつぶし</B>」の設定に変わります。ここで「<B>パターン塗り</B>」を選んでください。また「パターン設定」をクリックすると「<B>パターン選択</B>」のウィンドウが現れますから、ここから塗りつぶしに使うパターンを選んでください。</P>
+<P align="center"><IMG src="gimp20.jpg" width="420" height="663" border="0"></P>
+<P>あとは塗りつぶす領域をマウスでクリックして、その領域を塗りつぶしてください。</P>
+<H4>消す</H4>
+<P>描いたものを消すには、「<B>消しゴム</B>」を使います。</P>
+<P align="center"><IMG src="gimp21.gif" width="209" height="248" border="0"></P>
+<P>これは絵筆などと似ていますが、描画に背景色を使います（<B>「背景」のレイヤーの場合</B>）。</P>
+<P align="center"><IMG src="gimp22.jpg" width="306" height="347" border="0"></P>
+<P>領域を選択して消すこともできます。例えば、次の方法で楕円形の領域を消すことができます。まず「<B>円形領域の選択</B>」を選択してください。</P>
+<P align="center"><IMG src="gimp27.gif" width="209" height="248" border="0"></P>
+<P>そして作画ウィンドウ上で領域を選択し、マウスの右ボタンで現れるメニューの「<B>編集</B>｣から「<B>カット</B>」を選んでください。</P>
+<P align="center"><IMG src="gimp23.gif" width="448" height="519" border="0"></P>
+<P>選択した部分が消されます。</P>
+<P align="center"><IMG src="gimp24.jpg" width="306" height="347" border="0"></P>
+<P>「楕円形選択」のツールオプションで<B>選択範囲をぼかす</B>ことができます。</P>
+<P align="center"><IMG src="gimp25.gif" width="189" height="270" border="0"></P>
+<P>これは次のような消し方になります。</P>
+<P align="center"><IMG src="gimp26.jpg" width="306" height="347" border="0"></P>
+<H4>画像を保存する</H4>
+<P><TT><B>Ctrl-S</B></TT> をタイプするか、マウスの右ボタンで現れるメニューの「<B>ファイル</B>｣から「<B>保存</B>」を選んでください。</P>
+<P align="center"><IMG src="gimp28.gif" width="382" height="440" border="0"></P>
+<P>ファイル名を指定します。<B>拡張子</B>は保存するファイルの形式で決定してください。</P>
+<P align="center"><IMG src="gimp29.jpg" width="436" height="467" border="0"></P>
+<P><B>JPEG 形式</B>で保存するときは、次に保存する際の<B>品質</B>（画質）を設定します。</P>
+<P align="center"><IMG src="gimp30.jpg" width="550" height="476" border="0"></P>
+<P>品質が高いほど画像は忠実に保存されますが、その分データサイズが大きくなります。</P>
+<HR>
+<H2><A name="assignment">課題</A></H2>
+<HR>
+<P>Script-Fu を使ってロゴを作成し、それを適当な画像と合成して
+Web ページ用のバナーを作りなさい。</P>
+<UL>
+  <LI><A href="P7270109.JPG">写真１</A>
+  <LI><A href="P7280130.JPG">写真２</A>
+  <LI><A href="P7280140.JPG">写真３</A>
+  <LI><A href="P7290286.JPG">写真４</A>
+  <LI><A href="P7290328.JPG">写真５</A>
+  <LI><A href="/~tokoi/photos/London/">その他</A>
+</UL>
+</BODY>

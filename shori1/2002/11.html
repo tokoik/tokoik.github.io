@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第１１回：タイピングのテスト、ホームページ作成（基本編）</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<H1>情報処理 I - 第１１回</H1>
+<HR>
+<H2>１．タイピングのテスト</H2>
+<HR>
+<H3>１．１　テスト用テキスト</H3>
+<P>typing コマンドにある引数を指定すれば、テスト用のテキストを使うことができます。引数は口頭で伝えます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">テスト用テキストの使用</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>typing <B>ないしょ</B><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<HR>
+<H2>２．ホームページ作成（基本編）</H2>
+<HR>
+<H3>２．１　「ホームページ」について</H3>
+<P>インターネット上で現在もっとも人気のあるアプリケーションである
+WWW (World Wide Web) において閲覧されるコンテンツは、<B>ホームページ</B>と呼ばれます。 ただし、厳密な意味でのホームページは、
+ある単位のコンテンツの集まりの<B>起点</B>となっている コンテンツのことを指します。
+これは、例えばみなさんの「ホームページ」は、
+みなさんのホームページを開いたときに最初に出てくる画面になります。
+したがって、この起点以外のコンテンツを含めた一般的なものを指す場合には、これを
+Web ページと呼んだ方が正確でしょう。</P>
+<P>なお、ここではみなさん自身に関する内容（コンテンツ）を作成しますから、
+以降ではその Web ページを指すものとして 「ホームページ」という用語を用います。</P>
+<H3>２．２　URL について</H3>
+<P>Web ページが保存（登録）されている“場所”は、
+URL (Universal Resource Locator) という記法
+（厳密には URI - Universal Resource Indicator）で表されます
+（最近は URN - Universal Resource Name という記法も用いられます）。
+メールアドレス同様、 既にみなさん自身のホームページの
+URL が存在します。 </P>
+<CENTER>
+<TABLE align="center" width="400">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffaa">学生ホームページの URL</TD>
+      <TD bgcolor="#ffeeaa">
+      <ADDRESS>http://www.wakayama-u.ac.jp/~ユーザ名/</ADDRESS>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>&quot;<B>~</B>&quot;（チルダ）は <TT><B>[Shift]</B></TT> を押しながら <TT><B>[Backspace]</B></TT> の左側にある <TT><B>0</B></TT> のキーあるいは <B>^</B> のキーをタイプしてください。</P>
+<P align="center"><IMG src="tilda.jpg" width="186" height="50" border="0"></P>
+<P>では、Web ブラウザ (Netscape) で<B>自分自身</B>のホームページを開いてみてください。</P>
+<P>URL を指定して開く方法は <A href="02.html#url">第２回</A>で説明しています。 みなさんはまだホームページを作っていない（<B>ハズ</B>な）ので、 &quot;<B>File not found</B>&quot; と表示されるはずです。それでは、自分ホームページの作成をはじめましょう。</P>
+<CENTER>
+<TABLE border="" align="center" width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">&quot;~&quot;（チルダ）について</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">
+      <P>&quot;~&quot;（チルダ）は画面表示に使う字体（フォント）の種類によって、
+      上の方にあったり、波線だったり、直線だったりしますが、
+      単に字形の違いですから気にしないで下さい。</P>
+      <P>&quot;~&quot; は UNIX（というより csh）では“ホームディレクトリ”の意味に使われます。
+      例えば、シェルで <TT>ls ~</TT> というコマンドを実行すれば、 カレントディレクトリがホームディレクトリでなくても、
+      ホームディレクトリのファイル一覧が表示されます（ディレクトリの読み出し権がなければ表示されません）。
+      また <TT>ls ~guest</TT> とすれば、 guest というユーザのホームディレクトリのファイル一覧が表示されます。</P>
+      <P>これと同様に、URL における &quot;~USER&quot;
+      は、 その WWW サーバにおける USER という利用者のホームページの場所、
+      という意味で使われています。</P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>２．３　public_html の作成</H3>
+<P>まず最初に、ホームディレクトリに <B>public_html</B> というディレクトリを作ってください。ディレクトリの作り方は<A href="03.html#directory"><B>第３回</B></A>を参照してください。ここで <FONT color="#ff0000"><B>public と html は &quot;_&quot; でつながっている</B></FONT>ことに気をつけてください。 &quot;<B>_</B>&quot;（アンダースコア）は <TT><B>[Shift]</B></TT> を押しながら右の<TT><B>[Shift]</B></TT> キーの隣のキー（「<B>ろ</B>」）をタイプすれば入力できます。</P>
+<P align="center"><IMG src="underscore.jpg" width="186" height="50" border="0"></P>
+<BLOCKQUOTE><FONT size="-1">&quot;publlic&quot; と &quot;html&quot; という２つのディレクトリを作らないようにしてください。もし間違って２つのディレクトリを作ってしまったら、それらを削除して下さい。</FONT></BLOCKQUOTE>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">public_html ディレクトリの作成</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>pwd</U><U><STRONG>[Enter]</STRONG></U>
+/home/s3/s075000  <EM>←ホームディレクトリであることを確認</EM>
+% <U>mkdir <B>public_html</B></U><U><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次にNetscape の「<B>再読み込み</B>」ボタンをクリックしてみてください。 今度は
+&quot;File not found&quot; にはならなかったでしょう？それでは、これまでに課題で作った画像ファイルをこのディレクトリに移動してください。ファイルの移動方法についても<B><A href="03.html#cpmvrm">第３回</A></B>を参照してください。</P>
+<UL>
+  <LI><B><A href="09.html#assignment">第９回の課題</A></B>で作成した図を <B>PNG 形式</B>で出力した画像。
+  <LI><B><A href="10.html#assignment">第１０回の課題</A></B>で作成したバナーを <B>JPEG 形式</B>で保存した画像。
+</UL>
+<P>その後もう一度 Netscape の「<B>再読み込み</B>」ボタンをクリックし、これらのファイルが一覧に現れることを確認してください。</P>
+<H3>２．４　自己紹介のページを作る</H3>
+<P>public_html を作ると、 ホームページにはそのディレクトリに置かれたファイルの一覧が表示されます。では、ここに<B>自己紹介のファイル</B>を置いてみましょう。カレントディレクトリを
+public_html に移し、 emacs で <B>profile.txt</B> というファイルを作成してください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">public_html ディレクトリの作成</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cd public_html</U><U><STRONG>[Enter]</STRONG></U>
+% <U>emacs <B>profile.txt</B></U><U><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>一応自己紹介なので、 次のような内容を書いてください（もちろん自分のことを書くように）。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>自己紹介
+　　　　名前　　　：　和歌山健太郎
+　　　　出身地　　：　和歌山県和歌山市
+　　　　生年月日　：　昭和52年6月23日
+　　　　趣味　　　：　美食
+　　　　メッセージ：　美食サークルメンバー募集中</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>書き終わったら <TT><B>C-x C-s</B></TT> をタイプして、 ファイルを保存してください
+（emacs は終了しないでください）。 その後
+Netscape の「<B>再読み込み</B>」ボタンをクリックすると、 ホームページのファイル一覧に
+<B>profile.txt が現れる</B>と思います。 それをクリックして、 自分の自己紹介が表示されるかどうか確認してください。確認できたら
+Netscape の「<B>戻る</B>」ボタンをクリックして、 ファイル一覧に戻っておいてください。</P>
+<P>で、このままだとちょっと味気ないので、 もうちょっと飾りを入れてみましょう。
+profile.txt を下のように変更してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Profile&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;自己紹介&lt;/h1&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;名前&lt;/dt&gt;
+&lt;dd&gt;和歌山健太郎&lt;/dd&gt;
+&lt;dt&gt;出身地&lt;/dt&gt;
+&lt;dd&gt;和歌山県和歌山市&lt;/dd&gt;
+&lt;dt&gt;生年月日&lt;/dt&gt;
+&lt;dd&gt;昭和52年6月23日&lt;/dd&gt;
+&lt;dt&gt;趣味&lt;/dt&gt;
+&lt;dd&gt;美食&lt;/dd&gt;
+&lt;dt&gt;メッセージ&lt;/dt&gt;
+&lt;dd&gt;美食サークルメンバー募集中&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これを、profile<B>.html</B> というファイル名で保存します。 <TT><B>C-x C-w</B></TT> をタイプし、ファイル名に profile.html とタイプして改行してください。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc"><TT>-E:-- <B>profile.txt</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Write file: ~/public_html/<U>profile.html</U><STRONG>[Enter]</STRONG></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>Netscape の「<B>再読み込み</B>」ボタンをクリックしてください。 ファイルの一覧の中に
+profile.html が現れたら、 それをクリックしてみてください。
+今度はレイアウトされたページが表示されたでしょうか？</P>
+<P>では、次に進む前に Netscape の「<B>戻る</B>」ボタンをクリックして、 ファイル一覧を表示させておいてください。</P>
+<CENTER>
+<TABLE border="" align="center" width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">HTML について</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">
+      <P>Web ページのレイアウトは、<B>HTML</B> (Hyper Text Markup Language) というある種の“プログラミング言語”によって制御されます。<B>Hyper Text</B> というのは、文書中に<B>関連する情報への指標</B>（ポインタ）を埋め込んだ、 <B>構造を持った文書</B>のことを言います。<B>Markup</B> というのは、語句などが文書中でどのような<B>構成要素</B> （タイトル、見出し、本文など）として使われているか<B>マーク付け</B>することを言います。 このために使われる <TT>&lt;head&gt;</TT> や <TT>&lt;img src=&quot;photo.jpg&quot;&gt;</TT> のようなものを、 <B>HTML タグ</B>（あるいは単にタグ） と呼びます。 タグに使用する英文字には、大文字／小文字の区別はありません
+      （でも小文字の使用を勧めます）。</P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>２．５　index.html を作る</H3>
+<P>たいていのホームページでは、 こういうファイルの一覧が表示されることはないと思います。
+これを隠す、あるいは自分で一覧のページを作るためには、
+そのディレクトリに <B>index.html</B> というファイルを作ります。</P>
+<P>emacs で <TT><B>C-x C-f</B></TT> をタイプして、 ファイル名に index.html を指定してください。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc"><TT>-E:-- <B>profile.html</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Findfile: ~/public_html/<U>index.html</U><STRONG>[Enter]</STRONG></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このファイルには、 次のような内容を書いてください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+
+&lt;p&gt;和歌山健太郎のホームページへようこそ。&lt;/p&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>出来上がったら、 <TT><B>C-x C-s</B></TT> でファイルを保存し、Netscape の「<B>再読み込み</B>」ボタンをクリックしてください。これでファイルの一覧を隠すことができたと思います。</P>
+<CENTER>
+<TABLE border="" align="center" width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">index.html について</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">Web サーバ（www.wakayama-u.ac.jp のようにホームページを管理するコンピュータ）の設定や種類にもよりますが、
+      URL がディレクトリを指しているとき （URL
+      の最後が http://www.wakayama-u.ac.jp/ のように
+      &quot;/&quot; で終わっているとき）は、 そのディレクトリに
+      index.html があれば index.html を表示し、
+      無ければそのディレクトリの一覧を表示します。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>２．６　リンクを張る</H3>
+<P>先ほどのファイル一覧のページのように、 ページ上の特定個所をクリックして、
+別のページを表示できるようにしてみましょう。
+いま、mule は index.html を編集している状態だと思いますから、
+それに下線部のような内容を追加してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+
+&lt;p&gt;和歌山健太郎のホームページへようこそ。&lt;/p&gt;
+
+<U>&lt;a href=&quot;profile.html&quot;&gt;自己紹介&lt;/a&gt;</U>
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>出来上がったら、 <TT><B>C-x C-s</B></TT> でファイルを保存し、Netscape の「<B>再読み込み</B>」ボタンをクリックしてください。“自己紹介”の文字の色が変わっていると思いますから、
+それをクリックしてください。 先ほど作った自己紹介のページが表示されましたか？</P>
+<H3><A name="image"></A><A name="image">２．７　画像を埋め込む</A></H3>
+<P>今度はホームページに前回作成したバナーを埋め込んでみましょう。emacs
+で index.html を開きます（既に開かれていると思います）。それに下線部の内容を追加してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kentaro's page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+<U>&lt;img src=&quot;<I>banner.jpg</I>&quot; alt=&quot;和歌山健太郎のホームページ&quot;&gt;</U>
+
+&lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+
+&lt;p&gt;和歌山健太郎のホームページへようこそ。&lt;/p&gt;
+
+&lt;a href=&quot;profile.html&quot;&gt;自己紹介&lt;/a&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>画像ファイル名 <I>banner.jpg</I> は、public_html に入れたバナーに使う画像ファイル名にしてください。出来上がったら、
+<TT><B>C-x C-s</B></TT> でファイルを保存してください。 その後、Netscape
+でホームページを表示させて、「<B>再読み込み</B>」ボタンをクリックしてください。</P>
+<P>バナーがホームページに埋め込まれましたか？</P>
+<P>画像が大きすぎる場合は <B>gimp</B> や <B>ee</B> を使って画像を縮小するか、不要な部分を切り取ってください。バナーの幅は400～600ピクセルくらいにしておいてください。それでもうまくレイアウトできなければ、もう一度バナーを作り直してください。</P>
+<P>あと、デジカメやスキャナを用意しますので、自分の顔写真や自分で描いたイラストなど、独自の素材を使う希望があれば知らせてください。</P>
+<HR>
+<H2><A name="assignment">課題</A></H2>
+<HR>
+<P>（１）kadai.html というページを作り、そこに<B><A href="09.html#assignment">第９回の課題</A></B>で作成した図を <B>PNG 形式</B>で出力したものを埋め込みなさい。また、ホームページにこのページへのリンクを追加しなさい。</P>
+<P>（２）今作った自分のホームページを、 自分なりにアレンジしなさい。</P>
+<UL>
+  <LI>別のページに <A href="html.html">HTML の概要</A>を簡単にまとめておきますから、 参考にしてください（更新していないので内容が古くなっています）。
+  また、WWW 上には「<A href="http://tohoho.wakusei.ne.jp/www.htm">とほほのWWW入門</A>」など、HTML の書き方を解説したホームページや、
+  ホームページの素材を提供しているホームページがたくさんありますから、
+  自分で探して参考にしてみてください。 Yahoo
+  Japan の <A href="http://www.yahoo.co.jp/Computers_and_Internet/Information_and_Documentation/Data_Formats/HTML/">HTML に関するリンク集</A>から探し始めるとよいでしょう。
+  <LI>他人のホームページ自体を参考にするのも一つの手です。
+  そのページの HTML の記述（HTML ソース）は、
+  Netscape のメニューバーの &quot;表示&quot;
+  から &quot;ページのソース&quot; を選ぶと表示できます。
+  但し、他人の HTML の記述や張り込んである画像をそのままコピーしてはいけません。
+  <LI>同様に雑誌の写真や音楽のような<FONT color="#ff0000">他人の著作物</FONT>を 無断で利用してはいけません。このあたりの考え方については、
+  <A href="http://www.cric.or.jp/">(社) 著作権情報センター</A>のホームページをはじめ、 「<A href="http://www.imasy.or.jp/~ume/copyright-ml/inetmag/">ネットワーク時代の知的所有権入門</A>」などを参考にしてください。
+  <LI>実は、Netscape 自身で HTML ファイルの編集ができます。
+  自分のページを表示して、「<B>ファイル</B>」メニューから「<B>ページを編集</B>」を選んでください。 ファイルを保存するときは、
+  ホームディレクトリの public_html の中に保存するよう注意してください。
+  <LI><A href="http://www.sys.wakayama-u.ac.jp/di/students/">http://www.sys.wakayama-u.ac.jp/di/students/</A> にみなさんの先輩のホームページの一覧があります（サーバが変わったので、かなり多くの人のホームページがここから参照できなくなっています）。みなさんのもここから参照できます）。
+  ここにはホームページ作成上の注意も書いてありますので、
+  良く読んでおいてください。 また、<A href="html.html#alert">【他人のホームページへのリンクについて】</A>も良く読んでおいてください。
+  <LI>それと、Web ページをデザインするにあたって、
+  もう一つだけ配慮してほしいことがあります。
+  「<A href="http://www.kokoroweb.org/">こころWeb</A>」の「<A href="http://www.kokoroweb.org/tips/part1-1.html">アクセシブルなWebデザインについて</A>」も一度は見ておいてください。
+</UL>
+<P>課題ができたら、メールで tokoi@sys.wakayama-u.ac.jp
+まで知らせてください。私が確認したら返事を書きますので、それ以降は自由に変更していただいて結構です。kadai.html
+へのリンクなんかははずしておいてください。</P>
+</BODY>

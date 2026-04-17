@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０４：拡散反射と鏡面反射</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０４：拡散反射と鏡面反射</h1>
+
+<h2>（１）完全拡散反射面に対する陰影付け</h2>
+
+<p><a href="03.html">課題０３</a>で作成したプログラムを，
+以下の方法で陰影付けを行うよう変更します．</p>
+
+<p>環境光に対する反射係数 K<sub>a</sub>，
+物体表面の拡散反射係数 K<sub>d</sub>，
+物体表面の法線ベクトル <b>N</b>，
+光線ベクトル <b>L</b>，
+光源の強度 I<sub>l</sub>，
+環境光の強度 I<sub>a</sub>
+から，完全拡散反射面における反射光強度 I を求める関数
+shade() を作成し，render() の前に置いてください．</p>
+
+<pre class="source">
+void shade(const float *l, const float *n,
+           const struct Material *k, float *i)
+{
+  /*
+  ** 光線ベクトル <b>L</b>，物体表面の法線ベクトル <b>N</b>，
+  ** 環境光に対する反射係数 K<sub>a</sub>，
+  ** 物体表面の拡散反射係数 K<sub>d</sub>，
+  ** 光源の強度 I<sub>l</sub>，環境光の強度 I<sub>a</sub> から，
+  ** 完全拡散反射面における反射光強度 I を求める
+  */
+}
+</pre>
+
+K<sub>a</sub> および K<sub>d</sub> は，それぞれ Material
+という構造体の変数 red の a と d
+という要素に格納するものとします．
+したがって関数 shade() は，Material
+という構造体のポインタを引数として受け取り，
+それを介して K<sub>a</sub> および K<sub>d</sub>
+を取り出すようにします．</p>
+
+<pre class="source">
+struct Material {
+  float a[3];  /* 環境光に対する反射係数 K<sub>a</sub> */
+  float d[3];  /* 物体表面の拡散反射係数 K<sub>d</sub> */
+};
+
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+};
+</pre>
+
+<p>また，これらの材質パラメータを物体のデータと結びつけるために，
+構造体 Sphere の要素に構造体 Material を指すポインタの要素 k
+を追加し，それを red のポインタで初期化しておきます．</p>
+
+<pre class="source">
+struct Sphere {
+  float p[3];  /* 球の中心位置 <b>P</b><sub>c</sub> */
+  float r;     /* 球の半径 r */
+  <em>struct Material *k;</em>
+};
+
+struct Sphere sphere = {
+  { 0.0, 0.0, 4.0 },
+  2.0,
+  <em>&amp;red,</em>
+};
+</pre>
+
+<p><b>L</b> および I<sub>l</sub> は，それぞれ Light
+という構造体の変数 light の p と i
+という要素に格納するものとします．また I<sub>a</sub>
+は ia という配列変数に格納するものとします．</p>
+
+<pre class="source">
+struct Light {
+  float p[3];  /* 光線ベクトル <b>L</b> */
+  float i[3];  /* 光源の強度 I<sub>l</sub> */
+};
+
+struct Light light = {
+  { 0.424, 0.566, -0.707 },
+  { 1.0, 1.0, 1.0 },
+};
+
+float ia[] = { 0.2, 0.2, 0.2 };  /* 環境光の強度 I<sub>a</sub> */
+</pre>
+
+<p class="hint">
+<a href="04-h1.html">どうしても分からなければ…</a></p>
+
+<p>この関数 shade() を用いて，
+以下の条件で反射光強度 I を求め，
+これをその画素における色 c に用いて画像を生成してください．</p>
+
+<ul>
+<li>環境光に対する反射係数 K<sub>a</sub> = (0.5, 0.1, 0.1)</li>
+<li>物体表面の拡散反射係数 K<sub>d</sub> = (0.5, 0.1, 0.1)</li>
+<li>光線ベクトル <b>L</b> = (0.424, 0.566, -0.707)</li>
+<li>光源の強度 I<sub>l</sub> = (1, 1, 1)</li>
+<li>環境光の強度 I<sub>a</sub> = (0.2, 0.2, 0.2)</li>
+</ul>
+
+<p>ちなみに (0.424, 0.566, -0.707) ≒ (3, 4, -5) / |(3, 4, -5)|</p>
+
+
+<h2>（２）鏡面反射成分を含んだ陰影付け</h2>
+
+<p>関数 shade() に視線ベクトル <b>V</b>，
+物体表面の鏡面反射係数 K<sub>s</sub>
+およびハイライトの広がり（輝き係数）K<sub>e</sub>
+を与えて，
+鏡面反射成分を含んだ反射光強度 I を求めるよう修正してください．</p>
+
+<pre class="source">
+void shade(const float *l, const float *n, <em>const float *v,</em>
+           const struct Material *k, float *i)
+{
+  /*
+  ** 光線ベクトル <b>L</b>，物体表面の法線ベクトル <b>N</b>，
+  ** 視線ベクトル <b>V</b>，
+  ** 環境光に対する反射係数 K<sub>a</sub>，
+  ** 物体表面の拡散反射係数 K<sub>d</sub>，
+  ** 物体表面の鏡面反射係数 K<sub>s</sub>，
+  ** ハイライトの広がり（輝き係数）K<sub>e</sub>，
+  ** 光源の強度 I<sub>l</sub>，環境光の強度 I<sub>a</sub> から，
+  ** 完全拡散反射面における反射光強度 I を求める
+  */
+}
+</pre>
+
+<p>K<sub>s</sub> および K<sub>e</sub> は，構造体 Material
+の要素に s と e を追加し，この構造体の変数 red
+のそれぞれの要素に格納するものとします．</p>
+
+<pre class="source">
+struct Material {
+  float a[3];  /* 環境光に対する反射係数 K<sub>a</sub> */
+  float d[3];  /* 物体表面の拡散反射係数 K<sub>d</sub> */
+  <em>float s[3];  /* 物体表面の鏡面反射係数 K<sub>s</sub> */</em>
+  <em>float e;     /* ハイライトの広がり */</em>
+};
+
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+  <em>{ 0.4, 0.4, 0.4 },</em>
+  <em>40.0,</em>
+};
+</pre>
+
+<p class="hint">
+<a href="04-h2.html">どうしても分からなければ…</a></p>
+
+<p>修正した関数 shade() を用いて，
+以下の条件で反射光強度 I を求め，
+これをその画素における色 c に用いて画像を生成してください．</p>
+
+<ul>
+<li>物体表面の鏡面反射係数 K<sub>s</sub> = (0.4, 0.4, 0.4)</li>
+<li>ハイライトの広がり K<sub>e</sub> = 40</li>
+</ul>
+
+<h2>（３）点光源による陰影付け</h2>
+
+<p>光線ベクトル <b>L</b> を光源の位置 <b>P</b><sub>l</sub>
+と交点の位置 <b>P</b> から求めて，
+点光源による陰影付けを行ってください．</p>
+
+<p><b>P</b><sub>l</sub> は構造体 Light の変数 light
+の要素 p に格納するものとします．</p>
+
+<pre class="source">
+struct Light {
+  float p[3];  /* 光線の位置 <b>P</b><sub>l</sub> */
+  float i[3];  /* 光源の強度 I<sub>l</sub> */
+};
+
+struct Light light = {
+  { <em>3.0, 4.0, -5.0</em> },
+  { 1.0, 1.0, 1.0 },
+};
+</pre>
+
+<p>修正した関数 shade() を用いて，
+以下の条件で反射光強度 I を求め，
+これをその画素における色 c に用いて画像を生成してください．</p>
+
+<ul>
+<li>光源の位置 <b>P</b><sub>l</sub> = (3, 4, -5)</li>
+</ul>
+
+<p>点光源の場合，
+照射点に届く入射光の密度は光源と照射点の間の距離の２乗に反比例します．
+画像が暗すぎる場合は光源の強度を調整するか，
+あるいは（邪道ですが，OpenGL なんかでもやっている）
+入射光の密度を光源と照射点の間の距離（の１乗）に反比例するようにしたり，
+距離に依存しないようにしてみてください．</p>
+
+<p class="hint">
+<a href="diy.html">どうしても分からなければ…</a></p>
+
+<p><a href="05.html">【次：課題０５】</a></p>
+
+</body>
+</html>

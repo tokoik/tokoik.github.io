@@ -1,0 +1,1142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第６回：電子メール、ネットニュース</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<H1>情報処理 I - 第６回</H1>
+<HR>
+<H2>１．電子メール</H2>
+<HR>
+<H3><A name="mailaddress"></A><A name="mailaddress">１．１　メールアドレスについて</A></H3>
+<P>コンピュータ（とネットワーク）を使ってコンピュータの利用者の間でメッセージの交換、
+すなわち手紙のやり取りを行うことができます。
+これを<B>電子メール</B>（メール、Ｅメール、e-mail） と言います。</P>
+<P>手紙を出すには宛名と住所を書かなければならないのと同じように、電子メールを送る時もメッセージの宛先を指定する必要があります。この宛先を<B>メールアドレス</B>と言います。</P>
+<P>みなさんも既にシステム情報学センターの利用承認書に書かれているメールアドレスを持っています。実際には以下の２つのメールアドレスを使えます。どちらを使うかは、メールの読み書きをするソフトウェアの設定に依存します。ここでは、この講義の第２回の
+<A href="02.html#nsmail">Netscape の初期設定</A>において E mail Address として設定した <FONT color="#ff0000">システム工学部のメールアドレス</FONT> を使います。</P>
+<CENTER>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">所属</TH>
+      <TH bgcolor="#ffddaa">メールアドレス</TH>
+      <TH bgcolor="#ffddaa">メールサーバー</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><FONT color="#ff0000">システム工学部のメールアドレス</FONT></TD>
+      <TD bgcolor="#ffeeaa" nowrap>
+      <ADDRESS>ユーザ名@sys.wakayama-u.ac.jp</ADDRESS>
+      </TD>
+      <TD nowrap bgcolor="#ffeecc">mail.sys.wakayama-u.ac.jp</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">システム情報学センターのメールアドレス</TD>
+      <TD bgcolor="#ffeeaa" nowrap>
+      <ADDRESS>ユーザ名@center.wakayama-u.ac.jp</ADDRESS>
+      </TD>
+      <TD nowrap bgcolor="#ffeecc">mail.center.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>メールアドレスの &quot;<B>@</B>&quot;（<B>アットマーク</B>)より右側の部分 （sys.wakayama-u.ac.jp のところ）を<B>ドメイン名</B>と言います。 これは、まあ見て分かる通り、
+&quot;@&quot; より左側にある “利用者” の
+“住所” に相当します。 jp:japan～日本の、ac:academic～学校関係の、wakayama-u～和歌山大学の、
+sys～システム工学部、の誰々、という具合いですね。
+</P>
+<H3><A name="mailreader"></A><A name="mailreader">１．２　メールの読み書き</A></H3>
+<P>ここのシステム（Linux 側）で使用できる電子メールを読み書きするためのソフトウェアには、以下のものがあります。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>mail</B>/<B>Mail</B></TD>
+      <TD bgcolor="#ffffaa">もっとも基本的なもの、コマンドで使用（使用できません）</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>mutt</B></TD>
+      <TD bgcolor="#ffffaa">mail/Mail と互換性のあるターミナル指向のもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>Netscape Mail</B></TD>
+      <TD bgcolor="#ffffaa">Netscape Communicator に含まれるもの、ウィンドウで使用</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>MH</B></TD>
+      <TD bgcolor="#ffffaa">複数のコマンドで構成された高機能なもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>RMAIL</B></TD>
+      <TD bgcolor="#ffffaa">emacs に組み込まれたもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>mh-e</B></TD>
+      <TD bgcolor="#ffffaa">MH を emacs の中から使用するためのユーザインタフェース</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>mew</B></TD>
+      <TD bgcolor="#ffffaa">MH と互換性があり emacs の中で使えるもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>Wanderlust</B></TD>
+      <TD bgcolor="#ffffaa">mew と互換性があり IMAP にちゃんと対応しているもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>sylpeed</B></TD>
+      <TD bgcolor="#ffffaa">X Window System (GTK) に対応したもの</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI>mail/Mail や mutt コマンドではメールを書いて相手に送ることはできますが、
+  相手から自分に届いたメールはサーバマシンに集められるので、演習室のマシンでは読み出すことができません。
+  <LI>Netscale Mail は既に設定を行っていますので使用可能です。
+</UL>
+<P>この授業ではから emacs の中から使用する <B><A href="http://www.gohome.org/wl/" target="_blank">Wanderlust</A></B> を使います。Wanderlust は IMAP というプロトコル（手順）を使ってメッセージの管理を行う、emacs
+上のソフトウェアです（実は POP も使えますし、ニュースリーダの機能もあります）。</P>
+<H3><A name="startmew">１．３　Wanderlust の起動</A></H3>
+<P>それでは Wanderlust を使ってみましょう。emacs
+を起動し、<TT><B>M-x wl</B></TT> とタイプして改行してください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">emacs の中から Wanderlust を起動</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff"><PRE><U>M-x wl<STRONG>[Enter]</STRONG></U></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P align="center"><IMG src="wl1.gif" width="400" height="405" border="0"></P>
+<P>なお、emacs に &quot;-f wl&quot; というオプションを付ければ、emacs
+の起動と同時に wl を起動することができます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">emacs の起動と同時に Wanderlust を起動</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs -f wl &amp;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>１．４　作業用フォルダの作成</H3>
+<P>最初に Wanderlust を起動したときは、Wanderlust
+の動作に必要なメールフォルダやディレクトリの作成を行います。質問に
+y（またはスペース）を答えてください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">下書きフォルダの作成</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff">
+      <TT>Draft Folder +draft does not exist, create it? (y or n)</TT>
+      </TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffddaa">未送信フォルダの作成</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <TT>Queue Folder +queue does not exist, create it? (y or n)</TT>
+      </TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffddaa">ごみ箱フォルダの作成</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <TT>Trash Folder +trash does not exist, create it? (y or n)</TT>
+      </TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffddaa">一時ディレクトリの作成</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Temp directory (to save multipart) ~/tmp/
+      does not exist, create it now? (y or n)</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>書きかけのメールは<B>下書き</B>フォルダに保存されます。メールを送信すると、メールは下書きフォルダから<B>未送信</B>フォルダに移され、送信に成功すれば未送信フォルダから取り除かれます。削除したメールは<B>ごみ箱</B>フォルダに入ります。作業用フォルダの作成に成功し、Wanderlust
+が正常に起動すると、次のような画面になります。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512"><PRE>  [-]Desktop:0/0/0</PRE></TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Loading elmo-dop...done</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3><A name="writemail">１．５　メールを書く</A></H3>
+<P>では手始めに、自分宛にメールを送ってみましょう。
+<TT><B>w</B></TT> をタイプしてください。 するとバッファのウインドウが下のように変わります。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Headers Mail
+      MIME-Edit Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512"><TT><B><FONT color="#999999">From:</FONT> <FONT color="#0000cc">Wakayama Kentaro &lt;s075000@sys.wakayama-u.ac.jp&gt;</FONT></B><BR>
+      <B><FONT color="#999999">To: </FONT></B><BR>
+      <FONT color="#999999"><B>Subject: </B></FONT><BR>
+      <FONT color="#999999"><B>User-Agent:</B></FONT> <B><FONT color="#009900">Wanderlust/2.8.1 (Something) EMIKO/1.14.1
+      (Choanoflagellata) LIMIT/1.14.7 (Fujiidera)
+      APEL/10.3 Emacs/21.1 (i586-kondara-linux-gnu)
+      MULE/5.0 (SAKAKI)</FONT></B><BR>
+      <B><FONT color="#999999">Fcc:</FONT> <FONT color="#cc00cc">+backup</FONT></B><B><BR>
+      </B></TT><TT>--text follows this line---</TT></TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Type C-c C-x C-z to exit MIME mode, and type
+      C-c C-x ? to get help.</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>メールを送るには、 この <B><TT>To:</TT></B> の欄に<B>あて先のメールアドレス</B>、<B><TT>Subject:</TT> </B>の欄に<B>メッセージの見出し</B>を書きます。 メールアドレスを &quot;<B>,</B>&quot;（コンマ）で区切って複数書けば、同じメッセージを複数の人に送ることができます。
+また、<TT>To:</TT> とは別に <B><TT>Cc:</TT></B> で始まる行を設けて、 そこにメールアドレスを書くこともできます
+（&quot;<B>Cc</B>&quot; は <B>Carbon Copy</B> の意味で、 “カーボン紙で複写したものを送る”という意味です）。</P>
+<P>では、 自分宛にメールを送るために、</P>
+<BLOCKQUOTE>
+<DL>
+  <DT><B><TT>To:</TT> の右側に</B>
+  <DD>自分のユーザ名@sys.wakayama-u.ac.jp
+  <DT><B><TT>Subject:</TT> の右側に</B>
+  <DD>自分宛のメール
+</DL>
+</BLOCKQUOTE>
+<P>と書いてください。 <FONT color="#ff0000">メールアドレスには空白を入れてはいけません。</FONT> ちょっと長いですが続けてタイプしてください。
+そのあと、<TT><B>--text follows this line---</B></TT> の下にカーソルを移動し、 メッセージの本文を書いてください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Headers Mail
+      MIME-Edit Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512"><TT><B><FONT color="#999999">From:</FONT> <FONT color="#0000cc">Wakayama Kentaro &lt;s075000@sys.wakayama-u.ac.jp&gt;</FONT></B><BR>
+      <B><FONT color="#999999">To: </FONT></B><U><FONT color="#990000">自分のユーザ名@sys.wakayama-u.ac.jp</FONT></U><BR>
+      <FONT color="#999999"><B>Subject: </B></FONT><FONT color="#990000"><U>自分宛のメール</U></FONT><BR>
+      <FONT color="#999999"><B>User-Agent:</B></FONT> <B><FONT color="#009900">Wanderlust/2.8.1 (Something) EMIKO/1.14.1
+      (Choanoflagellata) LIMIT/1.14.7 (Fujiidera)
+      APEL/10.3 Emacs/21.1 (i586-kondara-linux-gnu)
+      MULE/5.0 (SAKAKI)</FONT></B><BR>
+      <B><FONT color="#999999">Fcc:</FONT> <FONT color="#cc00cc">+backup</FONT></B><B><BR>
+      </B>--text follows this line---<BR>
+      <U><FONT color="#990000">おげんきですかぁ？</FONT></U><STRONG>[Enter]</STRONG><BR>
+      <STRONG>[Enter]</STRONG><BR>
+      <U><FONT color="#990000">自分の名前</FONT></U><STRONG>[Enter]</STRONG><BR>
+      </TT></TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Type C-c C-x C-z to exit MIME mode, and type
+      C-c C-x ? to get help.</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>自分のメールアドレスや見出しなどを書くときには、
+それら以外の部分を変更しないように注意してください。
+特に <TT><B>--text follows this line---</B></TT> を変更すると、 メールが送れなくなる場合があります。
+うっかり変更してしまった場合は、 元に戻せば大丈夫です。
+その際には <TT><B>C-_</B></TT> （<TT><B>[Ctrl]</B></TT> と <TT><B>[Shift]</B></TT> を押しながら <B>_</B> アンダースコアをタイプ）を使うと便利です。</P>
+<P>電子メールを書くときは、 電子メール特有の注意事項がいくつかあります。</P>
+<UL>
+  <LI>宛先の<B>メールアドレスは正確に</B>書いてください。 でないと届きません（あたりまえ）。
+  <LI>メッセージの本文の最後には<B>自分の署名</B>を入れておきましょう。
+  <LI><B>１行の長さは70文字（全角で35文字）以下</B>にしましょう。 それには行末をそろえる <TT><B>M-q</B></TT> を使うと便利です。
+  <LI>一度送ったメールは、<B>取り消すことができません</B> （ポストに投函した手紙は普通取り戻せませんよね？）。
+  出してしまって本当に良いのか、 今一度よく考えてから出しましょう。
+  <LI>秘密の話は電子メールを<B>使わない</B>方がいいでしょう。 一応他人が読めないようにはなってますが、
+  宛先の間違いなどがあるとエラーメールとして管理者に届いてしまいます。
+</UL>
+<P>ここまで書けたらメールを送信しましょう。
+<TT><B>C-c C-c</B></TT> をタイプしてください。 ミニバッファに下のような表示があらわれたら、
+<TT><B>y</B></TT> または<B>スペース</B>をタイプしてください。 これで送信完了です
+（送信したくないときは <B>n</B> をタイプしてください）。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">メール送信の確認</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff">
+      <TT>Do you really want to send current draft? (y or n)</TT>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>なお、最初にメールを送るときだけ、次に送信済フォルダの作成を行うメッセージが現れます。これにも
+<TT><B>y</B></TT> または<B>スペース</B>をタイプしてください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">送信済フォルダの作成</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff">
+      <TT>Folder +backup does not exist, create it? (y or n)</TT>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3><A name="readmail">１．６　フォルダを追加する</A></H3>
+<P>では、次はあなた宛に届いたメールを読んでみましょう。
+皆さん宛てのメールはこの授業の<A href="02.html#nsmail">第２回</A>でも触れたとおり、メールサーバの <B>mail.sys.wakayama-u.ac.jp</B> というマシンに届きます。Wanderlust ではメールサーバの設定は既に行われているので、その
+INBOX というフォルダを Wanderlust の<B>メール受信フォルダ</B>としで管理するようにします。</P>
+<P>まず、カーソルを１行下に移動してください（<B><FONT color="#ff0000">#</FONT></B> の位置）。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512"><PRE>  [-]Desktop:0/0/0
+ <B>#</B></PRE></TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Sending...done</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次に <B>m a</B> とタイプするか、<B>M-x wl-fldmgr-add</B> とタイプして改行します。すると、追加するフォルダを聞いてきます。ここでは
+mail.sys.wakayama-u.ac.jp の INBOX (%inbox)
+というフォルダを追加するので、単に改行してください。何も指定せずに改行すると、(～)
+内の設定が採用されます。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">フォルダの指定</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff"><TT>Folder name to add(%inbox): %<U><STRONG>[Enter]</STRONG></U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここで上のようにフォルダ名を聞いてこずに
+<B>Can't insert in the out of desktop group</B>　というメッセージが出たときは、カーソルを１行下に移動してから（<B><FONT color="#ff0000">#</FONT></B> の位置）、もう一度 <B>M-x wl-fldmgr-add</B> とタイプして改行してください。</P>
+<P>フォルダの追加に成功すると、追加したフォルダが　Desktop
+の下に現れます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512">
+      <PRE>  [-]Desktop:0/0/0
+  %inbox:*/*/*</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Sending...done</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このフォルダを開くには、ここで<B>スペース</B>をタイプします。すると<B>パスワード</B>を聞いてきます。ログインするときに使うパスワードを入力してください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">パスワードの入力</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff"><TT>Password for IMAP:s075000/login@mail.sys.wakayama-u.ac.jp:143:</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>パスワードが正しければ受信したメールのフォルダが開いて、届いたメールの一覧が表示されます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="300" valign="top" align="left" width="512">
+      <PRE>   1 N05/22(水)07:50 [ Wakayama Kentaro  ] 自分宛のメール</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>[--]-EEE:%%-F1 [ON] Wanderlust: Folder (Folder
+      Encoded-kbd)--L1--All---</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>左から“メールの番号”、“日付”、“時間”、“差出人”、“見出し”が表示されます。
+ここでスペースをタイプすると、 カーソル位置のメッセージの内容を表示します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top" height="60">
+      <PRE>    1  05/22(水)07:50 [ Kohe Tokoi        ] 自分宛のメール</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>-EEE:%%-F1 [ON] Wanderlust: %inbox@localhost
+      {T}(0 new/0 unread)</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="200" valign="top" align="left" width="512">
+      <PRE>To: s075000@europa.sys.wakayama-u.ac.jp
+Subject: 自分宛のメール
+From: Kohe Tokoi &lt;s075000@sys.wakayama-u.ac.jp&gt;
+Delivered-To: s075000@sys.wakayama-u.ac.jp
+Date: Wed, 22 May 2002 07:50:41 +0900
+Message-ID: &lt;m3k7pxt8se.wl@mail.sys.wakayama-u.ac.jp&gt;
+User-Agent: Wanderlust/2.8.1 (Something) EMIKO/1.14.1
+ (Choanoflagellata) LIMIT/1.14.7 (Fujiidera) APEL/10.3 Emacs/21.1
+ (i586-kondara-linux-gnu) MULE/5.0 (SAKAKI)
+MIME-Version: 1.0 (generated by EMIKO 1.14.1 - &quot;Choanoflagellata&quot;)
+
+おげんきですかぁ？
+
+床井浩平
+</PRE></TD>
+    </TR>
+    <TR>
+      <TD><TT>-EEE:%%-F1 Wanderlust: &lt;&lt; %inbox@localhost
+      / 1 &gt;&gt; (MIME-View Encoded-kbd)</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><B>スペース</B>で次の画面、 <TT><B>[Backspace]</B></TT> で前の画面を表示します。 <TT><B>[Enter]</B></TT> だと１行ずつ先に進みます。メールを最後まで読み進むと、次のメールを表示します。すぐに他のメールを読むには、
+<TT><B>n</B></TT>（次のメール）または <TT><B>p</B></TT>（前のメール）をタイプしてください。 <A name="replymail"></A></P>
+<CENTER>
+<TABLE align="center" border="" width="512">
+  <TBODY valign="middle">
+    <TR>
+      <TH bgcolor="#ffcccc">送り返されてきたメールの再送</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">
+      <P>宛先を間違うとメールは送られません。</P>
+      <P>出したメールが、 宛先が間違いや何らかのトラブルであて先に届けられなかったときは、
+      <FONT color="#ff0000">MAILER-DAEMON</FONT> からメールが送り返されてきます。 これはコンピュータが自動的に発送するメールなので、
+      <FONT color='#ff0000"'>このメールには返事を書かないでください。</FONT></P>
+      <P>送り返されてきたメールを送り返すには、そのメールを読んでいる状態で　<B>M-E</B>（E は <B>[Shift]</B> を押しながら）あるいは <B>M-x wl-summary-resend-bounced-mail</B> を実行してください。</P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>１．７　返事を書く</H3>
+<P>それでは、自分が出したメールに返事を書いてみましょう。
+<FONT color="#ff0000">自分宛に出したメールを表示させて、</FONT> <TT><B>a</B></TT> をタイプしてください。 </P>
+<CENTER>
+<TABLE border="1" bgcolor="#bfbfbf">
+  <TBODY>
+    <TR>
+      <TD><B><I>File Edit Options Buffers Tools Folder Help</I></B></TD>
+    </TR>
+    <TR>
+      <TD><IMG src="wlbutton.gif" width="512" height="24" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>    1  05/22(水)07:50 [ Kohe Tokoi        ] 自分宛のメール
+
+</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>-EEE:%%-F1 [ON] Wanderlust: %inbox@localhost
+      {T}(0 new/0 unread)</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" height="100" valign="top" align="left" width="512">
+      <PRE>To: s075000@europa.sys.wakayama-u.ac.jp
+Subject: 自分宛のメール
+From: Kohe Tokoi &lt;s075000@sys.wakayama-u.ac.jp&gt;
+Delivered-To: s075000@sys.wakayama-u.ac.jp
+Date: Wed, 22 May 2002 07:50:41 +0900
+Message-ID: &lt;m3k7pxt8se.wl@mail.sys.wakayama-u.ac.jp&gt;</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>-EEE:%%-F1 Wanderlust: &lt;&lt; %inbox@localhost
+      / 1 &gt;&gt; (MIME-View Encoded-kbd)</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>(i586-kondara-linux-gnu) MULE/5.0 (SAKAKI)
+Fcc: +backup
+--text follows this line--
+<EM>（ここに本文を書く）</EM>
+
+</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD><TT>-EEE:**-F1 [ON] Wanderlust: +draft/1 (Draft
+      MIME-Edit 7bit Encoded-kbd)</TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これで、メールの差出人に返事を書くことができます。試しに、自分宛てのメールに返事を書いて、送信してください。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>メールの引用</B>
+  <DD>ところで、返事には差出人のメッセージを<B>引用</B>した方が、 返事を受け取った人が「はて、何の話だったっけな？」と悩まずに済みます。
+  <TT><B>C-c C-y</B></TT> をタイプすれば、差出人のメッセージを &quot;&gt;&quot;
+  を付けて引用します （返事を書くときの <TT><B>a</B></TT> の代わりに <TT><B>A</B></TT> をタイプすると、最初から引用してくれます）。
+  なお、引用する場合は、相手のメッセージを全部引用せず、
+  <B>必要部分以外は削除する</B>ようにしてください。 <A name="removemail"></A>
+  <DT><B>書きかけのメールの破棄</B>
+  <DD>書きかけのメールを出さずに破棄するには、<TT><B>C-c C-k</B></TT> をタイプしてください。ミニバッファに&quot;Kill
+  Current Draft? (y or n)&quot;と表示されたら、<B>y</B> または<B>スペース</B>をタイプしてください。また、破棄せずに emacs
+  を終了すると、書きかけのメールは<B>下書きフォルダ</B> (+draft) に残されます。
+</DL>
+</BLOCKQUOTE>
+<H3><A name="removemail">１．８　メールを整理する</A></H3>
+<UL>
+  <LI>不要なメールを削除するには、 削除したいメールのところにカーソルを移動して
+  <TT><B>d</B></TT> をタイプしてください。 そのメールに &quot;D&quot;
+  というマークが付きます。
+  <LI>メールを分類して保存したいときは、 <TT><B>o</B></TT> をタイプしてください。 そのメールを移動するフォルダを聞いてきます。フォルダの名前を入力して
+  <TT><B>[Enter]</B></TT> をタイプしてください。 そのフォルダがなければ、新たに作ります。
+  <UL>
+    <LI>フォルダ名を、&quot;<B>%フォルダ名</B>&quot;とすれば<B>メールサーバ上</B>にフォルダを作ります。
+    <LI>最初から表示されている &quot;<B>%</B>&quot; を消して、フォルダ名を &quot;<B>+フォルダ名</B>&quot; とすれば、ホームディレクトリ内の <B>Mail</B> というディレクトリにフォルダを作ります。
+  </UL>
+  <LI>移動するメールには &quot;o&quot; というマークがつきます。
+  その後 <TT><B>x</B></TT> をタイプするか、<B>q</B> をタイプしてメールの一覧モードから抜けるとと、
+  マークをつけたメールの移動や削除を行います。削除したメールは、実際には<B>ごみ箱フォルダ</B>( +trash) に移動します。
+  <LI>メールに付けた &quot;D&quot; や &quot;o&quot;
+  のマークを消したいときは、 <TT><B>x</B></TT> や <B>q</B> をタイプする前に、 そのメールにカーソルを移動し、
+  <TT><B>u</B></TT> をタイプしてください。 この時、 <TT><B>n</B></TT> や <TT><B>p</B></TT> ではマークの付いたメールを飛ばしてしまうので、
+  <TT><B>C-n</B></TT> あるいは <TT><B>C-p</B></TT> を使います。
+</UL>
+<H3>１．９　フォルダを作成する</H3>
+<P>Wanderlust を最初に起動した時やメールの分類を行ったときには、メールのフォルダが作成されます。しかし、これらのフォルダはフォルダの一覧には表示されていません。メール受信フォルダ
+(%inbox) と同様に、これらをフォルダの一覧に追加するには、<B>m a</B> とタイプするか、<B>M-x wl-fldmgr-add</B> とタイプして改行します。フォルダ名を聞いてきたら、以下のようにフォルダを指定してください。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT>下書きフォルダを追加する
+  <DD>&quot;<B>%</B>&quot; を削除して、フォルダ名に <B>+draft</B> を指定する。
+  <DT>未送信フォルダを追加する
+  <DD>&quot;<B>%</B>&quot; を削除して、フォルダ名に <B>+queue</B> を指定する。
+  <DT>送信済フォルダを追加する
+  <DD><B>&quot;%</B>&quot; を削除して、フォルダ名に <B>+backup</B> を指定する。
+  <DT>ごみ箱フォルダを追加する
+  <DD>&quot;<B>%</B>&quot; を削除して、フォルダ名に <B>+trash</B> を指定する。
+</DL>
+</BLOCKQUOTE>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">下書きフォルダを追加する</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff"><TT>Folder name to add(%inbox): <U>+draft<STRONG>[Enter]</STRONG></U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>自分で作成したフォルダも、このようにしてフォルダ一覧に追加できます。この一覧におけるフォルダの<B>表示名</B>を変更するは、<B>m p</B> あるいは <B>M-x wl-fldmgr-set-petname</B>をタイプしてください（フォルダ名自体が変更されるわけではありません）。</P>
+<P>なお、<B>+draft</B> フォルダに保存されている<B>書きかけのメール</B>や、<B>+backup</B> に保存されている<B>送信してしまったメール</B>を表示して、<B>E</B> （<B>[Shift]</B> を押しながら E）をタイプすれば、それらをもう一度編集することができます。</P>
+<H3><A name="quitmew">１．１０　Wanderlust を終了する</A></H3>
+<P>Wanderlust を終了するには、フォルダの一覧モードで
+<TT><B>q</B></TT> をタイプしてください。 これは emacs の中で
+Wanderlust を終了する （元のバッファに戻る）だけなので、
+必要ならこのあと <TT><B>C-x C-c</B></TT> で emacs を終了してください。 <A name="signature"></A></P>
+<P>なお、最初に Wanderlust を使ったときや、フォルダの追加を行ったときには、終了時に次のような質問が出ます。<B>y</B> か<B>スペース</B>をタイプしてください。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">フォルダの設定の保存</TH>
+    </TR>
+    <TR>
+      <TD nowrap bgcolor="#ffffff">
+      <P><TT>Folder view was modified. Save current folders?
+      (y or n)</TT></P>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3><A name="signature">１．１１　署名の付け方</A></H3>
+<P>毎回メッセージに署名を書くのが面倒な人は、
+署名を書いた <TT>.signature</TT> というファイルをホームディレクトリに置いてください。
+</P>
+<OL>
+  <LI>“コンソール”か“UNIXシェル”を開く。
+  <LI>ホームディレクトリに移動する （たぶん、普通はそこはホームディレクトリになっていると思いますが、
+  心配なときは pwd コマンドで確かめてください）。
+  <LI>emacsで <TT>.signature</TT> というテキストファイルを作成します。
+  <TABLE>
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff" valign="top"><TT>% <U>emacs .signature<B><FONT color="#00cc66">[Enter]</FONT></B></U></TT><FONT color="#ffffff"> </FONT></TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+  <LI>署名を書いてください。 ただし、<B>自分の電話番号や住所は書かない方が無難</B>です。 署名の１行も70文字（全角で30文字）以内、行数は４行以内にしてください。
+  <LI><TT><B>C-x C-s</B></TT> でファイルを保存してください。
+  <LI><TT><B>C-x C-c</B></TT> で emacs を終了してください。
+</OL>
+<P>こうすると、emacs を使ってメールを書いているときに
+<TT><B>C-c C-w</B></TT> をタイプするだけで、 その署名をメッセージの最後に追加してくれます。</P>
+<HR>
+<H2>課題</H2>
+<HR>
+<P>Wanderlust を使って tokoi@sys.wakayama-u.ac.jp
+宛にメールを書け。</P>
+<UL>
+  <LI>見出しや署名も付けてください。
+  <LI>本文には授業の感想とか、要望なんかも簡単に書いてくれるとうれしい。
+  <LI>その後 tokoi@sys.wakayama-u.ac.jp から返事を書くので、
+  それに対しても返事を書いてください。
+</UL>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH colspan="2" bgcolor="#ffeeee">キー操作</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">Wanderlust を起動する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-x wl</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールの一覧を更新する（新着メールを表示する）</TD>
+      <TD bgcolor="#ffeebb"><TT><B>s</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールを読む</TD>
+      <TD bgcolor="#ffeebb"><B>スペース</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">次のメールを読む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>n</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">前のメールを読む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>p</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">ほかのフォルダのメールを読む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>g</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールに削除マークを付ける</TD>
+      <TD bgcolor="#ffeebb"><TT><B>d</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールを他のフォルダに移動</TD>
+      <TD bgcolor="#ffeebb"><TT><B>o</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールの削除／移動マークを消す</TD>
+      <TD bgcolor="#ffeebb"><TT><B>u</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールの削除／移動を実行</TD>
+      <TD bgcolor="#ffeebb"><TT><B>x</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">メールを書く</TD>
+      <TD bgcolor="#ffeebb"><TT><B>w</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">返事を書く</TD>
+      <TD bgcolor="#ffeebb"><TT><B>a</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">届いたメールを他の人に転送する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>f</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">引用して返事を書く</TD>
+      <TD bgcolor="#ffeebb"><TT><B>A</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">引用する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-c C-y</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">書いたメールを送信する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-c C-c</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">書いたメールを破棄する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-c C-k</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">Wanderlust を終了する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>q</B></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<HR>
+<H2>２．ネットニュース</H2>
+<HR>
+<P><B>電子メール</B>が<B>１対１ないし特定のグループ</B>へのメッセージの送信を行うのに対し、 <B>ネットニュース</B>は<B>不特定多数の相手</B>に対してメッセージを送ります。 ただし、この不特定多数というのはインターネットの利用者全員と言うわけではなく、
+まあ「<B>ある特定の分野に興味を持っている人たち</B>」というところです。 ネットニュースの利用者は、
+自分が興味を持つ特定の分野に関係するメッセージを集めた
+“<B>ニュースグループ</B>” を“<B>購読</B>”します。 そのニュースグループに送られたメッセージは
+“<B>記事</B>” と呼ばれます。また、ニュースグループに記事を送ることを、
+“<B>投稿する</B>”と言います。 <A name="newsgroup"></A></P>
+<H3><A name="newsgroup">２．１　ニュースグループ</A></H3>
+<P>ニュースグループは対象とする話題や配布範囲などによって、
+階層的に分類されています。 ニュースグループの「最上位の分類」のことを
+“<B>トップカテゴリ</B>”と呼び、 和歌山大学で購読しているトップカテゴリには以下のようなものがあります。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffeeee">トップカテゴリ</TH>
+      <TH bgcolor="#ffeeee">内容</TH>
+      <TH bgcolor="#ffeeee">言語</TH>
+      <TH bgcolor="#ffeeee">配布範囲</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>comp</B></TD>
+      <TD bgcolor="#ffffaa">コンピュータ関係</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>news</B></TD>
+      <TD bgcolor="#ffffaa">ネットニュース関連</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>talk</B></TD>
+      <TD bgcolor="#ffffaa">語り合う場？</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>misc</B></TD>
+      <TD bgcolor="#ffffaa">そのほか</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>rec</B></TD>
+      <TD bgcolor="#ffffaa">趣味</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>soc</B></TD>
+      <TD bgcolor="#ffffaa">社会問題</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>sci</B></TD>
+      <TD bgcolor="#ffffaa">科学一般</TD>
+      <TD bgcolor="#ffffaa">主に英語</TD>
+      <TD bgcolor="#ffffaa">全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>fj</B></TD>
+      <TD bgcolor="#ffffaa">日本の代表的<BR>
+      ニュースグループ</TD>
+      <TD bgcolor="#ffffaa">主に日本語</TD>
+      <TD bgcolor="#ffffaa">一応全世界</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>japan</B></TD>
+      <TD bgcolor="#ffffaa">日本のもう一つの<BR>
+      ニュースグループ</TD>
+      <TD bgcolor="#ffffaa">主に日本語</TD>
+      <TD bgcolor="#ffffaa">日本？</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>kansai</B></TD>
+      <TD bgcolor="#ffffaa">関西の<BR>
+      ニュースグループ</TD>
+      <TD bgcolor="#ffffaa">主に日本語</TD>
+      <TD bgcolor="#ffffaa">関西？</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>wakayama</B></TD>
+      <TD bgcolor="#ffffaa">和歌山の<BR>
+      ニュースグループ</TD>
+      <TD bgcolor="#ffffaa">主に日本語</TD>
+      <TD bgcolor="#ffffaa">和歌山市内の一部</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>wadai</B></TD>
+      <TD bgcolor="#ffffaa">和歌山大学</TD>
+      <TD bgcolor="#ffffaa">主に日本語</TD>
+      <TD bgcolor="#ffffaa">和歌山大学ほか</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>和歌山大学のニュースグループ (wadai) のように、
+その機関内だけで運用されているものを“<B>ローカルニュースグループ</B>”と呼びます。その他のニュースグループは、複数の機関に配布されています（実は
+wadai も一部のほかの大学に送られています）。このように、<B>トップカテゴリごとに配布範囲が異なります</B>。このトップカテゴリの下に、 ニュースグループが話題別に分類されています。
+たとえば、<B>fj</B> の下にはサブカテゴリとして <B>rec</B> があり、 その下に <B>music</B> というサブカテゴリがあります。 このニュースグループは
+<B>fj.rec.music</B> と表記され、 この中に記事が置かれています。
+さらに、その下にもサブカテゴリがある場合があります。
+たとえば <B>fj.rec.music</B> は一つのニュースグループですが、 <B>fj.rec.music.progressive</B> というニュースグループもあります。 <A name="newsreader"></A></P>
+<H3><A name="newsreader">２．２　ニュースリーダ</A></H3>
+<P>ネットニュースを読むためのソフトウェアを
+<FONT color="#ff0000">ニュースリーダ</FONT>と呼びます。 このコンピュータにはニュースリーダもいくつかのものが用意されています。
+</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>tin</B></TD>
+      <TD bgcolor="#ffffaa">コマンドで使うニュースリーダ、機能豊富</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>mnews</B></TD>
+      <TD bgcolor="#ffffaa">コマンドで使うニュースリーダ、わかりやすい</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>Netscape News</B></TD>
+      <TD bgcolor="#ffffaa">Netscape Communicator に含まれるニュースリーダ、ウィンドウで使用</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffeeaa"><B>GNUS, Gnus</B></TD>
+      <TD bgcolor="#ffffaa">emacs 系エディタに組み込まれたニュースリーダ</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI>Netscape News は、 ニュースサーバ （ネットニュースの記事の配送を担当しているコンピュータ）
+  に結構大きな負荷をかけるので、この授業では使用しません。
+  <LI>GNUS は Wanderlust のように emacs の中で使用するニュースリーダです。
+</UL>
+<P>この授業では<B>mnews</B> を使用します。 <A name="mnews"></A></P>
+<H3><A name="mnews">２．３　mnews の起動</A></H3>
+<P>それでは mnews を使ってみましょう。 “コンソール”か“UNIXシェル”で
+mnews を起動してください。 </P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>mnews</U><STRONG>[Enter]</STRONG></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><A name="readarticle"></A></P>
+<H3>２．４　<A name="readarticle">記事を読む</A></H3>
+<P>mnews は端末ウィンドウ上で動くので、 mnews
+を起動したウィンドウに次のように表示されます。
+</P>
+<CENTER><IMG src="mnews.gif" width="583" height="350" border="0"></CENTER>
+<P><TT><B>C-n</B></TT> または <TT><B>j</B></TT> でカーソルが下に、 <TT><B>C-p</B></TT> または <TT><B>k</B></TT> でカーソルが上に動きます。 カーソルを目的のカテゴリのところに移動してスペースをタイプすれば、
+そのカテゴリの中を見ることができます （記事の数が多いときは、
+実際に読む記事の数～ソートする記事の数を聞いてきます）。
+<TT><B>n</B></TT> をタイプすると、 現在カーソルのあるニュースグループより後ろの、
+未読記事の残っているニュースグループに移動します。
+<TT><B>p</B></TT> をタイプすると、 前方の未読記事の残っているニュースグループに移動します。
+多分、すべてのニュースグループを読んでやろうと思う人はいないと思います。
+読まないニュースグループのところで <TT><B>u</B></TT> をタイプすると、 次回ネットニュースを読むときには一覧に現れなくなります（購読中止）。
+ニュースグループの一覧に購読していないニュースグループも表示させるには、
+<TT><B>l</B></TT> をタイプします。 購読を中止したニュースグループを再び読むようにするには、
+そのニュースグループで <TT><B>u</B></TT> をタイプしてください。 記事を読むのをやめたり、
+上位のカテゴリに戻るには <TT><B>q</B></TT> をタイプします。 トップカテゴリの一覧で
+<TT><B>q</B></TT> をタイプすると、 mnews は終了します。 それでは、wadai.test
+というニュースグループの記事を読んでみましょう。
+ここはニュースリーダの動作テストや投稿練習に使うニュースグループです。
+</P>
+<OL>
+  <LI>wadai はアルファベット順ではうしろの方にありますから、
+  <TT><B>C-n</B></TT> でカーソルを下の方に持っていってください。
+  <LI>wadai のところにカーソルを移動したら、 スペースをタイプしてください。
+  <LI>wadai.test のところにカーソルを移動し、 スペースをタイプしてください。
+  <LI>記事の一覧が表示されます。 スペースをタイプすれば、
+  カーソルのあるところの記事が表示されます。
+  <LI>スペースをタイプしていけば、 次の記事に読み進んでいくことができます。
+  <LI><TT><B>n</B></TT> をタイプすれば、 読んでいる記事の残りを飛ばして次の記事に進むことができます。
+</OL>
+<CENTER>
+<TABLE border width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">アナウンス用のニュースグループについて</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">wadai の下のニュースグループのうち、 以下のものは時々重要な情報が流れますので、
+      定期的にチェックしてください。
+      <UL>
+        <LI><TT>wadai.general</TT>
+        <LI><TT>wadai.center.announce</TT>
+        <LI><TT>wadai.sys.announce</TT>
+      </UL></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><A name="postarticle"></A></P>
+<H3>２．５　<A name="postarticle">記事を投稿する</A></H3>
+<P>それでは、 ここに記事を投稿してみましょう。
+<TT><B>a</B></TT>をタイプしてみてください。 記事の題名（見出し）を聞いてくるので、
+<TT>test</TT> とタイプしたあと <TT><B>[Enter]</B></TT> をタイプしてください。 </P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>題名(subject)を入力して下さい:<U>test<FONT color="#00cc66"><B>[Enter]</B></FONT></U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次に配布範囲を聞いてきます。 この記事を和歌山大学以外に配布したくなければ
+<TT>local</TT> をタイプしますが、 今は空欄（<TT><B>[Enter]</B></TT>のみ）にしておいてください。 </P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>配布範囲(distribution)を入力して下さい:<U><FONT color="#00cc66"><B>[Enter]</B></FONT></U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>記事を作成するために使用するテキストエディタを聞いてきます。
+既に <TT>/usr/local/bin/mule</TT> が入っていると思うので、 そのまま <TT><B>[Enter]</B></TT> をタイプします （&quot;-nw&quot; オプション等が必要なら、ここに追加してください）。
+</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>エディタ:/usr/local/bin/mule<U><FONT color="#00cc66"><B>[Enter]</B></FONT></U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>mule が起動し、<TT>.message</TT> というファイルの作成します。 <TT>--text follows this line--</TT> の下にカーソルを移動し、 そこから記事の本文を書いてください。
+この行を変更しないよう、気をつけてください。
+</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff">
+      <PRE>Newsgroups: wadai.test
+Distribution: 
+Followup-To: 
+Subject: test
+--text follows this line--
+<U>投稿の練習です。</U><STRONG>[Enter]</STRONG>
+<U>（近況報告か何か書いてください）</U><STRONG><TT>[Enter]</TT></STRONG></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>記事が書き終わったら、 <TT><B>C-x C-s</B></TT> でファイルを保存し、 <TT><B>C-x C-c</B></TT> で mule を終了してください。 作成した記事が画面に表示されるので、
+一応スペースをタイプして一通り目を通してください。
+</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>記事を投稿してよろしいですか? [y/n/e(dit)/m(ime)]:</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このまま投稿するなら、ここで <TT><B>y</B></TT> をタイプしてください。 投稿しないで記事を破棄するなら
+<TT><B>n</B></TT>、 もう一度エディタを起動して修正するなら
+<TT><B>e</B></TT> をタイプしてください。 なお、wadai.test
+に投稿すると、 ニュースサーバが自動的に返事をメールで送ってきます。
+<A name="replyarticle"></A></P>
+<H3><A name="replyarticle">２．６　記事にリプライする</A></H3>
+<P>ニュースサーバが送ってくれたメールのように、
+記事の投稿者に対して電子メールで返事を送ることを、
+記事に “<B>リプライする</B>” と言います。 それでは、自分の記事にリプライしてみましょう。
+記事を投稿した直後は、 ニュースリーダーには自分の記事は現れないので、
+一度 <TT><B>q</B></TT> をタイプしてニュースグループの選択画面に戻ったあと、
+そこで <TT><B>g</B></TT> をタイプして新着記事をチェックしてください。
+wadai.test の記事の数が１つ増えたことを確認したら、
+もう一度 wadai.test に移って自分の記事を探してみましょう。
+自分の記事が見つかったら、それを表示してみてください。
+そこで <TT><B>r</B></TT> をタイプすると、 差出人宛にメールを書くために
+mule を起動します （起動するエディタを聞いてきますので、
+ここでもそのまま <TT><B>[Enter]</B></TT> をタイプしてください）。 記事の内容を引用する場合は、
+<TT><B>r</B></TT> の代わりに <TT><B>R</B></TT> をタイプしてください （不要な引用部分はできるだけ削りましょう）。
+メールが書き終わったら、 ファイルを保存して
+mule を終了し、 記事の投稿と同じ手順でメールを送信してください。
+<A name="followup"></A></P>
+<H3><A name="followup">２．７　フォロー記事を書く</A></H3>
+<P>投稿された記事に対して、 メールではなく記事の形で返事を書くことを、
+記事に “<B>フォローアップ</B>（あるいは単に<B>フォロー</B>）する” と言います。また、そういう記事を<B>フォロー記事</B>または<B>フォローアップ記事</B>と言います。 今読んでいる記事にフォローするには、
+そこで <B>f</B> をタイプします。 記事の内容を引用するなら
+<B>F</B> をタイプします。 このあとの手順は記事の投稿と同じです。
+引用する場合は、<B>不要な部分を削ってください</B>。 引用している部分の行数がほかの部分より多いと、
+ニュースサーバは記事を受け付けてくれません。
+<A name="cancel"></A></P>
+<H3><A name="cancel">２．８　投稿した記事を取り消す</A></H3>
+<P>記事を間違って投稿してしまったり、 投稿した記事の内容があとから読んだら不適切だった場合には、
+投稿した記事を取り消す（<B>キャンセル</B>） することができます。 キャンセルしたい記事を表示させて、
+<B>C</B>（<B>[Shift]</B> を押しながら C）をタイプしてください。 なお、<B>他人の記事はキャンセルできません</B>。 また、自分の記事でも他のコンピュータから投稿した記事もキャンセルできません。
+</P>
+<P>電子メールは、メッセージを書いたテキストファイルを、
+相手のところに“コピー”するためのメカニズムだと説明しましたが、
+ネットニュースも、記事を 「世界中のニュースサーバというコンピュータにコピーする」
+ためのメカニズムです。 このために、 記事を投稿してから他の機関のニュースサーバで読めるまでの間には、
+若干（数時間から数日）の遅れが生じます。
+また、小さな記事でもあっても、 その転送には世界中の膨大な数のコンピュータが関わります。
+できるだけ無駄な記事の投稿は控え、 有意義な記事を投稿するようにしましょう。
+</P>
+<P>記事はニュースサーバの間をどんどんコピーされて伝わっていきます。
+それぞれのニュースサーバでは、一定期間その記事を保存したあと、
+その記事を消します。 “キャンセルする”というのは、
+実は他のニュースサーバにコピーされた記事を、
+直ちに消去するよう依頼する “<B>コントロールメッセージ</B>”と呼ばれる特別な記事を投稿することで実現しています。
+したがって、キャンセルしたからと言って、
+世界中に配られてたその記事がすぐに消去されるわけではなく、
+やはり若干の遅れが生じますし、確実にキャンセルできるとも限りません。
+時には、キャンセルした記事でも他人の目に触れることがあるので、
+注意してください。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">ネットニュースのマナーについて</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ネットニュースに投稿した記事は、 不特定多数の人の目に触れるわけですから、
+      その利用上のマナーについては、 電子メール以上に注意を払う必要があります。
+      <UL>
+        <LI>ネットニュースの記事も、 １行の長さは70文字（全角で35文字）以下にしましょう。
+        <LI>記事を投稿するときは、 記事の内容に合ったニュースグループを選択してください。
+        そのニュースグループが対象とする話題にそぐわない内容の記事を投稿しないよう、
+        気をつけてください。 まずはじめにそのニュースグループに投稿されている他の記事を読んで、
+        ニュースグループの雰囲気をつかんでから投稿するようにしましょう。
+        また mnews では、 記事の一覧を表示しているときに
+        <TT><B>G</B></TT> をタイプすれば、 そのニュースグループの「憲章」を表示します。
+        <LI>異なるニュースグループに同じ内容の記事を投稿してはいけません。
+        この行為は<A href="07-h2.html">“マルチポスト”</A>と呼ばれ、嫌われます。 複数のニュースグループに記事を投稿したいときは、
+        記事を書いているとき、 最初の行の <TT>Newsgroups:</TT> にニュースグループ名を &quot;,&quot;（コンマ）で区切って（スペースは入れずに）書きます。
+        これは“クロスポスト”と呼ばれます。
+        <LI>トップカテゴリの異なるニュースグループ （fj.jokes
+        と wadai.talk.jokes とか）でクロスポストしてはいけません。
+        これらは配布範囲が異なるので、 一方のニュースグループの講読者が、
+        もう一方のニュースグループを読めるとは限らないからです。
+        <LI>記事の内容に責任を持ってください。 また、責任の所在を明らかにするために、
+        記事には必ず署名を入れてください。 匿名の記事を出してはなりません。
+        mnews は Wanderlust のところで説明した <TT>.signature</TT> を自動的に記事に埋め込みます。
+        <LI>他人を誹謗したり中傷するような記事、 流言飛語、卑猥な話、社会問題や国際問題をひきおこしそうな記事など、
+        いわゆる「公序良俗」に判するような記事は投稿してはいけません。
+        また <FONT color="#ff0000">fj</FONT> のように、 ニュースグループによっては <FONT color="#ff0000">営利目的の記事を禁止</FONT>している場合もあります。 そのような記事を投稿した場合（他からそういう指摘を受けた場合）は、
+        あなたのコンピュータの利用権を停止することがあります。
+      </UL>
+      電子メールやネットニュースというのは、 普通の社会の一つの断面に過ぎません。
+      あなたの目の前にはコンピュータがあるだけのように見えますが、
+      それはコンピュータネットワークを通じて、
+      実社会につながっているのです。 あなたの目の前のコンピュータの向こう側にも、
+      「人」がいるんだと言うことを忘れないでください。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER></BODY>

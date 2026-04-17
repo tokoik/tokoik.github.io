@@ -1,0 +1,927 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<head>
+<META name="GENERATOR" content="IBM HomePage Builder 2001 V5.0.4.1 for Windows">
+<title>情報処理 I － 第３回：シェルとコマンド、ファイル操作、ファイルシステム</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<h1>情報処理 I - 第３回</h1>
+
+<HR>
+<H2>１．パスワードの変更とメールの転送設定</H2>
+<HR>
+<P>パスワードの変更やメールの転送設定についての説明を<A href="local/settings.html">ここ</A>に用意しています。</P>
+<HR>
+<H2>２．シェルとコマンド</H2>
+<HR>
+<H3><A name="shell">２．１　シェルの起動</A></H3>
+<P>それでは、今日の本題に入ります。<B>ターミナル</B>を開いてください。</P>
+
+<p align="center"><IMG src="shell.gif" width="400" height="250" border="0"></p>
+
+<P>ターミナル (rxvt) を起動すると、rxvt は<B>シェル</B>を起動して、ウィンドウ内にその出力データを表示します。シェルとは利用者の命令をコンピュータ（オペレーティングシステム）に伝達する<B>インタプリタ</B>と呼ばれる種類のソフトウェアで、利用者から<B>コマンド</B>（命令）が与えられるのを待っています。 現在使用しているシェルは
+<B>csh</B>（Ｃシェル）というものです（実際にはその拡張版の
+tcsh が動いています）。このようなソフトウェアには、他に
+sh、bash、ksh、zsh などがあります。</P>
+<P>“<B>[</B>ログイン名<B>@</B>コンピュータ名 <B>~</B><B>]$</B>”という表示は csh が<B>コマンド待ち状態</B>であることを示す <B>プロンプト</B>（入力促進符号）で、その右側にテキストカーソルが表示されています。プロンプトは変更可能です。以降ではこのプロンプトを
+&quot;<B>%</B>&quot; １個で表します。</P>
+<P>このターミナルは<B>仮想端末</B>と呼ばれるソフトウェアで、このウィンドウひとつが１台の<B>端末装置</B>のように振舞います。ターミナルを複数動かせば、それぞれのウィンドウで別々の仕事をすることができます。このような仮想端末プログラムには、rxvt
+の他に X Window System 標準の xterm、xterm
+を日本語化した kterm、GNOME 標準の gnome-terminal、背景に画像を仕込める
+Eterm など、いろいろなものがあります。</P>
+<P>シェルはオペレーティングシステムの<B>ユーザインタフェース</B>として働きます。利用者はシェルを通じてコンピュータを操作します。</P>
+<P align="center"><IMG src="pty.gif" width="356" height="288" border="0"></P>
+<H3>２．２　コマンドの実行</H3>
+<P>シェルに対して次のような操作を行ってみてください（下線部）。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドの実行</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">キーボードから date とタイプし、 改行（<TT><B>Enter</B></TT>をタイプ）する。 <FONT color="#ff0000">コマンドは改行することによって 実行を開始する。</FONT><B>date</B> は現在時刻を出力するコマンド。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <pre>% <U><B>date</B><strong>[Enter]</strong></U>  <em>↓実行結果（出力）</em>
+1998年 5月17日(日曜日) 03時38分38秒 JST
+% <em>←次のコマンド待ち状態</EM></pre></TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc">存在しないコマンドを実行するとエラーになる。abcdef
+      というコマンドは<B>存在しない</B>。</TD>
+      <TD bgcolor="#ffffff" valign="top"><pre>% <U>abcdef<strong>[Enter]</strong></U>  <em>↓これはエラーメッセージ</EM>
+abcdef: コマンドが見つかりません．
+% <em>←次のコマンド待ち状態</EM></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>コマンドに<B>オプション</B>を付けて実行することで、 その動作を変えることができる場合があります。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドのオプション</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">date の &quot;<B>-u</B>&quot; はグリニッジ標準時で出力する<B>オプション</B>。 <FONT color="#ff0000">コマンドとオプションの間は<B>空白をあける</B></FONT> （続けると <TT>&quot;data-u&quot;</TT>という<B>別のコマンド</B>だと解釈されてしまう）。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <pre>% <U>date <B>-u</B><strong>[Enter]</strong></U>　<em>↓グリニッジ標準時になる</EM>
+1998年 5月16日(土曜日) 18時38分40秒 GMT
+%</pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ココマンドの実行に必要な情報を、<B>引数</B>（ひきすう）で与える場合もあります。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドの引数</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">cal コマンドを<B>引数なし</B>で実行すると今月のカレンダーを表示する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cal</U><U><strong>[Enter]</strong></U>
+   1998 年 5 月
+日 月 火 水 木 金 土 
+                 1 2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31
+%</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">コマンドには引数を付けることができるものがある。
+      引数はコマンドの実行に必要な情報を与えるときなどに使う。
+      cal コマンドの引数に月と年を与えて実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cal <B>7</B> <B>1961</B><strong>[Enter]</strong></U>
+   1961 年  7 月
+日 月 火 水 木 金 土   
+                   1
+ 2  3  4  5  6  7  8
+ 9 10 11 12 13 14 15
+16 17 18 19 20 21 22
+23 24 25 26 27 28 29
+30 31
+%</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>ここまでで出てきたコマンド</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>date</B>
+  <DD>現在時刻を出力します。
+  <DT><B>cal</B>
+  <DD>カレンダーを出力します。
+</DL>
+</BLOCKQUOTE>
+<H3><a name="stdout">２．３　コマンド出力の保存</a></H3>
+<P>&quot;<B>&gt;</B>&quot; という文字を使えば、コマンドの出力を画面（ターミナルのウィンドウ)に表示する代わりに、<B>ファイル</B>に<B>保存</B>することができます。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>ファイル</B>
+  <DD>コンピュータの記憶装置のうち、メモリのような<B>内部記憶装置</B>は電源を切ったりすると普通は記憶しているデータも消えてしまうため、とっておきたいデータはハードディスクやフロッピーディスクなどを<B>外部記憶装置</B>に保存します。<B>ファイル</B>は保存しているデータに<B>名前</B>を付けて、そのデータを容易に見つけ出せるようにしたものです。
+</DL>
+</BLOCKQUOTE>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンド出力の保存</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">date コマンドを実行し、 出力を a というファイルに保存する。出力はファイル
+      a に入るため、画面には表示されない。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>date <B>&gt;</B> a<strong>[Enter]</strong></U>
+<em>（何も出力されない）</em></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">cal コマンドを実行し、 出力を b というファイルに保存する。これも出力がファイル
+      b に入るため、画面には表示されない。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cal &gt; b<strong>[Enter]</strong></U>
+<em>（何も出力されない）</em></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ls コマンドを実行する。 a と b という２つのファイルができている。<B>ls</B> は現在所有している<B>ファイルの名前</B>を<B>リストアップ</B>する。
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>ls<strong>[Enter]</strong></U>
+～ a ～ b ～</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">a というファイルの内容を出力。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat a<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 13時56分59秒 JST</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">b というファイルの内容を出力。cat は引数に指定したファイルの内容を出力するコマンド。
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat b<strong>[Enter]</strong></U>
+   1998 年  5 月
+日 月 火 水 木 金 土   
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル a の内容を画面に出力する代りに、
+      ファイル b に入れる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat a &gt; b<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">それまでのファイル b の内容（カレンダ）は<B>失われ</B>、 代りに a と同じ内容が入っている （ファイルのコピー）。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat a<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 13時56分59秒 JST
+% <U>cat b<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 13時56分59秒 JST</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">&quot;&gt;&quot; の代りに &quot;&gt;&gt;&quot;
+      を使う。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>date <B>&gt;&gt;</B> b<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">それまでの内容の後ろに新しい内容が追加されている。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat b<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 13時56分59秒 JST
+1998年 5月19日(火曜日) 14時24分24秒 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<dl>
+  <dt><b><A name="redirect">&quot;&gt;&quot; という記号の役割</A></b></dt>
+  <dd>&quot;&gt;&quot; という文字は、コマンドの出力を画面に表示する代りに、その右側に書かれたファイルに<B>保存</B>します。それまでそのファイルの中に入っていた内容は失われます。この操作を<B>標準出力のリダイレクト</B>といいます。</dd>
+  <dt><b>&quot;&gt;&gt;&quot;</b></dt>
+  <dd>&quot;&gt;&gt;&quot; はコマンドの出力を既にファイルの中に入っている内容の後ろに<B>追加</B>します。</dd>
+</dl>
+</BLOCKQUOTE>
+<H4>ここまでで出てきたコマンド</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>ls</B>
+  <DD>ファイル名の一覧を表示します (list)。
+  <DT><B>cat</B>
+  <DD>ファイルの中身を表示します。このコマンドは引数に複数のファイルを指定でき、それらを<B>連結</B> (con<B>cat</B>enete) して出力します。
+</DL>
+</BLOCKQUOTE>
+<H3><a name="stdin">２．４　コマンドへのデータ入力</a></H3>
+<P>コマンドの中には実行開始<B>後</B>にキーボードからのデータ入力を必要とするものがあります。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドへのデータ入力</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">bc コマンドを実行すると、プロンプトは表示されない。ｊこれは
+      bc コマンドがデータの入力を待っている状態。
+      <P>コマンドは入力されたデータを加工し、結果を出力する。
+      結果は通常画面に表示される。</P>
+      <P>コマンドへのデータ入力を終了するには、 Ctrl-D
+      をタイプ（<TT><B>Ctrl</B></TT> キーを押しながら <B>D</B> をタイプ）する。 これは<U>入力データの終り</U>を意味する。</P>
+      <P>bc コマンドは入力データとして与えられた数式を計算して、
+      結果を出力する“電卓”コマンドである。</P>
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>bc<strong>[Enter]</strong></U>
+<U>2+3<strong>[Enter]</strong></U>   <em>←データ入力（プロンプトは出ない）</em>
+5       <em>←出力</em>
+<U>Ctrl-D</U>  <em>←入力終了</em>
+% <em>←プロンプトが出てくる</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ファイルに保存されているデータをデータ入力に使うこともできます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ファイルからの入力</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">cat コマンドを引数なしで実行すると、 bc 同様キーボードからのデータ入力を待つ。
+      適当な文字をタイプすれば、 改行する度にそれがおうむ返しに画面に出力される。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat<strong>[Enter]</strong></U>
+<U>saitou<strong>[Enter]</strong></U>
+saitou
+<U>suzuki<strong>[Enter]</strong></U>
+suzuki
+<U>tanaka<strong>[Enter]</strong></U>
+tanaka
+<U>Ctrl-D</U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">同様に cat を引数なしで実行し、 その出力を
+      c というファイルに保存する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat &gt; c<strong>[Enter]</strong></U>
+<U>2+3<strong>[Enter]</strong></U>
+<U>4*5+7<strong>[Enter]</strong></U>
+<U>(3+4)*29<strong>[Enter]</strong></U>
+<U>Ctrl-D</U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル c の内容を cat コマンドの入力データに使う。
+      ファイル c の内容がそのまま表示される。 <FONT color="#ff0000">&quot;&lt;&quot; の向きに注意。</FONT></TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat &lt; c<strong>[Enter]</strong></U>
+2+3
+4*5+7
+(3+4)*29</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル c の内容を bc コマンドの入力データに使う。
+      ファイル c の内容の計算結果が出力される。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>bc &lt; c<strong>[Enter]</strong></U>
+5
+27
+203</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>引数を指定せずに cat を実行すると、標準入力に与えられたデータをそのまま標準出力に出力します（&quot;<TT>cat &lt; c</TT>&quot; と &quot;<TT>cat c</TT>&quot; の結果は同じ）。</P>
+<BLOCKQUOTE>
+<dl>
+  <dt><b>&quot;&lt;&quot; という記号の役割</b></dt>
+  <dd>コマンドへのデータ入力を、 キーボードをタイプする代りにファイルから行います。
+  この操作を<B>標準入力のリダイレクト</B>といいます。</dd>
+</dl>
+</BLOCKQUOTE>
+<P>あるコマンドの出力を別のコマンドの入力データに使うこともできます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドの出力を別のコマンドに入力</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">このようにしても同じ結果が得られる。 この場合は cat コマンドの出力をそのまま bc コマンドの入力に流し込んでいる。これを「パイプ」と言う。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat c <B>|</B> bc<strong>[Enter]</strong></U>
+5   <em>(↑２つ↑のコマンドが同時に動く)</em>
+27
+203</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DL>
+  <DT><A name="pipe"><B>&quot;|&quot; という記号の役割</B></A>
+  <DD>コマンドの出力を別のプログラムに入力します。この機能を<B>パイプ</B>といいます。
+</DL>
+</BLOCKQUOTE>
+<H4>ここまでで出てきたコマンド</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>bc</B>
+  <DD>標準入力から与えら得た式を計算し、結果を標準出力に出力します。
+</DL>
+</BLOCKQUOTE>
+<H3><A name="cpmvrm">２．５　ファイル操作</A></H3>
+<P>あるファイルと同じ内容のファイルを作成する（ファイルの複写）には、<B>cp</B> コマンドを使います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">cp ～ファイルのコピー</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル a を作る。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>date &gt; a<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">a をコピーして b という別のファイルを作る。すでに b が存在した場合、その内容は失われる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cp a b<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">a と b の中身を見てみる。内容は同じ。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat a<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 19時26分38秒 JST
+% <U>cat b<strong>[Enter]</strong></U>
+1998年 5月19日(火曜日) 19時26分38秒 JST
+<em>↑b は a と同じ内容</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ファイル名の変更には <B>mv</B> コマンドを使います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">mv ～ファイルの移動（名前の変更）</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">a、b という２つのファイルがあるとする（上で作ったのであるはず）。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>ls<strong>[Enter]</strong></U>
+～ a ～ b ～</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">a を x に移動する。a がなくなり、x ができる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>mv a x<STRONG>[Enter]</STRONG></U>
+% <U>ls<STRONG>[Enter]</STRONG></U>
+～ b ～ x ～ <EM>←a が無くなり x ができる</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">b を x に移動する。それまで x に入っていた内容（a の内容）は失われる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>mv b x<STRONG>[Enter]</STRONG></U>
+% <U>ls<STRONG>[Enter]</STRONG></U>
+～ x ～      <EM>←b が無くなる</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>不要なファイルを削除するには、<B>rm</B> コマンドを使います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">rm ～ファイルの削除</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">ファイル x を削除する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rm x<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">複数のファイルを指定しても良い。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rm a b<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>ここまでで出てきたコマンド</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>cp</B>
+  <DD>ファイルを複写します（同じ内容の別のファイルを作ります）。
+  <DT><B>mv</B>
+  <DD>ファイルの名前を変えたり、移動したりします。
+  <DT><B>rm</B>
+  <DD>ファイルを削除します。
+</DL>
+</BLOCKQUOTE>
+<H3><a name="wildcard">２．６　ワイルドカード～ファイル名の省略</a></H3>
+<p>&quot;*&quot;や&quot;?&quot; などの特殊文字を使って、複数のファイルを一括して指定することができます。このような文字は<b>ワイルドカード</b>と呼ばれます。</p>
+<H4>ワイルドカードに使われる文字</H4>
+<BLOCKQUOTE>
+<DL compact>
+  <DT><TT><B>*</B></TT>
+  <DD>任意の文字列にマッチする
+  <DT><TT><B>?</B></TT>
+  <DD>任意の１文字にマッチする
+  <DT><TT><B>[ ]</B></TT>
+  <DD><TT>[ ]</TT> 内のいずれか１文字にマッチする
+</DL>
+</BLOCKQUOTE>
+<H4>組み合わせ例</H4>
+<BLOCKQUOTE>
+<DL compact>
+  <DT><TT><B>a*</B></TT></DT>
+  <DD>a から始まるファイル名</DD>
+  <DT><TT><B>a*c</B></TT></DT>
+  <DD>先頭が a で末尾が c のファイル名</DD>
+  <DT><TT><B>???</B></TT></DT>
+  <DD>３文字のファイル名</DD>
+  <DT><TT><B>d[135]</B></TT></DT>
+  <DD>d1、d3、d5 の３つのファイル</DD>
+  <DT><TT><B>[a-z]*</B></TT></DT>
+  <DD>先頭が小文字のファイル名</DD>
+  <DT><TT><B>[^0-9]*</B></TT></DT>
+  <DD>先頭が数字ではないファイル名</DD>
+</DL>
+</BLOCKQUOTE>
+<H4>使用例</H4>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ワイルドカードの使用例</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">a で始まるファイルの詳細を表示する。 ls コマンドの
+      -l オプションは詳細表示。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>ls -l a<B>*</B><strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">末尾が &quot;.doc&quot; のファイルを連結して表示する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cat <B>*</B>.doc<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">d1.bak、d2.bak、d3.bak の３つのファイルを削除する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rm d<B>[1-3]</B>.bak<strong>[Enter]</strong></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="directory">２．７　ディレクトリ</A></H3>
+<P>コンピュータのファイルを保存するためのメカニズムのことを、
+<B>ファイルシステム</B>と呼びます。 このコンピュータのファイルシステムには、
+非常にたくさんのファイルが保存されています。
+仮に、それらが『同じ場所』にあったとすると、
+目的のファイルを見つけるのがかなり大変になります。
+他人と同じファイル名を付けないようにも気をつけなければならず、
+とっても面倒なことになります。</P>
+<P>そこで、これらのファイルを<B>用途</B>や<B>所有者</B>ごとに分類・整理して保存するために、 UNIX
+のファイルシステムは図のような<B>木構造</B>になっています。</P>
+<P align="center"><OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ WIDTH="600" HEIGHT="400" id="directory" ALIGN="">
+ <PARAM NAME=movie VALUE="directory.swf"> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#FFFFFF> <EMBED src="directory.swf" quality=high bgcolor=#FFFFFF  WIDTH="600" HEIGHT="400" NAME="directory" ALIGN=""
+ TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED>
+</OBJECT></P>
+<P>一番根本（最上位）の &quot;<B>/</B>&quot; は <B>ルートディレクトリ</B>と呼び、 ファイルシステムの<B>起点</B>になります。 その下に bin、etc、usr などの<B>サブディレクトリ</B>があり、 usr の下にもさらに bin、etc、local
+などのサブディレクトリがあります。</P>
+<P>ターミナルで pwd コマンドを実行すれば、そのターミナル内で動いているシェルの<B>カレントディレクトリ</B>（シェルが現在処理の対象としているディレクトリ、<B>作業ディレクトリ</B>）を表示します。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">pwd ～カレントディレクトリの表示</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top"><pre>% pwd<strong>[Enter]</strong>
+<TT>/home/s3/s075000</TT></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ディレクトリの階層は &quot;<B>/</B>&quot; で区切ります。ひとつのファイルやディレクトリを表すとき、それをルートディレクトリを起点にした<B>パス</B>（経路）で表す場合を、<B>絶対パス</B>、カレントディレクトリを起点にしたパスで表す場合を<B>相対パス</B>と呼びます。上図の Desktop というディレクトリは、絶対パスだと
+/home/s3/s075000/Desktop と表されますが、/home
+というディレクトリからの相対パスで表せば
+s3/s075000/Desktop となります。</P>
+<P>ターミナルを開いた直後のディレクトリは、
+そのコンピュータにログインした利用者が所有するディレクトリで、
+<B>ホームディレクトリ</B>と呼びます。利用者のファイルは原則としてこのホームディレクトリ以下に置かれます。</P>
+<P>そのほかのほとんどのディレクトリは、他人のホームディレクトリを含めて、
+利用者が勝手にファイルを作成したりすることはできないようになっています。
+例外的に /tmp などは誰でもファイルを置くことができますが、
+このディレクトリに置いたファイルは、 コンピュータの電源を切ると無くなってしまう場合があります。</P>
+<BLOCKQUOTE><font size="-1">Windows 2000 を起動したとき、ホームディレクトリは
+H: ドライブになります。</font></BLOCKQUOTE>
+<P>なお、このコンピュータの /home/s1 ～ /home/s4
+以下は、 実際には目の前にあるコンピュータ（ワークステーション）ではなく、サーバと呼ばれる別のコンピュータ上にあり、LAN
+を使って<B>共有</B>しています。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">cd ～カレントディレクトリの移動</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">カレントディレクトリを表示する。たぶんホームディレクトリ。<FONT color="#002244">&quot;s075000&quot;</FONT> はあなたのログイン名だと思ってください。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>pwd<STRONG>[Enter]</STRONG></U>
+/home/s3/s075000 <EM>←カレントディレクトリ</EM></PRE></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ひとつ上のディレクトリに移動する。&quot;..&quot;
+      はひとつ上のディレクトリ（<B>親ディレクトリ</B>）を示す。このディレクトリには自分のホームディレクトリ
+      &quot;s075000&quot; が含まれる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd ..<STRONG>[Enter]</STRONG></U> <EM>←一つ上に上がる</EM>
+% <U>pwd<STRONG>[Enter]</STRONG></U>
+/home/s3</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">カレントディレクトリにある &quot;s075000&quot;
+      というディレクトリに移動する。ホームディレクトリに戻る。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd s075000<STRONG>[Enter]</STRONG></U> <EM>←一つ下に降りる</EM>
+% <U>pwd<STRONG>[Enter]</STRONG></U>
+/home/s3/s075000</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ルートディレクトリに移動する。&quot;/&quot;
+      はルートディレクトリを示す。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd /<STRONG>[Enter]</STRONG></U> <EM>←ルートディレクトリ</EM>
+% <U>ls<STRONG>[Enter]</STRONG></U>
+bin boot etc ～ tmp usr</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">カレントディレクトリ内にあるディレクトリ
+      tmp に移動する。カレントディレクトリを起点にしたディレクトリの指定を<B>相対パス</B>と呼ぶ。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd tmp<STRONG>[Enter]</STRONG></U> <EM>←相対パス</EM>
+% <U>pwd<STRONG>[Enter]</STRONG></U>
+/tmp</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ディレクトリの指定が &quot;/&quot; で始まっていれば、これはルートディレクトリを起点にした指定になる。これを<B>絶対パス</B>と呼ぶ。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd /usr/bin<STRONG>[Enter]</STRONG></U> <EM>←絶対パス</EM>
+% <U>pwd<STRONG>[Enter]</STRONG></U>
+/usr/bin</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">cd コマンドに引数を指定しなければホームディレクトリに戻る。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>cd<STRONG>[Enter]</STRONG></U> <EM>←引数なし</EM>
+% <U>pwd<STRONG>[Enter]</STRONG></U>
+/home/s3/s075000 <EM>←ホームディレクトリ</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>&quot;<B><TT>.</TT></B>&quot; は<B>カレントディレクトリ</B>を意味します。また &quot;<TT><B>.</B>.</TT>&quot; がカレントディレクトリの<B>親ディレクトリ</B>（ひとつ上のディレクトリ）を示します。カレントディレクトリがホームディレクトリ
+(上図では /home/s3/s075000) にあるとき、<TT>..</TT> は /home/s3、<TT>../..</TT> は /home、<TT>../../s1</TT> は /home/s1 を表します。</P>
+<P align="center"><OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ WIDTH="600" HEIGHT="400" id="cd" ALIGN="">
+ <PARAM NAME=movie VALUE="cd.swf"> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#FFFFFF> <EMBED src="cd.swf" quality=high bgcolor=#FFFFFF  WIDTH="600" HEIGHT="400" NAME="cd" ALIGN=""
+ TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED>
+</OBJECT></P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">mkdir ～ディレクトリの作成</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">３つのファイル a, b, c を作る（内容は空）。touch
+      コマンドはすでにあるファイルの修正日時だけを、
+      コマンド実行時の時間に設定する。 ファイルがなければ空のファイルを作る。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>touch a b c<strong>[Enter]</strong></U>
+% <U>ls<strong>[Enter]</strong></U>
+～ a ～ b ～ c  ～</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">mkdir でカレントディレクトリに d というディレクトリを作る。その後、ファイルの一覧を見てみる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>mkdir d<STRONG>[Enter]</STRONG></U>
+% <U>ls<STRONG>[Enter]</STRONG></U>
+～ a ～ b ～ c ～ d ～ <EM>← d ができる</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ls コマンドに -F オプションを付けると、 ファイルの種類が分かる（後ろに
+      &quot;/&quot; が付いていればディレクトリ）。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>ls -F<STRONG>[Enter]</STRONG></U>
+～ a ～ b ～ c  ～ d/ ～
+   <EM>d はディレクトリ↑</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ls の引数に普通のファイルを指定すると、そのファイルが（あれば）表示される。
+      <P>ls の引数にディレクトリを指定すると、 そのディレクトリの中にあるファイルの一覧が表示される
+      （d は作ったばかりなので、中身は空）。</P>
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>ls a<strong>[Enter]</strong></U>
+a
+% <U>ls d<strong>[Enter]</strong></U>
+<em>（何も表示されない）</em></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">d に移動する（カレントディレクトリを移す）。ここでファイルの一覧を見る。d
+      は空なのでやはり何も表示されない。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cd d<strong>[Enter]</strong></U>
+% <U>ls<strong>[Enter]</strong></U>
+<em>（何も表示されない）</em>
+
+</PRE></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">&quot;.&quot; はカレントディレクトリを示す。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>ls .<STRONG>[Enter]</STRONG></U>
+<EM>（何も表示されない）</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">&quot;..&quot; は上位のディレクトリを示す
+      （但し、&quot;/&quot;（ルートディレクトリ）の
+      .. は &quot;/&quot;）。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>ls ..<STRONG>[Enter]</STRONG></U>
+～ a ～ b ～ c ～ d ～ <EM>←上のディレクトリが表示される</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ディレクトリへの cp/mv</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル a をディレクトリ d にコピーする。
+      ディレクトリ d 内に a ができる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cd<strong>[Enter]</strong></U> <em>←ホームディレクトリに戻る</em>
+% <U>cp a d<strong>[Enter]</strong></U>
+% <U>ls d<strong>[Enter]</strong></U>
+a</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ファイル b、c をディレクトリ d に移動する。
+      カレントディレクトリから b、c がなくなり、
+      ディレクトリ d 内に b、c ができる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>mv b c d<strong>[Enter]</strong></U>
+% <U>ls<strong>[Enter]</strong></U>
+～ a ～ d ～ <em>←b、c が無い</em>
+% <U>ls d<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ <EM>←b、c はこっちに移った</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">もちろん、コピー／移動先でのファイル名も指定できる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cp a d/e<strong>[Enter]</strong></U>
+% <U>ls d<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ e ～
+% <U>cat d/a<strong>[Enter]</strong></U>
+% <U>cat d/e<strong>[Enter]</strong></U>
+<em>d/a と d/e の中身は同じはず↑</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">rmdir ～ディレクトリの削除</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ディレクトリ d を削除する。 d が空ではないので、削除できない。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rmdir d<strong>[Enter]</strong></U>
+d: ディレクトリが空ではありません</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ディレクトリ d の中を空にしてから、 d を削除する。
+      <P>a、e は削除する。 b、c は一つ上のディレクトリ（&quot;..&quot;、
+      <FONT color="#ff0000">親ディレクトリ</FONT>）に移動する。</P>
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>cd d<strong>[Enter]</strong></U>
+% <U>rm a e<strong>[Enter]</strong></U>
+% <U>mv b c ..<strong>[Enter]</strong></U>
+% <U>ls<strong>[Enter]</strong></U>
+<em>（何も表示されない）</em>
+% <U>cd ..<strong>[Enter]</strong></U>
+% <U>rmdir d<strong>[Enter]</strong></U>
+<em>（何も表示されない）</em>
+% <U>ls<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ <em>←d が削除された</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ディレクトリ単位のコピー／移動</TH>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ディレクトリ d を作り、 そこにファイル a、b、c
+      をコピーする。
+      <P>ディレクトリ d 全体を e というディレクトリにコピーする。
+      この場合、cp コマンドに -r というオプションを付ける。</P>
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>mkdir d<strong>[Enter]</strong></U>
+% <U>cp a b c d<strong>[Enter]</strong></U>
+% <U>cp -r d e<strong>[Enter]</strong></U>
+% <U>ls d e<strong>[Enter]</strong></U>
+d:
+a b c
+e:
+a b c
+<em>↑d と e に同じファイルが入っている</em></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <td bgcolor="#ffffcc" width="45%">ディレクトリ e を f に移動する。 これは単にディレクトリ名が変わっただけ。
+      <P>f を d に移動する。 d というディレクトリが既にあるので、
+      f はその中に入る。</P>
+      </TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>ls -F<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ d/ ～ e/ ～
+% <U>mv e f<strong>[Enter]</strong></U>
+% <U>ls -F<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ d/ ～ f/ ～
+% <U>mv e f<strong>[Enter]</strong></U>
+% <U>ls -F<strong>[Enter]</strong></U>
+～ a ～ b ～ c ～ d/ ～ <em>←f が無い</em>
+% <U>ls -F d<strong>[Enter]</strong></U>
+a b c f/ <em>←こっちに移動した</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H4>ここまでで出てきたコマンド</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>cd</B>
+  <DD>カレントディレクトリを移動します。
+  <DT><B>mkdir</B>
+  <DD>ディレクトリを作成します。
+  <DT><B>rmdir</B>
+  <DD>ディレクトリを削除します。
+</DL>
+</BLOCKQUOTE>
+<H3><a name="man">２．８　オンラインマニュアルとページャ</a></H3>
+<P>コマンドの使い方などを調べるときには、オンラインマニュアルを使います。これには（伝統の）man
+コマンドと、info コマンドがあります。man
+コマンドは、調べたいコマンドを引数に指定します。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">man コマンドで ls コマンドの使い方を調べる</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top"><pre>% <U><B>man</B> ls<strong>[Enter]</strong></U></pre></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>オンラインマニュアルの表示には、<B>more</B>（あるいは、その拡張版である <B>less</B>）という<B>ページャ</B>（ファイル閲覧用のプログラム）が使用されます。これは、次のキーで操作できます。これらも
+man コマンドで使い方の詳細を調べることができます。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ページャのキー操作</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">１画面分次に進む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>スペース</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">１画面分前に戻る</TD>
+      <TD bgcolor="#ffeebb"><TT><B>b</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">１行進む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Enter]</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">現在位置から下方に向かって <I>word</I> という語句があるところを検索する</TD>
+      <TD bgcolor="#ffeebb"><TT><B></B></TT><TT><B>/</B></TT><I>word</I></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">前回の検索を繰り返す</TD>
+      <TD bgcolor="#ffeebb"><B>n</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">前回の検索を反対方向に向かって繰り返す</TD>
+      <TD bgcolor="#ffeebb"><B>N</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">ページャを終了する</TD>
+      <TD bgcolor="#ffeebb"><B>q</B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><P>more や less コマンドはファイルの中身を見るのに使われます。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">less コマンドで ファイル zyz の中身を見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top"><PRE>% <U><B>less</B> xyz<STRONG>[Enter]</STRONG></U></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ls -l のように、出力が多くて画面が流れていってしまうような場合は、パイプ
+(<B>|</B>)を使ってその出力を more や less に入力します。</P>
+<CENTER>
+<TABLE width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ls コマンドの出力を less を通して見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top"><PRE>% <U>ls -l | less<STRONG>[Enter]</STRONG></U></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>info コマンドは起動するとメニューが現れるので、調べたいコマンドのところにカーソルを移動して、
+<B>Enter</B> をタイプします。カーソルの移動には矢印キーが使えます。</P>
+<HR>
+<H2>課題</H2>
+<HR>
+
+<P>（１）cal コマンドを使って自分の誕生月のカレンダーを表示し、
+自分の誕生日の曜日を確かめてみてください。
+また &quot;cal 1998&quot; のように引数に月を指定しなかった場合は
+何が表示されるか確かめてみてください。</P>
+<P>（２）ls コマンドは通常アルファベット順にファイル名を出力します。これをファイルを作成した時間の順に出力するオプションを、man
+コマンドを使って調べてください。</P>
+<P>（３）ls コマンドに -a オプションをつけた場合と付けなかった場合は何が違うか、オンラインマニュアルや
+ls の出力を見て考えてください。</P>
+<P>（４）ls コマンドに -l オプションをつけたときに表示される各行の、先頭の
+10 文字の意味を答えてください。また、これを変更するコマンドが何か調べてください。</P>
+<P>（５）wc コマンドは標準入力に与えられたデータの文字数、単語数、行数を数えるコマンドです。このコマンドを
+ls コマンドと組み合わせて、/usr/bin ディレクトリ（ここにはよく使うコマンドが置かれています）にあるコマンドの数を数えてください。</P>
+</BODY>

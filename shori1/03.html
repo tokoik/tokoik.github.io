@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第３回：Blender による CG 入門</title>
+</head>
+
+<BODY>
+<H1>情報処理 I - 第３回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>３次元コンピュータグラフィックスを制作する</LI>
+</OL>
+<div class="footer"><a href="02.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．Blender によるコンピュータグラフィックス入門</H2>
+<H3>１．１　Blender について</H3>
+<P><a href="http://www.blender.org/" target="_blank">Blender</a> は<a href="10.html" target="_blank">オープンソース</a>で開発されている３次元コンピュータグラフィックス (3D CG) 制作用ソフトウェアです．これはモデリング（物の形のデータを作る）機能やレンダリング（映像を作成する）機能のほか，アニメーション（動きをつける）機能やコンポジット（映像を合成する）機能，物理シミュレーション機能，それにゲームエンジン機能なども含む，統合化されたソフトウェアです．これを使ってさまざまな映像作品やゲームが作成されています (<a href="http://www.sintel.org/" title="SINTEL" target="_blank">Sintel, the Durian Open Movie Project</a> など)．</P>
+<P>Blender は無料で配布されているソフトウェアですが，これも <a href="07.html#gimp">GIMP</a> や <a href="09.html#inkscape">Inkscape</a> 同様，商用のソフトウェアに匹敵する機能を持っています（ので，同じくらい複雑です）．もともとは商用のソフトウェアとして開発されていましたが，数奇な運命をたどった後オープンソースソフトウェア化され，多くの人によって開発が続けられています．</P>
+<P>Blender に関する日本語の情報は，<a href="http://blender.jp/" target="_blank">blender.jp</a> にあります．また，<a href="Blender Gulu" target="_blank">Blender Gulu</a> には多くの美しいチュートリアルがあります．Blender の使い方については，いくつも書籍が出版されているほか，「Blender入門」というキーワードで検索すれば，操作方法を解説しているサイトがたくさん見つかると思います．</P>
+<blockquote>ここでは「<a href="http://www.cgradproject.com/Blender_Tutorial/tutorial_blender_menu.html" target="_blank">CGrad Project - Blender Render チュートリアル</a>」を参考にさせていただきました．ありがとうございます．自分で何か作ってみたいと思う人は，こちらのページを読むことをお勧めします．またこの方が書かれた「Blender 2.5 マスターブック」もお勧めします．私は本屋で何冊か比較してこの本に決めましたが，後でこのサイトの方が書かれたことを知りました．また，「札幌ゲーム製作者コミュニティ <a href="http://www.kawaz.org/" target="_blank">Kawaz</a>」に「<a href="http://www.kawaz.org/commons/684/" target="_blank">Blender超入門！勉強会札幌　第１回マニュアル</a>」「<a href="http://www.kawaz.org/commons/889/" target="_blank">Blender攻略本２　&minus;超！入門モデリング&minus;［美味しい珈琲編］</a>」が公開されています．九州産業大学の「<a href="http://www.kyusan-u.ac.jp/J/inoue.ko/OpenSquare/index.php" target="_blank">OpenSquare | 井上貢一研究室</a>」では「<a href="http://www.kyusan-u.ac.jp/J/inoue.ko/OpenSquare/index.php?Blender%2FTutorialVideo" target="_blank">Blender/TutorialVideo</a>」に豊富なチュートリアルビデオを公開されていらっしゃいます．ありがとうございます．</blockquote>
+<P>Blender には Linux 版のほか，Windows 版や Mac OS X 版もあります．これらは <a href="http://www.blender.org/download/get-blender/" target="_blank">blender.org - Get Blender</a> から入手することができます．</P>
+<H2>２．Blender の基本操作</H2>
+<H3>２．１　Blender の起動</H3>
+<P>Blender を起動するには「アプリケーション」メニューの「グラフィックス」にある「Blender」を選択してください．</P>
+<DIV class="figure"><img src="blender00.jpg" alt="Blender の起動" width="720" height="600" border="0"></DIV>
+<p>コマンドで起動することもできます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Blender を起動する</TH>
+    </TR>
+    <TR>
+      <td class="action">
+      <PRE>% <span class="type">blender &amp;<kbd>[Enter]</kbd></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>起動したときに表示されるバージョンの表示は，マウスでクリックすれば消えます．</P>
+<DIV class="figure"><img src="blender01.jpg" alt="Blender の起動画面" width="640" height="488" border="0"></DIV>
+<P>この画面で立体の形状を作成します．図形が表示されている領域（とその左）を <em>3D View</em> と呼びます．最初の状態では，原点を中心とする<em>立方体</em>が１個だけ表示されており（真上から直交投影で見ているので，正方形に見えます），それが<em>選択</em>されている状態(周囲が紫色)になっています．この空間には，他に<em>光源</em>と<em>カメラ</em>が存在します．</P>
+<DIV class="figure"><img src="blender02.jpg" alt="操作ウィンドウの初期状態" width="640" height="488" border="0"></DIV>
+<H3>２．２　マウスによる表示の操作</H3>
+<P>視点の位置の変更などの画面表示の操作は，<em>マウス（中ボタン）</em>，<em>キーボード（テンキー）</em>，それに<em>メニュー</em>から行うことができます．メニューによる操作の多くには，キーボードによる操作（ショートカット）が割り当てられています．</P>
+<h4>視点の移動</h4>
+<p>マウスの中ボタンを押しながらマウスをドラッグすると，見る方向をぐるぐる移動できます．</p>
+<DIV class="figure"><img src="blender03.gif" alt="3D カーソルの配置" width="640" height="488" border="0"></DIV>
+<h4>ズーム</h4>
+<p>マウスの<em>中ボタン</em>（<em>ホイール</em>）を回すと，表示がズームイン・ズームアウトします．</p>
+<DIV class="figure"><img src="blender04.gif" alt="対象物の選択" width="640" height="488" border="0"></DIV>
+<h4>パン</h4>
+<p>キーボードの <kbd>[Shift]</kbd> を押しながらマウスの<em>中ボタン</em>（<em>ホイール</em>）を回すと，表示が上下に<em>パン</em>（スクロール）します．</p>
+<DIV class="figure"><img src="blender05.gif" alt="対象物の移動" width="640" height="488" border="0"></DIV>
+<p>キーボードの <kbd>[Ctrl]</kbd> を押しながらマウスの<em>中ボタン</em>（<em>ホイール</em>）を回すと，表示が左右に<em>パン</em>（スクロール）します．</p>
+<DIV class="figure"><img src="blender06.gif" width="640" height="488" border="0"></DIV>
+<h3>２．３　キーボードによる表示の操作</H3>
+<p>画面表示はキーボードを使って操作することもできます．主に<em>テンキー</em>（下図）を使います．</p>
+<h4>画面表示の回転</h4>
+<DIV class="figure"><img src="tenkey0.jpg" alt="テンキーによる画面表示の回転" width="432" height="288" border="0"></DIV>
+<p>テンキーの <kbd>2</kbd>, <kbd>4</kbd>, <kbd>6</kbd>, <kbd>8</kbd> で画面表示の方向を回転します．</p>
+<DIV class="figure"><img src="blender07.gif" alt="画面表示の回転結果" width="640" height="461" border="0"></DIV>
+<h4>画面表示の拡大縮小</h4>
+<DIV class="figure"><img src="tenkey1.jpg" alt="テンキーによる表示サイズの拡大縮小" width="432" height="288" border="0"></DIV>
+<p>テンキーの <kbd>5</kbd> をタイプすると直交投影表示と透視投影表示を切り替えます．<kbd>/</kbd> (スラッシュ)をタイプすると選択している図形のみを表示します（局所表示)．もう一度 <kbd>/</kbd> をタイプすると全体を表示します（大域表示)．<kbd>.</kbd> (ピリオド)をタイプすると選択している図形を表示領域いっぱいに収まるようにします．<kbd>[Home]</kbd> キーをタイプするとシーン全体が表示領域に収まるようにします．<kbd>[Shift]-C</kbd>（<kbd>[Shift]</kbd> を押しながら <kbd>C</kbd>）をタイプすると，3D カーソルが原点に戻ります．なお，下の図では説明のために球も表示していますが，Blender の起動直後はこの球はありません．</p>
+<DIV class="figure"><img src="blender08.gif" alt="画面表示の拡大縮小結果" width="640" height="932" border="0"></DIV>
+<h4>表示方向の切り替え</h4>
+<DIV class="figure"><img src="tenkey2.jpg" alt="テンキーによる表示方向の切り替え" width="432" height="288" border="0"></DIV>
+<p>テンキーの <kbd>0</kbd>, <kbd>1</kbd>, <kbd>3</kbd>, <kbd>7</kbd> で画面表示を行う方向を切り替えます．<kbd>0</kbd> をもう一度タイプすると，以前の画面表示に戻ります．</p>
+<DIV class="figure"><img src="blender09.gif" alt="表示方向の切り替え結果" width="640" height="463" border="0"></DIV>
+<h4>三面図表示</h4>
+<p><kbd>[Ctrl]</kbd> と <kbd>[Alt]</kbd> を押しながら <kbd>Q</kbd> をタイプすると，三面図表示になります．</p>
+<DIV class="figure"><img src="blender10.gif" alt="三面図表示" width="640" height="488" border="0"></DIV>
+<p>もう一度 <kbd>[Ctrl]</kbd> と <kbd>[Alt]</kbd> を押しながら <kbd>Q</kbd> をタイプすると，<em>現在マウスカーソルのある図だけ</em>が表示されます．</p>
+<h3>２．４　メニューによる表示の操作</h3>
+<p><em>3D View</em> (図形が表示されている領域) の左下の <em>View</em> メニューからも，画面表示を操作することができます．</p>
+<DIV class="figure"><img src="blender11.gif" alt="View メニュー" width="640" height="672" border="0"></DIV>
+<p>このうち <em>Align View</em>，<em>Navigation</em>，および <em>Cameras</em> にはサブメニューがありますが，ここでは説明は割愛します．自分で操作してみて，何が起こるか確認してください．</p>
+<h3>２．５　図形の操作</h3>
+<h4>図形の選択</h4>
+<p>図形を選択するには，<em>マウスの</em><strong>右ボタン</strong>で図形をクリックしてください．この<em>右ボタンで選択</em>というのが，Blender の操作の上で最も特徴的な者だと思います．左ボタンをクリックすると，そこに <em>3D カーソル</em>（紅白の円）が移動します．</p>
+<DIV class="figure"><img src="blender12.gif" alt="図形の選択" width="640" height="488" border="0"></DIV>
+<p>複数のものを選択する場合は <kbd>[Shift]</kbd> を押しながらマウスの<em>右ボタン</em>をクリックしてください．また，<kbd>[Ctrl]</kbd> を押しながらマウスの<em>左ボタン</em>をドラッグすれば，ドラッグした領域に含まれているものが選択されます．</p>
+<DIV class="figure"><img src="blender13.gif" alt="図形の選択" width="640" height="488" border="0"></DIV>
+<p>選択から除外したいときは，<kbd>[Shift]</kbd> と <kbd>[Ctrl]</kbd> を同時に押しながらマウスの<em>左ボタン</em>をドラッグしてください．</p>
+<h4>図形の平行移動</h4>
+<p>図形を選択した後，画面のどこかをマウスの<em>右ボタンを押しながらドラッグ</em>するか，<em>道具棚 (Tool Shelf)</em> の Object Tools の Transform の <em>Translate ボタン</em>をクリックするか，<em>キーボードの</em> <kbd>G</kbd> <em>のキーをタイプ</em>する，のいずれかの操作を行えば，マウスの移動に連れて（マウスボタンを離しても）物体が移動します．</p>
+<DIV class="figure"><img src="blender14.gif" alt="図形の平行移動" width="640" height="488" border="0"></DIV>
+<p>移動中に <kbd>X</kbd>，<kbd>Y</kbd>，あるいは <kbd>Z</kbd> のキーをタイプすれば，移動方向をその方向に制限できます．あるいは，選択した図形に表示されている<em>軸（矢印）</em>をマウスの<em>左ボタン</em>でドラッグしても，その方向だけに移動できます．</p>
+<DIV class="figure"><img src="blender15.gif" alt="図形の平行移動" width="640" height="488" border="0"></DIV>
+<p>移動を<em>確定</em>するにはキーボードの <kbd>スペースバー</kbd> か <kbd>[Enter]</kbd> をタイプするか，マウスの<em>左ボタン</em>をクリックしてください．<em>取り消す</em>にはキーボードの <kbd>[Esc]</kbd> キーをタイプするか，<em>右ボタン</em>をクリックしてください．</p>
+<h4>図形の回転</h4>
+<p>図形を選択した後，<em>道具棚</em> の Object Tools の Transform の <em>Rotate ボタン</em>をクリックするか，<em>キーボードの</em> <kbd>R</kbd> <em>のキーをタイプ</em>してください．マウスの移動に連れて（マウスボタンを離した状態で）物体が回転します．特定の軸を中心に回転するには，回転中に <kbd>X</kbd>，<kbd>Y</kbd>，あるいは <kbd>Z</kbd> のキーをタイプしてください．</p>
+<DIV class="figure"><img src="blender16.gif" alt="図形の回転" width="640" height="488" border="0"></DIV>
+<p>回転を<em>確定</em>するにはキーボードの <kbd>スペースバー</kbd> か <kbd>[Enter]</kbd> をタイプするか，マウスの<em>左ボタン</em>をクリックしてください．<em>取り消す</em>にはキーボードの <kbd>[Esc]</kbd> キーをタイプするか，<em>右ボタン</em>をクリックしてください．</p>
+<h4>図形の拡大縮小</h4>
+<p>図形を選択した後，<em>道具棚</em> の Object Tools の Transform の <em>Scale ボタン</em>をクリックするか，<em>キーボードの</em> <kbd>S</kbd> <em>のキーをタイプ</em>してください．マウスの移動に連れて（マウスボタンを離した状態で）物体が均等に拡大縮小します．特定の軸に沿って拡大縮小するには，拡大縮小中に <kbd>X</kbd>，<kbd>Y</kbd>，あるいは <kbd>Z</kbd> のキーをタイプしてください．</p>
+<DIV class="figure"><img src="blender17.gif" width="640" height="488" border="0"></DIV>
+<p>拡大縮小を<em>確定</em>するにはキーボードの <kbd>スペースバー</kbd> か <kbd>[Enter]</kbd> をタイプするか，マウスの<em>左ボタン</em>をクリックしてください．<em>取り消す</em>にはキーボードの <kbd>[Esc]</kbd> キーをタイプするか，<em>右ボタン</em>をクリックしてください．</p>
+<h4>図形の削除</h4>
+<p>選択した図形を削除するには <kbd>[Delete]</kbd> キーか <kbd>X</kbd> をタイプしてください．「OK?」の表示をクリックすれば，図形が削除されます．削除したくなければマウスを「OK?」の表示のところから移動してください．</p>
+<DIV class="figure"><img src="blender79.gif" width="640" height="488" border="0"></DIV>
+<h4>図形操作の取り消し</h4>
+<p>図形に対する操作は <kbd>[Ctrl]-Z</kbd> をタイプすれば取り消すことができます．また，取り消した操作を再度実行するには <kbd>[Shift]-[Ctrl]-Z</kbd> をタイプしてください．</p>
+<h3>２．７　Blender の終了</h3>
+<p>Blender を終了するには <kbd>[Ctrl]-Q</kbd> をタイプするか，<em>3D View</em> の左上にある <em>File</em> メニューから <em>Quit Blender</em> を選んでください．<kbd>[Ctrl]-Q</kbd> をタイプしたとき <em>Quit Blender</em> という表示があられますから，それをクリックしてください．．</p>
+<DIV class="figure"><img src="blender18.gif" width="640" height="488" border="0"></DIV>
+<p>なお，Blender のウィンドウの右上の「&times;」をクリックすると Blender はデータを保存していなくてもいきなり終了してしまいますが，Blender を起動したときに現れる画面で <em>Recover Last Session</em> を選べば，終了前の状態を回復することができます（これは quit.blend というファイルを開きます）．</p>
+<DIV class="figure"><img src="blender01.jpg" alt="Recover Last Session" width="640" height="488" border="0"></DIV>
+<H2>３．形を作る</H2>
+<H3>３．１　図形の変形</H3>
+<P>とりあえず，最初に表示される立方体から，目的の形を作ってみます．もう一度 Blender を起動してください．</P>
+<DIV class="figure"><img src="blender19.gif" alt="最初に表示される上面図" width="640" height="488" border="0"></DIV>
+<p>テンキーの <kbd>1</kbd> をタイプして <em>xz 平面</em>（正面図）に切り替え，テンキーの <kbd>5</kbd> をタイプして直交投影に変更してください．</p>
+<DIV class="figure"><img src="blender20.gif" alt="前面図" width="640" height="488" border="0"></DIV>
+<P>マウスの<em>中ボタン</em>を回して，画面表示を適当な大きさにします．</P>
+<DIV class="figure"><img src="blender21.gif" alt="移動開始" width="640" height="488" border="0"></DIV>
+<P>この立方体を <em>z 方向</em>（上方向）に移動します．図形を移動できるようにするにはマウスを直線にドラッグするか，<kbd>G</kbd> をタイプしてください．</P>
+<DIV class="figure"><img src="blender22.gif" alt="移動開始" width="640" height="488" border="0"></DIV>
+<p>その後 <kbd>Z</kbd> をタイプすれば，移動を z 方向（上下方向）に限定できます．</P>
+<DIV class="figure"><img src="blender23.gif" alt="z 方向に移動" width="640" height="488" border="0"></DIV>
+<p>マウスの<em>左ボタン</em>をクリックするか，<kbd>スペースバー</kbd>あるいは <kbd>[Enter]</kbd> をタイプすれば，移動が完了します．移動をやめたいときには<em>右ボタン</em>をクリックするか <kbd>[Esc]</kbd> をタイプしてください．また，移動完了後でも <kbd>[Ctrl]-Z</kbd> をタイプすれば，以前の状態に戻ります．なお，<em>青い矢印を左ボタンでドラッグ</em>しても，同じ移動ができます．</p>
+<DIV class="figure"><img src="blender24.gif" alt="移動完了" width="640" height="488" border="0"></DIV>
+<p>この図形を <em>x 方向</em>（横方向）に引き伸ばします．<kbd>S</kbd> をタイプしてください．その後 <kbd>X</kbd> をタイプして，引き伸ばし方向を x 方向に限定します．変形が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender25.gif" alt="図形の引き伸ばし" width="640" height="488" border="0"></DIV>
+<p>引き伸ばしを確定したら，テンキーの <kbd>7</kbd> をタイプして，上面図に切り替えます．</p>
+<DIV class="figure"><img src="blender26.gif" alt="上面図に戻す" width="640" height="488" border="0"></DIV>
+<p>これを <em>y 方向</em>に引き伸ばします．<kbd>S</kbd> をタイプした後 <kbd>Y</kbd> をタイプしてください．変形が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender27.gif" alt="上面図に戻す" width="640" height="488" border="0"></DIV>
+<p>引き伸ばしを確定したら，今度は <kbd>[Tab]</kbd> キーをタイプして編集モードに切り替えます．編集モードでは，選択した図形の頂点や稜線，面などの情報を編集することができます．</p>
+<DIV class="figure"><img src="blender28.gif" alt="編集モード" width="640" height="488" border="0"></DIV>
+<p>この状態では，頂点が全部選択されています．選択する対象を切り替えるには，画面表示の下にある次のボタンを使います．一番右の立方体のボタンを選択しておくと，手前の面に隠されて見えない部分が選択されないようになります．</p>
+<DIV class="figure"><img src="blender29.gif" alt="画面表示下のボタン" width="640" height="160" border="0"></DIV>
+<p>そこで，稜線の選択に切り替えます．また，隠れた部分が選択されないよう，右端の立方体のボタンを選択しておきます．</p>
+<DIV class="figure"><img src="blender30.gif" alt="稜線の選択モード" width="640" height="160" border="0"></DIV>
+<p>図形の下側の稜線をマウスの<em>右ボタン</em>でクリックして選択します．</p>
+<DIV class="figure"><img src="blender31.gif" alt="下側の稜線を選択する" width="640" height="488" border="0"></DIV>
+<p>次に，<kbd>[Shift]</kbd> キーを<em>押しながら</em>上側の稜線をマウスの<em>右ボタン</em>でクリックしてください．<kbd>[Shift]</kbd> キーを押しながら選択すると，それまでに選択されていたものに追加して選択されます．</p>
+<DIV class="figure"><img src="blender32.gif" alt="上側の稜線を選択する" width="640" height="488" border="0"></DIV>
+<p>これで図形の上下端の稜線が選択できました．ここで<em>道具棚</em> の Add: の <em>Subdivide</em> をクリックするか，<kbd>W</kbd> をタイプして現れたメニューから <em>Subdivide</em> を選んでください．そして <em>Number of Cuts</em> の右側の三角をクリックして，数字を <em>4</em> にしてください．</p>
+<DIV class="figure"><img src="blender33.gif" alt="wをタイプ" width="640" height="488" border="0"></DIV>
+<p>選択した稜線を結ぶように４本の稜線が追加されます．</p>
+<DIV class="figure"><img src="blender34.gif" alt="分割の結果" width="640" height="488" border="0"></DIV>
+<p>今度は，面の選択に切り替えます．</p>
+<DIV class="figure"><img src="blender35.gif" alt="面の選択モード" width="640" height="160" border="0"></DIV>
+<p>中央の面をマウスの<em>右ボタン</em>で選択します．</p>
+<DIV class="figure"><img src="blender36.gif" alt="中央の面を選択する" width="640" height="488" border="0"></DIV>
+<p>テンキーの <kbd>1</kbd> をタイプして，表示を <em>xz 平面</em>（正面図）に切り替えます．</p>
+<DIV class="figure"><img src="blender37.gif" alt="正面図に切り替える" width="640" height="488" border="0"></DIV>
+<p>そして <kbd>G</kbd> をタイプした後 <kbd>Z</kbd> をタイプするか，<em>青い矢印</em>を<em>左ボタン</em>でドラッグするなどして，選択した面を z 方向に移動します．図形の表示位置は <kbd>[Shift]</kbd> を押しながらマウスの<em>中ボタン</em>を回すか，<kbd>[Ctrl]</kbd> を押しながらテンキーの <kbd>8</kbd> をタイプして調整してください．移動が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender38.gif" alt="z方向に移動する" width="640" height="488" border="0"></DIV>
+<p>カメラから見る（テンキーの <kbd>0</kbd> をタイプする）と，こんな感じです．</p>
+<DIV class="figure"><img src="blender39.gif" alt="カメラから見てみる" width="640" height="488" border="0"></DIV>
+<p><kbd>[Tab]</kbd> キーをタイプすると，編集モードから抜け出ます．</p>
+<DIV class="figure"><img src="blender40.gif" alt="編集モードを終了する" width="640" height="488" border="0"></DIV>
+<p>このように，形のデータを作成する作業を<strong>モデリング</strong>と呼びます．</p>
+<h3>３．２　材質の設定</h3>
+<p>作成した図形の材質（色等）を設定します．<em>3D View</em> の右側の <em>Property</em> にある <em>Material</em> のボタンをクリックしください．Material のボタンが隠れていれば，Property の境界線をドラッグして引き延ばしてください．</p>
+<DIV class="figure"><img src="blender41.jpg" alt="材質の設定" width="640" height="488" border="0"></DIV>
+<p><em>Diffuse</em> の下側の白い部分をクリックします．</p>
+<DIV class="figure"><img src="blender42.jpg" alt="拡散販社色" width="640" height="488" border="0"></DIV>
+<p>色を選択します．</p>
+<DIV class="figure"><img src="blender43.jpg" alt="上面図に戻す" width="640" height="488" border="0"></DIV>
+<p>選択した色で陰影が付きます．</p>
+<DIV class="figure"><img src="blender44.jpg" alt="色を選ぶ" width="640" height="488" border="0"></DIV>
+<p>他にも設定できる材質特性は<em>山ほどある</em>のですが，ここでは割愛します．自分でいじくってみてください．</p>
+<h3>３．３　図形の追加</h3>
+<p>他の図形を追加します．<em>3D View</em> の左上にある <em>Add</em> のメニューから <em>Mesh</em> を選ぶか，<kbd>[Enter]-A</kbd> をタイプして現れたメニューから <em>Cylinder</em> を選択してください． </p>
+<DIV class="figure"><img src="blender45.jpg" alt="円柱を追加する" width="640" height="488" border="0"></DIV>
+<p><em>Cylinder</em> （円柱）のサイズなどを設定します．<em>Vertices</em> は断面の頂点数（側面の数），<em>Radius</em> は底面の半径，<em>Depth</em> は円柱の長さです．<em>Depth</em> の両側にある三角をクリックするか，値の部分をクリックしたあと <kbd>1 [Enter]</kbd> とタイプして書き換えて，ここに 1 を設定してください．</p>
+<DIV class="figure"><img src="blender46.jpg" alt="円柱の大きさを設定する" width="640" height="488" border="0"></DIV>
+<p>作成した円柱は，現在のカメラの方向からは隠れて見えないので，テンキーの <kbd>3</kbd> をタイプして，側面図に切り替えます．</p>
+<DIV class="figure"><img src="blender47.jpg" alt="円柱は原点に作成される" width="640" height="488" border="0"></DIV>
+<p>これを 90&deg;回転します．<kbd>R</kbd> をタイプしたあとマウスを動かして回転するか（<kbd>[Ctrl]</kbd> を押しながら動かすとキリのいい数値になります），テンキーで <kbd>9</kbd> <kbd>0</kbd> <kbd>[Enter]</kbd> とタイプしてください（画面には表示されません）．回転が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender48.jpg" alt="円柱を90度回転する" width="640" height="488" border="0"></DIV>
+<p>これを <kbd>G</kbd> のキーをタイプするなどして平行移動します．移動が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender49.jpg" alt="円柱を移動する" width="640" height="488" border="0"></DIV>
+<p>テンキーの <kbd>1</kbd> をタイプして正面図に切り替え，さらに移動します．移動が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender50.jpg" alt="正面図で円柱を移動する" width="640" height="488" border="0"></DIV>
+<p>新しく作成した図形には材質が設定されていませんから，右側の <em>Property</em> の <em>Material</em> のボタンをクリックし，現れた <em>New</em> のボタンをクリックしてください．</p>
+<DIV class="figure"><img src="blender51.jpg" alt="円柱に材質を設定する" width="640" height="488" border="0"></DIV>
+<p>この後，先ほどと同様に色を設定します．<em>Material.001</em> は，この材質に自動的に付けられた名前で，自分でわかりやすいものに変更することができます．</p>
+<DIV class="figure"><img src="blender52.jpg" alt="拡散反射色を設定する" width="640" height="488" border="0"></DIV>
+<p>この図形を複製します．道具棚の Duplicate Objects をクリックするか，<kbd>[Shift]-D </kbd>をタイプしてください．</p>
+<DIV class="figure"><img src="blender53.jpg" alt="円柱を複製する" width="640" height="488" border="0"></DIV>
+<p>すると複製されたものが移動できる状態になっていますので，マウスを動かして移動します．<kbd>X</kbd> をタイプすれば，x 方向に移動方向を制限できます．移動が完了したら，マウスの左ボタンをクリックするか，<kbd>スペースバー</kbd> または <kbd>[Enter]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender54.jpg" alt="複製した円柱を移動する" width="640" height="488" border="0"></DIV>
+<p>次に，複製前の図形も同時に選択します．<kbd>[Shift]</kbd> を押しながら複製前の図形をマウスの<em>右ボタン</em>でクリックしてください．</p>
+<DIV class="figure"><img src="blender55.jpg" alt="二つの円柱を選択する" width="640" height="488" border="0"></DIV>
+<p>テンキーの <kbd>3</kbd> をタイプして，yz 平面（側面図）に切り替えたのち，<kbd>[Shift]-D</kbd> をタイプして複製します．マウスを動かして複製した図形を移動してください．<kbd>Y</kbd> をタイプすれば移動方向を y 方向に制限できます．</p>
+<DIV class="figure"><img src="blender56.jpg" alt="円柱を複製して配置する" width="640" height="488" border="0"></DIV>
+<p>こういう風にして形を作っていきます．テンキーの <kbd>0</kbd> をタイプしてカメラ方向から見てみます．</p>
+<DIV class="figure"><img src="blender57.jpg" alt="カメラ側から見て確認する" width="640" height="488" border="0"></DIV>
+<blockquote>
+<DIV class="header">スムージング</DIV>
+<DIV class="body">
+  <p>
+作成する形状は多面体ですが，スムージングを行えば曲面が表現できます．まず，スムージングしたい対象を選択してください．図形の一部をスムージングしたいときは，<kbd>[Tab]</kbd> をタイプして編集モードに切り替えてください．円柱の側面だけをスムーズにしたければ，<em>面の選択</em>に切り替えてから側面の１面を選んで <kbd>[Shift]-G</kbd> をタイプし，現れたメニューから <em>Perimeter</em> を選んでください．</p>
+<DIV class="figure"><img src="blender76.jpg" alt="カメラ側から見て確認する" width="640" height="488" border="0"></DIV>
+<p>道具棚の Shading の <em>Smooth</em>（Deform の Smooth Vertex <em>ではなく</em>）をクリックしてください．スムージングを解除するには，その隣の <em>Flat</em> をクリックしてください．</p>
+<DIV class="figure"><img src="blender77.jpg" alt="カメラ側から見て確認する" width="640" height="488" border="0"></DIV>
+<p>
+作成でいる形状は多面体ですが，スムージングを行えば曲面が表現できます．スムージングしたい対象を選択し，&quot;Editing&quot; のボタン（<kbd>[F9]</kbd>）の &quot;Link and Materials&quot; のタブにある &quot;Set Smooth&quot; のボタンをクリックしてください．スムージングを解除するには，その隣の &quot;Set Solid&quot; をクリックしてください．</p>
+<DIV class="figure"><img src="blender78.jpg" alt="カメラ側から見て確認する" width="640" height="488" border="0"></DIV>
+<p>この方法は図形の見かけだけを滑らかにしますので，粗い多面体に適用すると不自然になることがあります．粗い多面体から滑らかな曲面を作成するには，&quot;Modifiers&quot; のタブにある &quot;Add Modifier&quot; のボタンをクリックして，&quot;Subsurf&quot; を選んでください．&quot;Render Levels:&quot; を大きくすると，レンダリングされる形状が滑らかになります．</p>
+</DIV></blockquote>
+<h3>３．４　レンダリング</h3>
+<p>ファンクションキーの <kbd>[F12]</kbd> をタイプするか，<em>Render</em> のメニューの <em>Render Image</em> を選択するか，あるいは <em>Property</em> の <em>Render</em> のボタンをクリックしてから <em>Image</em> のボタンをクリックしてください．カメラから見た光景の画像を作成することができます．このように，データから映像を作成する作業を<strong>レンダリング</strong>と呼びます．</p>
+<DIV class="figure"><img src="blender58.jpg" alt="レンダリング結果" width="640" height="488" border="0"></DIV>
+<p>この画像は光源の位置が右側にあるので左側が暗くなっていますが，光源も図形と同じように移動できます．もちろん，カメラも移動できます．</p>
+<DIV class="figure"><img src="blender59.png" alt="レンダリング結果" width="640" height="360" border="0"></DIV>
+<p>この画像（静止画）を保存します．ファンクションキーの <kbd>[F3]</kbd> をタイプするか，生成された画像の左下にある <em>Image</em> メニューの <em>Save As Image</em> を選択してください．</p>
+<DIV class="figure"><img src="blender60.jpg" alt="レンダリング結果の保存" width="640" height="488" border="0"></DIV>
+<p>最初に Bookmarks のところの自分のユーザ名をクリックした後，右側の <em>Save As Image</em> をクリックしてください．untitled.png の untitled の部分は，必要に応じて適当な名前に書き換えてください．</p>
+<DIV class="figure"><img src="blender61.jpg" alt="レンダリング結果の保存" width="640" height="300" border="0"></DIV>
+<p>なお，レンダリング結果の画面から <em>3D View</em> に戻すには，左下のボタンから <em>3D View</em> を選ぶか，ファンクションキーの <kbd>[F11]</kbd> をタイプしてください．</p>
+<DIV class="figure"><img src="blender62.jpg" alt="3D View への切り替え" width="640" height="488" border="0"></DIV>
+<h3>３．５　ファイルの保存</h3>
+<p>作成したデータを保存するには，<em>File</em> メニューから <em>Save</em> を選えらぶか，キーボードで <kbd>[Ctrl]-S</kbd> かファンクションキーの <kbd>[F2]</kbd> をタイプしてください．Blender （に限らず CG ソフト）は「よく」異常終了しますので，データを失わないために <kbd>[Ctrl]-S</kbd> を左手に覚えさせておくといいかもしれません．</p>
+<DIV class="figure"><img src="blender63.jpg" alt="データの保存" width="640" height="488" border="0"></DIV>
+<p>最初に Bookmarks のところの自分のユーザ名をクリックした後，右側の <em>Save Blender File</em> をクリックしてください．untitled.blend の untitled の部分は，必要に応じて適当な名前に書き換えてください．</p>
+<DIV class="figure"><img src="blender64.jpg" alt="データの保存" width="640" height="300" border="0"></DIV>
+<H2>４．アニメーションを作る</H2>
+<H3>４．１　親子関係の設定</H3>
+<P>それでは，作成した図形を動かして，アニメーションを作成してみましょう．その前に，作成した図形の間に親子関係を設定しておきます．親子関係がない状態では，図形はそれぞれ独立して動くことになります．タイヤがボディーと一緒に動くように，ボディを四つのタイヤの &quot;Parent（親）&quot; に指定します．テンキーの <kbd>1</kbd> をタイプして，正面図を表示してください．</P>
+<P>タイヤの部分をひとつマウスの<em>右ボタン</em>でクリックし，その後にボディの部分を <kbd>[Shift]</kbd> を押しながらマウスの<em>右ボタン</em>でクリックします．</P>
+<DIV class="figure"><img src="blender65.jpg" alt="タイヤとボディを選択する" width="640" height="488" border="0"></DIV>
+<P>その状態で <kbd>[Ctrl]-P</kbd> をタイプしてください．タイヤの部分をひとつマウスの<em>右ボタン</em>でクリックし，その後にボディの部分を <kbd>[Shift]</kbd> を押しながらマウスの<em>右ボタン</em>でクリックします．</P>
+<DIV class="figure"><img src="blender66.jpg" alt="親子関係を設定する" width="640" height="488" border="0"></DIV>
+<P>すると <em>Set Parent To</em> という表示が現れますから，<em>Object Ctrl P</em> をクリックしてください．キャンセルする場合は，クリックせずにマウスを動かしてください．これを四つのタイヤについて繰り返します（いずれも<em>タイヤを先に右クリック</em>してから，<kbd>[Shift]</kbd> を押しながらボディを右クリックしてください） ．裏面を表示するには，<kbd>[Ctrl]</kbd> を押しながらテンキーの <kbd>1</kbd> をタイプしてください．</P>
+<P>次に，テンキーの <kbd>7</kbd> をタイプして xy 平面（上面図）に切り替えてください．そしてテンキーの <kbd>-</kbd> をタイプするか，マウスの<em>中ボタンを回して</em>表示領域を縮小します．そして<em>ボディーの部分</em>をマウスの<em>右ボタン</em>で選択して，ボディーを左側に移動します．赤い矢印をドラッグしても同じことができます．</P>
+<DIV class="figure"><img src="blender67.jpg" alt="ボディを移動する" width="640" height="488" border="0"></DIV>
+<P>この状態でキーボードの <kbd>I</kbd> をタイプするか，道具棚の Keyframes の <kbd>Insert</kbd> をクリックすると，次のようなメニューが現れます．図形の現在位置 (Location) を記録するので，<em>Location</em> を選びます．この操作を<strong>キーを打つ</strong>と言います．</P>
+<DIV class="figure"><img src="blender68.jpg" alt="キーを打つ" width="640" height="488" border="0"></DIV>
+<P><em>3D View</em> の下にある部分は <em>Timeline</em> といい，アニメーションの制御を行います．この 60 あたりの線をクリックしてください．この番号を<strong>フレーム番号</strong>といいます．なお，この部分はマウスの中ボタンを回すと拡大縮小，<kbd>[Ctrl]</kbd> キーを押しながらマウスの中ボタンを回すと横方向に移動できます．</P>
+<DIV class="figure"><img src="blender69.jpg" alt="フレームを設定する" width="640" height="240" border="0"></DIV>
+<P>今度はボディーをもとあった位置付近まで移動し，そこで再び <kbd>I</kbd> をタイプするか道具箱の <em>Insert</em> をクリックして，<em>Location</em> を選んでください．以上の処理で第１フレームと第６０フレームにキーを打ったことになります．キーはいくつでも打つことができますので，他のフレームにもキーを打ってみてください．図形はこのキーを補間するように動きます．</P>
+<DIV class="figure"><img src="blender70.jpg" alt="もう一度キーを打つ" width="640" height="488" border="0"></DIV>
+<P><em>Timeline</em> の下にある &quot;End: 250&quot; （終了フレーム）のところをクリックして，ここを 60 に変更してください．そのあと，右側の三角のボタンをクリックすると，アニメーションのプレビューを開始します．</P>
+<DIV class="figure"><img src="blender71.jpg" alt="アニメーションのプレビュー" width="640" height="240" border="0"></DIV>
+<P>テンキーの <kbd>0</kbd> をタイプしてカメラから見た動きを確認して見てください．</P>
+<blockquote>
+<DIV class="header">カメラを被写体に追従させる</DIV>
+<DIV class="body">
+もし，車が見えている範囲から外れてしまうようなら，<kbd>[Home]</kbd> キーをタイプして全体が見えるようにしてからカメラをマウスの<em>右ボタン</em>で選択し，その後 <kbd>[Shift]</kbd> を押しながらボディを<em>右ボタン</em>で選択してから <kbd>[Ctrl]-T</kbd> をタイプをタイプして現れるメニューから <em>Track To Constraint</em> を選んでください．カメラが常にボディのほうを向くようになります．</DIV></blockquote>
+<P>このようにして，<em>Timeline</em> 上にいくつかキーを打ったら，<em>Property</em> の <em>Render</em> のボタンをクリックしてください．この Resolution のところで，作成するアニメーション映像の大きさを設定します．初期値はフル HD サイズ (1920&times;1080) の 50% (960&times;540) ですが，これだと大きい（作成に時間がかかる）ので，X を 640，Y を 480 に設定します．拡大率を 50% のままにしておけば，これで 320&times;240 の動画が作成されます．また，&quot;End Frame&quot; が先ほど設定した 60 になっていることを確認してください．そのあと，Output の右側のボタンをクリックしてください．</P>
+<DIV class="figure"><img src="blender72.jpg" alt="ムービーファイルの形式" width="640" height="792" border="0"></DIV>
+<P>作成する動画ファイルを保存する場所を指定します．静止画を保存した時と同様に，最初に Bookmarks のところの自分のユーザ名をクリックした後，今度は右側の <em>Accept</em> をクリックしてください．</P>
+<DIV class="figure"><img src="blender73.jpg" alt="ムービーファイルの形式" width="640" height="300" border="0"></DIV>
+<P>そして，作成する動画ファイルの形式を選びます．ここでは後の講義の都合上，<em>Ogg Theora</em> を選んでください．</P>
+<DIV class="figure"><img src="blender74.jpg" alt="ムービーファイルの形式" width="640" height="320" border="0"></DIV>
+<P><kbd>[Ctrl]</kbd> を押しながらファンクションキーの <kbd>[F12]</kbd> をタイプするか，<em>Render</em> のメニューの <em>Render Animation</em> を選択するか，あるいは <em>Property</em> の<em> Animation</em> のボタンをクリックしてください．カメラから見た光景のアニメーション映像を作成することができます．完成までに結構時間がかかります．</P>
+<DIV class="figure"><img src="blender75.jpg" alt="レンダリング開始" width="640" height="488" border="0"></DIV>
+<P>レンダリング（アニメーション映像の作成）が終了すると，<em>0001-0060.ogg</em> という<em>ムービーファイル</em>ができていると思います．</P>
+<H2><A name="kadai" class="label">宿題</A></H2>
+<p>次の (1) の作業を行ってください．それが完了したら，作成した<span class="assign"><em>ムービーファイル</em></span>をメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-03">tokoi@sys.wakayama-u.ac.jp</A> に送るとともに，メールの本文に (2) の内容を書いてください．メールの件名 (Subject) は shori1-03 にしてください．期限は次週の水曜日中までです．</p>
+<div class="assign">(1) Blender を使って何か（上記の例とは異なる）CG の静止画の画像ファイルあるいはアニメーションのムービーファイルを作成してください（できればアニメーションでお願いします）．</div>
+<blockquote>
+<DIV class="header">Blender のメニューの日本語化</DIV>
+<DIV class="body"> 
+  <p>Blender のメニュー表示などを日本語にするには，「File」メニューから「User Preferences...」を選んでください (あるいは <kbd>[Ctrl]</kbd> と <kbd>[Alt]</kbd> を同時に押しながら <kbd>U</kbd> をタイプしてください）．現れたウィンドウの右上の「System」を選択した後，右下の「International Fonts」にチェックを入れると，「Language」と「Translate」という項目が現れます．この「Japanese（日本語）」を選び，「Translate」の「Interface」と「Tooltips」の両方にチェックを入れてください．最後に左下の「Save as Default」とクリックして，このウィンドウを閉じてください．</p>
+</DIV></blockquote>
+<div class="assign">(2) 今回の講義に対する意見や改善点．</div> 
+<div class="footer"><a href="02.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</html>

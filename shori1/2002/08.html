@@ -1,0 +1,1144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第８回：VRML</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeef" vlink="#000080"><h1>情報処理 I - 第８回</h1>
+<HR>
+<H2>１．VRMLによるコンピュータグラフィックス入門</H2>
+<HR>
+<H3>１．１　形状データとコンピュータグラフィックス</H3>
+<P>これまでテキストデータ（文字だけからなるデータ）を用いて、通常の<A href="05.html">文書データ</A>（テキストファイル）や<A href="06.html">電子メールのデータ</A>（メッセージ）、それにシェルの入力データ、すなわち<A href="07.html">シェルスクリプト</A>なんかを作ってきました。特に、シェルスクリプトが表しているものは作業の手順であり、<B>手続き</B> (procedure) などと呼ばれたりします。このようにコンピュータは、対象を<B>データ</B>で表現し、それを入力し、加工し、出力することによって目的の仕事を達成する<B>道具</B>です。</P>
+<P>コンピュータで画像や図形を扱う場合も、それらをコンピュータのデータとして表現する必要があります｡したがってコンピュータグラフィックスを学ぶ場合には、<B>画像データ</B>とか<B>図形データ</B>などと呼ばれるものがどういった構造をもっており、何を表そうとしているのかについて理解する必要があります｡そこで今回は、<B>ものの形</B>をデータとして表すことについて考えてみます。</P>
+<P>とは言っても、いわゆる <B>CG 作成ソフトウェア</B>が扱うデータは、そのソフトウェア自身で作成するか、形状作成専用のソフトウェアで作成するのが普通です。しかし、それでは<U>形状がコンピュータのデータとしてどのように表現されているのか</U>が隠されてしまいます。そこで、ここではテキストエディタを使って直接形状を記述する方法を採用します。そのための素材として、<B>VRML</B> (Virtual Reality Modelng Language) という言語を使用します。</P>
+<H3>１．２　VRML とは</H3>
+<P>VRML はインターネット上に３次元の仮想空間を構築するための言語で、仮想空間中に配置する物体の形状や振る舞い、そしてそこをさまよい歩くあなた自身を記述します。Web
+ページ上で３次元形状を表示することを目的に生まれた言語ですが、現在まであまり普及しているとは言えません。しかし、ここから始まった
+<A href="http://www.web3d.org/">Web3D</A> 技術は、これからのインターネットの応用方法として、高い可能性を持つもののひとつだと考えます（またはずす可能性もあるけど）。</P>
+<HR>
+<H2>２．VRMLファイル</H2>
+<HR>
+<H3>２．１　VRML ファイルの作成</H3>
+<P>簡単な VRML ファイルを作成してみましょう｡</P><CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">テキストエディタで VRML ファイルを作成する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs data.wrl &amp;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>VRML ファイルの<B>拡張子</B>は .vrml とすることもありますが、ここでは
+<B>.wrl</B> としてください｡wrl は world の意味だそうです｡仮想<B>世界</B>のデータと言うわけですね｡テキストエディタが起動したら、以下の内容をタイプしてください｡</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>#VRML V2.0 utf8<STRONG>[Enter]</STRONG></U>
+<U>Shape {}<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存してください。このとき、emacs
+は動かしたままにしておいてください｡それでは、このファイルによって記述された世界を見てみましょう｡ターミナルのウィンドウで
+<B>lookat</B> あるいは <B>gtklookat</B> コマンドを実行してください｡</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">VRML ファイルを見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>lookat data.wrl<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>でも多分、開いたウィンドウは<B>真っ黒</B>で、何も見えないと思います｡<FONT color="#ff0000">lookat コマンドを終了させるには、そのウィンドウを選択して
+<B>q</B> をタイプしてください｡</FONT></P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">VRMLファイルのヘッダ</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>#VRML V2.0 utf8</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このファイルの１行目（<TT>#VRML V2.0 utf8</TT>）は<B>ヘッダ</B>と呼ばれ、このファイルが VRML ファイルであることを宣言します｡VRML
+ファイルの先頭には、必ずこの１行を書きます｡<B>V2.0</B> は VRML の文法の<B>バージョン</B>を示し、<B>utf8</B> は使用している<B>文字コード</B>を示します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">VRMLファイルの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>#VRML V2.0 utf8
+ノード
+ノード
+…</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>２行目以降にデータを記述します｡<B>Shape {}</B> のようなものは<B>ノード</B>と呼ばれ、これが VRM<U>L</U> という<B>言語</B>の「単語」に相当します。VRML ファイルには、少なくとも１個の
+Shape ノードが含まれている必要があります｡<B>Shape ノード</B>は「<B>何か形がある</B>」ことを示すノードです｡</P>
+<H4>VRMLファイルの書式</H4>
+<UL>
+  <LI>先頭に<B><TT>#VRML V2.0 utf8</TT></B> という１行を置く｡
+  <LI>２行目以降から<B>ノード</B>を列挙する｡
+  <LI>１行目以外にある <B># より右側の部分</B>は無視される。
+</UL>
+<H3>２．２　ノードとフィールド</H3>
+<P>ノードは VRML ファイルを構成する基本単位です｡VRML
+ファイルはいくつかの<B>ノードの集まり</B>になっています｡</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>ノード名 {
+    フィールド名 フィールド値
+    フィールド名 フィールド値
+    …
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ノード名に続く { ... } 内には、そのノードを具体化する情報を記述します。この部分は<B>フィールド</B>と呼ばれます｡以下は一つの Shape ノードだけからなる
+VRML ファイルですが、この Shape ノードには具体的な情報は何も記述されていません｡</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">空の Shape ノードだけからなる VRML ファイル</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>#VRML V2.0 utf8
+Shape {}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>したがってこの VRML ファイルは、<B>何か形がある</B>ことは示されていますが、それが<B>どんな形</B>をしているのか、<B>どんな色</B>をしているのかは決まっていません｡この VRML
+ファイルを見ても何も見えないのは、このためです。では、Shape
+ノードの { ... } 内に <B>geometry フィールド</B>を置き、そこにこの Shape ノードの「形」として
+<B>Sphere ノード</B>（球）を指定してください（# より右側に書かれたものは無視されます）｡</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {<U><STRONG>[Enter]</STRONG>
+  geometry Sphere {}    # 球<STRONG>[Enter]</STRONG></U>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存し、もう一度 <B>lookat</B> あるいは <B>gtklookat</B> コマンドを実行してください｡何か見えましたか？</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">VRML ファイルを見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>lookat data.wrl<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>この Sphere ノードも、大きさなどの具体的な情報が省略されています｡Sphere
+ノードでは <B>radius フィールド</B>によってその<B>球の半径</B>を指定します｡なお、VRML ファイルの改行は空白とほぼ同じに扱われるので、{
+... } 内で改行しても改行しなくても結果は変わりません｡</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { <U>radius 2</U> }    # 球
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存し、<B>lookat</B> あるいは <B>gtklookat</B> コマンドで見てください｡何か変化はあったでしょうか？多分球のサイズはさっきの２倍になったと思います｡つまり、Sphere
+ノードにおいて radius フィールドを省略した場合は、半径１の球になります。このように値の指定を省略したときに採用される値を、<B>デフォルト値</B>と呼びます｡</P>
+<H4>ノードの書式</H4>
+<UL>
+  <LI>ノードはノード名と、それに続く { ... } からなる。
+  <LI>{ ... } 内にはいくつかのフィールドを置く。
+  <LI>ノード名は<B>大文字で始まる</B>（例：<U>S</U>hape, <U>S</U>phere）。
+  <LI>VRML ファイルには少なくとも１つの Shape ノードが必要。
+</UL>
+<H4>フィールドの書式</H4>
+<UL>
+  <LI>フィールド名は<B>小文字で始まる</B>（例：<U>g</U>eometry）。
+  <LI>各フィールドにはフィールド値（数値・文字列またはノード）を設定する。
+  <LI>フィールドを省略するとデフォルト値が採用される。
+</UL>
+<P>この球には<B>陰影</B>が付いていないため、球と言っても<B>お月さま</B>みたいに平たく見えてしまいます｡物体が立体らしく見えるのは、物体の表面に光が当たって陰影が付くからです。陰影を表現するためには、物体表面における<B>光の反射係数</B>を指定する必要があります｡Shape ノードには形を決める
+geometry フィールドのほかに、見かけを決める
+<B>appearance フィールド</B>を置くことができます｡ここに <B>Appearance ノード</B>を置き、その <B>material</B> フィールドに指定する <B>Material ノード</B>によって光の反射係数を指定します｡</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+<U>  appearance Appearance {<STRONG>[Enter]</STRONG>
+    material Material {}<STRONG>[Enter]</STRONG>
+  }<STRONG>[Enter]</STRONG>
+</U>}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存し、<B>lookat</B> あるいは <B>gtklookat</B> コマンドで見てください｡ちゃんと球らしく見えるでしょうか？なお、この
+Material ノードもフィールドが省略されているので、<B>デフォルトの反射係数</B>が採用されます｡</P>
+<H4><A name="shape">Shape ノード</A></H4>
+<P>物体のノードです。 geometry フィールドに形状を指定します。
+appearance フィールドには色などの属性情報を指定します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Shape ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Shape {
+  geometry <I>形状</I>
+  appearance <I>見かけ</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<OL>
+  <LI>appearance フィールドには物体の色などの見かけの情報を指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#appearance">Appearance</A> ノードを使用する。
+  <LI>geometry フィールドに物体の形状を指定する。ここには以下のノードが指定できる。
+</OL>
+<BLOCKQUOTE>
+<P><A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#box">Box</A>（箱）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#cone">Cone</A>（円錐）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#cylinder">Cylinder</A>（円柱）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#sphere">Sphere</A>（球）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#text">Text</A>（文字）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#extrusion">Extrusion</A>（押し出し）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#elevationgrid">ElevationGrid</A>（地形等）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#indexedfaceset">IndexedFaceSet</A>（ポリゴン集合）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#indexedlineset">IndexedLineSet</A>（線分集合）, <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#pointset">PointSet</A>（点集合）</P>
+</BLOCKQUOTE>
+<H4><A name="sphere">Sphere ノード</A></H4>
+<P>Shape ノードの geometry フィールドに指定する、球の形状のノードです。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Sphere ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Sphere {
+  radius 半径
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><OL>
+  <LI>radius フィールドに半径を指定する。
+  <LI>radius フィールドを省略したとき、半径は 1（デフォルト）になる。
+  <LI>原点は球の中心にある。
+</OL><HR>
+<H2>３．シェーディングとテクスチャマッピング</H2>
+<HR>
+<H3>３．１　シェーディングモデル</H3>
+<P>コンピュータグラフィックスでは、物体の見え方も計算で求めなければなりません｡物体の表面に光を当てたとき、そこがどんな色に見えるかを計算する処理を、<B>シェーディング</B> (shading、<B>陰影付け</B>) と言います｡</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="box0.gif" width="257" height="256" border="0"></TD>
+      <TD><IMG src="box1.gif" width="257" height="256" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">面を単に色で塗り分けた場合</TH>
+      <TH bgcolor="#ffffff">シェーディングを行った場合</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>また、光の方向や視点の位置、物体表面の反射特性などの条件と陰影との関係を表したものを<B>シェーディングモデル</B> (shading model, 陰影付けモデル）と呼びます｡この代表的なものに
+<B>Phong のシェーディングモデル</B>があります。VRML の Material ノードで指定する反射係数は、Phong
+のシェーディングモデルに準じたものになっています｡</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="shading.gif" width="288" height="240" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">拡散反射と鏡面反射</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>Phong のシェーディングモデルでは反射光を、入射光が物体表面で鏡のように反射した<B>鏡面反射光</B> (specular) と、一旦物体内に進入（屈折光）したあと物体内で散乱して再び外部に放出された<B>拡散反射光</B> (diffuse) の２つの成分に分けて取り扱います｡このような反射は<B>金属以外</B>の物質で起こります｡鏡面反射光は一般には<B>ハイライト</B>と呼ばれ、通常は入射光の色がそのまま現れます｡これに対して拡散反射光には<B>物体の色</B>が反映されます｡つまり、拡散反射光が物体の見かけの色になります｡このほか、物体表面には光源から直接届く光のほかに、壁などによる照り返しなどの間接光も届きます。間接光を正確に求めればかなりリアルな画像が得られますが、その分時間も（とても）かかります。そこで
+Phong のシェーディングモデルでは、間接光など光源から直接届く光以外のものをまとめて定数で表現しています。これを<B>環境光</B> (ambient) と呼びます。</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="diffuse.jpg" width="200" height="200" border="0"></TD>
+      <TD rowspan="2" valign="middle">＋</TD>
+      <TD><IMG src="specular.jpg" width="200" height="200" border="0"></TD>
+      <TD rowspan="2" valign="middle">＋</TD>
+      <TD><IMG src="ambient.jpg" width="200" height="200" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">拡散反射光による陰影</TH>
+      <TH bgcolor="#ffffff">鏡面反射光による陰影</TH>
+      <TH bgcolor="#ffffff">環境光による陰影</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P align="center">||</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="sphere.jpg" width="200" height="200" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">Phong のモデルによる陰影</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>余談ですが、間接光（相互反射光）を計算して陰影を求めるには、<B>ラジオシティ</B>　(radiosity) <B>法</B>という手段がよく用いられます。下の右側の図（ちょっと失敗しているけど）では、相互反射によって球の色が壁に映り込む<B>カラーブリーディング</B>という現象が発生しています。</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="phong.jpg" width="240" height="240" border="0"></TD>
+      <TD><IMG src="radio.jpg" width="240" height="240" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">環境光が定数</TH>
+      <TH bgcolor="#ffffff">間接光を考慮</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>３．２　物体色の指定</H3>
+<P>それでは、先ほど作成した球の色を変えてみましょう。色はどの色の光をどれだけ反射するかで決まります。例えば、赤い光だけ反射する物体は赤色に見えます。太陽光のような白色光はすべての色を含んでいるので反射率は色（＝波長）に対する分布関数になってしまいますが、人間の目は赤、緑、青の光の３原色しか知覚できないので、この３色に対する反射係数を指定すれば任意の色を表現できます。</P>
+<H4>拡散反射係数</H4>
+<P>物体の色は拡散反射係数によって設定できます。拡散反射係数は、Material
+ノードの <B>diffuseColor フィールド</B>に<B>赤</B>、<B>緑</B>、<B>青</B>の順で指定します。これらは 0～1 の値をとります。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {<U><STRONG>[Enter]</STRONG>
+      diffuseColor 1 0 0<STRONG>[Enter]</STRONG></U>
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存し、<B>lookat</B> あるいは <B>gtklookat</B> コマンドで見てください｡上の例では赤成分の反射係数だけ１
+(100%) になっているので、球は赤色に変わったと思います。赤、緑、青以外の色は、これらを混合して得られます。例えばオレンジ色は赤色と暗い緑色を合成すれば得られますから、diffuseColor
+フィールドに次のように変更します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 1 <B><U>0.5</U></B> 0
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4>鏡面反射係数</H4>
+<P>それでは、次にハイライトを付けてみましょう。鏡面反射係数は、Material
+ノードの <B>specularColor フィールド</B>に<B>赤</B>、<B>緑</B>、<B>青</B>の順で指定します。これらも 0～1 の値をとります。ただし「拡散反射光＋鏡面反射光＋環境光≦入射光」という制限があるので、鏡面反射光の反射係数の分だけ拡散反射係数を下げなければ、不自然な陰影になってしまいます。また、非金属の材質ではハイライトに光源色がそのまま現れますから、鏡面反射係数の各成分を等しくしておきます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor <B><U>0.4 0.2 0</U></B>
+<U>      specularColor 0.6 0.6 0.6<STRONG>[Enter]</STRONG></U>
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これに対して、金属のハイライトは材質の色に近い色になります（カラーシフトと言う現象が起きるので完全には一致しません）。従って、鏡面反射光の反射係数の「赤：緑：青」の比率は、拡散反射光の反射係数の比率と（だいたい）一致させます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.4 0.2 0
+      specularColor 0.6 <B><U>0.3 0</U></B>
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4>ハイライトの広がり</H4>
+<P>粗い表面ではハイライトが出ないか、淡く大きく広がります。逆に滑らかな表面では、ハイライトは鋭くはっきりと現れます。したがって、ハイライトの広がり方を制御することによって、物体表面の質感を制御することが可能になります。ハイライトの広がり具合は
+Material ノードの <B>shininess フィールド</B>に 0～1 の値で指定します。値が大きいほど輝きが鋭くなります。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.4 0.2 0
+      specularColor 0.6 0.3 0
+<U>      shininess 1<STRONG>[Enter]</STRONG></U>
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BLOCKQUOTE><FONT size="-1">shininess の値の最大値は 0～1 のはずなんだけど、lookat
+だと 10 とかに設定しないとハイライトらしくなりません。</FONT></BLOCKQUOTE>
+<H4><A name="appearance">Appearance ノード</A></H4>
+<P>Shape ノードの appearance フィールドに指定する、物体の色などの属性情報を指定するノードです。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Appearance ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Appearance {
+  material <I>材質の指定</I>
+  texture <I>貼り付けるテクスチャの指定</I>
+  textureTransform <I>テクスチャの張り付け位置</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<OL>
+  <LI>material フィールドには物体の表面の材質パラメータを指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#material">Material</A> ノードを使用する。
+  <LI>texture フィールドには物体表面に貼り付ける別の画像を指定する。貼り付ける画像の指定には
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#imagetexture">ImageTexture</A> ノード、<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#movietexture">MovieTexture</A> ノード、あるいは <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#pixeltexture">PixelTexutre</A> ノードを使用する。デフォルトでは何も貼り付けない。
+  <LI>texture フィールドで指定した画像の位置やスケールを調整する座標変換を、
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#texturetransform">TextureTransform</A> ノードで指定する。デフォルトは無変換。
+</OL>
+<H4><A name="material">Material ノード</A></H4>
+<P>物体表面の材質パラメータを指定します。 <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#appearance">Appearance</A> ノードの material フィールドで使用します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Material ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Material {
+  ambientIntensity <I>環境光の反射率</I>
+  diffuseColor <I>r g b</I>
+  specularColor <I>r g b</I>
+  shininess <I>輝き</I>
+  emissiveColor <I>r g b</I>
+  transparency <I>透明度</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><OL>
+  <LI>ambientIntensity フィールドは環境光（光源からの光の当たっていない部分の明るさ）に対する反射率を指定する。これが
+  0 だと陰の部分が真っ暗になる。
+  <LI>diffuseColor フィールドは拡散反射率を光の３原色（赤:r,
+  緑:g, 青:b、いずれも 0～1）で指定する。これが物体の色になる。
+  <LI>specularColor フィールドには鏡面反射率を３原色（赤:r,
+  緑:g, 青:b、いずれも 0～1）で指定する。これは光源の光が物体表面でそのまま反射して見える部分（ハイライト）の色になる。
+  <LI>shininess フィールドは輝き具合、すなわちハイライトの「強さ」を、
+  0～１ の間で指定する。この値が大きくなるにつれてハイライトが鋭くなり、輝き感が増す。
+  <LI>emissiveColor の３つの値（赤:r, 緑:g, 青:b、いずれも
+  0～1）を 0 0 0 より大きくすると、この物体自体がその色で発光する。
+  <LI>transparency フィールドは透明度を指定する。
+  0 で不透明になり、1 で透明になる。デフォルトは
+  0。
+</OL>
+<H3>３．３　テクスチャマッピング</H3>
+<P>物体には一様な色ではなく、別の画像を貼り付けることもできます。物体の表面に画像を貼り付けて表面に模様を付けたりする処理を、<B>テクスチャマッピング</B>と言います。</P>
+<CENTER>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><IMG src="box1.gif" width="257" height="256" border="0"></TD>
+      <TD><IMG src="texture.gif" width="257" height="256" border="0"></TD>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffffff">テクスチャマッピングなし</TH>
+      <TH bgcolor="#ffffff">テクスチャマッピングあり</TH>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>先ほどの球に、下の画像を貼り付けて見ましょう。</P>
+<P align="center"><IMG src="http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg" border="0" width="512" height="256"></P>
+<P>貼り付ける画像は <A href="02.html#url"><B>URL</B></A> で指定します。したがって VRML では、インターネット上にある画像を貼り付けることができます。上の画像は
+<A href="http://www.wakayama-uac.jp/~tokoi/vrml/face.jpg">http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg</A> という URL でアクセスできます。これを Appearance
+ノードの <B>texture フィールド</B>に <B>ImageTexture ノード</B>を指定し、その <B>url フィールド</B>に画像データの在り処を指定します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.4 0.2 0
+      specularColor 0.6 0.3 0
+      shininess 1
+    }
+<U>    texture ImageTexture {<STRONG>[Enter]</STRONG>
+      url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;<STRONG>[Enter]</STRONG>
+    }<STRONG>[Enter]</STRONG></U>
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>なお、画像を貼り付けた物体の色は画像と Material
+ノードで指定した色との合成になりますから、画像の色をそのまま使いたいときは
+Material ノードで<B>グレー</B>（灰色～白色）の反射係数（赤：緑：青の比が等しい）を設定してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor <B><U>0.6 0.6 0.6</U></B>
+      specularColor <B><U>0.4 0.4 0.4</U></B>
+      shininess 1
+    }
+    texture ImageTexture {
+      url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;
+    }
+  }
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4><A name="imagetexture">ImageTexture ノード</A></H4>
+<P>テクスチャマッピングに使う画像を指定します。<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#appearance">Appearance</A> ノードの texture フィールドで使用します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ImageTexture ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>ImageTexture {
+  url <I>画像ファイルの URL</I>
+  repeatS <I>画像空間のS軸（横）方向の繰り返し</I>
+  repeatT <I>画像空間のT軸（縦）方向の繰り返し</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER><OL>
+  <LI>Appearance ノードで用いるテクスチャファイルを指定する。画像ファイルの
+  url は、このノードを含む VRML ファイルがある場所からの相対
+  URL あるいは http://... からはじまる絶対
+  URL。画像ファイルには GIF, JPEG などが指定できる。
+  <LI>repeatS および repeatT フィールドが TRUE
+  なら、貼り付けるテクスチャのサイズが貼り付ける場所より小さかったときに、テクスチャを繰り返し表示する。FALSE
+  なら繰り返さない。デフォルトは TRUE。
+</OL>
+<HR>
+<H2>４．単純な形状の組み合わせによる形の表現</H2>
+<HR>
+<H3>４．１　複数の物体</H3>
+<P>それでは次に、この世界に他の部品を追加してみましょう。円柱を追加することにします。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.6 0.6 0.6
+      specularColor 0.4 0.4 0.4
+      shininess 1
+    }
+    texture ImageTexture {
+      url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;
+    }
+  }
+}
+<U><STRONG>[Enter]</STRONG>
+Shape {<STRONG>[Enter]</STRONG>
+  geometry Cylinder {<STRONG>[Enter]</STRONG>
+    radius 1.5<STRONG>[Enter]</STRONG>
+    height 5<STRONG>[Enter]</STRONG>
+  }<STRONG>[Enter]</STRONG>
+  appearance Appearance {<STRONG>[Enter]</STRONG>
+    material Material {<STRONG>[Enter]</STRONG>
+      diffuseColor 1 1 0<STRONG>[Enter]</STRONG>
+    }<STRONG>[Enter]</STRONG>
+  }<STRONG>[Enter]</STRONG>
+}<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4><A name="cylinder">Cylinder ノード</A></H4>
+<P>Shape ノードの geometry フィールドに指定する、円筒の形状のノードです。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Cylinder ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Cylinder {
+  radius <I>半径</I>
+  height <I>高さ</I>
+  bottom <I>底面の有無</I>
+  top <I>上面の有無</I>
+  side <I>側面の有無</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<OL>
+  <LI>radius フィールドに半径を指定する。
+  <LI>height フィールドに高さを指定する。
+  <LI>bottom フィールドが TRUE なら底面を付ける。FALSE
+  なら付けない。デフォルトは TRUE。
+  <LI>top フィールドが TRUE なら上面を付ける。FALSE
+  なら付けない。デフォルトは TRUE。
+  <LI>side フィールドが TRUE なら側面を付ける。FALSE
+  なら付けない。デフォルトは TRUE。
+</OL>
+<P>これを lookat か gtklookat で見ると、球と円柱が重なってしまっています。これは球も円柱も同じ位置に配置しているからです。</P>
+<IMG src="axis.gif" width="160" height="161" border="0" align="right">
+<H3>４．２　物体の移動と回転</H3>
+<P>それでは、この円柱を平行移動してみましょう。物体を移動したり回転したりするためには、<B>Transform ノード</B>を使用します。移動したい Shape ノードを、Transform
+ノードの <B>children フィールド</B>に指定します。また、移動する量は <B>translation フィールド</B>に指定します。座標値は<B>右手系</B>で指定します。右図において、視点は最初Z軸上の正の方向にあります。</P><BR clear="all">
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.6 0.6 0.6
+      specularColor 0.4 0.4 0.4
+      shininess 1
+    }
+    texture ImageTexture {
+      url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;
+    }
+  }
+}
+
+<U>Transform {<STRONG>[Enter]</STRONG>
+  translation 0 -4 0<STRONG>[Enter]</STRONG>
+  children [<STRONG>[Enter]</STRONG>
+</U><U>    </U>Shape {
+<U>    </U>  geometry Cylinder {
+<U>    </U>    radius 1.5
+<U>    </U>    height 5
+<U>    </U>  }
+<U>    </U>  appearance Appearance {
+<U>    </U>    material Material {
+<U>    </U>      diffuseColor 1 1 0
+<U>    </U>    }
+<U>    </U>  }
+<U>    </U>}
+<U>  ]<STRONG>[Enter]</STRONG>
+}<STRONG>[Enter]</STRONG></U></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>children フィールドの [ ... ] の中の Shape
+ノードは先ほどと変更ありませんが、ノードの<B>階層関係</B>（この Shape ノードは Transform ノードの<B>子供</B>にした）がぱっと見でわかるように、<B>インデント</B>（<B>字下げ</B>、行頭にスペースをあけること）しています。</P>
+
+<P>Transform ノードの rotation フィールドを指定することで、物体を回転させることもできます。回転は回転軸の単位ベクトルと回転角（ラジアン）で指定します。1.5708
+は約π/2（90°）です。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#VRML V2.0 utf8
+Shape {
+  geometry Sphere { radius 2 }    # 球
+  appearance Appearance {
+    material Material {
+      diffuseColor 0.6 0.6 0.6
+      specularColor 0.4 0.4 0.4
+      shininess 1
+    }
+    texture ImageTexture {
+      url &quot;http://www.wakayama-u.ac.jp/~tokoi/vrml/face.jpg&quot;
+    }
+  }
+}
+
+Transform {
+  translation 0 -4 0
+<U>  rotation 0 0 1 1.5708<STRONG>[Enter]</STRONG></U>
+  children [
+    Shape {
+      geometry Cylinder {
+        radius 1.5
+        height 5
+      }
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 0
+        }
+      }
+    }
+  ]
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4><A name="transform">Transform ノード</A></H4>
+<P>children フィールドに列挙したノードに対して座標変換を行うグループ化ノードです。形状を空間中に配置するのに使います。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">Transform ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Transform {
+  translation <I>x y z</I>
+  rotation <I>x y z r</I>
+  scale <I>x y z</I>
+  scaleOrientation <I>x y z r</I>
+  bboxCenter <I>外接箱の中心</I>
+  bboxSize <I>外接箱サイズ</I>
+  children [<I>ノード</I> <I>ノード</I> ... ]
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<OL>
+  <LI>children フィールドに指定した複数のノードを一つのノードにまとめ、それらに対する変換を指定する。
+  <LI>translation フィールドには、children フィールドに指定したノードを移動する位置を指定する。
+  <LI>rotation フィールドには、children フィールドに指定したノードの回転を指定する。
+  x y z には回転軸ベクトル、r には回転角を与える。
+  <LI>scale フィールドには、children フィールドに指定したノードの、
+  x軸、y軸、z軸方向の拡大率を指定する。x y
+  z &gt; 0。
+  <LI>scaleOrientation は、scale フィールドによる拡大縮小を行う「前」の、
+  children フィールドに指定したノードの回転を指定する。この回転により、任意の軸方向の拡大縮小が行える。x
+  y z は回転軸ベクトル、 r は回転角。
+</OL>
+<HR>
+<H2>５．ポリゴンによる形の表現</H2>
+<HR>
+<H3>５．１　多面体で形を表す</H3>
+<P>球や箱のような、あらかじめ用意された単純な形状（<B>プリミティブ</B>と呼びます）を空間中に配置して形状を表現する方法は簡単ですが、どんな形でもうまく表現できるわけではありません。物体形状を多面体で表現し、その個々の面（多角形）をデータに用いれば、どんな形でも正確に表現することができます。曲面は多面体で近似します。</P>
+<P>下図の物体（ピラミッド型の５面体）を、VRML
+のデータにしてみましょう。</P>
+<P align="center"><IMG src="pyramid.gif" width="400" height="358" border="0"></P>
+<P>この形状は５つの頂点と５枚の面からなります。まず、個々の頂点の座標値を求めて、それぞれに番号を割り当てます。</P>
+<CENTER>
+<TABLE border="1" width="400">
+  <TBODY>
+    <TR>
+      <TH colspan="4" bgcolor="#ffffff">頂点データ</TH>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffddaa">頂点番号</TH>
+      <TH bgcolor="#ffddaa" width="15%">x</TH>
+      <TH bgcolor="#ffddaa" width="15%">y</TH>
+      <TH bgcolor="#ffddaa" width="15%">z</TH>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">4</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">1</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">-3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">-3</TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">2</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">-3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">3</TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">3</TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">4</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="80">-3</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次に、各面がどの頂点で構成されているかを調べます。このとき頂点の順序は非常に重要であり、面を表から見たとき、頂点は必ず<B>左回り</B>にとる必要があります。例えば面４（底面）を下から見上げたとして頂点を左回りにたどれば、順序は4→3→2→1になります。</P>
+<CENTER>
+<TABLE border="1" width="400">
+  <TBODY>
+    <TR>
+      <TH colspan="6" bgcolor="#ffffff">面データ</TH>
+    </TR>
+    <TR>
+      <TH bgcolor="#ffddaa" width="40%">面番号</TH>
+      <TH bgcolor="#ffddaa" colspan="5">頂点番号</TH>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">1</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">2</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">1</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">2</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">3</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">2</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">4</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">0</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">4</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">1</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+    </TR>
+    <TR>
+      <TD align="right" bgcolor="#ffffcc">4</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">4</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">3</TD>
+      <TD align="right" bgcolor="#ffffcc" width="48">2</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right">1</TD>
+      <TD bgcolor="#ffffcc" width="48" align="right"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これが、この多面体の形状データです。この形状を
+VRML で使用するには、<B>Coordinate ノード</B>と <B>IndexedFaceSet ノード</B>を使います。emacs でこの形状の VRML ファイルを作成してみましょう。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">テキストエディタで VRML ファイルを作成する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs pyramid.wrl &amp;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>座標データは Coordinate ノードを使って表現します。<B>point フィールド</B>に [ ... ] でくくって<B>座標値</B>を列挙します。途中で改行しても構いません。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>Coordinate {<STRONG>[Enter]</STRONG></U>
+<U>  point [ 0 4 0  -3 0 -3  -3 0 3  3 0 3  3 0 -3 ]<STRONG>[Enter]</STRONG>
+}<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>この Coordinate ノードを IndexedFaceSet ノードの
+coord フィールドに指定します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>IndexedFaceSet {<STRONG>[Enter]</STRONG>
+  coord </U>Coordinate {
+<U>  </U>  point [ 0 4 0  -3 0 -3  -3 0 3  3 0 3  3 0 -3 ]
+<U>  </U>}<U>
+}<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>面データは、IndexedFaceSet ノードの <B>coordIndex フィールド</B>に [ ... ] でくくって<B>頂点番号</B>を列挙します。こちらも途中で改行することができます。ただし、面と面のデータを<B>区切る</B>ために <B>-1</B> を置いてください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>IndexedFaceSet {
+  coord Coordinate {
+    point [ 0 4 0  -3 0 -3  -3 0 3  3 0 3  3 0 -3 ]
+  }
+<U>  coordIndex [ 0 1 2 <B>-1</B>  0 2 3 <B>-1</B>  0 3 4 <B>-1</B>  0 4 1 <B>-1</B>  4 3 2 1 <B>-1</B> ]<STRONG>[Enter]</STRONG></U>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>それでは、このノードの形を見てみましょう。ファイルにヘッダを付け、このノードを
+Shape ノードの geometry フィールドに指定します。appearance
+ノードも設定しましょう。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>#VRML V2.0 utf8<STRONG>[Enter]</STRONG>
+Shape {<STRONG>[Enter]</STRONG>
+  geometry</U> IndexedFaceSet {
+<U>  </U>  coord Coordinate {
+<U>  </U>    point [ 0 4 0  -3 0 -3  -3 0 3  3 0 3  3 0 -3 ]
+<U>  </U>  }
+<U>  </U>  coordIndex [ 0 1 2 -1  0 2 3 -1  0 3 4 -1  0 4 1 -1  4 3 2 1 -1 ]
+<U>  </U>}
+<U>  appearance Appearance {<STRONG>[Enter]</STRONG>
+    material Material {}<STRONG>[Enter]</STRONG>
+  }<STRONG>[Enter]</STRONG>
+}<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><B><TT>C-x C-s</TT></B> でこのファイルを保存し、<B>lookat</B> あるいは <B>gtklookat</B> コマンドで見てください｡</P>
+<H4><A name="indexedfaceset">IndexedFaceSet ノード</A></H4>
+<P>Shape ノードの geometry フィールドに指定する、任意の多面体形状（ポリゴン）を表現するための形状のノードです。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">IndexedFaceSet ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>IndexedFaceSet {
+  creaseAngle <I>スムーズシェーディングするときの限界角</I>
+  ccw <I>頂点の順序が反時計回りか否か
+</I>  convex <I>面がすべて凸多角形か否か</I>
+  solid <I>閉じた形状か否か</I>
+  colorPerVertex <I>頂点ごとに色を与えるか否か</I>
+  normalPerVertex <I>頂点ごとに法線を与えるか否か</I>
+  color <I>各面／頂点の色</I>
+  normal <I>各面／頂点の法線ベクトル</I>
+  texCoord <I>テクスチャの座標</I>
+  colorIndex <I>色データの指標</I>
+  normalIndex <I>法線ベクトルデータの指標</I>
+  texCoordIndex <I>テクスチャ座標データの指標</I>
+  coord <I>頂点座標データ</I>
+  coordIndex <I>面データ（頂点座標データの指標）</I>
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER>
+<OL>
+  <LI>隣接する面同士がなす角度が cleaseAngle フィールドの値よりも小さければ、この２つの面の間で輝度が補間されてスムーズシェーディングされる。デフォルトは0（スムーズシェーディングしない）。
+  <LI>ccw フィールドが TRUE なら、多角形の両方ののうち、頂点の順序が反時計回り（左回り）に見える側の面を表として扱う。
+  FALSE なら時計回り（右回り）に見える側を表として扱う。デフォルトは
+  TRUE。
+  <LI>convex フィールドが TRUE なら、すべての面が凸多角形であると仮定して処理する。このとき凹多角形が含まれていると正確に表示されない場合がある。デフォルトは
+  TRUE。
+  <LI>solid フィールドが TRUE なら、物体を閉じた形状と仮定して処理する。開いた形状の場合に見える、視点に対して裏を向いている面は表示されない。デフォルトは
+  TRUE。
+  <LI>colorPerVertex フィールドが TRUE なら頂点ごとに色を指定する。
+  FALSE なら面ごとに色を指定する。デフォルトは
+  TRUE。
+  <LI>normalPerVertex フィールドが TRUE なら頂点ごとに法線ベクトルを指定する。
+  FALSE なら面ごとに法線ベクトルを指定する。デフォルトは
+  TRUE。
+  <LI>color フィールドには頂点／面に与える色を指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#color">Color</A> ノードを使用する。
+  <LI>normal フィールドには頂点／面に与える法線ベクトルを指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#normal">Normal</A> ノードを使用する。
+  <LI>texCoord フィールドにはテクスチャの座標を指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#texturecoordinate">TextureCoordinate</A> ノードを使用する。
+  <LI>colorIndex, normalIndex, texCoordIndex フィールドは、色／法線ベクトル／テクスチャの座標を、それぞれのデータの指標（番号）で指定する場合に用いる。同じデータが繰り返し現れるような場合は、データ量を削減できる。
+  <LI>coord フィールドに座標データを指定する。これには
+  <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#coordinate">Coordinate</A> ノードを用いる。
+  <LI>coordIndex フィールドに面データを指定する。面データは面（多角形）を構成する頂点の座標を、座標データの指標で列挙する。面と面の区切りに
+  -1 を置く。
+</OL>
+<H4><A name="coordinate">Coordinate ノード</A></H4>
+<P><A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#indexedfaceset">IndexedFaceSet</A> ノード、<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#indexedlineset">IndexedLineSet</A> ノード、<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#pointset">PointSet</A> ノードの coord フィールドに指定する、頂点の座標値を指定するためのノードです。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">IndexedFaceSet ノードの書式</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>Coordinate {
+  point [ <I>x y z x y z</I> ... ]
+}</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER><HR>
+<H2><A name="kadai">課題</A></H2>
+<HR>
+<P>（１）下図に示す図形（三角柱）を <A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#indexedfaceset">IndexedFaceSet ノード</A>（あるいは<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html#extrusion">Extrusion ノード</A>）を使って表現しなさい。</P>
+<P align="center"><IMG src="triangle.gif" width="400" height="328" border="0"></P>
+<P>（２）この授業で作成した data.wrl に（１）で作成した形状のノードを追加し、それを平行移動して下図のような図形を作成してください。</P>
+<P align="center"><IMG src="oden.jpg" width="411" height="348" border="0"></P>
+<P>上の図形の VRML ファイルを電子メールで tokoi@sys.wakayama-u.ac.jp
+まで送ってください。Subject: は「第８回」にしてください。</P>
+<P>VRML の仕様の一部を<A href="http://www.wakayama-u.ac.jp/%7Etokoi/vrml/reference.html">VRML の概要</A>にまとめてあります（ごめんなさい、まだ途中）ので、
+よかったら参考にしてください。<A href="http://www.wakayama-u.ac.jp/~tokoi/vrml/vrml.pdf">PDF形式の資料</A>もあります（いろいろ間違いがあります）。これはダウンロードした後
+xpdf コマンドで読んでください。ただ、これらよりも
+<A href="http://www.din.or.jp/%7Ey-shiba/yuuta/index.html">about VRML97</A> の方がずっと良くできています。インターネット上では他にも多くの人が情報を提供しています。
+これも Yahoo Japan の <A href="http://www.yahoo.co.jp/Computers_and_Internet/Internet/World_Wide_Web/Virtual_Reality_Modeling_Language__VRML_/">VRML のリンク集</A>から探しはじめるといいでしょう。 <A href="http://www.gimlay.org/~andoh/vrml/">安藤さんのページ</A> にも豊富なリンクがあります。また、最新情報が知りたければ、大元の
+<A href="http://www.web3d.org/">Web 3D Consortium</A>のページをあたってみてください。 </P>
+</BODY>

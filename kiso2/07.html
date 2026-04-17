@@ -1,0 +1,412 @@
+<head>
+<title>情報基礎演習II − 第７回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第７回</h1>
+
+<hr>
+
+<h2>１．文とブロック</h2>
+
+<a name="bun">
+<hr>
+
+<h3>文</h3></a>
+
+文はプログラムの構成要素の最小単位です。
+
+<blockquote>
+<table>
+<tr><td><tt>int x;</tt><td><tt>/* 宣言文<td>*/</tt>
+<tr><td><tt>x = 10;</tt><td><tt>/* 代入文（実行文）<td>*/</tt>
+<tr><td><tt>printf("%d\n", x);</tt><td><tt>/* 関数呼び出し（実行文）<td>*/</tt>
+</table>
+</blockquote>
+
+ひとつの文の終りには、
+必ず ;（セミコロン）を置きます。
+<blockquote>
+<pre>
+文;
+文;
+...
+</pre>
+</blockquote>
+文は上から順に実行されます。
+<p>
+
+<a name="block">
+<hr>
+
+<h3>ブロック</h3></a>
+
+複数の文を { } でくくってひとまとめにしたものを、
+ブロックと呼びます。
+
+<blockquote>
+<pre>
+{
+    文;
+    文;
+    ...
+}
+</pre>
+</blockquote>
+
+このブロックの最初の部分に変数の宣言を書くことができます。
+
+<blockquote>
+<pre>
+{
+    int x;    /* 変数宣言 */
+    int y;    /* 変数宣言 */
+
+    x = 10;   /* ここから後は実行文 */
+    y = 20;
+    print("%d+%d=%d\n", x, y, x + y);
+}
+</pre>
+</blockquote>
+
+ブロックの内側に、
+更にブロックを作ることもできます（ブロックの入れ子）。
+
+<blockquote>
+<pre>
+{
+    int x;    /* 変数宣言 */
+    int y;    /* 変数宣言 */
+
+    x = 10;   /* ここから後は実行文 */
+    y = 20;
+    print("%d+%d=%d\n", x, y, x + y);
+
+    {
+        int z;      /* 内側のブロックでの変数宣言 */
+
+        z = x - y;  /* ここから後は内側のブロックの実行文 */
+        printf("%d-%d=%d\n", x, y, z);
+    }
+}
+</pre>
+</blockquote>
+
+
+<hr>
+
+<h2>２．関係演算と論理演算</h2>
+
+<a name="kankei">
+<hr>
+
+<h3>関係演算</h3></a>
+
+Ｃ言語では、数値の大小比較を式として取り扱います。
+このような式を関係演算式と言います。
+また大小比較を行う演算子を関係演算子と呼びます。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<td><tt>x &gt; y</tt><td>x が y より大きいなら真
+<tr>
+<td><tt>x &gt;= y</tt><td>x が y 以上なら真
+<tr>
+<td><tt>x &lt; y</tt><td>x が y より小さいなら真
+<tr>
+<td><tt>x &lt;= y</tt><td>x が y 以下なら真
+<tr>
+<td><tt>x == y</tt><td>x と y が等しいなら真
+<tr>
+<td><tt>x != y</tt><td>x と y が等しくないなら真
+</table>
+</blockquote>
+
+関係演算式の値は「真」「偽」のいずれかになります。
+このような値を論理値と呼びます。
+
+<blockquote>
+<table width="90%" border>
+<tr><th width="50%">真<th width="*">偽
+<tr><td align="center">0 でない整数<td align="center">0
+</table>
+</blockquote>
+
+論理値のデータ型は整数です。
+下の例では、x と y が等しければ a に 0 でない整数が、
+等しくなければ 0 が入ります。
+
+<blockquote>
+<pre>
+float x, y;
+int a;
+a = x == y;
+</pre>
+</blockquote>
+
+なお、文字列同士の比較には strcmp などのライブラリ関数を用います。
+strcmp は引数に与えられた２つの文字列の内容が同じ時 0 を戻り値として
+返しますから、下の例では文字列 s が "abc" の時に真になります。
+
+<blockquote>
+<pre>
+strcmp(s, "abc") == 0
+</pre>
+</blockquote>
+
+関係演算子の優先順位は、
+関係演算子同士では同じですが、
+四則演算（加減乗除）より低くなっています。
+
+<blockquote>
+<pre>
+x + 1 > 10
+</pre>
+</blockquote>
+
+上の例では、x + 1 を計算した後、その結果と 10 を比較しています。
+
+<a name="ronri">
+<hr>
+
+<h3>論理演算</h3></a>
+
+上の論理値を対象とした演算です。
+このような演算を行う演算子を論理演算子と呼びます。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<td><tt>x &amp;&amp; y</tt><td>x が y ともに真のとき真
+<tr>
+<td><tt>x || y</tt><td>x と y のいずれか一方が真のとき真
+<tr>
+<td><tt>!x</tt><td>x が 僞なら真、真なら偽（反転）
+</table>
+</blockquote>
+
+論理演算子の優先順位は <tt>!&gt;&amp;&amp;&gt;||</tt> の順で、
+<tt>&amp;&amp;</tt>、<tt>||</tt> は関係演算子より低く、
+<tt>!</tt> は乗除よりも高くなります。
+下の例では x &gt;= 16 と x &lt 26 を計算した後、
+&amp;&amp; による論理演算が行われます。
+従ってこの式は x が 16 以上 26 未満のときに真になります。
+
+<blockquote>
+<pre>
+x &gt;= 16 && x &lt 26
+</pre>
+</blockquote>
+
+論理演算式の値は論理値になります。
+
+<blockquote>
+<pre>
+!x || y
+</pre>
+</blockquote>
+
+この例では !x が先に計算されるため、
+この式は x が偽か、あるいは y が真のとき真になります。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<td width="50%">
+<pre>!(x || y)</pre>
+<td width="*">
+<pre>!x && !y</pre>
+</table>
+</blockquote>
+
+一方、上の左の例では x || y を計算した後に ! 演算子による計算が
+行われるので、この式は x と y が両方とも偽のとき真になります。
+すなわち、この式は、上の右の式と等価です。
+<p>
+
+<hr>
+
+<h2>３．制御構造</h2>
+
+<hr>
+
+<h3>if</h3>
+
+if というキーワードを使えば、
+「条件」によって特定の処理を行ったり、
+行わなかったりすることができます。
+<p>
+
+if の後に続く ( ) 内の論理値が真なら、
+その直後の { } に書かれた処理を実行し、
+偽（真でない場合）なら else の後の { } 内の処理を実行します。
+
+<blockquote>
+<pre>
+if (x &gt; y) {
+    z = x;
+}
+else {
+    z = y
+}
+</pre>
+</blockquote>
+
+x が y より大きい（x &gt; y が真）なら z = x を実行し、
+小さい（x &gt; y が偽）なら z = y を実行します。
+この結果、z には x と y の大きいほうの値が入ります。
+<p>
+
+if ( ) や else に続けて、
+ブロックあるいは単一の文を置くことができます。
+従って、上の例は下のように書くこともできます。
+<p>
+
+<blockquote>
+<pre>
+if (x &gt; y)
+    z = x;
+else
+    z = y;
+</pre>
+</blockquote>
+
+しかし、{ } を省略すると非常に見つけにくいプログラムのミスを
+誘発することがあります。
+省略可能でも省略しない方がいいのではないかと思います。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<td width="50%">
+<pre>
+if (x &gt; 0)
+    if (y &gt; 0)
+        z = 1;
+else
+    z = 2;
+</pre>
+<td width="*">
+<pre>
+if (x &gt; 0)
+    if (y &gt; 0)
+        z = 1;
+    else
+        z = 2;
+</pre>
+</table>
+</blockquote>
+
+上の２つの例は同じものですが、
+左のものは、x &gt; 0 が真の時に z = 2 が実行されるように見えます。
+しかし、実際にはこの else は２つ目の if に対応します。
+右の例も勧められません。{ } を使って書くべきでしょう。
+<p>
+
+else に続く処理が必要なければ、else 以降は省略できます。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<td width="50%">
+<pre>
+if (x &lt; 0) {
+    x = -x;
+}
+</pre>
+<td width="*">
+<pre>
+if (x &lt; 0) x = -x;
+</pre>
+</table>
+</blockquote>
+
+いずれも x が負（x &lt; 0 が真）なら x = -x; を実行します。
+すなわち x の絶対値を求めます。
+<p>
+
+else の後にまた if を置くことができます。
+
+<blockquote>
+<pre>
+if (x &lt; 0) {
+    printf("x は負です\n");
+}
+else if (x == 0) {
+    printf("x は０です\n");
+}
+else { /* 負でも０でもなければ正 */
+    printf("x は正です\n");
+}
+</pre>
+</blockquote>
+
+<a href="k26.html"><h3 align="center">■課題２６■</h3></a>
+<a href="k27.html"><h3 align="center">■課題２７■</h3></a>
+<a href="k28.html"><h3 align="center">■課題２８■</h3></a>
+<p>
+
+<hr>
+
+<h3>while</h3>
+
+while というキーワードを使えば、
+ある条件が成立する（真である）間、
+同じ処理を繰り返すことができます。
+<p>
+
+while の後に続く ( ) 内の条件が真なら、
+その直後の { } 内の処理を実行して再度条件を調べます。
+条件が真なら、同じことを繰り返します。
+<p>
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i &lt; 5) {
+    printf("おはようさん\n");
+    i++;
+}
+</pre>
+</blockquote>
+
+これは「おはようさん」と１回出力する度に
+i を１増すという処理を、i &lt; 5 の間繰り返します。
+<p>
+
+従って、i は 0, 1, 2, 3, 4, 5 と変化し、
+i が 5 のときは { } 内の処理は実行せずに次に進みます。
+<p>
+
+この結果「おはようさん」は i が 0, 1, 2, 3, 4 のとき、
+すなわち５回出力されます。
+<p>
+
+if と同様 while ( ) に続く { } 内が単一の文のときは、
+{ } を省略できます。
+
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i &lt; 5) printf("%d 回目のおはようさん\n", ++i);
+</pre>
+</blockquote>
+
+なお、上のプログラムは次のように書くこともできます。
+
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i++ &lt; 5) printf("%d 回目のおはようさん\n", i);
+</pre>
+</blockquote>
+
+<a href="k29.html"><h3 align="center">■課題２９■</h3></a>
+<a href="k30.html"><h3 align="center">■課題３０■</h3></a>
+<p>
+
+</body>

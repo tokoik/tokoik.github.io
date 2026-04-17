@@ -1,0 +1,101 @@
+<head>
+<title>情報基礎演習II − 課題２８</title>
+</head>
+
+<body>
+
+<h3>課題２８</h3>
+
+<hr>
+
+<ol>
+
+<li><tt>A &amp;&amp; B</tt> という論理演算式において、
+A が偽なら B の値に関係なく
+<tt>A &amp;&amp; B</tt> は偽であることは明白なので、
+この場合は B は評価（計算）されません。
+つまり B は A が真の時のみ評価されます。
+<p>
+
+<li>同様に <tt>A || B</tt> という論理演算式において、
+A が真なら B の値に関係なく <tt>A || B</tt> は真であることは明白なので、
+この場合は B は評価されません。
+つまり B は A が偽の時のみ評価されます。
+<p>
+
+<li>この規則を応用して、次のような論理演算式を書くことができます。
+
+<blockquote>
+<pre>
+x &lt; 0 && x = -x;
+</pre>
+</blockquote>
+
+これは <tt>if (x &lt; 0) x = -x;</tt> と同じ動作をします。
+この論理演算式の値（真か偽か）は使われません。
+<p>
+
+<li>次のソースプログラムを kadai28.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai28
+** 動作: 論理演算式の評価順序
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int x = 0, y = 0;
+
+    /* １回目 */
+    if (++x &lt; 2 || ++y &gt;= 2) {
+        printf("x=%d,y=%d\n", x, y);
+    }
+
+    /* ２回目 */
+    if (++x &lt; 2 || ++y &gt;= 2) {
+        printf("x=%d,y=%d\n", x, y);
+    }
+
+    /* ３回目 */
+    if (++x &lt; 2 || ++y &gt;= 2) {
+        printf("x=%d,y=%d\n", x, y);
+    }
+
+    return 0;
+}
+</pre>
+</table>
+</p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai28 という名前の実行プログラムを作成した後、
+kadai28 を実行して出力を確かめてください。
+<p>
+
+<li>このプログラムが仮に if の条件内で x と y が
+同時に１ずつ増えていくことを想定して作られているとすると、
+次のような出力が期待できます。
+
+<blockquote>
+<pre>
+x=1,y=1
+x=2,y=2
+x=3,y=3
+</pre>
+</blockquote>
+
+しかし実際の出力は上のようにはなりません。
+その理由を考察して、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai28 としてください。
+
+</ol>
+
+</body>

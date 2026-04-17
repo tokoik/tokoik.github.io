@@ -1,0 +1,63 @@
+<head>
+<title>情報基礎演習II − 課題１９</title>
+</head>
+
+<body>
+
+<h3>課題１９</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムをもとにして、
+自分の名前を "My name is ????" というように出力するプログラムを
+作ってください。
+<p>
+
+<li>配列変数 name の要素の数などを
+自分の名前の文字数に合わせることを忘れないようにしてください。
+<p>
+<li>ソースプログラムのファイル名は kadai19.c としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai19
+** 動作: 自己紹介
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char name[4]; /* 名前を入れる変数（要素数を指定）*/
+
+    name[0] = 'K';
+    name[1] = 'e';
+    name[2] = 'n';
+    name[3] = '\0';
+
+    printf("My name is %s.\n", name);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai19 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai19 を実行し期待した出力が得られたら、
+ソースプログラム（kadai19.c）をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai19 としてください。
+
+</ol>
+
+</body>

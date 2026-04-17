@@ -1,0 +1,69 @@
+<head>
+<title>情報基礎演習II − 課題５３</title>
+</head>
+
+<body>
+
+<h3>課題５３</h3>
+
+<hr>
+
+<ol>
+
+<li>下の配列変数 sakura から
+kokugo, sansu, rika, shakai のそれぞれの
+平均および全部の平均を求めるプログラムを作ってください。
+<p>
+
+<li>データ数を数えなくても済むように、
+データの最後は文字列の要素 myouji が空
+（""、これは文字列の最初文字〜sakura.namae[0] が '\0'） 
+になっていると仮定してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai53
+** 動作: 構造体の配列をポインタで操作
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+struct seiseki {
+    char namae[20];
+    char myoji[20];
+    int kokugo, sansu, rika, shakai;
+} sakura[] = {
+    { "Maki",   "Mochida", 60, 70, 60, 70 },
+    { "Harumi", "Inoue",   70, 80, 60, 70 },
+    { "Emi",    "Aioi",    55, 61, 78, 65 },
+    { "Misa",   "Aika",    70, 88, 65, 75 },
+    { "Ayaka",  "Akimoto", 80, 90, 88, 80 },
+    { "Maki",   "Asada",   76, 81, 67, 70 },
+    { "Azuma",  "Keiko",   67, 95, 73, 88 },
+    { "Anza",   "Oyama",   90, 80, 70, 60 },
+    { "Noriko", "Kato",    75, 80, 65, 60 },
+    { "Miho",   "Kan'no",  80, 65, 95, 70 },
+    { "", "", 0, 0 } /* 疲れたのでこれで終り */
+};
+
+int main(void)
+{
+    /* ここにプログラムを書いてください */
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>ソースプログラムのファイル名は kadai53.c とし、それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai53 としてください。
+
+</ol>
+
+</body>

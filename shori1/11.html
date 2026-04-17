@@ -1,0 +1,1136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第１１回：タイピングのテスト、ホームページ作成（基本編）</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第１１回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>シェルスクリプトを作ってみる</LI>
+  <LI>シェルの初期化ファイルを作成する</LI>
+</OL>
+<div class="footer"><a href="10.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2>１．シェルスクリプト</H2>
+<H3>１．１　コマンドとして bash を起動してみる</H3>
+<P><em>端末</em>　(gnome-terminal) のウィンドウを開いたときに実行される<em>シェル</em> (bash) 自体も，ひとつのコマンドです．したがって，これをコマンドとして実行することもできます．まず，この bash をコマンドとして起動してみましょう．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>コマンドとして bash を起動してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">bash<KBD>[Enter]</KBD></span>
+$              <SPAN class="anon">&larr;何も起こらなかったように見える</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>多分，<em>何も起こらなかった</em>ように<strong>見えます</strong>．実際には，もとの bash とは<em>別の bash</em> が動いています．でも，コマンドとして起動した bash も bash に変わりありませんから，端末が起動する bash と同様，コマンドの入力を待ちます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>コマンドで起動した bash で他のコマンドを使ってみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">date<KBD>[Enter]</KBD></span>
+2014年  6月 19日 木曜日 13:31:09 JST
+      </PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>bash を終了するには <em>exit</em> コマンドを実行します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>exit コマンドで bash を終了する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">exit<KBD>[Enter]</KBD></span>
+$              <SPAN class="anon">&larr;やっぱり何も起こらなかったように見える</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これはコマンドで起動した bash を終了します．この bash が終了すると，もとの bash がコマンドを待っている状態になります．だから，やっぱり何も起こらなかったように見えます．そこで，元の bash も終了してみます．先ほどと同様に exit コマンドを実行します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>もう一度 exit コマンドを入力してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">exit<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この exit コマンドの実行によって，端末のウィンドウが閉じて (消えて) しまいます．これは端末が起動したシェル (bash) の終了をずっと待っており，シェルが終了すると端末自身も終了するように作られているからです．</P>
+<DIV class="figure"><IMG src="process2.gif" width="600" height="293" border="0"></DIV>
+<P>なお，exit コマンドを実行する代わりに <KBD>Ctrl-D</KBD> をタイプしても，シェルを終了できます．<KBD>Ctrl-D</KBD> は<em>入力データの終了</em>を表しますから，これにより<em>コマンドの入力がそれ以上行われない</em>ことをシェルに伝えることができます．言い換えれば．利用者が入力するコマンドは，<EM>シェルにとっては入力データ</EM>というわけです．</P>
+<H3>１．２　シェルにファイルからコマンドを与えてみる</H3>
+<P>シェルへのコマンド入力がシェルにとっては入力データに他ならないなら，シェルに入力するコマンドを一旦ファイルに記録しておいて，それをシェルの入力に与えることもできるはずです．通常，シェルでコマンドをタイプして改行すれば，その都度そのコマンドが実行されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>シェルでコマンドを連続して実行してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">date<KBD>[Enter]</KBD></span>
+2014年  6月 19日 木曜日 14:27:12 JST
+$ <span class="type">cal</span><span class="type"><KBD>[Enter]</KBD></span>
+      6月 2014         
+日 月 火 水 木 金 土  
+ 1  2  3  4  5  6  7  
+ 8  9 10 11 12 13 14  
+15 16 17 18 19 20 21  
+22 23 24 25 26 27 28  
+29 30                 
+$ <span class="type">pwd<KBD>[Enter]</KBD></span>
+/home/sys/s123456</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>そこで，実行するコマンド名を，ファイルに書き込んでみます．cat コマンドの標準出力をファイル a にリダイレクトして，ファイル a にキーボードから入力した内容を保存します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cat コマンドを使ってファイルの中にコマンド名を書き込んでみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cat <em>&gt;</em> a<KBD>[Enter]</KBD></span>
+<span class="type">date<KBD>[Enter]</KBD></span>
+<span class="type">cal<KBD>[Enter]</KBD></span>
+<span class="type">pwd<KBD>[Enter]</KBD></span>
+<span class="type"><KBD>Ctrl-D</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>そのファイルの内容を，cat コマンドの標準入力にリダイレクトします．ファイル a の内容が画面に表示されます．<strong>矢印 &quot;&lt;&quot; の方向を間違わない</strong>ようにしてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル a の内容を見てみる</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cat <em>&lt;</em> a<KBD>[Enter]</KBD></span>
+date
+cal
+pwd</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>今度はそのファイル a の内容を，bash コマンドの入力データに使ってみます．ファイル a を bash コマンドの標準入力にリダイレクトします．<strong>矢印 &quot;&lt;&quot; の方向を間違わない</strong>ようにしてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ファイル a の内容を bash の入力に流し込んでみる．</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">bash <em>&lt;</em> a<KBD>[Enter]</KBD></span>
+<span class="anon">(何か出力される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>さて，どういうことが起こったでしょうか．シェルのコマンドをキーボードからではなくファイルから与えることによって，一連のコマンドを連続して実行することが可能になります．これは同じ作業を繰り返す場合などに便利です．なお，cat コマンドは入力データに使うファイルを引数で指定することもできます (&quot;&lt;&quot; が省略できます)．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cat コマンドの入力ファイルを引数で指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+date
+cal
+pwd</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>シェルも cat と同様に，入力する<em>ファイル名を引数で指定する</em>ことができます (&quot;&lt;&quot; が省略できます)．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>bash コマンドの入力ファイルを引数で指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">bash a<KBD>[Enter]</KBD></span>
+<span class="anon">(何か出力される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="magic" class="label">１．３　自分専用のコマンドを作る</A></H3>
+<P>このように実行するコマンドを順に書き込んだテキストファイルを作れば，コマンドをその順に続けて実行することができます．さらに，そのファイルの先頭でコマンドを解釈するシェルを明示し，そのファイルに実行権を与えれば，そのテキストファイル自体を新しいコマンドとして使えるようになります．このようなファイルを<EM>シェルスクリプト</EM>と呼びます．bash 用のシェルスクリプトは，<EM>bash スクリプト</EM>と呼びます．</P>
+<P>テキストエディタを使って，<em>hello.bash</em> という名前の bash スクリプトを作成します．emacs を使う場合は，以下のようにします．&quot;.bash&quot; という拡張子は付ける必要はないのですが，bash のスクリプトであることを明示するために，一応付けておきます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs を使ってシェルスクリプト hello.bash を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">emacs hello.bash &amp;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このファイルの内容は，次のようにします．最初の行の &quot;<EM>#!</EM>&quot; によって，そのシェルスクリプトを解釈するシェルを指定します (シェルには
+bash のほかに sh や csh，ksh，zsh などがあります)．上のシェルスクリプトでは
+/bin というディレクトリにある bash コマンドによって解釈しますから，それを<A href="05.html#directory">絶対パス</A>で指定します．詳しくは man bash
+を読んでください．</p>
+<pre class="source"><em>#!/bin/bash</em>
+date
+cal
+pwd</PRE>
+<P>このファイルを保存したら，それに実行許可を与えます．実行許可を追加するには <em>chmod</em> コマンドを使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2"><A name="executable" class="label">bash スクリプト hello.bash を実行可能にする</A></TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">chmod <em>+x</em> hello.bash<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これで bash スクリプト hello.bash をコマンドとして実行することができます．ファイルの保護モードに x が追加されたことを確認してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>hello.bash の保護モードに x が追加されたことを確認する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">ls -l hello.bash<KBD>[Enter]</KBD></span>
+-rwxr-xr-x    1 s123456  students      27 6月28日 13:44 hello.bash</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このスクリプトを実行します．カレントディレクトリにあるスクリプトを実行するので，ファイル名の頭に &quot;./&quot; を付けます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>hello.bash の実行</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type"><em>./</em>hello.bash<KBD>[Enter]</KBD></span>
+<span class="anon">(何か出力される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>&quot;<TT>./</TT>hello.bash&quot; は<EM>カレントディレクトリ</EM> (<TT><EM>.</EM></TT>) にある hello.bash を実行するということです．ちゃんと実行できたでしょうか？</P>
+<H2>２．シェル変数</H2>
+<H3><a name="variable" class="label">２．１　変数とは</a></H3>
+<P><em>変数</em>はプログラム中でデータを一時的に保持する入れ物です．<em>プログラミング言語</em>において，<strong>変数は最も基本的で重要な要素</strong>です．これまでに述べたようにシェルもプログラミング言語としての側面を持っていますから，変数を活用すれば，さらに柔軟な処理を行うことが可能になります．また一部の変数は，シェル自身の動作を制御するためにも使用されます．シェルで使われる変数には，そのシェルスクリプト内だけで使われる<em>シェル変数</em>と，他のシェルスクリプトやプログラム (コマンド) と共有される<em>環境変数</em>の二つがあります．</P>
+<H3>２．２　echo コマンド</H3>
+<P><em>echo</em> コマンドはシェルスクリプトで非常によく使われるコマンドです．これは引数をそのまま標準出力に出力します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>echo コマンドは引数をそのまま出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo Hello<KBD>[Enter]</KBD></span>
+Hello</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ワイルドカード <em>*</em> はカレントディレクトリにある (隠されていない) すべてのファイル名にマッチしますから，echo コマンドの引数に * を指定すると，カレントディレクトリにあるファイルの一覧が表示されます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ワイルドカード * を echo コマンドの引数に指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo *<KBD>[Enter]</KBD></span>
+<span class="anon">カレントディレクトリにあるファイル名が全部表示される</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．３　シェル変数の設定</H3>
+<p>シェル変数に値を<em>代入</em> (格納) するには，&quot;<em><tt>=</tt></em>&quot; を使います．&quot;<tt>=</tt>&quot; の両側にはスペースを開けないでください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>使ってシェル変数 name に値を代入する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">name=ichiro<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数の値を<em>参照</em>する (取り出す) には，変数名に &quot;<EM><TT>$</TT></EM>&quot; を付けます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数の内容を参照するには変数名に &quot;$&quot; を付ける</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo <em>$</em>name<KBD>[Enter]</KBD></span>
+ichiro</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>echo コマンドには，複数の引数を指定できます．また，&quot;<EM><TT>$</TT></EM>&quot; がついていないものは，単に文字列として扱われます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>echo コマンドは複数の引数を指定できる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo My name is <em>$</em>name.<KBD>[Enter]</KBD></span>
+My name is ichiro.</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>文字列が空白を含むときは，<em>引用符号</em> (<em>&quot;</em>～<em>&quot;</em> や <em>'</em>～<em>'</em>) でくくります．引用符号は<em>日本語の入力モードを抜けて</em>から入力してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>文字列が空白を含むときは，<em>&quot;</em>～<em>&quot;</em> や <em>'</em>～<em>'</em> でくくる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">my=<em>&quot;My name is&quot;</em><KBD>[Enter]</KBD></span>
+$ <span class="type">echo $my $name.<KBD>[Enter]</KBD></span>
+My name is ichiro.</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>&quot;</em>～<em>&quot;</em> (ダブルクォーテーションマーク) でくくった場合，間にある &quot;<em>$</em>&quot; は変数の参照として扱われるため，それに続く文字列は変数の内容で置き換えられます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><em>&quot;</em>～<em>&quot; の間にある変数は内容で置き換えられる</em></TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo &quot;$my $name.&quot;<KBD>[Enter]</KBD></span>
+My name is ichiro.</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>一方 <em>'</em>～<em>'</em> (シングルクォーテーションマーク) でくくった場合，間にある &quot;<em>$</em>&quot; はそのまま出力されます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><em>'</em>～<em>' </em><em>の間にある $ はそのまま出力される</em></TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo '$my $name.'<KBD>[Enter]</KBD></span>
+$my $name.</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>複数の変数に同時に代入ができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>複数の変数への代入ができる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>v1=10</em> <em>v2=20</em><KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v1 $v2<KBD>[Enter]</KBD></span>
+10 20</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>他の変数の値を代入することもできます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>他の変数の値を参照して代入できる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">v3=<em>$v1</em>+<em>$v2</em><KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v3<KBD>[Enter]</KBD></span>
+10+20</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>空白を含む場合は <em>&quot;</em> (ダブルクォーテーションマーク) ではさんでください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>空白を含む場合はダブルクォーテーションマークで挟む</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">v3=<em>&quot;</em>$v1 + $v2<em>&quot;</em><KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v3<KBD>[Enter]</KBD></span>
+10 + 20</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数に代入する値が数値なら，<em>let</em> コマンドを使って代入の時に計算ができます．この場合も &quot;+&quot; の両側に空白を入れないでください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>let コマンドで変数への代入の時に計算する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>let</em> v3=$v1+$v2<KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v3<KBD>[Enter]</KBD></span>
+30</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>let コマンドを使う時も，代入するものが空白を含む場合は <em>&quot;</em> (ダブルクォーテーションマーク) ではさんでください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>let コマンドでも空白を含むならダブルクォーテーションマークで挟む</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">let v3=<em>&quot;</em>$v1 + $v2<em>&quot;</em><KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v3<KBD>[Enter]</KBD></span>
+30</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>なお，引数を式とみなして計算する <em>expr</em> というコマンドもあります．この場合は<em>引数と引数の間</em> ('+' の前後など) は<strong>空白で区切る</strong>必要があります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>expr コマンドを使って引数の式を計算する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>expr</em> $v1 <em>+</em> $v2<KBD>[Enter]</KBD></span>
+30</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>２．４　特別なシェル変数</H3>
+<P>シェル変数の中には，シェルの動作の制御などに使われるものがあります．</P>
+<h4>IGNOREEOF 変数</h4>
+<P>シェルにおいても，入力の終了 (EOF = End of File) を示す <KBD>Ctrl-D</KBD> をタイプすると，シェルが終了してしまいます．<em>端末</em>を起動して，そのシェルで <KBD>Ctrl-D</KBD>をタイプしてみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>シェルで <KBD>Ctrl-D</KBD> をタイプしてみる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><KBD>Ctrl-D</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>シェルが終了し，おそらく端末のウィンドウが閉じてしまうと思います．これを防ぐためには <EM>IGNOREEOF</EM> (ignore EOF = EOF を無視する) というシェル変数を設定します．もう一度端末を起動して，そのシェルで <em>IGNOREEOF</em> 変数に値を設定します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>もう一度端末を起動してシェル変数 <EM>IGNOREEOF</EM> を設定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">IGNOREEOF=3<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ここで，試しに <KBD>Ctrl-D</KBD>をタイプしてみてください．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>また <KBD>Ctrl-D</KBD> をタイプしてみる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><KBD>Ctrl-D</KBD></span>
+シェルから脱出するには &quot;exit&quot; を使用してください。</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>今度は <em>exit</em> コマンドを使うよう<em>警告</em>が出ます．exit コマンドを使えば，シェルを終了することができます．あるいは，上の例では IGNOREEOF に 3 を設定したので EOF (<kbd>Ctrl-D</kbd>) を３回無視しますから，４回タイプすればシェルが終了します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>exit コマンドで bash が終了する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">exit<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>bash を終了したので，端末のウィンドウが閉じてしまいます．もう一度端末を開いてください．</P>
+<h4>PS1 変数</h4>
+<P>今度は<EM>プロンプト</EM> (入力促進符号，シェルがコマンド待ちであることを示す記号，ここでは $ のこと) を変えてみましょう．プロンプトは
+<EM>PS1</EM> というシェル変数を使って設定します．<em>引用符号</em> (<em>&quot;</em>～<em>&quot;</em> や <em>'</em>～<em>'</em>) は<em>日本語の入力モードを抜けて</em>から入力してください．また = の両側にはスペースを入れないでください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PS1 変数に値を代入してみる．</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">PS1=&quot;なんやねん &quot;<KBD>[Enter]</KBD></span>
+なんやねん      <span class="anon">&larr;これがプロンプト</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>プロンプトには様々な情報を含めることができます．例えばプロンプトの文字列に含まれる &quot;<em>\w</em>&quot; は<em>カレントディレクトリ</em>名に置き換わります．なお，<STRONG>&quot;<EM>＼</EM>&quot; (バックスラッシュ) は，画面やキーボード上では&quot;<EM>￥</EM>&quot; (円記号) で表示されることがあります．また </STRONG>&quot;<em>~</em>&quot; (チルダ) は<em>ホームディレクトリ</em>を表します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>プロンプトにカレントディレクトリを含める</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>なんやねん <span class="type">PS1=&quot;\w &gt;&quot;<KBD>[Enter]</KBD></span>
+~ &gt;<span class="type">cd /usr/bin</span><span class="type"><KBD>[Enter]</KBD></span>
+/usr/bin &gt;<span class="type">cd<KBD>[Enter]</KBD></span>
+~ &gt;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>&quot;<em>\!</em>&quot; は<EM>イベント番号</EM> (後述の history 機能で保存されているコマンドの履歴の番号) に置き換わります．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>プロンプトに<EM>イベント番号</EM>を含める</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>~ &gt;<span class="type">PS1=&quot;$~ \!&gt; &quot;<KBD>[Enter]</KBD></span>
+~ 6&gt; <span class="type">echo $PS1<KBD>[Enter]</KBD></span>
+$~ !&gt;  <SPAN class="anon">&larr;&quot;\&quot;自体は残らない</SPAN>
+~ 7&gt;  <SPAN class="anon">&larr;コマンドを実行するたびに数が増える</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2><A name="environ" class="label">３．環境変数</A></H2>
+<P>シェル変数が有効なのは，そのシェル内でのみです．シェル変数の設定をそのシェルから起動したシェルスクリプトやコマンド (プログラム) に引き継ぐには，それを環境変数に登録します．環境変数は<EM>オペレーティングシステム自体の機能</EM>です．</P>
+<h3>３．１　環境変数の設定</h3>
+<p>シェル変数を環境変数に登録するには <em>export</em> コマンドを使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>シェル変数 X を環境変数にする</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">X=10<KBD>[Enter]</KBD></span>
+$ <span class="type"><em>export</em>　X</span><KBD>[Enter]</KBD></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これは次の１行でも実行できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数 X に 10 を設定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>export</em> X=10<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>環境変数の値を<em>参照</em>する (取り出す) 場合も，変数名に &quot;<EM><TT>$</TT></EM>&quot; を付けます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数 X の値を参照する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo <em>$</em>X<KBD>[Enter]</KBD></span>
+10</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>env</em> コマンドまたは <em>printenv</em> コマンドによって，設定されている環境変数の一覧を表示できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数の一覧を見る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>printenv</em><KBD>[Enter]</KBD></span>
+<span class="anon">(環境変数の一覧が表示される)</span>
+$ <span class="type"><em>env</em><KBD>[Enter]</KBD></span>
+<span class="anon">(環境変数の一覧が表示される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h3>３．２　環境変数によるデータの受け渡し</h3>
+<P>テキストエディタを使って，今度は <em>hensu.bash</em> という名前の bash スクリプトを作成します．emacs を使う場合は，以下のようにします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs を使ってシェルスクリプト hensu.bash を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">emacs hensu.bash &amp;<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このファイルの内容は，次のようにします．</p>
+<pre class="source">#!/bin/bash
+echo $HENSU</PRE>
+<P>このファイルを保存したら，それに実行許可を与えます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>bash スクリプト hello.bash を実行可能にする</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">chmod <em>+x</em> hensu.bash<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これで bash スクリプト hensu.bash をコマンドとして実行することができます．このスクリプトを実行してみます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>hensu.bash を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">./hensu.bash<KBD>[Enter]</KBD></span>
+        <span class="anon">&larr; 何も出力されない</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>変数 HENSU はシェルスクリプト hensu.bash 内では設定されていませんから，このシェルスクリプトを実行しても何も出力されません．そこで，今使っているシェルでシェル変数 HENSU に値を設定してみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>set コマンドでシェル変数 HENSU に値を設定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">HENSU=10<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>しかし，これでも hensu.bash は何も出力しません．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>もう一度 hensu.bash を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">./hensu.bash<KBD>[Enter]</KBD></span>
+        <span class="anon">&larr; やっぱり何も出力されない</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>そこで <em>export</em> コマンドを使って，シェル変数 HENSU を環境変数に組み込みます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>export コマンドで環境変数 HENSU に値を設定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>export</em> HENSU<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これで hensu.bash を実行します．こんどは環境変数 HENSU に設定した値が出力されます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>さらにもう一度 hensu.bash を実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">./hensu.bash<KBD>[Enter]</KBD></span>
+10</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>実行するコマンドの左に変数への代入を置いて，コマンドに受け渡す環境変数を直接指定することもできます．このとき，もともとの環境変数の値は変化しません．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数を消去する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">HENSU=30 ./hensu.bash</em><KBD>[Enter]</KBD></span>
+30
+$ <span class="type">echo $HENSU</em><KBD>[Enter]</KBD></span>
+10      <span class="anon">&larr;もともとの環境変数の値は変わらない</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>４．コマンドのサーチパス</H2>
+<P>通常使うコマンドは，/usr/bin など，どこか他のディレクトリに収められています．コマンドを実行するには，それが収められている場所も含めて指定する必要があります．しかし，それではコマンドが長くなりすぎるので，<em>PATH</em> という環境変数にコマンドの<EM>サーチパス</EM>を設定して，どこにあるコマンドを使うのかを指定しています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドを実行してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">date<KBD>[Enter]</KBD></span>
+2014年  6月 19日 木曜日 14:30:45 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><em>date</em> コマンドは<em>カレントディレクトリにはなく</em>，どこか別のところにありますが，コマンド名を指定するだけで実行することができます．どのコマンドが実行されたのかは，<em>which</em> コマンドで確認できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>which コマンドでどのコマンドを実行したのか調べる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">which date<KBD>[Enter]</KBD></span>
+/bin/date  <SPAN class="anon">&larr;date コマンドは /bin ディレクトリにある</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>コマンドのサーチパスが設定していなければ，コマンドを実行する際にパス (相対パス，絶対パス) を明示する必要があります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>コマンドを絶対パス名で指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">/bin/date<KBD>[Enter]</KBD></span>
+2011年  6月 30日 木曜日 14:31:22 JST</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>カレントディレクトリにあるファイルも，サーチパスにカレントディレクトリが含まれていなければ，ファイル名 (コマンド名) だけでは実行できません．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>サーチパスに含まれないところにあるコマンドは実行できない</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">hello.bash<KBD>[Enter]</KBD></span>
+hello.bash: コマンドが見つかりません．</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>しかし，その場合もコマンドのパス (相対パス，絶対パス) を指定すれば実行することができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>パスを指定してコマンドを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">./hello.bash<KBD>[Enter]</KBD></span>
+<SPAN class="anon">(先ほど作った hello.bash が残っていれば何か出力される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>コマンドのサーチパスは環境変数 <em>PATH</em> に設定されています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数 PATH の内容を表示する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo $PATH<KBD>[Enter]</KBD></span>
+/usr/local/bin:/usr/bin:/sbin:/bin</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この中にはカレントディレクトリを示す &quot;<em>.</em>&quot; (ピリオド) が含まれれていません．そこで，試しに環境変数 PATH にカレントディレクトリ &quot;<em>.</em>&quot; を含めてみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数 PATH に <em>.</em> (ピリオド) を追加する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">PATH=$PATH<em>:.</em><KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>その後，環境変数 PATH の内容を確認してみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>環境変数 PATH の内容を確認する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo $PATH<KBD>[Enter]</KBD></span>
+/usr/local/bin:/usr/bin:/sbin:/bin<em>:.</em></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>環境変数 PATH に &quot;<em>.</em>&quot; (ピリオド) が含まれているはずです．この設定では，カレントディレクトリにある hello.bash を，<em>パスを明示せず</em>に実行できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>もう一度 hello.bash を実行してみる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">hello.bash<KBD>[Enter]</KBD></span>
+<SPAN class="anon">(何か出力される)</span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">コマンドのサーチパスにはピリオドを含めない</DIV>
+Windows の「コマンドプロンプト」ではカレントディレクトリにあるコマンドを実行するようになっていますが，Unix/Linux ではそれはデフォルトでは避けるようになっています (コマンドのサーチパスにピリオドを含めない)．これは cd した場所にある (自分が知らない) コマンドを不用意に実行してしまわないようにするためです．
+このために，カレントディレクトリにあるファイルを実行するときには，ファイル名の頭にカレントディレクトリを表す<em>相対パス</em>の &quot;<em>./</em>&quot; を付けます．</BLOCKQUOTE>
+<h2>５．bash の状態設定</h2>
+<h3>５．１　set コマンド</h3>
+<p>set コマンドを単独で (オプションや引数を付けずに) 実行すると，シェル変数などのシェルの設定の一覧を表示します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>シェルの設定の一覧を見るには <em>set</em> コマンドを単独で実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">set<KBD>[Enter]</KBD></span>
+<span class="anon">(シェル変数などのシェルの設定の一覧が表示される)</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h4>noclobber オプション</h4>
+<P>コマンドの標準出力をファイルに<EM>リダイレクト</EM>したとき，リダイレクト先のファイルが既に存在すれば，そのファイルの以前の内容は消えて，リダイレクトしたデータに置き換わってしまいます．リダイレクトによって<em>間違ってファイルの内容を消してしまわない</em>ようにするには，set コマンドに <EM>-o noclobber</EM> というオプションをつけて実行します (clobber = 不注意な上書きによるデータ破壊)．</P>
+<P><em>端末</em>を開いて，シェルで <em>echo</em> コマンドを使って，ファイル a に何かデータを入れてみます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>echo コマンドを使ってファイル a に「かばやねん」を入れる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo かばやねん &gt; a<KBD>[Enter]</KBD></span>
+$ <span class="type">cat a<KBD>[Enter]</KBD></span>      <span class="anon">&larr;cat コマンドで内容を確認する</span>
+かばやねん      <span class="anon">&larr;元の内容</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このファイル a に，echo コマンドで別のデータを入れてみます．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>echo コマンドを使ってファイル a に「たこやねん」を入れる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo たこやねん &gt; a<KBD>[Enter]</KBD></span>
+$ <span class="type">cat a<KBD>[Enter]</KBD></span>      <span class="anon">&larr;cat コマンドで内容を確認する</span>
+たこやねん      <span class="anon">&larr;書き替わってしまった</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ファイル a の内容は後からリダイレクトした内容に置き換わってしまいます．そこで set コマンドに <em>-o noclobber</em> を付けて実行します．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>set コマンドに -o noclobber オプションを付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">set -o noclobber<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>その後，先ほどと同様に echo コマンドの標準出力をリダイレクトします．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>echo コマンドを使ってもう一度ファイル a に「いかやねん」を入れてみる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo いかやねん &gt; a<KBD>[Enter]</KBD></span>
+bash: a: 存在するファイルを上書きできません  <SPAN class="anon">&larr;エラーメッセージ</SPAN>
+$ <span class="type">cat a<KBD>[Enter]</KBD></span>      <span class="anon">&larr;cat コマンドで内容を確認する</span>
+たこやねん      <span class="anon">&larr;書き替わっていない</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このように，今度は<em>エラー</em>になってしまいます．ファイルの内容を<em>強制的に上書き</em>するには，&quot;<EM>&gt;|</EM>&quot; を使ってリダイレクトします．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>&quot;<EM>&gt;|</EM>&quot; を使うと無理やり入れることができる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">echo いかやねん <EM>&gt;|</EM> a<KBD>[Enter]</KBD></span>  <SPAN class="anon">&larr;エラーにならない</SPAN>
+$ <span class="type">cat a<KBD>[Enter]</KBD></span>      <span class="anon">&larr;cat コマンドで内容を確認する</span>
+いかやねん      <span class="anon">&larr;書き替えられた</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h3>５．２　unset コマンド</h3>
+<p>シェル変数や環境変数を消去するには <EM>unset</EM> コマンドを使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>unset コマンドを使ってシェル変数を消去する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">unset v1 v2 v3<KBD>[Enter]</KBD></span>
+$ <span class="type">echo $v1<KBD>[Enter]</KBD></span>
+<span class="anon">(何も表示されない)</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><em>PS1</em> 変数を消去すると，シェルのプロンプトが現れなくなります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>PS1 変数を消去する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">unset PS1<KBD>[Enter]</KBD></span>
+  <SPAN class="anon">&larr;プロンプトが表示されない</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><em>IGNOREEOF</em> 変数を消去すると，<KBD>Ctrl-D</KBD> でシェルが終了するようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>IGNOREEOF 変数を消去する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">unset IGNOREEOF<KBD>[Enter]</KBD></span>
+<span class="type"><KBD>Ctrl-D</KBD></span>
+<span class="anon">(シェルが終了するためウィンドウが閉じる)</span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>６．history 機能</H2>
+<P>プログラミングなどをしていると，何度も同じコマンドを入力することがよくありますが，コマンドが長かったりすると結構面倒です．bash
+には以前に入力したコマンドを記録しておく機能がありますので，それを使って以前のコマンドを再利用できます．これを <em>history</em> (履歴) 機能と言います．history 機能はデフォルトで有効になっていますが，無効になっているときは set コマンドに <em>-o history</em> というオプションを付けて実行します．</P>
+<P><em>history</em> <strong>コマンド</strong>に引数を付けずに実行すると，記録しているコマンドの一覧を表示します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <Th>history コマンドでこれまでに入力したコマンドの一覧が表示される．</Th>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">history<KBD>[Enter]</KBD></span>
+     1  PS1=&quot;なんやねん &quot;
+   <SPAN class="anon">(中略)</SPAN>
+    17  history</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><KBD>Ctrl-P</KBD> や <kbd><em>&uarr;</em></kbd> で以前に入力したコマンドを呼び出すことができます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>&quot;!!&quot; で直前に実行したコマンドを再度実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ !!<span class="type"><KBD>[Enter]</KBD></span>
+history          <SPAN class="anon">&larr;再実行するコマンドが表示される</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>&quot;<em>!</em>イベント番号&quot; で指定したイベント番号のコマンドを再実行できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>イベント番号 1 のコマンドを再度実行する．</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">!1<KBD>[Enter]</KBD></span>
+set prompt=&quot;なんやねん &quot;
+なんやねん </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>&quot;<em>!</em>文字列&quot; で最近に実行した文字列で始まるコマンドを再実行できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>最近に実行した &quot;ec&quot; で始まるコマンドを再度実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>なんやねん <span class="type">!ec<KBD>[Enter]</KBD></span>
+echo $prompt
+なんやねん </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><KBD>Ctrl-R</KBD> でコマンドの履歴を検索できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>最近に実行した &quot;ec&quot; で始まるコマンドを再度実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>なんやねん <span class="type"><KBD>Ctrl-R</KBD><KBD></KBD></span>
+(reverse-i-serch)`': <span class="type">ec</span>ho $PS1  <span class="anon">&larr;ec だけ打てば残りが現れる</span>
+なんやねん </PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>履歴を記録するコマンドの数は，シェル変数 HISTSIZE に設定します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>履歴を記録するコマンドの数はシェル変数 HISTSIZE に設定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>なんやねん <span class="type">HISTSIZE=10000<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>７．コマンドの別名</H2>
+<P><em>alias</em> (エイリアス) コマンドを使って，コマンドに別名をつけることができます．以下のコマンドを実行すれば，それ以降 ll で ls -l が実行されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>&quot;ls -l&quot; に ll という別名を付ける</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">alias ll='ls -l'<KBD>[Enter]</KBD></span>
+$ <span class="type">ll<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>rm </em>コマンドは，実行すると，いきなりファイルを消してしまいます．また，消したファイルを復元することもできません．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>rm コマンドは有無を言わさずにファイルを消す</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">touch xxx<KBD>[Enter]</KBD></span>  <SPAN class="anon">&larr;適当なファイル xxx を作る</SPAN>
+$ <span class="type">rm xxx<KBD>[Enter]</KBD></span>
+$                    <SPAN class="anon">&larr;何も言わずにファイルを消してしまう</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>rm コマンドに <em>-i</em> というオプションを付ければ，ファイルを削除する際に確認します．消すなら y，消さないなら n を入力します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>rm コマンドに -i を付けてファイルを削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">touch xxx<KBD>[Enter]</KBD></span>  <SPAN class="anon">&larr;適当なファイル xxx を作る</SPAN>
+$ <span class="type">rm -i xxx<KBD>[Enter]</KBD></span>
+rm: remove `xxx'? <span class="type">y</span> <SPAN class="anon">&larr;一応聞いてくれる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>しかし，rm コマンドを使うたびに，毎回 -i オプションを指定するには面倒ですし，忘れる可能性もあります．そこで alias 機能を使って，rm コマンドが必ず -i オプション付きで実行されるようにします．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>rm で必ず &quot;rm -i&quot; が実行されるようにする</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">alias rm='rm -i'<KBD>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この後 rm コマンドを使ってファイルを削除してみます．必ず確認するようになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>alias による rm コマンドを使ってファイルを削除する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">touch xxx<KBD>[Enter]</KBD></span>  <SPAN class="anon">&larr;適当なファイル xxx を作る</SPAN>
+$ <span class="type">rm xxx<KBD>[Enter]</KBD></span>
+rm: remove `xxx'? <span class="type">y</span> <SPAN class="anon">&larr;こんどは -i を付けなくても聞いてくれる</SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>alias の設定を解除するには，<em>unalias</em> コマンドを使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>unalias コマンドで alias の設定を解除する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">unalias ll<KBD>[Enter]</KBD></span>
+$ <span class="type">ll .*<KBD>[Enter]</KBD></span>
+ll: コマンドが見つかりません.</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>なお，set / unset コマンドや let コマンド，history コマンド，alias / unalias コマンドなどは bash の<EM>組み込みコマンド</EM>と呼ばれ，bash 自身が処理しています．したがって ls のように独立したコマンドはありません．</p>
+<H2>８．シェルの初期設定</H2>
+<P>history 変数の設定や alias の設定などは，bash を終了すると失われてしまいます．ホームディレクトリの <em>.bashrc</em> というファイルに書いたコマンドは，シェルの起動時，利用者のコマンドの入力を待つ前に実行されるため，これを使って初期設定をすることができます．なお，<span class="assign"><strong>.bashrc
+に誤った設定を行うとシェルが正常に使用できなくなる</strong>ことがありますので，設定には細心の注意を払ってください．</span></P>
+<P>テキストエディタを使って，ホームディレクトリに .bashrc というファイルを作成してください．emacs の場合は，次のようにします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs を使って bash の初期設定ファイル .bashrc を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>$ <span class="type">cd<KBD>[Enter]</KBD></span>    <span class="anon">&larr;一旦ホームディレクトリに戻る</span>
+$ <span class="type">emacs .bashrc &amp;<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>.bashrc の内容は，例えば次のようにしてください．rm 同様 cp や mv コマンドにも -i オプションを付けることをお勧めします．これにより cp や mv でファイルをコピー／移動する先に同名のファイルがある場合に，上書きの可否を確認します．</p>
+<PRE class="source">HISTSIZE=10000
+IGNOREEOF=3
+set -o noclobber
+<em>alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'</em></PRE>
+<P>なお，この読み込みは bash の起動時にしか行われないので，.bashrc の設定は新たに開いた端末で有効になります．現在使っているシェルでその設定を有効にするには
+<em>source</em> コマンドあるいは <em>.</em> (ピリオド１個）を使います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>.bashrc の読み込み</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">source .bashrc<KBD>[Enter]</KBD></span>
+<span class="anon">（あるいは）</span>
+$ <span class="type">. .bashrc<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>.bashrc は bash の起動時に自動的に読み込まれるので，.bashrc を変更しなければ，source
+コマンドを使用する必要はありません．</P>
+<blockquote><div class="header">rm, cp, mv を -i オプション付きで起動することについて</div>
+<div class="body">
+alias によって rm, cp, mv を -i オプション付きで起動することについては，「効果がない」「より大きな失敗を引き起こす場合がある」など，否定的な意見も見られます．ですが，少なくとも私はこの設定によって<strong>何回も救われている</strong>ので，ここでお勧めしています．しかし，これを採用するかどうかは,，自分の判断でお願いします．
+</div>
+</blockquote>
+<H2>宿題</H2>
+<p>次の (1)～(2) の作業を行い，それぞれの結果と (3) の内容をメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-11">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-11 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) man bash  を見て，プロンプトに現在時刻を含める設定を考えて報告してください．</DIV>
+<DIV class="assign">(2) 二つの<EM>環境変数</EM> X と Y の<EM>和</EM>を出力する bash スクリプト add.bash を作成してください．X と Y は add を起動する前に，あらかじめ設定されているものとします．作成した bash スクリプトの内容をメールの本文にコピー＆ペーストしてください．また，<em>export</em> コマンドを使って X と
+Y に適当な数値を設定し，その後 add コマンドを実行して正しい結果が出力されることを確かめてください．この過程をメールの本文に<a href="04.html#copyandpaste">コピー＆ペースト</a>してください．</DIV>
+<div class="assign">(3) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="10.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</HTML>

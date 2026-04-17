@@ -1,0 +1,91 @@
+<head>
+<title>情報基礎演習II − 課題４８</title>
+</head>
+
+<body>
+
+<h3>課題４８</h3>
+
+<hr>
+
+<ol>
+
+<li>1 から 100 までの合計を求めるプログラムを作ります。
+<p>
+
+<li>次の３つのソースファイルを、
+それぞれ kadai48a.c kadai48b.c kadai48c.c として作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>kadai48a.c</b>
+<tr><td>
+<pre>
+extern int sum;       /* どこか他で宣言されている変数 */
+extern int inc(void); /* どこか他で宣言されている関数 */
+
+void goukei(int n)
+{
+    do {
+      sum += inc();
+    }
+    while (--n > 0);
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>kadai48b.c</b>
+<tr><td>
+<pre>
+int sum;
+
+int inc(void)
+{
+    return ++sum;
+}
+</pre>
+</table>
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td><b>main.c</b>
+<tr><td>
+<pre>
+int sum; /* 共有しようとする変数の宣言 */
+
+int main(void)
+{
+    sum = 0;
+    goukei(100);
+    printf("合計は %d\n", sum);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムを次のようにしてコンパイル／リンクしてください。
+<blockquote>
+<pre>
+cc kadai48a.c kadai48b.c kadai48c.c -o kadai48
+</pre>
+</blockquote>
+
+<li>このプログラムはリンクの際に警告を表示します。
+また正常には動作しません。
+<p>
+
+<li>この３つのプログラムのうちのどれかひとつに static を１箇所だけ
+書き加えて、正常に動作するように修正してください。
+<p>
+
+<li>修正したプログラムをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai48 としてください。
+
+</ol>
+
+</body>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０７：影付け処理</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０７：影付け処理</h1>
+
+<p>複数の物体があるとき，ある物体の影が別の物体に落ちるようにしてください．</p>
+
+<p>現在の可視点 <b>P</b> から光源に向かうベクトル <b>L</b>
+の方向に，別の物体が一つでもあれば，<b>P</b> は影になります．</p>
+
+<div class="figure">
+<img src="07-01.gif" width="360" height="270" alt="影付け処理">
+</div>
+
+<p><b>P</b> から <b>L</b>
+の方向に伸ばした半直線が一つでも他の物体と交差する場合に
+-1，交差しない場合に 0 を返す関数 shadow()
+を shade() の前に置いてください．</p>
+
+<pre class="source">
+int shadow(const float *p, const float *l)
+{
+  /*
+  ** 点 <b>P</b> から <b>L</b> の方向に物体があれば -1，
+  ** 無ければ 0 を返す
+  */
+}
+</pre>
+
+<p>この shadow() を shade() に組み込んで，
+影の部分の陰影は環境光のみとなるようにしてください．
+shade() の中で shadow() を使うために，
+shade() の引数に現在の可視点 <b>P</b> を追加する必要があります．</p>
+
+<pre class="source">
+void shade(const float *l, const float *n, const float *v, <em>const float *p,</em>
+           const struct Material *k, float *i)
+{
+  /*
+  ** 光線ベクトル <b>L</b>，物体表面の法線ベクトル <b>N</b>，
+  ** 視線ベクトル <b>V</b>，
+  ** 環境光に対する反射係数 K<sub>a</sub>，
+  ** 物体表面の拡散反射係数 K<sub>d</sub>，
+  ** 物体表面の鏡面反射係数 K<sub>s</sub>，
+  ** ハイライトの広がり（輝き係数）K<sub>e</sub>，
+  ** 光源の強度 I<sub>l</sub>，環境光の強度 I<sub>a</sub> から，
+  ** 完全拡散反射面における反射光強度 I を求める
+  */
+}
+</pre>
+
+<p><a href="08.html">【次：課題０８】</a></p>
+
+</body>
+</html>

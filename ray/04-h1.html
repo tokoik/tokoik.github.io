@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>拡散反射光（＋環境反射光）の強度の求め方</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>拡散反射成光（＋環境反射光）の強度の求め方</h1>
+
+<p>この場合の反射光強度 I
+は，次式で求めることができる．ここで <b>N</b> および <b>L</b>
+は単位ベクトルである必要がある．</p>
+
+<blockquote>
+r<sub>d</sub> = <b>N</b>・<b>L</b><br>
+I<sub>d</sub> = r<sub>d</sub> I<sub>l</sub><br>
+I = K<sub>d</sub> I<sub>d</sub> + K<sub>a</sub> I<sub>a</sub>
+</blockquote>
+
+<p>I を求める手順は以下のようになる．</p>
+
+<ol>
+<li>視線と物体との交点が見つかった時点で，
+その交点における法線単位ベクトル <b>N</b> を求める．</li>
+<li><b>N</b> と <b>L</b> の内積 r<sub>d</sub> = <b>N</b>・<b>L</b>
+を求める．</li>
+<li>r<sub>d</sub> &lt; 0 なら，その点には光源からの光が当らない．
+r<sub>d</sub> = 0 の場合もこの光源による反射光がないわけだから，
+これらの場合，反射光は環境光によるものだけになる．
+したがって，
+<dl>
+<dt>もし r<sub>d</sub> &gt; 0 なら</dt>
+<dd>I<sub>d</sub> = r<sub>d</sub> I<sub>l</sub></dd>
+<dt>それ以外</dt>
+<dd>I<sub>d</sub> = 0</dd>
+</dl>
+として，I = K<sub>d</sub> I<sub>d</sub> + K<sub>a</sub> I<sub>a</sub>
+を求める．</li>
+</ol>
+
+</body>
+</html>

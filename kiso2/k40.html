@@ -1,0 +1,81 @@
+<head>
+<title>情報基礎演習II − 課題４０</title>
+</head>
+
+<body>
+
+<h3>課題４０</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+入力された文字列を逆順に並べ替えて出力します。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai40
+** 動作: 文字列の並べ替え
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+{
+    char line1[100]; /* 入力文字列 */
+    char line2[100]; /* 出力文字列 */
+    char *p1;        /* line1 のポインタ */
+    char *p2;        /* line2 のポインタ */
+    int length;      /* 文字列の長さ */
+
+    /* 文字列の入力 */
+    printf("文字列を入れてください: ");
+    scanf("%99s", line1);
+
+    /* 長さを求める */
+    length = strlen(line1);
+
+    /* line1 の最後の文字のポインタ */
+    p1 = <u>??(1)??</u>;
+
+    /* line2 の最初の文字のポインタ */
+    p2 = line2;
+
+    /* p1 を p2 にコピー */
+    while (--length >= 0) {
+        *p2 = *p1;
+        p1<u>??(2)??</u>;
+        p2<u>??(3)??</u>;
+    }
+
+    /* p2 の最後に '\0' を追加 */
+    *p2 = '\0';
+
+    printf("逆順にすると: %s\n", line2);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li><tt>??(1)??</tt> に適当な式を埋め、
+さらに <tt>??(2)??</tt> および <tt>??(3)??</tt> に
+++ あるいは -- のいずれかの演算子を埋めて、
+プログラムを完成させてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai40.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai40 としてください。
+
+</ol>
+
+</body>

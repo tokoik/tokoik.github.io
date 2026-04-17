@@ -1,0 +1,503 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="style.css">
+<TITLE>Webアプリケーションの開発</TITLE>
+</HEAD>
+<BODY>
+<H1>Web アプリケーションの開発</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>Web アプリケーションの作成方法について知る
+  <LI>データ入力フォームの作成方法について知る
+  <LI>フォームデータを Web サーバに転送する方法について知る
+</OL>
+<H2>１．Web アプリケーション</H2>
+<H3><A class="label" name="filetype">１．１　Web アプリケーションとは</A></H3>
+<P>通常の Web ページは<EM>内容が固定している</EM>のに対して，Web アプリケーションでは Web クライアントが Web サーバにアクセスした時点で，Web サーバが Web ページの内容を<EM>動的に生成します</EM>．これによって，ユーザによるデータ入力や，そのときの状況に応じて，Web ページの内容を変化させることができます．</P>
+<P>このように動的な Web ページを生成する場合を <EM>Web アプリケーション</EM>といい，Web アプリケーション作成のためのプログラミングを <EM>Web プログラミング</EM>といいます．ここで HTML は，単に Web ページのレイアウトを行うだけでなく，Web アプリケーションの<EM>ユーザインタフェース</EM>の記述にも使用されます．</P>
+<DIV class="figure"><IMG src="07_files/webappl1.gif" width="640" height="320" border="0"></DIV>
+<P>Web アプリケーションの作成には，機能を Web サーバ側で実現するものとして
+CGI (Common Gateway Interface)，SSI (Server Side Include)，<A href="http://www.php.gr.jp/" target="_blank">PHP</A> (PHP:Hypertext Preprocessor)，<A href="http://e-words.jp/w/mod_perl.html" target="_blank">mod_perl</A>，<A href="http://e-words.jp/w/JavaE382B5E383BCE38396E383ACE38383E38388.html" target="_blank">Java Servlet</A> など，Web クライアント側で実現するものとして <A href="http://e-words.jp/w/javascript.html" target="_blank">JavaScript</A>，<A href="http://e-words.jp/w/JavaE382A2E38397E383ACE38383E38388.html" target="_blank">Java Applet</A> など，様々なものが利用できます．この講義では，これらのうち最も基本的な
+CGI と，手軽に利用できる JavaScript について解説します．</P>
+<H3>１．２　商品発注システムのイメージ</H3>
+<P>この講義では，前回作成した架空のお店の Web ページに，<EM>商品発注の機能を追加</EM>します．そこで最初に，お店のトップページ (shop.html) に，「商品選択ページ」へのリンクを張った，「商品の注文」という<EM>アンカー</EM>（他の Web ページへのリンクを張った文字列や画像など）を追加します．</P>
+<DIV class="figure"><IMG src="07_files/image.gif" width="480" height="426" border="0"></DIV>
+<UL>
+  <LI>「商品選択ページ」では，商品在庫情報のデータベースから取り出したデータをもとに，商品リストを表示します．ここでデータベースからデータを取り出して，商品リストの表示や発注データの入力を行うための
+  Web ページを生成するプログラムを呼び出します．</LI>
+  <LI>「商品選択ページ」に発注データを入力した後，そのページにある「確定」のボタンを押すと，入力したデータを
+  Web サーバに送り，そのデータを受け取るプログラムを呼び出します．このプログラムは送られたデータを受け取った後，その内容をもとに発注内容の確認と送付先情報の入力を行う「注文確認ページ」の
+  Web ページを生成します．</LI>
+  <LI>「注文確認ページ」に送付先データを入力した後，そのページにある「確定」のボタンを押すと，入力したデータを
+  Web サーバに送り，商品在庫情報のデータベースを更新した後，「受注メッセージ」の
+  Web ページを生成します．</LI>
+</UL>
+<DIV class="figure"><IMG src="07_files/webappl2.gif" width="640" height="320" border="0"></DIV>
+<H2>２．「商品選択ページ」のインタフェース作成</H2>
+<P>まず「商品選択ページ」のデザインを，HTML で記述してみます．このデザインは次のようにします．ファイル名は
+<EM>select.html</EM> としてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya1.gif" width="540" height="480" border="0"></DIV>
+<P>それでは<EM>ターミナル</EM>を開いて，シェルの<EM>カレントディレクトリ</EM>を前回作成した <EM>public_html/linux</EM> (public_html の中の linux) に移してください．そこで <EM>emacs</EM> を使って select.html を開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs で select.html を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">$ <span class="type">cd public_html/linux<KBD>[Enter]</KBD></span><BR>
+      $ <span class="type">emacs select.html &amp;<KBD>[Enter]</KBD></span></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>select.html はまだ作成していませんから，ファイルの新規作成になります．以下の<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．もしタイピングに時間がかかるようなら，<SPAN class="type">網掛け部分</SPAN>の内容を Mozilla から emacs のバッファに<A href="03.html#copyandpaste">コピー＆ペースト</A>して構いません．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋商品リスト&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+
+    &lt;h2&gt;取扱商品リスト&lt;/h2&gt;
+    &lt;p&gt;当店では以下の商品を取り扱っています．&lt;/p&gt;
+
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;No.&lt;/th&gt;
+        &lt;th&gt;注文チェック&lt;/th&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;在庫数&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;10000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;100000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+
+    &lt;p&gt;注文する商品をチェックし，注文数を入力してください．&lt;/p&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;</span></PRE>
+<P>追加できたら <KBD>C-x C-s</KBD> でバッファを保存してください （<STRONG>emacs は終了しないでください</STRONG>）．その後，<A href="04.html#new">Mozilla の新しいウィンドウを開いて</A>，そこに <A href="01.html#openurl">select.html を表示して</A>ください．上の図のようなページが表示されたでしょうか？そうしたらスタイルシートを使って，このページの色やレイアウトを<EM>自分なりに</EM>変更してみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>「商品選択ページ」のインタフェースの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.wakayama-u.ac.jp/~ユーザ名/linux/select.html</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ところで，これまで作成してきた Web ページは，<EM>文字や画像を表示するだけ</EM>でした．しかし，この「商品選択ページ」のような Web アプリケーションでは，Web ページの中に<EM>データを入力</EM>したり，入力したデータを <EM>Web サーバに転送する</EM>ための仕組みが必要になります．</P>
+<P>現状の「商品選択ページ」では，表の「注文チェック」欄や「注文数」欄が空欄のままになっています．そこで，これらの欄にデータを入れられるようにします．まず，この表の「注文チェック」欄に<EM>チェックボックス</EM>を作成します．select.html に<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋商品リスト&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+
+    &lt;h2&gt;取扱商品リスト&lt;/h2&gt;
+    &lt;p&gt;当店では以下の商品を取り扱っています．&lt;/p&gt;
+<SPAN class="type">    &lt;form&gt;</SPAN>
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;No.&lt;/th&gt;
+        &lt;th&gt;注文チェック&lt;/th&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;在庫数&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;checkbox&quot; name=&quot;c1&quot;&gt;</SPAN>&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;10000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;checkbox&quot; name=&quot;c2&quot;&gt;</SPAN>&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;100000&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+<SPAN class="type"></SPAN>    &lt;p&gt;注文する商品をチェックし，注文数を入力してください．&lt;/p&gt;
+ <SPAN class="type">    &lt;/form&gt;</SPAN>
+ &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>網掛け部分を select.html に追加できたら，<KBD>C-x C-s</KBD> でファイルを保存し，Mozilla で「<A href="04.html#reload">再読み込み</A> (Reload)」してください．表の「注文チェック」欄に，下図のようにチェックボックスが現れたでしょうか．現れたら，試しにこのチェックボックスを数回クリックしてみてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya2.gif" width="540" height="96" border="0"></DIV>
+<P>同様に，この表の「注文数」欄に<EM>文字の入力フィールド</EM>（データを入れる場所）を作成します．select.html に<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋商品リスト&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+    &lt;h2&gt;取扱商品リスト&lt;/h2&gt;
+    &lt;p&gt;当店では以下の商品を取り扱っています．&lt;/p&gt;
+    &lt;form&gt;
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;No.&lt;/th&gt;
+        &lt;th&gt;注文チェック&lt;/th&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;在庫数&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot; name=&quot;c1&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;10000&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;n1&quot; size=&quot;4&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot; name=&quot;c2&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;100000&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;n2&quot; size=&quot;4&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;注文する商品をチェックし，注文数を入力してください．&lt;/p&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>網掛け部分を select.html に追加できたら，<KBD>C-x C-s</KBD> でファイルを保存し，Mozilla で「再読み込み (Reload)」してください．表の「注文チェック」欄に，下図のように文字の入力フィールド現れたでしょうか．現れたら，ここに何文字かタイプしてみてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya3.gif" width="540" height="96" border="0"></DIV>
+<P>さらに，入力した内容を確定するためのボタンと，入力した内容を取り消すボタンを追加します．select.html
+に<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋商品リスト&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+    &lt;h2&gt;取扱商品リスト&lt;/h2&gt;
+    &lt;p&gt;当店では以下の商品を取り扱っています．&lt;/p&gt;
+    &lt;form&gt;
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;No.&lt;/th&gt;
+        &lt;th&gt;注文チェック&lt;/th&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;在庫数&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot; name=&quot;c1&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;10000&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;n1&quot; size=&quot;4&quot;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;checkbox&quot; name=&quot;c2&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;100000&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;n2&quot; size=&quot;4&quot;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;注文する商品をチェックし，注文数を入力してください．&lt;/p&gt;
+<SPAN class="type">    &lt;input type=&quot;submit&quot; value=&quot;注文する&quot; /&gt;</SPAN>
+<SPAN class="type">    &lt;input type=&quot;reset&quot; value=&quot;クリア&quot; /&gt;</SPAN>
+    &lt;/form&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>網掛け部分を select.html に追加できたら，<KBD>C-x C-s</KBD> でファイルを保存し，Mozilla で「再読み込み (Reload)」してください．下図のように，「注文する」と「クリア」のボタンが現れたでしょうか．現れたら，何かデータを入れて，これらのボタンをクリックしてみてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya4.gif" width="540" height="160" border="0"></DIV>
+<P>ここまでできたら，一旦 emacs を終了しましょう．<KBD>C-x C-c</KBD> をタイプしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたデータ入力用タグ</DIV>
+<DL>
+  <DT><CODE class="tag">&lt;form&gt;</CODE>～<CODE class="tag">&lt;/form&gt;</CODE>
+  <DD>ユーザによるデータ入力を行う領域（<EM>フォーム</EM>）をマークアップします．
+  <DT><EM><CODE class="tag">&lt;input type=&quot;checkbox&quot; name=&quot;c1&quot;&gt;</CODE></EM>
+  <DD>ユーザがチェックマークを付けることができる入力部品です．部品名を <EM>c1</EM> としています．
+  <DT><EM><CODE class="tag">&lt;input type=&quot;text&quot;<CODE class="tag"> name=&quot;n1&quot;</CODE> size=&quot;4&quot;&gt;</CODE></EM>
+  <DD>ユーザが１行のテキスト（文字列）を入力することができる入力部品です．部品名を
+  <EM>n1</EM> としています．また，入力エリアのサイズを４文字分としています．
+  <DT><EM><CODE class="tag">&lt;input type=&quot;submit&quot; value=&quot;注文する&quot;&gt;</CODE></EM>
+  <DD>ユーザが入力内容を確定するためのボタンです．ボタンに「確定する」という<EM>ラベル</EM>を付けています．
+  <DT><EM><CODE class="tag">&lt;input type=&quot;reset&quot; value=&quot;clear&quot;&gt;</CODE></EM>
+  <DD>ユーザが入力内容を初期状態に戻すためのボタンです．ボタンに「クリア」という<EM>ラベル</EM>を付けています．
+</DL>
+</BLOCKQUOTE>
+<H2>３．「注文確認ページ」のインタフェース作成</H2>
+<P>次に，「商品選択ページ」から入力されたデータを受け取って，注文内容の確認と送付先情報の入力を行う「注文確認ページ」のデザインを，HTML
+で記述します．このデザインは次のようにします．ファイル名は <EM>order.html</EM> としてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya5.gif" width="540" height="580" border="0"></DIV>
+<P>それでは <EM>emacs</EM> を使って order.html を開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs で order.html を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">$ <span class="type">emacs order.html &amp;<KBD>[Enter]</KBD></span></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>order.html もまだ作成していませんから，ファイルの新規作成になります．以下の<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋注文書&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+
+    &lt;h2&gt;商品注文書&lt;/h2&gt;
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+        &lt;th&gt;価格&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;200&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;合計価格&lt;/th&gt;
+        &lt;td&gt;5200&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;消費税&lt;/th&gt;
+        &lt;td&gt;260&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;税込価格&lt;/th&gt;
+        &lt;td&gt;5460&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;上記の注文内容でよろしいですか．
+    よろしければ以下の商品送付先情報を入力して，
+    確定ボタンをクリックして下さい．&lt;/p&gt;
+    &lt;p&gt;注文内容を修正する場合は，
+    ブラウザの戻るボタンで前のページに戻って下さい．&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;caption&gt;商品送付先情報&lt;/caption&gt;
+      &lt;tr&gt;
+        &lt;td&gt;郵便番号&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;住所&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;氏名&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;電話番号&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+
+  &lt;/body&gt;
+
+&lt;/html&gt;</span></PRE>
+<P>上の内容を order.html に追加できたら <KBD>C-x C-s</KBD> でバッファを保存してください．その後，Mozilla の新しいウィンドウを開いて，そこに
+order.html を表示してください．上の図のようなページが表示されたでしょうか？</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>「注文確認ページ」のインタフェースの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.wakayama-u.ac.jp/~ユーザ名/linux/order.html</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>実は，この order.html は「商品送付先情報」の「郵便番号」，「氏名」，「住所」，「電話番号」の欄が空欄になっています．そこで，これらの欄にデータを入れられるようにします．order.html
+に<SPAN class="type">網掛け部分</SPAN>の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋注文書&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;h1&gt;スーパーショップまんだ屋&lt;/h1&gt;
+
+    &lt;h2&gt;商品注文書&lt;/h2&gt;
+    &lt;table border=&quot;1&quot;&gt;
+      &lt;tr&gt;
+        &lt;th&gt;品名&lt;/th&gt;
+        &lt;th&gt;単価&lt;/th&gt;
+        &lt;th&gt;注文数&lt;/th&gt;
+        &lt;th&gt;価格&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;オリジナルスーパーPDA&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;5000&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;オリジナルスーパーPHS&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;200&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;合計価格&lt;/th&gt;
+        &lt;td&gt;5200&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;消費税&lt;/th&gt;
+        &lt;td&gt;260&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th colspan=&quot;3&quot;&gt;税込価格&lt;/th&gt;
+        &lt;td&gt;5460&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;上記の注文内容でよろしいですか．
+    よろしければ以下の商品送付先情報を入力して，
+    確定ボタンをクリックして下さい．&lt;/p&gt;
+    &lt;p&gt;注文内容を修正する場合は，
+    ブラウザの戻るボタンで前のページに戻って下さい．&lt;/p&gt;
+<SPAN class="type">    &lt;form&gt;</SPAN>
+    &lt;table&gt;
+      &lt;caption&gt;商品送付先情報&lt;/caption&gt;
+      &lt;tr&gt;
+        &lt;td&gt;郵便番号&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;zip&quot; size=&quot;7&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;住所&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;adr&quot; size=&quot;40&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;氏名&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;nm&quot; size=&quot;20&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;電話番号&lt;/td&gt;
+        &lt;td&gt;<SPAN class="type">&lt;input type=&quot;text&quot; name=&quot;tel&quot; size=&quot;12&quot;&gt;</SPAN>&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+<SPAN class="type">    &lt;input type=&quot;submit&quot; value=&quot;確定&quot;&gt;</SPAN>
+<SPAN class="type">    &lt;/form&gt;</SPAN>
+  &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P>追加できたら <KBD>C-x C-s</KBD> でファイルを保存し，Mozilla で「再読み込み (Reload)」してください．期待通りのページが表示されましたか？</P>
+<H2>４．「受注メッセージ」の作成</H2>
+<P>最後に，「注文確認ページ」から入力されたデータを受け取って，注文を受け付けたことを伝える「受注メッセージ」のデザインを，HTML
+で記述します．このデザインは次のようにします．ファイル名は <EM>thanks.html</EM> としてください．</P>
+<DIV class="figure"><IMG src="07_files/mandaya6.gif" width="540" height="580" border="0"></DIV>
+<P>それでは <EM>emacs</EM> を使って thanks.html を開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs で order.html を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">$ <span class="type">emacs thanks.html &amp;<KBD>[Enter]</KBD></span></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>thanks.html もまだ作成していませんから，ファイルの新規作成になります．このファイルの内容の
+HTML よる記述は<EM>自分で考えてみてください</EM>．</P>
+<PRE class="source"><span class="type">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;スーパーショップまんだ屋受注メッセージ&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+</span><SPAN class="anon">    （ここは自分で考えてみてください）</SPAN><span class="type">
+
+  &lt;/body&gt;
+
+&lt;/html&gt;</span></PRE>
+<P>上の内容を thanks.html に追加できたら，<KBD>C-x C-s</KBD> でバッファを保存してください．その後，Mozilla の新しいウィンドウを開いて，そこに
+thanks.html を表示してください．自分で考えたとおりのページが表示されたでしょうか？</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>「注文確認ページ」の URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.wakayama-u.ac.jp/~ユーザ名/linux/thanks.html</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>５．CGI プログラムの作成</H2>
+<P>ここまでで作成してきた各ページは，商品在庫情報のデータベースを参照したり，ユーザが入力したデータをサーバ側に送ったりしていませんでした．だから，「商品選択ページ」はいつ見ても同じ内容しか表示されませんし，「商品選択ページ」で入力したデータが「注文確認ページ」の内容に反映されることもありません．</P>
+<P>そこで，「商品選択ページ」は通常の HTML ファイルではなく，CGI (Common Gateway
+Interface) と呼ばれるプログラムによって生成するようにします．また「注文確認ページ」も，「商品選択ページ」で入力されたデータをもとに，CGI
+によって生成するようにします．</P>
+<P>ただし，実際の CGI プログラムは明日以降の講義で作成します．ここでは，仮のプログラムを用意しておきます．</P>
+</BODY>
+</HTML>

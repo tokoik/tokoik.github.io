@@ -1,0 +1,1051 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第４回：ファイル，コマンド，テキストエディタ emacs の操作，印刷</TITLE>
+<script src="Scripts/swfobject_modified.js" type="text/javascript"></script>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第４回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>ファイルについて知る</LI>
+  <LI>コマンドの実行方法について知る</LI>
+  <LI>テキストエディタの使い方を知る</LI>
+</OL>
+<ul>
+<li><a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-03/">提出された前回の宿題</a></li>
+</ul>
+<div class="footer"><a href="03.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<H2><A name="panel" class="label">１．パネルの使い方</A></H2>
+<P>パネルに表示されている項目は，自分で変更できます．また，パネルそのものも追加したり削除したりできます．</P>
+<H3>１．１　パネルにアプリケーションを追加する</H3>
+<P>パネルには通常のアプリケーションソフトウェアを起動するアイコン（ランチャ）や，パネル内で動作する<EM>アプレット</EM>と呼ばれる小さなソフトウェアを組み込むことができます．パネルに登録したいアプリケーションソフトウェアをメニューから選び，<EM>右ボタン</EM>でクリックしてください．選択したメニューの下にサブメニューが開きますから，「パネルへ追加」を選んでください．</P>
+<DIV class="figure"><IMG src="addpanel1.jpg" width="720" height="600" alt="パネルにアイコンを追加する"></DIV>
+<H3>１．２　パネルのアイコンを移動する</H3>
+<P>移動したいアイコンをマウスの<EM>中ボタン</EM>でドラッグしてください．</P>
+<DIV class="figure"><img src="addpanel2.jpg" width="640" height="96" alt="パネル上のアイコンを移動する"></DIV>
+<H3>１．３　パネルにアプレットを追加する</H3>
+<P>パネルにアプレットを登録するには，パネルの何も無いところを右クリックして，ポップアップしたメニューから「パネルにアプレットを追加」を選んでください．</P>
+<DIV class="figure"><IMG src="addpanel6.jpg" width="640" height="480" alt="パネルにアイコンを追加する"></DIV>
+<P>追加したいアプレットを選んで「追加」のボタンをクリックしてください．その後，「閉じる」をクリックしてください．</P>
+<DIV class="figure"><IMG src="addpanel7.jpg" width="824" height="643" alt="パネルにアイコンを追加する"></DIV>
+<H3>１．４　パネルからアイコンを削除する</H3>
+<P>削除したいアイコンをマウスの<EM>右ボタン</EM>でクリックして，「削除」を選んでください．</P>
+<DIV class="figure"><IMG src="addpanel5.jpg" width="640" height="164" alt="アプレットの設定を変更する"></DIV>
+<H2><A class="label" name="copyandpaste">２．コピー＆ペースト</A></H2>
+<H3>２．１　画面上の文字を別のところにコピーする</H3>
+<P>いわゆる「コピペ」の方法です．下図の「スタート」をクリックしてください．文字が表示されている部分をマウスの<EM>左ボタン</EM>でドラッグしたとき，その文字が<EM>コピー可能</EM>なら色が反転します．そこでマウスボタンを離してコピー先にマウスを移動し，マウスの<EM>中ボタン</EM>をクリックしてください．これは X Window System における基本的なコピー＆ペーストの方法です．</P>
+<DIV class="figure">
+  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="400" height="200" id="copypaste" title="コピーアンドペースト">
+    <param name="movie" value="copypaste.swf">
+    <param name="quality" value="high">
+    <param name="wmode" value="opaque">
+    <param name="swfversion" value="6.0.65.0">
+    <!-- このパラメータタグにより、Flash Player 6.0 または 6.5 以降を使用して、Flash Player の最新バージョンをダウンロードするようメッセージが表示されます。ユーザにメッセージを表示させないようにする場合はパラメータタグを削除します。 -->
+    <param name="expressinstall" value="Scripts/expressInstall.swf">
+    <!-- 次のオブジェクトタグは IE 以外のブラウザで使用するためのものです。IE では IECC を使用して非表示にします。 -->
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="copypaste.swf" width="400" height="200">
+      <!--<![endif]-->
+      <param name="quality" value="high">
+      <param name="wmode" value="opaque">
+      <param name="swfversion" value="6.0.65.0">
+      <param name="expressinstall" value="Scripts/expressInstall.swf">
+      <!-- ブラウザには、Flash Player 6.0 以前のバージョンを使用して次の代替コンテンツが表示されます。 -->
+      <div>
+        <h4>このページのコンテンツには、Adobe Flash Player の最新バージョンが必要です。</h4>
+        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Adobe Flash Player を取得" width="112" height="33"></a></p>
+      </div>
+      <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+  </object>
+</DIV>
+<p>現在使用している GNOME というデスクトップ環境では，上記の X Window System 本来のコピー＆ペースト機能のほかに，Windows や Mac OS X のものに似たコピー＆ペースト機能が用意されています．上記と同様にコピーしたい範囲を指定した後，マウスの右ボタンをクリックして「コピー」を選んでください．</p>
+<div class="figure">
+<img src="copypaste2.jpg" width="640" height="256" alt="GNOMEのコピー"></div>
+<p>次に，コピーする先の場所を指定し，そのアプリケーションの「編集」のメニューから「貼り付け」を選んでください．これは <KBD>Ctrl-V</KBD>（<em>端末</em>の場合は <KBD>Shift-Ctrl-V</KBD>）をタイプしても同じことができます．</p>
+<div class="figure">
+<img src="copypaste3.jpg" width="640" height="336" alt="GNOMEのペースト"></div>
+<H2>３．ファイル</H2>
+<H3><A class="label" name="filename">３．１　ファイルとファイル名</A></H3>
+<P>コンピュータのデータにはワープロで作成した文書やデジカメで撮影した画像など，さまざまなものがあります．これらのデータは<EM>ファイル</EM>として，コンピュータの<EM>外部記憶装置</EM>（ハードディスクなど）に記録されます．しかし，文書であれ画像であれ，コンピュータのデータであれば０と１の２進数で表された<EM>デジタルデータ</EM>なので，外部記憶装置に記録する際に一つ一つのデータを区別しておかないと，データが混ざってあとで取り出せなくなってしまいます．</P>
+<P>そこで，ひとつのデータごとに外部記憶装置上の一定の<em>領域</em>を割り当て，それに<em>名前</em>をつけることによって，データを管理できるようにします．このように，名前をつけたデータのひと塊のことを<EM>ファイル</EM>と呼び，その名前のことを<EM>ファイル名</EM>と言います．</P>
+<DIV class="figure"><IMG src="file.gif" width="640" height="480" alt="外部記憶装置とファイル名"></DIV>
+<H3>３．２　ファイル名に使える文字</H3>
+<P>UNIX や Linux のファイル名には，<EM>英字</EM>，<EM>数字</EM>，<EM>ハイフン</EM>(<KBD>-</KBD>)，<EM>アンダースコア</EM>(<KBD>_</KBD>)，それに<EM>ピリオド</EM>(<KBD>.</KBD>) など，<em>スラッシュ</em>(<KBD>/</KBD>) と<em>ナル文字</em> (<KBD>\0</KBD> - この意味は<a href="http://www.wakayama-u.ac.jp/~fukuyasu/diip2/" target="_blank">情報処理II</a>以降で学びます) 以外のが使えます．コンマ(<KBD>,</KBD>)や<KBD>+</KBD>，<KBD>%</KBD>もたいてい問題なく使えると思います．Windows や Mac OS X とは異なり，<em>英字の大文字と小文字は区別</em>されます．これら以外の記号文字には特別な機能が与えられている場合があるため，使えなくはないもののいろいろ面倒なことになるので，使わないほうが無難です．日本語の文字もファイル名に使えます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイル名に使える文字</TH>
+    </TR>
+    <TR>
+      <TD>アルファベット</TD>
+      <TD class="action"><KBD>A</KBD>～<KBD>Z</KBD>, <KBD>a</KBD>～<KBD>z</KBD></TD>
+    </TR>
+    <TR>
+      <TD>数字</TD>
+      <TD class="action"><KBD>0</KBD>～<KBD>9</KBD></TD>
+    </TR>
+    <TR>
+      <TD>ハイフン（マイナス）</TD>
+      <TD class="action"><KBD>-</KBD></TD>
+    </TR>
+    <TR>
+      <TD>アンダースコア（下線）</TD>
+      <TD class="action"><KBD>_</KBD></TD>
+    </TR>
+    <TR>
+      <TD>ピリオド</TD>
+      <TD class="action"><KBD>.</KBD></TD>
+    </TR>
+    <TR>
+      <TD>そのほか</TD>
+      <TD class="action"><KBD>+</KBD>,<KBD>%</KBD>,<KBD>#</KBD>,<KBD>@</KBD>,チルダ(<KBD>~</KBD>),コロン(<KBD>:</KBD>),コンマ(<KBD>,</KBD>)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ただし<KBD>#</KBD>，チルダ(<KBD>~</KBD>)，コンマ(<KBD>,</KBD>)などは，アプリケーションソフトウェアによって特別な意味が与えられている場合があります．また<EM>ハイフン</EM>(<KBD>-</KBD>)と<EM>ピリオド</EM>(<KBD>.</KBD>)は，ファイル名の中で使う<EM>位置</EM>に注意（ファイル名の先頭では使わないなど）が必要です．</P>
+<DL>
+  <DT>ハイフン(<KBD>-</KBD>)</DT>
+  <DD>ファイル名の<EM>先頭</EM>にハイフン(<KBD>-</KBD>)があると，コマンドの<EM>オプション</EM>（後述）と区別できないことがあります．</DD>
+  <DT><EM>ピリオド</EM>(<KBD>.</KBD>)</DT>
+  <DD>ファイル名の<EM>先頭</EM>にピリオド(<KBD>.</KBD>)があると，そのファイル名はファイル名の<EM>一覧</EM>（後述）から<EM>隠されます</EM>．<EM>ピリオドから始まるファイル名</EM>は，アプリケーションソフトウェアの<EM>設定ファイル</EM>など，通常は一覧表示に含める必要がないファイルで使われます．</DD>
+</DL>
+<P>ファイル名の長さは255文字まで（日本語の場合は127文字まで）です．</P>
+<H3><A class="label" name="extension">３．３　ファイル名の拡張子</A></H3>
+<P>ファイル名の末尾の，<EM>ピリオド</EM>(<KBD>.</KBD>)に続いた部分は，ファイル名の<EM>拡張子</EM>として利用される場合があります．拡張子は通常そのファイルの種類を示し，アプリケーションソフトウェアがそのファイルの取り扱い方法を判断するのに利用します．ただし，UNIXやLinuxにおいて拡張子の取り扱いはWindowsほど厳密ではなく，拡張子を持たないファイルも存在します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイル名の拡張子の例</TH>
+    </TR>
+    <TR>
+      <TD>テキストファイル</TD>
+      <TD class="action"><EM>.txt</EM> (例 report.txt, readme.txt)</TD>
+    </TR>
+    <TR>
+      <TD>TeX ソースファイル</TD>
+      <TD class="action"><EM>.tex</EM> (例 paper.tex, article.tex)</TD>
+    </TR>
+    <TR>
+      <TD>C 言語ソースファイル</TD>
+      <TD class="action"><EM>.c</EM> (例 prog.c, main.c)</TD>
+    </TR>
+    <TR>
+      <TD>C++ 言語ソースファイル</TD>
+      <TD class="action"><EM>.cc .c++ .cpp</EM> (例 prog.cc, main.c++)</TD>
+    </TR>
+    <TR>
+      <TD>オブジェクトファイル</TD>
+      <TD class="action"><EM>.o</EM> (例 prog.o, main.o)</TD>
+    </TR>
+    <TR>
+      <TD>PostScript ファイル</TD>
+      <TD class="action"><EM>.ps</EM> (例 paper.ps, figure.ps)</TD>
+    </TR>
+    <TR>
+      <TD>EPS ファイル</TD>
+      <TD class="action"><EM>.eps .epsf</EM> (例 paper.eps, figure.eps)</TD>
+    </TR>
+    <TR>
+      <TD>JPEG 画像ファイル</TD>
+      <TD class="action"><EM>.jpg .jpeg .jfif</EM> (例 photo.jpg)</TD>
+    </TR>
+    <TR>
+      <TD>GIF 画像ファイル</TD>
+      <TD class="action"><EM>.gif</EM> (例 fig1.gif)</TD>
+    </TR>
+    <TR>
+      <TD>PNG 画像ファイル</TD>
+      <TD class="action"><EM>.png</EM> (例 button.png)</TD>
+    </TR>
+    <TR>
+      <TD>SVG 図形ファイル</TD>
+      <TD class="action"><EM>.svg</EM> (例 figure.svg)</TD>
+    </TR>
+    <TR>
+      <TD>VRML 図形ファイル</TD>
+      <TD class="action"><EM>.wrl .vrml</EM> (例 dango.wrl)</TD>
+    </TR>
+    <TR>
+      <TD>OGG 音声・動画ファイル</TD>
+      <TD class="action">..<em>ogg</em>（例 movie.ogg）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><EM>テキストファイル</EM>は<EM>文字だけからなるデータ</EM>です．その他については後に必要に応じて解説します．</P>
+<H3>３．４　ファイル管理ソフトウェア0.</H3>
+<H3>&nbsp; </H3>
+<P>このようにファイルは，本来データの集まりに名前を付けたものに過ぎず，目に見えるような形を持ったものではありません．しかし，それでは，特にコンピュータに関する知識をあまり持っていない人にとって，とっつきにくいものになってしまいます．そこで，このファイルに対して<EM>目に見える仮の姿</EM>を与えることがよく行われます．Vine Linux では，これに <EM>Nemo</EM> というファイル管理ソフトウェア（ファイルマネージャー）を用います．なお，このようにコンピュータの操作に視覚的な表現を用いる場合を，<EM>グラフィカルユーザインタフェース</EM> (GUI) と言います．</P>
+<P>Nemo のウィンドウは，デスクトップ（画面の背景）にある &quot;ホーム&quot; と書かれたフォルダのアイコンをダブルクリックして開くことができます．</P>
+<DIV class="figure"><IMG src="nautilus.jpg" width="800" height="800" border="0" alt="ファイルマネージャの起動"></DIV>
+<P>ウィンドウが開くと，あなたが所有するファイルや<A href="05.html#directory" target="_blank">ディレクトリ</A>（フォルダ）の内容が表示されます．</P>
+<H2>４．コマンド</H2>
+<h3>４．１　コンピュータに命令する</H3>
+<p>ということで，<a href="03.html" target="_blank">前回の講義</a>で CG を作るのが結構<em>めんどくさい</em>仕事だということは，お分 かりいただけたかと思います． で，この「めんどくさい」というのは，実はソフトウェアエンジニアにとって結構大きなモチベーションになります．最初のコンピュータの<em>応用</em>（アプリケーション）が弾道計算だったという話は後期の<a href="http://www.sys.wakayama-u.ac.jp/syllabus/h16/dept/52002.html" target="_blank">メディアサイエンス基礎</a>でお話できるかと思いますが（内容は変更の可能性あり）， 終戦後のアプリケーションとして代表的なのは（アメリカの）国勢調査でし た．これはたくさんの人がひたすら大量の計算を繰り返すめんどくさい仕事でした（ちなみに，このような計算をする人のことを，<em>computer</em> すなわち「計算する人」と呼んでいました）． </p>
+<p>そこで，このめんどくさい仕事を<em>自動的にやってくれるように</em>コンピュータに<em>命令</em>することになりました．そのために行う作業が<em>プログラミング</em> です． そこで，今回はこのプログラミングの最初のステップとして，コンピュータに命令して仕事をしてもらうということについて考えてみたいと思います． </p>
+<p>現在のパソコンの使い方は，「Firefox を - 起動して」とか「文書ファイルを - 開いて」というように，具体的な<em>対象</em>を指定して，それを<em>操作</em>するという形式になっています．このような使い方は，コンピュータの歴史の中でコンピュータの使い方を<em>わかりやすく</em>するための工夫が重ねられてきた結果として与えられた<strong>見かけ</strong>です．前述の<em>ファイル</em>にしても，それはデータが格納された外部記憶装置上の<em>領域</em>にすぎませんが，それに<em>名前</em>（ファイル名）や<em>絵記号</em>（アイコン）を付けて，利用者が理解しやすいような<em>見かけ</em>を与えています．</p>
+<p>しかし，そのような見かけの裏側で行われている実際のコンピュータの操作は，やはりコンピュータに仕事を<em>命令</em>する形で行われています．ただし，これにはいくつかのレベルがあります．コンピューターのハードウェアそのものの言葉，すなわち<em>機械語</em>による命令は instruction と呼ばれます．これを組み合わせて一つの仕事をするソフトウェアを作ることを，プログラミングと呼んでいます．そして，instruction を組み合わせて作成された，特定の目的をもった仕事を実行する小さなソフトウェアのことを， command <em>- コマンド</em>と呼びます．</p>
+<p>今回はこのコマンドを使ったコンピュータの操作を行ってみます．</p>
+<H3><A class="label" name="shell">４．２　シェルを起動する</A></H3>
+<P>現在のコンピュータの<em>見かけ</em>を作っているものを，<em>グラフィカルユーザインタフェース</em> (GUI) と呼びます．グラフィカルユーザインタフェースによって，ファイルやプログラムの操作を直観的に行うことができます．</P>
+<P>しかし，このグラフィカルユーザインタフェース自体もプログラミングなどの作業によって作成されたものであり，その作成段階にはこういったグラフィカルユーザインタフェースが用意されていない場合があります．したがって，ソフトウェア開発の現場では（かなり整備されてきているとは言え），今でも<EM>文字</EM>主体の操作環境，すなわち<em>キャラクタユーザインタフェース</em> (CUI) を利用する場合があります．また，コンピュータの「動作」を理解するうえでも，この文字主体のシンプルな操作環境は有効だと考えています．</P>
+<P>この文字主体の操作環境の中心となるものが，<EM>シェル</EM>というプログラムです．シェルは<em>端末</em> (<EM>gnome-terminal</EM>) を起動すると，自動的に起動します．それでは端末のウィンドウを開いてください．</P>
+<DIV class="figure"><IMG src="gnome-term2.jpg" width="586" height="537" alt="GNOME 端末"></DIV>
+<P>端末というプログラムは，起動すると<EM>シェル</EM>という別のプログラムを起動します．とは利用者の命令をコンピュータ（オペレーティングシステム）に伝達する<EM>インタプリタ</EM>と呼ばれる種類のソフトウェアで，利用者から<EM>コマンド</EM>（命令）が与えられるのを待っています． 現在使用しているシェルは <EM>bash</EM> というものです．このようなソフトウェアには，他に sh，csh，tcsh，ksh，zsh などがあります．</P>
+<P> &quot;ユーザ名<EM>@</EM>コンピュータ名 <EM>~</EM><EM> $</EM>&quot; という表示は<EM>プロンプト</EM>（入力促進符号）と呼ばれ，bash が<EM>コマンド待ち状態</EM>であることを示しています．プロンプトとして用いる文字列は変更可能です．以降ではこのプロンプトを &quot;<EM>$</EM>&quot; １個で表します．</P>
+<P>この端末は<EM>仮想端末</EM>と呼ばれるアプリケーションソフトウェアで，このウィンドウひとつが１台の<EM>端末装置</EM>のように振舞います．端末を複数動かせば，それぞれのウィンドウで別々の仕事をすることができます．このような仮想端末プログラムには，端末 (gnome-terminal) の他に X Window System 標準の xterm，xterm を「国際化」した uxterm など，さまざまなものがあります．</P>
+<P>シェルは<A href="01.html#os">オペレーティングシステム</A>の<EM>ユーザインタフェース</EM>として働きます．利用者はシェルを通じてコンピュータを操作します．</P>
+<DIV class="figure"><IMG src="pty.gif" width="640" height="320" alt="仮想端末とオペレーティングシステム"></DIV>
+<H3>４．３　コマンドを実行する</H3>
+<P>それでは，コンピュータに日付を聞いてみましょう．シェルのプロンプト（以下では <em>$</em> で表します）に対して，<em>date</em> とタイプした後，改行（<kbd>[Enter]</kbd> キーをタイプ）してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><EM>date</EM><KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>するとその次の行に現在の日時が表示されます．これを，<em>コマンドの出力</em>と呼びます．また，そのさらに次の行に再び <em>$</em> （プロンプト）が表示され，次のコマンドが与えられるのを待ちます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドの出力</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ date
+2014年  5月   1日 木曜日 13:30:00 JST   <SPAN class="anon">&larr;date コマンドの出力</SPAN>
+$<SPAN class="anon"></SPAN>   <SPAN class="anon">&larr;次のコマンド待ち状態</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>abcdef というコマンドは存在しないので，実行しようとすると，<em>エラーメッセージ</em>が表示されます．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH>存在しないコマンドを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">abcdef<KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+abcdef: コマンドが見つかりません．<span class="type"><KBD></KBD></span> <SPAN class="anon">&larr;これはエラーメッセージ</SPAN>
+$<SPAN class="anon"></SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>コマンドに<EM>オプション</EM>を付けて実行することで， その動作を変えることができる場合があります．date の右側の &quot;<EM>-u</EM>&quot; は協定世界時 (UTC) で出力する<EM>オプション</EM>です．コマンドとオプションの間は，<STRONG>空白をあける</STRONG>必要があります（続けると <EM>&quot;date-u&quot;</EM>というひと続きの<EM>別のコマンド</EM>だと解釈されてしまいます）．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>コマンドにオプションを付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">date <EM>-u</EM><KBD>[Enter]</KBD></span><SPAN class="anon"></SPAN>
+2014年  5月   1日 木曜日 04:33:05 UTC　<SPAN class="anon">&larr;協定世界時が出力される</SPAN>
+$</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ココマンドの実行に必要な情報を，<EM>引数</EM>（ひきすう）で与える場合もあります．今度はカレンダーを出力する <em>cal</em> コマンドを実行してみましょう．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cal コマンドを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cal<KBD>[Enter]</KBD></span>
+      5月 2014<br>日 月 火 水 木 金 土<br>             1  2  3<br> 4  5  6  7  8  9 10<br>11 12 13 14 15 16 17　<span class="anon">&larr;今月のカレンダーが出力される</span><br>18 19 20 21 22 23 24<br>25 26 27 28 29 30 31<br>
+$</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>今度は，cal の右側に続けて<strong>スペースで区切って</strong> &quot;<em>7 1961</em>&quot; とタイプして <kbd>[Enter]</kbd> キーをタイプしてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cal コマンドに引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cal <EM>7</EM> <EM>1961</EM><KBD>[Enter]</KBD></span>
+      7月 1961
+日 月 火 水 木 金 土
+                   1
+ 2  3  4  5  6  7  8
+ 9 10 11 12 13 14 15　<SPAN class="anon">&larr;1961年7月のカレンダーが出力される</SPAN>
+16 17 18 19 20 21 22
+23 24 25 26 27 28 29
+30 31
+
+$</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">ここまでで出てきたコマンド</DIV>
+    <DL>
+      <DT><EM>date</EM></DT>
+      <DD>現在時刻を出力します．</DD>
+      <DT><EM>cal</EM></DT>
+      <DD>カレンダーを出力します．</DD>
+    </DL>
+</BLOCKQUOTE>
+<H3><A class="label" name="stdout">４．４　コマンドの出力を保存する</A></H3>
+<P>コマンドは<em>標準出力</em>と呼ばれる出口に結果を出力します．標準出力は，何もしなければ<em>端末装置につながっている</em>ので，結果は画面（仮想端末のウィンドウ）に表示されます．ここで &quot;<EM>&gt;</EM>&quot; という文字を使えば，出口を切り替えて<EM>結果をファイルに保存</EM>することができます．この操作を<EM>標準出力のリダイレクト</EM>といいます．</P>
+<P>最初に，<em>ls</em> というコマンドを実行してみましょう．これは現在作業している場所（<a href="05.html#directory" target="_blank">ディレクトリ</a>）におかれているファイルやディレクトリの一覧（リスト）を出力します．下線部をタイプしてください．なお，間違って sl というコマンドを実行しないよう気を付けてください．絶対にだぞ！</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>ls コマンドを実行してファイルのリストを見る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><em>ls</em><KBD>[Enter]</KBD></span>
+firefox public_html rpm thunderbird windows ダウンロード テンプレート &hellip;        <SPAN class="anon">&larr;作業中のディレクトリにあるファイルやディレクトリ</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>それでは，date コマンドの出力を切り替えて，<em>a</em> というファイルに保存してみましょう．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドの出力をファイル a に保存する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">date <EM>&gt;</EM> a<KBD>[Enter]</KBD></span>
+        <SPAN class="anon">&larr;何も出力されない</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>date コマンドの出力は，画面に表示する代わりにファイル a に保存されますから，画面には何も表示されません．また，このときファイル a が新規に作成されますから，作業中のディレクトリに a というファイルが増えているはずです．もう一度 ls コマンドを実行してみてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>もう一度 ls コマンドを実行してファイルのリストを見る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+<em>a</em> firefox public_html rpm thunderbird windows ダウンロード テンプレート &hellip;        <SPAN class="anon">&larr;a というファイルが増えている</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>同様にして，今度は cal コマンドの出力を，<em>b</em> というファイルに保存してみましょう．今度はやり方を示しませんから，自分で考えてみてください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>cal コマンドの出力をファイル b に保存する</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><SPAN class="anon">（ここは自分で考える）</SPAN><KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>それでは，また ls コマンドを実行して，b というファイルが増えていることを確認してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>また ls コマンドを実行してファイルのリストを見る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">ls<KBD>[Enter]</KBD></span>
+a <em>b</em> firefox public_html rpm thunderbird windows ダウンロード テンプレート &hellip;        <SPAN class="anon">&larr;b というファイルが増えている</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><em>テキストファイル</em>の内容を見るには，cat コマンドが使えます（他にも多くのコマンドがあります）．cat コマンドは引数に指定したファイルの内容を出力します．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>cat コマンドでファイル a の内容を出力する</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 13:56:59 JST</PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>同様にして，ファイル b の内容を見てください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th><p>ファイル b の内容を見る</p></th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type"><SPAN class="anon">（ここは自分で考える）</SPAN><KBD>[Enter]</KBD></span>
+      5月 2014<br>日 月 火 水 木 金 土<br>             1  2  3<br> 4  5  6  7  8  9 10<br>11 12 13 14 15 16 17<br>18 19 20 21 22 23 24<br>25 26 27 28 29 30 31<br>
+$</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>標準出力を既に存在するファイルにリダイレクトすると，リダイレクト先のファイルの以前の内容は消され，新しい出力で上書きされます．一度ファイル a の内容を見てみましょう．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ファイル a の内容を見る</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 13:56:59 JST</PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>そして，このファイルに date コマンドの出力を保存します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドの出力をファイル a に保存する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">date &gt; a<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この後，ファイル a の内容を見てください．直前に date コマンドを実行した日時に置き換わっていると思います．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ファイル a の内容を見る</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 14:02:31 JST    <SPAN class="anon">&larr;直前に date コマンドを実行した日時に置き換わっている</SPAN></PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<P>&quot;&gt;&quot; の代りに &quot;<EM>&gt;&gt;</EM>&quot; を使えば，既にあるファイルの後ろに別のファイルの内容を追加することができます．date コマンドを使ってファイル a の後ろに現在の日時を追加してみましょう．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>date コマンドの出力をファイル a に追加する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">date <EM>&gt;&gt;</EM> a<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ファイル a の内容を見てみます．</p>
+<table>
+  <tbody>
+    <TR>
+      <th>ファイル a の内容を見る</Th>
+    </TR>
+    <tr>
+      <TD class="action"><PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 14:02:31 JST
+2014年  5月   1日 木曜日 14:05:24 JST    <SPAN class="anon">&larr;直前に date コマンドを実行した日時が追加されている</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>なお，&quot;&gt;&quot; や &quot;&gt;&gt;&quot; で標準出力をリダイレクトしても，エラーメッセージは表示されます．</p>
+<table>
+  <tbody>
+    <TR>
+      <th>存在しないコマンド abcdef の標準出力をファイル c にリダイレクトする</Th>
+    </TR>
+    <tr>
+      <TD class="action"><PRE>$ <span class="type">abcdef &gt; c<KBD>[Enter]</KBD></span>
+abcdef: コマンドが見つかりません.    <SPAN class="anon">&larr;エラーメッセージはリダイレクトされない</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>エラーメッセージの出力先は標準出力ではない（<em>標準エラー出力</em>に出力される）ため，標準出力をリダイレクトしてもエラーメッセージは表示されます．ただし，この例の abcdef というコマンドは存在しないため，このエラーメッセージはコマンドを起動しようとした<em>シェル</em>が出力しています．なお，エラーが起きてもファイル c は作成され（内容は空），c が既に存在すれば，それまで c に入っていた内容は失われます．</p>
+<BLOCKQUOTE>
+  <DIV class="header">標準出力のリダイレクト</DIV>
+    <DL>
+      <DT><EM>&quot;&gt;&quot;という記号の役割</EM></DT>
+      <DD>&quot;&gt;&quot; という文字は，コマンドの出力データを画面に表示する代りに，その右側に書かれたファイルに<EM>保存</EM>します．それまでそのファイルの中に入っていた内容は<EM>失われ</EM>ます．</DD>
+      <DT><EM>&quot;&gt;&gt;&quot;という記号の役割</EM></DT>
+      <DD>&quot;&gt;&gt;&quot; はコマンドの出力データを既にファイルの中に入っている内容の後ろに<EM>追加</EM>します．</DD>
+    </DL>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="05redirect00.gif" width="400" height="300" border="0" alt="標準出力のリダイレクト"></DIV>
+<P><EM>cat</EM> もコマンドですから，この標準出力を別のファイルにリダイレクトできます．cat コマンドは引数に指定したファイルをそのまま出力しますから，これでファイルをコピーすることができます．ファイル a の内容をファイル b にコピーしてみましょう．もちろん，これでそれまで b に入っていた内容（cal コマンドの出力）は失われます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>cat を使ってファイル a の内容をファイル b にコピーする</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat a &gt; b<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>ファイル a とファイル b の内容を見比べて見ましょう．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ファイル a とファイル b の内容を見比べる</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat a<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 14:02:31 JST
+2014年  5月   2日 木曜日 14:05:24 JST
+$ <span class="type">cat b<KBD>[Enter]</KBD></span>
+2014年  5月   1日 木曜日 14:02:31 JST
+2014年  5月   1日 木曜日 14:05:24 JST    <SPAN class="anon">&larr;同じ内容が入っている</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><EM>cat</EM> の引数にファイル名を指定しなければ，キーボードからタイプした文字がそのまま出力されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>引数にファイル名を指定せずに cat コマンドを実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat<KBD>[Enter]</KBD></span>
+              <SPAN class="anon">&larr;何も出力されない</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これは cat コマンドがデータの入力を待っている状態です．コマンドは結果の出口として使う標準出力に加えて，データの入り口である<em>標準入力</em>を持っています．標準入力は，何もしなければ<em>キーボード</em>につながっています．それでは，ここに何かタイプした後，<kbd>[Enter]</kbd> をタイプしてください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>cat コマンドの標準入力にキーボードからデータを入力する</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ cat
+<span class="type">How are you?<KBD>[Enter]</KBD></span> <SPAN class="anon">&larr;キーボードから入力する</SPAN>
+How are you? <SPAN class="anon">&larr;こっちは cat コマンドの出力</SPAN></PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>データの入力を終了するには，<KBD>Ctrl-D</KBD> をタイプ（<kbd>[Ctrl]</kbd> キーを押しながら <kbd>D</kbd> をタイプ）してください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>データ入力の終了</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ cat
+How are you?
+How are you?
+<span class="type"><KBD>Ctrl-D</KBD></span> <SPAN class="anon">&larr;入力の終了</SPAN>
+$ <SPAN class="anon">&larr;シェルのプロンプトが現れる</SPAN></PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>すると cat コマンドが終了して，再びプロンプト（ここでは <em>$</em> で表しています）が現れます．それでは，この cat コマンドの出力を，c というファイルに保存してみましょう．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>cat コマンドの標準入力をリダイレクトしてキーボードからの入力をファイル c に保存する</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat <EM>&gt;</EM> c<KBD>[Enter]</KBD></span>
+<span class="type">お元気ですかぁ？</span><KBD><span class="type">[Enter]</span></KBD> <SPAN class="anon">&larr;キーボードから入力する</SPAN>
+              <SPAN class="anon">&larr;何も出力されない</SPAN></PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>何か入力したら，最後に <kbd>Ctrl-D</kbd> をタイプしてください．</p>
+<table>
+  <tbody>
+    <TR>
+      <TH><KBD>Ctrl-D</KBD> をタイプしてキーボードからの入力を終了する</TH>
+    </TR>
+    <tr>
+      <TD class="action"><PRE>$ cat &gt; c
+お元気ですかぁ？
+<span class="type"><KBD>Ctrl-D</KBD></span> <SPAN class="anon">&larr;入力の終了</SPAN>
+$</PRE></TD>
+    </TR>
+  </tbody>
+</table>
+<p>ファイル c の内容を見てください．今度は <strong>&quot;&gt;&quot; を使いません</strong>（使うとファイルの中身が消えてしまいます）．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>ファイル c の内容を見る</th>
+    </tr>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">cat c<KBD>[Enter]</KBD></span>
+お元気ですかぁ？</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">ここまでで出てきたコマンド</DIV>
+    <DL>
+      <DT><EM>ls</EM></DT>
+      <DD>ファイル名の一覧（リスト）を表示します (ls というコマンド名は list を縮めたもの)．</DD>
+      <DT><EM>cat</EM></DT>
+      <DD>ファイルの中身を表示します．このコマンドは引数に複数のファイルを指定でき，それらを<EM>連結</EM> (con<EM>cat</EM>enete) して出力します．</DD>
+    </DL>
+</BLOCKQUOTE>
+<H2><A class="label" name="editor">５．テキストエディタ</A></H2>
+<H3>５．１　テキストエディタの種類</H3>
+<P><EM>テキストファイル</EM>（文字だけからなるファイル，文書ファイル）は， これまでやってきたように <EM>cat コマンド</EM>の出力をファイルにリダイレクトして作成できます． でもこの方法では，一旦作成したテキストファイルを修正したり，変更したりすることができません．そこで，普通テキストファイルの作成には，
+  そういう編集機能を持った <EM><a href="http://ascii.jp/elem/000/000/535/535211/" target="_blank">テキストエディタ</a></EM>と呼ばれるアプリケーションソフトウェアを使います．</P>
+<P>テキストエディタは<EM>ワードプロセッサみたいなもの</EM>ですが， ワードプロセッサには文書のレイアウトや印刷の機能が備えられているのに対して， テキストエディタは<EM>文書の編集に使う機能が充実</EM>しています．</P>
+<P>Unix や Linux には，<strong>ものすごくたくさんの</strong>テキストエディタがあります． <EM>ラインエディタ</EM>は， まだディスプレイ上に文字や図形を表示する端末装置が普及していなかった頃（<em>つまり昔！</em>），紙に印字しながらタイプするタイプライタ型の端末装置で使うことを考えて作られています．<em>ed</em> などは（cat コマンドに似て）プロンプトすら出さないとっても不親切な作りになってますが（しかし，これは Unix の伝統的なスタイルです）， これはこれで使い込めば他のエディタではできないような凝ったことができます．</P>
+<P><em>ex</em>/<em>vi</em> は Unix/Linux における基本的なテキストエディタの一つです．<em>ex</em> は ed を少しは親切にした感じのラインエディタです．一方 <em>vi</em> は，ex をスクリーンモード（画面上で編集するモード）にした<EM>スクリーンエディタ</EM>です．ちなみに，vi のキー操作は， <a href="http://jnethack.sourceforge.jp/" target="_blank">jnethack</a> というゲームをやると自然と身に付きます（ウソ）．<em>vim</em> はオリジナルの vi と互換性を持ちながら非常に強化されたものです．</P>
+<P><em>emacs</em> は， この中でも特に高機能なテキストエディタです．テトリスだってできます．この特徴は自己拡張可能な点にあり，ほとんどの機能が emacs 自体がもつ
+  <a href="http://com.nicovideo.jp/live_archives/co503295" target="_blank">emacs lisp というプログラミング言語</a>で実現されています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">テキストエディタの種類</TH>
+    </TR>
+    <TR>
+      <TD><EM>ed</EM></TD>
+      <TD class="action">ラインエディタ，玄人向け？</TD>
+    </TR>
+    <TR>
+      <TD><EM>ex</EM></TD>
+      <TD class="action">ラインエディタ，基本です．</TD>
+    </TR>
+    <TR>
+      <TD><EM>vi (<a href="http://www.vim.org/" target="_blank">vim</a>)</EM></TD>
+      <TD class="action">Unix で最も一般的に使われる高機能なスクリーンエディタ（「アクセサリ」の中にあります）</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://www.gnu.org/software/emacs/" target="_blank">emacs</a> (GNU Emacs 24)</EM></TD>
+      <TD class="action">ターミナル／ウィンドウ両用の高機能なスクリーンエディタ（「アクセサリ」と「プログラミング」の中にあります）</TD>
+    </TR>
+    <TR>
+      <TD><EM><a href="http://projects.gnome.org/gedit/" target="_blank">gedit</a> (テキストエディタ)</EM></TD>
+      <TD class="action">タブが使えるウィンドウモード用のスクリーンエディタ（「アクセサリ」の中にあります）</TD>
+    </TR>
+    <TR>
+      <TD><em><a href="http://www.geany.org/" target="_blank">geany</a></em></TD>
+      <TD class="action">高機能なスクリーンエディタおよび統合開発環境（「プログラミング」の中にあります）</TD>
+    </TR>
+    <TR>
+      <TD><em><a href="http://anjuta.org/" target="_blank">eclipse</a></em></TD>
+      <TD class="action">Java で作られたアプリケーションの統合開発環境（「プログラミング」の中にあります）</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>Mac OS X も Unix ですから，ed，ex，vi (vim)，および emacs が搭載されています．vim や emacs には Mac OS X のアプリケーションとして動くものもあります．これらには Windows 版もあります．演習室の Line Linux のメニューでは，下図のところに登録されています．</P>
+<DIV class="figure"><IMG src="editor.jpg" width="720" height="600" alt="演習室の Vine Linux で用意しているテキストエディタ"></DIV>
+<P>数多くのテキストエディタがある中で，実際どのテキストエディタを使うべきかはよく<a href="http://www.itmedia.co.jp/enterprise/articles/0706/26/news003.html" target="_blank">議論になる</a>ところですが，この講義では<strong>どれを使ってもいい</strong>ことにします．これからこの講義（以降の Linux を使う講義や演習）でどのテキストエディタを使うかは，とりあえず一通り使ってみて<em>自分で決めてください</em>．</P>
+<P>なお，Unix や Linux では vi (vim) や emacs が標準的なテキストエディタだと考えられています．したがって Unix/Linux を使う限り，これらは<a href="http://ascii.jp/elem/000/000/539/539039/" target="_blank"><em>使わないといけない</em></a>ものだと言われますし（ウソ），使い方を知らないと困ったことになるかもしれません．emacs に至ってはそれで<a href="http://d.hatena.ne.jp/tomoya/20120327/1332792017" target="_blank">人生が変わってしまった人もいる</a>くらいです．</P>
+<P>ですが，これらは非常に強力な分，使い方が難しいところがある（というか，Windows の「メモ帳」などとは使い勝手がだいぶ違う）ので，ここでは<em>これらの使用を強制しません</em>．<a href="http://projects.gnome.org/gedit/" target="_blank">gedit</a> は Windows の「メモ帳」によく似ていますし，プログラムの開発を行う場合は <a href="http://www.geany.org/" target="_blank">geany</a> などが簡単で便利だと思います．好きなものを使ってください．</P>
+<H3><A class="label" name="emacs">５．２　emacs を起動する</A></H3>
+<P>とりあえずここでは emacs の説明をしておきます．emacs についてはネット上に「<a href="http://sourceforge.jp/magazine/09/04/06/1138226" target="_blank">emacs 超入門</a>」などいくらでもチュートリアルがありますから，そういうところを参考にしていただいても結構です．同様に vim についても「<a href="http://vim-jp.org/" target="_blank">vim-jp</a>」をはじめ多くの解説があります．</P>
+<P>emacs や vim の起動はメニューから行うことができますが，ここでは<em>端末</em>の<em>シェル</em>から <em>emacs</em> という<em>コマンド</em>を実行してください．X Window System 上では，emacs
+  は動かしっぱなしにして使うことが多いので，コマンドに <EM>&amp;</EM> を付けて<EM>バックグラウンド</EM>で起動しておくと<em>便利</em>です．こうすると，emacs を起動したシェルも引き続き使用できるようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">emacs <EM>&amp;</EM><KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>起動すると，下のようなウィンドウが現れます．ウィンドウ内に簡単な解説が表示されています．この状態ではまだ何も入力することができませんが，<strong>この解説は</strong> <kbd>q</kbd> <strong>をタイプすれば消えます</strong>．</P>
+<DIV class="figure"><IMG src="emacs01.gif" width="610" height="616" alt="emacs の起動画面"></DIV>
+<H3>５．３　emacs のキー表記</H3>
+<P>emacs は大半の操作をキーボードから行います． 一部の機能はメニューバーからも操作できますが， ここではキー操作についてのみ説明します．なお，メニューバーのメニューには，同じ機能を呼び出すキー操作が表示されている場合があります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">キー操作の表記</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x</KBD></TD>
+      <TD class="action"><KBD>[Ctrl]</KBD>キーを押し<EM>ながら</EM>，<KBD>x</KBD> をタイプする (<KBD>Ctrl-X</KBD>)</TD>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-c</KBD></TD>
+      <TD class="action"><KBD>C-x</KBD> をタイプした後，<KBD>C-c</KBD> をタイプする</TD>
+    </TR>
+    <TR>
+      <TD><KBD>M-x</KBD></TD>
+      <TD class="action"><KBD>[Alt]</KBD>キーを押し<EM>ながら</EM>，<KBD>x</KBD> をタイプする (<KBD>Alt-X</KBD>)</TD>
+    </TR>
+    <TR>
+      <TD><KBD>ESC x</KBD></TD>
+      <TD class="action"><KBD>[ESC]</KBD>キーをタイプした<EM>後</EM>，<KBD>x</KBD> をタイプする</TD>
+    </TR>
+    <TR>
+      <TD colspan="2">端末装置によっては <KBD>Alt-X</KBD> が使えない場合があるので，たいてい <KBD>ESC x</KBD> が <KBD>Alt-X</KBD> と<EM>同じ動作をする</EM>ようになっています．</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>５．４　ファイルを開く</H3>
+<P>ファイルを開くには <KBD>C-x C-f</KBD> をタイプしてください． するとウインドウの最下行（<EM>ミニバッファ</EM>）に開くファイル名を聞いてきますので，ここで存在しないファイル名を指定すれば，そのファイルを新規に作成します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルを作成する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-f</KBD> をタイプする．ミニバッファに開くファイル名を聞いてくる．</TD>
+      <TD class="action" width="256"><IMG src="emacs02.gif" width="256" height="40" alt="ファイル名の入力"></TD>
+    </TR>
+    <TR>
+      <TD>ここでは file.txt というファイルの作成を行うことにする．最後に <KBD>[Enter]</KBD> をタイプ．</TD>
+      <TD class="action" width="256"><IMG src="emacs03.gif" width="256" height="40" alt="file.txt を指定する"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ファイルが存在すれば，そのファイルが<EM>バッファ</EM>に読み込まれ，ウィンドウの上部に内容が表示されます．今は新規作成なので，バッファ内は空でになっており，ミニバッファには <em>(New File)</em> と表示されているはずです．</P>
+<DIV class="figure"><IMG src="emacs04.gif" width="610" height="616" alt="file.txt の新規作成"></DIV>
+<BLOCKQUOTE>
+  <DIV class="header">バッファとミニバッファ</DIV>
+  <p>emacs において編集対象のテキストファイルを保持する機構のことを， <EM>バッファ</EM>と呼びます． emacs は同時に複数のバッファを管理することができます． 通常はそのうち一つのバッファの内容がウィンドウに表示されています（画面を分割して，複数のバッファを同時に表示することもできます）．また，コマンドやファイル名などの入力を行うときには，カーソルがウィンドウの最下行に移動します．この場所は<EM>ミニバッファ</EM>と呼ばれます．</p>
+</BLOCKQUOTE>
+<H3>５．５　バッファをファイルに保存する</H3>
+<P>試しに，次の内容をタイプしてみてください．この通り正確に打つ必要はありません．だいたいでかまいません．行末では改行して（<kbd>[Enter]</kbd> をタイプして）ください．時間がかかるようだったら，<a href="#copyandpaste">コピー＆ペースト</a>しても構いません．</P>
+<PRE class="source"><span class="type">A girl and a boy bump into each other -- surely an accident.<KBD></KBD>
+A girl and a boy bump and her handkerchief drops -- surely another accident.<KBD></KBD>
+But when a girl gives a boy a dead squid -- *that had to mean something*.<KBD></KBD>
+         -- S. Morganstern, &quot;The Silent Gondoliers&quot;<KBD></KBD></span></PRE>
+<P>このバッファの内容をファイルに<em>保存</em>します．<KBD>C-x C-s</KBD> をタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">バッファをファイルに保存する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-s</KBD> をタイプする．バッファの内容がファイルに保存される．</TD>
+      <TD class="action" width="256"><IMG src="emacs05.gif" width="256" height="40" alt="file.txt の保存"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>５．６　emacs を終了する</H3>
+<P>ファイルが保存できたら，一旦 emacs を<em>終了</em>します．<KBD>C-x C-c</KBD> をタイプしてください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">問い合わせが表示されるとき</DIV>
+  <p>ファイルの編集中に，別の方法でそのファイルを修正してしまうと，バッファをファイルに保存する際に問い合わせが表示されます．また，バッファをファイルに保存せずに
+    emacs を終了しようとしたときにも問い合わせが表示されます．問い合わせ自体は簡単な英語ですので，問い合わせにしたがって <EM>yes</EM> か <EM>no</EM> をタイプして <KBD>[Enter]</KBD> をタイプしてください（<EM>y</EM> か <EM>n</EM>　をタイプするだけの場合もあります）．</p>
+</BLOCKQUOTE>
+<H3>５．７　既存ファイルを編集する</H3>
+<P>もう一度 emacs を起動してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>emacs を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">emacs <EM>&amp;</EM><KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>先ほど保存したファイルを開きます．<KBD>C-x C-f</KBD> をタイプしてください．ここでファイル名として file.txt を指定するのですが，ミニバッファに開くファイル名を聞いてきたら，先頭の２文字
+  &quot;fi&quot; だけをタイプしてみてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">既存ファイルを開く</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x C-f</KBD> をタイプする．ミニバッファに開くファイル名を聞いてくる．</TD>
+      <TD class="action" width="256"><IMG src="emacs02.gif" width="256" height="40" alt="ファイル名の補完 (1)"></TD>
+    </TR>
+    <TR>
+      <TD>fi までタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs06.gif" width="256" height="40" alt="ファイル名の補完 (2)"></TD>
+    </TR>
+    <TR>
+      <TD><KBD>[Tab]</KBD> をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs07.gif" width="256" height="40" alt="ファイル名の補完 (3)"></TD>
+    </TR>
+    <TR>
+      <TD>ファイル名が完成したら <KBD>[Enter]</KBD> をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs03.gif" width="256" height="40" alt="ファイル名の補完 (4)"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>ミニバッファにおいてコマンドやファイル名を入力する際，途中まで文字をタイプしたあと <KBD>[Tab]</KBD> をタイプすると， 残りの文字を補完してくれます（コンプリーション機能）． 補完の結果，コマンドやファイル名が一意に決まらない（候補が複数ある）ときは，
+  その<EM>一覧を表示</EM>します．</P>
+<H3>５．８　行末まで削除する・１行削除する</H3>
+<P>先ほどタイプした内容が表示されたら <KBD>C-n C-p C-f C-b</KBD> の４つのキーを使って，たぶん左上隅の A のところにある文字カーソルを，３行目の -- のところに移動してください．</P>
+<PRE class="source">A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <SPAN class="select">-</SPAN>- *that had to mean something*.
+         -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+<P>ここで <KBD>C-k</KBD> をタイプすると，カーソルから右が消えます．</P>
+<PRE class="source">A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <SPAN class="select">_</SPAN>
+         -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+<P>もう一度<KBD>C-k</KBD> をタイプすると，改行が消えて次の行とくっつきます（行が長くなるので，右端が折り返されるかもしれません）．</P>
+<PRE class="source">A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops <SPAN class="select">-</SPAN>- surely another accident.
+But when a girl gives a boy a dead squid          -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+<P>さらに<KBD>C-k</KBD> をタイプすると，くっついた部分も消えます．</P>
+<PRE class="source">A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <SPAN class="select">_</SPAN></PRE>
+<H3>５．９　削除した部分を貼り付ける</H3>
+<P>カーソルを１行目の -- に移動してください．</P>
+<PRE class="source">A girl and a boy bump into each other <SPAN class="select">-</SPAN>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<P>ここで <KBD>C-y</KBD> をタイプすると，先ほど消えた部分がこの位置に挿入されます．</P>
+<PRE class="source">A girl and a boy bump into each other -- *that had to mean something*.
+         -- S. Morganstern, &quot;The Silent Gondoliers&quot;<SPAN class="select">-</SPAN>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<H3>５．１０　文字列を検索する</H3>
+<P>次に文字列の検索を行ってみましょう．<KBD>C-s</KBD> をタイプしてください．するとミニバッファに I-serch: と表示されます．ここに <EM>girl</EM> とタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">文字列を検索する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-s</KBD> をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs08.gif" width="256" height="40" alt="検索文字列の指定"></TD>
+    </TR>
+    <TR>
+      <TD><EM>girl</EM> （検索する文字列）をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs09.gif" width="256" height="40" alt="girl をタイプ"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>多分カーソルは３行目の girl という単語の位置に移動したと思います．</P>
+<PRE class="source">A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;-- surely an accident.
+A <SPAN class="select">girl</SPAN> and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<P>この状態でもう一度 <KBD>C-s</KBD> をタイプすると，４行目の girl のところに移動します．</P>
+<PRE class="source">A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;-- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a <SPAN class="select">girl</SPAN> gives a boy a dead squid </PRE>
+<P>さらに<KBD>C-s</KBD> をタイプすると，ここより後に girl はないので，ミニバッファに次のようなメッセージが出ます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">同じ文字列を検索する</TH>
+    </TR>
+    <TR>
+      <TD>続けて <KBD>C-s</KBD> をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs09.gif" width="256" height="40" alt="girl を再検索"></TD>
+    </TR>
+    <TR>
+      <TD>バッファを一回りする（これ以上見つからない）と右のメッセージが出る．</TD>
+      <TD class="action" width="256"><IMG src="emacs10.gif" width="256" height="40" alt="girl が見つからない"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>それでも，もう一度 <KBD>C-s</KBD> をタイプすると，今度はバッファの先頭から girl を探し始めます．</P>
+<PRE class="source">A <SPAN class="select">girl</SPAN> and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<span class="type">-</span>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<H3>５．１１　指定範囲をコピーする</H3>
+<P>１行目の girl のところにカーソルが来たら，<KBD>[Enter]</KBD>をタイプしてください．すると検索を開始した位置が記憶されます（<EM>マーク</EM>）．今度は <KBD>C-s</KBD> を<EM>２回続けて</EM>タイプしてください．すると再び girl （すなわち直前に探した文字列）を探し始めます．</P>
+<PRE class="source">A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<span class="type">-</span>- surely an accident.
+A <SPAN class="select">girl</SPAN> and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<P>３行目の girl のところに来たら，<KBD>[Enter]</KBD>をタイプしてください．そして <KBD>C-w</KBD> をタイプすると，１つ目の girl の位置（<EM>マーク位置</EM>）から現在位置までが削除されます．なお，カーソル位置に<EM>明示的にマークを付ける</EM>には，<KBD>C-[スペース]</KBD> をタイプします．</P>
+<PRE class="source">A girl<SPAN class="select"> </SPAN>and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+<P><KBD>C-w</KBD> で削除した内容も，<KBD>C-y</KBD> で現在のカーソル位置に挿入できます．</P>
+<H3>５．１２　変更を取り消す（アンドゥ）</H3>
+<P>それでは，最後に<KBD>C-_</KBD> を何回かタイプしてください．これまでに行った編集作業が取り消されます．この操作は<EM>アンドゥ</EM> (Undo) と呼ばれます．&quot;<KBD>_</KBD>&quot;（アンダースコア，下線）をタイプするには，<KBD>[Shift]</KBD>キーを同時に押す必要があるので，<KBD>C-_</KBD> をタイプするには<KBD>[Ctrl]</KBD>キーと<KBD>[Shift]</KBD>キーを同時に押す必要があります．</P>
+<div class="figure"><IMG src="underscore.jpg" width="512" height="112" alt="アンダースコアキー"></div>
+<P>もし<KBD>C-_</KBD> がうまく働かないようなら，代わりに<KBD>C-x u</KBD> をタイプしてみてください．</P>
+<H3>５．１３　名前を付けてファイルを保存する</H3>
+<P>ファイルが開いた直後の状態に戻ったら，今度は <KBD>C-x</KBD> <KBD>C-w</KBD> をタイプし，ミニバッファに <EM>file2.txt</EM> とタイプして，<KBD>[Enter]</KBD>をタイプしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">ファイルを別名で保存する</TH>
+    </TR>
+    <TR>
+      <TD><KBD>C-x</KBD> <KBD>C-w</KBD> をタイプする．</TD>
+      <TD class="action" width="256"><img src="emacs11.gif" width="256" height="40" alt="ファイル名をつけて保存"></TD>
+    </TR>
+    <TR>
+      <TD>ファイル名をタイプする．</TD>
+      <TD class="action" width="256"><IMG src="emacs12.gif" width="256" height="40" alt="file2.txt を指定"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><KBD>C-x C-s</KBD> が現在のファイル名でファイルを保存するのに対し，<KBD>C-x C-w</KBD> は別のファイル名でファイルを保存します．保存が終了したら <KBD>C-x C-c</KBD> で emacs を終了してください．</P>
+<BLOCKQUOTE>
+  <DIV class="header">バックアップファイルについて</DIV>
+  <p><KBD>C-x C-s</KBD> を使って現在のファイル名でバッファを保存すると，<em>file2.txt~</em> のように，ファイル名の後ろに <kbd>~</kbd>（チルダ）を付けたファイルも作成されます．このファイルは<EM>編集前</EM>の内容を保存した<em>バックアップファイル</em>です．不要なら削除してください．</p>
+</BLOCKQUOTE>
+<H3>５．１４　ファイル名を引数で指定する</H3>
+<P>emacs コマンドの引数にファイル名を指定すれば，そのファイルを開きます．そのファイルがなければ，新規に作成します (New File)．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>引数でファイル名を指定する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">emacs <EM>file2.txt</EM> &amp;<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>なお，上のように引数にファイル名を指定して emacs コマンドを実行すると，ウィンドウが二分割されることがあります．<strong>使わないほうのウィンドウを閉じるには</strong> <kbd>C-x 1</kbd> （<em>使っているほうを閉じるには</em> <kbd>C-x 0</kbd>）をタイプしてください．ちなみに <kbd>C-x 2</kbd> をタイプすれば，一つのウィンドウを二分割できます．</p>
+<div class="figure"><IMG src="emacs16.gif" width="610" height="616" alt="二分割された emacs"></div>
+<H3>５．１５　emacs のキー操作</H3>
+<P>emacs にはこのほかにも非常に多くの機能があります（メールの読み書きや Web ブラウザにも使えるほか，ゲームなども組み込まれています）が，ここではよく使用するキー操作の抜粋を示します．今はとりあえずここは読み飛ばして，後で必要に応じて読み返してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">キー操作</TH>
+    </TR>
+    <TR>
+      <TD>ファイルを開く</TD>
+      <TD class="action" width="400"><KBD>C-x C-f</KBD></TD>
+    </TR>
+    <TR>
+      <TD>別のファイルをカーソル位置に読み込む</TD>
+      <TD class="action" width="400"><KBD>C-x i</KBD></TD>
+    </TR>
+    <TR>
+      <TD>文字入力</TD>
+      <TD class="action" width="400">その文字をタイプ</TD>
+    </TR>
+    <TR>
+      <TD>カーソル直前の一字削除</TD>
+      <TD class="action" width="400"><kbd>C-h</kbd> または <KBD>[Backspace]</KBD></TD>
+    </TR>
+    <TR>
+      <TD>カーソル位置の一字削除</TD>
+      <TD class="action"><kbd>C-d</kbd> または <KBD>[Delete]</KBD></TD>
+    </TR>
+    <TR>
+      <TD>挿入／上書き切り替え</TD>
+      <TD class="action" width="400"><KBD>[Insert]</KBD></TD>
+    </TR>
+    <TR>
+      <TD>カーソル移動</TD>
+      <TD class="action" width="400"><IMG src="emacskey1.gif" width="400" height="248" alt="emacs におけるカーソル移動"></TD>
+    </TR>
+    <TR>
+      <TD>文字列の検索</TD>
+      <TD class="action" width="400"><IMG src="emacskey2.gif" width="400" height="181" alt="emacs における文字列の検索"></TD>
+    </TR>
+    <TR>
+      <TD>文字列の置換</TD>
+      <TD class="action" width="400"><IMG src="emacskey3.gif" width="400" height="111" alt="emacs における文字列の置換"></TD>
+    </TR>
+    <TR>
+      <TD>１行空ける</TD>
+      <TD class="action" width="400"><KBD>C-o</KBD></TD>
+    </TR>
+    <TR>
+      <TD>行末まで削除</TD>
+      <TD class="action" width="400"><KBD>C-k</KBD></TD>
+    </TR>
+    <TR>
+      <TD>カーソル位置にマークを付ける</TD>
+      <TD class="action" width="400"><KBD>C-[スペース]</KBD></TD>
+    </TR>
+    <TR>
+      <TD>カーソル位置とマーク位置の入れ替え</TD>
+      <TD class="action" width="400"><KBD>C-x C-x</KBD></TD>
+    </TR>
+    <TR>
+      <TD>マーク位置からカーソル位置まで削除</TD>
+      <TD class="action" width="400"><KBD>C-w</KBD></TD>
+    </TR>
+    <TR>
+      <TD>マーク位置からカーソル位置までコピー</TD>
+      <TD class="action" width="400"><KBD>M-w</KBD></TD>
+    </TR>
+    <TR>
+      <TD>削除／コピーした内容を貼り付け</TD>
+      <TD class="action" width="400"><KBD>C-y</KBD></TD>
+    </TR>
+    <TR>
+      <TD>変更取り消し</TD>
+      <TD class="action" width="400"><KBD>C-_</KBD> または <KBD>C-x u</KBD></TD>
+    </TR>
+    <TR>
+      <TD>操作の中止</TD>
+      <TD class="action" width="400"><KBD>C-g</KBD></TD>
+    </TR>
+    <TR>
+      <TD>ファイルの保存</TD>
+      <TD class="action" width="400"><KBD>C-x C-s</KBD></TD>
+    </TR>
+    <TR>
+      <TD>名前を付けてファイルを保存</TD>
+      <TD class="action" width="400"><KBD>C-x C-w</KBD></TD>
+    </TR>
+    <TR>
+      <TD>emacs を終了</TD>
+      <TD class="action" width="400"><KBD>C-x C-c</KBD></TD>
+    </TR>
+    <TR>
+      <TD colspan="2">emacs 本来の設定では，<KBD>[Delete]</KBD> キーでカーソル直前の１文字を削除し，<KBD>C-h</KBD> (<KBD>[Backspace]</KBD>) でヘルプ関連の機能を呼び出すようになっていますが，演習室のコンピュータでは<KBD>[Backspace]</KBD> キーでカーソル直前の１文字を削除するよう設定されています．</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>５．１６　日本語の入力</H3>
+<P>emacs では，日本語の入力に切り替えに，<KBD>[半角/全角]</KBD> のほかに，<kbd>C-\</kbd> が使えます．<KBD>C-\</KBD> は <kbd>[Ctrl]</kbd> を押しながら <kbd>￥</kbd> または <kbd>＼</kbd> をタイプします． <KBD>[半角/全角]</KBD> は X-Window System 上のほかのアプリケーションと同じものですが，<KBD>C-\</KBD> は <em>emacs 自体の機能</em>です．</P>
+<div class="figure"><IMG src="backslash.gif" width="512" height="256" alt="バックスラッシュキー"></div>
+<P>日本語の入力モードから抜け出るには， もう一度 <KBD>C-\</KBD>（あるいは <KBD>[Shift]-[スペース]</KBD>，<KBD>[半角/全角]</KBD>）をタイプしてください．</P>
+<BLOCKQUOTE>
+  <DIV class="header"><kbd>\</kbd>（バックスラッシュ）という文字</DIV>
+  <p><KBD>\</KBD>（バックスラッシュ）は &quot;<em>￥</em>&quot; あるいは &quot;<em>＼</em>&quot; のキーで入力できます．従来 Windows や Mac OS で使われていた Shift_JIS という文字コードでは，この二つ（の半角文字）は同じ文字でしたが，演習室の Linux や最近の Windows や Mac OS X で使われている UTF-8 という文字コードでは，この二つは異なります．演習室の Linux では，どちらのキーでも &quot;<em>＼</em>&quot;が入力されます．Mac OS X では [Option] を押しながら &quot;<em>￥</em>&quot;をタイプすれば &quot;<em>＼</em>&quot; が入力できます．</p>
+</BLOCKQUOTE>
+<h3>５．１７　emacs のチュートリアル</h3>
+<p>emacs には，実際に使いながら使い方を学ぶチュートリアルが用意されています．emacs をメインに使おうと考えるなら，このチュートリアルを実行することを勧めます．</p>
+<p>チュートリアルを実行するには，メニューバー（emacs のウィンドウの最上部）の<EM>ヘルプ</EM>から <EM>Emacs チュートリアル</EM> を選ぶか，<KBD>[F1]</KBD> キーをタイプしたあと <kbd>t</kbd> をタイプしてください．このチュートリアルを読みながら， 指示に従って操作の練習を行ってください．すると <EM>TUTORIAL.ja</EM> というファイルが保存されます．このファイルは不要なので，チュートリアル終了後は削除して構いません．</p>
+<UL>
+  <LI>emacs を終了するには， <KBD>C-x C-c</KBD> をタイプしてください． ファイルを保存するかどうか聞いてくるので， 保存する場合は y をタイプしてください．</LI>
+  <LI>チュートリアルで <EM>&lt;Delback&gt;</EM> となっているところは <KBD>[Backspace]</KBD> を使ってください．</LI>
+  <LI><KBD>[Insert]</KBD> キーを押してしまうと， 上書きモードになってしまいます． 元の挿入モードに戻すには， もう一度 <KBD>[Insert]</KBD> キーをタイプしてください．</LI>
+  <LI><EM>#TUTORIAL.ja#</EM> のように， ファイル名の<EM>前後</EM>が <EM>#</EM> のファイルは， emacs の<EM>作業用のファイル</EM>です． emacs が起動していないときに残っているようなら， このファイルも削除しても構いません．また，このファイルは emacs が異常終了したときも残ります．そのときは <KBD>M-x</KBD> <EM>recover-file</EM> を実行し，このファイルを指定すれば，編集内容を復元することができます．</LI>
+</UL>
+<BLOCKQUOTE>
+<DIV class="header">emacs が動かなくなってしまったとき</DIV>
+<p>emacs が止まってしまって先に進めなくなってしまったときは，<KBD>C-g</KBD>（中止）を数回タイプしてみてください．それでも何の反応もない場合は，emacs を起動した端末のウィンドウで <KBD>Ctrl-C</KBD> をタイプして，emacs を強制終了してください．</p>
+</BLOCKQUOTE>
+<H2>６．テキストファイルの印刷</H2>
+<P>シェル上でテキストファイルの印刷を行うには <EM>lpr</EM> コマンドを用います． ただし，できるだけ <EM>a2ps</EM> や <EM>mpage</EM> というコマンドを介して，用紙を節約するようにしてください．<strong>今は印刷する必要はありません．</strong></P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>テキストファイルを印刷する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>$ <span class="type">lpr ファイル名<KBD>[Enter]</KBD></span>
+$ <span class="type">mpage ファイル名 <EM>|</EM> lpr<KBD>[Enter]</KBD></span>
+$ <span class="type">a2ps ファイル名 <EM>|</EM> lpr<KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>印刷を取り消したいときは，<EM>lpq</EM> コマンドで取り消す印刷ジョブの番号を確認してから，<EM>lprm</EM> コマンドの引数にその番号を指定してください．</P>
+<H2>７．メールの読み書き</H2>
+<P>emacs を使ってメールの読み書きを行うことができます．メール自体はテキストファイルですから，テキストエディタはそれを書くという作業のために最適なソフトウェアです．ここでは <A href="http://www.gohome.org/wl/index.ja.html" target="_blank">Wanderlust</A> の使い方を紹介します．実は，以前は Thunderbird よりも Wanderlust を使うことを推奨していました（が，継続して使ってくれる人が少ないのであきらめました）．</P>
+<UL>
+  <LI><A href="04wl.html">Wanderlust の使い方</A></LI>
+</UL>
+<H2>宿題</H2>
+<p>以下のものをメールで <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-04">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-04 にしてください．期限は次週の水曜日中までです．</p>
+<div class="assign">(1) これから <em>Linux 上で</em>使用するテキストエディタを<em>決めてください</em>．そのテキストエディタの名前を教えてください．なお，決めたテキストエディタをずっと使い続ける必要はありません．使用するテキストエディタは必要に応じて変更して構いません．</div>
+<div class="assign">(2) 下の文章は日本国憲法の「前文」です． <EM>Linux 上のエディタ</EM>を使って <EM>kenpou.txt</EM> というファイル名のテキストファイルを作成し，この内容を入力してください．テキストファイルの<em>最後に自分の名前とユーザ名</em>を入れておいてください．入力が完了したらファイルを保存して，<EM>kenpou.txt</EM> を送ってください．
+</div>
+  <DIV class="figure"><IMG src="kenpou.gif" width="523" height="551" alt="日本国憲法前文"></DIV>
+<UL>
+  <LI>「<EM>ゐ</EM>」と「<EM>ゑ</EM>」は，それぞれ <KBD>wyi</KBD>，<KBD>wye</KBD> で入力できます．</LI>
+  <LI>emacs の場合，<KBD>M-q</KBD> をタイプすると，カーソルのある段落 （次のスペースで始まる行や空行までの間）の行末がそろうように改行を追加します．１行の文字数を指定するには，例えば
+    60 文字（日本語で 30 文字）にするなら，あらかじめ <KBD>C-u 6 0 C-x f</KBD> とタイプしておきます．</LI>
+</UL>
+<BLOCKQUOTE>
+<DIV class="header">長い行の取り扱いについて</DIV>
+<p>emacs は「テキストエディタ」なので， 文書の見栄えのレイアウトをするような機能はほとんど持っていません． 長い行はウィンドウの右端で折り返しますが，
+    これもあくまで表示のために便宜的に行っているに過ぎず， それが「１行」として取り扱われていることには変わりありません．なお，文書をきれいにレイアウトして印刷する場合には，この講義では <EM>LaTeX</EM> というシステムを使います（<A href="08.html">後述</A>）．</p>
+</BLOCKQUOTE>
+<div class="assign">(3) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="03.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<script type="text/javascript">
+<!--
+swfobject.registerObject("copypaste");
+//-->
+</script>
+</BODY>
+</HTML>

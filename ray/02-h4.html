@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>出力画像上の点に対応したスクリーン上の点の位置</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>出力画像上の点に対応したスクリーン上の点の位置</h1>
+
+<blockquote>
+xs = (xc - x) * a / xc<br>
+ys = (yc - y) / yc
+</blockquote>
+
+<p>なお，スクリーンのアスペクト比 a を出力画像に一致させるなら，
+a = xw / yw とすればよい．xw / yw = xc / yc なので，その場合は</p>
+
+<blockquote>
+xs = (xc - x) / yc<br>
+ys = (yc - y) / yc
+</blockquote>
+
+<p>となる．</p>
+
+</body>
+</html>

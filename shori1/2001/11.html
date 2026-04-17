@@ -1,0 +1,503 @@
+<head>
+<title>情報処理I － 第１１回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第１１回</h1>
+
+<hr>
+
+<h2>１．タイピングのテスト</h2>
+
+<hr>
+
+<p>mule を起動して、trr
+を実行（<tt><b>M-x trr[Enter]</b></tt>）してください。
+</p>
+
+<center>
+<img src="11-01.gif">
+</center>
+
+<p>1 を選んでください。</p>
+
+<center>
+<img src="11-02.gif">
+</center>
+
+<p>タイピングを開始するとスタートします。
+<tt>^M</tt> は改行（<tt><b>[Enter]</b></tt>）です。</p>
+
+<center>
+<img src="11-03.gif">
+</center>
+
+<p>終わるときは 1 を選んでください。</p>
+
+<hr>
+
+<h2>２．LaTeX による文書の浄書</h2>
+
+<hr>
+
+<p>mule などのテキストエディタには、
+ワードプロセッサのようなレイアウト機能はありません。
+そこで、論文のように書式の定まった印刷物を作成するのに用いられる
+TeX について解説します。</p>
+
+<p>パソコンのワードプロセッサのように、
+画面上でレイアウトを整えて印刷するような場合を、
+<font color="#ff0000">WYSIWYG</font>
+（What You See Is What You Get ～見たままを手にいれる）
+と言います。この方法はわかりやすく、
+見た目の通りにに文書のレイアウトを行うことができます。
+その一方で、長い文書を清書しようとすると、
+全体のレイアウトを統一するのに結構骨が折れますし、
+文字のサイズや用紙のサイズを変更したりすると、
+レイアウトをはじめからやり直さなければならないこともしばしば起こります。</p>
+
+<p>これに対して TeX は、
+Web ページのレイアウトを HTML で行ったのと同じように、
+文書のレイアウトを一種の“プログラミング言語”のような方式で行います。
+この方法ではレイアウトをすぐに画面上で確認することはできませんが、
+長文でも統一の取れたレイアウトを保ちやすいというメリットがあります。
+また TeX は組版、
+すなわち印刷所で植字工がレイアウトの美しさを考えながら、
+試行錯誤で活字を詰めていく方法にならって設計されているので、
+文字間隔などを
+TeX の処理系（プログラム）自身が仕上がりの美しさを考えながら、
+自動的に決定してくれます。
+TeX のような方式を<font color="#ff0000">バッチ式</font>と言います。</p>
+
+<p>TeX とワープロとどっちが「楽」かというのは良く議論になります。
+取っつきやすさと言う点では、もちろんワープロに軍配が上がるでしょう。
+しかし、少なくとも私は、
+ワープロできれいに文書をレイアウトする手間を考えると、
+TeX に勝手にやってもらった方がずっと楽だと感じています。</p>
+
+<p>ただ、TeX 自体はかなり細かな書式制御が可能な反面、
+論文のような定型的な文書を作成するのには手間がかかりすぎます。
+LaTeX は、“見出し”や“本文”のような、
+文書の論理的構成要素を指定して書式を制御できるように、
+TeX を拡張したものです。
+しばしば、『TeX がマニュアル式の車だとすると、
+LaTeX はオートマチック車だ』という比喩が用いられます。</p>
+
+<h3>LaTeX による文書作成の手順</h3>
+
+<p>LaTeX による文書作成の手順は、
+<font color="#ff0000">教科書の 198 ページ</font>で解説されています。
+Web 上ですべてを網羅するのは大変なので、
+必ず教科書を参照してください。</p>
+
+<p>なお、教科書では jlatex を用いていますが、
+６階の演習室では pTeX-2.1.8 をもとにした、より新しいバージョンの
+platex が利用できます。</p>
+
+<p>platex は jlatex 用に書かれた LaTeX ソースファイルにも対応しており、
+教科書に書かれている程度のものなら、そのまま platex でも利用可能です。
+ソースファイルの最初の行が <tt>\documentstyle{ .. }</tt>
+で始まっていれば jlatex 用、<tt>\documentclass{ .. }</tt>
+で始まっていれば platex 用です。</p>
+
+<h3>kenpou を清書する</h3>
+
+<p>TeX/LaTeX を用いた文書は、
+HTML 同様書式を制御するための“コマンド”
+（HTML における“タグ”に相当）を埋め込みます。
+このようなテキストファイルを
+TeX ソースファイルあるいは LaTeX ソースファイルと呼びます。</p>
+
+<p>それでは、以前作成した「日本国憲法の前文」を、
+LaTeX を使って清書してみましょう。
+mule を使って、kenpou.tex という LaTeX ソースファイルを作成してください。
+TeX や LaTeX のソースファイルの拡張子は ".tex" です。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule kenpou.tex<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>下の内容をタイプしてください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass{jarticle}
+
+\begin{document}
+
+\end{document}
+</table>
+
+<p><tt>\begin{document}</tt> と <tt>\end{document}</tt>
+の間に、以前作成した kenpou というファイルを読み込みます。
+<tt>\begin{document}</tt> と <tt>\end{document}</tt>
+の中間にカーソルを移動してください。</p>
+
+<p><tt><b>C-x i</b></tt> をタイプすると、
+このバッファに読み込むファイル名を聞いてきます。
+ここにファイル名 (kenpou) をタイプしてください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>Insert File: ~/<u>kenpou</u>
+</table>
+
+<br>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">kenpou が読み込めないとき
+<tr><td bgcolor="#ffffcc">
+<p>おそらく、この mule はホームディレクトリで起動していると思います。
+ほかのディレクトリで起動していたり、
+あるいは kenpou をホームディレクトリ以外に置いている場合は、
+このままではファイルを読み込むことができません。</p>
+
+<p>スペースバーをタイプするとファイルやディレクトリの一覧を表示します。
+ファイル名の代りににディレクトリ名をタイプしてスペースバーをタイプすれば、
+そのディレクトリの中にあるファイルの一覧を表示しますから、
+こうして目的のファイルを探してください。</p>
+</table>
+
+<br>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass{jarticle}
+
+\begin{document}
+
+    日本国憲法「前文」（昭和21年11月3日公布、昭和22年5月3日施行）
+
+　日本国民は、正当に選挙された国会における代表者を通じて行動し、われら
+とわれらの子孫のために、諸国民との協和による成果と、わが国全土にわたっ
+て自由のもたらす恵沢を確保し、政府の行為によつて再び戦争の惨禍が起るこ
+とのないやうにすることを決意し、ここに主権が国民に存することを宣言し、
+この憲法を確定する。そもそも国政は、国民の厳粛な信託によるものであつて、
+その権威は国民に由来し、その権力は国民の代表者がこれを行使し、その福利
+は国民がこれを享受する。これは人類普遍の原理であり、この憲法は、かかる
+原理に基くものである。われらは、これに反する一切の憲法、法令及び詔勅を
+排除する。
+　日本国民は、恒久の平和を念願し、人間相互の関係を支配する崇高な理想を
+深く自覚するのであつて、平和を愛する諸国民の公正と信義に信頼して、われ
+らの安全と生存を保持しようと決意した。われらは、平和を維持し、専制と隷
+従、圧迫と偏狭を地上から永遠に除去しようと努めてゐる国際社会において、
+名誉ある地位を占めたいと思ふ。われらは、全世界の国民が、ひとしく恐怖と
+欠乏から免かれ、平和のうちに生存する権利を有することを確認する。
+　われらは、いづれの国家も、自国のことのみに専念して他国を無視してはな
+らないのであつて、政治道徳の法則は、普遍的なものであり、この法則に従ふ
+ことは、自国の主権を維持し、他国と対等関係に立たうとする各国の責務であ
+ると信ずる。
+　日本国民は、国家の名誉にかけ、全力をあげてこの崇高な理想と目的を達成
+することを誓ふ。
+
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　和歌山健太郎
+
+\end{document}
+</table>
+
+<p>さらに、これに対して次の変更を加えてください。</p>
+
+<ol>
+<li>タイトル（『日本国憲法 ～ 施行）』の部分）を削除してください。
+<li>自分の名前や学籍番号を削除してください。
+<li>段落の行頭の空白を削除してください。
+<li>段落の間を１行あけてください。
+</ol>
+
+<p>こうして、下のような体裁にします。
+プログラムで行末の処理を行うので、
+この LaTeX のソースファイルで
+<font color="#ff0000">行末をそろえる必要はありません</font>
+（句読点で改行しておくと、あとで編集するときに便利です）。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass{jarticle}
+
+\begin{document}
+
+日本国民は、正当に選挙された国会における代表者を通じて行動し、われら
+とわれらの子孫のために、諸国民との協和による成果と、わが国全土にわたっ
+て自由のもたらす恵沢を確保し、政府の行為によつて再び戦争の惨禍が起るこ
+とのないやうにすることを決意し、ここに主権が国民に存することを宣言し、
+この憲法を確定する。そもそも国政は、国民の厳粛な信託によるものであつて、
+その権威は国民に由来し、その権力は国民の代表者がこれを行使し、その福利
+は国民がこれを享受する。これは人類普遍の原理であり、この憲法は、かかる
+原理に基くものである。われらは、これに反する一切の憲法、法令及び詔勅を
+排除する。
+
+日本国民は、恒久の平和を念願し、人間相互の関係を支配する崇高な理想を
+深く自覚するのであつて、平和を愛する諸国民の公正と信義に信頼して、われ
+らの安全と生存を保持しようと決意した。われらは、平和を維持し、専制と隷
+従、圧迫と偏狭を地上から永遠に除去しようと努めてゐる国際社会において、
+名誉ある地位を占めたいと思ふ。われらは、全世界の国民が、ひとしく恐怖と
+欠乏から免かれ、平和のうちに生存する権利を有することを確認する。
+
+われらは、いづれの国家も、自国のことのみに専念して他国を無視してはな
+らないのであつて、政治道徳の法則は、普遍的なものであり、この法則に従ふ
+ことは、自国の主権を維持し、他国と対等関係に立たうとする各国の責務であ
+ると信ずる。
+
+日本国民は、国家の名誉にかけ、全力をあげてこの崇高な理想と目的を達成
+することを誓ふ。
+
+\end{document}
+</table>
+
+<p>ここまでできたら <tt><b>C-x C-s</b></tt> をタイプして、
+ファイルを保存してください。</p>
+
+<p>次に、mule を終了するか、ほかの“UNIXシェル”ウィンドウを開いて、
+次のコマンドを実行してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>platex kenpou.tex<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>上のコマンドでは、"<tt>platex kenpou</tt>" のように、
+引数に指定するファイル名の拡張子 "<tt>.tex</tt>" を省略しても構いません。</p>
+
+<p>もし、エラーが発生していなければ、
+kenpou.dvi というファイルが作成されるはずです。</p>
+
+<table border align="center" width="512">
+<tr><th bgcolor="#ffcccc">platex でエラーが発生したとき
+<tr><td bgcolor="#ffffcc">
+<p>platex が次のようなメッセージを出した時は、
+LaTeX ソースファイルの書き方に誤りがあります。</p>
+
+<blockquote>
+<font size="-1"><pre>% platex kenpou.tex
+This is pTeX, Version p2.1.5, based on TeX, Version 3.14159 (EUC) (Web2c 7.0)
+(kenpou.tex
+pLaTeX2e <1997/07/02>+2 (based on LaTeX2e <1996/12/01> patch level 0)
+(/usr/local/share/texmf/tex/platex/jarticle.cls
+Document Class: jarticle 1997/09/03 v1.1h Standard pLaTeX class
+(/usr/local/share/texmf/tex/platex/jsize12.clo))
+! Undefined control sequence.
+l.3 \begn
+         {document}
+? <u><b>x</b></u></pre></font>
+</blockquote>
+
+<p>この時は、最後の ? のところに <tt><b>x</b></tt> をタイプして改行し、
+platex を終了してから kenpou.tex を修正してください。</p>
+</table>
+
+<p>作成された kenpou.dvi を画面上で確認してみましょう（プレビュー）。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>xdvi kenpou.dvi<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>上のコマンドでは、"<tt>xdvi kenpou</tt>" のように、
+引数に指定するファイル名の拡張子 "<tt>.dvi</tt>" を省略しても構いません。</p>
+
+<center>
+<img src="11-04.gif">
+</center>
+
+<p>レイアウトが確認できたら、q をタイプするか Quit のボタンをクリックして
+xdvi を終了してください。</p>
+
+<h3>タイトルを入れる</h3>
+
+<p>次に、この文書にタイトルや著者名を追加します。
+もう一度 mule で kenpou.tex を開いてください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass{jarticle}
+
+\begin{document}
+
+日本国民は、正当に選挙された国会における代表者を通じて行動し、われら
+<font color="#008800">［以下略］</font>
+</table>
+
+<p>この <tt>\begin{document}</tt> の前後に、
+次の内容を追加します。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass{jarticle}
+
+<b>\title{日本国憲法「前文」
+(昭和21年11月3日公布、昭和22年5月3日施行)}
+
+\author{和歌山健太郎}</b>
+
+\begin{document}
+
+<b>\maketitle</b>
+
+日本国民は、正当に選挙された国会における代表者を通じて行動し、われら
+<font color="#008800">［以下略］</font>
+</table>
+
+<p>変更できたらファイル (kenpou.tex) を保存して、
+先ほどと同様に kenpou.tex を platex にかけて kenpou.dvi を作成し、
+それを xdvi を使って見てみてください。</p>
+
+<p>段落を改めるのではなく、行の途中で改行したいときは、
+そこに <tt>\\</tt> を置いてください。
+上の例のタイトルを途中で改行するには、
+例えば下のようにします。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\title{日本国憲法「前文」<b>\\</b>
+(昭和21年11月3日公布、昭和22年5月3日施行)}
+</table>
+
+<h3>文書クラスを変更する</h3>
+
+<p>文書クラス（スタイル）は <tt>\documentclass{ .. }</tt>
+で指定します。これは文書のレイアウトの規則を目的別に設定するものです。
+kenpou.tex で指定している
+jarticle は論文などを作成する際に用いるレイアウトです。
+ほかに本を執筆する jbook やレポート用の jreport が用意されています。</p>
+
+<h3>用紙サイズを変更する</h3>
+
+<p>標準では、B5 版の用紙を想定したレイアウトが行われます。
+演習室のプリンタには A4 版の用紙しか入っていないので、
+そのまま印刷すると周囲の余白が大きすぎます。</p>
+
+<p>A4 用紙にあったレイアウトを行うには、
+<tt>\documentclass<b>[a4j]</b>{jarticle}</tt>
+のように、\documentclass コマンドに a4j というオプションを与えます。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass<b>[a4j]</b>{jarticle}
+</table>
+
+<p>用紙サイズには、ほかに <tt>a5j b4j b5j</tt> が指定できます。</p>
+
+<h3>基準の文字サイズを変更する</h3>
+
+<p>標準では、本文などに使用される文字のサイズは 10pt（10 ポイント、
+１ポイントは 1/72.27 インチ）です。
+これをひとまわり大きな 12pt に変更するには、
+\documentclass コマンドに 12pt というオプションを付けます。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass<b>[12pt]</b>{jarticle}
+</table>
+
+<p>もちろん、これは用紙サイズといっしょに指定できます。
+この場合は ","（コンマ）で区切ります。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>\documentclass<b>[a4j,12pt]</b>{jarticle}
+</table>
+
+<p>ここに指定できる文字サイズは <tt>10pt 11pt 12pt</tt> です。</p>
+
+<h3>２段組、両面印刷</h3>
+
+<p>２段組のレイアウトを行うときは、twocolumn というオプションを付けます
+（教科書で説明されている jtwocolumn は使えません）。
+両面印刷に対応したレイアウトを行うときは、twoside というオプションを付けます。
+ただし、これはレイアウト上そうなると言うだけで、
+実際に両面印刷が行われるわけではありません。
+また、演習室のプリンタには両面印刷の機能はありません。</p>
+
+<h3>印刷する</h3>
+
+<p>TeX は印刷物を作成するためのシステムです、
+紙に印刷するには、xdvi の Print ボタンをクリックするか、
+次のコマンドを実行してください。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>dvips kenpou.dvi<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>上のコマンドでは、"<tt>dvips kenpou</tt>" のように、
+引数に指定するファイル名の拡張子 "<tt>.dvi</tt>" を省略しても構いません。</p>
+
+<p>教科書同様 dvi2ps も使えます。
+このコマンドの操作方法は教科書通りです。</p>
+
+<h3>まとめ</h3>
+
+<p>ここまでを簡単にまとめると、次のようになります。</p>
+
+<ul>
+<li>LaTeX のソースファイルは <tt>\documentclass{jarticle}</tt>
+という行から始まる。
+<ul>
+<li><tt>jarticle</tt> は論文用の文書レイアウトで、
+ほかに <tt>jbook jreport</tt> が指定できる。</li>
+<li>用紙サイズや文字サイズは、
+<tt>\documentclass[a4j,11pt]{jarticle}</tt> というオプションで与える。</li>
+<li>用紙サイズは <tt>a4j a5j b4j b5j</tt> が指定できる。</li>
+<li>文字サイズは <tt>10pt 11pt 12pt</tt> が指定できる。</li>
+<li>２段組にするときは <tt>twocolumn</tt> オプションを指定する。</li>
+<li>両面印刷に対応したレイアウトにするためには
+<tt>twoside</tt> オプションを指定する。</li>
+</ul>
+<li>本文は <tt>\begin{document} ～ \end{document}</tt> の間に書く。</li>
+<li><tt>\title{ ... }</tt> の間にタイトルを書き、
+<tt>\author{ ... }</tt> の間に著者名を書いたあと、
+<tt>\maketitle</tt> を置くとタイトルページが作成される。</li>
+<ul>
+<li>著者名を書きたくないときは <tt>\author{}</tt> とすればよい。</li>
+<li>日付を書きたくないときは <tt>\date{}</tt> を追加すればよい。</li>
+</ul>
+<li>段落を改めるときは<font color="#ff0000">１行あける</font>。</li>
+<li>強制的に改行するときは <tt>\\</tt> を置く。</li>
+<li>引用符にはダブルクォーテーションマーク <tt>(")</tt> ではなく、
+<tt>``</tt>～<tt>''</tt> というように、バッククォーテーションマーク
+<tt>(`)</tt> とシングルクォーテーションマーク <tt>(')</tt>
+をそれぞれ２回使ってください。</li>
+</ul>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+<p>『私がここに来た理由』というタイトルで簡単なレポートを書け。</p>
+
+<ul>
+<li>LaTeX ソースファイル名は report.tex
+など適当につけてください（拡張子は必ず ".tex"）。</li>
+<li>文書クラスは jarticle にしてください。</li>
+<li>著者名は「学籍番号 名前」という形式にしてください。
+<li>以下の項目について見出しをつけ、
+節（セクション）を別けて書いてください。</li>
+<ol>
+<li>ここに来た理由（来たくなかった理由でも可）</li>
+<li>入学後の感想（理想と現実のギャップとか）</li>
+<li>身につけたい知識や技術（ここであなたがやりたいこと）</li>
+<li>卒業後の展望（進学や就職に対する希望とか）</li>
+</ol>
+<li><a href="11-h1.html#headding">見出し</a>の付け方については、
+<font color="#ff0000">教科書の
+199 ～ 200 ページ</font>を参照してください。</li>
+<li>別のページに
+<a href="11-h1.html">LaTeX の概要</a>を簡単にまとめておきますから、
+参考にしてください。また、
+WWW 上にも TeX や LaTeX に関連したホームページがあります。
+Yahoo Japan の
+<a href="http://www.yahoo.co.jp/Computers_and_Internet/Desktop_Publishing/TeX/">TeX に関するリンク集</a>などから探してみてください
+（HTML に比べるとちょっと物足りないかも知れません）。
+アスキーの
+<a href="http://www.ascii.co.jp/pb/ptex/">The publishing TeX</a>
+のページも参考になると思います。</li>
+<li>長さは A4 用紙１枚か２枚に収まるようににしてください。</li>
+<li>印刷したものを（２枚ならホッチキスで止めて）
+次回のこの授業までに指導教官に提出してください。</li>
+</ul>
+
+</body>

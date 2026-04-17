@@ -1,0 +1,513 @@
+<head>
+<title>情報処理II － 第１回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１回</h1>
+
+<hr>
+
+<h2>１．講義内容について</h2>
+
+<hr>
+
+<p>この授業ではプログラミングについて学習します。</p>
+
+<p>情報処理 I のような内容を期待していた人には、
+ひたすらおもしろくない授業になると思います。
+みなさんのうちの多くが、
+こういうことをしたいと思ってここに入ってきたのではないということを、
+知らないわけではありません。
+しかし、進路のことを考えると、
+プログラミングの能力はやはり強い武器になると思うのです。
+どうか投げ出さないで付き合ってください。</p>
+
+<hr>
+
+<h2>２．プログラムとは</h2>
+
+<hr>
+
+<p>コンピュータのプログラムとは、
+コンピュータが行う仕事の手順を示した手順書のようなものです。
+仕事の手順は人間が考えるわけですから、
+<font color="#ff0000">プログラミング</font>は、
+それを手順書として具体化する作業にほかなりません。</p>
+
+<p>ところが、コンピュータは人間の言葉を理解できないので、
+この手順書はコンピュータの言葉（<font color="#ff0000">機械語</font>）
+で書く必要があります。
+とは言っても、
+機械の言葉はみなさん良くご存じの通り「０／１の二進数」なので、
+人間が直接機械語でプログラムを書くのは、
+それはそれは大変な作業になります。</p>
+
+<p>そこで、
+普通はより人間の言葉に近い文法の言語を使って手順書を書き、
+それを機械語に翻訳してコンピュータに与えるという手段を用います。
+この翻訳の仕方には逐次式（<font color="#ff0000">インタプリタ</font>）と
+一括式（<font color="#ff0000">コンパイラ</font>）という二つの方法があります。
+一般にコンパイラ方式の方が、
+作成したプログラムを実行するときの性能が良いと考えられています。</p>
+
+<p>このような目的で人間が設計した言語を
+<font color="#ff0000">プログラミング言語</font>と言います。
+これには目的に応じて様々なものが開発されていますが、
+C 言語およびそれを拡張した C++ 言語は、
+汎用性があり性能も良いため、
+現在のソフトウェア開発用の言語として、
+最もポピュラーなものの一つです。</p>
+
+<p>この講義では、
+<u>思考を具体化する際の「文法」</u>として、
+<font color="#ff0000">C++ 言語</font>を用います。</p>
+
+<blockquote>
+<font size="-1">
+
+<p>実は C++ 言語は、
+はじめてプログラミング言語を学ぶ人にはあまり適さない言語だと言われます。
+私もそう思います。
+この言語は、そのもとになった C
+言語に、大規模なプログラムの開発を行う時に使われるいくつかのテクニックを、
+言語仕様としてフィードバックしたものだと考えられます。
+このため C++ 言語の C++ 言語たる部分は、
+やはり大規模なプログラムでないとなかなか見えてこないように思われ、
+講義で使用する簡単なサンプルプログラム程度では、
+なかなかその本質に迫ることができません。</p>
+
+<p>しかし、現在ではみなさんが使っている O2 に限らず、
+Windows や Macintosh 等でも
+C++ によるソフトウェア開発が中心になってきています
+（Windows だと Visual BASIC という気もしますが、
+O2 では使えませんから）。
+また OpenInventor などのグラフィックライブラリは
+C++ をベースに設計されていますから、
+避けて通るわけにはいかないとも思うのです。
+ということで、この講義では C++ 言語の文法を網羅するようなことはしません。
+それは必要になったときに自分で勉強してください。
+また C++ は文法がたびたび変更されています。
+この授業で使用している C++ コンパイラは最近の文法には対応していないので、
+最新の情報を得るためにも常に自分で勉強しておく必要があります。</p>
+
+</font>
+</blockquote>
+
+<hr>
+
+<a name="makeprogram">
+<h2>３．プログラムを組むということ</h2></a>
+
+<hr>
+
+<p>プログラミングは、本当はとってもおもしろい創作行為です。
+ただ、そこに至る前にクリアしなければならないいくつかのハードルがあって、
+その一番おもしろいところが最初は見えないために、
+「どうもピンと来ない、わけがわかんない」という印象を持ってしまうのです。
+この最初のハードルは、
+みなさんがまだ自分の思考を整理して別の形で再構成するという行為に慣れていない、
+というところにあります。</p>
+
+<p>「思考を具体化する」という点で、
+プログラミングは絵を描いたり彫刻したりすることに非常に似た作業です。
+ところが、絵筆やノミによって具体化された「作品」は、
+視覚を通じて直ちに思考にフィードバックできるのに、
+プログラムは一通り完成させてしまわないと、
+その姿を見ることができません。
+プログラムは途中経過を見ながら完成させることが難しいのです。
+ここに第２のハードルがあります。</p>
+
+<p>この後にも第３・第４…とハードルは続きますが、
+そのうちこのハードルを越えること自体におもしろさを感じるようになります。
+だから、とりあえずはじめてみましょう。</p>
+
+<hr>
+
+<a name="step">
+<h2>４．プログラム作成の手順</h2></a>
+
+<hr>
+
+<p>プログラム作成の基本的な手順は、次のようになります。</p>
+
+<ol>
+
+<li><p><u>テキストエディタ</u>を使って、
+人間が理解できる形式のプログラム
+（<font color="#ff0000">ソースプログラム</font>）を作成します。
+これをファイルとして保存します
+（<font color="#ff0000">ソースファイル</font>）。</p></li>
+
+<li><p><u>コンパイラ</u>を使って、
+ソースファイルをコンピュータが理解できる形式のプログラム
+（<font color="#ff0000">オブジェクトプログラム</font>）に変換し、
+これをファイルとして保存します
+（<font color="#ff0000">オブジェクトファイル</font>）。
+この作業を<font color="#ff0000">コンパイル</font>と呼びます。</p></li>
+
+<li><p><a name="linker"><u>リンカ</u></a>を使って、
+オブジェクトプログラムに
+他のオブジェクトプログラムや<font color="#ff0000">ライブラリファイル</font>
+（最初から用意されているオブジェクトプログラムを集めたもの）
+の中のオブジェクトプログラムを結合し、
+コンピュータによって実行できる形式のプログラム
+（<font color="#ff0000">実行プログラム</font>）を作成します。
+これをファイルとして保存します
+（<font color="#ff0000">実行ファイル</font>）。
+この作業を<font color="#ff0000">リンク</font>と呼びます。</p></li>
+
+</ol>
+
+<p>この処理の流れを図で表すと、こんな感じになります。</p>
+
+<center>
+<img src="01-01.jpg">
+</center>
+
+<p>なお、CC コマンド（後で解説します）を使用した場合、
+リンクはコンパイルに引き続いて自動的に実行されます。</p>
+
+<hr>
+
+<h2>５．ソースプログラムの作成</h2>
+
+<hr>
+
+<p>プログラムの作成に入る前に、
+この講義用のディレクトリを一つ作っておきましょう。
+ディレクトリ名は何でも構いませんが、
+日本語は使わないでください。
+下の例では shori2 とします。
+ディレクトリがなんなのかよく分からない人は、
+情報処理 I の第５回の<a href="/~tokoi/lecture/shori1/05.html#directory">
+ディレクトリ</a>のところを復習してください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mkdir shori2<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<p>カレントディレクトリをそこに移します。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd shori2<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<p>テキストエディタを使って、ソースプログラムを作成します。
+ここではファイル名を hello.cc としてください。
+C++ 言語のソースファイルのファイル名の末尾には
+".cc" あるいは ".cpp"、".c++"、".cxx" を付けることになっています。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<p>次のプログラムをタイプしてください。
+このプログラムは「何もしない」プログラムです。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+main() {
+}</table>
+</center>
+
+<p>全部タイプできたらファイルを保存し、mule を終了してください。</p>
+
+<p>これで hello.cc というファイルが作られます。
+実際にファイルが作成されているかどうか、
+ls コマンドを使って確認してください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#808080">...</font> hello.cc <font color="#808080">...</font>
+</font></table>
+</center>
+
+<a name="compile">
+<hr>
+
+<h2>６．ソースプログラムのコンパイル</h2>
+
+<hr>
+</a>
+
+<p>CC（大文字）コマンドによって、hello.cc をコンパイルします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffff00">（エラーがなければ、何も表示されない）</font>
+</font></table>
+</center>
+
+<p>これで a.out というファイルが作成されます。
+これが<font color="#ff0000">実行ファイル</font>です。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#808080">...</font> a.out <font color="#808080">...</font> hello.cc <font color="#808080">...</font>
+</font></table>
+</center>
+
+<p>ここで、もしソースプログラム中に
+<a href="01-h1.html">エラー</a>
+が見つかると、a.out は作成されません。
+その場合はソースプログラム hello.cc をもう一度良く見直して、
+もう一度コンパイルしてください。</p>
+
+<p>なお、ここではコンパイルに引き続いて自動的にリンクが行われるため、
+オブジェクトファイルは作成されません。</p>
+
+<hr>
+
+<h2>７．プログラムの実行</h2>
+
+<hr>
+
+<p>作成された a.out を実行してみましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffff00">（何もしないプログラムなので、何も表示されない）</font>
+</font></table>
+</center>
+
+<p>このように、作成されたプログラム (a.out) は、
+ls などと同様 UNIX のコマンドとして利用可能なものになります。
+a.out というファイル名が嫌なら、
+mv でファイル名を変更しても構いません。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mv a.out hello<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>hello</u>
+</font></table>
+</center>
+
+<p>あるいは CC コマンドに -o オプションを付けて、
+直接その名前の実行ファイルを作成できます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC -o hello hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>hello</u>
+</font></table>
+</center>
+
+<hr>
+
+<h2>８．ソースプログラムの修正</h2>
+
+<hr>
+
+<p>再度 mule を使って、hello.cc を編集します。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<p>{ と } の間にプログラムを書きましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+<b>#include &lt;iostream.h&gt;</b>
+
+main() {
+  <b>cout &lt;&lt; "Hello!\n";</b>
+}</table>
+</center>
+
+<p><a name="cout">
+<tt>cout</tt></a>
+は<font color="#ff0000">出力ストリーム</font>と呼ばれ、
+標準出力（画面）にデータを出力する
+<font color="#ff0000">オブジェクト</font>
+を示しています。
+<tt>&lt;&lt;</tt> は出力ストリームにデータを送る
+<font color="#ff0000">挿入演算子</font>です。
+このオブジェクトに <tt>&lt;&lt; "hello!\n"</tt>
+という<font color="#ff0000">メッセージ</font>を送ると、
+それがコマンドの出力として画面に表示されます。
+これがこのプログラムの<font color="#ff0000">仕事</font>です。</p>
+
+<p><tt>#include &lt;iostream.h&gt</tt> は
+<tt>cout</tt> を使うための<font color="#ff0000">おまじない</font>です。</p>
+
+<p>C++ 言語では、
+プログラムの単位（<a href="04.html#sentence">文</a>と呼びます）ごとに、
+区切り記号として "<tt>;</tt>"（セミコロン）を置きます。
+また追加する部分が
+<a href="01-h2.html">字下げ</a>
+されていることに注意してください。</p>
+
+<p>タイプできたら先ほどと同様にファイルを保存し、
+mule を終了してください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#808080">...</font> a.out <font color="#808080">...</font> hello.cc hello.cc~ <font color="#808080">...</font>
+<font color="#ffff00">（hello.cc~ は修正前の内容のバックアップ）</font>
+</font></table>
+</center>
+
+<p>このファイルをもう一度コンパイルします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffff00">（エラーがなければ、何も表示されない）</font>
+</font></table>
+</center>
+
+<p>正常にコンパイルできれば、a.out を実行してください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+Hello! <font color="#ffff00">（←これがコマンドの出力）</font>
+%
+</font></table>
+</center>
+
+<p>では次に、このプログラムを "Hello! How are you?"
+と出力するように変更してみましょう。
+hello.cc を次のように変更してください。
+ソースプログラムの修正とコンパイルを繰り返すときは、
+<a href="01-h4.html">mule をバックグラウンドで起動する</a>と便利です。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "Hello!\n";
+  <b>cout &lt;&lt; "How ";</b>
+  <b>cout &lt;&lt; "are ";</b>
+  <b>cout &lt;&lt; "you?";</b>
+  <b>cout &lt;&lt; endl;</b>
+}</table>
+</center>
+
+<p>このプログラムをコンパイルして実行してみてください。
+どのように表示されたでしょうか。</p>
+
+<p><a name="procedure">
+プログラムは最初（上）の方から順番に実行されます。
+こういう風に
+<u>やりたいことをやりたい順に並べて仕事の全体を記述したもの</u>
+を<font color="#ff0000">手続き</font>と呼びます。
+</p></a>
+
+<p>なお、上のプログラムは次のように書くこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "Hello!\n" &lt;&lt; "How " &lt;&lt; "are " &lt;&lt; "you?" &lt;&lt; endl;
+}</table>
+</center>
+<p>
+
+間にある空白や改行は無視されるので、下のプログラムは上のプログラムと同じです。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "Hello!\n"
+       &lt;&lt; "How "
+       &lt;&lt; "are "
+       &lt;&lt; "you?"
+       &lt;&lt; endl;
+}</table>
+</center>
+
+<p>でも、まあ普通？は次のように書くんじゃないでしょうか。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "Hello!" &lt;&lt; endl;
+  cout &lt;&lt; "How are you?" &lt;&lt; endl;
+}</table>
+</center>
+
+<p><tt>'\n'</tt> というのも一つの文字で、
+これは出力装置を改行する機能を持ちます。
+このような文字は制御文字と呼ばれます。
+<b>endl</b> は行末 (end of line) を意味します。
+見た目の動作は <tt>'\n'</tt> と同じです。</p>
+
+<hr>
+
+<h2>課題１</h2>
+
+<hr>
+
+<p>実行すると次のような出力を行うプログラムを作ってください。
+ソースプログラムのファイル名は kadai1.cc とし、
+それを<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai1">tokoi</a>まで
+メールで送ってください。Subject:（件名）は kadai1 としてください。
+なお、"Kentaro Wakayama" は自分の名前にしてください。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>Wakayama University,
+Faculty of Systems Engineering,
+Kentaro Wakayama.</table>
+</center>
+
+<p>なお、Netscape からメールを送る場合は、
+今一度<a href="01-h3.html">設定の確認</a>を行ってください。
+Netscape でメールにソースプログラムを添付するには、
+メールの宛先を書くところの下にある
+ゼムクリップの絵が書かれたタブをクリックし、
+そこに shori2 のフォルダの中にあるソースプログラムのアイコンを重ねてください
+（mule の場合は C-x i でファイルを読み込むとか、
+いろんな方法があります）。</p>
+
+</body>

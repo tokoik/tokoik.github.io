@@ -1,0 +1,411 @@
+<head>
+<title>情報処理 II － 第９回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第９回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．ファイル操作（CGI の作り方）</h2>
+
+<hr>
+
+<p>HTML には Web ページ上でデータの入力を行う
+Fill-in Form（form タグ）という機能があります。
+public_html の下に次のような Web ページ
+myform.html を作成してみてください。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">myform.html
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+&lt;head&gt;
+&lt;title&gt;Form sample&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;form&gt;
+あなたのお名前：
+&lt;input type="TEXT" name="NAME" maxlength="40"&gt;&lt;br&gt;
+メールアドレス：
+&lt;input type="TEXT" name="ADDR" maxlength="40"&gt;&lt;br&gt;
+メッセージ：&lt;br&gt;
+&lt;textarea name="MESG" cols="48" rows="10"&gt;
+ここにメッセージを書いてください&lt;/textarea&gt;&lt;br&gt;
+&lt;input type="RESET" value="取り消し"&gt;
+&lt;input type="SUBMIT" value="このメッセージを送る"&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+</table>
+</center>
+
+<p>http://www.sys.wakayama-u.ac.jp/~<i>s035xxx</i>/myform.html
+（<i>s035xxx</i> は自分のログイン名）を Netscape
+で開けば、このページは次のように表示されると思います。</p>
+
+<center>
+<img src="09-01.gif">
+</center>
+
+<p>この各欄にデータ（文字）を入力して
+“このメッセージを送る”というボタンをクリックすれば、
+入力したデータを Web サーバに送ることができます。
+しかし、このままではまだ何も起こりません。</p>
+
+<p>クライアント（Netscape などの Web
+ブラウザ）から送られてきたデータをサーバ側で利用するには、
+サーバ側にデータを受け取るプログラムを仕掛ける必要があります。
+このようなプログラムを CGI (Common Gateway Interface) と呼びます。</p>
+
+<p>それでは、サーバ側に送られてきたデータを、
+そのまま表示するプログラムを仕掛けてみましょう。
+次のようなプログラムを作成してください。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">myform.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;fstream.h&gt;
+
+int main(void) {
+  cout &lt;&lt; "Content-Type: text/plain; charset=euc-jp\r\n\r\n";
+  char line[1024];
+  while (cin.getline(line, sizeof line) != 0) {  // １行読んで、
+    cout &lt;&lt; line &lt;&lt; endl;                        // １行書く
+  }
+  return 0;
+}
+</table>
+</center>
+
+<ul>
+
+<li><p>最初に標準出力 (cout) に出力している
+<tt>"Content-Type: text/plain; charset=euc-jp"</tt>
+という文字列は、
+このプログラムから出力されるデータの形式です。
+<tt>text/plain</tt> というのは plain text、すなわち HTML
+などによりレイアウトされていない生のテキストで、
+<tt>charset=euc-jp</tt> はそのテキストに用いている文字コードです。
+Web サーバ上に置いたデータは、
+普通ファイル名の拡張子に関連付けられたデータの形式 (MIME Type)
+によって内容を判断します。
+しかし、CGI から送り出されるデータには、
+この方法で関連付けを行うことができませんから、
+代りに送り出すデータの先頭でデータの形式を明示します。</p></li>
+
+<li><p><tt>Content-Type</tt> とデータの本体を区切るために、
+この後ろを１行空けます。
+空行を出力するために、この文字列の最後に
+<tt>'\r'</tt>（復帰）と<tt>'\n'</tt>（改行）を２組追加します。</p></li>
+
+<li><p>そのあとに標準入力から１行読んで、
+それをそのまま標準出力に出力しています。
+cin.getline() は入力データの終りに達する（データがもうない）か、
+データ入力時にエラーが発生すると 0（ヌルポインタ）を戻します。
+したって、これを while () の継続条件に使って処理を繰り返します。</p></li>
+
+</ul>
+<p>
+
+これをコンパイルして myform.cgi という実行プログラムを作成し、
+ためしにそれを実行してみてください。
+キーボードから適当な文字をタイプして、
+それがそのまま表示されることを確かめてください。
+また最後に Ctrl-D をタイプして、プログラムが終了することを確かめてください。
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC myform.cc -o myform.cgi<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>myforn.cgi<b><font color="#00cc66">[Enter]</font></b></u>
+Content-Type: text/plain; charset=euc-jp  <font color="#ffff00">（←出力するデータの形式）</font>
+                                          <font color="#ffff00">（←空行）</font>
+<u>test<b><font color="#00cc66">[Enter]</font></b></u>                               <font color="#ffff00">（←キーボードをタイプ）</font>
+test                                      <font color="#ffff00">（←タイプした文字がそのまま出てくる）</font>
+<u>abc<b><font color="#00cc66">[Enter]</font></b></u>
+abc
+<u>Ctrl-D</u>                                    <font color="#ffff00">（←Ctrl-D をタイプして入力を終了）</font>
+%                                         <font color="#ffff00">（←プログラムが終了）</font>
+</font>
+</table>
+</center>
+
+<p>myform.cgi が期待通り動くようなら、
+これを myform.html と同じディレクトリにコピーしましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cp myform.cgi ~/public_html<b><font color="#00cc66">[Enter]</font></b></u></font>
+</table>
+</center>
+
+<p>次に、myform.html を修正し、
+&lt;form&gt; タグを下のように修正してください。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;form <b>method="POST" action="./myform.cgi"</b>&gt;</table>
+</center>
+
+<p>これで“このメッセージを送る”ボタンをクリックしたときに
+myform.cgi が実行され、その標準入力に
+myform.html の各欄に入力したデータが与えられます。
+このページをもう一度開いて（既に開いている場合は reload して）、
+何かデータ（とりあえず今はアルファベットのみ）を入れて
+“このメッセージを送る”ボタンをクリックしてみてください。</p>
+
+<center>
+<img src="09-02.gif">
+</center>
+
+<p>すると次の内容のページが現われると思います。
+これが myform.cgi に与えられたデータです。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>NAME=Kentaro+Wakayama&ADDR=kentaro%40sys.wakayama-u.ac.jp&MESG=konbanwa</table>
+</center>
+
+<p>これを見ると、データの書式は次のようになっていることが分かります。</p>
+
+<ul>
+
+<li>各欄のデータは <tt>&amp;</tt>（アンパーサント）で区切られている。</li>
+
+<li><tt>&lt;input&gt</tt> タグや <tt>&lt;textarea&gt;</tt> の <tt>NAME=</tt>
+オプションに指定した文字列=欄の文字列という形式になっている。</li>
+
+<li>空白は <tt>'+'</tt> に置き換わっている。</li>
+
+<li><tt>@</tt>（アットマーク）は <tt>%40</tt> に置き換わっている。</li>
+
+</ul>
+
+<p>&amp; で区切られているわけですから、
+cin.getline() の３つ目の引数（終端文字）に '&amp;'
+を指定すれば、欄ごとにデータを取り出すことができそうです。
+muform.cc の cin.getline() の行を以下のように修正してみましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>  while (cin.getline(line, sizeof line<b>, '&'</b>) != 0) {</table>
+</center>
+
+<p>これをコンパイルして myform.cgi を作り、myform.html
+と同じディレクトリにコピーしたあと、myform.html のページを reload
+して、先ほどと同じデータを入れてみてください。
+１行ごとに一つの欄のデータを取り出せると思います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>NAME=Kentaro+Wakayama
+ADDR=kentaro%40sys.wakayama-u.ac.jp
+MESG=konbanwa</table>
+</center>
+
+<p>それでは、このデータから名前やメールアドレスなど必要な部分を取り出して、
+それを HTML でレイアウトして表示してみましょう。
+記号や日本語の漢字コードなどは、"%+16進数" という表記になっていますから、
+これも元の文字に直します。</p>
+
+<center>
+<table width="90%">
+<tr><td bgcolor="#c6c6c6" valign="top">
+<p><hr>
+Date: Wed Jan 20 10:50:00 1999
+<br>
+From: Kentaro Wakayama (kentaro@sys.wakayama-u.ac.jp)
+<hr>
+konbanwa
+</table>
+</center>
+
+<p>たとえば上のようにレイアウトするには、myform.cgi
+の出力を下のように加工する必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>&lt;p&gt;&lt;hr&gt;
+Date: Wed Jan 20 10:50:00 1999
+&lt;br&gt;
+From: Kentaro Wakayama (kentaro@sys.wakayama-u.ac.jp)
+&lt;hr&gt;
+konbanwa
+</table>
+</center>
+
+<p>では、まずはじめに文字を元に戻す関数を作ります。これを decode()
+としましょう。引数には入力された文字列
+encoded と、元に戻した文字列を格納する配列 decoded を指定します。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">decode.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>void decode(char *encoded, char *decoded) {
+  while (*encoded != '\0') {
+    int i;
+    switch (*encoded) {
+    case '+':
+      *decoded = ' ';
+      break;
+    case '%':
+      *decoded = '\0';
+      for (i = 0; i &lt; 2; i++) {
+        unsigned char c = *++encoded;
+        *decoded *= 16;
+        if      (c &gt;= '0' && c &lt;= '9') *decoded += c - '0';
+        else if (c &gt;= 'A' && c &lt;= 'F') *decoded += c - 'A' + 10;
+        else if (c &gt;= 'a' && c &lt;= 'f') *decoded += c - 'a' + 10;
+      }
+      break;
+    default:
+      *decoded = *encoded;
+      break;
+    }
+    ++encoded;
+    ++decoded;
+  }
+}</table>
+</center>
+
+<p>次に、入力された各行を、
+それが NAME= で始まっていれば配列 name[] に、
+ADDR= で始まっていれば配列 addr[] に、
+MESG= で始まっていれば配列 mesg[] に格納するよう
+main() を修正します。配列への格納には上で定義した decode()
+を使用して、同時に文字の変換も行います。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">myform.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;fstream.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+extern void decode(char *, char *);
+
+int main(void) {
+  cout &lt;&lt; "Content-Type: text/plain; charset=euc-jp\r\n\r\n";
+  char line[1024], name[41], addr[41], mesg[1024];
+  while (cin.getline(line, sizeof line, '&amp;') != 0) {
+    if      (strncmp(line, "NAME", 4) == 0) decode(line + 5, name);
+    else if (strncmp(line, "ADDR", 4) == 0) decode(line + 5, addr);
+    else if (strncmp(line, "MESG", 4) == 0) decode(line + 5, mesg);
+  }
+  time_t now;
+  time(&now);
+  cout &lt;&lt; "&lt;p&gt;&lt;hr&gt;" &lt;&lt; endl;
+  cout &lt;&lt; "Date: " &lt;&lt; ctime(&now);
+  cout &lt;&lt; "&lt;br&gt;" &lt;&lt; endl;
+  cout &lt;&lt; "From: " &lt;&lt; name &lt;&lt; " (" &lt;&lt; addr &lt;&lt; ")" &lt;&lt; endl;
+  cout &lt;&lt; "&lt;hr&gt;" &lt;&lt; endl;
+  cout &lt;&lt; mesg &lt;&lt; endl;
+  return 0;
+}
+</table>
+</center>
+
+<ul>
+
+<li><p>strncmp() は第１引数に指定した文字列と第２引数に指定した文字列を、
+第３引数に指定した文字数だけ比較して、一致していれば 0 という値になります。
+これを使用するために string.h を読み込んで（include して）います。</p></li>
+
+<li><p>time() は世界標準時の1970年1月1日午前0時から現在までの秒数を求めます。
+ctime() はそれを文字列に直します。</p></li>
+
+</ul>
+
+<p>それでは、この decode.cc と myform.cc を組み合わせてコンパイルして、
+myform.cgi を作ってください。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC myform.cc decode.cc -o myform.cgi<b><font color="#00cc66">[Enter]</font></b></u></font></table>
+</center>
+
+<p>このあと myform.html のページで適当にデータを入力し、
+上で示した HTML による表示が得られるかどうか確認してください。
+なお、myforn.cc で出力している text/plain という文字列を
+text/html に書き換えれば、HTML
+としては不完全ですが一応レイアウトされたものが表示されます。
+これも試してみてください。</p>
+
+<hr>
+
+<h2>課題２８</h2>
+
+<hr>
+
+<p>myform.cgi の出力をそのままクライアント (Netscape)
+に返すのではなく、一旦ファイルに保存して、
+SSI を使ってそれを myform.html のページに含めるようにしてください。</p>
+
+<ol>
+
+<li><p>myform.html で SSI が使えるようにするために、このファイル名を
+myform.<font color="#ff0000">s</font>html に変更してください。</p></li>
+
+<li><p>myform.shtml の下部（<tt>&lt;/body&gt;</tt> より前）に
+<pre>&lt;!--#include file="mydata"--&gt;</pre>
+という１行を入れてください。
+これで myform.shtml と同じディレクトリにある mydata
+というファイルの内容がこの部分に埋め込まれます。</p></li>
+
+<li><p>myform.cgi を実行したとき、
+その出力をクライアントに表示する代りに myform.shtml
+が表示されるようにします。このために myform.cc の最初の方にある
+<pre>cout &lt;&lt; "Content-Type: .. \r\n\r\n"</pre>
+の前に
+<pre>cout &lt;&lt; "Location: http://www.sys.wakayama-u.ac.jp/~<i>s035xxx</i>/myform.shtml\r\n"</pre>
+を追加します。</p></li>
+
+<li><p><p>これよりあとで標準出力に出力していた HTML のデータを、
+/usr/people/ユーザ名/public_html/mydata
+というファイルに書き込むようにします。これは ofstream
+を使います。最後にファイルを閉じることも忘れないでください。</p></p></li>
+
+<li><p>なお、このままだと直前に書き込まれたメッセージしか表示されません。
+以前に書き込まれたデータに追加するようにするには、
+ofstream 型の変数を宣言する際に、
+その初期値の第２引数（ファイル名の次）に
+<tt>ios::app</tt>（ファイルの追加モード）を指定してください。
+<pre>
+ofstream ofile("mydata", ios::app);
+</pre>
+</p></li>
+
+<li><p>この myform.cgi は mydata というファイルを作成しますから、
+コンパイル後これに setuid ビットを立てておいてください。</p></li>
+
+</ol>
+
+<p>このプログラムにはいろいろ問題があります
+（排他制御を行っていないので、
+複数の人が同時に書き込むとデータを壊す恐れがあるとか、
+データを追加モードで書いているのでデータが登録順に並んでしまう～
+逆順の方が見やすい～とか）
+が、そのあたりは将来の課題として暇がある人は考えてみてください。</p>
+
+<p>うまくできたら、Netscape の「ファイル」メニューにある「リンクを送信」で、
+そのページを私
+(<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai28">tokoi</a>)
+に知らせてください。Subject:（件名）は kadai28 としてください。</p>
+
+</body>

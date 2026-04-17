@@ -1,0 +1,468 @@
+<head>
+<title>情報処理 II － 第１２回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１２回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．変数の生成と消去</h2>
+
+<hr>
+
+<p><a href="09.html#automatic">自動変数</a>は、
+その変数定義のところが実行されたときに生成され、
+そのスコープの終りで消去されます。
+これに対して<a href="09.html#static">静的変数</a>は、
+プログラムの起動時に生成され、プログラムの修了時に消去されます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+double position = 0.0;            // position は静的変数（大域変数）
+
+void accelerate(double a, double t) {
+  static double velocity = 0.0;   // velocity は静的変数
+  double increment = a * t;       // increment は自動変数
+
+  position += (velocity + increment / 2.0) * t;
+  velocity += increment;
+}
+
+int main(void) {
+  accelerate(3.0, 4.2);
+  cout &lt;&lt; "現在位置は " &lt;&lt; position &lt;&lt; endl;
+  return 0;
+}
+</table>
+</center>
+
+<hr>
+
+<h2>課題３６</h2>
+
+<hr>
+
+<p>次のプログラムは入力した金額の合計を求めるものですが、
+実際には合計を計算してくれません。
+プログラム中のどこか１個所に <b>static</b> を書き加えて、
+このプログラムがちゃんと合計を表示してくれるようにしてください。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  for (;;) {
+    int sum = 0;
+    int pay;
+
+    cout &lt;&lt; "使った金額を入力してください（０で終了）：";
+    cin &gt;&gt; pay;
+    if (pay == 0) return 0;
+    cout &lt;&lt; "あなたが今までドブに捨てたお金の合計は "
+         &lt;&lt; (sum += pay)  &lt;&lt; " 円です" &lt;&lt; endl;
+  }
+}
+</table>
+</center>
+
+<p>修正したソースプログラムをメールに添付して、
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai36">tokoi</a>
+まで送ってください。Subject:（件名）は kadai36 としてください。</p>
+
+<hr>
+
+<a name="constructor">
+<h2>２．コンストラクタ関数とデストラクタ関数</h2></a>
+
+<hr>
+
+<p>クラス変数の生成時と消去時に実行する関数を定義できます。
+生成時に実行する関数を<font color="#ff0000">コンストラクタ</font>関数、
+消去時に実行する関数を<font color="#ff0000">デストラクタ</font>関数と言います。
+</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">object.h
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>class <b>object</b> {
+  char name[80];
+public:
+  <b>object(void)</b>;            // コンストラクタ関数（デフォルトコンストラクタ）
+  <b>object(char *)</b>;          // コンストラクタ関数
+  <b>object(const object &amp;)</b>;  // コンストラクタ関数（コピーコンストラクタ）
+  <b>~object(void)</b>;           // デストラクタ関数
+  <b>const object &amp;operator=(const object &amp;)</b>;  // 代入演算子の定義
+private:
+  void printConstruct(void);
+  void printDestruct(void);
+};
+</table>
+</center>
+
+<p>コンストラクタ関数はクラス名と同じ名前を持つメンバ関数です。
+デストラクタはクラス名の最初に ~（チルダ）を付けた名前を持つメンバ関数です。
+これらの関数は戻り値を持ちません（戻り値のデータ型を
+void と宣言することもありません）。
+また、コンストラクタ関数は引数の数や型で
+<a href="03.html#overload">多重定義</a>できます。
+デストラクタ関数は引数を使用しません（こっちは引数を
+void とします）。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">object.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;stdio.h&gt;
+#include &lt;strings.h&gt;
+#include "object.h"
+
+//
+// 変数に初期値を与えないときに実行するコンストラクタ関数（デフォルトコンストラクタ）
+//
+object::object(void) {
+  strcpy(name, "デフォルトコンストラクタを使った変数");
+  printConstruct();
+}
+
+//
+// 引数で初期化を行うときに実行するコンストラクタ関数
+//
+object::object(char *string) {
+  strcpy(name, string);
+  printConstruct();
+}
+
+//
+// 他のクラス変数をそのままコピーするときに実行するコンストラクタ関数（コピーコンストラクタ）
+//
+object::object(const object &amp;data) {
+  strcpy(name, data.name);
+  strcat(name, "のコピー");
+  printConstruct();
+}
+
+//
+// デストラクタ関数
+//
+object::~object(void) {
+  printDestruct();
+}
+
+//
+// 代入演算子の定義
+//
+const object &amp;object::operator=(const object &amp;data) {
+  if (&amp;data != this) {
+    // 自分自身への代入でないとき
+    char line[200];
+    strcpy(line, name);
+    strcat(line, "に");
+    strcat(line, data.name);
+    strcat(line, "を代入");
+    puts(line);
+
+    // 代入処理の実体
+    strcpy(name, data.name);
+  }
+  return *this;  // 続けて代入できるように
+}
+
+//
+// “…を生成”を表示する
+//
+void object::printConstruct(void) {
+  char line[40];
+  strcpy(line, name);
+  strcat(line, "を生成");
+  puts(line);
+}
+
+//
+// “…を消去”を表示する
+//
+void object::printDestruct(void) {
+  char line[40];
+  strcpy(line, name);
+  strcat(line, "を消去");
+  puts(line);
+}
+</table>
+</center>
+
+<p>引数を用いないコンストラクタ関数は
+<font color="#ff0000">デフォルトコンストラクタ</font>関数と呼ばれ、
+初期値を指定せずに変数を定義する場合に実行されます。
+そのほかのコンストラクタ関数は初期値のデータ型で多重定義できます。
+特に引数がそのクラス変数の<a href="03.html#reference">参照</a>になっているコンストラクタ関数は
+<font color="#ff0000">コピーコンストラクタ</font>関数と呼ばれ、
+すでに生成されている他の変数を <tt>=</tt>
+を使ってそのままコピーして初期化する際に実行されます。</p>
+
+<p>なお、コピーコンストラクタを定義したときは、
+通常の代入に用いる <tt>=</tt> 演算子も定義し直す必要があります。
+<tt>operator&lt;演算子&gt()</tt>というメンバ関数を定義することにより、
+そのクラスの&lt;演算子&gtの動作を記述できます。
+すなわち、
+<blockquote>
+<tt>x &lt;演算子&gt; y</tt>
+</blockquote>
+という式は、
+<blockquote>
+<tt>x.operator&lt;演算子&gt;(y)</tt>
+</blockquote>
+というメンバ関数の呼び出しに他なりません。
+</p>
+
+<p>ところで、この例ではメッセージを表示するのに cout を使用せず、
+代わりに puts() という関数を使用しています
+（これを使用するために stdio.h を include しています）。
+実は、大域変数（下の objectmain.cc の
+global1、global2）のコンストラクタ中では、
+cin や cout は使用できないのです。</p>
+
+<p>大域変数のコンストラクタ関数は、main()
+を実行する<font color="#ff0000">前</font>に実行されます
+（ブロック内の静的変数は定義のある場所で一度だけ実行されます）。
+ところが、このような大域変数が複数定義されているときに、
+それらのコンストラクタが実行される順序は決まっていません。
+このため、
+大域変数のコンストラクタ内でコンストラクタを持つ他の大域変数を使用すると、
+後者のコンストラクタがまだ実行されておらず、
+プログラムが期待通りに動作しない場合があります。
+cin、cout も大域変数のクラス変数なので、
+global1、global2 のコンストラクタが実行される前に
+cout のコンストラクタが実行されているとは限らないのです。</p>
+
+<p>デストラクタについても同様で、
+大域変数および静的変数のデストラクタは main()
+が終了した<font color="#ff0000">後</font>に実行されますが、
+その実行順序は決まっていません。
+このため、デストラクタ内で他のクラス変数を使用していると、
+そのデストラクタが先に実行されているために、
+やはりプログラムが期待通りに動作しない可能性があります。</p>
+
+<p>なお、puts() など stdio.h で宣言されている関数と、
+iostream.h で宣言されている cin、cout
+は、そのままでは一つのプログラムで混在して使用することはできません。
+混在して使用する必要があるときは main() の最初で
+<tt>ios::sync_with_stdio();</tt> を実行しておきます。</p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff">objectmain.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;stdio.h&gt;
+#include "object.h"
+
+int main(void) {
+  puts("--- main() の開始 ---");
+
+  object naibu1("main() の中の自動変数");       // 自動変数
+  object naibu2 = naibu1;                       // 自動変数～コピーコンストラクタ
+
+  for (int i = 0; i &lt; 5; i++) {
+    object loop1("for の中の自動変数");         // 自動変数
+    static object loop2("for の中の静的変数");  // 静的変数
+  }
+
+  puts("--- main() の終了 ---");
+  return 0;
+}
+
+object global1("大域変数");                     // 大域変数
+object global2;                                 // 大域変数～デフォルトコンストラクタ
+</table>
+</center>
+
+<p>このプログラム (objectmain.cc, object.cc) をコンパイルして実行すると、
+以下のような出力を得ます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+大域変数を生成
+デフォルトコンストラクタを使った変数を生成
+--- main() の開始 ---
+main() の中の自動変数を生成
+main() の中の自動変数のコピーを生成
+for の中の自動変数を生成
+for の中の静的変数を生成     <font color="#ffff00">（← loop2 のコンストラクタの実行は１回だけ）</font>
+for の中の自動変数を消去
+for の中の自動変数を生成
+for の中の自動変数を消去
+for の中の自動変数を生成
+for の中の自動変数を消去
+for の中の自動変数を生成
+for の中の自動変数を消去
+for の中の自動変数を生成
+for の中の自動変数を消去
+--- main() の終了 ---
+main() の中の自動変数のコピーを消去
+main() の中の自動変数を消去
+for の中の静的変数を消去
+デフォルトコンストラクタを使った変数を消去
+大域変数を消去
+</table>
+</center>
+
+<p>大域変数 global1、global2 は main() よりも後ろで定義されているにも関わらず、
+main() より先にコンストラクタが実行されています。
+また for で繰り返される部分で宣言されている自動変数 loop1
+は繰り返すたびに生成と消去が繰り返されていますが、
+静的変数 loop2 は変数定義の部分を最初に実行したときに一度だけ実行されています。
+</p>
+
+<hr>
+
+<h2>課題３７</h2>
+
+<hr>
+
+<p>objectmain.cc において、たとえば以下のように、
+コンストラクタをもつクラス変数の配列を定義するとどうなるでしょうか。
+またその一部の要素に初期値を与えるとどうなるでしょうか。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>object global3[5];                              // とか
+object global4[5] = { "obj1", "obj2", "obj3" };  // などと
+</table>
+</center>
+
+<p>プログラムの実行結果がなせそうなるのか簡単に考察して
+（プログラムの出力をそのまま書いて「こうなりました」ではだめ）
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai37">tokoi</a>
+まで送ってください。Subject:（件名）は kadai37 としてください。</p>
+
+<hr>
+
+<h2>３．static メンバ</h2>
+
+<hr>
+
+<h3>３．１．static メンバ変数</h3>
+
+<p>クラスのメンバ変数に <b>static</b> を付けると、
+そのメンバ変数は生成されたすべてのクラス変数で共有されます。
+この場合はメンバ関数と同様に、
+この変数の実体を別のところで大域変数として定義しておく必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+class staticmember {
+  <b>static</b> int shared;
+public:
+  void setSharedVar(int);
+  void printSharedVar(void);
+};
+
+<b>int staticmember::shared</b>;  // 実体を大域変数として定義
+
+void staticmember::setSharedVar(int value) {
+  shared = value;
+}
+
+void staticmember::printSharedVar(void) {
+  cout &lt;&lt; "共有されている変数の値は " &lt;&lt; shared &lt;&lt; endl;
+}
+
+int main(void) {
+  staticmember x, y;
+
+  x.setSharedVar(10);
+  y.printSharedVar();
+}
+</table>
+</center>
+
+<p>また static なメンバ変数を public にすることで、
+クラス変数を生成していなくてもこのメンバ変数にアクセスできるようになります。
+この場合はスコープ演算子 (<tt>::</tt>) を使用します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+class staticmember {
+<b>public</b>:
+  <b>static</b> int shared;
+  void setSharedVar(int);
+  void printSharedVar(void);
+};
+
+<b>int staticmember::shared</b>;  // 実体を大域変数として定義
+
+void staticmember::setSharedVar(int value) {
+  shared = value;
+}
+
+void staticmember::printSharedVar(void) {
+  cout &lt;&lt; "共有されている変数の値は " &lt;&lt; shared &lt;&lt; endl;
+}
+
+int main(void) {
+  <b>staticmember::shared = 5</b>;  // スコープ演算子で shared にアクセス
+
+  staticmember y;            // クラス変数を生成
+
+  y.printSharedVar();
+}
+</table>
+</center>
+
+<hr>
+
+<h3>３．２．static メンバ関数</h3>
+
+<p>public メンバ関数に <b>static</b> を付けて宣言すると、
+その関数をクラス変数を介さずに直接呼び出すことができるようになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+class staticmember {
+<b>public</b>:
+  static int shared;
+  <b>static</b> void setSharedVar(int);
+  <b>static</b> void printSharedVar(void);
+};
+
+int staticmember::shared;  // 実体を大域変数として定義
+
+void staticmember::setSharedVar(int value) {
+  shared = value;
+}
+
+void staticmember::printSharedVar(void) {
+  cout &lt;&lt; "共有されている変数の値は " &lt;&lt; shared &lt;&lt; endl;
+}
+
+int main(void) {
+  <b>staticmember::setSharedVar(5)</b>;   // static なパブリックメンバ
+  <b>staticmember::printSharedVar()</b>;  // static なパブリックメンバ
+}
+</table>
+</center>
+
+<p>上の例では staticmember クラスのクラス変数を一つも生成していない状態で、
+setSharedVar() や printSharedVar() を呼び出しています。</p>
+
+</body>

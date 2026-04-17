@@ -1,0 +1,377 @@
+<head>
+<title>情報基礎演習II − 第８回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第８回</h1>
+
+<hr>
+
+<h2>１．制御構造（つづき）</h2>
+
+<hr>
+
+<h3>for</h3>
+
+次のような一定回数の繰り返しは、プログラムの至る所で現れます。
+
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i &lt; 5) {
+    printf("おはようさん\n");
+    i++;
+}
+</pre>
+</blockquote>
+
+<img src="07-1.gif" align="right" hspace="10" vspace="10">
+for というキーワードを使えば、これを次のように簡略化できます。
+
+<blockquote>
+<pre>
+for (i = 0; i &lt; 5; i++) {
+    printf("おはようさん\n");
+}
+</pre>
+</blockquote>
+
+これも for ( ) に続く { } 内が単一の文のときは、{ } を省略できます。
+
+<blockquote>
+<pre>
+for (i = 0; i &lt; 5; i++)
+    printf("おはようさん\n");
+</pre>
+</blockquote>
+
+for の ( ) 内は ; に区切られた３つの部分からなり、
+それぞれ「前処理」「継続条件」「継続処理」を記述します。
+これらは右のような順序で実行されます。
+
+<blockquote>
+<pre>
+for (前処理; 継続条件; 継続処理) {
+    繰り返すプログラム;
+    ...
+}
+</pre>
+</blockquote>
+
+上の例では、i は 0→1→2→3→4 と変化し、
+i == 5 となったときに条件を満たさなくなり、
+繰り返しを終了します。
+<br clear="all">
+
+<a href="k31.html"><h3 align="center">■課題３１■</h3></a>
+<p>
+
+for の用途は while 同様、
+一定回数の繰り返しだけに限りません。
+次の例は、文字列の１字１字を取り出します。
+
+<blockquote>
+<pre>
+for (i = 0; str[i] != '\0'; i++) {
+    printf("%d 文字目は %c\n", i, str[i]);
+}
+</pre>
+</blockquote>
+
+これは文字型の配列変数 str に格納されている文字列を、
+先頭から１字ずつ取り出して出力します。
+文字列の最後は '\0' で終わっていますから、
+これが現れたら繰り返しを終了します。
+<p>
+
+for の継続条件を省略すると、処理を無限に繰り返します。
+
+<blockquote>
+<pre>
+for (i = 0; ; i++) { ... }
+</pre>
+</blockquote>
+
+i を１ずつ増しながら { ... } 内の処理を無限に繰り返します。
+
+<blockquote>
+<pre>
+for ( ; ; ) { ... }
+</pre>
+</blockquote>
+
+{ ... } 内の処理を無限に繰り返します。
+<p>
+
+while は ( ) 内の条件を省略できません。
+上と同じことを行う場合には、条件として非 0 の整数値を指定します。
+
+<blockquote>
+<pre>
+while (1) { ... }
+</pre>
+</blockquote>
+
+条件において非 0 の整数は真を表し、0 は偽を表します。
+<p>
+
+while と同様、break や continue によって繰り返しを中断／継続できます。
+
+<blockquote>
+<pre>
+for ( ; ; ) {
+    scanf("%d", &x);
+    if (x == 0) break; /* 0 が入力されたら終わり */
+    sum += x;
+}
+</pre>
+</blockquote>
+
+この例は入力された数値を合計します。
+改行だけが入力されると繰り返しを終わります。
+
+<a href="k32.html"><h3 align="center">■課題３２■</h3></a>
+<p>
+
+<hr>
+
+<h3>do 〜 while</h3>
+
+これらの他に処理を繰り返す手段として、
+do 〜 while があります。
+これは do と while の間に繰り返すべきプログラムを書きます。
+
+<blockquote>
+<pre>
+int i;
+i = 10;
+do {
+    printf("Hello\n");
+}
+while (--i &gt; 0);
+</pre>
+</blockquote>
+
+while () { ... } とは異なり、
+繰り返しの継続条件の判定を { ... } の実行後に行うため、
+継続条件によらず最低一回は処理を実行します。
+<p>
+
+上の例では、最初 i = 1 でも i = 0 でも１回 Hello が表示されます。
+<p>
+
+<a href="k33.html"><h3 align="center">■課題３３■</h3></a>
+<p>
+
+<hr>
+
+<h3>break と continue</h3>
+
+while のような繰り返しを、
+while に続く ( ) 内の条件以外の要因で終了させたり、
+途中をはしょったりするために、
+break と continue というキーワードが用意されています。
+
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i &lt; 5) {
+    if (i == 3) break;
+    printf("%d 回目\n", ++i);
+}
+</pre>
+</blockquote>
+
+これは i == 3 になったところで break が実行されて
+while による繰り返しが終わるので「2 回目」までしか出力されません。
+
+<blockquote>
+<pre>
+int i;
+i = 0;
+while (i &lt; 5) {
+    if (i == 3) continue;
+    printf("%d 回目\n", ++i);
+}
+</pre>
+</blockquote>
+
+これは i == 3 になったところで continue が実行されて
+残りの部分（printf）が飛ばされるので「3 回目」は出力されません。
+
+<a href="k34.html"><h3 align="center">■課題３４■</h3></a>
+<p>
+
+<hr>
+
+<h3>switch</h3>
+
+キーボードから入力された数値に従って、
+異なる処理をするようなプログラムを考えます。
+
+<blockquote>
+<pre>
+int x;
+
+scanf("%d", &x);
+
+if (x == 1) {
+    printf("１番の処理\n");
+}
+else if (x == 2) {
+    printf("２番の処理\n");
+}
+else if (x == 3) {
+    printf("３番の処理\n");
+}
+else if (x == 4) {
+    printf("４番の処理\n");
+}
+else {
+    printf("そのような処理はできません\n");
+}
+</pre>
+</blockquote>
+
+この例のように、ある整数値に対して、
+実行する処理が決まっているときは、switch を使うと便利です。
+
+<blockquote>
+<pre>
+int x;
+
+scanf("%d", &x);
+
+switch (x) {
+case 1: /* x == 1 のときここから下を実行 */
+    printf("１番の処理\n");
+   break;
+case 2: /* x == 2 のときここから下を実行 */
+    printf("２番の処理\n");
+    break;
+case 3: /* x == 3 のときここから下を実行 */
+    printf("３番の処理\n");
+    break;
+case 4: /* x == 4 のときここから下を実行 */
+    printf("４番の処理\n");
+    break;
+default: /* 上のいずれにも該当しないときここから下を実行 */
+    printf("そのような処理はできません\n");
+    break;
+}
+</pre>
+</blockquote>
+
+switch は、
+
+<ul>
+<li>switch に続く ( ) 内の式の値を持つ case ラベル以降の処理を実行します。
+<li>該当する case ラベルがなければ、default ラベル以降の処理を実行します。
+</ul>
+
+このとき、
+
+<ul>
+<li>switch の ( ) 内の式は整数型でなければなりません。
+<li>case ラベルには整数型の定数のみが指定できます。
+</ul>
+
+また、switch において break は、
+switch ( ) { ... } からの脱出を意味します。
+
+<blockquote>
+<pre>
+switch (x) {
+case 1:
+    printf("１番の処理\n");
+case 2:
+    printf("２番の処理\n");
+    break;
+...
+</pre>
+</blockquote>
+
+上の例のように case 2: の前の break が無い場合は、
+x == 1 のときは case 1: の処理の後 case 2: の処理も実行されます。
+<p>
+
+<a href="k35.html"><h3 align="center">■課題３５■</h3></a>
+<p>
+
+<hr>
+
+<h3>goto</h3>
+
+次の１つ目のプログラムの break は switch の処理からの脱出になるため、
+２つ目のプログラムのように for による繰り返しを終了することはできません。
+
+<blockquote>
+<pre>
+for (i = 0; i &lt; 100; i++) {
+    switch (data[i]) {
+    case 0:
+        printf("%d番目のデータが０になっています\n");
+        break; /* この break は switch から抜け出すだけ */
+    }
+}
+<hr>
+for (i = 0; i &lt; 100; i++) {
+    if (data[i] == 0) {
+        printf("%d番目のデータが０になっています\n");
+        break; /* この break は for による繰り返しを終了する */
+    }
+}
+</pre>
+</blockquote>
+
+上の１つ目の例のように switch を使った場合に、
+２つ目の例のように for の外側まで脱出したいときには、
+goto を使うことができます。
+
+<blockquote>
+<pre>
+    for (i = 0; i &lt; 100; i++) {
+        switch (data[i]) {
+        case 0:
+            printf("%d番目のデータが０になっています\n");
+            goto out_of_loop; /* out_of_loop というラベルに直行 */
+        }
+    }
+out_of_loop:
+    printf("終了\n");
+</pre>
+</blockquote>
+
+「goto ラベル;」とすると、
+そこから（同じ関数内にある）「ラベル:」が書かれたところに処理を移します。
+「ラベル:」の後ろには文が必要です。
+実行する処理がなければ、空文（セミコロン ";" のみ）を置いてください。
+<p>
+
+for や while による繰り返しが２重になっている場合も同様です。
+
+<blockquote>
+<pre>
+    for (i = 0; i &lt; 100; i++) {
+        for (j = 0; j &lt; 100; j++) {
+            if (data[i][j] == 0) goto exit_loop;
+        }
+    }
+exit_loop:
+    printf("(%d,%d) のデータが０です\n", i, j);
+</pre>
+</blockquote>
+
+goto は安易に使うべきではありません。
+エラー処理など、goto を使わないことによって、
+かえってソースプログラムの可読性（読みやすさ）を下げることが
+明らかな場合だけに限定して使用した方が無難でしょう。
+<p>
+
+<a href="k36.html"><h3 align="center">■課題３６■</h3></a>
+<p>
+
+</body>

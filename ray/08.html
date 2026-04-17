@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０８：映り込み処理</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０８：映り込み処理</h1>
+
+<p>個々の物体に映り込みの反射率 K<sub>r</sub> を与えて，これが
+0 でないものは，周囲の物体が映り込むようにしてください．
+K<sub>r</sub> は，構造体 Material
+の要素に r を追加し，
+この構造体の変数のそれぞれの要素に格納するものとします．</p>
+
+<pre class="source">
+struct Material {
+  float a[3];  /* 環境光に対する反射係数 K<sub>a</sub> */
+  float d[3];  /* 物体表面の拡散反射係数 K<sub>d</sub> */
+  float s[3];  /* 物体表面の鏡面反射係数 K<sub>s</sub> */
+  float e;     /* ハイライトの広がり */
+  <em>float r;     /* 映り込みの反射率 */</em>
+};
+
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  <em>1.0,</em>
+};
+
+struct Material green = {
+  { 0.1, 0.5, 0.1 },
+  { 0.1, 0.5, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  <em>1.0,</em>
+};
+
+struct Material blue = {
+  { 0.1, 0.1, 0.5 },
+  { 0.1, 0.1, 0.5 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  <em>1.0,</em>
+};
+</pre>
+
+<p>現在の可視点 <b>P</b> における視線ベクトル <b>V</b>
+の反射ベクトル <b>F</b> を求めます．</p>
+
+<div class="figure">
+<img src="08-01.gif" width="360" height="270" alt="視線の反射ベクトル">
+</div>
+
+<p class="hint">
+<a href="08-h1.html">どうしても分からなければ…</a></p>
+
+<p>そして <b>P</b> を新たな視点，<b>F</b>
+を新たな視線に用いて，この視線と交差する物体を求め，
+その点の陰影を計算して，現在の可視点における陰影と合成します．</p>
+
+<p class="hint">
+<a href="08-h2.html">どうしても分からなければ…</a></p>
+
+<p>映り込みを起こす物体が複数あると，
+それらの間で繰り返して反射が起こり，
+計算が終わらなくなることがあります．
+そこで，反射の回数の上限を指定して，
+一定回数反射したら処理を打ち切るようにしてください．</p>
+
+<p><a href="09.html">【次：課題０９】</a></p>
+
+</body>
+</html>

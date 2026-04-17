@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０５：複数の物体</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０５：複数の物体</h1>
+
+<p><a href="04.html">課題０４</a>で作成したプログラムを，
+複数の球を表示できるように修正してください．
+その際，物体ごとに色を変えるようにしてください．</p>
+
+<p>複数の球のデータを表現するには，
+球のデータを保持している構造体 Sphere の変数
+sphere を配列にします．NDATA はデータの個数です．
+球ごとに色を変えるには，構造体 Material
+の変数も複数用意してください．</p>
+
+<pre class="source">
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+};
+
+struct Material green = {
+  { 0.1, 0.5, 0.1 },
+  { 0.1, 0.5, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+};
+
+struct Material blue = {
+  { 0.1, 0.1, 0.5 },
+  { 0.1, 0.1, 0.5 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+};
+
+<span class="gray">...</span>
+
+struct Sphere sphere<em>[]</em> = {
+  {
+    { 0.0, 0.0, 10.0 },
+    2.0,
+    &red,
+  },
+  {
+    { -2.0, 2.0, 8.0 },
+    1.0,
+    &green,
+  },
+  {
+    { 2.0, 1.0, 7.0 },
+    1.1,
+    &blue,
+  }
+  <span class="gray">...</span>
+};
+
+#define NDATA (sizeof(sphere) / sizeof(sphere[0]))
+</pre>
+
+<p>このデータを表示するには，関数 trace() において，
+このデータの中から
+t（視点と交差点の距離に相当します）が最も小さいものを選び，
+その球のデータを使って反射光強度を求めます．</p>
+
+<p><a href="06.html">【次：課題０６】</a></p>
+
+</body>
+</html>

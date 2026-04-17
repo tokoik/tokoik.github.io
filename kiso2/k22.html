@@ -1,0 +1,64 @@
+<head>
+<title>情報基礎演習II − 課題２２</title>
+</head>
+
+<body>
+
+<h3>課題２２</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai22.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai22
+** 動作: 数値の入力
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int x, y;
+
+    printf("整数を２つ入力してください:");
+    scanf("%d%d", x, y);
+    printf("%d + %d = %d\n", x, y, x + y);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムは２つの整数をキーボードから入力し、
+その和を画面に表示するプログラムです。
+<p>
+
+<li>このプログラムには誤りがあります。
+このため、このプログラムをコンパイル／リンクし、
+実行しても正常に実行されません。
+異常終了して core というファイルを作るかも知れません。
+その場合は core というファイルを消してください。
+
+<blockquote>
+<pre>
+% rm core
+</pre>
+</blockquote>
+
+<li>このプログラムを修正し、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai22 としてください。
+
+</ol>
+
+</body>

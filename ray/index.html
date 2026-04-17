@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>安直レイトレーシング入門</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1 class="title">安直レイトレーシング入門</h1>
+<h3 class="title">
+<a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
+<a href="http://www.sys.wakayama-u.ac.jp/">システム工学部</a>
+<a href="http://www.sys.wakayama-u.ac.jp/di/">デザイン情報学科</a>
+</h3>
+<h2 class="title"><a href="mailto:tokoi@sys.wakayama-u.ac.jp">床井浩平</a></h2>
+<blockquote>
+<h3 class="title">この文書の位置づけ</h3>
+<p>この文書は学生演習のテーマ
+「形状の表現とレンダリングアルゴリズム」の参考資料の，
+レイトレーシングのチュートリアルです．
+ただし内容は不十分なので，
+必要に応じて教科書・参考書等を参照してください．
+この文書には間違いも含まれていると思います．
+コメントをお願いします．</p>
+
+<p class="title">
+初版 1999/12/02, 最終更新 <!--#config timefmt="%Y/%m/%d"-->
+<!--#echo var="LAST_MODIFIED"-->
+</p>
+</blockquote>
+
+<blockquote>
+<h3>目次</h3>
+<div><a href="#1">　１．はじめに</a></div>
+<div><a href="#2">　２．レイトレーシングの考え方</a></div>
+<div><a href="#3">　３．画像の生成</a></div>
+<div><a href="#4">　４．補助プログラム</a></div>
+<div><a href="#5">　５．課題</a></div>
+</blockquote>
+
+<a class="label" name="1">
+<h2>１．はじめに</h2></a>
+
+<p>リアルな３次元コンピュータグラフィックスを作成するのに
+よく使われるレイトレーシングは，
+実は非常に簡単なアルゴリズムです．
+ここではこのレイトレーシングによる画像生成プログラムの作成を通して，
+３次元コンピュータグラフィックスの基本的な考え方と，
+Ｃ言語によるプログラミングについて理解を深めます．</p>
+
+<a class="label" name="2">
+<h2>２．レイトレーシングの考え方</h2></a>
+
+<p>立体をワイヤフレーム（線画）や
+Ｚバッファ方などの隠面消去アルゴリズムを用いて表示する場合，
+通常は立体を視点から見たときの，
+スクリーンへの投影像を求めて画像を作成します．
+立体が多面体なら，
+その各面（多角形）の頂点がスクリーン上へ投影される位置を求め，
+それらを結ぶ線分や多角形を描けば画像を作成することができます．</p>
+
+<div class="figure">
+<img src="fig1.jpg" width="320" height="152" alt="図１">
+</div>
+
+<p>これに対してレイトレーシングでは，
+視点からスクリーン上の１点を見たとき，
+その点を通してどの立体が見えるか調べて，
+その点の色を決定します．
+この処理をスクリーン上のすべての点について繰り返して，
+画像を作成します．</p>
+
+<div class="figure">
+<img src="fig2.jpg" width="320" height="152" alt="図２">
+</div>
+
+<a class="label" name="3">
+<h2>３．画像の生成</h2></a>
+
+<p>デジタル画像は格子状にならんだ画素（ピクセル）の
+濃淡や色で画像を表現しますから，
+レイトレーシングではこのひとつひとつの画素内に見える立体を調べ，
+その画素の色を求めて画像を作成します．</p>
+
+<div class="figure">
+<img src="fig3.gif" width="320" height="240" alt="図３">
+</div>
+
+<p>いま，デジタル画像上の (x, y) の位置にある画素に
+c という色を付ける関数 point(x, y, c) があるとします．
+色は光の３原色（赤:R，緑:G，青:B）で表現するので，
+c は３つの要素を持った配列にします．</p>
+
+<pre class="source">
+void point(int x, int y, const float *c)
+{
+  /* (x, y) の位置に c という色を付ける */
+  /* c は光の３原色（赤:R，緑:G，青:B）を要素とする配列 */
+  <span class="gray">...</span>
+}</pre>
+
+<p>この関数を使って幅 xw，高さ yw のデジタル画像を作成するために，
+この関数を次のように繰り返し呼び出すことにします．
+この関数を render() としましょう．</p>
+
+<pre class="source">
+void render(int xw, int yw)
+{
+  extern void point(int, int, const float *);
+  int x, y;
+
+  for (y = 0; y < yw; ++y) {
+    for (x = 0; x < xw; ++x) {
+      float c[3];
+
+      /* (x, y) における色を計算して c に入れる */
+
+      point(x, y, c);
+    }
+  }
+}
+</pre>
+
+<div class="figure">
+<img src="fig4.gif" width="360" height="270" alt="画面に点を打つ">
+</div>
+
+<p>これ以降では，この render()
+という関数を定義することによって，プログラムの作成を行います．
+render() を収めた C ソースファイル（例えば render.c）を作成し，
+そこにレイトレーシングのプログラムの実体を記述します．</p>
+
+<a class="label" name="4">
+<h2>４．補助プログラム</h2></a>
+
+<p>render() 関数を使ったプログラムを実際に動かすには，point()
+関数や，render()
+を呼び出す main() 関数が必要になります．
+ここではこれらの関数をあらかじめ用意しておくことにします．</p>
+
+<ul>
+<li>GLUT を用いたベースプログラム (<a href="base.c">base.c</a>, <a href="base.cpp">base.cpp</a>)</li>
+<li>BMP ファイルに出力するベースプログラム (<a href="bmp.c">bmp.c</a>, <a href="bmp.cpp">bmp.cpp</a>)</li>
+</ul>
+
+<p>あらかじめ上のプログラムをコンパイルしておいて，render() 
+を収めたソースプログラムファイルにリンクしてください
+（一緒にコンパイルしても構いません）．</p>
+
+<p>GLUT については <a href="/~tokoi/opengl/libglut.html">
+「GLUT を用いた手抜き OpenGL 入門」</a>を参考にしてください．
+「BMP ファイルに出力するベースプログラム」は，
+画面に表示する代りに Windows のビットマップ画像ファイル (BMP/DIB) 
+形式で outfile.bmp というファイルに出力します．
+OpenGL や GLUT が使用できない場合などに利用してください．</p>
+
+<p>これらのプログラムで定義している point()
+関数は，画面の左上隅を原点 (0,0) にしています．
+またこの関数に与える色のデータ c
+の値は，各要素（RGB の各成分）をそれぞれ 0.0～1.0
+の範囲の実数値にしてください．
+0.0 が最も暗く，1.0 が最も明るくなります．
+値がこの範囲を超えた場合は，この範囲に収められます．</p>
+
+<p>コンパイルの仕方はそれぞれ次のようになります．
+ここで render.c は関数 render()
+を収めたソースプログラムファイルです．</p>
+
+<h4>GLUT を用いたベースプログラム (base.c) の場合</h4>
+<pre class="source">% cc -c base.c  ← 最初に一度だけコンパイル
+% cc base.o render.c -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+
+あるいは
+
+% cc base.c render.c -lglut -lGLU -lGL -lXmu -lXi -lXext -lX11 -lm -lpthread
+</pre>
+
+<h4>BMP ファイルに出力するベースプログラム (bmp.c) の場合</h4>
+<pre class="source">% cc -c bmp.c  ← 最初に一度だけコンパイル
+% cc bmp.o render.c -lm
+
+あるいは
+
+% cc bmp.c render.c -lm
+</pre>
+
+<a class="label" name="5">
+<h2>５．課題</h2></a>
+
+<ul>
+<li><a href="01.html">課題０１：画面の塗りつぶし</a></li>
+<li><a href="02.html">課題０２：球と視線の交差判定</a></li>
+<li><a href="03.html">課題０３：簡単な陰影付け</a></li>
+<li><a href="04.html">課題０４：拡散反射と鏡面反射</a></li>
+<li><a href="05.html">課題０５：複数の物体</a></li>
+<li><a href="06.html">課題０６：視点の位置の移動</a></li>
+<li><a href="07.html">課題０７：影付け処理</a></li>
+<li><a href="08.html">課題０８：映り込み処理</a></li>
+<li><a href="09.html">課題０９：透明処理</a></li>
+<li><a href="10.html">課題１０：屈折処理</a></li>
+<li><a href="11.html">課題１１：複数の光源</a></li>
+<li><a href="12.html">課題１２：三角形との交差判定</a></li>
+</ul>
+
+</body>
+
+</html>

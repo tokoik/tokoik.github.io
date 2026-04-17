@@ -1,0 +1,56 @@
+<head>
+<title>情報基礎演習II − 課題３９</title>
+</head>
+
+<body>
+
+<h3>課題３９</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+コンパイル時にエラーになります
+プログラムを修正して、
+正しくコンパイルおよび実行できるようにしてください。
+ソースプログラムのファイル名は kadai39.c とし、それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai39 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai39
+** 動作: ポインタによるデータの操作
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    float a, b, c;
+    float *pa, *pb;
+
+    pa = &a;
+    pb = &b;
+
+    printf("a=");
+    scanf("%f", pa);
+    printf("b=");
+    scanf("%f", pb);
+
+    c = *pb/*pa;
+
+    printf("%f / %f = %f\n", a, b, c);
+}
+</pre>
+</table>
+<p>
+
+</ol>
+
+</body>

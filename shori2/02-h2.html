@@ -1,0 +1,280 @@
+<head>
+<title>情報処理 II － 補足：基本的な演算子の種類</title>
+</head>
+
+<body bgcolor="#ffffcc">
+
+<h2>補足：基本的な演算子の種類</h2>
+
+<hr>
+
+<a name="binominal">
+<h3>２項演算子</h3></a>
+
+<center>
+<table width="90%">
+<tr>
+<th bgcolor="#ffcccc">演算子</th>
+<th bgcolor="#ffcccc">説明</th>
+<th bgcolor="#ffcccc">左辺</th>
+<th bgcolor="#ffcccc">右辺</th>
+<th bgcolor="#ffcccc">結果</th>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>+</tt></td>
+<td bgcolor="#ccffcc">加算</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>-</tt></td>
+<td bgcolor="#ccffcc">減算</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>*</tt></td>
+<td bgcolor="#ccffcc">乗算</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>/</tt></td>
+<td bgcolor="#ccffcc">除算</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>%</tt></td>
+<td bgcolor="#ccffcc">除算の剰余</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&amp;</tt></td>
+<td bgcolor="#ccffcc">ビット論理積</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>|</tt></td>
+<td bgcolor="#ccffcc">ビット論理和</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>^</tt></td>
+<td bgcolor="#ccffcc">ビット排他的論理和</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&lt;&lt;</tt></td>
+<td bgcolor="#ccffcc">ビット左シフト</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数（シフト量）</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&gt;&gt;</tt></td>
+<td bgcolor="#ccffcc">ビット右シフト</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数（シフト量）</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&amp;&amp;</tt></td>
+<td bgcolor="#ccffcc">論理積</td>
+<td bgcolor="#ccffcc">論理値（数値、ポインタ）</td>
+<td bgcolor="#ccffcc">論理値（数値、ポインタ）</td>
+<td bgcolor="#ccffcc">論理値（整数）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>||</tt></td>
+<td bgcolor="#ccffcc">論理和</td>
+<td bgcolor="#ccffcc">論理値（数値、ポインタ）</td>
+<td bgcolor="#ccffcc">論理値（数値、ポインタ）</td>
+<td bgcolor="#ccffcc">論理値（整数）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&lt;&lt;</tt></td>
+<td bgcolor="#ccffcc">挿入演算子</td>
+<td bgcolor="#ccffcc">出力ストリーム</td>
+<td bgcolor="#ccffcc">式</td>
+<td bgcolor="#ccffcc">出力ストリーム</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&gt;&gt;</tt></td>
+<td bgcolor="#ccffcc">抽出演算子</td>
+<td bgcolor="#ccffcc">入力ストリーム</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">入力ストリーム</td>
+</tr>
+</table>
+</center>
+
+<a name="monominal">
+<h3>単項演算子</h3></a>
+
+<center>
+<table width="90%">
+<tr>
+<th bgcolor="#ffcccc">演算子</th>
+<th bgcolor="#ffcccc">説明</th>
+<th bgcolor="#ffcccc">結合</th>
+<th bgcolor="#ffcccc">被演算数</th>
+<th bgcolor="#ffcccc">結果</th>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>++</tt></td>
+<td bgcolor="#ccffcc">インクリメント</td>
+<td bgcolor="#ccffcc">右</td>
+<td bgcolor="#ccffcc">数値変数、ポインタ変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ（演算後の値）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>++</tt></td>
+<td bgcolor="#ccffcc">インクリメント</td>
+<td bgcolor="#ccffcc">左</td>
+<td bgcolor="#ccffcc">数値変数、ポインタ変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ（演算前の値）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>--</tt></td>
+<td bgcolor="#ccffcc">デクリメント</td>
+<td bgcolor="#ccffcc">右</td>
+<td bgcolor="#ccffcc">数値変数、ポインタ変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ（演算後の値）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>--</tt></td>
+<td bgcolor="#ccffcc">デクリメント</td>
+<td bgcolor="#ccffcc">左</td>
+<td bgcolor="#ccffcc">数値変数、ポインタ変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ（演算前の値）</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>~</tt></td>
+<td bgcolor="#ccffcc">ビット反転</td>
+<td bgcolor="#ccffcc">右</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>!</tt></td>
+<td bgcolor="#ccffcc">論理否定</td>
+<td bgcolor="#ccffcc">右</td>
+<td bgcolor="#ccffcc">論理値（数値、ポインタ）</td>
+<td bgcolor="#ccffcc">論理値（整数）</td>
+</tr>
+</table>
+</center>
+
+<a name="assignment">
+<h3>代入演算子</h3></a>
+
+<center>
+<table width="90%">
+<tr>
+<th bgcolor="#ffcccc">演算子</th>
+<th bgcolor="#ffcccc">説明</th>
+<th bgcolor="#ffcccc">左辺</th>
+<th bgcolor="#ffcccc">右辺</th>
+<th bgcolor="#ffcccc">結果</th>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>=</tt></td>
+<td bgcolor="#ccffcc">そのまま代入</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">式</td>
+<td bgcolor="#ccffcc">式の値</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>+=</tt></td>
+<td bgcolor="#ccffcc">左辺値に加算</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>-=</tt></td>
+<td bgcolor="#ccffcc">左辺値から減算</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+<td bgcolor="#ccffcc">数値、ポインタ</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>*=</tt></td>
+<td bgcolor="#ccffcc">左辺値に乗算</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>/=</tt></td>
+<td bgcolor="#ccffcc">左辺値を除算</td>
+<td bgcolor="#ccffcc">変数</td>
+<td bgcolor="#ccffcc">数値</td>
+<td bgcolor="#ccffcc">数値</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>%=</tt></td>
+<td bgcolor="#ccffcc">左辺値を除算して剰余を代入</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&amp;=</tt></td>
+<td bgcolor="#ccffcc">ビット論理積</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>|=</tt></td>
+<td bgcolor="#ccffcc">ビット論理和</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>^=</tt></td>
+<td bgcolor="#ccffcc">ビット排他的論理和</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&lt;&lt;=</tt></td>
+<td bgcolor="#ccffcc">ビット左シフト</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数（シフト量）</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+<tr>
+<td bgcolor="#ccccff"><tt>&gt;&gt;=</tt></td>
+<td bgcolor="#ccffcc">ビット右シフト</td>
+<td bgcolor="#ccffcc">整数型変数</td>
+<td bgcolor="#ccffcc">整数（シフト量）</td>
+<td bgcolor="#ccffcc">整数</td>
+</tr>
+</table>
+</center>
+<p>
+
+<ul>
+<li>「変数」には「変更可能な左辺値」を含みます。
+<li>同じ演算子でも適用するデータ型によって動作が異なります。
+<li><tt>++</tt>, <tt>--</tt> は結合方向によっても動作が異なります。
+</ul>
+
+</body>

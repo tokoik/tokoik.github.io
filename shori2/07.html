@@ -1,0 +1,825 @@
+<head>
+<title>情報処理 II － 第７回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第７回</h1>
+
+講義に入る前に shori2 にカレントディレクトリを移しておいてください。
+<p>
+
+<hr>
+
+<a name="pointer">
+<h2>１．ポインタ</h2></a>
+
+<hr>
+
+<h3>１．１．ポインタの正体</h3>
+
+配列変数（名）や文字列定数の「<font color="#ff0000">値</font>」は、
+それらが格納されている「<font color="#ff0000">場所</font>」を示しています。
+このようにデータそのものではなく、
+データの格納場所を示したデータを<font color="#ff0000">ポインタ</font>と呼びます。
+<p>
+
+コンピュータのメモリは、
+言わばデータを格納するための「箱」がいっぱい並んだようなものでです。
+変数 x を定義するということは、
+例えばこの箱の一つを確保して、
+それに「この箱は変数 x として使うよ」というシールを貼ることに相当します。
+<p>
+
+<center>
+<img src="07-07.jpg">
+</center>
+<p>
+
+したがって、変数 x に 100 を代入するというのは、
+メモリの中から x というラベルを貼った箱を探し出して、
+そこ中に 100 という数値を入れるという操作になります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int x;
+
+x = 100;
+</table>
+</center>
+<p>
+
+データを格納した箱を特定するためには、
+変数名を使う以外に、
+その箱が存在する「<font color="#ff0000">場所</font>」を直接指定する方法もあります。
+実はメモリのひとつひとつの箱には、それぞれ番号が付けられています。
+この番号のことを「<font color="#ff0000">番地</font> (address)」と呼びます。
+この番号を使ってデータの格納場所を指定できます。
+<p>
+
+ポインタはこの番地のような、
+データの格納場所を示す値をデータとして取り扱うデータ型です
+（なんちゅう説明だ…）。
+<p>
+
+<a name="amp">
+上図では変数 x は５番地のメモリの内容を指しています。
+変数 x の格納場所を示すポインタを求めるには、
+<font color="#ff0000">&amp;</font> という単項演算子を使います。
+<p></a>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre><b>&amp;</b>x
+</table>
+</center>
+<p>
+
+この場合
+<tt>&amp;x</tt> は５という<font color="#ff0000">定数</font>です（変数 x
+の格納場所は固定ですから）。
+これを<font color="#ff0000">ポインタ定数</font>と呼びます。
+<p>
+
+配列変数の場合、
+配列変数名が確保した記憶領域の先頭を示すポインタ定数になっています。
+文字列定数の値もその文字列が格納されている場所を示すポインタ定数です。
+だから <tt>"Wakayama University"+9</tt> が <tt>"University"</tt> になるのです。
+<p>
+
+<hr>
+
+<h3>１．２．ポインタ変数</h3>
+
+ポインタをデータとして格納する変数を、
+ポインタ変数と呼びます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int a, b;  // int 型の変数 a, b を定義
+int <b>*pa;</b>   // int 型のポインタ変数 pa を定義
+
+a = 100;   // a に 100 を代入
+<b>pa</b> = <b>&amp;</b>a;   // pa に a のポインタを代入
+
+b = <b>*pa</b>;   // b に pa という場所に格納されている内容 (100) が代入される
+</table>
+</center>
+<p>
+
+<img src="07-02.gif" align="right">
+
+上の処理を図で表せば右のようになります。
+int *pa; という定義によって、
+pa という int 型のポインタ変数が用意されます。
+これは「*pa が int 型」であるという定義であって、
+* が取れた pa が「<font color="#ff0000">int 型のポインタ変数</font>」になります。
+<p>
+
+ポインタ変数が保持するデータはポインタ（番地）であり、
+その場所に格納されているデータを取り出すためには、
+<font color="#ff0000">*</font>
+という<font color="#ff0000">単項演算子</font>を用います。
+* は掛け算と同じ記号ですが、
+ポインタ型の変数に対する単項演算子として使用した場合は、
+ポインタによって示されている場所に格納されているデータを取り出します。
+<p>
+
+ポインタの値は、
+オペレーティングシステムによってプログラムに割り当てられたメモリ空間内の、
+どこか一箇所を指していなければなりません
+（どこも指していないということを明示するために 0 という値も用います）。
+* 演算子によってその内容を操作しようとする場合は、
+そのポインタが変数のようにデータを記憶する目的で割り当てられた
+メモリの領域を指していなければなりません。
+もし不正な内容のポインタを * 演算子によって操作しようとすれば、
+プログラムは正常に動かないか、異常終了します。
+<br clear="all">
+<p>
+
+<hr>
+
+<h2>課題２２</h2>
+
+<hr>
+
+以下はキーボードから入力した整数値を２倍して出力するプログラムですが、
+コンパイルして実行すると異常終了してしまいます
+（その際に
+<font color="#ff0000">core</font> というファイルができますので、
+<tt>% rm core</tt> として削除してください）。
+このプログラムのどこかに１行追加して（他の部分はいじっちゃいけません）、
+ちゃんと入力した数値の２倍が出力されるようにしてください。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int x, *px;
+
+  cout &lt;&lt; "整数値を一つ入力してください:";
+  cin &gt;&gt; x;
+
+  *px *= 2;
+  cout &lt;&lt; "２倍すると " &lt;&lt; x &lt;&lt; endl;
+
+  return 0;
+}</table>
+</center>
+<p>
+
+修正したソースプログラムをメールに添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai22">tokoi</a>
+まで送ってください。Subject:（件名）は kadai22 としてください。
+<p>
+
+<hr>
+
+<h3>１．３．配列とポインタ</h3>
+
+配列の最初の要素のポインタを得るには、
+次のようにします。
+これは配列として確保されたメモリ領域の先頭を指すポインタです。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int a[10];
+int *pa0, *pa1;
+
+pa0 = <b>&</b>(a[0]);  // a[0] のポインタを pa0 に代入
+</table>
+</center>
+<p>
+
+同様に a[1] のポインタも &amp;(a[1]) で求めることができますが、
+配列の各要素はメモリ上に連続して配置されているので、
+a[0] のポインタが分かっているなら、
+２つ目の要素 a[1] のポインタは次のようにしても求めることができます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>pa1 = pa0 + 1;  // a[1] のポインタを pa1 に代入
+</table>
+</center>
+<p>
+
+すなわち a[0] および a[1] の内容は、
+それぞれ次のようにして利用できます。
+
+<ul>
+<li><tt>a[0]</tt> は <tt>*pa0</tt> によって利用可能</li>
+<li><tt>a[1]</tt> は <tt>*pa1</tt> あるいは
+<tt>*(pa0 + 1)</tt> によって利用可能</li>
+</ul>
+
+このようにポインタには整数値の加減算を行うことができますから、
+++ や -- という演算子もポインタ変数に使用することができます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int a[10];
+int *pa0, c, d;
+
+pa0 = &amp;(a[0]);  // a[0] のポインタ
+c = *pa0++;     // a[0] の内容を c に代入して pa0 を１増す
+d = *pa0        // pa0 は &amp;(a[0]) より１増えているので d には a[1] の内容が代入される
+</table>
+</center>
+<p>
+
+* という演算子の優先順位は ++ より低いので、
+上の例では c に a[0] の内容が入り、
+その後 pa0 の値は &amp;(a[1]) になります。
+もし *pa（すなわち a[0]）の内容を１増すなら、
+( ) を使う必要があります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>c = (*pa0)++;
+</table>
+</center>
+<p>
+
+この例では c に a[0] が入り、
+その後 a[0] の内容が a[0] + 1 になりますが、
+pa0 に格納されているポインタの値は変化しません。
+なお、下の例では * が ++ より pa0 に近いところにあるため
+* が先に処理されます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>c = ++*pa0;
+</table>
+</center>
+<p>
+
+この場合は a[0] の内容が１増され、それが c に代入されます。
+pa0 に格納されているポインタの値は変化しません。
+<p>
+
+実は上記において定義されている配列 a[10] の a は、
+それ自体が配列として確保されたメモリ領域の先頭を指す<font color="#ff0000">ポインタ定数</font>、
+すなわち &(a[0]) と等しい値を持ちます。
+従って、
+
+<ul>
+<li><tt>*a</tt> は <tt>a[0]</tt> と表すことができる
+<li><tt>*(a + 1)</tt> は <tt>a[1]</tt> と表すことができる
+</ul>
+
+となります。すなわち、
+[ ] は実は<font color="#ff0000">ポインタに対する演算子</font>であり、
+ポインタ変数 pa0, pa1 に対しても、
+次のように適用できます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int a[10], b, c;
+int *pa0, *pa1;
+
+pa0 = &amp;(a[0]);  // a[0] のポインタ
+pa1 = pa0 + 1;  // a[1] のポインタ
+
+b = pa0[1]      // b には a[1] の内容が入る
+c = pa1[-1]     // c には a[0] の内容が入る
+</table>
+</center>
+<p>
+
+上の例では、
+
+<ul>
+<li><tt>*pa0</tt> は <tt>pa0[0]</tt> と表すこともできる
+<li><tt>*(pa0 + 1)</tt> は <tt>pa0[1]</tt> と表すこともできる
+<li><tt>*(pa1 - 1)</tt> は <tt>pa1[-1]</tt>
+と表すこともでき、これは <tt>*pa0</tt> と同じ
+</ul>
+
+最後の例から分かるとおり、
+配列はその領域の先頭のポインタのみによって識別され、
+その大きさや添え字の範囲といった情報は、
+プログラム中では管理されていません。
+<p>
+
+従って、確保された領域からはずれるような
+配列の添え字やポインタを使用しても、
+コンパイルの際にはエラーにはなりませんし、
+問題なく実行できるように見えることもあります。
+しかしこれは非常に発見しにくいプログラムの異常動作の原因になりますし、
+大抵は致命的なエラーを引き起こします。
+ポインタを使う場合には<font color="#ff0000">細心の注意が必要</font>です。
+<p>
+
+<hr>
+
+<h3>１．４．文字列とポインタ</h3>
+
+文字列の実体は配列ですから、
+これもポインタになります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char *string;
+
+string = "Hello!";
+</table>
+</center>
+<p>
+
+文字列定数の値は、
+その文字列が格納されている位置を指すポインタ定数になります。
+string[0] は 's'、string[5] は '!' になります。
+次の例は 0～15 の値を持つ整数 i を、
+それに対応する十六進数の文字 c に変換します。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int i;
+char c;
+
+c = "0123456789ABCDEF"[i];  // i を十六進数で表現する
+</table>
+</center>
+<p>
+
+次の２つの初期化について考えてみます。
+<p>
+
+<center>
+<table width="90%">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[] = "Ken";        // name が指している位置を "Ken" で初期化
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char *string = "Hello!";    // "Hello!" が格納されているポインタで string を初期化
+</table>
+</center>
+<p>
+
+一つ目の例は char 型の４つの要素を持つ配列変数を用意し、
+その先頭の位置の<font color="#ff0000">ポインタ定数</font>に
+name という名前を付けて、
+個々の要素を "Ken" という文字列で初期化しています。
+これに対して二つ目の例は char 型の<font color="#ff0000">ポインタ変数</font>
+string を用意して、
+それに "Hello!" という文字列の先頭のポインタを格納します。
+したがって name は変更できませんが、
+string は変更可能です。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[4];
+
+name = "Ken";  // <font color="#ff0000">×これはエラー</font>
+</table>
+</center>
+<p>
+
+上の例がエラーになるのは、
+name というポインタ定数に値を代入しようとしているからです。
+<p>
+
+<hr>
+
+<h2>課題２３</h2>
+
+<hr>
+
+<img src="07-05.gif" align="right">
+
+<a href="06.html#kadai21">課題２１</a>では、
+入力した文字列を逆順に出力するプログラムを作成しました。
+この処理を、文字列自体の文字の順番を並べ替えることで実現してみます。
+<p>
+
+入力ストリーム（キーボード）から入力した文字を、
+char 型の配列変数 string に格納します。
+この結果、配列変数 string の内容は、例えば右のようになっているとします。
+もちろん、これは「例」であって、
+入力される文字列（の長さ）はこの限りではありません。
+<p>
+
+この配列の最初の要素のポインタをポインタ変数 ps に、
+文字列の最後の文字が格納されている要素のポインタをポインタ変数 pe
+に代入します。
+これで、それぞれの文字を *ps, *pe によって利用できるようになります。
+<p>
+
+この最初と最後の文字を入れ替えます。
+２つのデータの交換は<a href="03.html#kadai10">課題１０</a>の関数 swap()
+の中でやっているように、片方を一旦別の変数に移しておいてから、
+もう一方をそれに代入します。
+関数 swap() そのものを使う必要はありません
+（使った実装を考えても構いません）。２つのコップの中身を交換する要領です。
+<p>
+
+そのあと、ps を一つ先に進め（１を足す）、pe を一つ前に戻して（１を引く）、
+もう一度文字の交換をします。
+この処理を ps &lt; pe の間繰り返すと、
+配列 string の内容が逆順になるはずです。
+最後に string を出力して、
+本当に文字が逆順になっているかどうか確かめてください。
+<p>
+
+作成したソースプログラムをメールに添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai23">tokoi</a>
+まで送ってください。Subject:（件名）は kadai23 としてください。
+<br clear="all">
+<p>
+
+<hr>
+
+<a name="constant">
+<h3>１．５．ポインタ定数</h3></a>
+
+下の例において、&amp;a, name, "Ken" の値はいずれもポインタ定数です。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int a, *pa;
+char <b>name</b>[4], *string;
+
+pa = <b>&amp;a</b>;
+string = <b>"Ken"</b>;
+</table>
+</center>
+<p>
+
+ポインタ定数はコンピュータのメモリに割り振られた「番地」で、
+加減算の可能な「数値」に近いものですが、
+整数定数や実数定数のようにそれを直接数字で表すことは
+（ハードウェアを直接操作するような特殊な用途を除いて）ありません。
+例外的に、メモリ上の「<font color="#ff0000">どこも指していない</font>」ことを表すポインタ定数として、
+<font color="#ff0000">0</font> が利用されます。この 0 のことを<font color="#ff0000">ヌルポインタ</font>
+（英語らしく読めばナルポインタ）と呼びます。
+<p>
+
+ヌルポインタは <font color="#ff0000">NULL</font> という記号定数で表されることもありますが、
+ここでは 0 を用いることにします。
+ヌルポインタを論理値として評価する（if や while で使う）と「<font color="#ff0000">偽</font>」になります。
+<p>
+
+<hr>
+
+<h3>１．６．ポインタの配列</h3>
+
+配列の要素にポインタを使う場合もあります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int *p[3];              // ポインタの配列
+int a[4], b[5], c[6];
+
+p[0] = a;
+p[1] = b;
+p[2] = c;
+</table>
+</center>
+<p>
+
+<img src="07-04.gif" align="right">
+
+こうすると <tt>a[1]</tt> は <tt>*(a + 1)</tt> ですから、
+これは <tt>*(p[0] + 1)</tt> でも利用できるようになります。
+さらにこれは <tt>p[0][1]</tt> と書くこともできるので、
+２次元配列のように扱うことができます。
+
+<blockquote>
+<table>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>p[0][1] = 10;   // これは a[1] = 10; と同じ
+p[1][2] = 20;   // これは b[2] = 20; と同じ
+p[2][3] = 30;   // これは c[3] = 30; と同じ
+</table>
+</blockquote>
+<br clear="all">
+
+<hr>
+
+<h3>１．７．ポインタ引数</h3>
+
+ポインタを引数に使って関数を呼び出すためには、
+仮引数をポインタ変数として宣言します。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void add10(int *a) {
+  *a += 10;  // 引数のポインタが指す内容に 10 を足す
+}
+
+int main(void) {
+  int x;
+
+  x = 20;
+
+  add10(<b>&x</b>);  // 実引数に x の格納場所を渡す
+
+  cout &lt;&lt; "x = " &lt;&lt; x &lt;&lt; endl;  // 30 になっている
+
+  return 0;
+}</table>
+</center>
+<p>
+
+引数に変数のポインタを使うことによって、
+<a href="03.html#reference">参照渡し</a>と同様に
+呼び出した関数から引数に値を戻すことができます。
+<p>
+
+配列の場合は、配列名がポインタ定数なので、
+それをそのまま（&amp; を付けずに）<a href="03.html#argument">実引数</a>に用いることができます。
+しかし、
+ポインタとして渡されるのは配列の先頭の要素の位置だけなので、
+要素数はこの例のように別に渡してやる必要があります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void alladd10(int *a, int n) {
+  int i;
+
+  // 配列の全ての要素に 10 を足す
+  for (i = 0; i < n; i++) {
+    a[i] += 10;
+  }
+}
+
+int main(void) {
+    int x[20];
+
+    alladd10(x, 20);
+
+    return 0;
+}</table>
+</center>
+<p>
+
+仮引数は次のいずれの形で宣言しても構いません。
+
+<ul>
+<li><tt>int *a</tt>
+<li><tt>int a[]</tt>
+</ul>
+
+前者はポインタとして宣言していますが（渡されるのはポインタなので）、
+後者はサイズを指定しない配列として宣言しています。
+<p>
+
+ただし、２次元以上の配列の場合は、
+最も左の添え字以外はサイズを省略できません。
+これは<a href="#multi-dimension">多次元配列</a>がメモリ上では１次元に展開されており、
+それがどう分割されて使用されているかをポインタを渡された関数側では判断できないからです。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void alladd10(int a[][3][2], int n) {
+  int i, j, k;
+
+  // 配列の全ての要素に 10 を足す
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < 3; j++) {
+      for (k = 0; k < 2; j++) {
+        a[i][j][k] += 10;
+      }
+    }
+  }
+}
+
+int main(void) {
+  int x[4][3][2];
+
+  alladd10(x, 4);
+
+  return 0;
+}</table>
+</center>
+<p>
+
+ポインタの配列を関数の引数として渡す場合は
+仮引数にサイズを明示する必要はありませんが、
+要素数は別の方法で渡す必要があります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+void alladd10(int *a[], int *n, int m) {
+  int i, j, k;
+
+  // 配列の全ての要素に 10 を足す
+  for (i = 0; i < m; i++) {
+    for (j = 0; j < n[i]; j++) {
+      a[i][j] += 10;
+    }
+  }
+}
+
+int main(void) {
+  int *x[3], n[3];
+  int a[4], b[5], c[6];
+
+  x[0] = a;  // x[0] は a[] を指す
+  n[0] = 4;  // a[] のサイズは 4
+
+  x[1] = b;  // x[1] は b[] を指す
+  n[1] = 5;  // b[] のサイズは 5
+
+  x[2] = c;  // x[2] は c[] を指す
+  n[2] = 6;  // c[] のサイズは 6
+
+  alladd10(x, n, 3);
+
+  return 0;
+}</table>
+</center>
+<p>
+
+ポインタの配列の仮引数の宣言は、
+次のいずれでも構いません。
+
+<ul>
+<li><tt>int *a[]</tt>
+<li><tt>int a[][]</tt>
+<li><tt>int **a</tt>
+</ul>
+
+<hr>
+
+<h2>課題２４</h2>
+
+<hr>
+
+プログラムを起動したときに与えられた「コマンド引数」は、
+main() 関数の引数に与えられます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(int argc, char *argv[]) {
+  for (int i = 0; i < argc; i++) {
+    cout &lt;&lt; "第" &lt;&lt; i &lt;&lt; "引数＝" &lt;&lt; argv[i] &lt;&lt; endl;
+  }
+}</table>
+</center>
+<p>
+
+上のプログラムをコンパイルして得た実行プログラム (a.out) に
+Wakayama と University という２つの引数を与えて実行すると、
+次のような出力を得ます。
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out Wakayama University<b><font color="#00cc66">[Enter]</font></b></u>
+第0引数＝a.out       <font color="#ffff00">（argv[0] の内容）</font>
+第1引数＝Wakayama    <font color="#ffff00">（argv[1] の内容）</font>
+第2引数＝University  <font color="#ffff00">（argv[2] の内容）</font>
+</table>
+</center>
+<p>
+
+<img src="07-06.gif" align="right">
+main() 関数の第１引数 argc には、
+引数の数にコマンド自身を加えた 3 が格納されます。
+第２引数 argv はコマンド名や引数の文字列を指すポインタの配列で、
+argv[0] にはコマンド名自体 (a.out)、
+argv[1] には第１引数、
+argv[2] には第２引数の文字列を指すポインタが格納されます。
+<p>
+
+argc、argv というのは<font color="#ff0000">慣例的</font>に用いられている変数名で、
+それそれ int 型、char ** 型であれば変数名は何でもかまいません。
+<p>
+
+それでは、
+このコマンド引数に与えた実数値の平均を求めるプログラムを作成してください。
+たとえば、引数に 2 と 4 と 9 を指定すると、これらの平均値の 5
+を画面（出力ストリーム）に出力します。
+<p>
+
+なお、文字列を実数値に変換するには、
+ライブラリ関数 <a href="06.html#convert">atof()</a> が便利です。
+<br clear="all">
+<p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out 2 4 9<b><font color="#00cc66">[Enter]</font></b></u>
+平均は 5
+% <u>a.out 2 3 12 4<b><font color="#00cc66">[Enter]</font></b></u>
+平均は 5.25
+</table>
+</center>
+<p>
+
+作成したソースプログラムをメールに添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai24">tokoi</a>
+まで送ってください。Subject:（件名）は kadai24 としてください。
+<p>
+
+<hr>
+
+<h3>１．８．関数のポインタ</h3>
+
+関数名も配列同様ポインタ定数です。
+ただし、このポインタによって指し示される先の内容は、
+データではなくプログラムです。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int add(int x, int y) {
+  return x + y;
+}
+
+int sub(int x, int y) {
+  return x - y;
+}
+
+int main(void) {
+  int x;
+  int (*func)(int, int);  // 関数のポインタ変数の定義
+
+  func = add;             // 関数のポインタ変数 func に add を代入
+  x = (*func)(2, 3);      // 関数 add が実行される
+
+  func = sub;             // 関数のポインタ変数 func に sub を代入
+  x = (*func)(2, 3);      // 関数 sub が実行される
+}</table>
+</center>
+<p>
+
+もちろん、関数のポインタの配列、なんてものも使えます。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int add(int x, int y) {
+  return x + y;
+}
+
+int sub(int x, int y) {
+  return x - y;
+}
+
+int main(void) {
+  int x;
+  int (*func[2])(int, int) = { add, sub };  // 関数のポインタ配列を add, sub で初期化
+
+  x = (*func[0])(2, 3);    // 関数 add が実行される
+
+  x = (*func[1])(2, 3);    // 関数 sub が実行される
+}</table>
+</center>
+<p>
+
+</body>

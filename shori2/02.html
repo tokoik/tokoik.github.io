@@ -1,0 +1,1003 @@
+<head>
+<title>情報処理II － 第２回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第２回</h1>
+
+<p>講義に入る前に、先週作成した shori2
+にカレントディレクトリを移しましょう。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd shori2<b><font color="#00cc66">[Enter]</font></b></u>
+</font></table>
+</center>
+
+<a name="expression">
+<hr>
+
+<h2>１．式</h2>
+
+<hr>
+</a>
+
+<p>前回は出力ストリーム（画面）に送る文字を "..." で挟みました。
+実は数値に関しては "..." を付けずに書くこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; 1 &lt;&lt; endl;             // 1 が出力される
+  cout &lt;&lt; 0.5 &lt;&lt; endl;           // 0.5 が出力される
+  cout &lt;&lt; .5 &lt;&lt; endl;            // 0.5 が出力される
+  cout &lt;&lt; 123 &lt;&lt; endl;           // 123 が出力される
+  cout &lt;&lt; 1 &lt;&lt; 2 &lt;&lt; 3 &lt;&lt; endl;   // 123 が出力される
+}</table>
+</center>
+
+<p><tt>//</tt>から行末までは<a href="01-h2.html">コメント（注釈）</a>と呼ばれ、
+ソースプログラムを人間が読んだときにヒントになるようなメモを書きます。
+コメントはコンパイルの際には無視されますが、
+ソフトウェアの<font color="#ff0000">保守</font>という点では非常に重要なものですから、
+自分でプログラムを書くときは手間を惜しまず積極的にコメントを付けておいてください。</p>
+
+
+<p>数値の代わりに<font color="#ff0000">式</font>を書けば、計算もしてくれます。
+コンピュータは「電子計算機」って言うくらいですから、
+「計算」は本業みたいなものです。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "1+1=" &lt;&lt; 1+1 &lt;&lt; endl;  // 1+1=2 が出力される
+}</table>
+</center>
+
+<p>上のプログラムを<a href="01.html#compile">コンパイル</a>して実行すると、
+1+1=2 が画面に表示されます。
+すなわち、プログラムの "1+1=" の部分はそのまま表示され、
+1+1 の部分は計算されて 2 が表示されます。</p>
+
+<p>C++ 言語において式は何らかの<font color="#ff0000">数</font>、
+あるいはそれを<font color="#ff0000">演算子</font>によって結合したものです。
+この数には 0 や 15 といった<a href="#constant">定数</a>の他、
+<a href="#variable">変数</a>、
+<a href="03.html#function">関数</a>があります。</p>
+
+<p>式に用いる加減乗除の演算子は、
+C++ では次のような文字で表します。
+これらはほんの一例で、
+C++ 言語には他にも
+<a href="02-h2.html">いろいろな演算子</a>が用意されています。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">演算子</th></tr>
+<tr><td bgcolor="#ffffaa"><tt>+</tt></td><td bgcolor="#ffeeaa">加算</td></tr>
+<tr><td bgcolor="#ffffaa"><tt>-</tt></td><td bgcolor="#ffeeaa">減算</td></tr>
+<tr><td bgcolor="#ffffaa"><tt>*</tt></td><td bgcolor="#ffeeaa">乗算</td></tr>
+<tr><td bgcolor="#ffffaa"><tt>/</tt></td><td bgcolor="#ffeeaa">除算</td></tr>
+<tr><td bgcolor="#ffffaa"><tt>%</tt></td><td bgcolor="#ffeeaa">剰余（整数のみ）</td></tr>
+</table>
+</center>
+
+<p>( ) を使った、もっと複雑な計算もできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; 3450 * (24.2 - 4936) / 33.6 &lt;&lt; endl;
+}</table>
+</center>
+
+<p>このプログラムをコンパイルして実行すると、
+-504337 が表示されます（小数点以下が四捨五入されています）。</p>
+
+<p>異なる演算子を組み合わせて使うときには、
+演算子の<font color="#ff0000">優先順位</font>に気を付けなければなりません。
+同じ優先順位の演算子については左から順に計算されますが、
+異なっているときは優先順位の高いものが先に計算されます。
+次の例は左のものほど優先順位が高くなっています。
+式全体を ( … ) でくくったものは、
+一番優先順位が高くなります。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="3">優先順位</th></tr>
+<tr>
+<th bgcolor="#ffffaa">高</th>
+<th bgcolor="#ffffaa">…</th>
+<th bgcolor="#ffffaa">低</th>
+</tr>
+<tr>
+<td bgcolor="#ffeeaa" align="center" width="33%"><tt>( 式 )</tt></td>
+<td bgcolor="#ffeeaa" align="center" width="33%"><tt>* / % </tt></td>
+<td bgcolor="#ffeeaa" align="center" width="*"><tt>+ -</tt></td>
+</tr>
+</table>
+</center>
+
+<hr>
+
+<h2>課題２</h2>
+
+<hr>
+
+<p>23.66 * 33.244 / ( 21.22 - 15.7 )
+を計算して答を表示するプログラムを作成してください。
+メールにプログラムを実行したときに出力された内容を書き、
+ソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai2">tokoi</a>
+まで送ってください。Subject:（件名）は kadai2 としてください。</p>
+
+<a name="variable">
+<hr>
+
+<h2>２．変数</h2>
+
+<hr>
+</a>
+
+<p>コンピュータの機能として、
+「計算」とならんで重要なものに「記憶」があります。
+コンピュータは記憶したデータを処理（計算など）することで結果を得ます。 
+プログラム中で一時的にデータを記憶しておくためには
+<font color="#ff0000">変数</font>を使います。 </p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  int tate, yoko;
+
+  tate = 4;    // 縦の長さ
+  yoko = 5;    // 横の長さ
+
+  cout &lt;&lt; "縦 " &lt;&lt; tate &lt;&lt; " メートル、";
+  cout &lt;&lt; "横 " &lt;&lt; yoko &lt;&lt; " メートルの長方形の面積は ";
+  cout &lt;&lt; tate * yoko &lt;&lt; " 平方メートル" &lt;&lt; endl;
+}</table>
+</center>
+
+<p>このプログラムをコンパイルして実行すると、
+次のような出力を得ます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>縦 4 メートル、横 5 メートルの長方形の面積は 20 平方メートル
+</font></table>
+</center>
+
+<p>この tate、yoko が変数です。
+tate や yoko はそれぞれ 4 と 5
+という整数値と同じように使われています。
+tate * yoko で面積を求めています。</p>
+
+<hr>
+
+<h2>課題３</h2>
+
+<hr>
+
+<p>直方体の体積は「縦×横×高さ」で求められます。
+上の例にならって、tate = 4、yoko = 5、takasa = 6
+の直方体の体積を計算するプログラムを作成してください。
+メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai3">tokoi</a>
+まで送ってください。Subject:（件名）は kadai3 としてください。</p>
+
+<hr>
+
+<h3>２．１．変数定義</h3>
+
+<p>変数を使用するには、プログラム中でその変数を使用する前に、
+そのことを<font color="#ff0000">定義</font>しなければなりません。
+変数はデータを格納する入れ物のようなものですから、
+変数定義の時に中に入れることのできるデータの種類を指定します。
+これを<font color="#ff0000">データ型</font>と言います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int tate, yoko;</table>
+</center>
+
+<p>この定義により、これより後で tate と yoko という二つの int
+型の変数が使えるようになります。この
+int はあとに列挙された変数が int（整数）型であることを示します。</p>
+
+<hr>
+
+<a name="identifier">
+<h3>２．２．変数名</h3></a>
+
+<p>tate や yoko のような、
+変数に付けた名前のことを<font color="#ff0000">変数名</font>と言います。
+変数名は好きなように決めてもらえばいいんですが、
+決め方にはいくつかの規則があります。</p>
+
+<ul>
+
+<li><font color="#ff0000">アルファベット</font>で始まります。</li>
+
+<li><font color="#ff0000">アルファベット</font>
+または
+<font color="#ff0000">アンダースコア "_"</font>
+または
+<font color="#ff0000">数字</font>が続きます。</li>
+
+<li>大文字／小文字は別の文字として区別されます。</li>
+
+<li>C++
+言語において特別な意味を持つキーワード（予約語）は使えません。</li>
+
+</ul>
+
+<p>次の名前は変数名として使えます。</p>
+
+<blockquote>
+<table width="90%">
+<tr><td width="40%"><tt>average</tt></td><td><tt>// データの平均</tt></td></tr>
+<tr><td width="40%"><tt>pai</tt></td><td><tt>// 円周率</tt></td></tr>
+<tr><td width="40%"><tt>number_of_students</tt></td><td><tt>// 学生数</tt></td></tr>
+<tr><td width="40%"><tt>DayOfTheWeek</tt></td><td><tt>// 曜日</tt></td></tr>
+</table>
+</blockquote>
+
+<p>次の名前は変数名として使えません。</p>
+
+<blockquote>
+<table width="90%">
+<tr><td width="40%"><tt>3rd_entry</tt></td><td><tt>// 数字ではじまっている</tt></td></tr>
+<tr><td width="40%"><tt>all$done</tt></td><td><tt>// 使えない文字($)がある</tt></td></tr>
+<tr><td width="40%"><tt>the end</tt></td><td><tt>// 空白が入っている</tt></td></tr>
+<tr><td width="40%"><tt>int</tt></td><td><tt>// キーワード</tt></td></tr>
+</table>
+</blockquote>
+
+<p><font color="#ff0000">アンダースコア
+"_"</font>もアルファベットと同様に使用できますが、
+コンパイラやリンカ、あるいは標準ライブラリで使用する名前との衝突を避けるため、
+それを先頭に置いたり二つ以上続けたりしないでください。</p>
+
+<blockquote>
+<table width="90%">
+<tr><td width="40%"><tt>_list</tt></td><td><tt>// 先頭がアンダースコアなので×</tt></td></tr>
+<tr><td width="40%"><tt>next__word</tt></td><td><tt>// アンダースコアが二つ続いているので×</tt></td></tr>
+<tr><td width="40%"><tt>third_entry</tt></td><td><tt>// これは○</tt></td></tr>
+<tr><td width="40%"><tt>the_end_</tt></td><td><tt>// これも○</tt></td></tr>
+</table>
+</blockquote>
+
+<p>キーワードには次のようなものがあります。</p>
+
+<blockquote>
+<table width="90%">
+<tr>
+<td width="17%">asm</td>
+<td width="17%">auto</td>
+<td width="17%">break</td>
+<td width="17%">case</td>
+<td width="17%">char</td>
+<td width="*">catch</td>
+</tr>
+<tr>
+<td width="17%">class</td>
+<td width="17%">const</td>
+<td width="17%">continue</td>
+<td width="17%">default</td>
+<td width="17%">delete</td>
+<td width="*">do</td>
+</tr>
+<tr>
+<td width="17%">double</td>
+<td width="17%">else</td>
+<td width="17%">enum</td>
+<td width="17%">extern</td>
+<td width="17%">float</td>
+<td width="*">friend</td>
+</tr>
+<tr>
+<td width="17%">for</td>
+<td width="17%">goto</td>
+<td width="17%">if</td>
+<td width="17%">inline</td>
+<td width="17%">int</td>
+<td width="*">long</td>
+</tr>
+<tr>
+<td width="17%">new</td>
+<td width="17%">operator</td>
+<td width="17%">private</td>
+<td width="17%">protected</td>
+<td width="17%">public</td>
+<td width="*">register</td>
+</tr>
+<tr>
+<td width="17%">return</td>
+<td width="17%">short</td>
+<td width="17%">signed</td>
+<td width="17%">sizeof</td>
+<td width="17%">static</td>
+<td width="*">struct</td>
+</tr>
+<tr>
+<td width="17%">switch</td>
+<td width="17%">template</td>
+<td width="17%">this</td>
+<td width="17%">throw</td>
+<td width="17%">try</td>
+<td width="*">typedef</td>
+</tr>
+<tr>
+<td width="17%">union</td>
+<td width="17%">unsigned</td>
+<td width="17%">virtual</td>
+<td width="17%">void</td>
+<td width="17%">volatile</td>
+<td width="*">while</td>
+</tr>
+</table>
+</blockquote>
+
+<font size="-1">
+<ul>
+<li><p>新しい C++ の文法では、次のようなキーワードが追加されています。</p>
+
+<blockquote>
+<table width="90%">
+<tr>
+<td width="20%"><font size="-1">and</font></td>
+<td width="20%"><font size="-1">and_eq</font></td>
+<td width="20%"><font size="-1">bitand</font></td>
+<td width="20%"><font size="-1">bitor</font></td>
+<td width="*"><font size="-1">bool</font></td>
+</tr>
+<tr>
+<td width="20%"><font size="-1">compl</font></td>
+<td width="20%"><font size="-1">const_cast</font></td>
+<td width="20%"><font size="-1">dynamic_cast</font></td>
+<td width="20%"><font size="-1">explicit</font></td>
+<td width="*"><font size="-1">false</font></td>
+</tr>
+<tr>
+<td width="20%"><font size="-1">mutable</font></td>
+<td width="20%"><font size="-1">namespace</font></td>
+<td width="20%"><font size="-1">not</font></td>
+<td width="20%"><font size="-1">not_eq</font></td>
+<td width="*"><font size="-1">or</font></td>
+</tr>
+<tr>
+<td width="20%"><font size="-1">or_eq</font></td>
+<td width="20%"><font size="-1">reinterpret_cast</font></td>
+<td width="20%"><font size="-1">static_cast</font></td>
+<td width="20%"><font size="-1">true</font></td>
+<td width="*"><font size="-1">typeid</font></td>
+</tr>
+<tr>
+<td width="20%"><font size="-1">typename</font></td>
+<td width="20%"><font size="-1">using</font></td>
+<td width="20%"><font size="-1">wchar_t</font></td>
+<td width="20%"><font size="-1">xor</font></td>
+<td width="*"><font size="-1">xor_eq</font></td>
+</tr>
+</table>
+</blockquote>
+
+<li><p>これらについてはこの講義では触れませんが、
+変数名には使用しないでください。</p>
+
+</ul>
+</font>
+
+<p>また変数名は、
+その変数がいったい何のために使われているのかが分かるように付けてください。
+これもソフトウェアの保守の点でとても重要です。</p>
+
+<hr>
+
+<h3>２．３．データ型</h3>
+
+<p>基本的なデータ型には次のようなものがあります。</p>
+
+<blockquote>
+<dl>
+
+<dt><tt><b>char</b></tt></dt>
+<dd>文字型。実は整数型の一種で、演習で使用しているコンピュータでは
+-128～127 の間（すなわち 8 ビット）の整数値を格納できます。
+普通は文字（コード）の格納に用います。</dd>
+
+<dt><tt><b>short</b></tt></dt>
+<dd>短精度整数型。これも整数型の一種で、演習で使用しているコンピュータでは
+-32768～32767 の間（すなわち 16 ビット）の整数値を格納できます。</dd>
+
+<dt><tt><b>long</b></tt></dt>
+<dd>長精度整数型。これも整数型の一種で、演習で使用しているコンピュータでは
+-2147483648～2147483647 の間（すなわち 32 ビット）の整数値を格納できます。
+64 ビットの整数値を表現する
+<font color="#ff0000">long long 型</font>というのも用意されています。</dd>
+
+<dt><tt><b>int</b></tt></dt>
+<dd>整数型。整数値を格納します。
+値の範囲はコンピュータ
+（オペレーティングシステムあるいはコンパイラ）
+によって異なりますが、演習で使用しているコンピュータでは
+と同じ
+-2147483648～2147483647の間（すなわち 32 ビット）の整数値を格納できます。
+8 ビットや 16 ビットのコンピュータでは short と同じである場合もあります。</dd>
+
+<dt><tt><b>float</b></tt></dt>
+<dd>実数型。小数点を含む実数を格納します。演習で使用しているコンピュータでは
+-3.4×10<sup>38</sup>～3.4×10<sup>38</sup>の間の実数値を格納できます。
+また表現可能な数値の最小値は
+±3.4×10<sup>-38</sup> で、これより絶対値の小さな数値は 0 になります。
+精度（有効数字）は 7 桁程度です。</dd>
+
+<dt><tt><b>double</b></tt></dt>
+<dd>倍精度実数型。これも小数点を含む実数を格納しますが、float
+よりも高精度です。演習で使用しているコンピュータでは
+-1.7×10<sup>308</sup>～1.7×10<sup>308</sup>の間の実数値を格納できます。
+また表現可能な数値の最小値は
+±1.7×10<sup>-308</sup> で、これより絶対値の小さな数値は 0 になります。
+精度（有効数字）は 16 桁程度です。
+なお、これよりさらに精度の高い
+<font color="#ff0000">long double 型</font>というのも用意されています。</dd>
+
+</dl>
+</blockquote>
+
+<p>整数型（char, short, long, int）のデータ型には、
+<font color="#ff0000">signed</font>（符号付き）と
+<font color="#ff0000">unsigned</font>（符号なし）
+という修飾子を付けることができます。
+符号なし整数では負の数を取り扱うことができません。
+signed/unsigned を付けない場合、演習で使用しているコンピュータでは
+signed として扱われます。
+また short や long も実は int に対する修飾子で、int を省略したものです。
+これらを列挙すると<a href="02-h1.html">この表</a>のようになります。</p>
+
+<hr>
+
+<a name="assignment">
+<h3>２．４．代入</h3></a>
+
+<p>変数に値を入れることを<font color="#ff0000">代入</font>と言います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>tate = 4;                   // tate に 4 を代入
+yoko = 5;                   // yoko に 5 を代入
+menseki = tate * yoko;      // menseki には 20 が代入される</table>
+</center>
+
+<ul>
+
+<li><p>= の<font color="#ff0000">左辺</font>には
+<font color="#ff0000">変数</font>などの
+「変更可能な左辺値」を置きます。</p></li>
+
+<li><p>= の<font color="#ff0000">右辺</font>には
+<font color="#ff0000">式</font>を置きます。</p></li>
+
+</ul>
+
+<p>したがって次のような代入はエラーになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>tate * yoko = 20;           // エラー：tate * yoko は変数ではない</table>
+</center>
+
+<p>一方、<font color="#ff0000">代入自体も式</font>なので、
+次のような代入は可能です。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x = y = 20;                 // ＯＫ： x と y に 20 が代入される</table>
+</center>
+
+<p>y = 20 という式の<font color="#ff0000">値</font>は代入した値 (20)
+なので、それを x に代入します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>x = y + z = 20;             // エラー： y + z は変数ではない
+x = y + (z = 20);           // ＯＫ：z = 20 が先に処理される</table>
+</center>
+
+<p>上の例の一つ目はエラーになってしまいます。
+これは + の<font color="#ff0000">優先順位</font>が = より高いために、
+先に y + z を処理しようとするからです。
+二つ目は ( ... ) によって z = 20 が先に処理され、
+この式の値を y に加算した結果を x に代入します。</p>
+
+<hr>
+
+<h3>２．５．初期化</h3>
+
+<p>変数を定義するときに、
+その変数に値を設定する（初期値を与える）ことを
+<font color="#ff0000">初期化</font>と言います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>double pai = 3.14159265359; // 円周率</table>
+</center>
+
+<p>代入はその文を実行する度に行われますが、
+初期化はその変数が<font color="#ff0000">生成</font>されたときにのみ行われます。
+変数が生成されるタイミングについては後述します。</p>
+
+<hr>
+
+<h3>２．６．精度</h3>
+
+<p>変数には格納できる範囲を越えた値を代入することはできません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main()
+{
+  short x, y, z;                // short 型の変数
+
+  x = 200;                      // x に 200 を代入
+  y = 300;                      // y に 300 を代入
+
+  z = x * y;                    // z には 60000 が入るはず
+
+  cout &lt;&lt; z &lt;&lt; endl;            // z を出力
+}</table>
+</center>
+
+<p>上の例では z には 60000 が入るはずですが、
+これをコンパイルして実行すると -5536 という値が出力されます。
+これは z が short 型のために 200 * 300 という計算の結果を格納できず
+（short の範囲は -32768～32767）、
+<font color="#ff0000">桁溢れ（オーバーフロー）</font>が発生しています。</p>
+
+<p>実数はコンピュータの内部で指数表記で表されるので、
+このような問題は発生しにくいのですが、
+逆に実数には次のような性質があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main()
+{
+  float f;                      // float 型の変数
+
+  f = 0.1;                      // f は 0.1
+  <b>cout.precision(16);</b>           // 実数の出力精度を 16 桁に設定
+  cout &lt;&lt; f &lt;&lt; endl;            // f を出力
+}</table>
+</center>
+
+<p>上の例で使用している <tt>cout.precision(16)</tt>
+は実数を出力ストリームに出力する際に、
+16 桁の精度で数字に変換するよう指定します。
+このプログラムをコンパイルして実行すると、0.1 ではなく 0.1000000014901161
+が出力されます。
+この理由は 0.1 を二進数で表そうとすると循環小数になってしまうからです。
+コンピュータにおいて 0.1 という実数値は、
+実は 0.1 の<font color="#ff0000">近似値</font>なのです。</p>
+
+<p>次に、この f に 0.000000001 を足してみましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main()
+{
+  float f<b>, g</b>;                   // float 型の変数
+
+  f = 0.1;                      // f は 0.1
+  <b>g = f + 0.000000001;</b>          // g は f より 0.000000001 多いはず
+  cout.precision(16);           // 実数の出力精度を 16 桁に設定
+  cout &lt;&lt; f &lt;&lt; endl;            // f を出力
+  <b>cout &lt;&lt; g &lt;&lt; endl;</b>            // g を出力
+}</table>
+</center>
+
+<p>これをコンパイルして実行すると、
+f も g もともに 0.1000000014901161 であることがわかります。
+float 型の精度は 7 桁程度しかないので、
+格納されている値にそれより 8 桁以上小さな実数値を加えても
+表現できないのです。</p>
+
+<hr>
+
+<h2>課題４</h2>
+
+<hr>
+
+<p>半径 r の球の体積 v は v = 4π×r<sup>3</sup>÷3 で求められます。
+円周率πを pai = 3.14159265359 とし、r = 4.5 の時の v を計算して、
+それを出力するプログラムを作成してください。
+なお v の計算式を C++ のプログラムの形式で書くと、
+たとえば次のようになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>v = 4.0 * pai * r * r * r / 3.0;</table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai4">tokoi</a>
+まで送ってください。Subject:（件名）は kadai4 としてください。</p>
+
+<hr>
+
+<a name="constant">
+<h2>３．定数</h2></a>
+
+<hr>
+
+<p>1 とか 'a' などはある定まった値を持っているので、
+<font color="#ff0000">定数</font>と呼ばれます。</p>
+
+<hr>
+
+<h3>３．１．整数定数</h3>
+
+<p><font color="#ff0000">整数定数</font>は
+1 とか 123 のように数字のみから構成されたもので、
+<font color="#ff0000">int 型の定数</font>です。
+もし値が int 型の範囲に収まらなければ、
+long あるいは unsigned long 型になります。</p>
+
+long 型の定数には 1l や 123L のように、
+数字の後に
+<font color="#ff0000">l</font> や <font color="#ff0000">L</font>
+という<font color="#ff0000">接尾辞</font>を付けます。
+また unsigned 型の定数には
+<font color="#ff0000">u</font> や <font color="#ff0000">U</font>
+という接尾辞を付けます。
+unsigned long の定数の接尾辞は
+<font color="#ff0000">ul</font> または <font color="#ff0000">UL</font>
+です（uL, Ul lu, Lu, lU, LU でも構いません）。
+
+<p>なお、最初の数字が 0 の場合は八進数になります。014 は十進数の 12 です。
+最初の2文字が 0x または 0X の場合は十六進数になります。
+0xc は十進数の 12 です。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="17">整数定数</th></tr>
+<tr>
+<td bgcolor="#ffffaa" align="right">10進数</td>
+<td bgcolor="#ffeeaa" align="right">0</td>
+<td bgcolor="#ffeeaa" align="right">1</td>
+<td bgcolor="#ffeeaa" align="right">2</td>
+<td bgcolor="#ffeeaa" align="right">3</td>
+<td bgcolor="#ffeeaa" align="right">4</td>
+<td bgcolor="#ffeeaa" align="right">5</td>
+<td bgcolor="#ffeeaa" align="right">6</td>
+<td bgcolor="#ffeeaa" align="right">7</td>
+<td bgcolor="#ffeeaa" align="right">8</td>
+<td bgcolor="#ffeeaa" align="right">9</td>
+<td bgcolor="#ffeeaa" align="right">10</td>
+<td bgcolor="#ffeeaa" align="right">11</td>
+<td bgcolor="#ffeeaa" align="right">12</td>
+<td bgcolor="#ffeeaa" align="right">13</td>
+<td bgcolor="#ffeeaa" align="right">14</td>
+<td bgcolor="#ffeeaa" align="right">15</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa" align="right">8進数</td>
+<td bgcolor="#ffeeaa" align="right">000</td>
+<td bgcolor="#ffeeaa" align="right">001</td>
+<td bgcolor="#ffeeaa" align="right">002</td>
+<td bgcolor="#ffeeaa" align="right">003</td>
+<td bgcolor="#ffeeaa" align="right">004</td>
+<td bgcolor="#ffeeaa" align="right">005</td>
+<td bgcolor="#ffeeaa" align="right">006</td>
+<td bgcolor="#ffeeaa" align="right">007</td>
+<td bgcolor="#ffeeaa" align="right">010</td>
+<td bgcolor="#ffeeaa" align="right">011</td>
+<td bgcolor="#ffeeaa" align="right">012</td>
+<td bgcolor="#ffeeaa" align="right">013</td>
+<td bgcolor="#ffeeaa" align="right">014</td>
+<td bgcolor="#ffeeaa" align="right">015</td>
+<td bgcolor="#ffeeaa" align="right">016</td>
+<td bgcolor="#ffeeaa" align="right">017</td>
+</tr>
+<tr>
+<td bgcolor="#ffffaa" align="right">16進数</td>
+<td bgcolor="#ffeeaa" align="right">0x0</td>
+<td bgcolor="#ffeeaa" align="right">0x1</td>
+<td bgcolor="#ffeeaa" align="right">0x2</td>
+<td bgcolor="#ffeeaa" align="right">0x3</td>
+<td bgcolor="#ffeeaa" align="right">0x4</td>
+<td bgcolor="#ffeeaa" align="right">0x5</td>
+<td bgcolor="#ffeeaa" align="right">0x6</td>
+<td bgcolor="#ffeeaa" align="right">0x7</td>
+<td bgcolor="#ffeeaa" align="right">0x8</td>
+<td bgcolor="#ffeeaa" align="right">0x9</td>
+<td bgcolor="#ffeeaa" align="right">0xa</td>
+<td bgcolor="#ffeeaa" align="right">0xb</td>
+<td bgcolor="#ffeeaa" align="right">0xc</td>
+<td bgcolor="#ffeeaa" align="right">0xd</td>
+<td bgcolor="#ffeeaa" align="right">0xe</td>
+<td bgcolor="#ffeeaa" align="right">0xf</td>
+</tr>
+</table>
+</center>
+
+<hr>
+
+<h3>３．２．文字定数</h3>
+
+<p>'1' や 'a' のように１文字を '...'
+（シングルクォーテーションマーク）
+ではさんだものを<font color="#ff0000">文字定数</font>と呼びます。
+これは<font color="#ff0000">char 型の定数</font>です。
+<font color="#ff0000">文字リテラル</font>とも呼ばれます。
+この値は<font color="#ff0000">文字コード</font>と呼ばれる整数値で、
+そのコンピュータにおいてその文字に割り当てられた
+<font color="#ff0000">番号</font>に相当します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  char c, d;
+  int i;
+
+  c = 'A';         // c に A の文字コード (65) を代入
+  d = c + 1;       // d は 66、すなわち B の文字コードが入る
+  i = d;           // i も 66
+
+  cout &lt;&lt; d &lt;&lt; endl;  // B が出力される
+  cout &lt;&lt; i &lt;&lt; endl;  // 66 が出力される
+}</table>
+</center>
+
+<p>上の例では、char 型の変数 c に代入した 'A' という文字の文字コードに 1
+を加えたものを、char 型の変数 d に代入しています。さらに d を int 型の変数 i
+に代入しています。d と i には同じ値が入っていますが、
+char 型の変数を出力ストリームに出力すると、
+その値の文字コードの文字が出力されるのに対して、
+int 型の変数ではそれを数値と見なして数字の列に直してから出力されます。</p>
+
+<p>改行を示す '\n' なども一つの文字です。他に次のようなものがあります。</p>
+
+<center>
+<table width="50%">
+<tr><th bgcolor="#ffcccc" colspan="2">制御文字定数</th></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\r</tt></td><td bgcolor="#ffffaa" width="*">復帰</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\n</tt></td><td bgcolor="#ffffaa" width="*">改行</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\f</tt></td><td bgcolor="#ffffaa" width="*">改ページ（紙送り）</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\t</tt></td><td bgcolor="#ffffaa" width="*">水平タブ</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\v</tt></td><td bgcolor="#ffffaa" width="*">垂直タブ</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\h</tt></td><td bgcolor="#ffffaa" width="*">バックスペース</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\a</tt></td><td bgcolor="#ffffaa" width="*">注意喚起（ブザー）</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\\</tt></td><td bgcolor="#ffffaa" width="*">\（バックスラッシュ１文字）</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\'</tt></td><td bgcolor="#ffffaa" width="*">'（一重引用符１文字）</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\"</tt></td><td bgcolor="#ffffaa" width="*">"（二重引用符１文字）</td></tr>
+<tr><td bgcolor="#ffeeaa" width="10%"><tt>\?</tt></td><td bgcolor="#ffffaa" width="*">?（疑問符１文字）</td></tr>
+</table>
+</center>
+
+<p>文字コードを直接指定するときは <tt>'\012'</tt>
+のように <tt>\</tt> に続けて八進数を書くか、
+<tt>'\xa0'</tt> のように <tt>\x</tt> に続けて十六進数を書きます。</p>
+
+<font size="-1">
+<ul>
+
+<li><p>'ab' のように '...' の間に複数の文字を入れたものは
+<font color="#ff0000">多文字定数</font>と呼ばれます。
+これは <font color="#ff0000">int 型の定数</font>です。</p></li>
+
+<li><p>L'1' や L'ab' のように文字リテラルに
+<font color="#ff0000">L</font> という接頭辞をつけたものは
+<font color="#ff0000">ワイド文字定数</font>と呼ばれます。
+これは <font color="#ff0000">wchar_t 型の定数</font>です。
+wchar_t 型は実装に依存しますが多くの場合 int 型と等価です。
+これは日本語など、
+１文字が１バイトに収まらない文字定数を表すのに用いられます。</p></li>
+
+<li><p>いずれもこの講義では使用しません。</p></li>
+
+</ul>
+</font>
+
+<hr>
+
+<h3>３．３．文字列定数</h3>
+
+<p>"abcde" のように "..."
+（ダブルクォーテーションマーク）
+の間に０文字以上の文字の列を置いたものを
+<font color="#ff0000">文字列定数</font>と呼びます。
+これは<font color="#ff0000">文字列リテラル</font>とも呼ばれます。
+これに含まれる個々の文字は前述の文字定数ですが、
+文字列全体のデータ型は <font color="#ff0000">char * 型</font>
+（char 型のポインタ、
+ポインタについては<a href="07.html#pointer">後述</a>します）で、
+整数などとは性格の異なるものです。</p>
+
+<font size="-1">
+<ul>
+
+<li><p>L"abcde" のように文字列リテラルに
+<font color="#ff0000">L</font> という接頭辞をつけたものは
+<font color="#ff0000">ワイド文字列定数</font>と呼ばれ、
+<font color="#ff0000">wchar_t * 型の定数</font>になります。
+これは日本語など、
+１文字が１バイトに収まらない文字列定数を表すのに用いられます。</p></li>
+
+<li><p>この講義では使用しません。</p></li>
+
+</ul>
+</font>
+
+<hr>
+
+<h3>３．４．実数定数</h3>
+
+<p>1.0 とか 3. とか .5 のように小数点を含んだ数値や、
+4e23（4×10<sup>23</sup>）のように
+<font color="#ff0000">指数表記</font>された数値は
+<font color="#ff0000">double 型の定数</font>です。</p>
+
+<p>1.3f や 2.2e-10f（2.2×10<sup>-10</sup>）のように
+<font color="#ff0000">f</font> または <font color="#ff0000">F</font>
+という接尾辞を付けたときは
+<font color="#ff0000">float 型の定数</font>になります。
+また 1.3l のように実数表記に
+<font color="#ff0000">l</font> または <font color="#ff0000">L</font>
+という接尾辞を付けたときは
+<font color="#ff0000">long double 型</font>になります。</p>
+
+<hr>
+
+<h3>３．５．数字と数値</h3>
+
+<p>ちょっと次のようなプログラムを作成してみてください。
+ファイル名は calc.cc とでもしておきましょう。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; 1 &lt;&lt; endl;
+  cout &lt;&lt; '1' &lt;&lt; endl;
+  cout &lt;&lt; "1" &lt;&lt; endl;
+}</table>
+</center>
+
+<p>これをコンパイルしたあと実行してみてください。
+プログラムの出力を確かめたら、これを次のように書き替えてください。
+これをコンパイルして実行したらどういう出力が得られるでしょうか。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; 1<b>+1</b> &lt;&lt; endl;
+  cout &lt;&lt; '1'<b>+1</b> &lt;&lt; endl;
+  cout &lt;&lt; "1"<b>+1</b> &lt;&lt; endl;
+}</table>
+</center>
+
+<p>結果を見ると分かると思いますが、
+'1' や "1" は 1 という整数値を表しているのではないのです。</p>
+
+<blockquote>
+<dl compact>
+<dt><tt>1</tt>
+<dd>これは<font color="#ff0000">整数定数</font>です。
+<dt><tt>'1'</tt>
+<dd>これは<font color="#ff0000">文字定数</font>です。
+<dt><tt>"1"</tt>
+<dd>これは<font color="#ff0000">文字列定数</font>です。
+</dl>
+</blockquote>
+
+<p>コンピュータが内部では２進数でデータを表していることは知っていると思います。
+しかし、画面に表示された 1
+は数字という<font color="#ff0000">文字</font>であって、
+アルファベットなどと同じ種類のものです。
+コンピュータの内部にある整数のデータは、
+それを文字に置き換えることによって画面表示や印刷を行うことができます。</p>
+
+<p><tt>cout &lt;&lt; 1</tt> と言う処理は、1
+という整数値をそれを表す十進数の文字（列）に変換して、
+出力ストリームに送ります。これに対して
+<tt>cout &lt;&lt; '1'</tt> と言う処理は、'1'
+という文字１文字をそのまま出力ストリームに送ります。
+<tt>cout &lt;&lt; "1"</tt> は "..."
+に挟まれた文字の列を続けて出力ストリームに送ります。</p>
+
+<p>文字は実はコンピュータの内部では
+<font color="#ff0000">文字コード</font>と呼ばれる整数値で表されています。
+'0' の文字コードは十進数で 48、'1' は 49、また 'A' は 65、'B' は 66 です。
+したがって、'1'+1 という処理は、実際には 49+1
+という整数計算を行っていることになります。
+ところが '1' という文字定数に 1 という整数定数を加算したために、
+答の 50 の<font color="#ff0000">データ型</font>は char ではなく
+int になってしまいます。
+このため演算子 &lt;&lt; によって整数から文字列への変換が行われてしまい、
+50 が表示されてしまいます。</p>
+
+<p>一方 "..." で挟まれた文字列は、複数の文字が並んだデータです。
+これは一つのデータではないので
+"..." の<font color="#ff0000">値</font>は
+並んだデータの先頭の文字が格納されている場所を示しています
+（<font color="#ff0000">ポインタ</font>）。
+したがって "1"+1 はこの "1"
+という文字が格納されている場所の次の文字の場所を示していることになります。
+ところが次の文字はもうないので何も表示されないことになるのです。
+なお、文字列に対する整数の加算や減算は可能ですが、
+乗算や除算はできません。</p>
+
+<p>このように、C++ では同じ演算子を使った処理でも、
+実際の処理内容がデータ型によって異なります。
+このことに常に気を配っておかないと混乱の元になりますから、
+気をつけてください。</p>
+
+<hr>
+
+<h2>課題５</h2>
+
+<hr>
+
+<p>次のプログラムをコンパイルして実行すると、
+何が出力されるでしょうか。
+答とその理由を考察をメールで
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai5">tokoi</a>
+まで送ってください。Subject:（件名）は kadai5 としてください。
+ソースプログラムを送る必要はありません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+#include &lt;iostream.h&gt;
+
+main() {
+  cout &lt;&lt; "Wakayama University" + 9 &lt;&lt; endl;
+}</table>
+</center>
+
+</body>

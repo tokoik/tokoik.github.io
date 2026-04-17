@@ -1,0 +1,77 @@
+<head>
+<title>情報基礎演習II − 課題５７</title>
+</head>
+
+<body>
+
+<h3>課題５７</h3>
+
+<hr>
+
+<ol>
+
+<li>記号定数の定義は cc コマンドでも行うことができます。
+
+<blockquote>
+<pre>
+cc -DDEBUG program.c
+</pre>
+</blockquote>
+
+上の例では、<tt>#define DEBUG 1</tt> と定義されているものとして、
+program.c をコンパイルします。
+
+<blockquote>
+<pre>
+cc -DMYNAME='"hinagata"' akiko.c
+</pre>
+</blockquote>
+
+上の例では<tt>#define MYNAME "hinagata"</tt> と定義されているものとして、
+program.c をコンパイルします。<tt>'..'</tt>でくくっているのは、
+<tt>".."</tt>がシェルによって処理されてしまうのを防ぐためです。
+<p>
+
+<li>次のようなソースプログラムにおいて、
+「My name is あなたの名前」
+という実行出力が得られるようにコンパイルする cc コマンドの引数を、
+メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai57 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai57
+** 動作: 自己紹介
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+char who[] = 
+#if X == 1
+"My"
+#elif X == 2
+"Your"
+#elif X == 3
+"His"
+#elif X == 4
+"Her"
+#else
+"Its"
+#endif
+;
+
+int main(void)
+{
+    printf("%s name is %s\n", who, NAME);
+}
+</pre>
+</table>
+
+</ol>
+
+</body>

@@ -1,0 +1,1011 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第７回：sh スクリプト、Perl
+スクリプト</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080"><h1>情報処理 I - 第７回</h1><HR>
+<H2>１．sh スクリプト</H2>
+<HR>
+<H3>１．１　シェルスクリプトの復習</H3>
+<P>この授業の<A href="04.html">第４回</A>では、シェルで実行するコマンドをファイルに書いておき、そのファイルをシェルに読み込ませることでコマンドを実行させる方法について学びました。ただし、第４回では
+cat コマンドを使ってコマンドをファイルに書き込んでいましたが、普通これは<A href="05.html#editor">第５回</A>で学んだテキストエディタを使って作成します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">テキストエディタでシェルスクリプトを作成する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs sample.csh &amp;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ファイル名の<B>拡張子</B>は、実はここでは<B>何でもいい</B>んですが（付けなくてもいい）、csh のスクリプトなので一応
+<B>.csh</B> という拡張子を付けることにします。テキストエディタが起動したら、以下の内容をタイプしてください｡</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>#!/bin/csh -f<STRONG>[Enter]</STRONG></U>
+<U>echo &quot;今日は&quot;<STRONG>[Enter]</STRONG></U>
+<U>date<STRONG>[Enter]</STRONG></U>
+<U>echo &quot;です。&quot;<STRONG>[Enter]</STRONG></U>
+<U>cal<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>タイプできたら <B><TT>C-x C-s</TT></B> でファイルを保存してください。このとき、emacs
+を<B>終了させないで</B>おきましょう。次に、このファイルを<B>実行可能</B>に設定します。ターミナルのウィンドウで次のコマンドを実行してください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">シェルスクリプトを実行可能にする</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>chmod +x sample.csh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>それでは、このスクリプトを実行してみましょう。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">シェルスクリプトを実行する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>./sample.csh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このシェルスクリプトは csh によって実行されます。しかし
+csh のシェルスクリプトは、実はあまり一般的ではありません。Unix/Linux
+では多くのコマンドがシェルスクリプトで実現されていますが、そのほとんどが
+<B>sh</B> (Bourne shell) に対応したものになっています（Linux
+の場合、sh のは実際には sh と互換性のある
+<B>bash</B> (Bourne again shell) が実行されます）。</P><H3>１．２　sh スクリプトの作成</H3>
+<P>それでは sh 用のスクリプトを作成してみましょう。先ほど作成した
+csh 用のシェルスクリプトを、<B>sh 用に変更</B>してみます。emacs は sample.csh を編集している状態になっていると思いますから、これを一旦
+sample.<B>sh</B> というファイル名で保存してください。emacs
+のバッファの内容を別の名前で保存するには、<TT><B>C-x</B></TT> <TT><B>C-w</B></TT> を使います。<TT><B>C-x</B></TT> <TT><B>C-w</B></TT> をタイプして、保存するファイル名に sample.sh
+を指定してください。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc"><TT>-E:-- <B>sample.csh</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Write file: ~/<U>sample.sh</U></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>保存が完了したら、バッファの<B><A href="04.html#magic">最初の１行</A></B>を、csh ではなく <B>sh を起動する</B>ように変更してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><B>#!/bin/sh</B>
+echo &quot;今日は&quot;
+date
+echo &quot;です。&quot;
+cal</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>変更できたら <B><TT>C-x C-s</TT></B> でファイルを保存します。このときも emacs
+は<B>バックグラウンドで動かしたまま</B>にしておいてください。そして、ターミナルのウィンドウで
+sample.sh を実行可能に設定したあと、実際に実行してみてください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">シェルスクリプトを実行可能にしたあと実行する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>chmod +x sample.sh<STRONG>[Enter]</STRONG></U>
+% <U>./sample.sh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このスクリプト sh で解釈されますが、単にコマンドを順番に実行するだけなので、結果は
+csh の時と同じはずです。それでは、この sh
+の動作を、sh を対話的なシェルとして使いながら確かめてみましょう。</P>
+<H3>１．３ sh をシェルとして使う</H3>
+<P>sh コマンドを実行すると、sh をシェルとして使用できるようになります。sh
+のプロンプトは、ここでは <B>$</B> １文字であるとします。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">sh をシェルとして使う</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">sh を起動してみる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U><B>sh</B><STRONG>[Enter]</STRONG></U>
+$        <EM>←プロンプトが変わる</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">今は csh の<B>中で</B> sh が起動している。sh もシェルなので、コマンドを実行することができる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>date<STRONG>[Enter]</STRONG></U>
+2002年 5月29日(水曜日) 11時38分38秒 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>このように、sh もコマンドを実行するための標準的なシェルとして使用されます。特に
+Linux では、sh と互換性のある bash が<B>ログインシェル</B>（ログイン時やターミナルのウィンドウを開いたときに実行されるシェル）としてよく使われます。sh
+はコマンドを実行する点では csh と同じですが、複雑なことをしようとしたときの<B>書き方</B>（文法）が異なります。sh (bash) の詳細は、man
+bash で調べてください。</P>
+<H3>１．４　sh のシェル変数と環境変数</H3>
+<P>sh はシェル変数や環境変数の取り扱い方が csh
+とは異なります。sh ではシェル変数に値を代入する際に
+set コマンドを使用しません。ただし、シェル変数を消去するには
+<B>unset</B> コマンドを使います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">シェル変数 (sh)</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">変数 name に ichiro を代入してみる。変数
+      name は自動的に作られる。<FONT color="#ff0000">sh では変数への値の格納に set コマンドを<B>用いない</B>。また = の前後にはスペースを<B>入れない</B>。</FONT></TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>my=</B>&quot;My name is&quot;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">echo コマンドを使って、name の内容を見てみる。変数の値を参照する(取り出す)には、変数名に
+      <B><TT>$</TT></B> を付ける。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>echo <B>$</B>my<STRONG>[Enter]</STRONG></U>
+My name is</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><B>read</B> コマンドを使えば、<A href="03.html#stdin">標準入力</A>から入力したデータを変数に格納できる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>read</B> name<STRONG>[Enter]</STRONG></U>
+<U>Kentaro<STRONG>[Enter]</STRONG></U><EM> ←データ入力待ちになるので、何か入れて改行</EM>
+$ <U>echo $my $name<STRONG>[Enter]</STRONG></U>
+My name is Kentaro <EM>←さっき入れたものが入っている</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">１回で複数の変数への代入ができる。expr は引数を数式とみなして計算するコマンド。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>v1=</B>10 <B>v2=</B>20<STRONG>[Enter]</STRONG></U>
+$ <U>echo $v1 $v2<STRONG>[Enter]</STRONG></U>
+10 20
+$ <U>expr $v1 + $v2<STRONG>[Enter]</STRONG></U>
+30</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><B>set</B> コマンドでシェル変数を全部表示する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>set</B><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">シェル変数を消去するには <B>unset</B> コマンドを使う。<FONT color="#ff0000">csh とは異なり、未定義の変数を参照してもエラーメッセージは出ない。</FONT></TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>unset</B> v1 v2 v3<STRONG>[Enter]</STRONG></U>
+$ <U>echo $v1<STRONG>[Enter]</STRONG></U>
+                <EM>←何もでない</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>sh の<A href="04.html#environ">環境変数</A>はシェル変数と密接に関連しています。環境変数を設定するには、一旦シェル変数を設定し、それを<B>環境に組み込み</B>ます。これには <B>export</B> コマンドを使います。また環境変数の解除には、シェル変数同様
+<B>unset</B> コマンド、環境変数の一覧を表示するには <B>env</B> コマンドを使います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">環境変数 (sh)</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">HENSU という変数を表示するだけの csh スクリプト
+      b を作る。もちろん emacs を使ってもよい。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>cat &gt; b<STRONG>[Enter]</STRONG></U>
+<U>#!/bin/csh -f<STRONG>[Enter]</STRONG></U>
+<U>echo $HENSU<STRONG>[Enter]</STRONG></U>
+<U>Ctrl-D</U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">b を実行可能にする。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>chmod +x b<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">b を実行してみる。多分エラーになる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>./b<STRONG>[Enter]</STRONG></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">シェル変数 HENSU に値を与えてもエラーになる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>HENSU=10<STRONG>[Enter]</STRONG></U>
+$ <U>./b<STRONG>[Enter]</STRONG></U>
+HENSU: 変数を定義していません.</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%"><B>export</B> コマンドを使って、シェル変数 HENSU を環境に組み込む。今度はうまくいく。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>export</B> HENSU<STRONG>[Enter]</STRONG></U>
+$ <U>./b<STRONG>[Enter]</STRONG></U>
+10</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">コマンドの左にシェル変数への代入を置くと、そのコマンドに対してだけ一時的に環境変数となります。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>HENSU=20 ./b<STRONG>[Enter]</STRONG></U>
+20  <EM>←b では環境変数 HENSU に 20 が入っている</EM>
+$ <U>echo $HENSU<STRONG>[Enter]</STRONG></U>
+10  <EM>←もとのシェルでは HENSU は 10 のまま</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．５　引用符</H3>
+<P>シェルや他のプログラミング言語において、データや画面表示に使う単語や文章のような「文字がならんだデータ」のことを<B>文字列</B>と呼びます。文字列は、それが空白などを含んでいてもひとかたまりのデータとして扱えるように、<B>引用符</B>でくくります。sh や csh では、引用符によって動作が違います。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>'～'（シングルクォーテーションマーク）</B>
+  <DD><B>'～'</B>（シングルクォーテーションマーク、シングルクォート）ではさんだものは、スペースなどを含めて単一の文字列として取り扱われます。
+  <DT><B>&quot;～&quot;（ダブルクォーテーションマーク）</B>
+  <DD><B>&quot;～&quot;</B>（ダブルクォーテーションマーク、ダブルクォート）ではさんだものは、スペースなどを含めて単一の文字列として取り扱われます。ただし、<B>変数</B>（シェル変数、環境変数）はその内容に置き換わります。また次の
+  <B>`～`</B>（バッククォーテーションマーク）による置き換えも行われます。
+  <DT><B>`～`（バッククォーテーションマーク）</B>
+  <DD><B>`～`</B>（バッククォーテーションマーク、バッククォート）は上の２つとは異なり、この間にはさんだものを<B>コマンド</B>として実行します。そして、その<B>標準出力への出力</B>を、この<B>場所</B>に書かれた文字列として取り扱います。
+</DL>
+</BLOCKQUOTE>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">引用符</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">echo コマンドで *（アスタリスク）を出力しようと思う。しかし、*
+      は<A href="03.html#wildcard">ワイルドカード</A>なので、ファイル名の一覧が出力されてしまう。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>*</B><STRONG>[Enter]</STRONG></U>
+<EM>（ファイル名の一覧が出力される）</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">\ を使えば * の効果を打ち消すことができる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>\</B>*<STRONG>[Enter]</STRONG></U>
+*</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">'～' や &quot;～&quot; ではさんでも * を出力できる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>'</B>*<B>'</B><STRONG>[Enter]</STRONG>
+</U>*
+$ <U>echo <B>&quot;</B>*<B>&quot;</B><STRONG>[Enter]</STRONG>
+</U>*</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">echo コマンドで $HOME を出力してみる。HOME
+      はホームディレクトリの場所を格納している環境変数。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>$</B>HOME<STRONG>[Enter]</STRONG></U>
+/home/s3/s075000</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">\ を使って $ の効果を打ち消すことができる。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>\</B>$HOME<STRONG>[Enter]</STRONG></U>
+$HOME</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">しかし、&quot;～&quot; ではさんでも $ の効果は生きている。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>&quot;</B>$HOME<B>&quot;</B><STRONG>[Enter]</STRONG></U>
+/home/s3/s075000</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">'～' では $ がそのまま出力される。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>'</B>$HOME<B>'</B><STRONG>[Enter]</STRONG></U>
+$HOME</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">`～` にはさんだものは、コマンドとして実行される。右の例は、date
+      コマンドの出力をシェル変数 d に格納する。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>d=<B>`</B>date<B>`</B><STRONG>[Enter]</STRONG></U>
+$ <U>echo $d<STRONG>[Enter]</STRONG></U>
+2002年 5月29日(水曜日) 11時45分22秒 JST</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>それでは、sample.sh を次のように変更（<B>太字</B>の部分）してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/bin/sh
+echo &quot;今日は&quot;
+date
+echo &quot;です。&quot;
+<B>echo &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo &quot;あなたは何月生まれですか？&quot;
+read month</B>
+<B>echo &quot;あなたの誕生月のカレンダーです。&quot;</B>
+cal <B>$month `expr $year + 1925`</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>変更が完了したら <TT><B>C-x C-s</B></TT> で sample.sh を保存し、ターミナルのウィンドウでそれを実行してみてください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>./sample.sh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>引用符や変数は組み合わせて使用することができます。sample.sh
+を、次のように変更してみてください。最初に表示している３行を、１行にまとめます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/bin/sh
+<B>d=`date +'%m月%d日'`
+echo &quot;今日は$dです。&quot;
+</B>echo &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo &quot;あなたは何月生まれですか？&quot;
+read month
+echo &quot;あなたの誕生月のカレンダーです。&quot;
+cal $month `expr $year + 1925`</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><TT><B>C-x C-s</B></TT> で sample.sh を保存し、ターミナルのウィンドウで
+sample.sh を実行してみてください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>./sample.sh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>date コマンドは引数で出力する日付と時間の書式を制御できます。詳しくは
+man date を見てください。</P>
+<H3>１．６　プロンプトを出す</H3>
+<P>この sample.sh を実行すると、「あなたは昭和何年生まれですか？」という質問が表示された後、<B>次の行に改行して</B>データの入力待ちになります。「あなたは昭和何年生まれですか？」という表示は、データの入力を促す<B>プロンプト</B>（入力促進符号）なので、ここで改行されないほうが見やすいかもしれません。echo
+コマンドに <B>-n</B> というオプションを付ければ、この改行を抑止できます。</P>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>echo コマンドの -n オプション</B>
+  <DD>echo コマンドは引数に指定した文字列を<A href="03.html#stdout">標準出力</A>に出力するコマンドですが、出力される行の行末には改行が付加されます。echo
+  コマンドに -n オプションを付けた場合は、改行を出力しません。
+</DL>
+</BLOCKQUOTE>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">echo コマンドの -n オプション</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">コマンドを <B>;</B>（セミコロン）で区切れば、１行に複数のコマンドを書くことができる。この例では、ひとつの
+      echo コマンドごとに改行が出力される。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo &quot;This is &quot;<B>;</B> echo &quot;a pen.&quot;<STRONG>[Enter]</STRONG></U>
+This is 
+a pen.            <EM>←改行が入る</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">echo コマンドに -n オプションを付ければ、この改行を抑止できる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>-n</B> &quot;This is &quot;; echo &quot;a pen.&quot;<STRONG>[Enter]</STRONG></U>
+This is a pen.    <EM>←改行が入らない</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">echo -n と read の組み合わせ</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">read コマンドがデータ入力を待っているときは、<B>プロンプト</B>は表示されない。そこで、echo コマンドを使って自分でプロンプトを出してやることにする。しかし、これではプロンプト（ここでは
+      &quot;x=&quot;）の後に<B>改行が出力</B>されてしまい、read による入力データ待ちと<B>分離</B>してしまう。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo &quot;x=&quot;; read x<STRONG>[Enter]</STRONG></U>
+x=            <EM>←echo コマンドを使って出したプロンプト</EM>
+<U>10<STRONG>[Enter]</STRONG></U>    <EM>←データ入力待ちになるので、何か入れて改行</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">echo コマンドに -n オプションを付ければ改行が出力されないため、プロンプトの直後で入力データを待つことができる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>echo <B>-n</B> &quot;x=&quot;; read x<STRONG>[Enter]</STRONG></U>
+x=<U>10<STRONG>[Enter]</STRONG></U>  <EM>←プロンプトのところで入力データ待ちになる</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>それでは、sample.sh の中の２つの echo コマンドに、<B>-n</B> オプションを追加してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/bin/sh
+d=`date +'%m月%d日'`
+echo &quot;今日は$dです。&quot;
+echo <B>-n</B> &quot;あなたは昭和何年生まれですか？&quot;
+read year
+echo <B>-n</B> &quot;あなたは何月生まれですか？&quot;
+read month
+echo &quot;あなたの誕生月のカレンダーです。&quot;
+cal $month `expr $year + 1925`</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>追加できたら <TT><B>C-x C-s</B></TT> で sample.sh を保存し、ターミナルのウィンドウで
+sample.sh を実行してみてください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">sample.sh を実行する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U>./sample.sh<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><H3>１．７　sh の終了</H3>
+<P>実は sh は csh より古く、Unix の初期のログインシェルとして使われていました。現在ではログインシェルとして使用するよりも、プログラミング言語としてよく使われます。ただし
+bash（皆さんが今使っている sh）は、ログインシェルとしても良く使われています。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">sh を終了する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">sh を終了する。sh の場合も Ctrl-D か <B>exit</B> コマンドで終了できる。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>$ <U><B>exit</B><STRONG>[Enter]</STRONG></U>
+%    <EM>←csh のプロンプトに戻る</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>１．８　カウンターを作ってみる</H3>
+<P>次に、sh スクリプトで数を数えるコマンド（<B>カウンタ</B>）を作ってみましょう。カウンターとは、下の例のように、実行するたびに出力する数値が１ずつ増えていくコマンドです<FONT color="#ff0000">（これはあくまでも<B>例</B>ですから、今はまだ実行できません）</FONT>。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">カウンターの動作</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>./counter.sh<STRONG>[Enter]</STRONG></U>
+1
+% <U>./counter.sh<STRONG>[Enter]</STRONG></U>
+2
+% <U>./counter.sh<STRONG>[Enter]</STRONG></U>
+3 <EM>←実行するたびに数が増えていく</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>counter.sh は数値（カウント）を出力するとすぐに終了してしまいますから、何らかの方法で前回出力した数値（カウント）が何だったか覚えておく必要があります。ここではこれをファイルに記録しておくことにします。この段取りは次のようになります。</P>
+<OL>
+  <LI>前回出力したカウントをファイルから取り出す
+  <LI>このカウントに１を加える
+  <LI>この結果を出力する
+  <LI>この結果をファイルに記録しておく
+</OL>
+<P>カウントを記録しておくファイルのファイル名は
+count.dat とします。変数にデータを格納するには
+read コマンドを使用しますが、ここではそのデータを
+count.dat から取り出す必要があります。したがって、このファイルの中からデータを取り出してシェル変数に格納するには、read
+コマンドの標準入力をリダイレクトして、count.dat
+からデータを取り出すようにします。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">ファイルから変数にデータを格納する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>read count &lt; count.dat</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER>
+<P>ただし、最初に counter.sh を実行した時には前回のカウントは調べられませんから、その場合はカウントを
+0 としておく必要があります。最初に counter.sh
+を実行したときには、おそらく count.dat は存在しないでしょうから、このファイルが見つからなければ
+counter.sh を初めて動かしたのだと判断できます。あるファイルが存在するかどうかを調べるには、<B>test</B> コマンドを使います。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">test コマンドと終了ステータス</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">コマンドはその実行を終えると、<B>終了ステータス</B>をシェルに報告する。直前に実行したコマンドの終了ステータスは
+      <B>$?</B> という特殊な変数で取り出すことができる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>ls<STRONG>[Enter]</STRONG></U>  <EM>←何かコマンドを実行してみる</EM>
+<EM>（ファイル名の一覧が出力される）</EM>
+$ <U>echo <B>$?</B><STRONG>[Enter]</STRONG></U>
+0 <EM>←終了ステータス 0（ls の実行成功）</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">終了ステータスは整数値であり、0 が真（コマンドは正常に実行できた）、非
+      0 が偽（コマンドの実行に失敗した）を表す。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>ls xyz<STRONG>[Enter]</STRONG></U>  <EM>←引数に存在しないファイル名を指定</EM>
+ls: xyz: そのようなファイルやディレクトリはありません
+$ <U>echo <B>$?</B><STRONG>[Enter]</STRONG></U>
+1 <EM>←終了ステータス 1（ls の実行失敗）</EM></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><B>test</B> コマンドは引数に指定したテストを実行して、結果を終了ステータスでシェルに報告する。tesf
+      -f file だと、file というファイルが存在すれば、終了ステータスは真
+      (0) になる。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>$ <U>test -f xyz<STRONG>[Enter]</STRONG>
+</U>$ <U>echo $?<STRONG>[Enter]</STRONG>
+</U>1 <EM>←test コマンドは何も言わないが終了ステータスは 1</EM>
+$ <U>test -f sample.sh<STRONG>[Enter]</STRONG>
+</U>$ <U>echo $?<STRONG>[Enter]</STRONG>
+</U>0 <EM>←sample.sh というファイルはさっき作ったのであるはず</EM></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>test コマンドはファイルの有無のほかにも、いろんなことを調べることができます。詳しくは
+man test で調べてください。これと <B>if</B> という制御文を組み合わせれば、終了ステータスをもとにコマンドの実行順序を制御（分岐）できます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">if と終了ステータス</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>if</B> <STRONG>コマンド</STRONG>
+<B>then</B>
+<EM>    （上の<U>コマンド</U>の実行が<B>成功</B>したときに
+     この部分のコマンドが実行される）</EM>
+<B>else</B>
+<EM>    （上の<U>コマンド</U>の実行が<B>失敗</B>したときに
+     この部分のコマンドが実行される）</EM>
+<B>fi</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>すなわち、「もし(if)<STRONG>コマンド</STRONG>の実行が成功した、ならば(then) <EM>前半部分のコマンドを実行する</EM>、さもなければ(else)<EM>後半部分のコマンドを実行する</EM>」という実行順序の制御を行います。ここでは
+count.dat というファイルが存在すれば、それからデータを取り出し、さもなければ（ファイルが存在しなければ）データを
+0 とするという処理を行いますから、次のようなスクリプトになります。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">count.dat があるときだけデータを取り出す</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>if</B> test -f count.dat
+<B>then</B>
+    read count &lt; count.dat
+<B>else</B>
+    count=0
+<B>fi</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>これでようやく「前回のカウント」をシェル変数
+count に取り出すことができました。それでは、これに1を加えましょう。シェル変数
+count の値は <B>$</B>count として参照できます。expr コマンドを使って、これに
+1 を加えます。これは expr $count + 1 でできます。この出力を再び
+count に格納します。それには `～` を使います。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">シェル変数 count に 1 を加える</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>count=`expr $count + 1`</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>あとは、このシェル変数 count の値を標準出力に出力し、さらにファイル
+count.dat にも保存すれば完了です。コマンドの出力をファイルに保存するには、<A href="03.html#stdout">標準出力をリダイレクト</A>します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">シェル変数の値を標準出力とファイルに出力する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>echo $count
+echo $count &gt; count.dat</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>すべての処理が終わったら、sh スクリプトを終了します。sh
+スクリプトの終了にも exit コマンドを使いますが、その引数にこのスクリプトの<B>終了ステータス</B>を指定します。sh スクリプトが正しく仕事を完了して終了するなら、通常ここに
+0 を指定します。終了ステータスを指定しなければ、sh
+スクリプト内で最後に実行したコマンドの終了ステータスが、スクリプトの終了ステータスとなります。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">sh スクリプトを終了する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE>exit <B>0</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>実際の counter.sh の作成は<A href="#kadai">課題</A>として行ってください。</P>
+<H3>１．９　その他の実行制御</H3>
+<P>sh には if 以外に繰り返しを行う for や while、複数の条件に分岐できる
+case などの実行制御機能があります。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">for</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>for</B> x <B>in</B> this is a pen.
+<B>do</B>
+    echo $x
+<B>done</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><B>for</B> は <B>in</B> の右側に書かれたものを一つ一つシェル変数
+x に格納し、そのたびに <B>do</B> ～ <B>done</B> の間を実行します。上の例では x に this を入れた後
+echo $x を実行し、次に is を格納して echo
+$x を実行するという具合に、this、is、a、pen.
+の４つに対してそれぞれ echo $x が実行されます。ここに<A href="03.html#wildcard">ワイルドカード</A>を指定すれば、カレントディレクトリにある一つ一つのファイルに対して処理を行うことができます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">while</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>while</B> read x
+<B>do</B>
+    echo $x
+<B>done</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><B>while</B> は while の右側に書かれたコマンドの終了ステータスが<B>真</B>の間、<B>do</B> ～ <B>done</B> の間を繰り返し実行します。上の例では read
+が成功している間、すなわちデータの入力が行われている間、echo
+$x が実行されます。データの入力が終了した（ファイルの終わりに達した）場合などに終了ステータスは<B>偽</B>になりますから、繰り返しは終了します。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">case</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>case</B> $x <B>in</B>
+a<B>)</B>
+    echo &quot;$x は a というファイル&quot;
+    <B>;;</B>
+b*<B>)</B>
+    echo &quot;$x は b で始まるファイル&quot;
+    <B>;;</B>
+*<B>)</B>
+    echo &quot;$x はその他のファイル&quot;
+    <B>;;</B>
+<B>esac</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><B>case</B> は <B>in</B> との間に書かれたものと、&quot;)&quot; のところに書かれた文字列パターン（case
+ラベル）との間で<B>パターンマッチング</B>（文字列パターンの照合）を行います。この文字列パターンにも<A href="03.html#wildcard">ワイルドカード</A>が使用できます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">例</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" valign="top">
+      <PRE><B>for</B> file <B>in</B> *<B>
+</B><B>do</B><B>
+</B>    <B>case</B> $file <B>in</B>
+    *.bak|*~<B>)</B>
+        echo &quot;$file はバックアップファイルです。&quot;
+        rm -i $file
+        <B>;;</B>
+    *.txt<B>)</B>
+        echo &quot;$file はテキストファイルです。&quot;
+        echo -n &quot;中身を見ますか？&quot;
+        read answer
+        case $answer in
+        y*)
+            less $file
+        esac
+        <B>;;</B>
+    *<B>)</B>
+    echo &quot;$file はその他のファイルです。&quot;
+    <B>;;</B>
+<B>esac</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>上の例は、カレントディレクトリにあるすべてのファイル
+(<TT>*</TT>) について、ファイル名の最後が &quot;<TT>.bak</TT>&quot; または (<TT>|</TT>) &quot;<TT>~</TT>&quot; のファイルは「バックアップファイル」であるとみなして削除します。また、ファイル名の最後が
+&quot;<TT>.txt</TT>&quot; のファイルは「テキストファイル」とみなして、ページャ
+(less) を使って中身を見るかどうかたずねます。ここで
+yes など y で始まる文字を入力すれば、中身を見ます。</P>
+<HR>
+<H2><a name="perl">２．Perl スクリプト</a></H2>
+<HR>
+<H3>２．１　プログラミング言語 Perl</H3>
+<P>sh スクリプトは他のコマンドを組み合わせて使用することで、非常に柔軟に目的の仕事をこなすスクリプトをスクリプトを作成することができます。その一方で、sh
+スクリプトはひとつの仕事をこなすのにも複数のコマンドを動員しなければならないという効率の悪さや、組み合わせたコマンドの間でデータをやり取りするのにシェル変数や<A href="03.html#pipe">パイプ</A>くらいしか使えないという使いにくさもあります。</P>
+<P>Perl を使えば、sh スクリプトで実現されるような仕事を単一のコマンドで実現することができます。Perl
+にはログインシェルとして使えるような、対話的なコマンド操作の機能はありませんが、非常に多くのことを単一のコマンドで実現するために、Perl
+には「なんでもあり」と言えるほど多くの機能が組み込まれています。ここでは、その端っこすら紹介できませんが、まあこんな感じのスクリプトになるというあたりを見てください。</P>
+<BLOCKQUOTE><FONT size="-1">というか、Perl にまで手を伸ばしている時間はさすがにナイ・・・</FONT></BLOCKQUOTE>
+<H3>２．２　Perl スクリプトの作成</H3>
+<P>counter.sh を Perl で作成してみます。ファイル名は
+counter<B>.pl</B> にしましょう。Perl スクリプトの拡張子には<B> .pl</B> が使われることが多いようです。演習室のコンピュータでは
+Perl コマンドは /usr/bin/perl にありますから、Perl
+スクリプトの最初の１行は次のようになります。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><B>#!/usr/bin/perl</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次に、ファイル count.dat の有無を調べて、もしあればそこからデータを読むわけですが、Perl
+を含めて一般的なプログラミング言語では、データファイルを読み書きする前に、通常<B>ファイルを開く</B>という手続きが必要になります。Perl では <B>open</B> という<B>関数</B>を使います。ファイルの有無は、open が成功したか失敗したかで判断できます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/usr/bin/perl
+<B>if (open COUNT, &quot;&lt;count.dat&quot;) {
+    $count = &lt;COUNT&gt;;
+    close(COUNT);
+}
+else {
+    $count = 0;
+}</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI>COUNT は<B>ファイルハンドル</B>と呼ばれ、開いたファイルに結合します。開いたファイルを読み書きはこれを介して行います。
+  <LI>&quot;&lt;count.dat&quot; は開くファイル名ですが、先頭の
+  &quot;&lt;&quot; はそのファイルから<B>読み出しのみ行う</B>ことを指定します。
+  <LI>open 関数はファイルを開くことに成功すると<B>真</B>になります。
+  <LI>&lt;COUNT&gt; はファイルハンドル COUNT に結合しているファイルからデータを１行分取り出します。
+  <LI>開いたファイルは、使い終わったら <B>close</B> 関数を使って<B>閉じます</B>。
+  <LI>シェルの変数は参照時のみ <B>$</B> を付けますが、Perl の変数には<B>常に $ を付けます</B>。
+  <LI>Perl の if は条件を ( ～ ) でくくります。( ～ ) を省略する書き方もあります。
+  <LI><B>文</B>の終わりには必ず <B>;</B>（セミコロン）を付けます。
+</UL>
+<P>次に、読み出したカウントを１増します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/usr/bin/perl
+if (open COUNT, &quot;&lt;count.dat&quot;) {
+    $count = &lt;COUNT&gt;;
+    close(COUNT);
+}
+else {
+    $count = 0;
+}
+<B>++$count;</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI><B>++</B> という演算子は変数の内容を１増します。++$count;
+  は $count = $count + 1; と同じです。
+</UL>
+<P>そして、$count を出力します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/usr/bin/perl
+if (open COUNT, &quot;&lt;count.dat&quot;) {
+    $count = &lt;COUNT&gt;;
+    close(COUNT);
+}
+else {
+    $count = 0;
+}
+++$count;
+<B>print $count, &quot;\n&quot;;</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI><B>print</B> 関数は引数を出力します。これは出力に<B>改行を追加しない</B>ので、改行文字 &quot;\n&quot; も出力します。
+</UL>
+<P>最後に $count をファイルにも出力します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>#!/usr/bin/perl
+if (open COUNT, &quot;&lt;count.dat&quot;) {
+    $count = &lt;COUNT&gt;;
+    close COUNT;
+}
+else {
+    $count = 0;
+}
+++$count;
+print $count, &quot;\n&quot;;
+<B>open COUNT, &quot;&gt;count.dat&quot; or die &quot;count.dat: $!\n&quot;;
+print COUNT $count, &quot;\n&quot;;
+close COUNT;
+exit 0</B></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI>&quot;&gt;count.dat&quot; はファイル count.dat
+  を<B>書き込みのみ</B>行うことを指定して開きます。
+  <LI><B>die</B> は引数に書いたものを<B>標準エラー出力</B>に出力して、Perl スクリプトを終了させます。
+  <LI><B>$!</B> には直前に起きたエラーの内容（エラーコード）が入っています。
+  <LI><B>or</B> は「または」です。ファイルを開け、さもなければ（開けなければ）死ね、ということです。
+  <LI><B>print</B> の引数に<B>ファイルハンドル</B>を指定すると、それに結合しているファイルにデータを出力します。
+  <LI><B>exit</B> は Perl スクリプトを終了させます。引数の
+  0 は<B>終了ステータス</B>です。正常終了のときは 0 を指定します。
+</UL>
+<HR>
+<H2><a name="kadai">課題</a></H2>
+<HR>
+<P>（１）今日の授業の「１．５　引用符」のところで使った「<TT>cal $month `expr $year + 1925`</TT>」というコマンド行の動作を説明しなさい。</P>
+<P>（２）実際に counter.sh を作成しなさい。</P>
+<P>解答は<B>一つのメールにまとめて</B> tokoi@sys.wakayama-u.ac.jp まで送ってください。Subject:
+は「第７回」にしてください。</P>
+</BODY>

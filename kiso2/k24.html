@@ -1,0 +1,56 @@
+<head>
+<title>情報基礎演習II − 課題２４</title>
+</head>
+
+<body>
+
+<h3>課題２４</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai24.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai24
+** 動作: 変数の初期化のサンプル
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+char name1[4] = "Ken";
+char name2[4] = "Mary";
+
+int main(void)
+{
+    char skyline[100];
+
+    strcpy(skyline, name1);
+    strcat(skyline, " & ");
+    strcat(skyline, name2);
+    printf("%s\n", skyline);
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai24 という名前の実行プログラムを作成してください。
+<p>
+
+<p>このプログラムには誤りがあるため、
+コンパイル時にエラーとなります。誤りを修正し、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai24 としてください。
+
+</ol>
+
+</body>

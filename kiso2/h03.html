@@ -1,0 +1,167 @@
+<head>
+<title>情報基礎演習II − 補足３</title>
+</head>
+
+<body>
+
+<h3>補足３：プログラムを書くスタイル</h3>
+
+<hr>
+
+ソースプログラムはコンピュータに仕事をさせるための、
+一種の「手順書」と呼べるものですが、
+人間自身もそれを見ます。
+ソースプログラムを書く場合には、
+自分以外の人がそれを見て、
+自分が何をコンピュータにさせようとしているのかが
+容易に理解できるよう留意する必要があります。
+見かけの美しいプログラムを書くことは、
+無駄なことではありません。
+<p>
+
+<hr>
+
+<h3>コメント（注釈）</h3>
+
+そのプログラムを他の人や、
+プログラムの作者自身が読むときの参考になる、
+そのプログラムに対する解説です。コンパイラはそれを無視します。
+Ｃ言語のコメントは /* で始まり */ で終わります。
+<p>
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+**      プログラム： hello.c -- "Hello!" を標準出力に出力する
+**      目的： プログラムの例
+**      作者： 山田太郎
+**      作成日： １９９４年１０月　３日
+**      修正日： １９９４年１０月１７日
+*/
+int main(void)
+{
+    /* 挨拶をする */
+    printf("Hello!\n");
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+コメントの入れ子（ネスティング）はできません。
+次のような例はエラーになります。
+
+<blockquote>
+<tt>
+<table>
+<tr>
+<td><tt>/* ……………… /* ……………… */</tt>
+<hr>
+<td><tt>…………………… */</tt>
+<hr>
+<tr>
+<td align="center">この部分が<br>ひとつのコメントになる
+<td align="center">このに部分には<br>/* がないことになる
+</table>
+</tt>
+</blockquote>
+
+プログラムはエッセイのように読むことができるものでなければなりません。
+適切なコメントのないプログラムには
+「トラブルの原因が潜在している」というエラーがあるとみなされます。
+<p>
+
+<hr>
+
+<h3>インデント（字下げ）</h3>
+
+プログラムの構造を視覚的に表現するために、
+プログラムにインデントを付けてください。
+mule ではタブキーをタイプすると、
+適切なインデントを自動的に付けてくれます。
+<p>
+
+<blockquote>
+<table width="90%" border>
+<tr><td>カーソルのある行にインデントを付ける<td>Tab または C-i
+</table>
+</blockquote>
+
+インデントはブロック（{ と } にはさまれた部分）単位で、
+入れ子になっている部分を深く（右に）します。
+すなわち、{ に出会う度に、その次の行は１段右から書き始め、
+} に出会う度に、その次の行は１段左から書き始めます。
+
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char buf[1024];
+
+    for (;;) {
+        printf("Input: ");
+        if (fgets(buf, sizeof(buf), stdin) == NULL) break;
+        printf("Output: %s", buf);
+    }
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+こういうスタイルで書く人もいます。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char buf[1024];
+
+    for (;;)
+    {
+        printf("Input: ");
+        if (fgets(buf, sizeof(buf), stdin) == NULL)
+            break;
+        printf("Output: %s", buf);
+    }
+    return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+インデントを付けないと、
+非常に読みにくいプログラムになります。
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+int main(void)
+{
+char buf[1024];
+for (;;) {
+printf("Input: ");
+if (fgets(buf, sizeof(buf), stdin) == NULL)
+break;
+printf("Output: %s", buf);
+}
+return 0;
+}
+</pre>
+</table>
+</blockquote>
+
+</body>

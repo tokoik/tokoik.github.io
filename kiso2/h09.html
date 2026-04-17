@@ -1,0 +1,60 @@
+<head>
+<title>情報基礎演習II − 補足９</title>
+</head>
+
+<body>
+
+<h3>補足９：ライブラリ関数のヘッダファイルについて</h3>
+
+<hr>
+
+printf/scanf 以外にも、
+システムに最初から用意されている関数（ライブラリ関数）を使用する場合には、
+その関数プロトタイプが記述されているヘッダファイルを
+<tt>#include</tt>する必要があります。
+<p>
+
+どのようなヘッダファイルが必要なのかは、
+man コマンドによって知ることができます。
+例えば三角関数を計算する算術関数 sin/cos を使用しようとするときは、
+
+<blockquote>
+<pre>
+% man sin
+</pre>
+</blockquote>
+
+を実行すれば、math.h を <tt>#include</tt> すればよいことが分かります
+（この他、コンパイルの際 cc コマンドの最後に -lm というオプションを
+付ける必要があります）。
+<p>
+
+<hr>
+
+<pre>
+TRIG(3M)                       Silicon Graphics                       TRIG(3M)
+
+NAME
+     sin, cos, tan, asin, acos, atan, atan2, fsin, sinf, fcos, cosf, ftan,
+     tanf, fasin, asinf, facos, acosf, fatan, atanf, fatan2, atan2f -
+     trigonometric functions and their inverses
+
+SYNOPSIS
+     #include &lt;math.h&gt;
+
+     double sin(double x);
+     float fsin(float x);
+     float sinf(float x);
+
+     double cos(double x);
+     float fcos(float x);
+     float cosf(float x);
+
+     double tan(double x);
+     float ftan(float x);
+     float tanf(float x);
+
+（以下略）
+</pre>
+
+</body>

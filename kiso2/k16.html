@@ -1,0 +1,60 @@
+<head>
+<title>情報基礎演習II − 課題１６</title>
+</head>
+
+<body>
+
+<h3>課題１６</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai16.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai16
+** 動作: 短精度整数と長精度整数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char c;
+    short s;
+    long l;
+
+    l = 80000;
+    s = l;
+    c = l;
+
+    printf("l=%ld, s=%hd, c=%d\n", l, s, c);
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai16 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai16 を実行して出力を確かめてください。
+<p>
+
+<li>このプログラムでは３つの変数 l, s, c は
+同じ値が格納されているにも関わらず、
+その出力は一致しません。
+その理由を考察して、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai16 としてください。
+
+</ol>
+
+</body>

@@ -1,0 +1,287 @@
+<head>
+<title>情報基礎演習II − 第５回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第５回</h1>
+
+<hr>
+
+<h2>１．配列</h2>
+
+<hr>
+
+変数の宣言の際、変数名の後に [ ] を付けて数を指定することで、
+複数の記憶要素を持つ変数を用意することができます。
+これを配列変数と呼びます。
+
+<blockquote>
+<pre>
+int marks[3]; /* ３人分の点数データ */
+</pre>
+</blockquote>
+
+<img src="05-1.gif" vspace="10" hspace="10" align="right">
+
+上記の宣言によって、
+３つ分の int 型のデータを格納する領域がコンピュータのメモリ上に
+連続して確保され、その先頭に marks という配列変数名が付きます。
+<p>
+
+この配列変数の要素の一つを指定するときは、
+[ ] に番号（整数）を書きます。
+これを添字と呼びます。
+添字は確保された領域の先頭の位置からのオフセット（変位）です。
+<p>
+
+この宣言により marks[0], marks[1], marks[2] という
+３つの int 型変数が使用できるようになります。
+なお、marks[3] は含まれないので注意してください。
+<br clear="all">
+
+<blockquote>
+<pre>
+marks[0] = 10;
+marks[1] = 24;
+marks[2] = 42;
+
+printf("合計点 = %d\n", marks[0] + marks[1] + marks[2]);
+</pre>
+</blockquote>
+
+添字には整数型の変数や式を使うこともできます。
+
+<blockquote>
+<pre>
+i = 1;
+printf("%d,%d,%d\n", marks[i], marks[i+1], marks[i-1]);
+</pre>
+</blockquote>
+
+<a href="k17.html"><h3 align="center">■課題１７■</h3></a>
+<p>
+
+<a name="multi-dimension">
+<hr>
+
+<h3>多次元配列</h3></a>
+
+表形式のデータなどを処理するのに便利なように、
+二次元の配列も使うことができます。
+これは次のようにして宣言します。
+
+<blockquote>
+<pre>
+int table[3][3]; /* ２次元配列 */
+</pre>
+</blockquote>
+
+これは以下のように３×３＝９個の要素を持つ配列を宣言します。
+
+<blockquote>
+<table width="90%" border>
+<tr>
+<th>table[0][0]<th>table[0][1]<th>table[0][2]
+<tr>
+<th>table[1][0]<th>table[1][1]<th>table[1][2]
+<tr>
+<th>table[2][0]<th>table[2][1]<th>table[2][2]
+</table>
+</blockquote>
+
+<img src="05-2.gif" vspace="10" hspace="10" align="right">
+
+コンピュータの記憶空間（メモリ）は、
+実際には一次元配列の構造をしているので、
+２次元以上の配列の領域は
+右図のように一次元に展開して確保されます。
+<p>
+
+この図を見て分かるとおり、
+この配列は３つの int 型の要素を持つ配列を、
+３組用意したものになります。
+<p>
+
+同様にして、三次元の配列は次のようにして宣言します。
+
+<blockquote>
+<pre>
+int volume[4][3][2]; /* ３次元配列 */
+</pre>
+</blockquote>
+
+この配列は４×３×２＝２４個の要素を持つ配列を宣言します。
+これは２個の要素を持つ int 型の配列３組をひとまとめにして、
+それを更に４組用意します。
+このようにして、さらに次元の高いの配列を宣言することもできます。
+<p>
+<br clear="all">
+
+<a href="k18.html"><h3 align="center">■課題１８■</h3></a>
+<p>
+
+<hr>
+
+<h2>２．文字列</h2>
+
+<hr>
+
+char 型データの配列変数において、
+最後の要素の内容を '\0'（文字コード 0 の文字、すなわち数値の 0）としたものを、
+特に文字列と呼びます。
+
+<img src="05-3.gif" vspace="10" hspace="10" align="right">
+<blockquote>
+<pre>
+char name[4];
+name[0] = 'K';
+name[1] = 'e';
+name[2] = 'n';
+name[3] = '\0';
+</pre>
+</blockquote>
+<br clear="all">
+
+printf で文字列を表示するには %s を使います。
+
+<blockquote>
+<pre>
+printf("He is %s\n", name);
+</pre>
+</blockquote>
+
+引数として（個々の要素ではなく）配列変数全体を用いるときは、
+配列変数名（この場合 name）だけを指定します。
+書式文字列中の変換指定子 %s が name の内容に置き換わります。
+<p>
+
+printf は書式文字列中に変換指定子 %s があると、
+それに対応する変数を文字列とみなし、
+その最初の要素から '\0' が見つかるまで１文字ずつ順番に出力していきます。
+もし配列変数 name の最後の要素が '\0' でなければ、
+printf は文字列の最後が見つけられないため、
+暴走してしまいます。
+<p>
+
+"…" で挟まれたものは、文字列定数と呼びます。
+
+<blockquote>
+<pre>
+printf("He is %s\n", "Ken");
+</pre>
+</blockquote>
+
+"Ken" は前述の配列変数 name と同様、
+'K', 'e', 'n', '\0' の４つの要素からなる配列です。
+見てわかるとおり、
+printf の書式文字列 "He is %s\n" も文字列です。
+従って、次のようなこともできます。
+
+<blockquote>
+<pre>
+char format[10];
+format[0] = 'H';
+format[1] = 'e';
+format[2] = ' ';
+format[3] = 'i';
+format[4] = 's';
+format[5] = ' ';
+format[6] = '%';
+format[7] = 's';
+format[8] = '\n';
+format[9] = '\0';
+printf(format, "Ken");
+</pre>
+</blockquote>
+
+<a href="k19.html"><h3 align="center">■課題１９■</h3></a>
+<p>
+
+<hr>
+
+<h3>文字列の操作</h3>
+
+文字定数は文字型変数に代入することができますが、
+文字列定数を文字型の配列変数に代入することはできません。
+次の例はエラーになります。
+
+<blockquote>
+<pre>
+char name[4];
+name = "Ken"; /* × これはエラー */
+</pre>
+</blockquote>
+
+文字列定数や配列変数に格納された文字列を全部配列変数にコピーするには、
+strcpy などのライブラリ関数を使用します。
+<p>
+
+<b>strcpy(s1, s2)</b>
+<ul>
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 にコピーします。
+<li>s1 は“s2 の文字列の文字数”＋１より大きな要素数を
+持っている必要があります。
+<li>戻り値は s1 です。
+</ul>
+
+<b>strcat(s1, s2)</b>
+<ul>
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 に格納されている文字列の最後に追加します。
+<li>s1 は“s1 に既に格納されている文字列の文字数”
+＋ “s2 の文字列の文字数”＋１
+より大きな要素数を持っている必要があります。
+<li>戻り値は s1 です。
+<blockquote>
+<pre>
+strcpy(name, "Hazuki ");
+strcat(name, "Riona");
+</pre>
+</blockquote>
+この結果 name には "Hazuki Riona" という文字列が入るため、
+name は　char name[13以上]; として宣言されている必要があります。
+</ul>
+
+<b>strlen(s)</b>
+<ul>
+<li>s に指定した文字列の文字数を求め、
+戻り値として返します。
+<li>文字数に '\0' は含みません。
+<blockquote>
+<pre>
+int length;
+length = strlen("Ken");
+</pre>
+</blockquote>
+この結果、length は３になります。
+</ul>
+
+<b>strcmp(s1, s2)</b>
+<ul>
+<li>２つの文字列 s1 と s2 が同じ内容なら 0、
+s1 が s2 より「辞書の順で」前にあれば負、
+後にあれば正の値を戻り値として返します。
+<blockquote>
+<pre>
+strcmp("abc", "def") < 0
+strcmp("ghi", "def") > 0
+</pre>
+</blockquote>
+</ul>
+
+これらのライブラリ関数を使用する場合には、
+string.h というヘッダファイルを
+プログラムの最初の部分でインクルードしておく必要があります。
+
+<blockquote>
+<pre>
+#include &lt;string.h&gt;
+</pre>
+</blockquote>
+
+<a href="k20.html"><h3 align="center">■課題２０■</h3></a>
+<p>
+
+</body>

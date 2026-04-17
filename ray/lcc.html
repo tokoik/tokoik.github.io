@@ -1,0 +1,61 @@
+<head>
+<title>LCC-Win によるコンパイルの仕方</title>
+</head>
+
+<body>
+
+<h2>LCC-Win によるコンパイルの仕方</h2>
+
+<ol>
+
+<li>プロジェクト名（実行ファイル名）を決める．ここでは "trace1" とする.</li>
+
+<li>作業ディレクトリを作る（例えば "C:\My Documents\TRACE1"）.</li>
+
+<li>そこに base.c を入れ, trace1.c に名前を変更する（プロジェクト名と同じ
+名前のソースファイルに main() 関数が含まれている必要がある）.
+このとき，ファイルの漢字コードを Shift_JIS に変換すること.
+変換には QKCW (Quick Kanji Converter for Windows) が便利.</li>
+
+<li>LCC-Win32 (wedit) を起動する.</li>
+
+<li>"Project"→"Create" を選ぶ.</li>
+
+<li>プロジェクト名 (trace1) を入れる.</li>
+
+<li>Working Directory（作業ディレクトリ）を指定する.
+"Browse" ボタンを使って，さっき作成したディレクトリを選ぶ.</li>
+
+<li>"Tab" キーで入力フィールドを移動すれば,
+Objects and executables には勝手にディレクトリが指定されると思う.</li>
+
+<li>あとは "Single user", "Console Application"
+を選んでおく（選ばれていると思う).</li>
+
+<li>"Create" ボタンをクリック.</li>
+
+<li>"Do you want to use the wizard to generate the application skelton?"
+というのは,
+プログラムの骨組み（main() 関数など）をあらかじめ作っておくかどうかということ．
+ここでは trace1.c が既にあるので「いいえ」.</li>
+
+<li>あらかじめ trace.c や base.c が作ってあれば, "Project files for"
+の一覧にそれらのファイル名が現れる. "trace1.c" を選択して "Add" しておく.</li>
+
+<li>"Validate" をクリックして先に進む. そのまま何も設定しなくてよい.
+・"Project"→"Configuration" を選んで "Linker" のタブをクリックし，
+  "Additional Library" の欄に "tcconio.lib" につつけて
+"glut.lib glu32.lib opengl32.lib" を追加.</li>
+
+<li>"File"→"New" で trace.c を作成するか,"Project"→"Add/Delete Files"
+で trace.c を追加. wedit のエディタは日本語が使えないので，EmEdit
+かなんかを使ったほうが便利.</li>
+
+<li>F9</li>
+
+</ol>
+
+<p>うまく行かなかったら自分で調べるか,
+Linux に移行しましょう.</li>
+
+</body>

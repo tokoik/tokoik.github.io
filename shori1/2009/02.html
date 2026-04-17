@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<TITLE>情報処理 I － 第２回：日本語の入力，Webブラウザの設定と操作，eメールの設定と送受信</TITLE>
+</HEAD>
+<BODY>
+<H1>情報処理 I - 第２回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>日本語の入力方法を知る</LI>
+  <LI>Webブラウザの初期設定を行う</LI>
+  <LI>メールを書いてみる</LI>
+</OL>
+<H2>１．日本語の入力</H2>
+<H3>１．１　Input Method</H3>
+<P>日本語を使うためには，ログイン時に日本語の<EM>入力方法 (Input Methid: IM)</EM> を指定する必要があります．この講義では，日本語の入力に <EM>かんな</EM> と <EM>kinput2</EM> というシステムを組み合わせて使います．<EM>kinput2</EM> がキーボードから入力されたカナやローマ字を受け取り，それを <EM>かんな</EM> に送って漢字に変換します．</P>
+<H3>１．２　日本語の入力方法</H3>
+<P>まず，日本語を入力するアプリケーション（ウィンドウ）を選択します．ここでは試しに <EM>GNOME 端末</EM>を使ってみましょう．</P>
+<DIV class="figure"><IMG src="terminal.gif" width="400" height="64" alt="Gnome ターミナルのアイコン"></DIV>
+<P>ウィンドウが現れて，その中に<EM>プロンプト</EM>が表示されたら，<KBD>[Shift]</KBD> キーを押しながら<KBD>スペース</KBD>バーをタイプするか，<KBD>[半角/全角]</KBD> キーをタイプしてください．</P>
+<DIV class="figure"><IMG src="kinput0.gif" width="400" height="40" alt="入力待ち状態"></DIV>
+<P>すると，どこかに<IMG src="a.gif" width="36" height="22" alt="[あ]" align="middle">という小さなウィンドウが現れます．これで日本語入力のモードに切り替わります．</P>
+<DIV class="figure"><IMG src="kinput1.gif" width="400" height="40" alt="日本語入力開始"></DIV>
+<P>そのまま<EM>ローマ字</EM>でタイプすると，それが<EM>ひらがな</EM>になって入力されます．</P>
+<DIV class="figure"><IMG src="kinput2.gif" width="400" height="40" alt="ローマ字で入力"></DIV>
+<P><EM>スペースバー</EM>をタイプすると，入力したひらがなが<EM>漢字かな混じり文</EM>に変換されます．</P>
+<DIV class="figure"><IMG src="kinput3.gif" width="400" height="40" alt="スペースで漢字変換"></DIV>
+<P>上の例では「強-歯医者へ」でひとつの文節になっています．これを短くするには，<KBD>Ctrl-I</KBD> をタイプ(<KBD>[Ctrl]</KBD> を押しながら <KBD>I</KBD> をタイプ）するか，<KBD>[Shift]</KBD>を押しながら<KBD>←</KBD>（左矢印）キーをタイプします．文節を伸ばすには <KBD>Ctrl-O</KBD> をタイプするか，<KBD>[Shift]</KBD>を押しながら<KBD>→</KBD>（右矢印）キーをタイプします．</P>
+<DIV class="figure"><IMG src="kinput4.gif" width="400" height="40" alt="文節の区切りの変更"></DIV>
+<P>変換対象の文節を右に移動するには <KBD>Ctrl-F</KBD> をタイプするか，<KBD>→</KBD>（右矢印）をタイプします．左に移動するには <KBD>Ctrl-B</KBD> をタイプするか，<KBD>←</KBD>（左矢印）をタイプします．</P>
+<DIV class="figure"><IMG src="kinput5.gif" width="400" height="40" alt="文節の移動"></DIV>
+<P>次の変換候補を呼び出すには<EM>スペースバー</EM>あるいは <KBD>Ctrl-N</KBD> あるいは<KBD>↓</KBD>（下矢印），前の候補を呼び出すには<KBD>Ctrl-P</KBD> あるいは<KBD>↑</KBD>(上矢印）をタイプします．なお，カタカナに変換するにはファンクションキーの<EM>F7</EM>，ひらがなに戻すには<EM>F8</EM>を使います．</P>
+<DIV class="figure"><IMG src="kinput6.gif" width="400" height="40" alt="次候補・前候補"></DIV>
+<P><KBD>Ctrl-M</KBD> か <KBD>Ctrl-l</KBD> か <KBD>[Enter]</KBD> をタイプすれば，変換結果が<EM>確定</EM>します．</P>
+<DIV class="figure"><IMG src="kinput7.gif" width="400" height="40" alt="確定"></DIV>
+<P>再度，<KBD>[Shift]</KBD>キーを押しながら<EM>スペースバー</EM>をタイプするか，<KBD>[半角/全角]</KBD> キーをタイプすれば，日本語入力のモードから抜け出ます．</P>
+<DIV class="figure"><IMG src="kinput8.gif" width="400" height="40" alt="日本語入力の終了"></DIV>
+<H2>２．Ｗｅｂブラウザの操作</H2>
+<P>インターネットの代名詞でもある WWW (World Wide Web) を 参照するソフトウェアを「Web ブラウザ」と言います． これには
+Windows に組み込まれている <a href="http://www.microsoft.com/japan/windows/products/winfamily/ie/default.mspx" target="_blank">Internet Explorer</a> が最もよく使われていますが，Linux 用の Internet Explorer
+は（今のところ）ありません．代わりに Linux 上では，Internet Explorer 以前に広く普及し現在のインターネットブームを起こした立役者でもあった
+<A href="http://www.netscape.com/">Netscape</A> （開発終了）をはじめ，Netscape をもとにオープンソースで開発された <A href="http://www.mozilla-japan.org/products/mozilla1.x/" target="_blank">Mozilla</A> （開発終了，後継は <a href="http://www.mozilla-japan.org/projects/seamonkey/" target="_blank">SeaMonkey</a>），GNOME 標準で Mozilla をベースにしたタブブラウザ <A href="http://galeon.sourceforge.net/" target="_blank">Galeon</A>，KDE上で開発されている <A href="http://www.konqueror.org/" target="_blank">Konqueror</A>，Google の <a href="http://www.google.com/chrome/intl/ja/landing.html?hl=ja&hl=ja" target="_blank">chrome </a>（Linux 版は開発中），<a href="http://jp.opera.com/" target="_blank">Opera</a>，テキストベースの <EM>lynx</EM> や <EM>w3m</EM>，テキストエディタ Emacs の中で動く <EM>w3</EM>，それにファイルマネージャである <EM>Nautilus</EM> など，さまざまなものがあります．この講義では Mozilla から派生した <A href="http://www.mozilla-japan.org/products/firefox/central.html" target="_blank">Firefox</A> を使うことにします．</P>
+<H3>２．１　Firefox の起動</H3>
+<P>画面左上の「アプリケーション」から「インターネット」→「FireFox ウェブブラウザ」の順に選んでください．Firefox が起動します．</P>
+<DIV class="figure"><IMG src="firefox01.gif" width="544" height="440" border="0"></DIV>
+<H3>２．２　Firefox の初期設定</H3>
+<P>Firefox を使うにあたり，いくつか初期設定を行っておく必要があります（以下の設定は，Windows 側では既に設定されています）．まず最初に，メニューバーの「編集」メニューから「設定」を選んでください．</P>
+<DIV class="figure"><IMG src="firefox02.gif" width="720" height="320" border="0"></DIV>
+<P>「Firefox の設定」のウィンドウで「一般」のアイコンをクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox03.gif" width="571" height="544" border="0"></DIV>
+<P>上の例では「場所」の欄に以下の内容（学科ポータルサイトの <EM>URL</EM>）を設定しています．URL とは <EM>Universal Resouce Locator</EM> の略で，Web ページの<EM>位置</EM>を表します．学科ポータルサイトでは，デザイン情報学科の学生向けに授業や演習，学生生活，卒業研究，および進路に関する様々な情報を提供しています．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>学科ポータルサイト URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://sakaedani.sys.wakayama-u.ac.jp/di/" target="_blank">http://sakaedani.sys.wakayama-u.ac.jp/di/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>なお，和歌山大学自体のホームページは次の URL になります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>和歌山大学ホームページ URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/" target="_blank">http://www.wakayama-u.ac.jp/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+<DIV class="header">URLとURI</DIV>
+<DIV class="body">Web ページの住所は一般的に URL と呼ばれますが，現在ではより広義の <A href="http://www.w3.org/Addressing/" target="_blank">URI (Universal Resource Identifier)</A> という呼び方が用いられています．なお「ホームページアドレス」などという言い方は，ちょっと恥ずかしい感じがします．</DIV>
+</BLOCKQUOTE>
+<P>学科ポータルサイトの URL を設定したら，次に「詳細」のアイコンをクリックし，次に「ネットワーク」のタブをクリックした後，枠の中にある「接続設定」のボタンをクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox04.gif" width="571" height="544" border="0"></DIV>
+<P>「インターネット接続」のウィンドウで「自動プロキシ設定スクリプト URL」を選択してください．</P>
+<DIV class="figure"><IMG src="firefox05.gif" width="571" height="497" border="0"></DIV>
+<P>「自動プロキシ設定スクリプト」の下の欄に，以下の内容を設定してください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自動プロキシ設定 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://sakaedani.sys.wakayama-u.ac.jp/proxy.pac</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>最後に OK をクリックしてください．</P>
+<BLOCKQUOTE>
+<DIV class="header">プロキシサーバについて</DIV>
+<DIV class="body">Web ブラウザ（クライアント）が Web サーバに対して見たい Web ページを要求すれば，Web サーバはそのページのデータを Web ブラウザに送信します．上記の設定は，この閲覧要求を相手の
+Web サーバに直接送る代わりに別のプロキシ (Proxy, 代理) サーバに送り，Web サーバとのやり取りを中継してもらいます．和歌山大学のプロキシサーバには，複数のコンピュータから同じサーバにアクセスがあったときにデータを共有するキャッシュサーバの機能と，Webページを通じて悪意のあるプログラム等が侵入することを防ぐ機能を提供しています．</DIV>
+</BLOCKQUOTE>
+<DIV class="body">
+<DIV class="figure"><IMG src="proxy.gif" width="437" height="304" border="0" alt="Proxyサーバの概要"></DIV>
+</DIV>
+<P>設定のウィンドウを閉じてください．</P>
+<DIV class="figure"><IMG src="firefox06.gif" width="571" height="544" border="0"></DIV>
+<H3><A class="label" name="url">２．３　URL を開く</A></H3>
+<P>和歌山大学のホームページを開いてみましょう（もしかしたら既に「ホーム」に設定されているかもしれません）．メニューバーの<EM>ファイル</EM>メニューから「URL を開く」を選ぶか，<KBD>Ctrl-L</KBD> をタイプしてください．</P>
+<DIV class="figure"><IMG src="firefox07.gif" width="720" height="360" border="0"></DIV>
+<P>すると次のようなウィンドウが現れますので，そこに以下の URL（この講義の資料がある場所）を指定して「開く」をクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox08.gif" width="720" height="120" border="0"></DIV>
+<P>和歌山大学のホームページを開くには，ここに次の URL を打ち込んで <KBD>[Enter]</KBD> をタイプしてください．この講義は，今後この Web ページを使って進めます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>講義資料 URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/" target="_blank">http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この URL の中の &quot;<KBD>~</KBD>&quot;（チルダ）を入力するには，<KBD>[Shift]</KBD> を押しながら <KBD>[Backspace]</KBD> の左側にある &quot;<KBD>0</KBD>&quot; のキーあるいは &quot;<EM><KBD>^</KBD></EM>&quot; のキーをタイプしてください．</P>
+<P align="center"><IMG src="tilda.jpg" width="186" height="50" alt="チルダ (~)　キー"></P>
+<BLOCKQUOTE>
+<DIV class="header">&quot;<KBD>~</KBD>&quot;（チルダ）の字形について</DIV>
+<DIV class="body">
+<P>&quot;<KBD>~</KBD>&quot;（チルダ）は画面表示に使う<EM>字体（フォント）</EM>によって， 上の方にあったり，波線だったり，直線だったりしますが， <EM>字形が異なるだけ</EM>ですから気にしないで下さい．</P>
+</DIV>
+</BLOCKQUOTE>
+<H3>２．４　ブックマークに加える</H3>
+<P><EM>ブックマーク</EM>は， よく参照するページを覚えておく機能です．現在，この講義の Web ページが表示されていると思いますから，これをブックマークに登録しておいてください．メニューの「ブックマーク」から「このページをブックマーク．．．」を選ぶか，<KBD>Ctrl-D</KBD> をタイプしてください</P>
+<DIV class="figure"><IMG src="firefox09.gif" width="720" height="512" border="0"></DIV>
+<P>現在見ているページをブックマークに登録するかどうか確認するウィンドウが出ますので，「追加」をクリックしてください．</P>
+<DIV class="figure"><IMG src="firefox10.gif" width="369" height="155" border="0"></DIV>
+<P>これ以降メニューのブックマークをクリックすると， 登録されている Web ページの<EM>一覧</EM>の中に，現在表示しているページが追加されます．以降はこれを選ぶだけで， すぐこのページを表示することができます．</P>
+<DIV class="figure"><IMG src="firefox11.gif" width="720" height="544" border="0"></DIV>
+<P>すでにいくつかのブックマークが登録されていますが，日本からでは使いようのないものも結構あるので，必要に応じて自分で整理してください．「ブックマークの管理
+Ctrl+B」を選ぶか <KBD>Ctrl-B</KBD> をタイプすれば， ブックマークの管理ウィンドウが現れます．</P>
+<H3><A class="label" name="search">２．５　見たいページを探す</A></H3>
+<P>自分の見たいページを探すには，<EM>サーチエンジン</EM>と呼ばれる Web ページを利用します． インターネット上には多くのサーチエンジンがありますが，これらはおおまかに次の２つのタイプに分類することができます．</P>
+<DL>
+  <DT><EM>ディレクトリ型</EM></DT>
+  <DD>人手によって Web ページの情報を分類・整理し，階層的なデータベースにしたものです．代表的なものには，以下のようなものがあります．
+  <UL>
+    <LI><A href="http://dir.yahoo.co.jp/" target="_blank">http://dir.yahoo.co.jp/</A></LI>
+    <LI><A href="http://dir.goo.ne.jp/" target="_blank">http://dir.goo.ne.jp/</A></LI>
+    <LI><A href="http://www.google.co.jp/dirhp?hl=ja" target="_blank">http://www.google.co.jp/dirhp?hl=ja</A></LI>
+    <LI><A href="http://dir.livedoor.com/" target="_blank">http://dir.livedoor.com/</A></LI>
+    <LI><A href="http://www.isize.com/" target="_blank">http://www.isize.com/</A></LI>
+    <LI><A href="http://allabout.co.jp/" target="_blank">http://allabout.co.jp/</A></LI>
+    <LI><A href="http://joyjoy.com/JOY.html" target="_blank">http://joyjoy.com/JOY.html</A></LI>
+    <LI><A href="http://dmoz.org/World/Japanese/" target="_blank">http://dmoz.org/World/Japanese/</A></LI>
+    <LI><A href="http://www.jlisting.jp/jdirectory/" target="_blank">http://www.jlisting.jp/jdirectory/</A> (検索サイトではないがディレクトリ検索サービスを提供している会社)</LI>
+  </UL></DD>
+  <DT><EM>全文検索型</EM></DT>
+  <DD>ロボット（クローラー）と呼ばれるプログラムでインターネットのあらゆるページの情報を自動的に集め，全文検索データベースを構築します．代表的なものには，以下のようなものがあります．
+    <UL>
+    <LI><a href="http://www.yahoo.co.jp/" target="_blank">http://www.yahoo.co.jp/</a></LI>
+    <LI><A href="http://www.goo.ne.jp/" target="_blank">http://www.goo.ne.jp/</A></LI>
+    <LI><A href="http://www.google.co.jp/" target="_blank">http://www.google.co.jp/</A></LI>
+    <LI><A href="http://www.bing.com/" target="_blank">http://www.bing.com/</A></LI>
+    <LI><A href="http://www.cuil.com/" target="_blank">http://www.cuil.com/</A></LI>
+    <LI><A href="http://www.altavista.com/" target="_blank">http://www.altavista.com/</A></LI>
+    <LI><A href="http://www.marsflag.com/" target="_blank">http://www.marsflag.com/</A></LI>
+    <LI><A href="http://www.excite.co.jp/" target="_blank">http://www.excite.co.jp/</A></LI>
+    <LI><a href="http://www.baidu.jp/" target="_blank">http://www.baidu.jp/</a></LI>
+    <LI><a href="http://www.naver.jp/" target="_blank">http://www.naver.jp/</a></LI>
+  </UL>
+  </DD>
+</DL>
+<P>ディレクトリ型は人手によって整理されているために，無駄な情報が少なく興味のあるカテゴリのページを見つけやすいという特徴がありますが，その分，漏れや更新の遅れが大きいと考えられます．</P>
+<P>全文検索型は Web ページに含まれるキーワードを機械的に抜き出してデータベースを構築するので，漏れが少なく更新も早いと考えられますが，検索結果の中からすばやく本当に必要な情報を見つけるには多少の経験が必要です．</P>
+<P>最近は全文検索型が主流になっていますが，上記のものを含むほとんどのところで，ディレクトリ型と全文検索型の両方の機能を持たせています．また複数のサーチエンジンを横断して検索できる「メタサーチ」と呼ばれるものもありますが，ここでは割愛します．これらのほかに，学術論文を対象にした <a href="http://scholar.google.co.jp/" target="_blank">Google Scholar</a> や<a href="http://arxiv.org/" target="_blank"> arXiv.org</a>，<A href="http://www.rock.co.jp/" target="_blank">音楽専門サーチエンジン</A>，図書館の蔵書を検索する<a href="http://calil.jp/" target="_blank">カーリル</a>のようにターゲットを絞ったものとか，<A href="http://www.hatena.ne.jp/" target="_blank">人力検索サイト「はてな」</A>，意思決定エンジン <a href="http://www.hunch.com/" target="_blank">Hunch</a> など，多様なものがあります．<a href="http://www.wolframalpha.com/">Wolfram|Alpha</a> はなんでも「計算」で答を出してくれる，とても興味深い知能エンジンです．微分・積分のような記号計算もできます． </P>
+<H3><A class="label" name="quitfirefox">２．６　Firefox の終了</A></H3>
+<P>Firefox を終了するには，「ファイル」メニューから「終了」を選んでください．タイトルバーの右上の×印（閉じる）でも構いません．</P>
+<DIV class="figure"><IMG src="firefox12.gif" width="720" height="352" border="0"></DIV>
+<H2><A class="label" name="nsmail">３．メール</A></H2>
+<H3>３．１　Thunderbird の起動</H3>
+<P>この講義では，電子メールの読み書きするのに，Thunderbird というアプリケーションを使います．画面左上の「アプリケーション」から「インターネット」→「Thunderbird」の順に選んでください．Thunderbird
+が起動します．</P>
+<DIV class="figure"><IMG src="thunderbird01.gif" width="544" height="440" border="0"></DIV>
+<H3>３．２　Thunderbird の設定</H3>
+<P>
+皆さんが和歌山大学において（和歌山大学のメールアドレスを用いて）メールをやり取りするためのパソコンの設定は，<a href="http://www.center.wakayama-u.ac.jp/" target="_blank">システム情報学センター</a>の <a href="http://www.center.wakayama-u.ac.jp/system/mail.html" target="_blank">Configuration for mail clients using CIS servers</a> という Web ページで解説されています．ここでは Tunderbird でのメールのアカウント設定について解説します．
+</P>
+<P>皆さんの Thunderbird には，既にメールの設定がされていますが，これはシステム工学部のメールサーバを使う設定なので，これをシステム情報学センターを使うように変更します．Thunderbird が起動すると最初にパスワードを聞いてきますが，ここでは一旦それを<em>キャンセル</em>してください．</P>
+<DIV class="figure"><IMG src="thunderbird20.gif" width="573" height="190" border="0" alt="パスワード入力をキャンセル"></DIV>
+<P>次に，「フォルダ」のところの「アカウント名」を選択して，「このアカウントの設定を表示する」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird21.gif" width="708" height="543" border="0" alt="アカウントを選択する"></DIV>
+<P>アカウント情報を設定します．左側の枠のアカウント名（一番上）を選択してください．そして「アカウント名」のところの「<em>sys</em>」を「<em>center</em>」に変更し，「名前」のところに自分の名前を設定してください（ローマ字推奨）．またメールアドレスの「<em>sys</em>」を「<em>center</em>」に変更してください．最後に「組織」のところに「Wakayama University」を設定してください． </P>
+<DIV class="figure"><IMG src="thunderbird22.gif" width="707" height="517" border="0" alt="アカウント設定"></DIV>
+<P>皆さんのメールアドレスは，（利用承認書に書かれている）<EM>ユーザ名@center.wakayama-u.ac.jp</EM> です．ユーザ名が s145000 なら，メールアドレスは以下のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>自分のメールアドレスの例（利用承認書を確認してください）</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">s145000@center.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>使用するメールサーバの設定をします．左側の枠の「サーバ設定」を選んでください．既にサーバの種類として「IMAP メールサーバ」が選ばれていると思います．その下にある「サーバ名」の「<em>sys</em>」を「<em>center</em>」に変更してください．また「ユーザ名」が自分のユーザ名になっているか確認してください．その後，「セキュリティ設定」の枠の中の「保護された接続 (SSL, TLS) を使用する」のところから，「SSL を使用する」を選択してください．</P>
+<DIV class="figure"><IMG src="thunderbird23.gif" width="880" height="540" border="0" alt="サーバ設定"></DIV>
+<P>皆さんは mail.center.wakayama-u.ac.jp というメールサーバを使います．学外から大学宛に届いたメールを読む際には，<em>IMAP</em> のアカウントを作成し，メールサーバにこれを設定してください． </P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>システム情報学センターメールサーバ</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">mail.center.wakayama-u.ac.jp</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>メールサーバからメールを読み出す方法には，IMAP の他に <EM>POP</EM> というものもあります．多くのプロバイダが POP を使用していると思いますが，和歌山大学ではいろんなところからメールを読み出せるように，IMAP を使うようにしています．</P>
+<BLOCKQUOTE>
+<DIV class="header"><A class="label" name="imap">POPとIMAPの違い</A></DIV>
+<DIV class="body"><EM>POP</EM> (Post Office Protocol) はメールサーバからメールを取り出す機能だけを提供しますが，<EM>IMAP</EM> (Internet Message Access Protocol) はメールサーバにメールを戻したり整理したりするする機能も提供します．したがって，POPでは読んだメールをクライアント（パソコン）側に取り込んで管理しますが，IMAPではメールサーバ上に置いたまま管理することができます．このため，複数のパソコンで同じメールアカウントを使用した場合，POPでは読んだメールがそれらのパソコンに分散して保存されてしまいます．これに対してIMAPでは，どのパソコンからも同じ内容の「受信箱」が利用できます．</DIV>
+</BLOCKQUOTE>
+<DIV class="figure"><IMG src="pop-imap.gif" width="588" height="248" border="0" alt="POPとIMAPの違い"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">SSL について</DIV>
+<DIV class="body">メールを読み込むためには，メールサーバとの間でユーザ名とパスワードやメールの本文などの通信データをやりとりする必要があります．しかし Thunderbird の初期設定では，この通信データを暗号化していません．そうすると，ネットワークに流れる通信データを覗き見ることにより，第３者がパスワードを知ることができてしまいます．SSL は通信データを暗号化する機能で，これを用いればパスワードを他人に知られないようにすることができます．</DIV>
+</BLOCKQUOTE>
+<P>左の枠の「編集とアドレス入力」を選んでください．「編集」のところの「HTML 形式でメッセージを編集する」にチェックが入っていたら，<em>チェックをはずして</em>ください．</P>
+<DIV class="figure"><IMG src="thunderbird24.gif" width="708" height="424" border="0" alt="編集とアドレス入力"></DIV>
+<BLOCKQUOTE>
+<DIV class="header">HTML形式のメッセージについて</DIV>
+<DIV class="body">Thunderbird ではホームページなどで用いられる<EM>HTML</EM> (Hypter Text Markup Language) を使ってメールを作成することができます．しかし，メールの受信者が使っているメールソフトによっては，この形式のメールを読めない場合があります．また，携帯電話などでも対応できない場合があるようです．仮に相手がこの形式のメールが読める場合でも，人によってはあまり喜ばれない場合もあります．そこで，相手のメール環境がわからない場合には，HTML形式のメールを送らないのがマナーだと考えます．</DIV>
+</BLOCKQUOTE>
+<P>メールの送信に使うサーバを変更します．左の枠の一番下にある「送信 (SMTP) サーバ」を選択してください．次に，右側の「追加」をクリックしてください．</P>
+<DIV class="figure"><img src="thunderbird25.gif" width="708" height="424" border="0" alt="送信サーバの追加"></DIV>
+<P>「設定」のところの「サーバ名」に「<em>mail.center.wakayama-u.ac.jp</em>」を設定してください．また，「セキュリティと認証」のところの「ユーザ名とパスワードを使用する」にチェックが入っていたら，<em>チェックをはずして</em>ください．「保護された接続を使用する」は「いいえ」で構いません（「SSL」でも問題ありません）．最後に「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird26.gif" width="494" height="359" border="0" alt="SMTP サーバの変更"></DIV>
+<P>「mail.<em>center</em>.wakayama-u.ac.jp」を選択し，「規定値に設定」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird27.gif" width="708" height="424" border="0" alt="追加した SMTP サーバを規定値に設定"></DIV>
+<P>「（ユーザ名） - mail.<em>sys</em>.wakayama-u.ac.jp」を選択し，「削除」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird28.gif" width="708" height="424" border="0" alt="以前の SMTP サーバを削除"></DIV>
+<P>サーバの削除を確認するウィンドウが現れますから，「はい」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird29.gif" width="397" height="144" border="0" alt="SMTP サーバ削除の確認"></DIV>
+<P>最後に「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird30.gif" width="708" height="424" border="0" alt="送信サーバ設定の終了"></DIV>
+<P>「受信トレイ」を選択してください．</P>
+<DIV class="figure"><IMG src="thunderbird31.gif" width="708" height="543" border="0" alt="受信トレイの選択"></DIV>
+<P>「受信トレイ」を選択すると，そのアカウントへの接続を行います．その際「パスワード」が必要になりますので，利用承認書のパスワードを設定してください．ついでに，メールを読むたびにパスワードを入力するのが面倒なら，「パスワードマネージャでこのパスワードを保存する」にチェックを入れておいてください．</P>
+<DIV class="figure"><IMG src="thunderbird32.gif" width="594" height="190" border="0" alt="パスワードの指定"></DIV>
+<P>「OK」をクリックすると，「パスワードマネージャ」に関する注意書きが現れます．一通り目を通したら，「OK」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird33.gif" width="671" height="280" border="0" alt="パスワードマネージャの警告"></DIV>
+<H3>３．３　メールを作成する</H3>
+<P>メールの設定が完了したら，自分宛にメールを書いてみて，ちゃんと届くかどうか確認してみてください．ウィンドウの上方にあるアイコンの列（ツールバー）の中の「作成」をクリックするか，「メッセージを書く」をクリックしてください</P>
+<DIV class="figure"><IMG src="thunderbird34.gif" width="708" height="309" border="0" alt="新しいメッセージの作成"></DIV>
+<P>メールの作成ウィンドウが開きますから，「宛先」に自分のメールアドレスを指定し，「件名」や本文に適当な文章を書いて，最後に「送信」をクリックしてください．<KBD>[TAB]</KBD> キーをタイプすれば，欄を移動できます．</P>
+<DIV class="figure"><IMG src="thunderbird35.gif" width="650" height="511" border="0" alt="メッセージを書いて送信"></DIV>
+<H3>３．４　メールを受信する</H3>
+<P>ウィンドウの上方にあるアイコンの列（ツールバー）の中の「受信」をクリックするか，「メッセージを読む」あるいは「受信トレイ」をクリックしてください．</P>
+<DIV class="figure"><IMG src="thunderbird36.gif" width="708" height="309" border="0" alt="メッセージを読む"></DIV>
+<P>自分宛のメールが届いていたでしょうか？もし何も届いていなかったり，MAILER-DAEMON からメールが届いていたりした場合は，何か設定に問題があります．その場合はもう一度設定を確かめてください．原因がわからなければ質問してください．</P>
+<BLOCKQUOTE>
+<DIV class="header">MAILER-DAEMON からのメール</DIV>
+<DIV class="body">出したメールが宛先の間違いや何らかのトラブルで相手に届けられなかったときは，<EM>MAILER-DAEMON</EM> からメールが送り返されてきます．これはコンピュータが自動的に発送するメールなので，このメールには<EM>返事を書かない</EM>でください．</DIV>
+</BLOCKQUOTE>
+<P>自分宛のメールを読むことができれば，今度は担当教員 <A href="mailto:tokoi@sys.wakayama-u.ac.jp">tokoi@sys.wakayama-u.ac.jp</A> 宛てに何かメッセージを書いてください（たとえば，好きなものを一つ教えてください）．届いたメールにはごく簡単に返事を書きます．</P>
+<BLOCKQUOTE>
+<DIV class="header">注意事項</DIV>
+<H4>ネチケット</H4>
+<DIV class="body">人と人とがメールや Web，チャットなんかでつながった「ネットワークコミュニティ」を，実社会とは別の「仮想世界」のように感じてしまうかもしれません．しかし実際にはそこは，普通の社会の一つの断面に過ぎません．そこでの振舞いには，実社会と同じモラルやマナーが求められます．ただ，媒体として通信ネットワークが介在するために，さらにネットワークコミュニティ特有の配慮も必要になります．ネットワークコミュニティにおけるこのようなエチケットのことを「ネチケット」と呼んでいます．ネチケットについては，下記に優れたなリンク集があります．</DIV>
+<UL>
+  <LI><A href="http://www.cgh.ed.jp/netiquette/index-j.html" target="_blank">ネチケットホームページ</A></LI>
+</UL>
+<DIV class="body">あなたの目の前のコンピュータの向こう側にも， 「人」がいるんだと言うことを忘れないでください．</DIV>
+<H4>セキュリティ</H4>
+<DIV class="body">インターネットの世界の中にある「悪意」から自分自身を守るには，いくつか知っておかなければならない事項があります．メールに関しては，<EM>添付ファイル</EM>は中身が確認できなければ<STRONG>絶対開かない</STRONG>ことを肝に銘じておいてください．添付ファイルでなくても<EM>チェーンメール</EM>（「不幸の手紙」みたいなもの）や<EM>ネズミ講の勧誘</EM>，犯罪を誘発しそうな Web サイトへの誘いなど，さまざまな「悪意」が送りつけられてきます．嫌な言い方ですが，「他人の言うことは，とりあえず信用しない」ことを基本姿勢にすることが，そういう悪意から身を守る第一歩でしょう．</DIV>
+<UL>
+  <LI><A href="http://www.ipa.go.jp/security/awareness/end-users/end-users.html" target="_blank">情報セキュリティ対策実践情報</A>（<A href="http://www.ipa.go.jp/" target="_blank">IPA 情報処理振興事業協会</A>）</LI>
+  <LI><A href="http://www.telesa.or.jp/guideline/self_difence.html" target="_blank">インターネット自己防衛マニュアル</A>（<A href="http://www.telesa.or.jp/" target="_blank">社団法人テレコムサービス協会</A>）</LI>
+</UL>
+</BLOCKQUOTE>
+<H3><A class="label" name="quitthunderbird">３．５　Thunerbird の終了</A></H3>
+<P>Thunderbird を終了するには，「ファイル」メニューから「終了」を選んでください．タイトルバーの右上の×印（閉じる）でも構いません．</P>
+<DIV class="figure"><IMG src="thunderbird37.gif" width="708" height="425" border="0" alt="Firefox の終了"></DIV>
+<H2>４．Web メールサービスについて</H2>
+<p>大学宛のメールは，Web ブラウザを使って読み書きすることもできます（Web メールサービス）．これを利用するには，<a href="https://mail.center.wakayama-u.ac.jp/am_bin/amlogin" target="_blank">ActiveMail</a> のページを開き，利用承認書のユーザ名とパスワードを入力してログインしてください．なお，PDA（iPod touch 等を含む）や携帯電話などの機能が制限された Web ブラウザを使う場合は，<a href="https://mail.center.wakayama-u.ac.jp/squirrel-mail/src/login.php" target="_blank">SquirrelMail</a> を使用してください（こちらは正式なサービスではないので，予告無くサービスを停止する場合があります）． </p>
+<H2>５．パスワードの変更とメールの転送設定</H2>
+<P>パスワードの変更やメールの転送設定についての説明を<A href="/~tokoi/lecture/local/settings.html">ここ</A>に用意しています（このページは学外から参照できません）．</P>
+<H2><A name="enquete" class="label">アンケートのお願い</A></H2>
+<P>システム工学部広報活動改善のための新入生アンケートを行っています．協力をお願いします．<em>4月27日（月）23時59分まで</em>に回答をお願いします．下記のページ（リンクになっています）から<em>「学生の方はこちら」</em>をクリックし，ログインした後，<em>アンケートのアイコン</em>をクリックしてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>アンケートページの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="https://wlcampus.center.wakayama-u.ac.jp/portalUI/html/start.htm" target="_blank">https://wlcampus.center.wakayama-u.ac.jp/portalUI/html/start.htm</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>課題</H2>
+<P>次のキーワードに関する情報を Web を利用して調べ，簡単に説明してください．なお，それぞれ<em>情報源とした Web ページの URL も示してください．</em></P>
+<UL>
+  <LI>「Precomputed Radiance Transfer」とは何か</LI>
+  <LI>映画「鴨川ホルモー」の VFX（視覚効果）を担当したプロダクションはどこか</LI>
+  <LI>「LightWave 3D」とは何か</LI>
+  <LI>2009年6月16日(火) の 7:00pm から和歌山市民会館大ホールで公演するアーチストは誰</LI>
+  <LI>自分と同姓同名の人物（見つからなかったり，見つかっても説明する気にならければ結構です）．</LI>
+</UL>
+<P>情報が見つからないキーワードの解答は省略して構いません．解答は次週の水曜日までにメールで<A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-02">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．</P>
+<BLOCKQUOTE>
+<DIV class="header">自宅等学外からの課題メール送信について</DIV>
+<DIV class="body">今回の課題は大学の設備を使ってメールを出せるかどうかの確認も兼ねているので，自宅や携帯からメールを送ってもらってもあまり嬉しくありません．自宅等の環境も有効に活用して欲しいとは思うので学外からの課題メールも受け取りますが，その際にもメールの
+From: は，できれば大学のメールアドレスにしてください．そうしないと私がメールを受信する時に自動振り分けされないため，課題メールを見落としてしまう可能性があります．それから，HTML形式のメールもスパム（迷惑メール）と間違えて読まない可能性があるので気を付けてください．この講義では皆さんに「HTML形式のメールを送らない設定」をしていただいているので，問題ないと思います
+:-)</DIV>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

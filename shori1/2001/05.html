@@ -1,0 +1,986 @@
+<head>
+<title>情報処理I － 第５回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第５回</h1>
+
+<hr>
+
+<h2>１．ファイルの操作</h2>
+
+<hr>
+
+これまで mediarecorder や showcase を使って、
+何度かデータを保存したことがあると思います。
+これらのデータには、どれも何か名前が付いているはずです。
+このように、データに名前を付けてコンピュータの記憶装置
+（磁気ディスクなど）に保存したものを、“ファイル"と呼びます。
+<p>
+
+<img src="05-01.gif" align="right">
+たぶん、結構いろいろファイルをつくったと思います。
+ここで一度整理してみましょう。
+デスクトップ上の右のようなアイコン（ディレクトリ・フォルダ）を
+ダブルクリックしてください。
+下のようなウィンドウが開くと思います。
+このウィンドウをディレクトリウィンドウと呼ぶことにします。
+<br clear="all"><p>
+
+<center>
+<img src="05-02.jpg">
+</center>
+<p>
+
+このウィンドウの各部分の説明は、
+その場所にマウスを移動すれば、
+ウィンドウの下のところに表示されます。
+<p>
+
+このウィンドウのメニューバーの下には、
+現在開いているウィンドウの中に見えるファイルが置かれている場所
+（ディレクトリ）を示しています。
+このディレクトリより下位のディレクトリは、
+このウィンドウ内でフォルダとして表されています。
+<p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">不要なウィンドウは終了してください
+<tr><td bgcolor="#ffffcc">
+このウィンドウは一つ一つが独立した
+プログラム（プロセス）なので、
+あまりウィンドウをたくさん開くとコンピュータの処理能力を浪費します。
+もちろん“最小化”しても状況は変わらないので、
+不要なウィンドウは閉じて（終了して）ください。
+</table>
+</center>
+
+<h3>ファイルを開く</h3>
+
+ファイルを開くには、
+そのファイルのアイコンをダブルクリックします。
+すると、そのファイルを作成したアプリケーションプログラム（showcase など）
+あるいはそのファイルを開くことのできるプログラムが起動します。
+<p>
+
+<h3>ファイル名の変更</h3>
+
+<img src="05-11.jpg" align="right">
+ファイル名を変更するには、
+アイコンのファイル名の部分をクリックしてください。
+右図のように、ファイル名の書き換えが可能になります。
+なお、ファイル名には "."（ピリオド）や ","（コンマ）を除く記号文字は
+使わないでください。また、ファイル名の先頭が "." だと、
+あとでウィンドウに表示されなくなります
+（メニューバーの“表示”の“隠しファイル”を選択すれば見えるようになります）。
+詳しくは<font color="#ff0000">教科書の36ページ</font>を参照してください。
+また日本語も使わない方が身のためでしょう。
+<br clear="all"><p>
+
+<a name="mkdir">
+<h3>ディレクトリを作る</h3></a>
+
+そのウィンドウの中に下位のディレクトリを作成するには、
+メニューバーの“アクション”から”新しいディレクトリ”を選んでください。
+empty.dir というアイコンができますから、
+その名前を適当な名前に変更してください。
+<p>
+
+<center>
+<img src="05-12.jpg" align="middle">
+<img src="05-13.jpg" align="middle">
+</center>
+<p>
+
+Toolchest の“選択”から“新しいディレクトリ”を選ぶと、
+デスクトップ上にディレクトリを作ることができます。
+<p>
+
+<img src="05-15.jpg" align="right">
+ディレクトリを開くには、
+ディレクトリ（フォルダ）のアイコンをダブルクリックしてください。
+新しいウインドウを開くのが嫌なら（時間もかかるし、重たくなるし、
+画面も狭くなるし）、
+そのアイコンをウィンドウの左上の“ドロップポケット”の上にドラッグして、
+マウスのボタンを離してください（この操作を
+<font color="#ff0000">“ドラッグ＆ドロップ”</font>と言います）。
+<br clear="all"><p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">"Desktop" というディレクトリについて
+<tr><td bgcolor="#ffffcc">
+ディレクトリウィンドウの中の "Desktop" というディレクトリは、
+画面のデスクトップ（つまり背景の部分）に置いたものを格納しています。
+このディレクトリにファイルをドラッグ＆ドロップすると、
+デスクトップ上にアイコンが現れます。
+</table>
+</center>
+
+<h3>ファイルの移動と削除</h3>
+
+<img src="05-07.jpg" align="right">
+ファイルを別のディレクトリやウィンドウに移動するには、
+そのアイコンをそこにドラッグ＆ドロップします。
+"dumpster"（ゴミ箱）にドラッグ＆ドロップすれば、
+そのファイルを削除することができます。
+<p>
+
+dumpster をダブルクリックすると、
+ゴミ箱のウィンドウが開きます。
+間違えて捨ててしまったときは、
+このウィンドウを開いてゴミ箱を漁ってください。
+<p>
+
+このように dumpster に捨ててもファイルは残っているので、
+完全に消してしまいたいときは Toolchest の“デスクトップ”から、
+<font color="#ff0000">“ゴミ箱を空にする”</font>を選んでください。
+<br clear="all"><p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">core ファイルは削除してください
+<tr><td bgcolor="#ffffcc">
+<img src="05-08.jpg" align="right">
+右のアイコン "core" は、
+アプリケーションプログラムが異常終了したときに作成されたファイルです。
+不要な（割にサイズが大きい）ので、見つけたら削除してください。
+もちろん“ゴミ箱を空にする”も実行してください。
+<br clear="all">
+</table>
+</center>
+
+<h3>デスクトップへのドラッグ＆ドロップ</h3>
+
+アイコンをデスクトップにドラッグ＆ドロップすると、
+デスクトップ上にそのファイルの分身（リファレンス）を置くことができます。
+リファレンスは元のファイルを指す指標のようなもので、
+リファレンスのアイコンをダブルクリックすると、
+元のファイルが開きます。
+<p>
+
+<center>
+<img src="05-09.jpg">
+<img src="05-10.jpg">
+</center>
+<p>
+
+したがって、リファレンスの元のファイルを移動したり削除したりすると、
+リファレンスが元のファイルを見つけられなくなり、
+アイコンが『穴』になってしまいます（上図右）。
+そういうリファレンスは削除してください。
+<p>
+
+<h3>“選択”</h3>
+
+ファイルやフォルダのアイコンをマウスでクリック（選択）すると、
+そのアイコンが黄色くなります。
+複数のアイコンを同時に選択するときは、
+<tt><b>[Shift]</b></tt>キーを押しながらアイコンをクリックするか、
+アイコンのないところでマウスの左ボタンを押し、
+そのままマウスをドラッグすると枠が表示されますから、
+その枠でアイコンを囲んでください。
+<p>
+
+デスクトップ上のアイコンを選択すると、
+Toolchest の“選択”メニューのいくつかの項目が、
+そのファイルに適用できるようになります。
+また、ディレクトリウィンドウ内のアイコンを選択すると、
+そのウィンドウのメニューバーの“選択”メニューの中のいくつかの項目が、
+そのファイルに適用できるようになります。
+マウスの右ボタンをクリックしても、
+同じようなメニューが現れます。
+<p>
+
+<center>
+<img src="05-03.jpg">
+<img src="05-04.jpg">
+</center>
+<center>
+<img src="05-05.jpg">
+<img src="05-06.jpg">
+</center>
+<p>
+
+<dl compact>
+<dt>オープン（開く）<dd>そのファイルを開きます。
+すなわち、そのファイルを作成した、
+あるいはそのファイルを取り扱うことのできる
+適当なアプリケーションプログラムを起動し、
+そのファイルを読み込みます。
+そのアイコンを<font color="#ff0000">ダブルクリック</font>
+するのと同じです。
+<p>
+<dt>コピー<dd>そのファイルのデータを複写して、
+同じ内容のファイルを作成します。
+<tt><b>[Ctrl]</b></tt>キーを押しながら
+そのアイコンをドラッグ＆ドロップしてもファイルをコピーすることができます。
+コピーされたファイルのファイル名は“copy_of_ファイル名”となりますから、
+適当なファイル名に変更してください。
+<p>
+<dt>リファレンスの作成<dd>リファレンスというのは
+ファイルのコピーに似ていますが、
+もとのファイルのデータをコピーするのではなく、
+元のデータを指す指標を作ります。
+これは UNIX の“シンボリックリンク”という機能を使って実現されています。
+コピーしたファイルの内容を変更しても、
+元のファイルは変更されませんが、
+リファレンスを変更すると、
+元のファイルが変更されます。
+<p>
+<dt>削除<dd>ファイルを削除します。
+ファイルのアイコンを "dumpster"（ゴミ箱）に放り込むのと同じです。
+<p>
+<dt>印刷<dd>そのファイルを印刷します。
+中には印刷できないファイルもありますので
+（そういうものはたいてい紙を大量に無駄にしてしまいます）、
+注意してください。
+<p>
+<dt>共有関連<dd>とりあえず使わないでください。
+</dl>
+
+<hr>
+
+<h2>２．シェルを介した操作</h2>
+
+<hr>
+
+今までは GUI（グラフィカルユーザインタフェース）を使って
+コンピュータを操作してきました。
+これ以外に、
+UNIX はキーボードから“コマンド”（命令）を与えて操作することもできます。
+むしろ UNIX は、このコマンドによる操作の方に醍醐味があります。
+<p>
+
+それでは、Toolchest の“デスクトップ”から、
+“UNIX シェル”を起動してください。
+<p>
+
+<center>
+<img src="02-02.gif">
+</center>
+<p>
+
+この状態で、
+シェルと呼ばれるインタプリタ（プログラミング言語の一種）が動いていて、
+利用者から“コマンド”が与えられるのを待っています。
+現在使用しているシェルは csh（Ｃシェル）というものです。
+“（ホスト名）%”という表示は、
+csh がコマンド待ち状態であることを示す
+<font color="#ff0000">プロンプト（入力促進符号）</font>で、
+みなさんのコンピュータではホスト名（コンピュータの名前）と、
+コマンドの番号もここに表示されていると思います。
+以降ではこの "%" だけをシェルのプロンプトして用います。
+
+<h3>コマンドの実行</h3>
+
+UNIX シェル（端末 - winterm）で、
+下線部のようにタイプしてください。
+<p>
+
+<center>
+<table border width="100%">
+<tr><th colspan="2">コマンドの実行
+<tr>
+<td width="45%">
+キーボードから date とタイプし、
+改行する（<tt><b>[Enter]</b></tt>をタイプする）。
+<font color="#ff0000">コマンドは改行することによって
+実行を開始する。</font>
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>date<b><font color="#00cc66">[Enter]</font></b></u><font color="#ffee00">　↓実行結果（出力）</font>
+1998年 5月17日(日曜日) 03時38分38秒 JST 
+% <font color="#ffee00">←次のコマンド待ち状態</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">コマンドのオプション
+<tr>
+<td width="45%">
+コマンドにはオプションを付けて実行することで、
+その動作を返ることができるものがある。
+date の "-u" はグリニッジ標準時で出力するオプション。
+<font color="#ff0000">コマンドとオプションの間は空白をあける</font>
+（続けると <tt>"data-u"</tt>という別のコマンドだと解釈されてしまう）。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>date -u<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月16日(土曜日) 18時38分40秒 GMT
+%</pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">コマンドの引数
+<tr>
+<td width="45%">
+cal コマンドを引数なしで実行すると今月のカレンダーを表示する。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cal<b><font color="#00cc66">[Enter]</font></b></u>
+   1998 年  5 月
+日 月 火 水 木 金 土   
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31
+%</pre>
+</font>
+
+<tr>
+<td width="45%">
+コマンドには引数（ひきすう）を付けることができるものがある。
+引数はコマンドの実行に必要な情報を与えるときなどに使う。
+cal コマンドの引数に月と年を与えて実行する。<p>
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cal 7 1961<b><font color="#00cc66">[Enter]</font></b></u>
+   1961 年  7 月
+日 月 火 水 木 金 土   
+                   1
+ 2  3  4  5  6  7  8
+ 9 10 11 12 13 14 15
+16 17 18 19 20 21 22
+23 24 25 26 27 28 29
+30 31
+%</pre>
+</font>
+</table>
+</center>
+
+<h3>コマンドの入出力</h3>
+
+<center>
+<table border width="100%">
+<tr><th colspan="2">コマンドへのデータ入力
+<tr>
+<td width="45%">
+コマンドの中には実行開始後に
+キーボードからのデータ入力を必要とするものがある。<p>
+コマンドは入力されたデータを加工し、結果を出力する。
+結果は通常画面に表示される。<p>
+コマンドへのデータ入力を終了するには、
+Ctrl-D をタイプ（<tt><b>[Ctrl]</b></tt> キーを押しながら D をタイプ）する。
+これは<u>入力データの終り</u>を意味する。<p>
+bc コマンドは入力データとして与えられた数式を計算して、
+結果を出力する“電卓”コマンドである。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>bc<b><font color="#00cc66">[Enter]</font></b></u>
+<u>2+3</u>     <font color="#ffee00">←データ入力（プロンプトは出ない）</font>
+5       <font color="#ffee00">←出力</font>
+<u>Ctrl-D</u>  <font color="#ffee00">←入力終了</font>
+% <font color="#ffee00">←プロンプトが出てくる</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">コマンド出力の保存
+<tr>
+<td width="45%">
+date コマンドを実行し、
+出力を a というファイルに保存する。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>date > a<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も出力されない）</font></pre>
+</font>
+
+<tr>
+<td width="45%">
+cal コマンドを実行し、
+出力を b というファイルに保存する。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cal > b<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も出力されない）</font></pre>
+</font>
+
+<tr>
+<td width="45%">
+ls コマンドを実行する。
+a と b という２つのファイルができている。
+<p>
+ls は現在所有しているファイルの名前をリストアップする。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～</pre>
+</font>
+
+<tr>
+<td width="45%">
+a というファイルの内容を出力。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat a<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 13時56分59秒 JST</pre>
+</font>
+
+<tr>
+<td width="45%">
+b というファイルの内容を出力。<p>
+cat は引数に指定したファイルの内容を出力するコマンド。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat b<b><font color="#00cc66">[Enter]</font></b></u>
+   1998 年  5 月
+日 月 火 水 木 金 土   
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28 29 30
+31
+</pre>
+</font>
+
+<tr>
+<td width="45%">
+ファイル a の内容を画面に出力する代りに、
+ファイル b に入れる。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat a > b<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+
+<tr>
+<td width="45%">
+それまでのファイル b の内容（カレンダ）は失われ、
+代りに a と同じ内容が入っている
+（ファイルのコピー）。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat a<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 13時56分59秒 JST
+<pre>% <u>cat b<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 13時56分59秒 JST</pre>
+</font>
+
+<tr>
+<td width="45%">
+"&gt;" の代りに "&gt;&gt;" を使う。
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>date >> b<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+
+<tr>
+<td width="45%">
+それまでの内容の後ろに新しい内容が追加されている。
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat b<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 13時56分59秒 JST
+1998年 5月19日(火曜日) 14時24分24秒 JST</pre>
+</font>
+</table>
+<p>
+</center>
+
+<blockquote>
+<a name="redirect">
+<h4> "&gt;" という記号の役割</h4></a>
+コマンドの出力を、
+画面に表示する代りにファイルに保存します。
+この操作を「標準出力のリダイレクト」といいます。
+</blockquote>
+
+<center>
+<table border width="100%">
+<tr><th colspan="2">ファイルからの入力
+<tr>
+<td width="45%">
+cat コマンドを引数なしで実行すると、
+bc 同様キーボードからのデータ入力を待つ。
+適当な文字をタイプすれば、
+改行する度にそれがおうむ返しに画面に出力される。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat<b><font color="#00cc66">[Enter]</font></b></u>
+<u>saitou<b><font color="#00cc66">[Enter]</font></b></u>
+saitou
+<u>suzuki<b><font color="#00cc66">[Enter]</font></b></u>
+suzuki
+<u>tanaka<b><font color="#00cc66">[Enter]</font></b></u>
+tanaka
+<u>Ctrl-D</u></pre>
+</font>
+
+<tr>
+<td width="45%">
+同様に cat を引数なしで実行し、
+その出力を c というファイルに保存する。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat > c<b><font color="#00cc66">[Enter]</font></b></u>
+<u>2+3<b><font color="#00cc66">[Enter]</font></b></u>
+<u>4*5+7<b><font color="#00cc66">[Enter]</font></b></u>
+<u>(3+4)*29<b><font color="#00cc66">[Enter]</font></b></u>
+<u>Ctrl-D</u></pre>
+</font>
+
+<tr>
+<td width="45%">
+ファイル c の内容を cat コマンドの入力データに使う。
+ファイル c の内容がそのまま表示される。
+"&lt;" の向きに注意。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat < c<b><font color="#00cc66">[Enter]</font></b></u>
+2+3
+4*5+7
+(3+4)*29</pre>
+</font>
+
+<tr>
+<td width="45%">
+ファイル c の内容を bc コマンドの入力データに使う。
+ファイル c の内容の計算結果が出力される。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>bc < c<b><font color="#00cc66">[Enter]</font></b></u>
+5
+27
+203</pre>
+</font>
+</table>
+</center>
+
+<blockquote>
+<h4> "&lt;" という記号の役割</h4>
+コマンドへのデータ入力を、
+キーボードをタイプする代りにファイルから行います。
+この操作を「標準入力のリダイレクト」といいます。
+</blockquote>
+
+<center>
+<table border width="100%">
+<tr>
+<td width="45%">
+このようにしても同じ結果が得られる。
+この場合は cat コマンドの出力をそのまま bc コマンドの入力に流し込んでいる。
+これを「パイプ」と言う。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat c | bc<b><font color="#00cc66">[Enter]</font></b></u>
+5           <font color="#ffee00">↑２つ↑のコマンドが同時に動く</font>
+27
+203</pre>
+</font>
+</table>
+</center>
+
+<h3>ファイル操作</h3>
+
+<center>
+<table border width="100%">
+<tr><th colspan="2">cp ～ファイルのコピー
+<tr>
+<td width="45%">
+a というファイルのコピーを b という別のファイル名で作る。
+すでに b が存在した場合、その内容は失われる。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>date > a<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cp a b<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cat a<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 19時26分38秒 JST
+% <u>cat b<b><font color="#00cc66">[Enter]</font></b></u>
+1998年 5月19日(火曜日) 19時26分38秒 JST
+<font color="#ffee00">↑b は a と同じ内容</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">mv ～ファイルの移動（名前の変更）
+<tr>
+<td width="45%">
+a、b という２つのファイルがあるとする（上で作ったのであるはず）。<p>
+a を x に移動する。<p>
+b を x に移動する。<p>
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～
+% <u>mv a x<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ b ～ x ～ <font color="#ffee00">←a が無くなり x ができる</font>
+% <u>mv b x<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ x ～      <font color="#ffee00">←b が無くなる</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">rm ～ファイルの削除
+<tr>
+<td width="45%">
+ファイル x を削除する。<p>
+複数のファイルを指定しても良い。<p>
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>rm x<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>rm a b<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+</table>
+</center>
+
+<h3>ワイルドカード～ファイル名の省略</h3>
+
+ワイルドカードに使われる文字
+
+<blockquote>
+<dl compact>
+<dt><tt><b>*</b></tt><dd>任意の文字列にマッチする
+<dt><tt><b>?</b></tt><dd>任意の１文字にマッチする
+<dt><tt><b>[ ]</b></tt><dd><tt>[ ]</tt> 内のいずれか１文字にマッチする
+</dl>
+</blockquote>
+
+組み合わせ例
+
+<blockquote>
+<dl compact>
+<dt><tt><b>a*</b></tt><dd>a から始まるファイル名
+<dt><tt><b>a*c</b></tt><dd>先頭が a で末尾が c のファイル名
+<dt><tt><b>???</b></tt><dd>３文字のファイル名
+<dt><tt><b>d[135]</b></tt><dd>d1、d3、d5 の３つのファイル
+<dt><tt><b>[a-z]*</b></tt><dd>先頭が小文字のファイル名
+<dt><tt><b>[^0-9]*</b></tt><dd>先頭が数字ではないファイル名
+</dl>
+</blockquote>
+
+使用例<p>
+
+<center>
+<table border width="100%">
+<tr>
+<td width="45%">
+a で始まるファイルの詳細を表示する。
+ls コマンドの -l オプションは詳細表示。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls -l a*<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+
+<tr>
+<td width="45%">
+末尾が ".doc" のファイルを連結して表示する。
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cat *.doc<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+
+<tr>
+<td width="45%">
+d1.bak、d2.bak、d3.bak の３つのファイルを削除する。
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>rm d[1-3].bak<b><font color="#00cc66">[Enter]</font></b></u></pre>
+</font>
+</table>
+</center>
+
+<a name="directory">
+<h3>ディレクトリ</h3></a>
+
+<img src="05-14.gif" align="right">
+コンピュータのファイルを保存するためのメカニズムのことを、
+ファイルシステムと呼びます。
+このコンピュータのファイルシステムには、
+非常にたくさんのファイルが保存されています。
+仮に、それらが『同じ場所』にあったとすると、
+目的のファイルを見つけるのがかなり大変になります。
+他人と同じファイル名を付けないようにも気をつけなければならず、
+とっても面倒なことになります。
+<p>
+
+そこで、これらのファイルを用途や所有者ごとに分類・整理して保存するために、
+UNIX のファイルシステムは図のような木構造になっています。
+<p>
+
+一番根本（最上位）の "/" は
+<font color="#ff0000">ルートディレクトリ</font>と呼び、
+ファイルシステムの起点になります。
+その下に bin、etc、usr などの
+<font color="#ff0000">サブディレクトリ</font>があり、
+usr の下にもさらに bin、people、local などのサブディレクトリがあります。
+<p>
+
+ディレクトリウィンドウの上部に表されている、
+"/usr/people/ログイン名" （図のログイン名は guest）というのは、
+"/" のサブディレクトリの "usr" のサブディレクトリの
+"people" のサブディレクトリの“ログイン名”という場所を示しています。
+サブディレクトリの区切りにも "/" を使います。
+<p>
+
+このディレクトリは、
+そのコンピュータにログインした利用者が所有するディレクトリで、
+<font color="#ff0000">ホームディレクトリ</font>と呼びます。
+<p>
+
+利用者のファイルは原則としてこのホームディレクトリ以下に置かれます。
+そのほかのほとんどのディレクトリは、他人のホームディレクトリを含めて、
+利用者が勝手にファイルを作成したりすることはできないようになっています。
+例外的に /tmp などは誰でもファイルを置くことができますが、
+このディレクトリに置いたファイルは、
+コンピュータの電源を切ると無くなってしまいます。
+<p>
+
+なお、このコンピュータの /usr/people 以下と /usr/local 以下は、
+実際にはサーバと呼ばれる別のコンピュータにあり、
+コンピュータネットワークを使って共有しています。
+<p>
+
+詳しくは、<font color="#ff0000">教科書の37ページ</font>を
+参照してください。なお、教科書の図はディレクトリやファイルを表す
+○と□の関係が上の図と逆になっています。
+<br clear="all"><p>
+
+<center>
+<table border width="100%">
+<tr><th colspan="2">cd ～カレントディレクトリの移動
+<tr>
+<td width="45%">
+シェルでファイルに関する操作を行うとき、
+操作対象のファイルを指定するときに基準となるディレクトリを
+<font color="#ff0000">カレントディレクトリ</font>あるいは
+<font color="#ff0000">作業ディレクトリ</font>と呼ぶ
+（つまり、自分が今いる場所）。
+pwd はその場所の“パス名”を表示する。
+<p>
+“UNIXシェル”を開いた直後のディレクトリはホームディレクトリです。
+<font color="#002244">"guest"</font> はあなたのログイン名にしてください。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people/guest <font color="#ffee00">←カレントディレクトリ</font>
+% <u>cd ..<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←一つ上に上がる</font>
+% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people
+% <u>cd guest<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←一つ下に降りる</font>
+% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people/guest
+% <u>cd /<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←ルートディレクトリ</font>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+bin etc ～ tmp unix
+% <u>cd tmp<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←相対パス</font>
+% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/tmp
+% <u>cd /usr/bin<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←絶対パス</font>
+% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/bin
+% <u>cd<b><font color="#00cc66">[Enter]</font></b></u> <font color="#ffee00">←引数なし</font>
+% <u>pwd<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people/guest <font color="#ffee00">←ホームディレクトリ</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">mkdir ～ディレクトリの作成
+<tr>
+<td width="45%">
+touch コマンドはすでにあるファイルの修正日時だけを、
+コマンド実行時の時間に設定する。
+ファイルがなければ空のファイルを作る。<p>
+mkdir で d というディレクトリを作る。<p>
+ls コマンドに -F オプションを付けると、
+ファイルの種類が分かる（"/" が付いていればディレクトリ）。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>touch a b c<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c  ～
+% <u>mkdir d<b><font color="#00cc66">[Enter]</font></b></u>
+/usr/people
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c  ～ d ～
+% <u>ls -F<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c  ～ d/ ～
+<font color="#ffee00">       d はディレクトリ↑</font></pre>
+</font>
+
+<tr>
+<td width="45%">
+ls の引数に普通のファイルを指定すると、そのファイルが（あれば）表示される。<p>
+ls の引数にディレクトリを指定すると、
+そのディレクトリの中にあるファイルの一覧が表示される
+（d は作ったばかりなので、中身は空）。<p>
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls a<b><font color="#00cc66">[Enter]</font></b></u>
+a
+% <u>ls d<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も表示されない）</font></pre>
+</font>
+
+<tr>
+<td width="45%">
+"." はカレントディレクトリを示す。<p>
+".." は上位のディレクトリを示す
+（但し、"/"（ルートディレクトリ）の .. は "/"）。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ d ～
+% <u>cd d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も表示されない）</font>
+% <u>ls .<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も表示されない）</font>
+% <u>ls ..<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ d ～ <font color="#ffee00">←上と同じ</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">ディレクトリへの cp/mv
+<tr>
+<td width="45%">
+ファイル a をディレクトリ d にコピーする。
+ディレクトリ d 内に a ができる。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd<b><font color="#00cc66">[Enter]</font></b></u><font color="#ffee00">←ホームディレクトリに戻る</font>
+% <u>cp a d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls d<b><font color="#00cc66">[Enter]</font></b></u>
+a</pre>
+</font>
+
+<tr>
+<td width="45%">
+ファイル b、c をディレクトリ d に移動する。
+カレントディレクトリから b、c がなくなり、
+ディレクトリ d 内に b、c ができる。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mv b c d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ d ～ <font color="#ffee00">←b、c が無い</font>
+% <u>ls d<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～</pre>
+</font>
+
+<tr>
+<td width="45%">
+もちろん、コピー／移動先でのファイル名も指定できる。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cp a d/e<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls d<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ e ～
+% <u>cat d/a<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cat d/e<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">d/a と d/e の中身は同じはず↑</font></pre>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">rmdir ～ディレクトリの削除
+<tr>
+<td width="45%">
+ディレクトリ d を削除する。
+d が空ではないので、削除できない。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>rmdir d<b><font color="#00cc66">[Enter]</font></b></u>
+d: ディレクトリが空ではありません</pre>
+</font>
+
+<tr>
+<td width="45%">
+ディレクトリ d の中を空にしてから、
+d を削除する。<p>
+a、e は削除する。
+b、c は一つ上のディレクトリ（".."、
+<font color="#ff0000">親ディレクトリ</font>）に移動する。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>cd d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>rm a e<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>mv b c ..<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も表示されない）</font>
+% <u>cd ..<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>rmdir d<b><font color="#00cc66">[Enter]</font></b></u>
+<font color="#ffee00">（何も表示されない）</font>
+% <u>ls<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ <font color="#ffee00">←d が削除された</font>
+</font>
+</table>
+<p>
+<table border width="100%">
+<tr><th colspan="2">ディレクトリ単位のコピー／移動
+<tr>
+<td width="45%">
+ディレクトリ d を作り、
+そこにファイル a、b、c をコピーする。<p>
+ディレクトリ d 全体を e というディレクトリにコピーする。
+この場合、cp コマンドに -r というオプションを付ける。
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mkdir d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cp a b c d<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cp -r d e<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls d e<b><font color="#00cc66">[Enter]</font></b></u>
+d:
+a b c
+e:
+a b c
+<font color="#ffee00">↑d と e に同じファイルが入っている</pre>
+</font>
+
+<tr>
+<td width="45%">
+ディレクトリ e を f に移動する。
+これは単にディレクトリ名が変わっただけ。<p>
+f を d に移動する。
+d というディレクトリが既にあるので、
+f はその中に入る。 
+
+<td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>ls -F<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ d/ ～ e/ ～
+% <u>mv e f<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls -F<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ d/ ～ f/ ～
+% <u>mv e f<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>ls -F<b><font color="#00cc66">[Enter]</font></b></u>
+～ a ～ b ～ c ～ d/ ～ <font color="#ffee00">←f が無い</font>
+% <u>ls -F d<b><font color="#00cc66">[Enter]</font></b></u>
+a b c f/ <font color="#ffee00">←こっちに移動した</font></pre>
+</font>
+</table>
+</center>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+（１）ホームディレクトリに
+showcase、image、audio という３つのディレクトリを作成し、
+それぞれにこれまでに作成したファイルを分類して移動してください。
+その際、不要なファイルは削除してください。
+<p>
+
+<blockquote>
+"ファイル名.bak" は showcase のバックアップファイル（修正前のファイル）です。
+また "ファイル名.sav" は showcase が異常終了したときに作成する、
+“緊急避難”ファイルです。
+<p>
+
+どちらも必要でなければ消してください。
+もし、必要なら、".bak" や ".sav" を付けない、
+別の名前に変更してください。
+</blockquote>
+
+（２）cal コマンドを使って自分の誕生月のカレンダーを表示し、
+自分の誕生日の曜日を確かめてみてください。
+また "cal 1998" のように引数に月を指定しなかった場合は
+何が表示されるか確かめてみてください。
+</body>

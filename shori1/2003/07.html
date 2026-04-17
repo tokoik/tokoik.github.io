@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第７回：画像処理，ホームページ制作（画像編）</title>
+</head>
+
+<BODY>
+<H1>情報処理 I - 第７回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>画像ファイルの作成方法について知る
+  <LI>画像ファイルの配置方法について知る
+  <LI>クリッカブルマップの作成方法について知る
+</OL>
+<DIV class="book"><SPAN class="book">教科書１２７～１３４ページ</SPAN></DIV>
+<H2>１．画像・図形ファイルとビューア</H2>
+<H3><a class="label" name="filetype">１．１　画像・図形ファイルの種類</A></H3>
+<P>画像や図形を格納したファイルの種類には，用途などによって様々なものがあります．</P>
+<DL>
+  <DT><em>PostScript</em> (PS)
+  <DD>Adobe 社が開発したプリンタ制御用の言語．PDL (Page Description Language:
+  ページ記述言語）の一つ．印刷物の「ページ」に文字や図形，画像などを配置します．PostScript
+  は PostScript プリンタに組み込まれた<A href="03.html#shell">インタプリタ</A>によって解釈されますが，gs (Ghostscript) はそれと互換性のあるインタプリタソフトウェアです．gv,
+  ggv, ghostview は gs にユーザインタフェースを付けたものです．
+  <DT><em>Encapsulated PostScript</em> (EPS)
+  <DD>他の PostScript ファイルに埋め込んで，一つの図形要素として使えるようにカプセル化された
+  PostScript 形式のファイル形式．
+  <DT><em>Portable Document Format</em> (PDF)
+  <DD>ページのレイアウトを保持したまま文書の交換を行うための，PostScript から派生したデータ形式．異なるコンピュータ間で文書ファイルのレイアウトを正確に再現できるため，マニュアルなどの電子化に用いられている．PostScript
+  ファイルから gs を使って作成できるほか，Tgif でもこの形式でファイルを出力できます．
+  <DT><em>Graphics Interchange Format</em> (GIF)
+  <DD>パソコン通信 (CompuServe) において画像データを交換するために考えられたファイル形式
+  (GIF)．同時に 256 色までしか表現できないため写真などの表現には向かないが，コンピュータの画面表示など単調な色使いの画像ならかなりデータサイズを小さくできるため，Web
+  のバナーなどに多用されている．ただし，データの符号化方法として使われている
+  LZW (Lempel-Ziv Welch) という手法はコンピュータメーカーの UNISYS 社が特許を持っているため，UNISYS
+  社が許諾したソフトウェア以外でこの形式の画像ファイルを作成して使用することは問題がある．
+  <DT><em>JPEG File Interchange Format</em> (JPEG, JFIF)
+  <DD>JPEG (Joint Photographic Expert Group) という団体によって開発された写真画像の符号化方式を用いた，画像ファイルの形式
+  (JFIF)．写真画像を効果的に圧縮できるが，GIF とは逆に単調色使いの画像に用いると，かえって画像が乱れる場合がある．
+  <DT><em>Microsoft Windows Device Independent Bitmap</em> (DIB, BMP)
+  <DD>Microsoft Windows で用いられている画像ファイルの形式．
+  <DT><em>Tag Image File Format</em> (TIFF)
+  <DD>Aldus 社（後に Adobe 社に吸収）と Microsoft 社が共同で開発した，さまざまな画像データを保持できる画像ファイルの形式．
+  <DT><em>Portable Network Graphics</em> (PNG)
+  <DD>GIF の特許問題や色数の制限など問題を回避するために，新しく考えられた画像データの形式．データの符号化方法には
+  LZW より効率がよく特許の問題もない手法が採用されている．また色数も 256
+  色のほかにフルカラー画像も扱えるようになっている．
+  <DT><em>TrueVision Targa</em> (TGA)
+  <DD>TrueVison 社の画像取り込み装置が出力する画像ファイルの形式．多くのビデオ編集システムで，ひとコマ単位の画像データとして使用されています．LightWave
+  などの CG ソフトウェアでも，この形式で画像を出力できます．
+</DL>
+<H3>１．２　ベクトルデータとビットマップデータ</H3>
+<P>作図ソフトの Tgif（後述）では，図を線分や円などの<em>図形要素の組み合わせ</em>で表現しています．このような図のデータは，一般に<em>ベクトル形式</em>と言います．PostScript や EPS，PDF などもベクトルデータを保持することができます．これに対して，写真のように色のついた<em>点（画素，ピクセル）の集合</em>で画像を表現したものは，<em>ビットマップ形式</em>と言います．Windows の画像データである BMP や，デジタルカメラや Web で使用される
+JPEG などがビットマップデータです．普通，<EM>画像</EM>データと言えば，ビットマップデータのことを指します．</P>
+<P>ベクトル形式のデータは拡大縮小してもぼやけたりつぶれたりすることがありませんが，写真のような画像を扱うことが困難です．ただしベクトル形式のデータでも，図形要素の一つとしてビットマップ形式のデータを保持することがあります．</P>
+<H3><a class="label" name="viewer">１．３　ビューアソフトウェア</A></H3>
+<P>図形ファイルや画像ファイルを画面に表示するソフトウェアを，一般に<em>ビューア</em>と言います．ページャも言わばテキストファイルのビューアです．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>拡張子</TH>
+      <TH>ファイルの種類</TH>
+      <TH>ビューアソフトウェア</TH>
+    </TR>
+    <TR>
+      <TD><em>.ps</em></TD>
+      <TD>PostScript</TD>
+      <TD class="action" rowspan="2">gs, gv, ghostview</TD>
+    </TR>
+    <TR>
+      <TD><em>.eps</em></TD>
+      <TD>Encapsulated PostScript</TD>
+    </TR>
+    <TR>
+      <TD><em>.pdf</em></TD>
+      <TD>Portable Document Format</TD>
+      <TD class="action">xpdf, acroread</TD>
+    </TR>
+    <TR>
+      <TD><em>.gif</em></TD>
+      <TD>Graphics Interchange Format</TD>
+      <TD class="action" rowspan="2">display, ee</TD>
+    </TR>
+    <TR>
+      <TD><em>.jpg</em>,<em> .jpeg</em>,<em> .jfif</em></TD>
+      <TD>JPEG File Interchange Format</TD>
+    </TR>
+    <TR>
+      <TD><em>.bmp</em></TD>
+      <TD>Microsoft Windows Device Independent Bitmap</TD>
+      <TD class="action">display, ee</TD>
+    </TR>
+    <TR>
+      <TD><em>.tif</em>,<em> .tiff</em></TD>
+      <TD>Tag Image File Format</TD>
+      <TD class="action">display, ee</TD>
+    </TR>
+    <TR>
+      <TD><em>.png</em></TD>
+      <TD>Portable Network Graphics</TD>
+      <TD class="action">display, ee</TD>
+    </TR>
+    <TR>
+      <TD><em>.tga</em></TD>
+      <TD>TrueVision Targa</TD>
+      <TD class="action">display</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>ビューアソフトウェアの中でもっとも手軽に使用できるのは
+<em>ee</em> (ElectricEyes) でしょう．<em>display</em> は ImageMagick という画像管理ソフトウェアの一部で，非常に多機能です．この他に，画像の表示機能はありませんが
+<em>netpbm</em> というコマンド群を用いれば，たいていの画像ファイルの形式を別の画像ファイルの形式に変換することができます．</P>
+<H3><a class="label" name="magic">１．４　magic</A></H3>
+<P>ビューアソフトウェアによっては，拡張子が指定されていなくても画像ファイルの種類を判別できる場合があります．<EM>magic</EM> は Unix や Linux において拡張子に頼らずにファイルの中身を判別する手段です．magic とは<em>マジックナンバー</em>のことですが，ファイルのタイプに対して実際に番号が割り振られているわけではありません．これは
+<em>file</em> コマンドがファイルの中身を調べるときに<em>ヒント</em>として使っているファイルの先頭のデータのパターンです．パターンのデータベースは
+/usr/share/magic というファイルにあります．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>file ～ファイルの種類を調べる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <U><em>file</em> image.png<kbd>[Enter]</kbd></U>
+image.png: PNG image data, 720 x 540, 8-bit, colormap, non-interlaced
+% <U><em>file</em> figure.ps<kbd>[Enter]</kbd></U>
+figure.ps: PostScript document text conforming at level 2.0</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>Unix/Linux ではファイル名の拡張子による判断があてにならない（拡張子が付いていないものが多い）ため，これを使って中身を確認するアプリケーションソフトウェアもあります．もちろん，magic
+がデータベースに登録されていないファイルは判断できません．</P>
+<H2><A name="gimp" class="label">２．画像編集</A></H2>
+<H3>２．１　画像編集ソフトウェア gimp</H3>
+<P><A href="http://www.gimp.org/"><em>gimp</em></A> （このページの日本語訳は<A href="http://airmail.sakura.ne.jp/~komugi/gimp/gimporgja/">ここ</A>）は非常に高機能な画像編集ソフトウェアです．この分野のソフトウェアでは
+Adobe 社の PhotoShop が有名ですが，gimp もそれに劣らない多機能性を誇っています．詳しい使い方は<A href="http://manual.gimp.org/">マニュアル</A>（このページの日本語訳は<A href="http://homepage2.nifty.com/gimpman/">ここ</A>）を読んでください．</P>
+<H3>２．２　gimp の起動</H3>
+<P>ターミナルを開いてカレントディレクトリを html に移した後，gimp コマンドを実行してください．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>gimp の起動</TH>
+    </TR>
+    <TR>
+      <TD class="action">% cd html<U><kbd>[Enter]</kbd></U><BR>
+      % <U><em>gimp</em> &amp;<kbd>[Enter]</kbd></U></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<P>最初に gimp を起動したときには，初期設定のウィンドウが現れます．</P>
+<div class="figure"><IMG src="gimp01.gif" width="400" height="358"></div>
+<P>このソフトウェアは GPL (GNU General Public License: GNU 一般使用許諾) のもとに配布されているソフトウェアです．そのまま「次へ」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp02.gif" width="400" height="356"></div>
+<P>gimp はここでホームディレクトリに .gimp-1.2 というディレクトリを作り，そこに設定ファイルなど各種のファイルを置きます．そのまま「次へ」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp03.gif" width="400" height="373"></div>
+<P>.gimp-1.2 というディレクトリの作成作業のログを表示します．エラーがなければ「次へ」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp04.gif" width="400" height="374"></div>
+<P>タイルキャッシュサイズが大きいほど，大きな画像の編集作業が軽快になりますが，コンピュータに搭載されているメモリよりも大きな値を指定するとかえって遅くなります．演習用のコンピュータには
+512MegaBytes のメモリが搭載されているので，オペレーティングシステム等他のプログラムが使用するメモリを差し引いても，タイルキャッシュサイズに
+256MegaBytes くらい指定できると思いますが，一応上限は 128MegaBytes くらいにしておいて下さい．</P>
+<P>編集中にタイルキャッシュに入らなかったデータはスワップディレクトリ内のファイルに書き出されます．標準のスワップディレクトリはホームディレクトリの下に置かれますが，ホームディレクトリはネットワークを介してサーバコンピュータ上にありますから，ここをスワップディレクトリに使うとネットワークの通信量が増えたりサーバの負荷が増大したりしていいことありません．/tmp
+は演習用のコンピュータ自身のハードディスクにありますから，そこをスワップディレクトリに指定します．</P>
+<div class="figure"><IMG src="gimp05.gif" width="400" height="374"></div>
+<P>モニタの解像度は，「測定」ボタンを押して調整しても構わないのですが，今は時間がないのでそのまま「次へ」をクリックしてください．これで
+gimp の初期設定が完了しました．</P>
+<div class="figure"><IMG src="gimp06.gif" width="638" height="475"></div>
+<P>これが gimp の起動画面です．次回からはここから始まります．毎回起動すると，「今日の技」を教えてくれます．技を会得したら，「閉じる」をクリックしてください．</P>
+<H3><a name="create">２．３　画像の新規作成</a></H3>
+<P>それでは，とにかく何か描いてみましょう．まず，「白紙」の画像を用意します．<em>The GIMP</em> ウィンドウの「ファイル」メニューから「新規」を選ぶか，<kbd>Ctrl-N</kbd> をタイプしてください．</P>
+<div class="figure"><IMG src="gimp09.gif" width="206" height="246"></div>
+<P>すると次のウィンドウが現れます．ここで作成する画像の大きさや解像度を指定します．</P>
+<div class="figure"><IMG src="gimp10.png" width="291" height="380"></div>
+<P><em>画像のサイズ</em>は作成する画像を構成する<em>ピクセル（輝点，画素）数</em>です．<em>解像度</em>は，単位がインチなら（コンピュータはアメリカ由来のものなので，単位として結構インチが使われます）<em>１インチあたりのピクセル数</em>です．上の設定のそれぞれの数値には，次のような関係があります．</P>
+<UL>
+  <LI>画像は縦・横ともに 256 ピクセル
+  <LI>これを縦横 3.556 インチで描く（印刷などの場合）
+  <LI>したがって解像度は 256÷3.556≒72.0
+</UL>
+<P><em>画像の種類</em>の RGB はカラー，グレースケールは白黒を意味します．<em>塗り潰しの種類</em>は新規に作成する画像の下地の色です．<em>前景</em>と<em>背景</em>は，&quot;The GIMP&quot; ウィンドウの色設定を使います．</P>
+<div class="figure"><IMG src="gimp13.gif" width="160" height="128"></div>
+<P>設定が完了したら「了解」をクリックしてください．「名称未設定」というタイトルが付いた作画ウィンドウが現れます．同時に，「レイヤー，チャンネル
+&amp; パス」ウィンドウに「背景」という項目が現れます．</P>
+<div class="figure"><IMG src="gimp11.png" width="306" height="347"><IMG src="gimp12.png" width="264" height="365"></div>
+<H3>２．４　ペンで描く</H3>
+<P>それではここに何か描いてみましょう．最初に会得した「技」のとおり，GIMP
+のほとんどの機能は，この作画ウィンドウ上でマウスの右ボタンをクリックして現れるメニューで呼び出すことができます．</P>
+<H4>(1) 前景色を設定する</H4>
+<P>まず，ペンの色を決めます．<em>前景色</em>は描画に使う色です．前景色を設定するには，&quot;The GIMP&quot; ウィンドウの「前景色の設定」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp14.gif" width="102" height="80"></div>
+<P>すると「色選択」のウィンドウが現れます．色の選択方法は４種類ありますが，そのうちの
+&quot;GIMP&quot; について解説します．</P>
+<div class="figure"><IMG src="gimp15.jpg" width="470" height="351"></div>
+<P>使いたい色の<em>色相</em> (<U>H</U>ue) を真ん中の縦棒から選びます．そして左側の領域で<em>彩度</em> (<U>S</U>aturation) と<em>明度</em> (<U>V</U>alue) を調整します．この順番はどうでも構いません．もちろん，右側のスライダをドラッグしても調整できます．このウィンドウは，邪魔なら閉じても構いませんが，開きっぱなしでも問題ありません．</P>
+<H4>(2) ペンを選択する</H4>
+<P>次に作画に使う画材を選択します．試しに「絵筆」を選んでみましょう．</P>
+<div class="figure"><IMG src="gimp16.gif" width="209" height="248"></div>
+<P>そして，絵筆の<em>ブラシ形状</em>を選択します．ここでは小さ目の，くっきりとしたブラシを選択してみます．</P>
+<div class="figure"><IMG src="gimp17.gif" width="231" height="283"></div>
+<P>その後，作画ウィンドウでマウスを動かします．失敗したと思ったら，<kbd>Ctrl-Z</kbd> をタイプするかマウスの<em>右ボタン</em>をクリックして「編集」メニューから「アンドゥ」を選べば，<em>操作を取り消す</em>ことができます．ちなみに「リドゥ」は，取り消した操作をもう一度<em>やり直し</em>ます．</P>
+<div class="figure"><IMG src="gimp18.gif" width="524" height="495"></div>
+<H3><A name="fill">２．５　塗りつぶす</A></H3>
+<P>上の絵のように閉じた領域には，<em>ペンキ缶</em>を使って色を流し込むことができます．</P>
+<H4>(1) 塗りつぶし色／塗りつぶしパターンを選択する</H4>
+<P>ここではパターンで塗り潰すことにします．「塗り潰しツール（ペンキ缶）」を選んだ後，「パターン設定」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp19.gif" width="209" height="249"></div>
+<P>「ペンキ缶」を選ぶと「<em>ツールオプション</em>」のウィンドウが「<em>塗りつぶし</em>」の設定に変わります．ここで「<em>パターン塗り</em>」を選んでください．また「パターン設定」をクリックすると「<em>パターン選択</em>」のウィンドウが現れますから，ここから塗りつぶしに使うパターンを選んでください．</P>
+<div class="figure"><IMG src="gimp20.jpg" width="420" height="663"></div>
+<H4>(2) 塗りつぶす領域を指定する</H4>
+<P>あとは塗りつぶす領域をマウスでクリックして，その領域を塗りつぶしてください（上図の下側）．</P>
+<H3>２．６　消す</H3>
+<H4>(1) 消しゴムで消す</H4>
+<P>描いたものを消すには，<em>消しゴム</em>を使います．</P>
+<div class="figure"><IMG src="gimp21.gif" width="209" height="248"></div>
+<P>これは絵筆などと似ていますが，描画に背景色を使います（<em>「背景」のレイヤーの場合</em>）．</P>
+<div class="figure"><IMG src="gimp22.jpg" width="306" height="347"></div>
+<H4>(2) 選択した領域を消す</H4>
+<P>領域を選択して消すこともできます．例えば，次の方法で楕円形の領域を消すことができます．まず「円形領域の選択」を選択してください．</P>
+<div class="figure"><IMG src="gimp27.gif" width="209" height="248"></div>
+<P>そして作画ウィンドウ上で領域を選択し，<EM>マウスの右ボタン</EM>で現れるメニューの「編集」から「カット」を選んでください．</P>
+<div class="figure"><IMG src="gimp23.gif" width="448" height="519"></div>
+<P>選択した部分が消されます．</P>
+<div class="figure"><IMG src="gimp24.jpg" width="306" height="347"></div>
+<P>「楕円形選択」のツールオプションで<em>選択範囲をぼかす</em>ことができます．</P>
+<div class="figure"><IMG src="gimp25.gif" width="189" height="270"></div>
+<P>これは次のような消し方になります．</P>
+<div class="figure"><IMG src="gimp26.jpg" width="306" height="347"></div>
+<H3>２．７　画像を拡大縮小する</H3>
+<P>画像を拡大縮小するには，<EM>マウスの右ボタン</EM>で現れるメニューの「画像」から「拡大縮小...」を選んでください．</P>
+<div class="figure"><IMG src="gimp31.gif" width="360" height="360"></div>
+<P>「画像拡大縮小」のウィンドウで画像の「新しい幅」「高さ」を設定してください．ここでは
+100px（100ピクセル）にしてみます．「比率」の右側にある<EM>鎖</EM>がつながっていれば，拡大縮小時の縦横比が一定になるので，「新しい幅」か「高さ」のどちらかを指定すれば，もう一方も自動的に決まります．</P>
+<div class="figure"><IMG src="gimp32.gif" width="288" height="366"></div>
+<P>最後に「了解」をクリックしてください．</P>
+<div class="figure"><IMG src="gimp33.gif" width="218" height="189"></div>
+<P>この処理も <kbd>Ctrl-Z</kbd> をタイプすれば取り消すことができます．</P>
+<H3>２．８　画像を保存する</H3>
+<P>編集した画像を保存するには，<kbd>Ctrl-S</kbd> をタイプするか，<EM>マウスの右ボタン</EM>で現れるメニューの「ファイル」から「保存」を選んでください．</P>
+<div class="figure"><IMG src="gimp28.gif" width="382" height="440"></div>
+<P>ファイル名を指定します．<em>拡張子</em>は保存するファイルの形式で決定してください．</P>
+<div class="figure"><IMG src="gimp29.jpg" width="436" height="467"></div>
+<P><em>JPEG 形式</em>で保存するときは，次に保存する際の<em>品質</em>（画質）を設定します．</P>
+<div class="figure"><IMG src="gimp30.gif" width="547" height="474" border="0"></div>
+<P>品質が高いほど画像は忠実に保存されますが，その分データサイズが大きくなります．</P>
+<H3><A class="label" name="banner">２．９　Script-Fu を使ったバナー画像の作成</A></H3>
+<P>gimp には，目的の画像を得るために同じ手順を何度も繰り返す手間を省いたり，gimp
+自身が持つ画像処理機能を組み合わせてより高度な処理を実現したりするための，Script-Fu
+と呼ばれる一種のプログラミング機能が用意されています．この機能によって実現された画像処理手法が既にいくつか用意されていますから，それを使ってバナー画像（Web
+ページを飾る看板の役割を果たす画像）を作ってみましょう．</P>
+<H4>(1) 画像の新規作成</H4>
+<P>画像を<A href="#create">新規に作成</A>してください．大きさは，ここでは幅400ピクセル，高さ100ピクセルとします．あまり大きな画像にはしないほうが無難でしょう．</P>
+<div class="figure"><IMG src="banner1.gif" width="447" height="189" border="0"></div>
+<H4>(2) 背景の作成</H4>
+<P>前景色と背景色を設定し，画像を<EM>背景色</EM>で塗りつぶします．塗りつぶしには<A href="#fill">ペンキ缶</A>が使えますが，背景色で塗りつぶすためには<KBD>[Ctrl]</KBD>キーを押しながらマウスの左ボタンをクリックしてください．画像上でマウスの右ボタンをクリックして，現れたメニューから「編集」→「背景色で塗りつぶし」を選んでも塗りつぶすことができます．</P>
+<div class="figure"><IMG src="banner2.gif" width="447" height="189" border="0"></div>
+<H4>(3) 新規レイヤの作成</H4>
+<P>「レイヤー，チャンネル＆パス」のウィンドウで，左下にある「新規レイヤー」ボタンをクリックし，透明のレイヤを作成してください．</P>
+<div class="figure"><IMG src="banner3.gif" width="555" height="363" border="0"></div>
+<H4>(4) 文字の作成</H4>
+<P>作成した透明のレイヤーに，文字を描きます．「レイヤー，チャンネル＆パス」のウィンドウで「新規レイヤー」が選択されていることを確認したら，「The
+GIMP」のウィンドウで「Ｔ（文字）」のボタンをクリックしてください．</P>
+<div class="figure"><IMG src="banner4.gif" width="513" height="362" border="0"></div>
+<P>この後，画像のウィンドウをマウスでクリックすれば，「文字ツール」のウィンドウが開きます．「プレビュー」のところの文字を作成したい文字に書き換え，「フォント」「フォントスタイル」「サイズ」を選択してください．なお，日本語に対応しないフォントを選択したときには，「文字集合が不足している」というメッセージが出ます．</P>
+<div class="figure"><IMG src="banner5.gif" width="563" height="464" border="0"></div>
+<P>「了解」をクリックすると画像のウィンドウ上に文字が描かれ，その文字の領域が選択範囲になります．文字の上にマウスを移動するとマウスカーソルが「＋」の形になりますから，そこで文字をドラッグして文字の位置を決定してください．「レイヤー，チャンネル＆パス」ウィンドウの「イカリ」のマークをクリックすれば，「フローティング選択領域」が確定します．</P>
+<div class="figure"><IMG src="banner6.gif" width="751" height="363" border="0"></div>
+<H4>(5) 影の作成</H4>
+<P>作成した文字に，ぼけた影を付けてみます．画像のウィンドウをマウスの右ボタンでクリックし，「Script-Fu」→「影」→「影付け」を選んでください．</P>
+<div class="figure"><IMG src="banner7.gif" width="447" height="466" border="0"></div>
+<P>「Script-Fu: 影/影付け」ウィンドウで影のつき方を微調整した後，「了解」をクリックしてください．「オフセット」は元画像（文字）と影のずれ，「ぼかし半径」は影のぼけ具合，「不透明度」は背景の透け具合を設定します．</P>
+<div class="figure"><IMG src="banner8.gif" width="349" height="316" border="0"></div>
+<P>影は背景のレイヤーと元画像（文字）のレイヤーの間に生成されます．</P>
+<div class="figure"><IMG src="banner9.gif" width="751" height="364" border="0"></div>
+<H4>(6) 画像ファイルのエクスポート（書き出し）</H4>
+<P>この画像を JPEG 形式で保存します．画像をマウスの右ボタンでクリックして，「ファイル」→「保存」を選んでください．</P>
+<div class="figure"><IMG src="banner10.gif" width="447" height="296" border="0"></div>
+<P>「画像の保存」ウィンドウで，ファイル名に <EM>banner.jpg</EM> を指定してください．「ファイル形式の決定」に「拡張子で判断」を選んでおけば，画像が JPEG (JFIF) 形式で保存されます．</P>
+<div class="figure"><IMG src="banner11.gif" width="433" height="465" border="0"></div>
+<P>ただし JPEG (JFIF) はレイヤー構造を持った画像を保存できませんから，一旦レイヤーを統合して単一の画像に直す必要があります．このため，「エクスポートファイル」というウィンドウが開きます．なお，この処理はファイルを保存する前に手動で行っておくこともできます．</P>
+<div class="figure"><IMG src="banner12.gif" width="329" height="177" border="0"></div>
+<P>その後，<em>JPEG 形式</em>で保存する際の画像の<em>品質</em>（画質）を設定します．</P>
+<div class="figure"><IMG src="gimp30.gif" width="547" height="474" border="0"></div>
+<H4>(7) レイヤーを保ったまま画像を保存</H4>
+<P>後で編集するために，レイヤーを保ったまま画像を保存したい場合は，ファイル名の拡張子を <EM>.xcf</EM> にしてください．上記で作成したバナー画像を保存する場合は，まず画像をマウスの右ボタンでクリックして「ファイル」→「別名で保存」を選んでください．</P>
+<div class="figure"><IMG src="banner13.gif" width="447" height="290" border="0"></div>
+<P>ここで，たとえば <EM>banner.xcf</EM> というファイル名を指定してください．</P>
+<div class="figure"><IMG src="banner14.gif" width="433" height="465" border="0"></div>
+<H3>２．１０　アニメーション GIF</H3>
+<P>複数の GIF ファイルをもとに， パラパラ漫画のような簡単なアニメーションを作ることができます．</P>
+
+<table>
+  
+    <tr>
+    <th style="background-color: transparent;"><IMG src="movie1.gif" width="128" height="256"></th>
+    <th style="background-color: transparent;"><IMG src="movie2.gif" width="128" height="256"></th>
+    <th style="background-color: transparent;"><IMG src="movie3.gif" width="128" height="256"></th>
+    <th style="background-color: transparent;"><IMG src="movie4.gif" width="128" height="256"></th>
+  </tr>
+  <tr>
+    <th style="background-color: transparent;">movie1.gif</th>
+    <th style="background-color: transparent;">movie2.gif</th>
+    <th style="background-color: transparent;">movie3.gif</th>
+    <th style="background-color: transparent;">movie4.gif</th>
+  </tr>
+
+</table>
+
+<P>上の４つの GIF ファイルをもとにアニメーション GIF ファイルを作成すると，下のようになります．</P>
+
+<div class="figure">
+  <div><IMG src="movie.gif" width="128" height="256"></div>
+  <div class="caption">movie.gif</div>
+</div>
+
+<P>このような図は Adobe ImageRady などで作成できます．</P>
+<H2>３．ホームページ制作（画像編）</H2>
+<H3><a class="label" name="image">３．１　画像を埋め込む</A></H3>
+<P>それでは，先ほど保存した画像をホームページに埋め込んでみましょう．emacs で <EM>profile.html</EM> を開き，下線部の内容を追加してください．</P>
+<PRE class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;Kentaro's page&lt;/title&gt;
+    &lt;meta http-equiv=&quot;Content-Style-Type&quot; content=&quot;text/css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;profile.css&quot;&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;h1&gt;和歌山健太郎のホームページ&lt;/h1&gt;
+    &lt;p&gt;<U>&lt;img src=&quot;<em>image.jpg</em>&quot; width=&quot;<EM>256</EM>&quot; height=&quot;<EM>256</EM>&quot; alt=&quot;自画像&quot;&gt;</U>
+       和歌山健太郎のホームページへようこそ．&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;profile.html&quot;&gt;自己紹介&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;timetable.html&quot;&gt;時間割&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<P><EM>src</EM> 属性に指定している画像ファイル名 (image.jpg) は，ディレクトリ html に入れた実際の画像ファイル名にしてください．また
+<EM>width</EM> と <EM>height</EM> には，それぞれその画像の幅と高さを指定してください．出来上がったら， <kbd>C-x C-s</kbd> でファイルを保存してください． その後，Netscape で index.html を<A href="05.html#openfile">開いて</A>ください．画像がホームページに埋め込まれましたか？</P>
+<div class="figure"><IMG src="image1.gif" width="500" height="538"></div>
+<P>上の例のように，画像は文字と同様に文書の行内にレイアウトされます．画像の周りにテキストを回りこませたりするには，<EM>float</EM> というプロパティを用います．画像をテキストの左側に配置するには <EM>left</EM> を指定します．emacs で <EM>profile.css</EM> を開き，下線部の内容を追加してください．その後 <kbd>C-x C-s</kbd> でファイルを保存し，Netscape で<A href="05.html#reload">再読み込み</A>してください．</P>
+<PRE class="source">body {
+  border: outset 8px;
+  line-height: 2;
+  margin-top: 3em;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 30em;
+  color: #003300;
+  background-color: #669966;
+}
+dl {
+  border: inset 5px;
+  padding: 1.5em;
+  margin: 1em;
+  background-color: #ffffcc;
+}
+dt {
+  font: bold italic larger serif;
+  border-top: dotted thin;
+  border-bottom: dotted thin;
+  background-color: #bbeebb;
+}
+h1 {
+  text-align: center;
+  text-decoration: underline;
+  color: #ffffcc;
+}
+<U>img {</U>
+<U>  float: left;</U>
+<U>}</U></PRE>
+<div class="figure"><IMG src="image2.gif" width="500" height="538"></div>
+<P>画像に枠や隣接する要素との間隔を設定することも可能です．profile.css に下線部の内容を追加し，<kbd>C-x C-s</kbd> でファイルを保存してください．そして Netscape で再読み込みしてレイアウトを確認してください．</P>
+<PRE class="source">body {
+  border: outset 8px;
+  line-height: 2;
+  margin-top: 3em;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 30em;
+  color: #003300;
+  background-color: #669966;
+}
+dl {
+  border: inset 5px;
+  padding: 1.5em;
+  margin: 1em;
+  background-color: #ffffcc;
+}
+dt {
+  font: bold italic larger serif;
+  border-top: dotted thin;
+  border-bottom: dotted thin;
+  background-color: #bbeebb;
+}
+h1 {
+  text-align: center;
+  text-decoration: underline;
+  color: #ffffcc;
+}
+img {
+  float: left;
+<U>  border: inset 5px;</U>
+<U>  margin-right: 2em;</U>
+}</PRE>
+<div class="figure"><IMG src="image3.gif" width="500" height="538"></div>
+<P>あと，デジカメやスキャナを用意しますので，自分の顔写真や自分で描いたイラストなど，独自の素材を使う希望があれば知らせてください．画像が大きすぎる場合は
+<em>gimp</em> や <em>ee</em> を使って画像を縮小するか，不要な部分を切り取ってください．</P>
+<H3>３．２　メールをもらう</H3>
+<P>自分の Web ページを見てくれた人からメールをもらいたいときは， 自分のメールアドレスを
+Web ページに明記しておきましょう．これは，メールをもらうだけでなく，そのページの責任の所在（文責）を明らかにするという点でも，意味のあることです．</P>
+<P>ただし，最近は不用意にメールアドレスを公開すると，<EM>スパム</EM>（迷惑メール）が届くことがあります．スパムの宛先となるメールアドレスはソフトウェアによって自動収集されることがほとんどなので，コンピュータにはメールアドレスだと判断されないが人間が見るとメールアドレスだと判断できる記法を用いることにより，スパムが届く可能性を避けることができます．</P>
+<DL>
+  <DT>&quot;@&quot; を at，&quot;.&quot; を dot と表記する
+  <DD>&quot;s085000@sys.wakayama-u.ac.jp&quot; であれば &quot;s085000 at sys
+  dot wakayama-u dot ac dot jp&quot; と書く．&quot;at を @，dot を . に置き換えてください&quot;
+  などと注釈を入れておいた方がいい．
+  <DT>メールアドレス中に関係ない文字や単語を置く
+  <DD>例えば &quot;s085000@removehere.sys.wakayama-u.ac.jp ← removehere. という文字列を取り除いてください&quot;
+  と書く．
+  <DT>日本語の文字で書く
+  <DD>メールアドレス収集ソフトウェアは日本語に対応していないことが多いようなので（確証なし），&quot;ｓ０８５０００＠ｓｙｓ．ｗａｋａｙａｍａ－ｕ．ａｃ．ｊｐ&quot;
+  と書く．
+</DL>
+<P>ただし，これはいずれも<EM>根拠のない自衛策</EM>です．また「Web ページの文責を明らかにする」という実名主義の観点からも疑問が残りますので，決して推奨はしません．スパムの中には猥褻なもの，詐欺を目的としたもの，コンピュータウィルスやワーム，脅迫など，犯罪的なものも存在しますが，そういうものから身を守れるかどうかは，結局自分自身が正しい判断を行えるかどうかにかかっています．</P>
+<P>積極的にメールを受け入れたいと考える場合は，次のような手法を用いることができます．<code class="tag">&lt;a href=&quot;mailto:メールアドレス&quot;&gt;</code> ～ <code class="tag">&lt;/a&gt;</code> というように， ホットスポットのリンク先に Web ページの URL ではなく &quot;mailto:自分のメールアドレス&quot;
+を指定すると， そのホットスポットをクリックしたときに Web ブラウザのメール機能を呼び出すようにできます．なお，ここには正しいメールアドレスを指定しなければ意味ありません．</P>
+<PRE class="source">&lt;a href=&quot;mailto:tokoi@sys.wakayama-u.ac.jp&quot;&gt;
+&lt;img src=&quot;mail.gif&quot; alt=&quot;メールください&quot; width=&quot;64&quot; height=&quot;64&quot; border=&quot;0&quot;&gt;
+メール下さい&lt;/a&gt;</PRE>
+<P>これは下のようになります．この絵か文字をクリックしてみてください．</P>
+
+<TABLE>
+  <TBODY>
+    <TR>
+      <TD class="action"><A href="mailto:tokoi@sys.wakayama-u.ac.jp"><IMG src="mail.gif" width="64" height="64" alt="メールください" border="0">メール下さい</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3>３．３　クリッカブルマップ</H3>
+<P>ホットスポットとして画像を使用したとき， 通常では画像全体で一つの URL にリンクします．
+これを，<em>画像上のクリックした位置によって異なる URL
+にリンクする</em>ようにしたものを，<em>クリッカブルマップ</em>と呼びます．</P>
+<P>クリッカブルマップの実現方法には，いくつかのものがありますが，ここでは <code class="tag">&lt;map name=&quot;マップ名&quot;&gt;</code> タグを使う方法について説明します．ただし，この方法は古い Web ブラウザでは機能しません．</P>
+<PRE class="source">&lt;map name=&quot;organization&quot;&gt;
+  &lt;area
+    shape=&quot;rect&quot;
+    coords=&quot;34,155,244,189&quot;
+    href=&quot;http://www.sys.wakayama-u.ac.jp/&quot;&gt;
+  &lt;area
+    shape=&quot;rect&quot;
+    coords=&quot;34,115,244,149&quot;
+    href=&quot;http://www.eco.wakayama-u.ac.jp/&quot;&gt;
+  &lt;area
+    shape=&quot;rect&quot;
+    coords=&quot;34,75,244,109&quot;
+    href=&quot;http://www.edu.wakayama-u.ac.jp/&quot;&gt;
+  &lt;area
+    shape=&quot;rect&quot;
+    coords=&quot;9,14,224,59&quot;
+    href=&quot;http://www.wakayama-u.ac.jp/&quot;&gt;
+  &lt;/map&gt;
+
+&lt;img src=&quot;map.gif&quot; alt=&quot;和歌山大学・学部&quot; width=&quot;260&quot; height=&quot;200&quot; usemap=&quot;#organization&quot;&gt;</PRE>
+<UL>
+  <LI><code class="tag">&lt;map name=&quot;マップ名&quot;&gt;</code> ～ <code class="tag">&lt;/map&gt;</code> でマップを定義し， そのマップ名を <code class="tag">&lt;img src=&quot;マップ画像&quot; usemap=&quot;#マップ名&quot;&gt;</code> で指定します．
+  <LI><code class="tag">&lt;area&gt;</code> タグの shape= 属性は，マップ画像上のホットスポットにする領域の形で， &quot;rect&quot;（長方形），&quot;circle&quot;（円）が指定できます．また
+  coord= 属性は， shape= 属性で指定したホットスポットの座標を定義します．
+  shape=&quot;rect&quot; の場合は長方形の左上の頂点と右下の頂点の位置を指定します．
+  shape=&quot;circle&quot; の場合は中心の位置と半径を指定します．
+  <UL>
+    <LI><CODE class="tag">&lt;area shape=&quot;<em>rect</em>&quot; coords=&quot;<EM>左上のx座標</EM>,<EM>左上のy座標</EM>,<EM>右下のx座標</EM>,<EM>右下のy座標</EM>&quot; href=&quot;<EM>url</EM>&quot;&gt;</CODE>
+    <LI><CODE class="tag">&lt;area shape=&quot;<em>circle</em>&quot; coords=&quot;<EM>中心位置のx座標</EM>,<EM>中心位置のy座標</EM>,<EM>半径</EM>&quot; href=&quot;<EM>url</EM>&quot;&gt;</CODE>
+  </UL>
+  <LI><code class="tag">&lt;area&gt;</code> タグの href= 属性は， そのホットスポットにリンクする URL を指定します．
+  <LI>全体の枠を消したければ，<CODE class="tag">&lt;img&gt;</CODE> タグに border=&quot;0&quot; を追加してください．
+</UL><div class="figure">
+<IMG src="map.gif" usemap="">
+</div>
+<H2><a class="label" name="assignment">課題</A></H2>
+<DIV class="assign">（１）Script-Fu を使ってロゴを作成し，それを適当な画像と合成して，自分の
+Web ページ用のバナーを作りなさい．ただし，他人の Web ページ上の画像や雑誌の写真等を許可無く使用してはいけません．適当な素材が無ければ，下記のものを使ってください．</DIV>
+<UL>
+  <LI><A href="P7270109.JPG">写真１</A>
+  <LI><A href="P7280130.JPG">写真２</A>
+  <LI><A href="P7280140.JPG">写真３</A>
+  <LI><A href="P7290286.JPG">写真４</A>
+  <LI><A href="P7290328.JPG">写真５</A>
+  <LI><A href="/~tokoi/photos/London/">その他</A>
+</UL>
+<DIV class="assign">（２）作成した Web ページを「学外向けサーバ」にアップロード（データをサーバに転送すること）してください（<A href="/~tokoi/lecture/local/upload.html">Webページのアップロード方法</A>）．index.html あるいは index.shtml をアップロードすると，<A href="http://students.sys.wakayama-u.ac.jp/" target="_blank">http://students.sys.wakayama-u.ac.jp/</A> の Index に現れます．</DIV>
+<DIV class="assign">（３）時間に余裕があればクリッカブルマップを含むページを作成し，それもアップロードしてください．アップロード先の
+index.html からリンクを張っておいてください．</DIV>
+<P>課題ができたら，メールで tokoi@sys.wakayama-u.ac.jp まで知らせてください．私が確認したら返事を書きますので，それ以降は自由に変更していただいて結構です．時間割へのリンクなどははずしておいてください．なお，上記のサーバは学外に公開されていますから，他人に見られて恥ずかしくないものを公開しましょう．大学の
+Web ページとして不適切なものが公開されていた場合は削除します．</P>
+<BLOCKQUOTE>
+<DIV class="header">著作権について</DIV>
+<DIV class="body">Web ページの素材として他人の Web ページ上の記述や画像，音声・音楽等を許可無く使用してはいけません．同様に雑誌等の写真や図版，CD
+等の音楽，ビデオや DVD の映像等の<STRONG>他人の著作物</STRONG>を無断で利用してはいけません．</div>
+<ul>
+  <li><A href="http://www.cric.or.jp/qa/hajime/hajime.html" target="_blank">はじめての著作権講座</A>，<A href="http://www.cric.or.jp/qa/multimedia/multi.html" target="_blank">マルチメディアと著作権</A>（<A href="http://www.cric.or.jp/" target="_blank">著作権情報センター</A>）
+  <li><A href="http://www.music-copyright.jp/" target="_blank">ネットワーク音楽著作権普及・啓発プロジェクト</A>
+  <li><A href="http://www.imasy.or.jp/~ume/copyright-ml/inetmag/" target="_blank">ネットワーク時代の知的所有権入門</A>
+  <li><A href="http://www.asahi-net.or.jp/~sd5a-ucd/freetexts/copyrightLaw/" target="_blank">著作権法</A>（内田明さん）
+</ul>
+</blockquote>
+</BODY>
+</html>

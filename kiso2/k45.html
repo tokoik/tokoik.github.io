@@ -1,0 +1,50 @@
+<head>
+<title>情報基礎演習II − 課題４５</title>
+</head>
+
+<body>
+
+<h3>課題４５</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムでは、
+内側のブロックにおいて変数 i に 5 を代入しているにも関わらず、
+0 が出力される。その理由を考察し、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai45 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai45
+** 動作: ブロックの中の変数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i;
+
+    i = 0;
+
+    {
+        int i;
+
+        i = 5;
+    }
+
+    printf("i = %d\n", i);
+}
+</pre>
+</table>
+
+</ol>
+
+</body>

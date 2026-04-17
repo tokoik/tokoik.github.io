@@ -1,0 +1,81 @@
+<head>
+<title>情報処理 II － 第１４回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第１４回</h1>
+
+講義に入る前に shori2 にカレントディレクトリを移しておいてください。
+<p>
+
+<hr>
+
+<h2>１．ファイル操作（データ処理）</h2>
+
+<hr>
+
+たとえば次のような内容のテキストファイル tabemono があったとします。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">tabemono
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+taiyaki   100 24
+takoyaki  300  8
+okonomi   400  7
+</table>
+</center>
+<p>
+
+これはあるスーパーの入り口に出ている屋台の、
+その日の売り上げ記録だったとします。
+この一つ目の欄は商品名、２つ目は単価、３つ目を個数です。
+このデータから、
+この屋台のその日の売り上げ合計を求めるプログラムを作ります。
+<p>
+
+<center>
+<table width="90%" border>
+<tr><th bgcolor="#ffffff" valign="top">yatai.cc
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;fstream.h&gt;
+
+int main(void) {
+  ifstream data("tabemono");
+  char shouhin[10];
+  double tanka, sum = 0.0;
+  int kosuu;
+
+  while (data &gt;&gt; shouhin &gt;&gt; tanka &gt;&gt; kosuu) {
+    sum += tanka * kosuu;
+  }
+
+  cout &lt;&lt; "合計は " &lt;&lt; sum &lt;&lt; "円" &lt;&lt; endl;
+}
+</table>
+</center>
+
+<ul>
+<li>ファイル tabemono を ifstream クラスのオブジェクト
+data を作成して開きます。
+<li><tt>data &gt;&gt; shouhin &gt;&gt; tanka &gt;&gt; kosuu</tt>
+で１行文のデータを読み出します。
+<li>上のように &gt;&gt; を連続して指定できるのは、
+<tt>data &gt;&gt; shouhin</tt> という計算の「値（答）」が data
+というオブジェクトそのものだからです。
+<li>抽出演算子 &gt;&gt; による処理が入力データの終りやエラーなどで
+「失敗」すると、この計算の値は 0（ヌルポインタ）になります。
+<li>したがって、上のプログラムではデータを最後まで読み出すと、
+while () による繰り返しから抜け出します。
+</ul>
+<p>
+
+このプログラムには一つ問題があります。
+配列 shouhin のサイズは 10 なので、
+入力データに含まれる商品名の文字数は９文字までに制限する必要があります。
+ここではとりあえず入力データの商品名は９文字以内として考えます。
+
+</body>

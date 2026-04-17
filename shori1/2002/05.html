@@ -1,0 +1,1122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>情報処理 I － 第５回：ジョブコントロール、テキストエディタの操作、印刷</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+PRE { color : black; }
+EM { text-decoration: none; color: #dd6600; }
+STRONG { text-decoration: underline; color: #00aa00; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<h1>情報処理 I - 第５回</h1>
+<HR>
+<H2>１．ジョブコントロール</H2>
+<HR>
+<p>たとえば、ターミナルのシェルからコマンド
+(rxvt) でターミナルのウィンドウを開いたりすることができます。</p>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドでターミナルを開く</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">rxvt コマンドを実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rxvt<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job1.gif" width="400" height="500" border="0"></P>
+<P>しかし、もとのターミナルのシェルはコマンドを受け付けなくなります。</P>
+<P align="center"><IMG src="job2.gif" width="400" height="500" border="0"></P>
+<P>仕方がないので、もとのターミナルで <B>Ctrl-C</B> をタイプします。すると、開いたウィンドウが消えてしまいます。</P>
+<P align="center"><IMG src="job3.gif" width="400" height="500" border="0"></P>
+<P>もう一度 rxvt を起動してターミナルのウィンドウを開き、今度は
+<B>Ctrl-Z</B> をタイプします。今度はもう一方のウィンドウは消えません。しかし、もう一方のウィンドウは全く応答してくれません。</P>
+<P align="center"><IMG src="job4.gif" width="400" height="500" border="0"></P>
+<P>もとのウィンドウで <B>fg</B> コマンドを実行すると、再びもう一方のウィンドウが動き出します。この場合、もとのウィンドウは再びコマンドを受け付けなくなります。これは、もとのウィンドウのシェルがコマンドの<B>終了を待っている</B>からです。コマンドがシェルを待たせて動作している状態を、<B>フォアグラウンドで走っている</B>と言います。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">フォアグラウンドで動かす</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">fg コマンドを実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>fg<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job5.gif" width="400" height="500" border="0"></P>
+<P>もとのウィンドウでもう一度 <B>Ctrl-Z</B> をタイプします。そして、今度は <B>bg</B> コマンドを実行します。こうすると、コマンドで起動した
+rxvt がもとのシェルと並行して（同時に）動くため、両方のウィンドウが使えるようになります。このようにコマンドが起動したシェルと並行して動いている状態を<B>バックグラウンドで走っている</B>といいます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">バックグラウンドで動かす</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">bg コマンドを実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>bg<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job6.gif" width="400" height="500" border="0"></P>
+<P>もとのウィンドウで <B>jobs</B> コマンドを実行すれば、このシェルのバックグラウンドで走っているコマンド（<B>バックグラウンドジョブ</B>）の一覧が表示されます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ジョブの一覧を見る</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">jobs コマンドを実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>jobs<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job7.gif" width="400" height="500" border="0"></P>
+<P>コマンドを実行する際に <B>&amp;</B> を後ろにつけると、そのコマンドを最初からバックグラウンドで動かすことができます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">コマンドをバックグラウンドで起動する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">rxvt コマンドを<FONT color="#ff0000">バックグラウンド</FONT>で実行する。</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>rxvt <B>&amp;</B><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job8.gif" width="400" height="500" border="0"></P>
+<P>jobs コマンドで<B>バックグラウンドジョブが２つ</B>走っていることがわかります。jobs コマンドの出力の各行の先頭の
+<B>[数字]</B> は、<B>ジョブ番号</B>と言います。<B>kill</B> コマンドの引数に &quot;<B>%ジョブ番号</B>&quot; を指定すれば、そのジョブを終了させることができます。</P>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">kill コマンドを使ってジョブを制御する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">ジョブを終了させる</TD>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>kill <B>%1</B><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ジョブを停止させる</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>kill <B>-STOP</B> %1<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">何が何でもジョブを終了させる</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>% <U>kill <B>-KILL</B> %1<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P align="center"><IMG src="job9.gif" width="400" height="500" border="0"></P>
+<P><B>fg</B> コマンドや <B>bg</B> コマンドも、引数にジョブ番号を指定できます。ジョブ番号を省略したときは、最後に関わったジョブ（jobs
+コマンドの出力に <B>+</B> がついているもの）が指定されます。</P>
+
+<HR>
+<H2><a name="editor">２．テキストエディタ</a></H2>
+<HR>
+<H3>２．１　テキストエディタの種類</H3>
+<P><B>テキストファイル</B>（文字だけからなるファイル、文書ファイル）は、
+これまでやってきたように cat コマンドの出力をファイルにリダイレクトして作成できます。
+でもこの方法では、一旦作成したテキストファイルを修正したり、変更したりすることができません。
+そこで、普通テキストファイルの作成には、
+そういう編集機能を持った <B>テキストエディタ</B>と呼ばれるアプリケーションソフトウェアを使います。</P>
+<P>これは<B>ワードプロセッサみたいなもの</B>ですが、 ワードプロセッサには文書のレイアウトや印刷の機能が備えられているのに対して、
+テキストエディタは<B>文書の編集に使う機能が充実</B>しています。</P>
+<P>Unix や Linux には、結構いろんなテキストエディタが用意されています。
+<B>ラインエディタ</B>は、 まだブラウン管を使うタイプの端末装置が普及していなかった頃（つまり昔）、
+紙に印字しながらタイプするタイプライタ型の端末装置で使うことを考えて作られています。
+ed などはプロンプトすら出さないとっても不親切な作りになってますが（しかし、これが
+Unix のスタイルなんですが）、 これはこれで使い込めばほかのエディタではできないような凝ったことができます。</P>
+<P>ex/vi は Unix/Linux における基本的なエディタの一つです。
+ex は ed を少しは親切にした感じのラインエディタです。一方
+vi は、ex をスクリーンモード（画面上で編集するモード）にした<B>スクリーンエディタ</B>です。 将来 UNIX や Linux を使い込むつもりがあるなら、これらの使い方を覚えておいて損はないでしょう。ちなみに、vi
+のキー操作は、 jnethack というゲームをやると自然と身に付きます（ウソ）。</P>
+<BLOCKQUOTE><FONT size="-1">なお、ここで使っている vi は、実際には VIM
+(Vi IMproved: Vi を改良したクローン、すなわち互換品）です。興味がある人は
+vim コマンドを起動してみてください。</FONT></BLOCKQUOTE>
+<P>emacs は、 この中のエディタで最も高機能なエディタです。このエディタの特徴は自己拡張可能な点にあり、ほとんどの機能が
+emacs 自体がもつ emacs lisp というプログラミング言語で実現されています。
+また英語、日本語のみならず中国語（大陸、台湾）、韓国語、タイ語など、
+多国語に対応しています。xemacs はこの emacs
+に対して X Window System 関係の機能を拡張したものです。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">テキストエディタの種類</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>ed</B></TD>
+      <TD bgcolor="#ffeeaa">ラインエディタ、玄人向け？</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>ex</B></TD>
+      <TD bgcolor="#ffeeaa">ラインエディタ、基本です。</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>vi (vim)</B></TD>
+      <TD bgcolor="#ffeeaa">ターミナル用のスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>gvim</B></TD>
+      <TD bgcolor="#ffeeaa">vim をウィンドウモードにしたもの</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>mgedit</B></TD>
+      <TD bgcolor="#ffeeaa">シンプルなウィンドウモード用のスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>gedit</B></TD>
+      <TD bgcolor="#ffeeaa">タブが使えるウィンドウモード用のスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>xedit</B></TD>
+      <TD bgcolor="#ffeeaa">X Window System に昔からついているスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>jed</B></TD>
+      <TD bgcolor="#ffeeaa">emacs 等のエミュレーションができるターミナル用のスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>emacs</B></TD>
+      <TD bgcolor="#ffeeaa">ターミナル／ウィンドウ両用の高機能なスクリーンエディタ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa"><B>xemacs</B></TD>
+      <TD bgcolor="#ffeeaa">emacs の X Window System 関係機能強化版</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここでは emacs を基本に解説していきます。
+xemacs の基本的な操作方法は emacs と同じです。
+なお、emacs と、その Windows 版の Meadow
+についての丁寧な解説が、 <A href="/~s011020/" target="_blank">栗原祐介氏</A>の <A href="/~s011020/Emacs/" target="_blank">With Emacs</A> というページにあります。</P>
+<H3>２．２　emacs の起動</H3>
+<P>emacs を起動するには、 ターミナルのシェルから
+emacs とタイプして改行します。X Window System
+上では、emacs は動かしっぱなしにして使うことが多いので、ここでは<B>バックグラウンド</B>で起動しておくことにします。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">emacs を起動する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top"><PRE>% <U>emacs <B>&amp;</B><STRONG>[Enter]</STRONG></U></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BLOCKQUOTE><FONT size="-1">もちろん、X Window System 上でないとき（ウィンドウモードでないとき、<TT>-nw</TT> オプションを付けたときや遠隔ログインしたとき）は、emacs
+を<B>バックグラウンドで使うことはできません</B>。もし、間違えてバックグラウンドで動かしてしまったときは、emacs
+は入力待ちで停止していますので、<B>fg</B> コマンドを使って emacs をフォアグラウンドで走らせるようにしてください。</FONT></BLOCKQUOTE>
+<P>起動すると、下のようなウィンドウが現れます。</P>
+<CENTER><IMG src="emacs1.gif" width="400" height="405" border="0"></CENTER>
+<P>起動すると、ウィンドウ内に簡単な解説が表示されます。
+これはマウスをクリックしたり、何かキーをタイプすると消えます。</P>
+<H3>２．３　emacs の操作</H3>
+<P>emacs は大半の操作をキーボードから行います。
+メニューバーのメニューでも操作できますが、
+ターミナルモード（emacs -nw というように
+-nw オプションを付けて emacs を起動する場合）
+などではメニューバーが使えないので、 ここではキー操作についてのみ説明します。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">キー操作の表記</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ccccff"><TT><B>C-x</B></TT></TD>
+      <TD bgcolor="#ccffcc"><TT><B>[Ctrl]</B></TT>キーを押し<FONT color="#ff0000">ながら</FONT>、x をタイプする (Ctrl-X)</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ccccff"><TT><B>C-x C-c</B></TT></TD>
+      <TD bgcolor="#ccffcc"><TT><B>C-x</B></TT> をタイプした後、<TT><B>C-c</B></TT> をタイプする</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ccccff"><TT><B>M-x</B></TT></TD>
+      <TD bgcolor="#ccffcc"><TT><B>[Alt]</B></TT>キーを押し<FONT color="#ff0000">ながら</FONT>、x をタイプする (Alt-X)</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ccccff"><TT><B>ESC x</B></TT></TD>
+      <TD bgcolor="#ccffcc"><TT><B>[ESC]</B></TT>キーをタイプした<FONT color="#ff0000">後</FONT>、x をタイプする</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffeeee">端末装置によっては Alt-X が使えない場合があるので、たいてい
+      <B>ESC x が Alt-X と同じ動作をする</B>ようになっています。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H4>バッファについて</H4>
+<BLOCKQUOTE>
+<DL>
+  <DT><B>バッファ</B>
+  <DD>emacs において編集対象のテキストファイルを保持する機構のことを、
+  <B>バッファ</B>と呼びます。 emacs は同時に複数のバッファを管理することができます。
+  通常はそのうち一つのバッファの内容がウィンドウに表示されています
+  （画面を分割して、複数のバッファを同時に表示することもできます）。
+  <DT><B>ミニバッファ</B>
+  <DD>コマンドやファイル名などの入力を行うときには、
+  カーソルがウィンドウの最下行に移動します。
+  この場所は<B>ミニバッファ</B>と呼ばれます。
+</DL>
+</BLOCKQUOTE><CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">キー操作</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">ファイルを開く</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x C-f</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">別のファイルを読み込む</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x i</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">文字入力</TD>
+      <TD bgcolor="#ffeebb">その文字をタイプ</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">一字削除</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Backspace]</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">挿入／上書き切り替え</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Insert]</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">カーソル移動</TD>
+      <TD bgcolor="#ffeebb" align="center"><IMG src="emacskey1.gif" width="400" height="248" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">文字列の検索</TD>
+      <TD bgcolor="#ffeebb" align="center"><IMG src="emacskey2.gif" width="400" height="181" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">文字列の置換</TD>
+      <TD bgcolor="#ffeebb" align="center"><IMG src="emacskey3.gif" width="400" height="111" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">１行空ける</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-o</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">行末まで削除</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-k</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">カーソル位置にマークを付ける</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-</B></TT><B>スペース</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">カーソル位置とマーク位置の入れ替え</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x C-x</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">マーク位置からカーソル位置まで削除</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-w</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">マーク位置からカーソル位置まで複写</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-w</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">削除／複写した内容を復活</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-y</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">変更取り消し</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-_</B></TT> または <B><TT>C-x u</TT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">操作の中止</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-g</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">ファイルの保存</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x C-s</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">名前を付けてファイルを保存</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x C-w</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">ヘルプのメニューを表示</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Delete] ?</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">info を表示</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Delete] i</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">emacs を終了</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-x C-c</B></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffeeee">emacs 本来の設定では、<TT><B>[Delete]</B></TT> キーで直前の１文字を削除し、<TT><B>C-h</B></TT> (<TT><B>[Backspace]</B></TT>) でヘルプ関連の機能を呼び出すようになっていますが、６階のシステムではこの２つのキーの役割を交換しています。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><H3>２．４　ファイルの作成</H3>
+<P>ファイルを開くには <TT><B>C-x C-f</B></TT> をタイプします。 するとミニバッファに開くファイル名を聞いてきますので、ここで存在しないファイル名を指定すれば、そのファイルを新規に作成します。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">ファイルを作成する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-x C-f</B></TT> をタイプする。ミニバッファに開くファイル名を聞いてくる。</TD>
+      <TD valign="top" width="256"><IMG src="emacs2.gif" width="256" height="32" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ここでは file.txt というファイルの作成を行うことにする。最後に
+      <B>[Enter]</B> をタイプ。</TD>
+      <TD valign="top"><IMG src="emacs3.gif" width="256" height="32" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ファイルが存在すれば、バッファ内にそのファイルが表示されます。今は新規作成なので、バッファ内は空になっているはずです。ミニバッファには
+(New File) と表示されているはずです。</P>
+<P align="center"><IMG src="emacs4.gif" width="400" height="405" border="0"></P>
+<P>なお、開くファイル名は emacs の起動時に引数指定することもできます。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">引数でファイル名を指定する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs file.txt <B>&amp;</B><STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P>試しに、次の内容をタイプしてみてください。間違っていても構いません。。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><U>A girl and a boy bump into each other -- surely an accident.<STRONG>[Enter]</STRONG>
+A girl and a boy bump and her handkerchief drops -- surely another accident.<STRONG>[Enter]</STRONG>
+But when a girl gives a boy a dead squid -- *that had to mean something*.<STRONG>[Enter]</STRONG>
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>このバッファの内容をファイルに保存します。<TT><B>C-x C-s</B></TT> をタイプしてください。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">バッファをファイルに保存する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-x C-s</B></TT> をタイプする。バッファの内容がファイルに保存される。</TD>
+      <TD valign="top" width="256"><IMG src="emacs5.gif" width="256" height="32" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ファイルが保存できたら、一旦 emacs を終了します。<TT><B>C-x C-c</B></TT> をタイプしてください。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">問い合わせが表示されるとき</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ファイルの編集中に、別の方法でそのファイルを修正してしまうと、バッファをファイルに保存する際に問い合わせが表示されます。また、バッファをファイルに保存せずに
+      emacs を終了しようとしたときにも問い合わせが表示されます。問い合わせ自体は簡単な英語ですので、問い合わせにしたがって
+      yes か no を答えてください。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3><a name="openfile">２．５　既存ファイルの編集</a></H3>
+<P>まず、先ほど保存したファイルを開きます。<TT><B>C-x C-f</B></TT> をタイプしてください。ここでファイル名として
+file.txt を指定するのですが、ミニバッファに開くファイル名を聞いてきたら、試しに先頭の２文字
+&quot;fi&quot; をタイプしてみてください。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">既存ファイルを開く</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-x C-f</B></TT> をタイプする。ミニバッファに開くファイル名を聞いてくる。</TD>
+      <TD valign="top" width="256"><IMG src="emacs2.gif" width="256" height="32" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">fi をタイプする。</TD>
+      <TD valign="top"><IMG src="emacs6.gif" width="256" height="32" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">スペースをタイプする。</TD>
+      <TD valign="top"><IMG src="emacs7.gif" width="256" height="32" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">もう一度スペースをタイプする。ファイル名が完成したら
+      <TT><B>[Enter]</B></TT> をタイプする。</TD>
+      <TD valign="top"><IMG src="emacs3.gif" width="256" height="32" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ミニバッファにおいてコマンドやファイル名を入力する際、途中まで文字をタイプしたあと<B>スペース</B>や <B>Tab</B> をタイプすると、 残りの文字を補完してくれます（コンプリーション機能）。
+補完の結果、コマンドやファイル名が一意に決まらない（候補が複数ある）ときは、
+その<B>一覧を表示</B>します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE><STRONG>A</STRONG> girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>先ほどタイプした内容が表示されたら <TT><B>C-n C-p C-f C-b</B></TT> を使って、たぶん左上隅の A のところにある文字カーソルを、３行目の
+-- のところに移動してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <STRONG>-</STRONG>- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここで <TT><B>C-k</B></TT> をタイプすると、カーソルから右が消えます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <STRONG>_</STRONG>
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>もう一度<TT><B>C-k</B></TT> をタイプすると、改行が消えて次の行とくっつきます（行が長くなるので、右端が折り返されるかもしれません）。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops <STRONG>-</STRONG>- surely another accident.
+But when a girl gives a boy a dead squid                 -- S. Morganstern, &quot;The Silent Gondoliers&quot;</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>さらに<TT><B>C-k</B></TT> をタイプすると、くっついた部分も消えます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid <STRONG>_</STRONG></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>カーソルを１行目の -- に移動してください。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other <STRONG>-</STRONG>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここで <TT><B>C-y</B></TT> をタイプすると、先ほど消えた部分がこの位置に挿入されます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<STRONG>-</STRONG>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>次に文字列の検索を行ってみましょう。<TT><B>C-s</B></TT> をタイプしてください。するとミニバッファに
+<TT>I-serch:</TT> と表示されます。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc">
+      <TT>-E:--  <B>file.txt</B></TT>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>I-search:</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここで <B>girl</B> と打ち込んでください。多分カーソルは３行目の
+girl という単語の位置に移動したと思います。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;-- surely an accident.
+A <STRONG>girl </STRONG>and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>この状態でもう一度 <TT><B>C-s</B></TT> をタイプすると、４行目の girl のところに移動します。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;-- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a <STRONG>girl </STRONG>gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>さらに<TT><B>C-s</B></TT> をタイプすると、ここより後に girl はないので、ミニバッファに次のようなメッセージが出ます。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc">
+      <TT>-E:--  <B>file.txt</B></TT>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Failing I-search: girl</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>それでも、もう一度 <TT><B>C-s</B></TT> をタイプすると、今度はバッファの先頭から
+girl を探し始めます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A <STRONG>girl </STRONG>and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<U>-</U>- surely an accident.
+A girl and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>１行目の girl のところにカーソルが来たら、<TT><B>[Enter] </B></TT>をタイプしてください。すると検索を開始した位置が記憶されます（<B>マーク</B>）。今度は <TT><B>C-s</B></TT> を<B>２回続けて</B>タイプしてください。すると再び girl （すなわち直前に探した文字列）を探し始めます。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl and a boy bump into each other -- *that had to mean something*.
+                -- S. Morganstern, &quot;The Silent Gondoliers&quot;<U>-</U>- surely an accident.
+A <STRONG>girl </STRONG>and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>３行目の girl のところに来たら、<TT><B>[Enter] </B></TT>をタイプしてください。そして <TT><B>C-w</B></TT> をタイプすると、１つ目の girl の位置（<B>マーク位置</B>）から現在位置までが削除されます。なお、カースそる位置に明示的にマークを付けるには、<TT><B>C-スペース</B></TT> をタイプします。</P>
+<CENTER>
+<TABLE border="1" bgcolor="#ffffff" width="90%">
+  <TBODY>
+    <TR>
+      <TD nowrap>
+      <PRE>A girl<STRONG> </STRONG>and a boy bump and her handkerchief drops -- surely another accident.
+But when a girl gives a boy a dead squid </PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P><TT><B>C-w</B></TT> で削除した内容も、<TT><B>C-y</B></TT> で現在のカーソル位置に挿入できます。それでは、最後に<TT><B>C-_</B></TT> を何回かタイプしてください。これまでに行った編集作業が取り消されます。ファイルを開いた直後の状態に戻ったら、今度は
+<TT><B>C-x</B></TT> <TT><B>C-w</B></TT> をタイプしてください。</P>
+<CENTER>
+<TABLE border="0" width="400" bgcolor="#999999">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#cccccc">
+      <TT>-E:--  <B>file.txt</B></TT>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff"><TT>Write file: ~/</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここに file2.txt とタイプして、<TT><B>[Enter] </B></TT>をタイプしてください。file2.txt というファイルが作成されます。<TT><B>C-x</B></TT> <TT><B>C-s</B></TT> が現在のファイル名でファイルを保存するのに対し、<TT><B>C-x</B></TT> <TT><B>C-w</B></TT> は別のファイル名でファイルを保存します。</P>
+<P>保存が終了したら <TT><B>C-x</B></TT> <TT><B>C-c</B></TT> で emacs を終了してください。</P><HR>
+<H2>３．日本語の入力</H2>
+<HR>
+<H3>３．１　emacs での日本語入力</H3>
+<P>emacs ではこれまで使用してきた <B>kinput2</B> による日本語入力方法（「<TT><B>Shift-スペース</B></TT>」による切り替え）のほかに、emacs 自身に組み込まれた
+egg（たまご）と呼ばれる日本語入力方法が使えます。</P>
+<H3>３．２　日本語のテキストファイルを作る</H3>
+<P>それでは、emacs で file3.txt というファイル名のテキストファイルを作りましょう。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">file3.txt を作成する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>emacs file3.txt<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER><P>egg による日本語の入力を開始するには、<TT><B>C-\</B></TT> をタイプします。 するとウィンドウの下から２行目の左端に
+“[あ]” が現れます。 そのあとローマ字で日本語の文章をタイプし<B>スペース</B>をタイプすると、漢字への変換が行われます。
+入力中の日本語は | .. | で挟まれおり （<B>フェンスモード</B>）、 文節の間にスペースが空いています。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">既存ファイルを開く</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-\</B></TT> をタイプする。</TD>
+      <TD valign="top" width="256"><IMG src="emacs8.gif" width="256" height="32" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">ローマ字で文章をタイプする。</TD>
+      <TD valign="top"><IMG src="egg1.gif" width="256" height="21" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">スペースをタイプすると漢字に変換される。</TD>
+      <TD valign="top"><IMG src="egg2.gif" width="256" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-i</B></TT> をタイプすると文節が切り詰められる。</TD>
+      <TD valign="top"><IMG src="egg3.gif" width="256" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>C-f</B></TT> で文節を移動できる。</TD>
+      <TD><IMG src="egg4.gif" width="256" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">スペースをタイプすると次の候補が現れる。</TD>
+      <TD><IMG src="egg5.gif" width="256" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc"><TT><B>[Enter]</B></TT>をタイプすると確定する。</TD>
+      <TD><IMG src="egg6.gif" width="256" height="20" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE></CENTER>
+<P>日本語の入力モードから抜け出るには、 もう一度
+<TT><B>C-\</B></TT> をタイプしてください。</P>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">キー操作</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">日本語入力開始／終了</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-\</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">漢字に変換</TD>
+      <TD bgcolor="#ffeebb"><B>スペース</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">次候補</TD>
+      <TD bgcolor="#ffeebb"><B>スペース</B> または <TT><B>C-n</B></TT> または <B>↓</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">前候補</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-p</B></TT> または <B>↑</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">文節を伸ばす</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-o</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">文節を縮める</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-i</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">次の文節</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-f</B></TT> または <B>→</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">前の文節</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-b</B></TT> または <B>←</B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">最初の文節</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-a</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">最後の文節</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-e</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">確定する</TD>
+      <TD bgcolor="#ffeebb"><TT><B>[Enter]</B></TT> または <TT><B>C-l</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">平仮名に変換</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-h</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">片仮名に変換</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-k</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">候補一覧表示</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-s</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">記号入力など</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-^</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">取り消し</TD>
+      <TD bgcolor="#ffeebb"><TT><B>C-g</B></TT></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffaa">単語登録</TD>
+      <TD bgcolor="#ffeebb"><TT><B>M-x toroku-region</B></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>３．３　記号の入力</H3>
+<P>“z+１文字”で日本語のいくつかの記号文字を入力することができます。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TD width="10%"><TT>z1</TT></TD>
+      <TD width="10%">○</TD>
+      <TD width="10%"><TT>z2</TT></TD>
+      <TD width="10%">▽</TD>
+      <TD width="10%"><TT>z3</TT></TD>
+      <TD width="10%">△</TD>
+      <TD width="10%"><TT>z4</TT></TD>
+      <TD width="10%">□</TD>
+      <TD width="10%"><TT>z5</TT></TD>
+      <TD width="10%">◇</TD>
+    </TR>
+    <TR>
+      <TD><TT>z6</TT></TD>
+      <TD>☆</TD>
+      <TD><TT>z7</TT></TD>
+      <TD>◎</TD>
+      <TD><TT>z8</TT></TD>
+      <TD>￠</TD>
+      <TD><TT>z9</TT></TD>
+      <TD>♂</TD>
+      <TD><TT>z0</TT></TD>
+      <TD>♀</TD>
+    </TR>
+    <TR>
+      <TD><TT>z!</TT></TD>
+      <TD>●</TD>
+      <TD><TT>z@</TT></TD>
+      <TD>▼</TD>
+      <TD><TT>z#</TT></TD>
+      <TD>▲</TD>
+      <TD><TT>z$</TT></TD>
+      <TD>■</TD>
+      <TD><TT>z%</TT></TD>
+      <TD>◆</TD>
+    </TR>
+    <TR>
+      <TD><TT>z^</TT></TD>
+      <TD>★</TD>
+      <TD><TT>z&amp;</TT></TD>
+      <TD>￡</TD>
+      <TD><TT>z*</TT></TD>
+      <TD>×</TD>
+      <TD><TT>z(</TT></TD>
+      <TD>【</TD>
+      <TD><TT>z)</TT></TD>
+      <TD>】</TD>
+    </TR>
+    <TR>
+      <TD><TT>zq</TT></TD>
+      <TD>《</TD>
+      <TD><TT>zw</TT></TD>
+      <TD>》</TD>
+      <TD><TT>zr</TT></TD>
+      <TD>々</TD>
+      <TD><TT>zt</TT></TD>
+      <TD>〆</TD>
+      <TD><TT>zp</TT></TD>
+      <TD>〒</TD>
+    </TR>
+    <TR>
+      <TD><TT>zQ</TT></TD>
+      <TD>〈</TD>
+      <TD><TT>zW</TT></TD>
+      <TD>〉</TD>
+      <TD><TT>zR</TT></TD>
+      <TD>仝</TD>
+      <TD><TT>zT</TT></TD>
+      <TD>§</TD>
+      <TD><TT>z.</TT></TD>
+      <TD>…</TD>
+    </TR>
+    <TR>
+      <TD><TT>zv</TT></TD>
+      <TD>※</TD>
+      <TD><TT>zh</TT></TD>
+      <TD>←</TD>
+      <TD><TT>zj</TT></TD>
+      <TD>↓</TD>
+      <TD><TT>zk</TT></TD>
+      <TD>↑</TD>
+      <TD><TT>zl</TT></TD>
+      <TD>→</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>また、“Z+アルファベット１文字”で、 全角文字のアルファベット（本当は『全角文字』とは言いたくない）を入力できます。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TD width="10%"><TT>ZA</TT></TD>
+      <TD width="10%">Ａ</TD>
+      <TD width="10%"><TT>ZB</TT></TD>
+      <TD width="10%">Ｂ</TD>
+      <TD width="10%"><TT>ZC</TT></TD>
+      <TD width="10%">Ｃ</TD>
+      <TD width="10%"><TT>ZD</TT></TD>
+      <TD width="10%">Ｄ</TD>
+      <TD width="10%"><TT>ZE</TT></TD>
+      <TD width="10%">Ｅ</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<H3>３．４　辞書登録</H3>
+<P>変換しても一発で出てこない単語で、 自分の名前など結構良く使うものは、
+登録しておくと便利です。</P>
+<P>とりあえず、emacs のバッファのウィンドウ上に、
+“なんとかして” その単語を表示させてください。
+そしてその単語の先頭に <TT><B>C-スペース</B></TT> で<B>マーク</B>をつけ、 カーソルを移動して単語全体を選択したあと、
+<TT><B>M-x wnn7-toroku-region</B></TT> をタイプし、<TT><B>[Enter]</B></TT> をタイプします （コマンドは一部をタイプ後スペースをタイプすれば補完されます）。</P>
+<CENTER>
+<TABLE width="100%">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa" colspan="2">単語を辞書に登録する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc" width="45%">単語の先頭で <TT><B>C-スペース</B></TT>をタイプする。</TD>
+      <TD valign="top" bgcolor="#ffffff"><IMG src="egg7.gif" width="258" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">単語の後ろに移動する。</TD>
+      <TD valign="top" bgcolor="#ffffff"><IMG src="egg8.gif" width="256" height="20" border="0"></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">emacs の wnn7-toroku-region コマンドを実行する。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE><U>M-x wnn7-toroku-region</U><STRONG><U>[Enter]</U></STRONG></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">読みを入力する。</TD>
+      <TD valign="top" bgcolor="#ffffff">
+      <PRE>辞書登録『栄谷』　読み：<U>さかえだに</U><STRONG><U>[Enter]</U></STRONG></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">辞書は ud（ユーザ辞書）を選択する。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>登録辞書名:　0.ud<STRONG><U>[Enter]</U></STRONG></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">品詞（大分類）を選択する。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>品詞名::　0.普通名詞/ <U>1.固有名詞/</U> 2.動詞/ ...(以下略)</PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">品詞（小分類）を選択する。</TD>
+      <TD bgcolor="#ffffff">
+      <PRE>品詞名;[固有名詞]:　0.人名　<U>1.地名</U>　...(以下略)</PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>単語の範囲をマウスでドラッグしたりダブルクリックしても、
+その部分の選択を行うことができます。 </P>
+<HR>
+<H2>４．テキストファイルの印刷</H2>
+<HR>
+<P>シェル上でテキストファイルの印刷を行うには
+<B>lpr</B> コマンドを用います。 ただし、できるだけ
+<B>a2ps</B> や <B>mpage</B> というコマンドを介して、用紙を節約するようにしてください。</P>
+<CENTER>
+<TABLE border width="400">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffddaa">テキストファイルを印刷する</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffff" valign="top">
+      <PRE>% <U>lpr ファイル名<STRONG>[Enter]</STRONG></U>
+% <U>mpage ファイル名 | lpr<STRONG>[Enter]</STRONG></U>
+% <U>a2ps ファイル名<STRONG>[Enter]</STRONG></U></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>なお、emacs の中では「プリンタのボタン」でバッファの内容を印刷できます。</P>
+<P>印刷を取り消したいときは、<B>lpq</B> コマンドで印刷ジョブを確認してから、<B>lprm</B> コマンドの引数にジョブ番号を指定します。</P>
+<HR>
+<H2>課題</H2>
+<HR>
+<P>（１）emacs には、実際に使いながら使い方を学ぶチュートリアルが用意されています。チュートリアルを読むには、メニューバー（emacs
+のウィンドウの最上部）の &quot;<B>Help</B>&quot; から　&quot;<B>Emacs Tutorial</B>&quot; を選んでください。このチュートリアルを読みながら、
+指示に従って操作の練習を行ってください。</P>
+<UL>
+  <LI>間違ったキー操作により先に進めなくなってしまったときは、
+  <TT><B>C-g</B></TT>（中止）を数回タイプしてください。
+  <LI>emacs を終了するには、 <TT><B>C-x C-c</B></TT> をタイプしてください。 ファイルを保存するかどうか聞いてくるので、
+  保存する場合は y をタイプしてください。
+  <LI>チュートリアルで <B>&lt;Delete&gt;</B> となっているところは <TT><B>[Backspace]</B></TT> を使ってください。
+  <LI><TT><B>[Insert]</B></TT>キーを押してしまうと、 上書きモードになってしまいます。
+  元の挿入モードに戻すには、 もう一度<TT><B>[Insert]</B></TT>キーをタイプしてください。
+  <LI>この課題で <B>TUTORIAL.ja</B> というファイルが保存されます。これはチュートリアルで使った文書なので削除しても構わないのですが、課題の実行を確認するために次週まで残して置いてください。
+  <LI>&quot;<B>#TUTORIAL.ja#</B>&quot; のように、 ファイル名の前後が &quot;<B>#</B>&quot; のファイルは、 emacs の<B>作業用のファイル</B>です。 emacs が起動していないときに残っているようなら、
+  このファイルも削除しても構いません。また、このファイルは
+  emacs が異常終了したときも残ります。そのときは
+  <TT><B>M-x recover-file</B></TT> を実行し、このファイルを指定すれば、編集内容を復活することができます。
+</UL>
+<P>（２）下の文章は日本国憲法の「前文」である。
+この内容の <B>kenpou.txt</B> というファイル名のテキストファイルを作成しなさい。
+最後に自分の名前とログイン名を書いておいてください。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffffff"><IMG src="kenpou.gif" width="523" height="551" border="0"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<UL>
+  <LI>「<B>ゐ</B>」と「<B>ゑ</B>」は、それぞれ <B>wi</B>、<B>we</B> で入力できます。
+  <LI><TT><B>M-q</B></TT> をタイプすると、 カーソルのある段落 （次のスペースで始まる行や空行までの間）の行末がそろうように、
+  改行を追加します。 １行の文字数は、例えば
+  60 文字（日本語で 30 文字）にするには、 あらかじめ
+  <TT><B>C-u 6 0 C-x f</B></TT> とタイプしておきます。
+</UL>
+<CENTER>
+<TABLE width="512">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffeeee">emacs は「テキストエディタ」なので、 文書の見栄えのレイアウトをするような機能はほとんど持っていません。
+      長い行はウィンドウの右端で折り返しますが、
+      これもあくまで表示のために便宜的に行っているに過ぎず、
+      それが「１行」として取り扱われていることには変わりありません
+      （<TT><B>C-n</B></TT> や <TT><B>C-p</B></TT> をするとわかります）。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+</BODY>

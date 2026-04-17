@@ -1,0 +1,79 @@
+<head>
+<title>情報基礎演習II − 課題５５</title>
+</head>
+
+<body>
+
+<h3>課題５５</h3>
+
+<hr>
+
+<ol>
+
+<a name="jouken">
+<li>Ｃ言語には if に似た動作をする、
+<tt>? :</tt> という演算子も用意されています。</a>
+<p>
+
+<li>この演算子は次のように使います。
+
+<blockquote>
+<pre>
+x = (y &gt; 0) ? y : -y;
+</pre>
+</blockquote>
+
+この右辺全体がひとつの式として評価されます。
+すなわち、? の左の式 (y &gt; 0) の値が真（非０）なら、
+この式の値は : の左側の式 (y) を評価したものになり、
+偽（０）なら : の右側の式 (-y) を評価したものになります。
+上の例では、y が正なら y、負なら -y が x に代入されます。
+従って y の絶対値が得られます。
+<p>
+
+<li>次のプログラムは data という配列の要素の中の
+最大値を求めるものです。
+このプログラム中で定義されている MAX というマクロを使って
+プログラム中の空欄を埋め、プログラムを完成させてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai55
+** 動作: 最大値を求める
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+int data[] = { 5, 3, 2, 4, 7, 6, 9, 1, 8, 0 };
+
+int main(void)
+{
+    int i, max;
+
+    max = data[0];
+
+    for (i = 1; i < 10; i++)
+        /* この部分にプログラムを書いてください */
+
+    printf("max = %d\n", max);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>ソースプログラムのファイル名は kadai55.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai55 としてください。
+
+</ol>
+
+</body>

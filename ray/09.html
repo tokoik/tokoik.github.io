@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０９：透明処理</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０９：透明処理</h1>
+
+<p>個々の物体に透明度 K<sub>t</sub> を与えて，これが
+0 でないものは、向こう側が透けて見えるようにしてください．
+K<sub>t</sub> は，構造体 Material
+の要素に t を追加し，
+この構造体の変数のそれぞれの要素に格納するものとします．</p>
+
+<pre class="source">
+struct Material {
+  float a[3];  /* 環境光に対する反射係数 K<sub>a</sub> */
+  float d[3];  /* 物体表面の拡散反射係数 K<sub>d</sub> */
+  float s[3];  /* 物体表面の鏡面反射係数 K<sub>s</sub> */
+  float e;     /* ハイライトの広がり */
+  float r;     /* 映り込みの反射率 */
+  <em>float t;     /* 透明度 */</em>
+};
+
+struct Material red = {
+  { 0.5, 0.1, 0.1 },
+  { 0.5, 0.1, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  <em>0.5,</em>
+};
+
+struct Material green = {
+  { 0.1, 0.5, 0.1 },
+  { 0.1, 0.5, 0.1 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  <em>0.8,</em>
+};
+
+struct Material blue = {
+  { 0.1, 0.1, 0.5 },
+  { 0.1, 0.1, 0.5 },
+  { 0.4, 0.4, 0.4 },
+  40.0,
+  1.0,
+  <em>0.3,</em>
+};
+</pre>
+
+<p class="hint">
+<a href="09-h1.html">どうしても分からなければ…</a></p>
+
+<p><a href="10.html">【次：課題１０】</a></p>
+
+</body>
+</html>

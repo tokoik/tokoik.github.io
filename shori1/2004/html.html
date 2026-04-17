@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>HTML の概要</title>
+</head>
+
+<body>
+
+<h1>HTML の概要</h1>
+
+<dl>
+<dt><A class="label" name="index">目次</a></dt>
+<dd>
+<ul>
+<li><a href="#outline">HTML の全体構成</a></li>
+<li><a href="#title">タイトルをつける</a></li>
+<li><a href="#headding">見出しをつける</a></li>
+<li><a href="#paragraph">段落を設ける</a></li>
+<li><a href="#division">文章を区分する</a></li>
+<li><a href="#newline">強制改行</a></li>
+<li><a href="#list">箇条書き（リスト表示）</a></li>
+<li><a href="#enumerate">番号つきリスト</a></li>
+<li><a href="#description">記述（定義）形式のリスト</a></li>
+<li><a href="#quote">引用する</a></li>
+<li><a href="#preformat">そのまま表示する</a></li>
+<li><a href="#link">リンクを張る</a></li>
+<li><a href="#image">画像を埋め込む</a></li>
+<li><a href="#hline">水平線を引く</a></li>
+<li><a href="#special">&lt;, &gt;, &amp; を表示する</a></li>
+</ul>
+</dd>
+</dl>
+
+<h2><A class="label" name="outline">HTML の全体構成</a></h2>
+<p>HTML 文書は，ヘッダ部と本文（ボディ）の２つの部分からなります． 最初の１行は
+DOCTYPE Declaration といい， 使用している HTML のバージョンを示しています．
+ここでは HTML 4.01 を指定しています． なお，これは HTML のタグではなく，HTML
+のベースとなっている SGML（Standard Generalized Markup Language ～ コンピュータによる文書交換のための標準規格）のものです．</p>
+
+<pre class="source">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;タイトル&lt;/title&gt;
+    ：　　（ヘッダ部）
+  &lt;/head&gt;
+  &lt;body&gt;
+    ：　　（ボディ部）
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<dl>
+  <dt>ヘッダ部</dt>
+  <dd>ここにヘッダ情報を書きます． ヘッダ情報にはタイトルやキーワードなど，文書の本文に現れない情報を記述します．タイトルは省略できません．</dd>
+  <dt>ボディ部</dt>
+  <dd>ここに本文を書きます． この部分に書いたものが Web ブラウザに表示されます．</dd>
+</dl>
+
+<p><code class="tag">&lt;html&gt;</code>，
+<code class="tag">&lt;/html&gt;</code>，
+<code class="tag">&lt;head&gt;</code>，
+<code class="tag">&lt;/head&gt;</code>，
+<code class="tag">&lt;body&gt;</code>，
+<code class="tag">&lt;/body&gt;</code>
+は省略できますが，
+<code class="tag">&lt;title&gt;</code> ～
+<code class="tag">&lt;/title&gt;</code> は省略できません．</p>
+
+<p>この文書は<A href="http://www.w3.org/TR/html4/">HTML 4.01</A> の（<STRONG>非常に片寄った</STRONG>）抜粋です．現在 <a href="http://www.w3.org">W3C (World Wide Web Consortium)</a> は HTML 4.01 を <a href="http://www.xml.org/">XML</a> で定義し直した
+<a href="http://www.w3.org/TR/xhtml1/">XHTML 1.0</a>
+を<a href="http://www.w3.org/MarkUp/">推奨</a>しています．また，この文書では <A href="http://www.w3.org/Style/CSS/">CSS
+(Cascading Style Sheets)</A> には触れていません．</p>
+
+<p>HTML 4.01 の仕様書の邦訳は<A href="http://www.asahi-net.or.jp/~sd5a-ucd/rec-html40j/">
+HTML 4 仕様書邦訳計画</A>にあります．XHTML 1.0 の仕様書の邦訳は<a href="http://www.doraneko.org/xml/xhtml10/">
+ XHTML 1.0: 拡張可能ハイパーテキストマークアップ言語</a>にあります．</p>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="title">タイトルをつける</a></h2>
+<p>Web ページのタイトルは，<code class="tag">&lt;title&gt;</code> ～
+<code class="tag">&lt;/title&gt;</code> でマークアップしてヘッダ部に置きます．</p>
+
+<pre class="source">&lt;head&gt;
+　&lt;title&gt;ここにタイトルを書きます&lt;/title&gt;
+&lt;/head&gt;</pre>
+
+<p>このタイトルは本文ではなく，Web ブラウザのウィンドウの枠などに現れます．日本語は，Web
+ブラウザ（あるいはコンピュータ）の種類によっては正常に表示できないことがあります．
+タイトルは必ず付けなければなりません．</p>
+
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="headding">見出しをつける</a></h2>
+<p>見出しは <code class="tag">&lt;h(数字)&gt;</code> ～
+<code class="tag">&lt;/h(数字)&gt;</code> でマークアップします． (数字) は１～６で，１が一番“重要度”の高い見出しになります．
+ブラウザは通常この重要度を文字の大きさとして表現します． また見出しが目立つように字体を太字にし，前後の行間をあけます．</p>
+
+<pre class="source">&lt;h1&gt;これはh1の見出しです&lt;/h1&gt;
+&lt;h2&gt;これはh2の見出しです&lt;/h2&gt;
+&lt;h3&gt;これはh3の見出しです&lt;/h3&gt;
+&lt;h4&gt;これはh4の見出しです&lt;/h4&gt;
+&lt;h5&gt;これはh5の見出しです&lt;/h5&gt;
+&lt;h6&gt;これはh6の見出しです&lt;/h6&gt;</pre>
+
+<p>これは，こんな具合いになります．</p>
+
+<div class="figure"><IMG src="heading.gif" width="500" height="176" alt="&lt;h1&gt;～&lt;h6&gt;による見出しのマークアップ"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="paragraph">段落を設ける</a></h2>
+<p>段落を設ける場合には，文章を <code class="tag">&lt;p&gt;</code> ～
+<code class="tag">&lt;/p&gt;</code> でマークアップします．</p>
+
+<pre class="source">&lt;p&gt;一つ目の段落です．一つ目の段落です．一つ目の段落です．
+一つ目の段落です．一つ目の段落です．一つ目の段落です．&lt;/p&gt;
+&lt;p&gt;二つ目の段落です．二つ目の段落です．二つ目の段落です．
+二つ目の段落です．二つ目の段落です．二つ目の段落です．&lt;/p&gt;</pre>
+
+<p>段落は次のように，改行した上で行間をあけて表示されます．</p>
+<div class="figure"><IMG src="paragraph.gif" width="500" height="72" alt="&lt;p&gt;による段落のマークアップ"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="division">文書を区分する</a></h2>
+<p>一連の要素（文章など）をひとつのまとまり（ブロック）として区分するには，文章を
+<code class="tag">&lt;div&gt;</code> ～
+<code class="tag">&lt;/div&gt;</code> でマークアップします．これは<EM>レイアウトコンテナ</EM>と呼ばれます．</p>
+
+<pre class="source">&lt;div&gt;一つ目の区分です．一つ目の区分です．一つ目の区分です．
+一つ目の区分です．一つ目の区分です．一つ目の区分です．&lt;/div&gt;
+&lt;div&gt;二つ目の区分です．二つ目の区分です．二つ目の区分です．
+二つ目の区分です．二つ目の区分です．二つ目の区分です．&lt;/div&gt;</pre>
+
+<p>区分は次のように，改行して表示されます．行間は開きません．</p>
+<div class="figure"><IMG src="div.gif" width="500" height="64" alt="&lt;div&gt;による区分"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="newline">強制改行</a></h2>
+<p>HTML ではテキスト中の改行や空白は無視されてしまいます．本文に</p>
+
+<pre class="source">本当はここ→
+←に改行が入っています．
+</pre>
+
+<p>と書いても，Web ブラウザ上では</p>
+<div class="figure"><IMG src="br1.gif" width="500" height="24" alt="HTMLにおける「改行」の扱い"></div>
+<p>と表示されてしまいます．積極的に改行するには文章を<a href="#paragraph">段落</a>や
+<a href="#division">区分</a>に分けるか，
+<code class="tag">&lt;br&gt;</code> を入れます．</p>
+
+<pre class="source">本当はここ→&lt;br&gt;
+←に改行が入っています．</pre>
+
+<p>とすれば，</p>
+<div class="figure"><IMG src="br2.gif" width="500" height="32" alt="強制改行"></div>
+<p>となります．</p>
+
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="list">箇条書き（リスト表示）</a></h2>
+<p>箇条書きを行う部分は <code class="tag">&lt;ul&gt;</code> ～
+<code class="tag">&lt;/ul&gt;</code> でマークアップし，各項目を <code class="tag">&lt;li&gt;</code> ～
+<code class="tag">&lt;/li&gt;</code> でマークアップします．</p>
+
+<p><code class="tag">&lt;ul&gt;</code> ～
+<code class="tag">&lt;/ul&gt;</code> の中に
+<code class="tag">&lt;ul&gt;</code> ～
+<code class="tag">&lt;/ul&gt;</code>
+を置いて，リストを入れ子構造にすることもできます．HTML
+の記述のインデント（字下げ，行頭の空白）は HTML
+ソースを見やすくするためのもので，Web ページ上のレイアウトには影響を与えません．</p>
+
+<pre class="source">&lt;ul&gt;
+  &lt;li&gt;項目１&lt;/li&gt;
+  &lt;li&gt;項目２&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;項目２－１&lt;/li&gt;
+    &lt;li&gt;項目２－２&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li&gt;項目３&lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+<p>これは，次のように表示されます．</p>
+<div class="figure"><IMG src="ul.gif" width="500" height="72" alt="&lt;UL&gt;によるリスト"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="enumerate">番号つきリスト</a></h2>
+<p>各項目に番号をつけたリストも作成するには，その部分を
+<code class="tag">&lt;ol&gt;</code> ～
+<code class="tag">&lt;/ol&gt;</code> でマークアップし， 各項目を <code class="tag">&lt;li&gt;</code> ～
+<code class="tag">&lt;/li&gt;</code> でマークアップします．これもリストを入れ子構造にできます．</p>
+
+<pre class="source">&lt;ol&gt;
+  &lt;li&gt;項目１&lt;/li&gt;
+  &lt;li&gt;項目２&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;項目２－１&lt;/li&gt;
+    &lt;li&gt;項目２－２&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li&gt;項目３&lt;/li&gt;
+&lt;/ol&gt;</pre>
+
+<p>これは，次のように表示されます．</p>
+<div class="figure"><IMG src="ol.gif" width="500" height="72" alt="&lt;OL&gt;によるリスト"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="description">記述（定義）形式のリスト</a></h2>
+<p>単語リストのように，あるキーワードに対して説明を加える時などに使えるリストです．
+これはリスト表記する部分を <code class="tag">&lt;dl&gt;</code> ～
+<code class="tag">&lt;/dl&gt;</code> でマークアップし，各項目のキーワード部分を <code class="tag">&lt;dt&gt;</code> ～
+<code class="tag">&lt;/dt&gt;</code> で，記述部分を <code class="tag">&lt;dd&gt;</code> ～
+<code class="tag">&lt;/dd&gt;</code> でマークアップします．これもリストを入れ子構造にできます．</p>
+
+<pre class="source">&lt;dl&gt;
+  &lt;dt&gt;札幌ラーメン&lt;/dt&gt;
+    &lt;dd&gt;麺は太めのちじれ麺であり，
+    醤油，塩，味噌などのバリエーションがあるが，
+    特に味噌ラーメンが重視されている．
+    具は一般的なものに加えてコーンを加えることが多い．
+    バターをのせることもある．&lt;/dd&gt;
+  &lt;dt&gt;博多ラーメン&lt;/dt&gt;
+    &lt;dd&gt;細いストレート麺が主流で，
+    中でも長浜ラーメンの麺はかなり細い．
+    スープはトンコツが主体で，
+    色の白いスープが多い．
+    かなり脂っこいものもある．
+    付け合わせに紅しょうが・からし高菜を用いるようだ．&lt;/dd&gt;
+  &lt;dt&gt;和歌山ラーメン&lt;/dt&gt;
+    &lt;dd&gt;細目の麺だが，
+    博多ラーメンほどではない．
+    わりと伸び気味にゆでるせいか，
+    スープで麺が太っていることもある．
+    スープはトンコツベースの醤油味．
+    いっしょに早すし（早熟れ鮨，あせ巻き寿司）を食べる．
+    和歌山市内では次の２つの流派に別れるようだ．&lt;/dd&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;井手派&lt;/dt&gt;
+        &lt;dd&gt;スープはかなりこってりしており，
+        味も濃い．&lt;/dd&gt;
+      &lt;dt&gt;車庫前派&lt;/dt&gt;
+        &lt;dd&gt;スープはあっさりしていて，
+        東京ラーメンにかなり近い．&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;dt&gt;京風ラーメン&lt;/dt&gt;
+    &lt;dd&gt;「京風」ラーメンをうたう店は，
+    全国にあるようだが，
+    京都（市内）でそういうラーメンにお目にかかったことはない．
+    天下一品が「京風ラーメン」だと思う人はいないだろう．
+    現実の京都は“全国のラーメンの博覧会”状態である．&lt;/dd&gt;
+&lt;/dl&gt;</pre>
+
+<p>これは，次のように表示されます．</p>
+<div class="figure"><IMG src="dl.gif" width="500" height="240" alt="&lt;DL&gt;によるリスト"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="quote">引用する</a></h2>
+<p>引用部分は <code class="tag">&lt;blockquote&gt;</code> ～
+<code class="tag">&lt;/blockquote&gt;</code> でマークアップします．この部分の行の長さは本文より短くなります．</p>
+
+<pre class="source">&lt;p&gt;
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+&lt;/p&gt;
+&lt;blockquote&gt;
+ここは引用文．ここは引用文．ここは引用文．ここは引用文．
+ここは引用文．ここは引用文．ここは引用文．ここは引用文．
+ここは引用文．ここは引用文．ここは引用文．ここは引用文．
+&lt;/blockquote&gt;
+&lt;p&gt;
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+&lt;/p&gt;</pre>
+
+<p>これは次のように表示されます．</p>
+<div class="figure"><IMG src="blockquote.gif" width="500" height="128" alt="&lt;BLOCKQUOTE&gt;によるレイアウト"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="preformat">そのまま表示する</a></h2>
+<p>HTML 中では改行や空白は無視されてしまいますが，それだと不便なことがあります．
+改行や空白によるレイアウトを活かして表示するためには，その部分を
+<code class="tag">&lt;pre&gt;</code> ～
+<code class="tag">&lt;/pre&gt;</code> でマークアップします．</p>
+
+<pre class="source">&lt;pre&gt;
+    ○┃×┃×
+    ━╋━╋━
+    ×┃○┃○
+    ━╋━╋━
+    ○┃○┃×
+&lt;/pre&gt;</pre>
+
+<p>これは次のように表示されます．</p>
+<div class="figure"><IMG src="pre.gif" width="500" height="80" alt="&lt;PRE&gt;によるレイアウト"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="link">リンクを張る</a></h2>
+<p>現在表示しているページに，他のページを参照するための「ホットスポット」
+（マウスでクリックすると何かが起こる場所）を埋め込むことを，そのページに
+<EM>リンクする</EM> とか<EM> リンクを張る </EM>などと言います．これは「ホットスポット」として使いたい文字列を， <code class="tag">&lt;a href="リンク先のURL"&gt;</code> ～
+<code class="tag">&lt;/a&gt;</code> でマークアップします．和歌山大学のホームページにリンクするには，次のように書きます．</p>
+
+<pre class="source">&lt;a href="http://www.wakayama-u.ac.jp/"&gt;和歌山大学&lt;/a&gt;</pre>
+
+<p>リンク先がリンク元と同じ場所にあれば，URL の一部を省略することができます．例えば，</p>
+
+<pre class="source">http://www.somewhere.ac.jp/X/<span style="color: #0000ff;">a</span>.html</pre>
+
+<p>というページから，そのページと同じディレクトリにある</p>
+
+<pre class="source">http://www.somewhere.ac.jp/X/<span style="color: #ff0000; ">b</span>.html</pre>
+
+<p>にリンクを張る場合， http://www.somewhere.ac.jp/X/ を省略して，</p>
+
+<pre class="source">&lt;a href="b.html"&gt;b.html にリンク&lt;/a&gt;</pre>
+
+<p>と書くことができます．また a.html から，同じサーバの別のディレクトリにある</p>
+
+<pre class="source">http://www.somewhere.ac.jp/<span style="color: #ff0000;">Y</span>/c.html</pre>
+
+<p>にリンクするには，</p>
+
+<pre class="source">&lt;a href="/Y/c.html"&gt;c.html にリンク&lt;/a&gt;</pre>
+
+<p>と書くことができます．</p>
+
+<blockquote>
+<div class="header"><A class="label" name="alert">他人のホームページへのリンクについて</a></div>
+<div class="body">
+      <p>公開されているホームページは多くの人に見てもらうために作っているのですから，
+個人的にそういうページにリンクを張ることは，原則的に自由だと考えられています
+（<a href="http://www.cric.or.jp/qa/multimedia/multi15_qa.html" target="_blank">著作権情報センターのＱ＆Ａ</a>）．</p>
+      <p>しかし，中にはリンクを禁止していたり， 事前にメールなどで了解を求めているところもあったりして，これに関しては一般的な合意が得られているわけではありません（千葉学芸高等学校高橋邦夫先生の「<A href="http://www.cgh.ed.jp/netiquette/weblink.html" target="_blank">WWWのリンクについて</A>」）．</p>
+      <p>他人のホームページにリンクを張るときは， そのページだけではなく， そのページの所有者の他のページも良く読んで， <EM>リンクの可否に関する記述</EM>がないかどうか十分に確かめましょう． また，そういう記述がなくても， リンクを張る場合には事前の問い合わせがあって当然と考えている人もいるので， できるだけメール等でそのページの所有者に確認を取った方がいいでしょう．</p>
+      <p>ただ，そういうメールにいちいち返事を書くのが面倒という人もいるので，</p>
+      <div style="border-width: 1px 1px 1px 1px; border-style: solid solid solid solid;
+      padding: 0.5em 1em 0.5em 1em; background-color: #ffffff;">
+     「××様のホームページ http://www.yourhost.xx.jp/yourpage.html に，
+      http://www.sys.wakayama-u.ac.jp/~USER/mypage.html から
+      リンクを張らせて頂きました．もしご都合が悪いようでしたら，
+      USER@sys.wakayama-u.ac.jp までお知らせ下さい．」</div>
+      <p>というような内容のメールを送ることを勧めます…が，
+      これも一概には言えないので世の中ややこしい…</p>
+</div>
+</blockquote>
+
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="image">画像を埋め込む</a></h2>
+<p>Web ページに画像を埋め込むには，
+<code class="tag">&lt;img src="画像ファイルのURL"
+alt="その画像ファイルの説明"&gt;</code> を書きます．
+http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/bomb.gif
+という画像ファイルを埋め込むには，次のように書きます．</p>
+
+<pre class="source">爆弾→
+&lt;img src=&quot;http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/bomb.gif&quot; alt=&quot;爆弾&quot;&gt;
+←</pre>
+
+<p>これは，次のように表示されます．画像は， Web ページのレイアウトの上では文字と同様に扱われます．<code class="tag">alt="..."</code>
+で指定した文字は，この画像が表示されなかったとき
+（画像の転送に失敗した，画像が表示できない Web ブラウザ
+～文字や音声でページを表示するものがあります～ を使っていた，など），
+かわりに表示されます．</p>
+
+<div align="center"><table align="center" width="90%">
+<tr><td class="action">爆弾→
+<IMG src="bomb.gif" alt="爆弾">
+←</td></tr>
+</table></div>
+<p>画像を「ホットスポット」に使うこともできます． <code class="tag">&lt;img src="..."&gt;</code> を
+<code class="tag">&lt;a href="..."&gt;</code> ～
+<code class="tag">&lt;/a&gt;</code> でマークアップしてください．</p>
+
+<pre class="source">ここをクリックすると目次に戻ります→
+&lt;a href=&quot;index.html&quot;&gt;&lt;img src=&quot;bomb.gif&quot; alt=&quot;目次に戻る&quot;&gt;&lt;/a&gt;</pre>
+
+<p>これは，この講義の目次のページに戻るホットスポットになります．</p>
+
+<div align="center"><table align="center" width="90%">
+<tr><td class="action">
+ここをクリックすると目次に戻ります→
+<a href="index.html"><img src="bomb.gif" alt="目次に戻る"></a>
+</td></tr>
+</table></div>
+
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="hline">水平線を引く</a></h2>
+<p><code class="tag">&lt;hr&gt;</code>
+で下のような水平線を引くことができます．</p>
+
+<hr>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+<h2><A class="label" name="special">&lt;, &gt;, &amp; を表示する</a></h2>
+<p>&lt; &gt; &amp; などのいくつかの特殊記号は HTML
+の制御文字として扱われるため，そのままでは表示されません．
+これらを表示するときは，以下の表記を用います．</p>
+
+<div align="center"><table align="center" width="90%">
+<tr><th><kbd>&lt;</kbd></th><td class="action">&amp;lt;</td></tr>
+<tr><th><kbd>&gt;</kbd></th><td class="action">&amp;gt;</td></tr>
+<tr><th><kbd>&amp;</kbd></th><td class="action">&amp;amp;</td></tr>
+<tr><th><kbd>&quot;</kbd></th><td class="action">&amp;quot;</td></tr>
+</table></div>
+
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+</body>
+</html>

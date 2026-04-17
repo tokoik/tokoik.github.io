@@ -1,0 +1,162 @@
+<head>
+<title>情報処理 II － 補足：プログラムを書くスタイル</title>
+</head>
+
+<body bgcolor="#ffffcc">
+
+<h2>補足：プログラムを書くスタイル</h2>
+
+<hr>
+
+<p>ソースプログラムはコンピュータに仕事をさせるための、
+一種の「手順書」と呼べるものですが、
+人間自身もそれを見ます。
+ソースプログラムを書く場合には、
+自分以外の人がそれを見て、
+自分が何をコンピュータにさせようとしているのかが
+容易に理解できるよう留意する必要があります。
+見かけの美しいプログラムを書くことは、
+無駄なことではありません。</p>
+
+<hr>
+
+<h3>コメント（注釈）</h3>
+
+<p>そのプログラムを他の人や、
+プログラムの作者自身が読むときの参考になる、
+そのプログラムに対する解説です。コンパイラはそれを無視します。
+C 言語のコメントは /* で始まり */ で終わります。
+C++ 言語では、これに加えて // から行末までをコメントとして扱います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+//      プログラム： hello.cc -- "Hello!" を標準出力に出力する
+//      目的： プログラムの例
+//      作者： 山田太郎
+//      作成日： １９９４年１０月　３日
+//      修正日： １９９４年１０月１７日
+
+#include &lt;iostream.h&gt;
+
+int main() {
+  /*
+     挨拶をする
+   */
+  cout << "Hello!\n";
+
+  return 0;
+}
+</table>
+</center>
+
+<p>コメントの入れ子（ネスティング）はできません。
+次のような例はエラーになります。</p>
+
+<center>
+<table>
+<tr>
+<td bgcolor="#ffffcc" valign="top"><tt>/* ……………… /* ……………… */</tt>
+<hr>
+<td bgcolor="#ffffcc" valign="top"><tt>…………………… */</tt>
+<hr>
+<tr>
+<td bgcolor="#ffffff" align="center">この部分が<br>ひとつのコメントになる
+<td bgcolor="#ffffff" align="center">このに部分には<br>/* がないことになる
+</table>
+</center>
+
+<p>プログラムは
+<font color="#ff0000">エッセイのように読むことができる</font>
+ものでなければなりません。
+適切なコメントのないプログラムには
+「トラブルの原因が潜在している」というエラーがあるとみなされます。</p>
+
+<hr>
+
+<h3>インデント（字下げ）</h3>
+
+<p>プログラムの構造を視覚的に表現するために、
+プログラムにインデントを付けてください。
+mule ではタブキーをタイプすると、
+適切なインデントを自動的に付けてくれます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffaa">カーソルのある行にインデントを付ける
+<td bgcolor="#ffeebb"><tt><b>Tab</b></tt> または <tt><b>C-i</b></tt>
+</table>
+</center>
+
+<p>インデントはブロック（{ と } にはさまれた部分）単位で、
+入れ子になっている部分を深く（右に）します。
+すなわち、{ に出会う度に、その次の行は１段右から書き始め、
+} に出会う度に、その次の行は１段左から書き始めます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff">
+<pre>#include &lt;iostream.h&gt;
+
+int main() {
+  char buf[1024];
+
+  for (;;) {
+    cout << "Input: ";
+    cin.getline(buf, sizeof(buf));
+    if (cin.eof()) break;
+    cout << "Output: " << buf << endl;
+  }
+
+  return 0;
+}
+</table>
+</blockquote>
+
+<p>こういうスタイルで書く人もいます。</p>
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+
+int main()
+{
+  char buf[1024];
+
+  for (;;)
+  {
+    cout << "Input: ";
+    cin.getline(buf, sizeof(buf));
+    if (cin.eof())
+        break;
+    cout << "Output: " << buf << endl;
+  }
+  return 0;
+}
+</table>
+</blockquote>
+
+<p>インデントを付けないと、
+非常に読みにくいプログラムになります。</p>
+
+<blockquote>
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>#include &lt;iostream.h&gt;
+int main()
+{
+char buf[1024];
+for (;;) {
+cout << "Input: ";
+cin.getline(buf, sizeof(buf));
+if (cin.eof()) break;
+cout << "Output: " << buf << endl;
+}
+return 0;
+}
+</table>
+</blockquote>
+
+</body>

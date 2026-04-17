@@ -1,0 +1,132 @@
+<head>
+<title>情報基礎演習II − 課題２７</title>
+</head>
+
+<body>
+
+<h3>課題２７</h3>
+
+<hr>
+
+<ol>
+
+<li>たとえば「１８歳以上２５歳未満で、
+身長１６５センチ以上かつ体重５０キロ以上」というような
+複雑な条件を表現するには、
+複数の関係演算式を組み合わせる必要があります。
+
+<blockquote>
+<pre>
+age &gt;= 18「かつ」age &lt; 25「かつ」height &gt; 165「かつ」weight &gt; 50
+</pre>
+</blockquote>
+
+上の「かつ」のような演算を行うのが「論理演算式」です。
+
+<blockquote>
+<table border>
+<tr><td><tt>A &amp;&amp; B</tt><td>A と B の両方が真の場合に限り真（論理積）
+<tr><td><tt>A || B</tt><td>A か B のいずれかが真であれば真（論理和）
+<tr><td><tt>!A</tt><td>A が真なら偽、偽なら真（否定）
+</table>
+</blockquote>
+
+上の条件を論理演算式を使って書くと次のようになります。
+
+<blockquote>
+<pre>
+age &gt;= 18 && age &lt; 25 && height &gt; 165 && weight &gt; 50
+</pre>
+</blockquote>
+
+<li>ある高校では、国語、数学、英語、社会、理科の５教科のうち
+１教科でも３０点未満のものがあるか、
+または６０点未満のものが３教科以上あると
+留年させられてしまいます。
+以下のソースプログラムはその高校の成績判定プログラムです。
+空欄（????）を埋めて、プログラムを完成させてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai27
+** 動作: 成績判定プログラム？
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int mark;       /* 点数   */
+    int fuka = 0;   /* 60点未満の教科の数 */
+    int daifuka = 0;/* 30点未満の教科の数 */
+
+    printf("国語の点数を入れてください：");
+    scanf("%d", &mark);
+    if (mark &lt; 30) {
+        daifuka++;
+    }
+    else if (mark &lt; 60) {
+        fuka++;
+    }
+
+    printf("数学の点数を入れてください：");
+    scanf("%d", &mark);
+    if (mark &lt; 30) {
+        daifuka++;
+    }
+    else if (mark &lt; 60) {
+        fuka++;
+    }
+
+    printf("英語の点数を入れてください：");
+    scanf("%d", &mark);
+    if (mark &lt; 30) {
+        daifuka++;
+    }
+    else if (mark &lt; 60) {
+        fuka++;
+    }
+
+    printf("理科の点数を入れてください：");
+    scanf("%d", &mark);
+    if (mark &lt; 30) {
+        daifuka++;
+    }
+    else if (mark &lt; 60) {
+        fuka++;
+    }
+
+    printf("社会の点数を入れてください：");
+    scanf("%d", &mark);
+    if (mark &lt; 30) {
+        daifuka++;
+    }
+    else if (mark &lt; 60) {
+        fuka++;
+    }
+
+    if ( ???? ) {
+        printf("留年しなさい。\n");
+    }
+    else {
+        printf("進級させてあげましょう。\n");
+    }
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>ソースプログラムのファイル名は kadai27.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai27 としてください。
+
+</ol>
+
+</body>

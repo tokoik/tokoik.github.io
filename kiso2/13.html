@@ -1,0 +1,87 @@
+<head>
+<title>情報基礎演習II − 第１３回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第１３回</h1>
+
+<hr>
+
+<h2>１．実数計算</h2>
+
+<hr>
+
+実数計算の際に使用する一般的な算術関数は、
+printf などのライブラリ関数が収められている
+Ｃ言語の標準的なライブラリファイルとは別の、
+算術ライブラリファイルに収められています。
+<p>
+
+これらを使用する場合には、
+ソースプログラムの最初の方に
+<a href="h09.html">ヘッダファイル
+<tt>#include &lt;math.h&gt;</a>
+を置くほか、
+コンパイルの際、cc コマンドに -lm というオプション
+（これは算術ライブラリファイルを使うことを意味します）
+を付けます。
+
+<blockquote>
+<pre>
+% cc prog.c -o prog -lm
+</pre>
+</blockquote>
+
+算術ライブラリには次のようなものがあります。
+
+<blockquote>
+<dl>
+<dt><b>double sin(double x)</b>
+<dd>x（ラジアン）の正弦を返します。
+<dt><b>double cos(double x)</b>
+<dd>x（ラジアン）の余弦を返します。
+<dt><b>double tan(double x)</b>
+<dd>x（ラジアン）の正接を返します。
+<dt><b>double asin(double x)</b>
+<dd>x の逆正弦を -π/2 からπ/2 の範囲でラジアンで返します。
+<dt><b>double acos(double x)</b>
+<dd>x の逆余弦を 0 からπの範囲でラジアンで返します。
+<dt><b>double atan(double x)</b>
+<dd>x の逆正接を -π/2 からπ/2 の範囲でラジアンで返します。
+<dt><b>double atan2(double y, double x)</b>
+<dd>y / x の逆正接を -π/2 からπ/2 の範囲でラジアンで返します。
+<dt><b>double log(double x)</b>
+<dd>x の自然対数を返します。
+<dt><b>double log10(double x)</b>
+<dd>x の 10 を底とした対数を返します。
+<dt><b>double exp(double x)</b>
+<dd><i>e</i><sup>x</sup> を返します。
+<dt><b>double pow(double x, double y)</b>
+<dd>x の y 上を返します。２乗や３乗くらいなら、
+これを使うより x*x とか x*x*x などとした方が
+高速で精度も高くなります。
+<dt><b>double sqrt(double x)</b>
+<dd>x の平方根を返します。
+<dt><b>double cbrt(double x)</b>
+<dd>x の立方根を返します。
+</dl>
+</blockquote>
+
+他にも色々あります。
+
+<blockquote>
+<pre>
+% man 3 math
+</pre>
+</blockquote>
+
+を見ておいてください。
+<p>
+
+<a href="k58.html"><h3 align="center">■課題５８■</h3></a>
+<a href="k59.html"><h3 align="center">■課題５９■</h3></a>
+<a href="k60.html"><h3 align="center">■課題６０■</h3></a>
+<a href="k61.html"><h3 align="center">■課題６１■</h3></a>
+
+</body>

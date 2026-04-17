@@ -1,0 +1,81 @@
+body {
+  color: #020;
+  background-color: #ffe;
+}
+a:link {
+  color: #060;
+}
+a:active {
+  color: #f00;
+}
+a:visited {
+  color: #040;
+}
+a:hover {
+  color: #840;
+  text-decoration: underline;
+}
+a.label {
+  color: #020;
+  text-decoration: none;
+}
+h2 {
+  margin-top: 2em;
+  border-bottom: solid 2px #080;
+}
+dl {
+  margin: 1em 2em 1em 2em;
+}
+dt         {
+  margin-top: 0.5em;
+}
+blockquote {
+  margin: 1em 2em 1em 2em;
+}
+pre.source {
+  background-color: #ffffff;
+  margin: 1em 2em 1em 2em;
+  padding: 0.5em 1em 0.5em 1em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ada;
+}
+pre.sample {
+  margin: 1em 2em 1em 2em;
+  padding: 0.5em 1em 0.5em 1em;
+  border: none;
+}
+div.figure {
+  margin: 1em 0 1em 2em
+}
+div.expression {
+  margin: 0.5em 0 0.5em 2em
+}
+p.hint {
+  text-align: right;
+  font-size: small;
+}
+em {
+  font-style: normal;
+  font-weight: bold;
+}
+strong {
+  font-style: normal;
+  font-weight: bold;
+  color: #ff0000;
+}
+kbd {
+  color: #cc5555;
+  font-family: monospace;
+}
+.title {
+  margin-top: 1em;
+  border: none;
+  text-align: center;
+}
+.blue {
+  color: #0000ff;
+}
+.gray {
+  color: #8a8;
+}

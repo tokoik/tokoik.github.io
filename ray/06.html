@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>課題０６：視点の位置の移動</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>課題０６：視点の位置の移動</h1>
+
+<p>視点の位置を原点以外の任意の位置に移動できるように
+<a href="05.html">課題０５</a>で作成したプログラムを修正します．</p>
+
+<p>視点の位置 <b>P</b><sub>e</sub>
+から，上方向のベクトルを <b>U</b>
+として，目標点の位置 <b>P</b><sub>t</sub>
+の方向を見たときの画像を生成してください．</p>
+
+<div class="figure">
+<img src="06-01.gif" width="360" height="270" alt="視点の位置と視線の方向">
+</div>
+
+<p>目標点の位置 <b>P</b><sub>t</sub> および
+上方向のベクトル <b>U</b>
+は，構造体 Camera の要素に t と u を追加し，
+この構造体の変数 camera のそれぞれの要素に格納するものとします．</p>
+
+<pre class="source">
+struct Camera {
+  float p[3];  /* 視点の位置 <b>P</b><sub>e</sub> */
+  <em>float t[3];  /* 目標点の位置 <b>P</b><sub>t</sub> */</em>
+  <em>float u[3];  /* 上方向のベクトル <b>U</b> */</em>
+  float h;     /* 視点とスクリーンの距離 h */
+};
+
+/*
+** 視点のデータ
+*/
+struct Camera camera = {
+  { -2.0, 3.0, 1.0 },
+  <em>{ 0.0, 0.0, 10.0 },</em>
+  <em>{ 0.0, 1.0, 0.0 },</em>
+  1.0,
+};
+</pre>
+
+<p class="hint">
+<a href="06-h1.html">どうしても分からなければ…</a></p>
+
+<p><a href="07.html">【次：課題０７】</a></p>
+
+</body>
+</html>

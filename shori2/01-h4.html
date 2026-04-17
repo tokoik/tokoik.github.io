@@ -1,0 +1,59 @@
+<head>
+<title>情報処理 II － 補足：mule をバックグラウンドで起動する</title>
+</head>
+
+<body bgcolor="#ffffcc">
+
+<h2>補足：mule をバックグラウンドで起動する</h2>
+
+<hr>
+
+<p>ソースプログラムの修正とコンパイル／実行を繰り返すときは、
+mule をバックグラウンドで起動しておくと便利です。</p>
+
+<p>mule をバックグラウンドで起動するには、次のようにします。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule hello.cc <font color="#ffff00">&amp;</font><b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+
+<p>こうするとすぐにコマンド待ち状態に戻りますが、
+mule のウインドウも開きます。
+その状態でプログラムを作成／修正してください。</p>
+
+<p>C-x C-s をタイプすると mule を終了せずにファイルが保存できるので、
+そのままもとのウィンドウでプログラムをコンパイル／実行できます。
+また mule において C-x C-f をタイプすれば、
+mule の中からファイルを開くこともできます。</p>
+
+<center>
+<table bgcolor="#ffffff" border>
+<tr><td nowarp>mule を終了せずにファイルを保存する<td>C-x C-s
+<tr><td nowarp>名前をつけてファイルを保存する<td>C-x C-w
+<tr><td nowarp>mule の中からファイルを開く<td>C-x C-f
+</table>
+</center>
+
+<p>C-x C-f をタイプすると、
+mule のウィンドウの下部に
+次のような問い合わせが表示されます。
+ここにファイル名をタイプしてください。</p>
+
+<center>
+<img src="01-08.gif">
+</center>
+
+<p>ファイル名をタイプしている途中でスペースやタブをタイプすると、
+ファイル名の補完や一覧表示をしてくれます。</p>
+
+<center>
+<img src="01-09.gif">
+</center>
+
+<p>目的のファイル名がタイプできたら、
+最後にリターンキーをタイプしてください。</p>
+
+</body>

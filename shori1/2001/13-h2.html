@@ -1,0 +1,40 @@
+<head>
+<title>ScreamerNet レンダリング</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<hr>
+
+<h2>Content Directory について</h2>
+
+<hr>
+
+<p>LW がファイルを読み書きする際の基準となるディレクトリの初期値は
+/usr/lightwave の下のどこかになっています。
+ここは一般ユーザーは書き込み不可なので、
+自分で作ったオブジェクトやシーンを保存するが面倒です。
+そこで、自分のホームディレクトリの下に作業用のディレクトリをひとつ作って、
+そこを LW が参照するディレクトリの初期値にしましょう。</p>
+
+<p>シェルで以下のコマンドを実行します。
+~（チルダ）は自分のホームディレクトリを示します。
+<tt>mkdir ~/lw</tt> で、自分のホームディレクトリの下に、
+lw というディレクトリを作ります。</p>
+
+<table border align="center" width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mkdir ~/lw<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cd ~/lw<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>mkdir objects scenes images surfaces motions envelopes<b><font color="#00cc66">[Enter]</font></b></u>
+% <u>cd<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p>このあと LW で“オプション”のボタンをクリックして Option Panel を表示し、
+"General Options" のタブを選んで
+"Content Directory" ボタンをクリックしてください。
+ファイル選択のダイアログウィンドウが現れますので、
+自分のホームディレクトリの下に作った
+lw というディレクトリ（/usr/people/<font color="#000088">ユーザ名</font>/lw）を表示して "OK" をクリックしてください。</p>
+
+</body>

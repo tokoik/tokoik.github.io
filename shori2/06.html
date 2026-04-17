@@ -1,0 +1,690 @@
+<head>
+<title>情報処理 II － 第６回</title>
+</head>
+
+<body bgcolor="#ddeeff">
+
+<h1>情報処理 II － 第６回</h1>
+
+<p>講義に入る前に shori2 にカレントディレクトリを移しておいてください。</p>
+
+<hr>
+
+<h2>１．配列</h2>
+
+<hr>
+
+<h3>１．１．配列変数の定義</h3>
+
+<p>データの数が１個とか数個くらいなら、
+その一つ一つに対して変数を定義してもたいした手間ではありません。
+ところがこれが１００個とか１０００個とか１００万個とか１億個とかになると、
+こういうやり方では対応できないのは明らかです。
+そこで、
+変数の定義の際に変数名の後につけた [ ] 内に確保する変数の数を指定して、
+複数の記憶要素を持つ変数を用意することができます。
+これを<font color="#ff0000">配列変数</font>と呼びます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int marks[3]; // ３人分の点数データ
+</table>
+</center>
+
+<p><img src="06-01.gif" align="right">
+上記の定義によって、
+３つ分の int 型のデータを格納する領域がコンピュータのメモリ上に
+連続して確保され、marks という配列変数名はその<font color="#ff0000">先頭位置</font>を指します。</p>
+
+<p>この配列変数の要素の一つを指定するときは、
+[ ] に番号（整数）を書きます。
+これを<font color="#ff0000">添字</font>（インデックス）と呼びます。
+添字は確保された領域の先頭の位置からの<font color="#ff0000">変位</font>（オフセット）です。</p>
+
+<p>この定義により marks[0], marks[1], marks[2] という
+３つの int 型変数が使用できるようになります。
+なお <font color="#ff0000">marks[3] は含まれない</font>ので注意してください。
+</p>
+
+<br clear="all">
+
+<center>
+<a name="assignment">
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  <b>int marks[3];</b>
+
+  <b>marks[0]</b> = 10;
+  <b>marks[1]</b> = 24;
+  <b>marks[2]</b> = 42;
+
+  cout &lt;&lt; "合計点 = " &lt;&lt; <b>marks[0]</b> + <b>marks[1]</b> + <b>marks[2]</b> &lt;&lt; endl;
+}</table>
+</a>
+</center>
+
+<p>添字には整数型の変数や式を使うこともできます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int marks[3];
+  int sum = 0;
+
+  marks[0] = 10;
+  marks[1] = 24;
+  marks[2] = 42;
+
+  for (<b>int i</b> = 0; i < 3; i++) {
+    sum += marks[<b>i</b>];
+  }
+  cout &lt;&lt; "合計点 = " &lt;&lt; sum &lt;&lt; endl;
+}</table>
+</center>
+
+<p>添字に確保した配列の大きさを越える値
+（上の例では３以上もしくは負の値）
+を指定してもコンパイル時には<font color="#ff0000">エラーとして検出されません</font>が、
+プログラムに割り当てられたメモリ以外の部分をアクセスすることになるため、
+実行時にプログラムが core というファイルを生成して異常終了したり、
+プログラムが期待通りに動かなかったりします。
+注意してください。</p>
+
+<hr>
+
+<a name="multi-dimension">
+<h3>１．２．多次元配列</h3></a>
+
+<p>行列（式）や表形式のデータなどを処理するのに便利なように、
+二次元の配列も使うことができます。
+これは次のようにして定義します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int table[3][3]; // ２次元配列
+</table>
+</center>
+
+<p><img src="06-02.gif" align="right">
+これは以下のように３×３＝９個の要素を持つ配列を定義します。</p>
+
+<blockquote>
+<table border>
+<tr>
+<td nowrap><tt>table[0][0]</tt></td>
+<td nowrap><tt>table[0][1]</tt></td>
+<td nowrap><tt>table[0][2]</tt></td>
+</tr>
+<tr>
+<td nowrap><tt>table[1][0]</tt></td>
+<td nowrap><tt>table[1][1]</tt></td>
+<td nowrap><tt>table[1][2]</tt></td>
+</tr>
+<tr>
+<td nowrap><tt>table[2][0]</tt></td>
+<td nowrap><tt>table[2][1]</tt></td>
+<td nowrap><tt>table[2][2]</tt></td>
+</tr>
+</table>
+</blockquote>
+
+<p>コンピュータの記憶空間（メモリ）は、
+実際には一次元配列の構造をしているので、
+２次元以上の配列の領域は
+右図のように一次元に展開して確保されます。</p>
+
+<p>この図を見て分かるとおり、
+この配列は３つの int 型の要素を持つ配列を、
+３組用意したものになります。</p>
+
+<p>同様にして、三次元の配列は次のようにして定義します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int volume[4][3][2]; // ３次元配列
+</table>
+</center>
+
+<p>この配列は４×３×２＝２４個の要素を持つ配列を定義します。
+これは２個の要素を持つ int 型の配列３組をひとまとめにして、
+それを更に４組用意します。
+このようにして、さらに次元の高い配列を定義することもできます。</p>
+
+<br clear="all">
+
+<hr>
+
+<h3>１．３．配列変数の初期化</h3>
+
+<p>配列変数を初期化する場合は、
+各要素に格納する値を { ... } の中に列挙します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  int marks[3] <b>= { 10, 24, 42 }</b>;  // 配列変数の初期化
+  int sum = 0;
+
+  for (int i = 0; i < 3; i++) {
+    sum += marks[i];
+  }
+  cout &lt;&lt; "合計点 = " &lt;&lt; sum &lt;&lt; endl;
+}</table>
+</center>
+
+<p>この場合は初期化するデータの並びから配列の要素の数がわかるので、
+要素の数「３」は省略することができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int marks[] = { 10, 24, 42 };  // 配列変数の初期化
+</table>
+</center>
+
+<p>多次元配列の場合は次元の階層にあわせて値を列挙します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int table[3][3] = {
+  { 0, 1, 2 },
+  { 3, 4, 5 },
+  { 6, 7, 8 }
+};
+</table>
+</center>
+
+<p>あるいは、要素の数だけ一度に列挙しても構いません。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int table[3][3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+</table>
+</center>
+
+<p>なお、このような方法による配列の要素への値の設定は、
+<font color="#ff0000">初期化の時のみ可能</font>です。
+配列へのデータの代入をこのような方法で行うことはできません。
+配列の要素への値の代入は、<a href="#assignment">最初の例</a>のように、
+一つ一つの要素に対して行う必要があります。</p>
+
+<hr>
+
+<h2>課題２０</h2>
+
+<hr>
+
+<p><a href="05.html#kadai17">課題１７</a>のプログラムでは、
+出力されるグラフは縦書きになっていました。
+これを横書きで出力するようにします
+（下の例は２周期分出力しています）。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+                                                   
+     ****                     ****                 
+    *****                    *****                 
+    ******                   ******                
+   *******                  *******                
+   ********                 ********               
+  *********                *********               
+  **********               **********              
+ ***********              ***********              
+ ************             ************             
+ ************            *************            *
+*************            *************            *
+**************           **************           *
+**************          ***************          **
+***************         ****************         **
+***************        *****************        ***
+****************       ******************       ***
+****************      *******************      ****
+*****************     ********************     ****
+*****************    *********************    *****
+***************************************************
+</font></table>
+</center>
+
+<br><img src="06-08.gif" align="right">
+
+<p>グラフを標準出力（cout, 画面）に出力する代わりに、
+グラフのマス目の大きさの２次元配列を定義して、
+一旦そこに格納します。
+上図の大きさのグラフを得るには、グラフの高さは21、幅は51ありますから、
+横21要素、縦51要素の char 型の配列変数を定義します。</p>
+
+<p>このマス目（配列）の左から右 (i = 0→20) に向かって、順番に
+'*' や ' '（空白）を代入していき、
+１行分が終わったら一つ下のマス目の列について同じ処理を繰り返します
+(j = 0→50)。</p>
+
+<p>そして今度は、マス目を今度は上から下に向かってたどり、
+その内容を出力していきます (j = 0→50)。
+１行分出力したら、改行して一つ右の行について同じ処理を繰り返します
+(i = 20→0) 。</p>
+
+<p>まず手始めに、
+この配列のすべての要素に空白 ' ' を代入するプログラムを作成しましょう。
+これは２重の <b>for</b> による繰り返しで書いてください。</p>
+
+<p>各行（横方向）の棒グラフの長さを求めます。これを n とすれば、
+マス目の横の数は21ですから、n = 10 * (sin(x) + 1.0)
+としましょう。</p>
+
+<p>sin 関数の引数を x とすれば、マス目の縦の数が51ですから、
+１周期分描こうと思えば x = 2 * 3.1415926536 * j / 50.0 になります。
+j は現在の列（縦方向）の番号です。
+右図のように２周期分描くなら 25.0 で割りましょう。</p>
+
+<p>各マス目に空白 ' ' を代入する際、
+マス目の桁位置を i として、i &lt;= n であれば ' ' の代わりに '*'
+を代入するようにします。
+「<tt>? <font color="#808080">...</font> : <font color="#808080">...</font></tt>」は<a href="04.html#jouken">条件演算子</a>です。
+<blockquote><pre>masume[j][i] = (i &lt;= n) ? '*' : ' ';</pre></blockquote></p>
+
+<p>全部のマス目を埋めることができたら、
+その内容を縦方向に出力していきます。</p>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai20">tokoi</a>
+まで送ってください。Subject:（件名）は kadai20 としてください。</p>
+
+<br clear="all">
+
+<hr>
+
+<h2>２．文字列</h2>
+
+<hr>
+
+<h3>２．１．文字列のデータ構造</h3>
+
+<p>文字列は char 型の配列を用いて実現されています。
+文字列の終端を示すために、
+最後の要素（最後の文字の次）には <tt>'\0'</tt>
+（文字コード 0 の文字、すなわち数値の 0）が格納されています。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[4];
+
+name[0] = 'K';
+name[1] = 'e';
+name[2] = 'n';
+name[3] = <b>'\0'</b>;  // 終端文字（ターミネータ）
+</table>
+</center>
+
+<p>上の処理によって、配列 name[] には "Ken" という文字列が格納されます。
+配列に格納された文字列を出力するには、
+その配列名のみを指定します。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>cout &lt;&lt; "名前は " &lt;&lt; name &lt;&lt; endl;  // 「名前は Ken」が出力される
+</table>
+</center>
+
+<p>文字列はその先頭の要素から
+<tt>'\0'</tt> が見つかるまで１文字ずつ順に出力ストリームに送り出されます。
+もし配列変数 name の最後の要素が <tt>'\0'</tt> でなければ、
+文字列の最後が見つけられず、プログラムが暴走してしまいます。</p>
+
+<p><font color="#ff0000">文字列定数</font>
+はメモリ上にその文字列を格納する配列を用意し、
+その要素に文字列を構成する文字をあらかじめ格納したものです。
+文字列定数の「<font color="#ff0000">値</font>」は、
+その格納場所の先頭位置を指しています。</p>
+
+<center>
+<img src="06-03.gif">
+</center>
+
+<hr>
+
+<h3>２．２．文字列による配列変数の初期化</h3>
+
+<p>配列変数を文字列によって初期化することができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[] = { 'K', 'e', 'n', '\0' };
+</table>
+</center>
+
+<p>これは次のように書くことができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[] = "Ken";
+</table>
+</center>
+
+<p>なお、このような方法による配列の要素への値の設定は、
+<font color="#ff0000">初期化の時のみ可能</font>です。</p>
+
+<hr>
+
+<h3>２．３．文字列の入力</h3>
+
+<p>キーボードから数値や文字（１文字）を入力するときは、
+それを格納する変数をひとつ用意します。
+ところが文字列は複数の文字からなる配列なので、
+キーボードから入力する場合は、
+入力した文字列が入りきるサイズをもった配列変数を用意する必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  char string[10];                       // 入力文字列を格納する配列変数
+
+  cin.width(<b>sizeof</b> string);              // 格納する配列変数のサイズの設定
+  cin &gt;&gt; string;                         // 文字列の入力
+  cout &lt;&lt; "１つめ：" &lt;&lt; string &lt;&lt; endl;    // 文字列の出力
+
+  cin.width(<b>sizeof</b> string);              // 格納する配列変数のサイズの設定
+  cin &gt;&gt; string;                         // 文字列の入力
+  cout &lt;&lt; "２つめ：" &lt;&lt; string &lt;&lt; endl;    // 文字列の出力
+
+  cin.width(<b>sizeof</b> string);              // 格納する配列変数のサイズの設定
+  cin &gt;&gt; string;                         // 文字列の入力
+  cout &lt;&lt; "３つめ：" &lt;&lt; string &lt;&lt; endl;    // 文字列の出力
+
+  return 0;
+}</table>
+</center>
+
+<p>用意した配列のサイズは cin.width() を使って入力ストリームに教えておきます。
+<b>sizeof</b> は右側に指定した要素の大きさ（バイト数）を求める演算子で、
+上の例の <b>sizeof</b> string は配列変数 string のサイズ (10) になります。
+文字列の最後には終端文字 <tt>'\0'</tt> が追加されるため、
+格納される最大文字数は「このサイズ - 1」になります。</p>
+
+<p>入力した文字列は<font color="#ff0000">空白文字</font>
+（空白、タブ、改行）で区切って抽出演算子
+<tt>&gt;&gt;</tt> の右辺に指定した配列変数に格納します。
+文字列が cin.width() で指定した最大文字数より長ければ、
+その文字数まで切り詰めて変数に格納し、
+残りは次の入力ストリームに残されます（次の入力時に入力されます）。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>Wakayama University<b><font color="#00cc66">[Enter]</font></b></u>  <font color="#ffff00">（←入力文）</font>
+１つめ：Wakayama            <font color="#ffff00">（←最初の単語）</font>
+２つめ：Universit           <font color="#ffff00">（←２番目の単語－切り詰められている）</font>
+３つめ：y                   <font color="#ffff00">（←２番目の単語の残り）</font>
+</font></table>
+</center>
+
+<p>上の例で１行の入力が３つの cin に振り分けられているのは、
+キーボードからの入力が一旦オペレーティングシステムによって蓄えられ、
+改行 (<b><tt>[Enter]</tt></b>) がタイプされたときに、
+まとめてプログラムの入力ストリームに送られるからです。</p>
+
+<p>入力文字列を空白文字を含めて配列変数に格納したいときは、
+cin.getline() を使います。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+
+int main(void) {
+  char string[10];                     // 入力文字列を格納する配列変数
+
+  cin.getline(string, sizeof string);  // 空白を含んだ文字列の入力
+  cout &lt;&lt; string &lt;&lt; endl;              // 文字列の出力
+
+  return 0;
+}</table>
+</center>
+
+<p>cin.getline() は改行文字 <tt>'\n'</tt>
+が見つかるまで入力ストリームから文字列を読み取り、
+一つ目の<a href="03.html#argument">実引数</a>に指定した配列変数
+string に格納します。その際
+<tt>'\n'</tt> は取り除かれ、代わりに <tt>'\0'</tt> が最後に追加されます。
+２つ目の実引数は格納する配列変数 string のサイズです。
+この場合も格納される最大文字数は「このサイズ - 1」になり、
+入力文字列がこの長さを超えたときは、この長さに切り詰められます。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>This is a pen.<b><font color="#00cc66">[Enter]</font></b></u>  <font color="#ffff00">（←入力文）</font>
+This is a              <font color="#ffff00">（←最初の９文字だけが入力されている）</font>
+</font></table>
+</center>
+
+<p>入力文字列の終端文字を <tt>'\n'</tt> 以外のものにしたいときは、
+cin.getline() の引数の最後にそれを追加します。
+この３つ目の引数は「<font color="#ff0000">デフォルト引数</font>」と呼ばれ、
+引数が指定が省略されていれば、あらかじめ設定されていた値
+（この場合 <tt>'\n'</tt>）が使用されます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>  cin.getline(string, sizeof string, '.');  // ピリオドまでを入力する
+</table>
+</center>
+
+<hr>
+
+<a name="convert">
+<h3>２．４．文字列から数値への変換</h3></a>
+
+<p>入力ストリームから抽出演算子 <tt>&gt;&gt;</tt>
+を使って変数に数値を格納するとき、
+入力文字列と変数のデータ型が一致していなければ、
+プログラムは異常な動作をします。
+これは入力を文字列として配列変数に格納した後で、
+それを数値に変換すれば避けることができます。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;iostream.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+  char string[32];                     // 入力文字列を格納する配列変数
+
+  cin.getline(string, sizeof string);  // 文字列を入力
+  int i = <b>atoi</b>(string);                // 文字列を整数型に変換
+
+  cin.getline(string, sizeof string);  // 文字列を入力
+  double d = <b>atof</b>(string);             // 文字列を実数型に変換
+
+  return 0;
+}</table>
+</center>
+
+<p>数値を表している文字列を、その数値に変換するには atoi()
+ライブラリ関数を使用します。</p>
+
+<blockquote>
+<dl>
+
+<dt><b>atoi(s)</b></dt>
+<dd>関数 atoi()
+は引数の文字列 s を整数値（int 型）に変換して戻り値として返します。</dd>
+
+<dt><b>atof(s)</b></dt>
+<dd>関数 atof()
+は引数の文字列 s を実数値（double 型）に変換して戻り値として返します。</dd>
+
+</dl>
+</blockquote>
+
+<p>いずれも文字列の先頭から数値として扱われない文字が現れるまでを、
+数値に変換します。変換できなかった場合は戻り値として 0 を返します。
+atof() を使用する場合にはプログラムの最初のほうで stdlib.h あるいは
+stdlib.h をインクルードしておく必要があります。
+文字列から数値への変換には、他に strtod() などの関数が使えます。</p>
+
+<hr>
+
+<h3>２．５．文字列の操作</h3>
+
+<p>文字定数は文字型変数に代入することができますが、
+文字列定数を文字型の配列変数に代入することはできません。
+次の例はエラーになります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[4];
+
+name = "Ken";  // <font color="#ff0000">×これはエラー</font>
+</table>
+</center>
+
+<p>文字列定数や配列変数に格納された文字列を
+配列変数の個々の要素にコピーするには、
+strcpy() などのライブラリ関数を使用します。</p>
+
+<blockquote>
+<dl>
+
+<dt><b>strcpy(s1, s2)</b></dt>
+<dd><ul>
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 にコピーします。</li>
+<li>s1 は「s2 の文字数 + 1」より大きな要素数を
+持っている必要があります。</li>
+<li>戻り値は s1 です。</li>
+</ul></dd>
+
+<dt><b>strcat(s1, s2)</b></dt>
+<dd><ul>
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 に格納されている文字列の最後に追加します。</li>
+<li>s1 は「s1 に既に格納されている文字数+ s2 の文字数 + 1」
+より大きな要素数を持っている必要があります。</li>
+<li>戻り値は s1 です。</li>
+<li><table width="80%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>char name[16];
+strcpy(name, "Hazuki ");  // name[] に "Hazuki " をコピー
+strcat(name, "Riona");    // name[] に "Riona" を連結
+</table></li>
+<li>この結果 name には "Hazuki Riona" という文字列が入るため、
+name は　char name[13以上]; として定義されている必要があります。</li>
+</ul></dd>
+
+<a name="strlen">
+<dt><b>strlen(s)</b></dt></a>
+<dd><ul>
+<li>s に指定した文字列の文字数を求め、
+戻り値として返します。</li>
+<li>文字数に <tt>'\0'</tt> は含みません。</li>
+<li><table width="80%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>int length;
+length = strlen("Ken");
+</table></li>
+<li>この結果、length は３になります。</li>
+</ul></dd>
+
+<dt><b>strcmp(s1, s2)</b></dt>
+<dd><ul>
+<li>２つの文字列 s1 と s2 が同じ内容なら 0、
+s1 が s2 より「辞書の順で」前にあれば負、
+後にあれば正の値を戻り値として返します。</li>
+<li><table width="80%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>if (strcmp("akane", "ranma") < 0)
+  cout &lt;&lt; "akane は ranma より前" &lt;&lt; endl;
+if (strcmp("pig", "panda") > 0)
+  cout &lt;&lt; "pig は panda より後" &lt;&lt; endl;
+</table></li>
+</ul></dd>
+
+</dl>
+</blockquote>
+
+<p>これらのライブラリ関数を使用する場合には、
+string.h というヘッダファイルを
+プログラムの最初の部分でインクルードしておく必要があります。</p>
+
+<center>
+<table width="90%" border>
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>#include &lt;string.h&gt;
+</table>
+</center>
+
+<hr>
+
+<a name="kadai21">
+<h2>課題２１</h2></a>
+
+<hr>
+
+<p>キーボードから入力した文字列を逆順に出力するプログラムを作成してください。
+</p>
+
+<ol>
+
+<li><p>最初に入力された文字列の長さを求めます。
+それにはライブラリ関数の strlen() が使用できます。<p></li>
+
+<li><p>文字列の先頭の文字の位置を示す変数（たとえば head）を用意し、
+それを 0 にしておきます。</p></li>
+
+<li><p>文字列の末尾の文字の位置を示す変数（たとえば tail）を用意し、
+それを「文字列の長さ－１」にしておきます。</p></li>
+
+<li><p>head &lt; tail の間以下の処理を繰り返します。
+<ul>
+<li>文字列の head 番目の文字と tail 番目の文字を交換します。</li>
+<li>head を１増し、tail を１減じます。</li>
+</ul></p></li>
+
+<li><p>文字列を出力します。</p></li>
+
+</ol>
+
+<center>
+<img src="06-07.gif">
+<br>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>a.out<b><font color="#00cc66">[Enter]</font></b></u>
+<u>This is a pen.<b><font color="#00cc66">[Enter]</font></b></u>  <font color="#ffff00">（←入力文）</font>
+.nep a si sihT         <font color="#ffff00">（←逆順に出力）</font>
+</font></table>
+</center>
+
+<p>メールにソースプログラムを添付して
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=kadai21">tokoi</a>
+まで送ってください。Subject:（件名）は kadai21 としてください。</p>
+
+</body>

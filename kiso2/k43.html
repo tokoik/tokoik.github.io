@@ -1,0 +1,84 @@
+<head>
+<title>情報基礎演習II − 課題４３</title>
+</head>
+
+<body>
+
+<h3>課題４３</h3>
+
+<hr>
+
+<ol>
+
+<li>次の関数 move は、
+引数 i の値によって、
+引数 x, y の指す内容を±１します。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai43
+** 動作: 座標の移動
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+void right(int *x, int *y)
+{
+    ++*x; /* 右にひとつ移動 */
+}
+
+void left(int *x, int *y)
+{
+    --*x; /* 左にひとつ移動 */
+}
+
+void up(int *x, int *y)
+{
+    ++*y; /* 上にひとつ移動 */
+}
+
+void down(int *x, int *y)
+{
+    --*y; /* 下にひとつ移動 */
+}
+
+void move(int i, int *x, int *y)
+{
+    switch(i) {
+    case 0: /* 右 */
+        right(x, y);
+        break;
+    case 1: /* 左 */
+        left(x, y);
+        break;
+    case 2: /* 上 */
+        up(x, y);
+        break;
+    case 3: /* 下 */
+        down(x, y);
+        break;
+    }
+}
+</pre>
+</table>
+<p>
+
+<li>この関数 move を、
+switch を使わず関数のポインタを使って
+書き換えてください。
+<p>
+
+<li>なお、引数 i には、
+0〜3 以外の整数が与えられることはないとします。
+<p>
+
+<li>ソースプログラムのファイル名は kadai43.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai43 としてください。
+
+</ol>
+
+</body>

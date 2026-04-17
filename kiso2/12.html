@@ -1,0 +1,351 @@
+<head>
+<title>情報基礎演習II − 第１２回</title>
+</head>
+
+<body>
+
+<h1>情報基礎演習II − 第１２回</h1>
+
+<hr>
+
+<h2>１．プリプロセッサ</h2>
+
+<hr>
+
+コンパイルの際、
+Ｃ言語のソースプログラムは、
+機械語に翻訳される前に一旦プリプロセッサと呼ばれるプログラムによって
+処理されます。
+<p>
+
+プリプロセッサは、
+ソースプログラム中から
+翻訳には関係ないコメントを取り除くほか、
+ソースプログラム中のプリプロセッサ制御文をもとに
+ソースプログラムを加工し、
+それをコンパイラ本体に引き継ぎます。
+<p>
+
+プリプロセッサの制御は、
+ソースプログラムの第１桁目に <tt>#</tt> を書くことによって行います。
+
+<blockquote>
+<pre>
+#define SIZE 1024
+</pre>
+</blockquote>
+
+プリプロセッサはソースプログラム中で上記の指令に出合うと、
+ソースプログラムのその部分から後に含まれる
+全ての <tt>SIZE</tt> という文字列を、
+<tt>1024</tt> に置き換えます。
+
+<hr>
+
+<h3>マクロ</h3>
+
+前述の例のように、
+ソースプログラム中の定数などを記号定数に置き換えることができます。
+
+<blockquote>
+<pre>
+#define <b>NINSU</b> 100
+
+unsigned char tensu[<b>NINSU</b>];
+
+float heikin(void)
+{
+    int i;
+    float sum = 0;
+
+    for (i = 0; i < <b>NINSU</b>; i++)
+        sum += tensu[i];
+
+    return sum / <b>NINSU</b>;
+}
+</pre>
+</blockquote>
+
+上の関数 heikin は、
+配列 tensu に 100 人の点数データが入っているとき、
+その平均点を計算するものであるとします。
+ここで仮に NINSU という記号定数を使わずに 100 という定数を
+そのまま書いたとすると、
+データの数が変わったとき３箇所の 100 を変更しなければなりません。
+これをあらかじめ記号定数で書いておけば、
+そういう変更のときも記号定数の定義のところだけを
+変更するだけで済みます。
+
+<blockquote>
+<pre>
+#define DEBUG
+</pre>
+</blockquote>
+
+上記のように記号定数に割り当てる値を省略した場合、
+その記号定数の内容は空になります。
+<p>
+
+記号定数の定義を取り消すには、<tt>#undef</tt> を使います。
+
+<blockquote>
+<pre>
+#undef NINSU
+#undef DEBUG
+</pre>
+</blockquote>
+
+記号定数の名前の決め方のルールは一般の変数と同じですが、
+変数と区別しやすいように全部大文字にするなどの
+配慮をしたほうがいいでしょう。
+
+<p>
+
+<a href="k54.html"><h3 align="center">■課題５４■</h3></a>
+
+記号定数は引数を使うこともできます。
+
+<blockquote>
+<pre>
+#define SWAP(type, a, b) { type t = a; a = b; b = t; }
+
+void func(float x[], float y[], int n)
+{
+    int i;
+
+    for (i = 0; i < n; i++)
+        SWAP(float, x[i], y[i]);
+
+</pre>
+</blockquote>
+
+この SWAP は関数で定義した場合と異なり、
+引数 type に引数 a, b に指定した変数の型を指定することで、
+任意の型の変数の内容の交換ができます。
+
+<blockquote>
+<pre>
+#define EXPR(c) ((c) * 5 + 3)
+
+int func(int x)
+{
+    return EXPR(x + 1) * 5;
+}
+</pre>
+</blockquote>
+
+この EXPR は式の中で使うことができます。
+ここで <tt>EXPR(x + 1) * 5</tt> は <tt>((x + 1) * 5 + 3) * 5</tt>
+に置き替わります。
+<p>
+
+ここで注意すべきことは、
+引数および定義全体が <tt>( )</tt> でくくってある点です。
+仮に、次のような定義を行ったとします。
+
+<blockquote>
+<pre>
+#define EXPR(c) (c * 5 + 3)
+</pre>
+</blockquote>
+
+この場合 <tt>EXPR(x + 1) * 5</tt> は
+<tt>(x + 1 * 5 + 3) * 5</tt> に置き替わってしまいます。
+同様に次のような定義を行った場合についても考えてみます。
+
+<blockquote>
+<pre>
+#define EXPR(c) (c) * 5 + 3
+</pre>
+</blockquote>
+
+この場合は <tt>SQARE(x + 1) * 5</tt> が
+<tt>(x + 1) * 5 + 3 * 5</tt> に置き替わってしまいます。
+<p>
+
+この他、次のような場合も注意が必要です。
+
+<blockquote>
+<pre>
+#define SQARE(c) ((c) * (c))
+</pre>
+</blockquote>
+
+このとき、<tt>SQARE(++x)</tt> は
+<tt>((++x) * (++x))</tt> に置き替わるため、
+変数 x の内容は２増えてしまいます。
+<p>
+
+<a href="k55.html"><h3 align="center">■課題５５■</h3></a>
+
+<hr>
+
+<h3>外部ソースプログラムの挿入</h3>
+
+ソースプログラム内に別のソースプログラムを埋め込むために、
+<tt>#include</tt>が使用されます。
+
+<blockquote>
+<pre>
+#include &lt;stdio.h&gt;
+</pre>
+</blockquote>
+
+この stdio.h のようなファイルもＣ言語のソースプログラムで、
+ヘッダファイルとばれます。
+ヘッダファイルには普通関数定義は書かず、
+外部変数の宣言や関数プロトタイプ、マクロ定義などを書きます。
+通常のＣのソースプログラムと区別するために、
+普通ファイル名の最後には ".h" を付けます。
+stdio.h には標準入出力（standard input/output、printf/scanf など）
+を使うための関数プロトタイプなどが書かれています。
+<p>
+
+<tt>#include</tt> において、
+埋め込むファイル名を <tt>&lt; &gt;</tt> ではさんだ場合、
+そのファイルを
+<a href="h09.html">システムに最初から用意されているヘッダファイル</a>を
+集めた場所から取り出します。
+情報処理センターのシステム（大半の UNIX）では、これは
+<tt>/usr/include</tt>というディレクトリにあります。
+上の例では、
+実際には <tt>/usr/include/stdio.h</tt> というファイルが
+埋め込まれます。
+<p>
+
+ヘッダファイルには stdio.h のように
+システムに最初から用意されているものの他に、
+自分でも作ることができます。
+<tt>#include</tt> において、
+埋め込むファイル名を <tt>" "</tt> ではさんだ場合、
+そのファイルは現在のディレクトリ
+（もとのソースコードのあるディレクトリ）から取り出します。
+
+<blockquote>
+<pre>
+#include "myheader.h"
+</pre>
+</blockquote>
+
+<a href="k56.html"><h3 align="center">■課題５６■</h3></a>
+
+<hr>
+
+<h3>条件コンパイル</h3>
+
+次のようにして、
+ソースプログラムの一部だけを有効にする（あるいは、
+一部を無効にする）ことができます。
+
+<blockquote>
+<pre>
+<b>#if DEBUG</b>
+    printf("DEBUG: x=%f\n", x);
+<b>#endif</b>
+</pre>
+</blockquote>
+
+このようにすると、
+<tt>#if 〜 #endif</tt> の間は
+記号定数 DEBUG が真（非０）のときのみコンパイルされます。
+これはソフトウェアの開発中は
+動作を確かめるプログラムを埋め込んでおきたいが、
+完成したときにはその部分は除きたい場合などによく使われます。
+<p>
+
+<tt>#if</tt> の条件には
+変数を含まない式を使うことができます。
+これにはＣ言語（の本文）同様、
+定数同士の四則演算や
+<a href="07.html#kankei">関係演算</a>、
+<a href="07.html#ronri">論理演算</a>、
+それから <a href="k55.html#jouken"><tt>?:</tt>演算子</a>
+などを使うことができます。
+
+<blockquote>
+<pre>
+<b>#if</b> X > 5 && X < 10
+    printf("Xは5より大きく10より小さい\n");
+<b>#else</b>
+    printf("Xは5以下あるいは10以上\n");
+<b>#endif</b>
+
+<b>#if</b> DEBUG == 1
+    printf("デバッグレベル１\n")
+<b>#elif</b> DEBUG == 2
+    printf("デバッグレベル２\n")
+<b>#elif</b> DEBUG == 3
+    printf("デバッグレベル３\n")
+<b>#endif</b>
+
+<b>#if</b> 0
+    この部分は一切コンパイルされません。
+    従ってコメントのように使うこともできます。
+    でもそう言うことはあまりしません。
+<b>#endif</b>
+</pre>
+</blockquote>
+
+<tt>#else</tt> 以降の部分は
+<tt>#if</tt> の条件が偽（０）のときのみ
+コンパイルされます。
+また <tt>#elif</tt> は
+いくつかの条件判断を続けたいときに使います。
+<tt>#elif</tt> を使わない場合は、
+<tt>#if 〜 #endif</tt> は入れ子にする必要があります。
+
+<blockquote>
+<pre>
+<b>#if</b> DEBUG == 1
+        printf("デバッグレベル１\n")
+<b>#else</b>
+<b>#  if</b> DEBUG == 2
+        printf("デバッグレベル２\n")
+<b>#  else</b>
+<b>#    if</b> DEBUG == 3
+        printf("デバッグレベル３\n")
+<b>#    endif</b>
+<b>#  endif</b>
+<b>#endif</b>
+</pre>
+</blockquote>
+
+<tt>#</tt> が左端（１桁目）にあれば、
+<tt>#</tt> の右に空白があっても構いません。
+<p>
+
+記号定数の内容ではなく、
+記号定数が定義されているかどうかを調べたいときは
+<tt>defined(..)</tt>を使います。
+
+<blockquote>
+<pre>
+<b>#if defined(</b>DEBUG<b>)</b>
+    printf("デバッグします\n");
+<b>#endif</b>
+
+<b>#if defined(</b>SUN<b>)</b> || !<b>defined(</b>SGI<b>)</b>
+    printf("これは SUN か、あるいは SGI でないものなら動きます\n");
+<b>#endif</b>
+</pre>
+</blockquote>
+
+なお <tt>#if defined(..)</tt> は <tt>#ifdef ..</tt>、
+<tt>#if !defined(..)</tt> は <tt>#ifndef ..</tt> と書くこともできます。
+
+<blockquote>
+<pre>
+<b>#ifdef DEBUG</b>
+    printf("デバッグします\n");
+<b>#endif</b>
+
+/* どこかで記号定数 SIZE が定義されていなければここで定義する */
+<b>#ifndef</b> SIZE
+<b>#  define</b> SIZE 1024
+<b>#endif
+</pre>
+</blockquote>
+
+<a href="k57.html"><h3 align="center">■課題５７■</h3></a>
+
+</body>

@@ -1,0 +1,849 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>情報処理I － 第１０回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第１０回</h1>
+
+<hr>
+
+<h2>１．ホームページ作成（アクティブなホームページ）</h2>
+
+<hr>
+
+<font color="#ff0000">今回は最後にある課題を先に見てください。</font>
+
+<h3>表の作成</h3>
+
+<p>
+表は、マス目の内容を
+<tt>&lt;td&gt;</tt> ～ <tt>&lt;/td&gt;</tt>
+または
+<tt>&lt;th&gt;</tt> ～ <tt>&lt;/th&gt;</tt>
+ではさみ、それらの１行分を
+<tt>&lt;tr&gt;</tt> ～ <tt>&lt;/tr&gt;</tt>
+ではさんで、全体を
+<tt>&lt;table&gt;</tt> ～ <tt>&lt;/table&gt;</tt>
+ではさんで作ります。
+</p>
+
+<p>
+<tt>&lt;th&gt;</tt> ～ <tt>&lt;/th&gt;</tt>
+は表の見出し欄に使います。
+</p>
+
+<p>
+３行４列の表（うち１行と１列は見出し）を書くには、
+次のように記述します。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff" valign="top">
+<pre>
+&lt;table&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;&lt;/th&gt;
+  &lt;th&gt;第１列&lt;/th&gt;
+  &lt;th&gt;第２列&lt;/th&gt;
+  &lt;th&gt;第３列&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;第１行&lt;/th&gt;
+  &lt;td&gt;第１行第１列&lt;/td&gt;
+  &lt;td&gt;第１行第２列&lt;/td&gt;
+  &lt;td&gt;第１行第３列&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+  &lt;th&gt;第２行&lt;/th&gt;
+  &lt;td&gt;第２行第１列&lt;/td&gt;
+  &lt;td&gt;第２行第２列&lt;/td&gt;
+  &lt;td&gt;第２行第３列&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+</pre>
+</table>
+</center>
+
+<p>
+これは下のような表になります。
+</p>
+
+<center>
+<table>
+
+<tr>
+  <th></th>
+  <th>第１列</th>
+  <th>第２列</th>
+  <th>第３列</th>
+</tr>
+
+<tr>
+  <th>第１行</th>
+  <td>第１行第１列</td>
+  <td>第１行第２列</td>
+  <td>第１行第３列</td>
+</tr>
+
+<tr>
+  <th>第２行</th>
+  <td>第２行第１列</td>
+  <td>第２行第２列</td>
+  <td>第２行第３列</td>
+</tr>
+
+</table>
+</center>
+
+<p>
+マス目の間に罫線を引くには、
+<tt>&lt;table border&gt;</tt> ～ <tt>&lt;/table&gt;</tt>
+とします。
+</p>
+
+<center>
+<table border>
+
+<tr>
+  <th></th>
+  <th>第１列</th>
+  <th>第２列</th>
+  <th>第３列</th>
+</tr>
+
+<tr>
+  <th>第１行</th>
+  <td>第１行第１列</td>
+  <td>第１行第２列</td>
+  <td>第１行第３列</td>
+</tr>
+
+<tr>
+  <th>第２行</th>
+  <td>第２行第１列</td>
+  <td>第２行第２列</td>
+  <td>第２行第３列</td>
+</tr>
+
+</table>
+</center>
+
+<blockquote>
+<dl>
+<dt>表全体の幅と高さ</dt>
+<dd>表全体の幅や高さは、<tt>&lt;table&gt;</tt>
+タグにそれぞれ width=、height= オプションを付けて指定します。
+数値（ピクセル数）で指定した場合は固定幅になります。
+% をつけると Web ブラウザのウィンドウのサイズからの割合になります。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table width="512" height="100%"&gt;</tt> ～
+<tt>&lt;/table&gt;</tt></td></tr>
+</table></dd>
+<dt>表の外枠の太さ</dt>
+<dd>表の外枠の太さは、<tt>&lt;table&gt;</tt>
+タグに border= オプションをつけて指定します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table border="10"&gt;</tt> ～
+<tt>&lt;/table&gt;</tt></td></tr>
+</table></dd>
+<dt>罫線の太さ</dt>
+<dd>罫線の太さは、<tt>&lt;table&gt;</tt>
+タグに cellspacing= オプションをつけて指定します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table border cellspacing="10"&gt;</tt> ～
+<tt>&lt;/table&gt;</tt></td></tr>
+</table></dd>
+<dt>罫線とデータとの間隔</dt>
+<dd>罫線とマス目内のデータとの間隔は、<tt>&lt;table&gt;</tt>
+タグに cellpadding= オプションをつけて指定します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table border cellpadding="10"&gt;</tt> ～
+<tt>&lt;/table&gt;</tt></td></tr>
+</table></dd>
+<dt>マス目の幅と高さ</dt>
+<dd>マス目の幅や高さは、<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグにそれぞれ width=、height= オプションを付けて指定します。
+数値（ピクセル数）で指定した場合は固定幅になります。
+% をつけると Web ブラウザの表全体のサイズからの割合になります。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td width="20%" height="30"&gt;</tt> ～
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>マス目の背景色</dt>
+<dd>マス目の背景色は、<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグに bgcolor= オプションを付けて指定します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td bgcolor="#ff0000"&gt;</tt> ここは赤色のマス目
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>マス目内のデータの水平位置</dt>
+<dd>データをマス目のどの部分のそろえるかは、
+<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグに align= オプションを付けて指定します。
+align= には "left", "center", "right" が指定できます。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td align="center"&gt;</tt> ここは中央揃え
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>マス目内のデータの垂直位置</dt>
+<dd>データをマス目のどの高さに表示するかは、
+<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグに valign= オプションを付けて指定します。
+valign= には "bottom", "middle", "top" が指定できます。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td valign="top"&gt;</tt> ここはマス目の上端
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>複数行にわたるマス目</dt>
+<dd>複数行にわたるマス目を作るには、
+<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグに rowspan= オプションを使用します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td rowspan="2"&gt;</tt> ここは２行にわたるマス目
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>複数列にわたるマス目</dt>
+<dd>複数列にわたるマス目を作るには、
+<tt>&lt;td&gt;</tt> または <tt>&lt;th&gt;</tt>
+タグに colspan= オプションを使用します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;td colspan="2"&gt;</tt> ここは２列にわたるマス目
+<tt>&lt;/td&gt;</tt></td></tr>
+</table></dd>
+<dt>表のキャプション</dt>
+<dd>表のキャプションは、
+<tt>&lt;caption&gt;</tt> ～ <tt>&lt;/caption&gt;</tt>
+タグを使ってつけます。
+キャプションの位置は align= オプションで指定します。<br>
+<table border width="500">
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table width="512" height="100%"&gt;</tt><br>
+<tt>&lt;caption&gt;</tt>表のキャプション（説明）<tt>&lt;/caption&gt;</tt><br>
+<tt>...<br>
+<tt>&lt;/table&gt;</tt>
+<tr><td bgcolor="#ffffff">
+<tt>&lt;table width="512" height="100%"&gt;</tt><br>
+<tt>&lt;caption align="bottom"&gt;</tt>このキャプションは表の下<tt>&lt;/caption&gt;</tt><br>
+<tt>...<br>
+<tt>&lt;/table&gt;</tt></td></tr>
+</table></dd>
+</dl>
+</blockquote>
+
+<h3>クリッカブルマップ</h3>
+
+<p>
+ホットスポットとして画像を使用したとき、
+通常では画像全体で一つの URL にリンクします。
+これを、画像上のクリックした位置によって、
+異なる URL にリンクできるようにしたものを、
+クリッカブルマップと呼びます。
+</p>
+
+<p>
+クリッカブルマップの実現方法には、
+サーバーサイドとクライアントサイドという２つの方法があります。
+サーバーサイドは Web サーバ側でクリッカブルマップを実現する方法で、
+以前から用いられていますが、実現方法にいくつかのバリエーションがあります。
+<a href="http://www.sys.wakayama-u.ac.jp/~tokoi/rahmen.html">
+和歌山のラーメン</a>のページでは、この方法を採用しています。
+</p>
+
+<p>
+クライアントサイドは Web ブラウザ側で実現する方法で、
+古い Web ブラウザでは利用できません。
+</p>
+
+<p>
+クライアントサイドでクリッカブルマップを実現する方法にも、
+２つの方法があります。
+一つは、表を使う方法です。
+</p>
+
+<p>
+下の左のような画像を、右のように要素ごとに分解します。
+この作業は photoshop などでできます。
+</p>
+
+<center>
+<table>
+
+<tr>
+<td rowspan="4"><img src="map.gif"></td>
+<td rowspan="4">→</td>
+<td colspan="2"><img src="map1.gif"></td>
+</tr>
+
+<tr>
+<td rowspan="3"><img src="map5.gif"></td>
+<td><img src="map2.gif"></td>
+</tr>
+
+<tr><td><img src="map3.gif"></td></tr>
+<tr><td><img src="map4.gif"></td></tr>
+
+</table>
+</center>
+
+<p>
+これを、<tt>&lt;table border="0" cellspacing="0" cellpadding="0"&gt;</tt>
+で罫線の太さを 0 にして表としてレイアウトすれば、
+１枚の画像のように見えます。
+</p>
+
+<center>
+<table border>
+<tr><td bgcolor="#ffffff">
+<pre>&lt;table border="0" cellspacing="0" cellpadding="0"&gt;
+
+&lt;tr&gt;
+&lt;td colspan="2"&gt;&lt;a href="http://www.wakayama-u.ac.jp/"&gt;
+&lt;img src="map1.gif" border="0"&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;&lt;td rowspan="3"&gt;&lt;img src="map5.gif"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="http://www.edu.wakayama-u.ac.jp/"&gt;
+&lt;img src="map2.gif" border="0"&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="http://www.eco.wakayama-u.ac.jp/"&gt;
+&lt;img src="map3.gif" border="0"&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="http://www.sys.wakayama-u.ac.jp/"&gt;
+&lt;img src="map4.gif" border="0"&gt;&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+</table>
+</center>
+
+<p>
+そして、この一つ一つの画像をホットスポットにすれば、
+クリッカブルマップが出来上がります。
+その際、<tt>&lt;img src="..." border="0"&gt;</tt> として、
+画像をホットスポットにしたときに現れる枠を消しておきます。
+</p>
+
+<center>
+<table border="0" cellspacing="0" cellpadding="0">
+
+<tr>
+<td colspan="2"><a href="http://www.wakayama-u.ac.jp/">
+<img src="map1.gif" border="0"></a></td>
+</tr>
+
+<tr>
+<td rowspan="3"><img src="map5.gif"></td>
+<td><a href="http://www.edu.wakayama-u.ac.jp/">
+<img src="map2.gif" border="0"></a></td>
+</tr>
+
+<tr>
+<td><a href="http://www.eco.wakayama-u.ac.jp/">
+<img src="map3.gif" border="0"></a></td>
+</tr>
+
+<tr>
+<td><a href="http://www.sys.wakayama-u.ac.jp/">
+<img src="map4.gif" border="0"></a></td>
+</tr>
+
+</table>
+</center>
+
+<p>
+この方法はかなり面倒なうえ、
+分割した画像の隙間が埋まらないことがあるなど、
+使いやすいとは言えません。
+クライアントサイドでクリッカブルマップを作るもうひとつの方法は、
+<tt>&lt;map name="マップ名"&gt;</tt> タグを使う方法です。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>&lt;map name="organization"&gt;
+&lt;area
+  shape="rect"
+  coords="32,140,221,171"
+  href="http://www.sys.wakayama-u.ac.jp/"&gt;
+&lt;area
+  shape="rect"
+  coords="32,104,221,135"
+  href="http://www.eco.wakayama-u.ac.jp/"&gt;
+&lt;area
+  shape="rect"
+  coords="32,68,221,99"
+  href="http://www.edu.wakayama-u.ac.jp/"&gt;
+&lt;area
+  shape="rect"
+  coords="9,14,203,54"
+  href="http://www.wakayama-u.ac.jp/"&gt;
+&lt;/map&gt;
+
+&lt;img src="map.gif" usemap="#organization"&gt;
+</table>
+</center>
+
+<ul>
+<li><tt>&lt;map name="マップ名"&gt;</tt> ～
+<tt>&lt;/map&gt;</tt> でマップを定義し、
+そのマップ名を <tt>&lt;img src="マップ画像" usemap="#マップ名"&gt;</tt>
+で指定します。</li>
+<li><tt>&lt;area&gt;</tt> タグの shape=
+オプションは、マップ画像上のホットスポットにする領域の形で、
+"rect"（長方形）、"circle"（円）が指定できます。</li>
+<li><tt>&lt;area&gt;</tt> タグの coord= オプションは、
+shape= オプションで指定したホットスポットの座標を定義します。
+"rect" の場合は長方形の左上の頂点と右下の頂点の位置を指定します。
+"circle" の場合は中心の位置と半径を指定します。</li>
+<li><tt>&lt;area&gt;</tt> タグの href= オプションは、
+そのホットスポットにリンクする URL を指定します。</li>
+</ul>
+
+<map name="organization">
+<area
+  shape="rect"
+  coords="32,140,221,171"
+  href="http://www.sys.wakayama-u.ac.jp/">
+<area
+  shape="rect"
+  coords="32,104,221,135"
+  href="http://www.eco.wakayama-u.ac.jp/">
+<area
+  shape="rect"
+  coords="32,68,221,99"
+  href="http://www.edu.wakayama-u.ac.jp/">
+<area
+  shape="rect"
+  coords="9,14,203,54"
+  href="http://www.wakayama-u.ac.jp/">
+</map>
+
+<center>
+<img src="map.gif" usemap="#organization">
+</center>
+
+<h3>アニメーション GIF</h3>
+
+<p>
+複数の GIF ファイルを一つにまとめて、
+パラパラ漫画のような簡単なアニメーションを作ることができます。
+</p>
+
+<center>
+<table>
+<tr>
+<th><img src="movie1.gif"><br>movie1.gif</th>
+<th><img src="movie2.gif"><br>movie2.gif</th>
+<th><img src="movie3.gif"><br>movie3.gif</th>
+<th><img src="movie4.gif"><br>movie4.gif</th>
+</tr>
+</table>
+</center>
+
+<p>
+上の４つの GIF ファイルを whirlgif
+コマンドで movie.gif というファイル名のアニメーション GIF ファイルにします。
+上のような GIF ファイルは photoshop や gimp、xpaint などで作成できます。
+</p>
+
+<center>
+<table border>
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>whirlgif -o movie.gif -loop movie1.gif movie[1-3].gif -time 100 movie4.gif<b><font color="#00cc66">[Enter]</font></b>
+</table>
+</center>
+
+<ul>
+<li>-o オプションは出力するファイル名を指定します。"-o movie.gif"
+で movie.gif というファイルをつくります。</li>
+<li>-loop オプションは、
+繰り返しアニメーションするファイルをつくります。
+このオプションをつけない場合は、
+１回アニメーションしたあと、最後の画像で止まります。</li>
+<li>一つ目の movie1.gif は最初の画像ファイルを指定します。</li>
+<li>movie[1-3].gif は "movie1.gif movie2.gif movie3.gif"
+という３つのファイルを指定したのと同じです。
+このように、whirlgif では最初の画像を２回指定する必要があります。</li>
+<li>-time は画像を切り替える間隔（時間）を指定します。
+この例では movie4.gif でしばらく静止させます。</li>
+</ul>
+
+<dl compact>
+<dt>※</dt><dd>-loop オプションを付けると、
+引数に指定した画像ファイルのうちの最初のものを捨ててしまいます。
+この理由は、繰り返し再生するようなアニメーションを作成したとき、
+最初の画像と最後の画像が同じになっていることが多いからだと思われます。
+今回のように手で画像を描くとそういうことにはならないので、
+最初の画像 (movie1.gif) を２回指定しています。</dd>
+</dl>
+
+<center>
+<img src="movie.gif"><br>
+<b>movie.gif</b>
+</center>
+
+<p>
+camera で撮影した画像（静止画）を使うこともできます。
+第８回の<a href="">「画像を埋め込む」</a>のところでは、
+静止画の画像フォーマットを JFIF にしましたが、
+アニメーション GIF を作るためには GIF 形式の静止画像が必要になります。
+そのためには、mediarecorder のメニューバーの“タスク”から
+“タスク設定を表示...”を選んで、
+ファイル形式に GIF を設定してください。
+また、“ビデオ・フレームのサイズは前回同様１／４にしておきましょう。
+</p>
+
+<center>
+<img src="10-01.jpg">
+</center>
+
+<p>
+いくつかポーズをつくって画像ファイルを作成したあと、
+whirlgif でアニメーション GIF ファイルに変換してください。
+</p>
+
+<p>
+camera で作成したムービーファイルを、
+そのまま Web ページに埋め込むこともできます。
+ムービーファイルの作成は、
+第３回の<a href="03.html#movie">動画像のの取り込み</a>を参照してください。
+なお、このページにあるように、現時点では mediarecorder
+はスクラッチディレクトリを変更しないと動画像の取り込みができません。
+</p>
+
+<p>
+この場合も、タスクは“Web 文書”にしておいてください。
+それでもムービーファイルはサイズが非常に大きくなるので、
+取り込み時間は<font color="#ff0000">数秒</font>にしておいてください。
+</p>
+
+<p>
+ムービーファイルの書式（フォーマット）は QuickTime になると思います。
+QuickTime ムービーファイルの拡張子は ".mov" です。
+このファイルを Web ページに埋め込むには、
+<tt>&lt;embed&gt;</tt> タグを使います。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>&lt;embed src="movie.mov" width="160" height="120"&gt;
+</table>
+</center>
+
+<p>
+下の例は QuickTime ではなく、
+MPEG-1 ムービーです。
+絵をクリックしてみてください。
+</p>
+
+<center>
+<embed src="/~tokoi/gallery/flare.mpg" width="240" height="180">
+</center>
+
+
+<h3>VRML</h3>
+
+<p>
+３次元 CG を Web ページに埋め込むことができます。
+Web ページ用の 3D CG データファイルは、
+VRML (Virtual Reality Modeling Language) という言語で記述されています。
+</p>
+
+<p>
+VRML を構成する単位を<font color="#ff0000">ノード</font>と言います。
+ノードは次のような書式をしています。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>ノード名 {
+  フィールド名 値
+  フィールド名 値
+  ‥‥
+}</pre>
+</table>
+</center>
+
+<p>
+例えば、中心が原点で半径が２の赤色の球が１個だけ存在するシーンの
+VRML による記述は下のようになります。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>#VRML V2.0 utf8
+Shape {                         # 形状
+  appearance Appearance {       # 属性
+    material Material {         # 材質
+      diffuseColor 1 0 0        # 色
+    }
+  }
+  geometry Sphere {             # 球
+    radius 2                    # 半径
+  }
+}</pre>
+</table>
+</center>
+
+<ul>
+<li>Shape ノードの appearance と geometry のフィールドに対して、
+それぞれ Appearance ノードと Sphere ノードを値として設定しています。
+さらに Appearance ノードの material フィールドの値として
+Material ノードを設定し、その diffuseColor フィールドの値として
+1.0 0.0 0.0 を設定しています。</li>
+<li>diffuseColor は物体に光を当てたときの拡散反射光の赤色 (R) 成分、
+緑色 (G) 成分、青色 (B) 成分の反射係数（拡散反射係数）を指定します。
+この例では R だけ 1.0 なので、物体の色が赤色になります。</li>
+<li>Sphere ノードの radius フィールドには表示する球の半径を指定します。
+これを省略すると、球の半径は 1 になります。</li>
+<li>VRML ファイルには、少なくとも一つの Shape ノードが必要です。</li>
+</ul>
+
+<p>
+上の VRML の記述を sphere.wrl というファイル名で保存します。
+VRML ファイルの拡張子には ".wrl" か ".vrml" を用います。
+</p>
+
+<p>
+Web ページにこの３次元図形を埋め込むには、
+<tt>&lt;embed&gt;</tt> タグを使います。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>&lt;embed src="sphere.wrl" width="512" height="384"&gt;</pre>
+</table>
+</center>
+
+<p>
+これは、下のように表示されます。
+</p>
+
+<center>
+<!--
+<embed src="sphere.wrl" width="512" height="384">
+-->
+<font color="#ff0000">（VRML を embed すると Netscape が落ちるので
+<a href="/~tokoi/vrml/sphere.wrl">こっちのページ</a>で表示）</font>
+</center>
+
+<p>
+width= と height= は Web ページ上での図形表示部分の大きさです。
+表示部分の下の方にはハンドルなどが現れます。
+これを操作して、視点の位置などを変更することができます。
+また、貼り付けた図形の上でマウスの右ボタンをクリックしたときに現れる
+ポップアップメニューで、表示方法や Viewer の変更ができます。
+物体をくるくる回して見るには Examiner Viewer を使ってください。
+</p>
+
+<p>
+物体の位置を指定するには、Transform ノードを使います。
+上の図形の球のとなりに箱を追加するには、
+箱の Shape ノードを Transform ノードの children フィールドに指定します。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>#VRML V2.0 utf8
+Shape {
+  appearance Appearance {
+    material Material {
+      diffuseColor 1 0 0
+    }
+  }
+  geometry Sphere {
+    radius 2
+  }
+}
+<b>Transform {
+  translation 4 0 0
+  children Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 1 1 0
+      }
+    }
+    geometry Box {
+      size 3 3 3
+    }
+  }
+}</b></pre>
+</table>
+</center>
+
+<p>
+VRML では HTML 同様、図形をホットスポットにしてリンクを張ることができます。
+球に和歌山大学のホームページをリンクさせるには、
+球の Shape ノードを Anchor ノードの children の値にします。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>#VRML V2.0 utf8
+<b>Anchor {</b>
+  <b>url http://www.wakayama-u.ac.jp/</b>
+  <b>children</b> Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 1 0 0
+      }
+    }
+    geometry Sphere {
+      radius 2
+    }
+  }
+<b>}</b>
+Transform {
+  translation 4 0 0
+  children Shape {
+    appearance Appearance {
+      material Material {
+        diffuseColor 1 1 0
+      }
+    }
+    geometry Box {
+      size 3 3 3
+    }
+  }
+}</pre>
+</table>
+</center>
+
+<p>
+VRML は立体形状を表示するだけでなく、
+マウスによる操作やアニメーションを取り扱うこともできます
+（<a href="/~tokoi/vrml/dango.wrl">例１：だんご</a>（「次男」をクリック）、
+<a href="/~tokoi/vrml/robot.wrl">例２：ロボット</a>（関節の部分をドラッグ）、
+<a href="/~tokoi/vrml/space.wrl">例３：衛星</a>、
+<a href="/~tokoi/vrml/city.wrl">例４：都市（柳原君制作、左下の楕円体の中の三角マークをクリック）</a>。
+</p>
+
+<p>
+VRML のデータをテキストエディタで作成することは、
+実際にはあまりないと思います。
+HTML は CosmoCreate のような HTML エディタで作成した方が楽なのと同じように、
+VRML も、そのデータを作成するアプリケーションがあります。
+</p>
+
+<ul>
+<li>VRML 用のエディタ（モデラ）として CosmoWorlds が用意されています。
+これはアイコンカタログの WebTools のタブのところにあります。
+またシェルからも CosmoWorlds または cosmoworlds とタイプして起動できます。</li>
+<li>showcase は、作成した３次元形状を VRML で保存することができます。
+保存したい３次元形状を選択した状態で、
+メニューバーの“ファイル”から“別名保存”→
+"VRML" という順にメニューを選んでください。
+但し、showcase で作成した VRML ファイルはサイズが非常に大きくなりやすいので、
+Web で公開するのには向かないかも知れません。</li>
+<li>この授業でたどり着けるかどうか分かりませんが、
+LightWave でも作成した形状を VRML で出力できます。</li>
+<li>DXF など、ほかのアプリケーションで作成したデータを
+VRML に変換する道具が用意されています。</li>
+</ul>
+
+<p>
+VRML の仕様の一部を<a href="/~tokoi/vrml/reference.html">VRML
+の概要</a>にまとめてあります（ごめんなさい、まだ途中）ので、
+よかったら参考にしてください。ただ、これよりも
+<a href="http://www.din.or.jp/~y-shiba/yuuta/index.html">about VRML97</a>
+の方がずっと良くできていますので、こちらを参考にした方がいいでしょう。
+WWW 上には他にも多くの人が情報を提供しています。
+これも Yahoo Japan の
+<a href="http://www.yahoo.co.jp/Computers_and_Internet/Internet/World_Wide_Web/Virtual_Reality_Modeling_Language__VRML_/">VRML のリンク集</a>から探しはじめるといいでしょう。
+<a href="http://www.nk-exa.co.jp/~andoh/vrml/">安藤さんのページ</a>
+にも豊富なリンクがあります。また、最新情報が知りたければ、大元の
+<a href="http://www.vrml.org/">Web 3D  Consortium のページ</a>をあたってみてください。
+Windows や Macintosh 用の VRML ブラウザ CosmoPlayer
+は<a href="http://www.cosmosoftware.co.jp/">
+Cosmo Software 社のページ</a> から入手できます。
+ここには
+<a href="http://www.cosmosoftware.co.jp/link/index.html">
+日本の VRML のページ</a> の一覧があります。</p>
+
+<h3>メールをもらう</h3>
+
+<p>
+自分の Web ページを見てくれた人からメールをもらいたいときは、
+自分のメールアドレスを Web ページに明記しておきましょう。
+これは、メールをもらうだけでなく、
+そのページの責任の所在（文責）を明らかにするという点でも、
+意味のあることです。
+</p>
+
+<p>
+<tt>&lt;a href="mailto:メールアドレス"&gt;</tt> ～
+<tt>&lt;/a&gt;</tt> というように、
+ホットスポットのリンク先に Web ページの URL ではなく
+"mailto:自分のメールアドレス" を指定すると、
+そのホットスポットをクリックしたときに
+Web ブラウザのメール機能を呼び出すようにできます。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<pre>&lt;a href="mailto:tokoi@sys.wakayama-u.ac.jp"&gt;
+&lt;img src="mail.gif" align="middle" border="0"&gt;
+&lt;font size="+2"&gt;メール下さい&lt;/font&gt;&lt;/a&gt;
+</table>
+</center>
+
+<p>
+これは下のようになります。この絵か文字をクリックしてみてください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff">
+<a href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<img src="mail.gif" align="middle" border="0">
+<font size="+2">メール下さい</font></a>
+</table>
+</center>
+
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+<p>以下のいずれかのページをつくり、
+自分の index.html からリンクせよ。</p>
+
+<ul>
+<li>自分の時間割の表のページ</li>
+<li>クリッカブルマップを含むページ</li>
+<li>アニメーション GIF を含むページ</li>
+<li>VRML を含むページ</li>
+</ul>
+
+</body>

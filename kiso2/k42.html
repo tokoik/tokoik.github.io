@@ -1,0 +1,56 @@
+<head>
+<title>情報基礎演習II − 課題４２</title>
+</head>
+
+<body>
+
+<h3>課題４２</h3>
+
+<hr>
+
+<ol>
+
+<li>次の関数 stringcopy は、
+２つ目の引数 (b) に指定された文字列を、
+１つ目の引数 (a) に指定された配列の領域にコピーします
+（strcpy と同じ）。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai42
+** 動作: 文字列のコピー
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+void stringcopy(char a[], char b[])
+{
+    int i = 0;
+    int j = 0;
+
+    while (a[i++] = b[j++]);
+}
+</pre>
+</table>
+<p>
+
+<li>文字列の最後は '\0'、すなわち整数の 0 に等しいので、
+<tt>a[i++] = b[i++]</tt> という式の値は文字列の最後で 0 になり、
+while の条件が偽になってこの繰り返しは終了します。
+なお、この while によって繰り返される文は空文（; のみ）になっています。
+<p>
+
+<li>この式 <tt>a[i++] = b[i++]</tt> を、
+i, j を使わずにポインタを使うように書き換えてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai42.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai42 としてください。
+
+</ol>
+
+</body>

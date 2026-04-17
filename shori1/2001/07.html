@@ -1,0 +1,1071 @@
+<head>
+<title>情報処理I － 第７回</title>
+</head>
+
+<body bgcolor="#ddffee">
+
+<h1>情報処理 I － 第７回</h1>
+
+<hr>
+
+<h2>１．電子メール</h2>
+
+<hr>
+
+<a name="mailaddress">
+<h3>メールアドレスについて</h3></a>
+
+<p>コンピュータ（とネットワーク）を使って、
+コンピュータの利用者の間でメッセージの交換、
+すなわち手紙のやり取りを行うことができます。
+これを
+<font color="#ff0000">電子メール（メール、Ｅメール、e-mail）</font>
+と言います。</p>
+
+<p>手紙を出すには宛名と住所を書かなければならないのと同じように、
+電子メールを送る時もメッセージの宛先を指定してやる必要があります。
+この宛先を、
+<font color="#ff0000">メールアドレス</font>
+と言います。</p>
+
+<p>みなさんも既にメールアドレスを持っており、
+システム情報学センターの利用承認書に書かれています。
+但し、それは システム情報学センターのマシン
+（３階の演習室やシステム情報学センターの演習室のマシン）
+を使用するときに使うメールアドレスで、
+この６階の演習室で使用するものとは異なります。</p>
+
+<p>この６階の演習室では、この講義の第２回の
+<a href="02.html#nsmail">Netscape の初期設定</a>において、
+E mail Address として設定した
+<font color="#ff0000">システム工学部のメールアドレス</font>
+を使います。</p>
+
+<table align="center" width="512">
+<tr><td bgcolor="#ffffaa"><font color="#ff0000">システム工学部（６Ｆ演習室）のメールアドレス</font>
+<td bgcolor="#ffeeaa"><address>ユーザ名@sys.wakayama-u.ac.jp</address>
+<tr><td bgcolor="#ffffaa">システム情報学センター（３Ｆ演習室ほか）のメールアドレス
+<td bgcolor="#ffeeaa"><address>ユーザ名@center.wakayama-u.ac.jp</address>
+</table>
+
+<p>メールアドレスの "@"（アットマーク)より右側の部分
+（sys.wakayama-u.ac.jp のところ）を、
+<font color="#ff0000">ドメイン名</font> と言います。
+これは、まあみて分かる通り、
+"@" より左側の“利用者”の“住所”に相当します。
+jp:japan～日本の、ac:academic～学校関係の、wakayama-u～和歌山大学の、
+sys～システム工学部、の誰々、という具合いですね。
+詳しくは<font color="#ff0000">教科書の119ページ以降</font>を参照してください。
+</p>
+
+<a name="mailreader">
+<h3>メールリーダ</h3></a>
+
+<p>電子メールを読み書きするためのソフトウェアを、
+<font color-#ff0000">メールリーダ</font>と呼びます。
+このコンピュータにはメールリーダもいろいろなものが用意されています。</p>
+
+<table align="center" width="512">
+<tr><td bgcolor="#ffeeaa"><b>mail</b><td bgcolor="#ffffaa">もっとも基本的なメールリーダ、コマンドで使用
+<tr><td bgcolor="#ffeeaa"><b>Mail</b><td bgcolor="#ffffaa">基本的なメールリーダ、mail よりは機能豊富、コマンドで使用
+<tr><td bgcolor="#ffeeaa"><b>zmail (MediaMail)</b><td bgcolor="#ffffaa">マルチメディアデータを扱えるメールリーダ、ウィンドウで使用
+<tr><td bgcolor="#ffeeaa"><b>Netscape Mail</b><td bgcolor="#ffffaa">Netscape Communicator に含まれるメールリーダ、ウィンドウで使用
+<tr><td bgcolor="#ffeeaa"><b>MH</b><td bgcolor="#ffffaa">複数のコマンドで構成された高機能なメールリーダ
+<tr><td bgcolor="#ffeeaa"><b>xmh</b><td bgcolor="#ffffaa">MH をウィンドウで使用するためのユーザインタフェース
+<tr><td bgcolor="#ffeeaa"><b>RMAIL</b><td bgcolor="#ffffaa">emacs 系エディタ (mule, emacs, xemacs) に組み込まれたメールリーダ
+<tr><td bgcolor="#ffeeaa"><b>mh-e</b><td bgcolor="#ffffaa">MH を emacs 系エディタ中から使用するためのユーザインタフェース
+<tr><td bgcolor="#ffeeaa"><b>mew</b><td bgcolor="#ffffaa">MH を emacs 系エディタ中から使用するためのユーザインタフェース
+</table>
+
+<ul>
+<li>現在 mail コマンドで Mail が起動するように設定されています。
+<li>mail/Mail コマンドでは、メールを送ることはできますが、
+届いたメールはサーバマシンに集められるので、
+これらのコマンドでは読み出すことができません。
+<li>zmail (MediaMail) も、
+届いたメールを読み出すためには設定の変更が必要です。
+このメールリーダは
+<font color="#ff0000">今は使用しないでください。</font>
+<li>Netscale Mail は既に設定を行っていますので、
+使用可能です。
+</ul>
+
+<p>この授業では<font color="#ff0000">教科書の123ページ</font>から説明されている
+<font color="#ff0000">Mew</font> を使います
+（教科書のものよりバージョンが新しいので、少し異なる部分があります）。</p>
+
+<a name="startmew">
+<h3>Mew の起動</h3></a>
+
+<p>それでは、Mew を使ってみましょう。
+“コンソール”か“UNIXシェル”を開き、
+次のようなオプションをつけて mule を起動してください
+（既に起動している mule の中から Mew を起動するには、
+<tt><b>M-x mew</b></tt> とタイプして改行します）。</p>
+
+<table align="center" border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mule -f mew<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+
+<p align="center"><img src="07-09.jpg"></p>
+
+<img src="07-01.gif" align="right">
+<p>Mew を起動すると、
+バッファのウィンドウに上のようなオープニングのメッセージを表示したあと、
+ミニバッファに右のように表示します。
+ここでは単に <tt><b>[Enter]</b></tt> をタイプしてください。</p>
+<br clear="all">
+
+<img src="07-02.gif" align="right">
+<p>次にパスワードを尋ねてきます。
+ここにあなたのパスワードをタイプしてください
+（タイプしたパスワードは表示されません）。
+そのあと <tt><b>[Enter]</b></tt> をタイプすると、
+あなたに今届いているメールを取り出します。
+取り出したメールは
+<font color="#ff0000">inbox</font> という
+<font color="#ff0000">フォルダ</font> 
+（届いたメールを保存しているディレクトリ）に保存します。</p>
+<br clear="all">
+
+<img src="07-10.gif" align="right">
+<p>誰からもメールが届いていなければ、
+右のように "No new message" と表示します。<p>
+<br clear="all">
+
+<table align="center" border width="512">
+<tr><th bgcolor="#ffcccc">Mew がうまく起動できないとき
+<tr><td bgcolor="#ffffcc">
+Mew は起動に失敗すると、
+チェックすべき設定項目の一覧が表示します。
+これらは最初に Mew を起動したときに自動的に設定されるはずですが、
+何らかのトラブルでうまく設定できないこともあるかも知れません。
+その場合は知らせてください。
+</table>
+
+<a name="writemail">
+<h3>メールを書く</h3></a>
+
+<p>では、手始めに、自分宛にメールを送ってみましょう。
+<tt><b>w</b></tt> をタイプしてください。
+するとバッファのウインドウが下のように変わります。</p>
+
+<p align="center"><img src="07-03.gif"></p>
+
+<p>メールを送るには、
+この <tt>To:</tt> と <tt>Subject:</tt> の欄に、
+それぞれ宛先のメールアドレスとメッセージの見出しを書きます。
+メールアドレスは ","（コンマ）で区切って複数書くことができます
+（同じメッセージを複数の人に送ることができます）。
+また、<tt>To:</tt> とは別に <tt>Cc:</tt> で始まる行を設けて、
+そこにメールアドレスを書くこともできます
+（"Cc" は Carbon Copy の意味で、
+“カーボン紙で複写したものを送る”という意味です）。</p>
+
+<p>では、
+自分宛にメールを送るために、</p>
+<dl>
+<dt><tt>To:</tt> の右側に
+<dd>自分のユーザ名@sys.wakayama-u.ac.jp
+<dt><tt>Subject:</tt> の右側に
+<dd>自分宛のメール
+</dl>
+<p>と書いてください。
+<font color="#ff0000">メールアドレスには空白を入れてはいけません。</font>
+ちょっと長いですが続けてタイプしてください。
+そのあと、<tt>----</tt> の下にカーソルを移動し、
+メッセージの本文を書いてください。</p>
+
+<table align="center" border width="512">
+<tr><td bgcolor="#ffffff"><pre>To: <u>自分のユーザ名@sys.wakayama-u.ac.jp</u>
+Subject: <u>自分宛のメール</u>
+X-Mailer: Mew version 1.93 on Emacs 19.28.1 / Mule 2.3 (SUETSUMUHANA)
+Mime-Version: 1.0
+----
+<u>おげんき～？<tt><b><font color="#00cc66">[Enter]</font></b></tt></u>
+<u><tt><b><font color="#00cc66">[Enter]</font></b></tt></u>
+<u>和歌山健太郎<tt><b><font color="#00cc66">[Enter]</font></b></tt></u></pre>
+</table>
+
+<p>自分のメールアドレスや見出しなどを書くときには、
+それら以外の部分を変更しないように注意してください。
+特に <tt>----</tt> を変更すると、
+メールが送れなくなる場合があります。
+うっかり変更してしまった場合は、
+元に戻せば大丈夫です。
+その際には <tt><b>C-_</b></tt>
+（<tt><b>[Ctrl]</b></tt> と <tt><b>[Shift]</b></tt> を押しながら
+<tt><b>[Backspace]</b></tt> の２つ左の <tt>-</tt> をタイプ）を使うと便利です。
+</p>
+
+<p>電子メールを書くときは、
+電子メール特有の注意事項がいくつかあります。</p>
+
+<ul>
+<li>宛先のメールアドレスは正確に書いてください。
+でないと届きません（あたりまえ）。</li>
+<li>メッセージの本文の最後には自分の署名を入れておきましょう。</li>
+<li>１行の長さは70文字（全角で35文字）以下にしましょう。
+それには行末をそろえる <tt><b>M-q</b></tt> を使うと便利です。</li>
+<li>一度送ったメールは、取り消すことができません
+（ポストに投函した手紙は普通取り戻せませんよね？）。
+出してしまって本当に良いのか、
+今一度よく考えてから出しましょう。</li>
+<li>秘密の話は、電子メールを使わない方がいいでしょう。
+一応他人が読めないようにはなってますが、
+宛先の間違いなどがあるとエラーメールとして管理者に届いてしまいます。</li>
+</ul>
+
+<p>ここまで書けたらメールを送信しましょう。
+<tt><b>C-c C-c</b></tt> をタイプしてください。
+ミニバッファに下のような表示があらわれたら、
+<tt><b>[Enter]</b></tt> をタイプしてください。
+これで送信完了です
+（送信したくないときはスペースをタイプしてください）。</p>
+
+<p align="center"><img src="07-04.gif"></p>
+
+<p>うまく送信ができたら、同様にして、
+今度は
+<font color="#002244">test@sys.wakayama-u.ac.jp</font>
+というメールアドレスにメールを送ってみましょう。
+見出しや本文は何でもかまいません。
+このメールアドレスは人間のユーザではなく、
+自動的に返事を書いてくれるプログラムです。</p>
+
+<table align="center" border width="512">
+<tr><th bgcolor="#ffcccc">メールが送られなかったとき</th>
+<tr><td bgcolor="#ffffcc">
+<p>宛先を間違うとメールは送られません。
+<pre>
+   -- Posting for All Recipients --
+    hanako: loses; [USER] 550 hanako... User unknown
+  post: 1 addressee undeliverable
+  send: message not delivered to anyone
+</pre>
+上のような表示が出たときは、
+メールは誰にも送られていません。
+元の画面に戻るには <tt><b>C-x k [Enter]</b></tt> をタイプしてください。</p>
+
+<p>システム工学部以外に出したメールが、
+宛先が間違いや何らかのトラブルで届けられなかったときは、
+<font color="#ff0000">MAILER-DAEMON</font> からメールが来ます。
+これはコンピュータが自動的に発送するメールなので、
+<font color=#ff0000">このメールには返事を書かないでください。</font></p>
+
+<p>メールの送り直しは、次のような手順で行います。
+一度送信したメッセージは、drafts というフォルダに保存されています。
+<tt><b>g</b></tt> をタイプして drafts というフォルダに移ってください。</p>
+<pre>
+  Folder name (+inbox):+<u>drafts<b><font color="#00cc66">[Enter]</font></b></u>
+</pre>
+<p>そこで送れなかったメールのところにカーソルを移動し、<tt><b>E</b></tt>
+（大文字）をタイプしてください。
+メッセージの編集画面になりますから、
+宛先を修正したあと <tt><b>C-c C-c</b></tt> をタイプしてください。
+そのあと <tt><b>i</b><tt> をタイプすると、
+inbox に戻ります。</p>
+</table>
+
+<a mail="readmail">
+<h3>メールを読む</h3></a>
+
+では、次はあなた宛に届いたメールを読んでみましょう。
+Mew を実行している mule のウィンドウで
+<tt><b>i</b></tt> をタイプしてください
+（２通届いていなければ、少し時間をおいてからもう一度
+<tt><b>i</b></tt> をタイプしてください）。
+</p>
+
+<center>
+<img src="07-05.gif">
+</center>
+</p>
+
+左から“メールの番号”、“日付”、“差出人”、“見出し”、
+“本文の一部”が表示されます。
+ここでスペースをタイプすると、
+カーソル位置のメッセージの内容を表示します。
+スペースで次の画面、
+<tt><b>[Backspace]</b></tt> で前の画面を表示します。
+<tt><b>[Enter]</b></tt> だと１行ずつ先に進みます。
+</p>
+
+<center>
+<img src="07-06.gif">
+</center>
+</p>
+
+他のメールを読むには、
+<tt><b>n</b></tt>（次のメール）または
+<tt><b>p</b></tt>（前のメール）をタイプしてください。
+</p>
+
+<a name="replymail">
+<h3>返事を書く</h3>
+
+それでは、自分が出したメールに返事を書いてみましょう。
+<font color="#ff0000">自分宛に出したメールを表示させて、</font>
+<tt><b>a</b></tt> をタイプしてください。
+</p>
+
+<center>
+<img src="07-07.gif">
+</center>
+</p>
+
+これで、メールの差出人に返事を書くことができます。
+</p>
+
+ところで、返事には差出人のメッセージを引用した方が、
+返事を受け取った人が「はて、何の話だったっけな？」と悩まずに済みます。
+そういう場合は <tt><b>C-c C-y</b></tt> をタイプしてください。
+差出人のメッセージに "&gt;" を付けて、
+引用してくれます
+（返事を書くときの <tt><b>a</b></tt> の代わりに
+<tt><b>A</b></tt> をタイプすると、最初から引用してくれます）。
+</p>
+
+なお、引用する場合は、相手のメッセージを全部引用せず、
+必要部分以外は削除するようにしてください。
+
+<a name="removemail">
+<h3>メールを整理する</h3></a>
+
+不要なメールを削除するには、
+削除したいメールのところにカーソルを移動し、
+<tt><b>d</b></tt> をタイプしてください。
+そのメールに "D" という削除マークが付きます。
+</p>
+メールを分類して保存したいときは、
+<tt><b>o</b></tt> をタイプしてください。
+そのメールを移動するフォルダを聞いてきます。
+フォルダの名前を入力して <tt><b>[Enter]</b></tt> をタイプしてください。
+そのフォルダがなければ、新たに作ります。
+移動するメールには "o" というマークがつきます。
+</p>
+その後 <tt><b>x</b></tt> をタイプすると、
+マークをつけたメールの移動や削除を行います。
+</p>
+メールに付けた "D" や "o" のマークを消したいときは、
+<tt><b>x</b></tt> をタイプする前に、
+そのメールにカーソルを移動し、
+<tt><b>u</b></tt> をタイプしてください。
+この時、
+<tt><b>n</b></tt> や <tt><b>p</b></tt>
+ではマークの付いたメールを飛ばしてしまうので、
+<tt><b>C-n</b></tt> あるいは <tt><b>C-p</b></tt> を使います。
+<tt><b>U</b></tt> をタイプすると、
+すべてのマークを消します。
+</p>
+
+<a name="quitmew">
+<h3>Mew を終了する</h3></a>
+
+Mew を終了するには、<tt><b>q</b></tt> をタイプしてください。
+<tt><b>Q</b></tt> をタイプすると、
+本当に終了するのかどうか問い合わせてきます。
+</p>
+
+これは mule の中で mew を終了する
+（元のバッファに戻る）だけなので、
+必要ならこのあと <tt><b>C-x C-c</b></tt> で mule を終了してください。
+</p>
+
+<a name="signature">
+<h3>署名の付け方</h3></a>
+
+毎回メッセージに署名を書くのが面倒な人は、
+署名を書いた <tt>.signature</tt>
+というファイルをホームディレクトリに置いてください。
+</p>
+<ol>
+<li>“コンソール”か“UNIXシェル”を開く。
+<li>ホームディレクトリに移動する
+（たぶん、普通はそこはホームディレクトリになっていると思いますが、
+心配なときは pwd コマンドで確かめてください）。
+<li>mule で <tt>.signature</tt> というテキストファイルを作成します。
+<table border>
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<tt>% <u>mule .signature<b><font color="#00cc66">[Enter]</font></b></u></tt>
+</table>
+<li>署名を書いてください。
+ただし、自分の電話番号や住所は書かない方が無難です。
+署名の１行も70文字（全角で30文字）以内、行数は４行以内にしてください。
+<li><tt><b>C-x C-s</b></tt> でファイルを保存してください。
+<li><tt><b>C-x C-c</b></tt> で mule を終了してください。
+</ol>
+
+こうすると、Mew を使ってメールを書いているときに、
+<tt><b>C-c C-i</b></tt> または <tt><b>C-c [Tab]</b></tt> をタイプするだけで、
+その署名をメッセージの中に埋め込んでくれます。
+</p>
+
+<p>
+<table align="center" border width="512">
+<tr><th bgcolor="#ffcccc">"."（ピリオド）で始まるファイル名について
+<tr><td bgcolor="#ffffcc">
+<tt>.signature</tt> や <tt>.mh_profile</tt>、
+それに後述する <tt>.forward</tt> のように
+ファイル名が "."（ピリオド）から始まるファイルは、
+ls コマンドやディレクトリウィンドウでは表示されません。
+これを見えるようにするには、
+ls コマンドの場合は <tt><b>ls -a</b></tt> という具合いに
+-a オプションを付けてください。
+ディレクトリウィンドウでは、
+メニューバーの“表示”の“隠しファイル”を選択して、
+チェックマークを付けてください。
+</table>
+</p>
+
+<p>
+<table align="center" border width="512">
+<tr><th bgcolor="#ffcccc">携帯電話等へのメールの自動転送について
+<tr><td bgcolor="#ffffcc">
+<p>６階の演習室あてに来たメールを、
+携帯電話や他プロバイダ、
+あるいはシステム情報学センター（３階演習室を含む）
+に自動的に転送したいときは、
+ホームディレクトリに転送先のメールアドレスを書いた .forward
+というファイルを作成してください。</p>
+
+<blockquote><pre>s065000@sys.wakayama-u.ac.jp
+09012345678@docomo.ne.jp</pre>
+</blockquote>
+
+<p>上の例の一つ目は自分の（この６階の演習室の）メールアドレスです。
+こうしないと届いたメールを６階の演習室で読み出すことができません。</p>
+
+<p>ただし、
+<font color="#ff0000">転送先からこちらにまた転送し直すような設定は
+しないでください。</font>
+そういうことをすると、
+届いたメールが転送先との間を往復して、
+結局あなたには届きません（エラーになって、差出人に戻されます）。</p>
+</table>
+</p>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+Mew を使って tokoi@sys.wakayama-u.ac.jp 宛にメールを書け。
+<ul>
+<li>見出しや署名も付けてください。
+<li>本文には授業の感想とか、要望なんかを簡単に書いてくれるとうれしい。
+<li>その後 tokoi@sys.wakayama-u.ac.jp から返事を書くので、
+それに対しても返事を書いてください。
+</ul>
+
+<center>
+<table width="512">
+<tr>
+<th colspan="2" bgcolor="#ffeeee">キー操作
+<tr><td bgcolor="#ffffaa">Mew を起動する
+<td bgcolor="#ffeebb"><tt><b>M-x mew</b></tt>
+<tr><td bgcolor="#ffffaa">新着メールを取り込む
+<td bgcolor="#ffeebb"><tt><b>i</b></tt>
+<tr><td bgcolor="#ffffaa">メールを読む
+<td bgcolor="#ffeebb">スペース
+<tr><td bgcolor="#ffffaa">次のメールを読む
+<td bgcolor="#ffeebb"><tt><b>n</b></tt>
+<tr><td bgcolor="#ffffaa">前のメールを読む
+<td bgcolor="#ffeebb"><tt><b>p</b></tt>
+<tr><td bgcolor="#ffffaa">ほかのフォルダのメールを読む
+<td bgcolor="#ffeebb"><tt><b>g</b></tt>
+<tr><td bgcolor="#ffffaa">メールに削除マークを付ける
+<td bgcolor="#ffeebb"><tt><b>d</b></tt>
+<tr><td bgcolor="#ffffaa">メールを他のフォルダに移動
+<td bgcolor="#ffeebb"><tt><b>o</b></tt>
+<tr><td bgcolor="#ffffaa">メールの削除／移動マークを消す
+<td bgcolor="#ffeebb"><tt><b>u</b></tt>
+<tr><td bgcolor="#ffffaa">メールの削除／移動を実行
+<td bgcolor="#ffeebb"><tt><b>x</b></tt>
+<tr><td bgcolor="#ffffaa">メールを書く
+<td bgcolor="#ffeebb"><tt><b>w</b></tt>
+<tr><td bgcolor="#ffffaa">返事を書く
+<td bgcolor="#ffeebb"><tt><b>a</b></tt>
+<tr><td bgcolor="#ffffaa">届いたメールを他の人に転送する
+<td bgcolor="#ffeebb"><tt><b>f</b></tt>
+<tr><td bgcolor="#ffffaa">引用して返事を書く
+<td bgcolor="#ffeebb"><tt><b>A</b></tt>
+<tr><td bgcolor="#ffffaa">引用する
+<td bgcolor="#ffeebb"><tt><b>C-c C-y</b></tt>
+<tr><td bgcolor="#ffffaa">書いたメールを送信する
+<td bgcolor="#ffeebb"><tt><b>C-c C-c</b></tt>
+<tr><td bgcolor="#ffffaa">書いたメールを破棄する
+<td bgcolor="#ffeebb"><tt><b>C-c C-q</b></tt>
+<tr><td bgcolor="#ffffaa">Mew を終了する
+<td bgcolor="#ffeebb"><tt><b>q</b></tt> または <tt><b>Q</b></tt>
+</table>
+</center>
+</p>
+
+<a href="07-h1.html">mh-e</a> の使い方は Mew に似ています。
+Mew が用意されていない場合でも、mh-e はたいてい使えると思います。
+</p>
+
+<hr>
+
+<h2>２．ネットニュース</h2>
+
+<hr>
+
+電子メールが１対１ないし特定のグループへのメッセージの送信を行うのに対し、
+ネットニュースは不特定多数の相手に対してメッセージを送ります。
+ただし、この不特定多数というのはインターネットの利用者全員と言うわけではなく、
+まあ「ある特定の分野に興味を持っている人たち」というところです。
+</p>
+
+ネットニュースの利用者は、
+自分が興味を持つ特定の分野に関係するメッセージを集めた
+<font color="#ff0000">“ニュースグループ”</font>
+を<font color="#ff0000">“購読”</font>します。
+そのニュースグループに送られたメッセージは
+<font color="#ff0000">“記事”</font>
+と呼ばれます。また、ニュースグループに記事を送ることを、
+<font color="#ff0000">“投稿する”</font>と言います。
+
+<a name="newsgroup">
+<h3>ニュースグループ</h3></a>
+
+ニュースグループは対象とする話題や配布範囲などによって、
+階層的に分類されています。
+ニュースグループの「最上位の分類」のことを
+<font color="#ff0000">“トップカテゴリ”</font>と呼び、
+和歌山大学で購読しているトップカテゴリには以下のようなものがあります。
+</p>
+
+<center>
+<table width="512">
+<tr>
+<th bgcolor="#ffeeee">トップカテゴリ
+<th bgcolor="#ffeeee">内容
+<th bgcolor="#ffeeee">言語
+<th bgcolor="#ffeeee">配布範囲
+<tr>
+<td bgcolor="#ffeeaa"><b>comp</b>
+<td bgcolor="#ffffaa">コンピュータ関係
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>news</b>
+<td bgcolor="#ffffaa">ネットニュース関連
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>talk</b>
+<td bgcolor="#ffffaa">語り合う場？
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>misc</b>
+<td bgcolor="#ffffaa">そのほか
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>rec</b>
+<td bgcolor="#ffffaa">趣味
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>soc</b>
+<td bgcolor="#ffffaa">社会問題
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>sci</b>
+<td bgcolor="#ffffaa">科学一般
+<td bgcolor="#ffffaa">主に英語
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>alt</b>
+<td bgcolor="#ffffaa">ムチャクチャ
+<td bgcolor="#ffffaa">いろいろ
+<td bgcolor="#ffffaa">全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>fj</b>
+<td bgcolor="#ffffaa">日本の代表的<br>ニュースグループ
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">一応全世界
+<tr>
+<td bgcolor="#ffeeaa"><b>japan</b>
+<td bgcolor="#ffffaa">日本のもう一つの<br>ニュースグループ
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">日本？
+<tr>
+<td bgcolor="#ffeeaa"><b>tnn</b>
+<td bgcolor="#ffffaa">IIJが運営する<br>ニュースグループ
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">日本？
+<tr>
+<td bgcolor="#ffeeaa"><b>kansai</b>
+<td bgcolor="#ffffaa">関西の<br>ニュースグループ
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">関西？
+<tr>
+<td bgcolor="#ffeeaa"><b>wakayama</b>
+<td bgcolor="#ffffaa">和歌山の<br>ニュースグループ
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">和歌山市内の一部
+<tr>
+<td bgcolor="#ffeeaa"><b>wadai</b>
+<td bgcolor="#ffffaa">和歌山大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">和歌山大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>saga-u</b>
+<td bgcolor="#ffffaa">佐賀大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">佐賀大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>nagasaki-u</b>
+<td bgcolor="#ffffaa">長崎大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">長崎大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>ehime-u</b>
+<td bgcolor="#ffffaa">愛媛大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">愛媛大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>mu</b>
+<td bgcolor="#ffffaa">三重大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">三重大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>oita-u</b>
+<td bgcolor="#ffffaa">大分大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">大分大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>geitan</b>
+<td bgcolor="#ffffaa">大分県立芸術短期大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">大分県立芸術短期大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>nias</b>
+<td bgcolor="#ffffaa">長崎総合科学技術大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">長崎総合科学技術大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>nbu</b>
+<td bgcolor="#ffffaa">日本文理大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">日本文理大学ほか
+<tr>
+<td bgcolor="#ffeeaa"><b>ksu</b>
+<td bgcolor="#ffffaa">九州産業大学
+<td bgcolor="#ffffaa">主に日本語
+<td bgcolor="#ffffaa">九州産業大学ほか
+</table>
+</center>
+</p>
+
+和歌山大学のニュースグループ (wadai) のように、
+その機関内だけで運用されているものを“ローカルニュースグループ”と呼びます。
+佐賀大学や長崎大学などのニュースグループを購読しているのは、
+これらの大学との間でローカルニュースグループの交換を行って、
+互いの情報交換をしようとしていたからです。
+</p>
+
+このトップカテゴリの下に、
+ニュースグループが話題別に分類されています。
+たとえば、fj の下にはサブカテゴリとして rec があり、
+その下に music というサブカテゴリがあります。
+このニュースグループは fj.rec.music と表記され、
+この中に記事が置かれています。
+</p>
+
+さらに、その下にもサブカテゴリがある場合があります。
+たとえば fj.rec.music は一つのニュースグループですが、
+fj.rec.music.progressive というニュースグループもあります。
+</p>
+
+<a name="newsreader">
+<h3>ニュースリーダ</h3></a>
+
+ネットニュースを読むためのソフトウェアを
+<font color-#ff0000">ニュースリーダ</font>と呼びます。
+このコンピュータにはニュースリーダもいくつかのものが用意されています。
+</p>
+
+<center>
+<table width="512">
+<tr><td bgcolor="#ffeeaa"><b>rn, trn</b><td bgcolor="#ffffaa">コマンドで使用するニュースリーダ、高速で使いやすい
+<tr><td bgcolor="#ffeeaa"><b>tin</b><td bgcolor="#ffffaa">コマンドで使うニュースリーダ、機能豊富
+<tr><td bgcolor="#ffeeaa"><b>mnews</b><td bgcolor="#ffffaa">コマンドで使うニュースリーダ、わかりやすい
+<tr><td bgcolor="#ffeeaa"><b>Netscape News</b><td bgcolor="#ffffaa">Netscape Communicator に含まれるニュースリーダ、ウィンドウで使用
+<tr><td bgcolor="#ffeeaa"><b>GNUS, Gnus</b><td bgcolor="#ffffaa">emacs 系エディタ (mule, emacs, xemacs) に組み込まれたニュースリーダ
+</table>
+</center>
+<ul>
+<li>Netscape News は、
+ニュースサーバ
+（ネットニュースの記事の配送を担当しているコンピュータ）
+に非常に大きな負荷をかけるので、この授業では使用しません。
+<li>GNUS は Mew 同様 mule の中で使用できるので便利なのですが、
+最初の起動が遅いのと、
+すべてのニュースグループ（8000以上ある）が一度に表示されてしまうことから、
+これもこの授業では使いません。
+なお、
+この問題は emacs/xemacs に組み込まれている Gnus では改善されていますので、
+興味のある人は使ってみてください。
+</ul>
+
+この授業では<font color="#ff0000">教科書の139ページ</font>から解説されている
+<font color="#ff0000">mnews</font> を使用します。
+
+<a name="mnews">
+<h3>mnews の起動</h3></a>
+
+それでは mnews を使ってみましょう。
+“コンソール”か“UNIXシェル”で mnews を起動してください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>mnews<b><font color="#00cc66">[Enter]</font></b></u>
+</table>
+</center>
+</p>
+
+<a name="readarticle">
+<h3>記事を読む</h3></a>
+
+mnews は端末ウィンドウ上で動くので、
+mnews を起動したウィンドウに次のように表示されます。
+</p>
+
+<center>
+<img src="07-08.gif">
+</center>
+</p>
+
+<tt><b>C-n</b></tt> または
+<tt><b>j</b></tt> でカーソルが下に、
+<tt><b>C-p</b></tt> または
+<tt><b>k</b></tt> でカーソルが上に動きます。
+カーソルを目的のカテゴリのところに移動してスペースをタイプすれば、
+そのカテゴリの中を見ることができます
+（記事の数が多いときは、
+実際に読む記事の数～ソートする記事の数を聞いてきます）。
+</p>
+
+<tt><b>n</b></tt> をタイプすると、
+現在カーソルのあるニュースグループより後ろの、
+未読記事の残っているニュースグループに移動します。
+<tt><b>p</b></tt> をタイプすると、
+前方の未読記事の残っているニュースグループに移動します。
+</p>
+
+多分、すべてのニュースグループを読んでやろうと思う人はいないと思います。
+読まないニュースグループのところで <tt><b>u</b></tt> をタイプすると、
+次回ネットニュースを読むときには一覧に現れなくなります（購読中止）。
+ニュースグループの一覧に購読していないニュースグループも表示させるには、
+<tt><b>l</b></tt> をタイプします。
+購読を中止したニュースグループを再び読むようにするには、
+そのニュースグループで <tt><b>u</b></tt> をタイプしてください。
+</p>
+
+記事を読むのをやめたり、
+上位のカテゴリに戻るには <tt><b>q</b></tt> をタイプします。
+トップカテゴリの一覧で <tt><b>q</b></tt> をタイプすると、
+mnews は終了します。
+</p>
+
+それでは、wadai.test というニュースグループの記事を読んでみましょう。
+ここはニュースリーダの動作テストや投稿練習に使うニュースグループです。
+
+<ol>
+<li>wadai はアルファベット順ではうしろの方にありますから、
+<tt><b>C-n</b></tt> でカーソルを下の方に持っていってください。
+<li>wadai のところにカーソルを移動したら、
+スペースをタイプしてください。
+<li>wadai.test のところにカーソルを移動し、
+スペースをタイプしてください。
+<li>記事の一覧が表示されます。
+スペースをタイプすれば、
+カーソルのあるところの記事が表示されます。
+<li>スペースをタイプしていけば、
+次の記事に読み進んでいくことができます。
+<li><tt><b>n</b></tt> をタイプすれば、
+読んでいる記事の残りを飛ばして次の記事に進むことができます。
+</ol>
+</p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">アナウンス用のニュースグループについて
+<tr><td bgcolor="#ffffcc">
+wadai の下のニュースグループのうち、
+以下のものは時々重要な情報が流れますので、
+定期的にチェックしてください。
+<ul>
+<li><tt>wadai.general</tt>
+<li><tt>wadai.center.announce</tt>
+<li><tt>wadai.sys.announce</tt>
+</ul>
+これらは
+<a href="http://news.wakayama-u.ac.jp/">http://news.wakayama-u.ac.jp/</a>
+から Web ブラウザで読むこともできます。
+</table>
+</center>
+</p>
+
+<a name="postarticle">
+<h3>記事を投稿する</h3></a>
+
+それでは、
+ここに記事を投稿してみましょう。
+<tt><b>a</b></tt>をタイプしてみてください。
+記事の題名（見出し）を聞いてくるので、
+<tt>test</tt> とタイプしたあと
+<tt><b>[Enter]</b></tt> をタイプしてください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060"><tt><font color="#ffffff">題名(subject)を入力して下さい:<u>test<font color="#00cc66"><b>[Enter]</b></font></u></tt>
+</table>
+</center>
+</p>
+
+次に配布範囲を聞いてきます。
+この記事を和歌山大学以外に配布したくなければ <tt>local</tt> をタイプしますが、
+今は空欄（<tt><b>[Enter]</b></tt>のみ）にしておいてください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060"><tt><font color="#ffffff">配布範囲(distribution)を入力して下さい:<u><font color="#00cc66"><b>[Enter]</b></font></u></tt>
+</table>
+</center>
+</p>
+
+記事を作成するために使用するテキストエディタを聞いてきます。
+既に <tt>/usr/local/bin/mule</tt> が入っていると思うので、
+そのまま <tt><b>[Enter]</b></tt> をタイプします
+（"-nw" オプション等が必要なら、ここに追加してください）。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#000060"><tt><font color="#ffffff">エディタ:/usr/local/bin/mule<u><font color="#00cc66"><b>[Enter]</b></font></u></tt>
+</table>
+</center>
+</p>
+
+mule が起動し、<tt>.message</tt> というファイルの作成します。
+<tt>--text follows this line--</tt> の下にカーソルを移動し、
+そこから記事の本文を書いてください。
+この行を変更しないよう、気をつけてください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff"><pre>Newsgroups: wadai.test
+Distribution: 
+Followup-To: 
+Subject: test
+--text follows this line--
+<u>投稿の練習です。<tt><b><font color="#00cc66">[Enter]</font></b></tt></u>
+<u>（近況報告か何か書いてください）<tt><b><font color="#00cc66">[Enter]</font></b></tt></u>
+</table>
+</center>
+</p>
+
+記事が書き終わったら、
+<tt><b>C-x C-s</b></tt> でファイルを保存し、
+<tt><b>C-x C-c</b></tt> で mule を終了してください。
+作成した記事が画面に表示されるので、
+一応スペースをタイプして一通り目を通してください。
+</p>
+
+<center>
+<table border width="512">
+<tr><td bgcolor="#ffffff"><tt>記事を投稿してよろしいですか? [y/n/e(dit)/m(ime)]:</tt>
+</table>
+</center>
+</p>
+
+このまま投稿するなら、ここで <tt><b>y</b></tt> をタイプしてください。
+投稿しないで記事を破棄するなら <tt><b>n</b></tt>、
+もう一度エディタを起動して修正するなら <tt><b>e</b></tt>
+をタイプしてください。
+</p>
+
+なお、wadai.test に投稿すると、
+ニュースサーバが自動的に返事をメールで送ってきます。
+</p>
+
+<a name="replyarticle">
+<h3>記事にリプライする</h3></a>
+
+ニュースサーバが送ってくれたメールのように、
+記事の投稿者に対して電子メールで返事を送ることを、
+記事に <font color="#ff0000">“リプライする”</font> と言います。
+それでは、自分の記事にリプライしてみましょう。
+</p>
+
+記事を投稿した直後は、
+ニュースリーダーには自分の記事は現れないので、
+一度 <tt><b>q</b></tt> をタイプしてニュースグループの選択画面に戻ったあと、
+そこで <tt><b>g</b></tt> をタイプして新着記事をチェックしてください。
+wadai.test の記事の数が１つ増えたことを確認したら、
+もう一度 wadai.test に移って自分の記事を探してみましょう。
+</p>
+
+自分の記事が見つかったら、それを表示してみてください。
+そこで <tt><b>r</b></tt> をタイプすると、
+差出人宛にメールを書くために mule を起動します
+（起動するエディタを聞いてきますので、
+ここでもそのまま <tt><b>[Enter]</b></tt> をタイプしてください）。
+記事の内容を引用する場合は、
+<tt><b>r</b></tt> の代わりに <tt><b>R</b></tt> をタイプしてください
+（不要な引用部分はできるだけ削りましょう）。
+</p>
+
+メールが書き終わったら、
+ファイルを保存して mule を終了し、
+記事の投稿と同じ手順でメールを送信してください。
+
+<a name="followup">
+<h3>フォロー記事を書く</h3></a>
+
+投稿された記事に対して、
+メールではなく記事の形で返事を書くことを、
+記事に <font color="#ff0000">“フォローアップ（あるいは単にフォロー）する”</font> と言います。また、そういう記事をフォロー記事またはフォローアップ記事と言います。
+</p>
+
+今読んでいる記事にフォローするには、
+そこで <tt><b>f</b></tt> をタイプします。
+記事の内容を引用するなら <tt><b>F</b></tt> をタイプします。
+このあとの手順は記事の投稿と同じです。
+<font color="#ff0000">
+引用する場合は、不要な部分を削ってください。
+引用している部分の行数がほかの部分より多いと、
+ニュースサーバは記事を受け付けてくれません。</font>
+</p>
+
+<a name="cancel">
+<h3>投稿した記事を取り消す</h3></a>
+
+記事を間違って投稿してしまったり、
+投稿した記事の内容があとから読んだら不適切だった場合には、
+投稿した記事を取り消す（<font color="#ff0000">キャンセル</font>）
+することができます。
+</p>
+
+キャンセルしたい記事を表示させて、
+<tt><b>C</b></tt>（大文字の C）をタイプしてください。
+なお、他人の記事はキャンセルできません。
+また、自分の記事でも他のコンピュータから投稿した記事もキャンセルできません。
+</p>
+
+電子メールは、メッセージを書いたテキストファイルを、
+相手のところに“コピー”するためのメカニズムだと説明しましたが、
+ネットニュースも、記事を
+「世界中のニュースサーバというコンピュータにコピーする」
+ためのメカニズムです。
+このために、
+記事を投稿してから他の機関のニュースサーバで読めるまでの間には、
+若干（数時間から数日）の遅れが生じます。
+</p>
+
+また、小さな記事でもあっても、
+その転送には世界中の膨大な数のコンピュータが関わります。
+できるだけ無駄な記事の投稿は控え、
+有意義な記事を投稿するようにしましょう。
+</p>
+
+記事はニュースサーバの間をどんどんコピーされて伝わっていきます。
+それぞれのニュースサーバでは、一定期間その記事を保存したあと、
+その記事を消します。
+“キャンセルする”というのは、
+実は他のニュースサーバにコピーされた記事を、
+直ちに消去するよう依頼する
+“コントロールメッセージ”と呼ばれる特別な記事を投稿することで実現しています。
+したがって、キャンセルしたからと言って、
+世界中に配られてたその記事がすぐに消去されるわけではなく、
+やはり若干の遅れが生じます。
+時には、その間に他の人の目に触れることもあるので、
+注意してください。
+</p>
+
+<center>
+<table border width="512">
+<tr><th bgcolor="#ffcccc">ネットニュースのマナーについて
+<tr><td bgcolor="#ffffcc">
+ネットニュースに投稿した記事は、
+不特定多数の人の目に触れるわけですから、
+その利用上のマナーについては、
+電子メール以上に注意を払う必要があります。
+<ul>
+<li>ネットニュースの記事も、
+１行の長さは70文字（全角で35文字）以下にしましょう。
+<li>記事を投稿するときは、
+記事の内容に合ったニュースグループを選択してください。
+そのニュースグループが対象とする話題にそぐわない内容の記事を投稿しないよう、
+気をつけてください。
+まずはじめにそのニュースグループに投稿されている他の記事を読んで、
+ニュースグループの雰囲気をつかんでから投稿するようにしましょう。
+また mnews では、
+記事の一覧を表示しているときに <tt><b>G</b></tt> をタイプすれば、
+そのニュースグループの「憲章」を表示します。
+<li>異なるニュースグループに同じ内容の記事を投稿してはいけません。
+この行為は<a href="07-h2.html">“マルチポスト”</a>と呼ばれ、嫌われます。
+複数のニュースグループに記事を投稿したいときは、
+記事を書いているとき、
+最初の行の <tt>Newsgroups:</tt> にニュースグループ名を
+","（コンマ）で区切って（スペースは入れずに）書きます。
+これは“クロスポスト”と呼ばれます。
+<li>トップカテゴリの異なるニュースグループ
+（fj.jokes と wadai.talk.jokes とか）でクロスポストしてはいけません。
+これらは配布範囲が異なるので、
+一方のニュースグループの講読者が、
+もう一方のニュースグループを読めるとは限らないからです。
+<li>記事の内容に責任を持ってください。
+また、責任の所在を明らかにするために、
+記事には必ず署名を入れてください。
+匿名の記事を出してはなりません。
+mnews は Mew のところで説明した <tt>.signature</tt>
+を自動的に記事に埋め込みます。
+<li>他人を誹謗したり中傷するような記事、
+流言飛語、卑猥な話、社会問題や国際問題をひきおこしそうな記事など、
+いわゆる「公序良俗」に判するような記事は投稿してはいけません。
+また <font color="#ff0000">fj</font> のように、
+ニュースグループによっては
+<font color="#ff0000">営利目的の記事を禁止</font>している場合もあります。
+そのような記事を投稿した場合（他からそういう指摘を受けた場合）は、
+あなたのコンピュータの利用権を停止することがあります。
+</ul>
+電子メールやネットニュースというのは、
+普通の社会の一つの断面に過ぎません。
+あなたの目の前にはコンピュータがあるだけのように見えますが、
+それはコンピュータネットワークを通じて、
+実社会につながっているのです。
+あなたの目の前のコンピュータの向こう側にも、
+「人」がいるんだと言うことを忘れないでください。
+</table>
+</center>
+</p>
+
+<hr>
+
+<h2>課題</h2>
+
+<hr>
+
+自分が投稿した記事に対して、
+フォローアップ記事を書け。
+
+<ul>
+<li>mnews は <tt><b>?</b></tt> をタイプすると、
+そのときに使えるコマンドの一覧を表示してくれます。
+</ul>
+
+</body>

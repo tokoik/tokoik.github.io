@@ -1,0 +1,59 @@
+<head>
+<title>情報基礎演習II − 課題４７</title>
+</head>
+
+<body>
+
+<h3>課題４７</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムはコンパイルのときにエラーになります。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+#include &lt;stdio.h&gt;
+
+void goukei(int n)
+{
+    do {
+      sum += n; /* 共有しようとする変数 */
+    }
+    while (--n > 0);
+}
+
+void hyouji(void)
+{
+    printf("合計は %d\n", sum); /* 共有しようとする変数 */
+}
+
+int sum; /* 共有しようとする変数 */
+
+int main(void)
+{
+    sum = 0; /* 共有しようとする変数 */
+    goukei(100);
+    hyouji();
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムに１行追加して（他の部分に手を加えないでください）、
+正常にコンパイルできるようにしてください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai47.c とし、
+それを
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai47 としてください。
+
+</ol>
+
+</body>

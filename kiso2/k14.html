@@ -1,0 +1,60 @@
+<head>
+<title>情報基礎演習II − 課題１４</title>
+</head>
+
+<body>
+
+<h3>課題１４</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai14.c というファイル名で作成してください。
+その際 <i>c</i> には自分の名前のイニシャルを、
+<i>n</i> には名前のイニシャルと名字のイニシャルの文字コードの差を入れて、
+プログラムを実行したとき
+自分のイニシャルが正しく表示されるようにしてください
+<p>
+
+<li>例えばイニシャルが BA なら、
+<i>c</i> は B、
+A の文字コードは B の１字前にあるので <i>n</i> は -1 になります。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai14
+** 動作: 整数と文字の計算
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+int main(void)
+{
+    char first; /* 名前のイニシャル */
+    char last;  /* 名字のイニシャル */
+
+    first = '<i>c</i>';
+    last = first + (<i>n</i>);
+    printf("私のイニシャルは %c%c です\n", first, last);
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai14 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai14 を実行し、
+正しくイニシャルが表示されたら、
+kadai14.c をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai14 としてください。
+
+</ol>
+
+</body>

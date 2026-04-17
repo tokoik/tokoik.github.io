@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="ja">
+<head>
+<title>視点の位置と視線の方向の変更</title>
+<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="ray.css">
+</head>
+
+<body>
+
+<h1>視点の位置と視線の方向の変更</h1>
+
+<p>視点の位置は，関数 trace() の第１引数 p0
+を設定するだけで変更できる．</p>
+
+<p>一方，第２引数に与える視線の方向ベクトル v は，
+視点から目標点に向かうベクトル
+<b>P</b><sub>1</sub> - <b>P</b><sub>0</sub>
+に沿って回転させる必要がある．
+この回転の変換を求めるには，</p>
+
+<blockquote>
+<b>Z</b>' = (<b>P</b><sub>t</sub> - <b>P</b><sub>e</sub>) / |<b>P</b><sub>t</sub> - <b>P</b><sub>e</sub>|<br>
+<b>X</b>' = (<b>U</b>×<b>Z</b>') / |<b>U</b>×<b>Z</b>'|<br>
+<b>Y</b>' = <b>Z</b>'×<b>X</b>'
+</blockquote>
+
+<p>として視野空間の基底ベクトル <b>X</b>'，<b>Y</b>'，<b>Z</b>'
+を求め，
+
+<div class="figure">
+<img src="06-h1-01.gif" width="360" height="270" alt="視野空間">
+</div>
+
+<p>これを用いて，もとの視線の方向ベクトル <b>V</b> を</p>
+
+<div class="figure">
+<img src="06-h1-02.gif" width="60" height="56" alt="回転変換行列">
+</div>
+
+<p>により回転した <b>V</b>' を視線の方向ベクトル v に用いる．</p>
+
+</body>
+</html>

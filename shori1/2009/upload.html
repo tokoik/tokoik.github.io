@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>Web ページのアップロード方法</title>
+</head>
+
+<body>
+
+<h1>Web ページのアップロード方法</h1>
+
+<dl>
+<dt><A class="label" name="index">目次</a></dt>
+<dd>
+<ul>
+<li><A href="#local">学内向けサーバへのアップロード</A></li>
+<li><A href="#public">学外公開サーバへのアップロード</A></li>
+  </ul>
+  </dd>
+</dl>
+<h2><A class="label" name="local">学内向けサーバへのアップロード</A></h2>
+<p>ホームディレクトリに <EM>public_html</EM> というディレクトリを作成し，そこに HTML ファイル等を置けば，下記の URL
+で参照できるようになります．ただし学生のアカウントについては，学内のみに公開されています．</p>
+<CENTER>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH>和歌山大学システム情報学センターの利用者ホームページ</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center">http://www.wakayama-u.ac.jp/~ユーザ名/</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>情報処理I（デザイン情報学科）の受講生は html というディレクトリを作成しており，そこに
+index.html 等を置いているはずですから，html というディレクトリ名を public_html
+に変更するだけで上記の URL から参照できるようになります．</P>
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><A class="label" name="public">学外公開サーバへのアップロード</A></h2>
+<p>情報処理I（デザイン情報学科）の受講生に限り，学外からも参照可能な別の Web
+サーバを用意しています．</p>
+<CENTER>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH>情報処理I（デザイン情報学科）受講生用公開 Web サーバ</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://students.sys.wakayama-u.ac.jp/" target="_blank">http://students.sys.wakayama-u.ac.jp/</A>ユーザ名/</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>ここにファイルをアップロードするには，scp コマンドあるいは ftp コマンドを使用してください．index.html
+あるいは index.shtml をアップロードしたあと Netscape を再読み込みすると，<A href="http://students.sys.wakayama-u.ac.jp/" target="_blank">http://students.sys.wakayama-u.ac.jp/</A> の Index のところにリンクが現れます．</P>
+<H3>scp コマンドによるアップロード</H3>
+<P><EM>scp</EM> コマンドは cp コマンドとほぼ同じ使い方をします．異なるコンピュータにネットワークを通じてファイルをコピー（転送）するには，コピー先のファイル名あるいはディレクトリ名の左に &quot;ホスト名:&quot; を付けてください．ホスト名とはコンピュータのネットワーク上での名前で，上記の Web サーバのホスト名は <EM>students.sys.wakayama-u.ac.jp</EM> です．システム工学部内なら，<EM>students</EM> だけでも通用します．なお，コピー先に &quot;ホスト名:&quot; だけを指定してファイル名やディレクトリ名を省略すると，コピー先のコンピュータのホームディレクトリにコピーされます．</P>
+<CENTER>
+<TABLE width="90%">
+  <TBODY>
+    <TR>
+      <TH colspan="2">scp コマンドによるファイルの遠隔コピーの例</TH>
+    </TR>
+    <TR>
+      <TD width="45%">index.html を students というコンピュータにコピーする．</TD>
+      <TD class="action">
+      <PRE>% <U>scp index.html students:<KBD>[Enter]</KBD></U><SPAN class="anon"></SPAN></PRE>
+      </TD>
+    </TR>
+    <TR>
+      <TD>拡張子が .html ののファイルを students というコンピュータにコピーする．</TD>
+      <TD valign="top" bgcolor="#ffffff" class="action">
+      <PRE>% <U>scp *.html students:<KBD>[Enter]</KBD></U><SPAN class="anon"></SPAN></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<P>最初に scp を使ってファイルをコピーするときは，コピー先のコンピュータが本物かどうか確認するメッセージが出てきます．<EM>yes</EM> をタイプして <KBD>[Enter]</KBD> をタイプしてください．</P>
+<PRE class="source">% <U>scp index.html students:<KBD>[Enter]</KBD></U>
+The authenticity of host 'students (133.42.165.1)' can't be established.
+RSA key fingerprint is 1d:d3:45:02:fc:d6:ae:ff:8c:d9:7a:64:d4:42:0a:b5.
+Are you sure you want to continue connecting (yes/no)? <U><EM>yes</EM><KBD>[Enter]</KBD></U>
+Warning: Permanently added 'students,133.42.165.1' (RSA) to the list of known ho
+sts.
+s085000@students's password:<U><SPAN class="anon">（パスワードを入力）</SPAN><KBD><SPAN class="anon"></SPAN>[Enter]</KBD></U>
+index.html                                    100%  582    28.6KB/s   00:00</PRE>
+<P>転送したファイルの削除等のファイル操作を行いたいときは，<EM>ssh</EM> コマンドを使って<EM>遠隔ログイン</EM>（リモートログイン）してください．students 上で cp/mv/rm 等のコマンドを使ってファイルを操作できます．</P>
+<PRE class="source">% <U>ssh students<KBD>[Enter]</KBD></U>
+s085000@students's password:<U><SPAN class="anon">（パスワードを入力）</SPAN><KBD><SPAN class="anon"></SPAN>[Enter]</KBD></U>
+Last login: Sun May 25 18:28:08 2003 from nachi00
+[s085000@students ~]$ <U>rm index.html<KBD>[Enter]</KBD></U>
+[s085000@students ~]$ <U><KBD>Ctrl-D</KBD></U>
+logout <SPAN class="anon">←別のコンピュータ students からのログアウト</SPAN>
+%</PRE>
+<H3>ftp コマンドによるアップロード</H3>
+<P><EM>ftp</EM> コマンドは scp のような単機能コマンドではなく，遠隔コンピュータのファイル操作なども行うことができます．</P>
+<PRE class="source">% <U>ftp students<KBD>[Enter]</KBD></U>
+Connected to students.sys.wakayama-u.ac.jp.
+220 ProFTPD 1.2.6 Server (Students' Home Pages) [students.sys.wakayama-u.ac.jp]
+Name (students:s085000):<U><SPAN class="anon">（そのまま</SPAN><KBD><SPAN class="anon"></SPAN>[Enter]</KBD><SPAN class="anon">で構わない）</SPAN></U>
+331 Password required for tokoi.
+Password:<U><SPAN class="anon">（パスワードを入力）</SPAN><KBD><SPAN class="anon"></SPAN>[Enter]</KBD></U>
+230 User tokoi logged in.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; <U>put index.html<KBD>[Enter]</KBD></U><SPAN class="anon"> ←index.html を転送</SPAN>
+ftp&gt; <U>mput *.html<KBD>[Enter]</KBD></U><SPAN class="anon"> ←拡張子が .html のファイルを転送</SPAN>
+ftp&gt; <U>del index.html<KBD>[Enter]</KBD></U><SPAN class="anon"> ←遠隔コンピュータの index.html を削除</SPAN>
+ftp&gt; <U>bye<KBD>[Enter]</KBD></U><SPAN class="anon"> ←終了</SPAN>
+221 Goodbye.
+%</PRE>
+<P>なお <EM>gftp</EM> コマンドを使えば，グラフィカルなユーザインタフェースでファイルの転送や操作ができます．</P>
+<div class="figure"><IMG src="gftp.gif" width="701" height="564" border="0"></div>
+<div class="back"><a href="#index"><img src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+</body>
+</html>

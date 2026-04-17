@@ -1,0 +1,60 @@
+<head>
+<title>情報基礎演習II − 課題３４</title>
+</head>
+
+<body>
+
+<h3>課題３４</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+ある決められた数（金額、この場合は１万円）から、
+キーボードから入力した数（支出額）を減じてゆき、
+残り（残額）が０以下になったら終了するプログラムです。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai34
+** 動作: 予算管理
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int budget, payment;
+
+    budget  = 10000;
+    while (budget &gt; 0) {
+        printf("支出額を入れてください：");
+        scanf("%d", &payment);
+        budget -= payment;
+        printf("残額は %d 円です\n", budget);
+    }
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムは残額が０以下になるまで終了しません。
+そこで支出額として０を入力したときは、
+残額が０以下でなくても途中で終了するように、
+このプログラムに１行追加してください。
+<p>
+
+<li>変更したソースプログラムのファイル名は kadai34.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai34 としてください。
+
+</ol>
+
+</body>

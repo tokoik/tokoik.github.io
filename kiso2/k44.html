@@ -1,0 +1,62 @@
+<head>
+<title>情報基礎演習II − 課題４４</title>
+</head>
+
+<body>
+
+<h3>課題４４</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラム中の関数 inc が、
+呼び出す度と最初 0 を返し、
+それ以降呼び出す度に返す値が１ずつ増えるようにしたいと
+思います。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai44
+** 動作: 呼び出された回数を数える関数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int inc(void)
+{
+    int n = 0;
+
+    return n++;
+}
+
+int main(void)
+{
+    int i;
+
+    for (i = 0; i < 10; i++) {
+        printf("%d\n", inc());
+    }
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>プログラム中のどこかに static を書き加え、
+上記の目的を果たすようにしてください。
+<p>
+
+<li>修正したソースプログラムのファイル名を kadai44.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai44 としてください。
+
+</ol>
+
+</body>

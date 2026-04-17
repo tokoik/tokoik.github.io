@@ -1,0 +1,56 @@
+<head>
+<title>情報基礎演習II − 課題３６</title>
+</head>
+
+<body>
+
+<h3>課題３６</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムは goto を使って繰り返し処理を行っています。
+これを while を使って書き直してください。
+<p>
+
+<li>書き直したソースプログラムのファイル名は kadai36.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai36 としてください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai36
+** 動作: goto を濫用したプログラム
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, sum = 0;
+
+    printf("整数を入れてください：");
+    scanf("%d", &n);
+    
+start_loop:
+    if (n &gt; 0) {
+        sum += n--;
+        goto start_loop;
+    }
+
+    printf("合計は %d です\n", sum);
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+</ol>
+
+</body>

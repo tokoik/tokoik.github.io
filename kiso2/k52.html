@@ -1,0 +1,62 @@
+<head>
+<title>情報基礎演習II − 課題５２</title>
+</head>
+
+<body>
+
+<h3>課題５２</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを kadai52.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai52
+** 動作: 共用体を使ったデータの切り出し（その２）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    union bitfield {
+	unsigned e:8;
+	unsigned f:5;
+    } a;
+
+    a.e = 200;
+    printf("a.e = %d, a.f = %d\n", a.e, a.f);
+
+    a.f = 200;
+    printf("a.e = %d, a.f = %d\n", a.e, a.f);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai52 という実行プログラムを作成してください。
+<p>
+
+<li>kadai52 を実行してください。
+<p>
+
+<li>このプログラムでは、
+a.e に代入した場合が a.f に代入した場合とでは、
+代入される値が異なります。
+その理由を考察し、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai52 としてください。
+
+</ol>
+
+</body>

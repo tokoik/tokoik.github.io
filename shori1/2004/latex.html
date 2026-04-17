@@ -1,0 +1,921 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>LaTeX の概要</title>
+</head>
+
+<body>
+<h1>LaTeX の概要</h1>
+
+<dl>
+<dt><A class="label" name="index">目次</a></dt>
+<dd>
+<ul>
+    <li><a href="#outline">LaTeX の全体構成</a></li>
+    <li><a href="#title">タイトルをつける</a></li>
+    <li><a href="#headding">見出しをつける</a></li>
+    <li><a href="#newline">空白や改行を入れる</a></li>
+    <li><a href="#list">箇条書き（リスト表示）</a></li>
+    <li><a href="#enumerate">番号つきリスト</a></li>
+    <li><a href="#description">記述（定義）形式のリスト</a></li>
+    <li><a href="#quote">引用する</a></li>
+    <li><a href="#centering">中央に揃える</a></li>
+    <li><a href="#preformat">そのまま表示する</a></li>
+    <li><a href="#box">枠に入れる</a></li>
+    <li><a href="#fontstyle">字体を変える</a></li>
+    <li><a href="#fontsize">文字の大きさを変える</a></li>
+    <li><a href="#special">記号</a></li>
+    <li><a href="#expression">数式</a></li>
+    <li><a href="#array">配列</a></li>
+    <li><a href="#table">表</a></li>
+    <li><a href="#fig">図</a></li>
+    <li><a href="#figure">図表がうまく収まるようにする</a></li>
+  </ul>
+</dd>
+</dl>
+<h2><a class="label" name="outline">LaTeX の全体構成</a></h2>
+
+<p>LaTeX ソースファイルは
+<em>\documentclass[オプション]{文書のクラス}</em>
+（LaTeX 2.09 の場合は
+<em>\documentstyle[オプション]{文書のスタイル}</em>）から始まり，
+<em>\begin{document}</em> ～ <em>\end{document}</em> の間に本文を書きます．
+<em>\begin{document}</em> より前の部分を
+<strong>プリアンブル</strong>と言います．</p>
+
+<pre class="source"><code class="tag">\documentclass[オプション]{文書のクラス}</code>
+<code class="tag">\begin{document}</code>
+   ：　　（本文）
+<code class="tag">\end{document}</code>
+</pre>
+
+<table>
+  <tr>
+    <th colspan="2">文書のクラス（スタイル）</th>
+  </tr>
+  <tr>
+    <th>jbook</th>
+    <td>本</td>
+  </tr>
+  <tr>
+    <th>jarticle</th>
+    <td>論文</td>
+  </tr>
+  <tr>
+    <th>jreport</th>
+    <td>報告書</td>
+  </tr>
+  <tr>
+    <th>letter</th>
+    <td>手紙</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="2">オプション</th>
+  </tr>
+  <tr>
+    <th>a4j</th>
+    <td>用紙サイズ A4</td>
+  </tr>
+  <tr>
+    <th>a5j</th>
+    <td>用紙サイズ A5</td>
+  </tr>
+  <tr>
+    <th>b4j</th>
+    <td>用紙サイズ B4</td>
+  </tr>
+  <tr>
+    <th>b5j</th>
+    <td>用紙サイズ B5</td>
+  </tr>
+  <tr>
+    <th>twocolumn</th>
+    <td>２段組</td>
+  </tr>
+  <tr>
+    <th>twoside</th>
+    <td>両面印刷</td>
+  </tr>
+</table>
+
+<p>以下に例とそのプレビューイメージを示します．</p>
+
+<pre class="source">\documentclass[a4j]{jarticle}
+\title{タイトル}
+\author{著者名}
+\begin{document}
+\maketitle
+\section{第１節の見出し}
+第１節の本文
+\subsection{第１節第１項の見出し}
+第１節第１項の本文
+\section{第２節の見出し}
+第２節の本文
+\begin{itemize}
+\item 箇条書きの項目
+\item 箇条書きの項目
+\item 箇条書きの項目
+\end{itemize}
+\end{document}
+</pre>
+
+<div class="figure"><img src="latex1.gif"></div>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="title">タイトルをつける</a></h2>
+
+<p>文書にタイトル，著者名，日付を付けるときは， プリアンブル（<em>\begin{document}</em> の前）に <em>\title{文書のタイトル}</em>， <em>\author{著者名}</em>， <em>\date{日付}</em> を置き， 本文の先頭（<em>\begin{document}</em> の直後）に <em>\maketitle</em> を置きます．</p><p><em>\date{日付}</em> を省略すると， <em>\date{\today}</em> と同じ（すなわち，コンパイルした日）になる． 著者名や日付をタイトルページに含めたくないときは， それぞれ <em>\author{}</em>，<em>\date{}</em> としてください．</p>
+
+<pre class="source">\documentclass[オプション]{文書のクラス}
+<code class="tag">\title{タイトル}</code>
+<code class="tag">\author{著者名}</code>
+<code class="tag">\date{日付}</code>
+\begin{document}
+<code class="tag">\maketitle</code>
+   ：　　（本文）
+\end{document}
+</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="headding">見出しをつける</a></h2>
+
+<p>文書を章や節などに階層的に区分するために，見出しを用います． 文書の階層構造は次のようになります．</p>
+
+<table>
+  <tr>
+    <th colspan="2">文書の階層構造</th>
+  </tr>
+  <tr>
+    <th>\part</th>
+    <td>部</td>
+  </tr>
+  <tr>
+    <th>\chapter</th>
+    <td>章</td>
+  </tr>
+  <tr>
+    <th>\setction</th>
+    <td>節</td>
+  </tr>
+  <tr>
+    <th>\subsection</th>
+    <td>項</td>
+  </tr>
+  <tr>
+    <th>\subsubsection</th>
+    <td>　</td>
+  </tr>
+  <tr>
+    <th>\paragraph</th>
+    <td>段落</td>
+  </tr>
+  <tr>
+    <th>\subparagraph</th>
+    <td>　</td>
+  </tr>
+</table>
+
+<p>文書クラス jarticle には <em>\chapter</em> はありません． 逆に，jbook や jreport では
+<em>\section</em> は <em>\chapter</em> の下位の構成要素である必要があります．</p>
+
+<pre class="source">\documentclass[オプション]{<em>jarticle</em>}
+\title{タイトル}
+\author{著者名}
+\date{日付}
+\begin{document}
+\maketitle
+<code class="tag">\section{第１節の見出し}</code>
+   ：　　（第１節の本文）
+<code class="tag">\subsection{第１節第１項の見出し}</code>
+   ：　　（第１節第１項の本文）
+<code class="tag">\section{第２節の見出し}</code>
+   ：　　（第２節の本文）
+\end{document}
+</pre>
+
+<pre class="source">\documentclass[オプション]{<em>jreport</em>}
+\title{タイトル}
+\author{著者名}
+\date{日付}
+\begin{document}
+\maketitle
+<code class="tag">\chapter{第１章の見出し}</code>
+
+<code class="tag">\section{第１章第１節の見出し}</code>
+   ：　　（第１章第１節の本文）
+<code class="tag">\subsection{第１章第１節第１項の見出し}</code>
+   ：　　（第１章第１節第１項の本文）
+<code class="tag">\section{第１章第２節の見出し}</code>
+   ：　　（第１章第２節の本文）
+\end{document}
+</pre><p>見出しには自動的に番号がふられます． 見出しに番号をつけたくないときは， <em>\section*{番号をつけない見出し}</em>のように， 見出しのコマンドに * を付けてください．</p><pre class="source"><code class="tag">\chapter*{番号のない章の見出し}</code>
+
+<code class="tag">\section*{番号のない節の見出し}</code>
+
+<code class="tag">\subsection*{番号のない項の見出し}</code>
+</pre>
+
+<h2><a class="label" name="newline">空白や改行を入れる</a></h2>
+
+<p>LaTeX ソースプログラム中の改行や空白は無視されてしまいます．強制的に改行したり単語間を開けたりするためには，下のようなコマンドを使います．</p>
+
+<table>
+  <tr>
+    <th colspan="2">空白・改行・改ページ</th>
+  </tr>
+  <tr>
+    <th>\,</th>
+    <td>小さい空白</td>
+  </tr>
+  <tr>
+    <th>\スペース</th>
+    <td>１文字分の空白</td>
+  </tr>
+  <tr>
+    <th>~（チルダ）</th>
+    <td>改行されない空白</td>
+  </tr>
+  <tr>
+    <th>\hspace{長さ}</th>
+    <td>横方向のスペース</td>
+  </tr>
+  <tr>
+    <th>\vspace{長さ}</th>
+    <td>縦方向のスペース</td>
+  </tr>
+  <tr>
+    <th>\\</th>
+    <td>改行 (<em>\newline</em>)</td>
+  </tr>
+  <tr>
+    <th>\\*</th>
+    <td>改ページされない改行 (<em>\newline*</em>)</td>
+  </tr>
+  <tr>
+    <th>空行</th>
+    <td>段落 (<em>\par</em>)</td>
+  </tr>
+  <tr>
+    <th>\newpage</th>
+    <td>改ページ</td>
+  </tr>
+  <tr>
+    <th>\clearpage</th>
+    <td>まだ出力していない図表を全部出力して改ページ</td>
+  </tr>
+</table>
+
+<p>段落を改めるときは，段落間を１行空けて（空行を入れて）ください．</p>
+
+<pre class="source">\documentclass{jarticle}
+\begin{document}
+\section{第１節の見出し}
+ここは第１段落．ここは第１段落．ここは第１段落．
+ここは第１段落．ここは第１段落．ここは第１段落．ここは第１段落．
+ここは第１段落．ここは第１段落．
+
+ここは第２段落．ここは第２段落．ここは第２段落．ここは第２段落．
+ここは第２段落．ここに２ｃｍの空白→<code class="tag">\hspace{2cm}</code>←ここに２ｃｍの空白．
+ここは第２段落．ここは第２段落．ここは第２段落．
+\end{document}
+</pre>
+
+<div class="figure"><img src="latex8.gif"></div>
+
+<p>「長さ」は次のように表現します．</p>
+
+<table>
+  <tr>
+    <th colspan="2">長さの表現</th>
+  </tr>
+  <tr>
+    <th>cm</th>
+    <td>センチメートル，例：5cm</td>
+  </tr>
+  <tr>
+    <th>mm</th>
+    <td>ミリメートル，例：3mm</td>
+  </tr>
+  <tr>
+    <th>in</th>
+    <td>インチ，例：0.5in</td>
+  </tr>
+  <tr>
+    <th>pt</th>
+    <td>ポイント，1in は 72.27pt</td>
+  </tr>
+  <tr>
+    <th>em</th>
+    <td>その字体の文字 M の幅</td>
+  </tr>
+  <tr>
+    <th>ex</th>
+    <td>その字体の文字 x の高さ</td>
+  </tr>
+  <tr>
+    <th>\fill</th>
+    <td>伸ばせるだけの長さ（伸縮する）</td>
+  </tr>
+</table>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="list">箇条書き（リスト表示）</a></h2>
+
+<p>箇条書きを行う部分は <em>\begin{itemize}</em> ～ <em>\end{itemize}</em> ではさんで， 各項目の先頭に <em>\item</em> を置きます．</p>
+
+<pre class="source">\documentclass[オプション]{jarticle}
+\title{タイトル}
+\author{著者名}
+\date{日付}
+\begin{document}
+\maketitle
+\section{第１節の見出し}
+   ：　　（第１節の本文）
+<code class="tag">\begin{itemize}</code>
+<code class="tag">\item</code> 一つ目の項目
+<code class="tag">\item</code> 二つ目の項目
+<code class="tag">\item</code> 三つ目の項目
+<code class="tag">\item</code> 四つ目の項目
+<code class="tag">\end{itemize}</code>
+
+\end{document}
+</pre>
+
+<p><em>\begin{itemize}</em> ～ <em>\end{itemize}</em> の中に <em>\begin{itemize}</em> ～ <em>\end{itemize}</em> を置いて， リストを入れ子構造にすることもできます．</p><h2><a class="label" name="enumerate">番号つきリスト</a></h2><p>各項目に番号をつけたリストも作成できます． これは箇条書きの部分を <em>\begin{enumerate}</em> ～ <em>\end{enumerate}</em> ではさんで， 各項目の最初に <em>\item</em> を置きます． これもリストを入れ子構造にできます．</p>
+
+<pre class="source">\documentclass[オプション]{jarticle}
+\title{タイトル}
+\author{著者名}
+\date{日付}
+\begin{document}
+\maketitle
+\section{第１節の見出し}
+   ：　　（第１節の本文）
+<code class="tag">\begin{enumerate}</code>
+<code class="tag">\item</code> 一つ目の項目
+<code class="tag">\item</code> 二つ目の項目
+<code class="tag">\item</code> 三つ目の項目
+<code class="tag">\item</code> 四つ目の項目
+<code class="tag">\end{enumerate}</code>
+
+\end{document}
+</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="description">記述（定義）形式のリスト</a></h2>
+
+<p>単語リストのように， あるキーワードに対して説明を加えるようなリストです． これはリストの部分を <em>\begin{enumerate}</em> ～ <em>\end{enumerate}</em> ではさんで， <em>\item[キーワード]</em> に続けて， そのキーワードに対する記述を置きます． これもリストを入れ子構造にできます．</p>
+
+<pre class="source">\documentclass[オプション]{jarticle}
+\title{タイトル}
+\author{著者名}
+\date{日付}
+\begin{document}
+\maketitle
+\section{第１節の見出し}
+   ：　　（第１節の本文）
+<code class="tag">\begin{description}</code>
+<code class="tag">\item[札幌ラーメン]</code> 麺は太めのちじれ麺であり，
+    醤油，塩，味噌などのバリエーションがあるが，
+    特に味噌ラーメンが重視されている．
+    具は一般的なものに加えてコーンを加えることが多い．
+    バターをのせることもある．
+<code class="tag">\item[博多ラーメン]</code> 細いストレート麺が主流で，
+    中でも長浜ラーメンの麺はかなり細い．
+    スープはトンコツが主体で，
+    色の白いスープが多い．
+    かなり脂っこいものもある．
+    付け合わせに紅しょうが・からし高菜を用いるようだ．
+<code class="tag">\item[和歌山ラーメン]</code> 細目の麺だが，
+    博多ラーメンほどではない．
+    わりと伸び気味にゆでるせいか，
+    スープで麺が太っていることもある．
+    スープはトンコツベースの醤油味．
+    いっしょに早すし（早熟れ鮨，あせ巻き寿司）を食べる．
+<code class="tag">\end{description}</code>
+
+\end{document}
+</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="quote">引用する</a></h2>
+
+<p>引用部分は <em>\begin{quotation}</em> ～ <em>\end{quotation}</em> ではさみます． この部分は行の長さを本文より短くします． 引用文の段落には空行を置きます．</p>
+
+<pre class="source">ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+<code class="tag">\begin{quotation}</code>
+ここは引用文の１つ目の段落．ここは引用文の１つ目の段落．
+ここは引用文の１つ目の段落．ここは引用文の１つ目の段落．
+
+ここは引用文の２つ目の段落．ここは引用文の２つ目の段落．
+ここは引用文の２つ目の段落．ここは引用文の２つ目の段落．
+<code class="tag">\end{quotation}</code>
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+</pre>
+
+<p><em>\begin{quote}</em> ～ <em>\end{quote}</em> ではさんだ引用部分は， 空行は改行として扱われ， 段落の先頭の字下げを行いません． これは短い文章の引用に用います．</p>
+
+<pre class="source">ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+<code class="tag">\begin{quote}</code>
+ここは引用文の１行目の文章．ここは引用文の１行目の文章．
+ここは引用文の１行目の文章．ここは引用文の１行目の文章．
+
+ここは引用文の２行目の文章．ここは引用文の２行目の文章．
+ここは引用文の２行目の文章．ここは引用文の２行目の文章．
+<code class="tag">\end{quote}</code>
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+ここは本文．ここは本文．ここは本文．ここは本文．
+</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="centering">中央に揃える</a></h2>
+
+<p>中央に揃えたい部分は <em>\begin{center}</em> ～ <em>\end{center}</em> ではさみます． 各行は <em>\\</em> で区切ります．</p>
+
+<pre class="source"><code class="tag">\begin{center}</code>
+この部分は \\
+中央に \\
+揃えられます．
+<code class="tag">\end{center}</code>
+</pre>
+
+<p>左寄せや右寄せを行うには，<em>center</em> の代りにそれぞれ <em>flushleft</em>，<em>flushright</em> を指定します．</p>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="preformat">そのまま表示する</a></h2>
+
+<p>LaTeX ソースファイル中では改行や空白は無視されてしまいますが， それだと不便なことがあります． 改行や空白によるレイアウトを活かして表示するためには， その部分を <em>\begin{verbatim}</em> ～ <em>\end{verbatim}</em> ではさみます． このはさんだ部分はひとつの段落になってしまうので， １行中にそのまま表示したい部分を含めるときには， <em>\verb+そのまま表示したい文字列+</em> というように書きます．</p>
+
+<pre class="source">この部分は詰め込みが行われる本文．
+この部分は詰め込みが行われる本文．
+<code class="tag">\begin{verbatim}</code>
+    ○┃×┃×
+    ━╋━╋━
+    ×┃○┃○
+    ━╋━╋━
+    ○┃○┃×
+<code class="tag">\end{verbatim}</code>
+この部分は詰め込みが行われる本文．
+<code class="tag">\verb+</code>そのまま表示する文字列<code class="tag">+</code>
+この部分は詰め込みが行われる本文．
+</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="box">枠に入れる</a></h2>
+
+<p>文章を枠（ボックス）に入れて，それを一つの文字のように扱えるようにできます．空白を含む複数の文字列が途中で改行されないようにするためには， <em>\mbox{文字列}</em> を使ってそれが１文字として扱われるようにします．</p>
+
+<pre class="source">ここは本文．<code class="tag">\mbox{</code>ここは改行されない．<code class="tag">}</code>ここは本文．</pre>
+
+<p><em>\fbox{文字列}</em> は <em>\mbox{文字列}</em> と同じですが，ボックスの周囲に枠線を描きます．</p>
+
+<pre class="source">ここは本文．<code class="tag">\fbox{</code>ここには枠が付く．<code class="tag">}</code>ここは本文．</pre>
+
+<p><em>\raisebox{高さ}{文字列}</em> 使えば， ボックスにいれた文字列の位置（高さ）を指定できます．</p>
+
+<pre class="source">ここは元の高さ．<code class="tag">\raisebox{0.5ex}{</code>ここは 0.5ex だけ上げる．<code class="tag">}</code>
+ここは元の高さ．<code class="tag">\raisebox{-0.5ex}{</code>ここは 0.5ex だけ下げる．<code class="tag">}</code></pre>
+
+<p><em>\makebox[ボックスの幅][位置]{文字列}</em> は <em>\mbox{文字列}</em> と同じですが，ボックスの幅を指定できます． 位置は <em>l（左）,c（中央）,r（右）</em>のいずれかで， 文字列がボックスの幅より短かったときに寄せる方向を指定します．</p>
+
+<pre class="source">ここは本文．<code class="tag">\makebox[3in]{</code>３インチ幅で中央揃え．<code class="tag">}</code>ここは本文．
+ここは本文．<code class="tag">\makebox[3in][r]{</code>３インチ幅で右寄せ．<code class="tag">}</code>ここは本文．</pre>
+
+<p><em>\framebox{文字列}</em> は <em>\makebox{文字列}</em> と同じですが，ボックスの周囲に枠線を描きます．</p>
+
+<pre class="source">ここは本文．<code class="tag">\framebox[3in][l]{</code>３インチ幅の枠内に左寄せ．<code class="tag">}</code>ここは本文．</pre>
+
+<p><em>\parbox[位置]{幅}{文字列}</em> には， 段落を含むような長い文章を入れることができます． 文字列の長さが幅より長い場合は，その幅で改行されます． その分ボックスの高さは高くなります． 位置は <em>t（上）または b（下）</em> で， t ならボックスの上部がそのボックスのある行の高さに一致します． b ならボックスの下部がそのボックスのある行の高さに一致します． 位置を省略するとボックスの中央になります．</p>
+
+<pre class="source">ここは本文．<code class="tag">\parbox{1in}{</code>１インチ幅の枠内に入る．<code class="tag">}</code>ここは本文．
+ここは本文．<code class="tag">\parbox[t]{1in}{</code>１インチ幅の枠内に入る．<code class="tag">}</code>ここは本文．</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="fontstyle">字体を変える</a></h2>
+
+<table>
+  <tr>
+    <th colspan="2">字体</th>
+  </tr>
+  <tr>
+    <th>{\rm 文字列}</th>
+    <td>ローマン体（標準）</td>
+  </tr>
+  <tr>
+    <th>{\bf 文字列}</th>
+    <td>ボールド体（太字）</td>
+  </tr>
+  <tr>
+    <th>{\it 文字列}</th>
+    <td>イタリック体（強調）</td>
+  </tr>
+  <tr>
+    <th>{\sf 文字列}</th>
+    <td>サンセリフ体</td>
+  </tr>
+  <tr>
+    <th>{\sl 文字列}</th>
+    <td>斜体</td>
+  </tr>
+  <tr>
+    <th>{\sc 文字列}</th>
+    <td>スモールキャップス（全部大文字）</td>
+  </tr>
+  <tr>
+    <th>{\tt 文字列}</th>
+    <td>タイプライタ体</td>
+  </tr>
+  <tr>
+    <th>{\gt 文字列}</th>
+    <td>ゴシック体（日本語）</td>
+  </tr>
+  <tr>
+    <th>{\mc 文字列}</th>
+    <td>明朝体（日本語）</td>
+  </tr>
+</table>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="fontsize">文字の大きさを変える</a></h2>
+
+<table>
+  <tr>
+    <th colspan="2">字の大きさ</th>
+  </tr>
+  <tr>
+    <th>{\tiny 文字列}</th>
+    <td>最小</td>
+  </tr>
+  <tr>
+    <th>{\scriptsize 文字列}</th>
+    <td>添字の大きさ</td>
+  </tr>
+  <tr>
+    <th>{\footnotesize 文字列}</th>
+    <td>脚注の文字の大きさ</td>
+  </tr>
+  <tr>
+    <th>{\small 文字列}</th>
+    <td>小さな字</td>
+  </tr>
+  <tr>
+    <th>{\normalsize 文字列}</th>
+    <td>標準の大きさ</td>
+  </tr>
+  <tr>
+    <th>{\large 文字列}</th>
+    <td>大きな字</td>
+  </tr>
+  <tr>
+    <th>{\LARGE 文字列}</th>
+    <td>とっても大きな字</td>
+  </tr>
+  <tr>
+    <th>{\Huge 文字列}</th>
+    <td>巨大な字</td>
+  </tr>
+</table>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="special">記号</a></h2><p>以下の記号は LaTeX のソースファイル中では特別な意味を持つため， そのままでは印刷できません．</p>
+
+<pre class="source">% { } &amp; # $ ^ ~ \ _ &lt; &gt; |</pre>
+
+<p>これらを表示するには，３通りの方法があります．</p>
+
+<ol>
+  <li><em>\verb+ .. +</em> を用いる．
+  <li>この文字の左に <em>\</em> を置く（<em><TT>% { } &amp; # $ _</TT></em> のみ）．
+  <li><em>\</em> は <em>\backslash</em> で書ける．
+</ol>
+
+<em>\backslash</em> のような記法で書ける記号（特殊文字）は，ほかにもたくさんあります．一部を抜粋します．
+<table>
+  <tr>
+    <th colspan="2">記号</th>
+  </tr>
+  <tr>
+    <th>\</th>
+    <td>\backslash</td>
+  </tr>
+  <tr>
+    <th>→</th>
+    <td>\rightarrow</td>
+  </tr>
+  <tr>
+    <th>←</th>
+    <td>\leftarrow</td>
+  </tr>
+  <tr>
+    <th>↑</th>
+    <td>\uparrow</td>
+  </tr>
+  <tr>
+    <th>↓</th>
+    <td>\downarrow</td>
+  </tr>
+  <tr>
+    <th>小さい○</th>
+    <td>\circ</td>
+  </tr>
+  <tr>
+    <th>小さい●</th>
+    <td>\bullet</td>
+  </tr>
+  <tr>
+    <th>小さい◇</th>
+    <td>\diamond</td>
+  </tr>
+  <tr>
+    <th>大きい◯</th>
+    <td>\bigcirc</td>
+  </tr>
+  <tr>
+    <th>大きい◇</th>
+    <td>\Diamond</td>
+  </tr>
+  <tr>
+    <th>□</th>
+    <td>\Box</td>
+  </tr>
+  <tr>
+    <th>△</th>
+    <td>\triangle</td>
+  </tr>
+  <tr>
+    <th>♯</th>
+    <td>\sharp</td>
+  </tr>
+  <tr>
+    <th>♭</th>
+    <td>\flat</td>
+  </tr>
+  <tr>
+    <th>ナチュラル</th>
+    <td>\natural</td>
+  </tr>
+  <tr>
+    <th>†</th>
+    <td>\dagger</td>
+  </tr>
+  <tr>
+    <th>‡</th>
+    <td>\ddagger</td>
+  </tr>
+</table>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="expression">数式</a></h2>
+
+<p>文中に数式を書くときは，式を <em>\(</em> ～ <em>\)</em> ではさんでください． 短い式の時は <em>$</em> ～ <em>$</em> も使えます． 数式だけを独立した行に書くときは，<em>\[</em> ～ <em>\]</em> ではさんでください．</p>
+
+<p><em>\(</em> ～ <em>\)</em> は <em>\begin{math}</em> ～ <em>\end{math}</em> の省略形， <em>\[</em> ～ <em>\]</em> は <em>\begin{displaymath}</em> ～ <em>\end{displaymath}</em> の省略形です． 数式に通し番号を打つときは <em>\begin{equation}</em> ～ <em>\end{equation}</em> を使ってください．</p>
+
+<p>ほかに複数行にわたる数式を書くための <em>\eqnarray</em> というものもありますが，ここでは割愛します． 自分で参考書等を読んでください．</p>
+
+<pre class="source">２次方程式 \( a x^{2} + b x + c = 0 \) の解は，
+\[ x = \frac{ -b \pm \sqrt{ b^{2} - 4 a c } }{2 a} \]
+です．
+</pre>
+
+<div class="figure"><img src="latex2.gif"></div>
+
+<p>数学記号のほとんどは， 次のような記法で書きます． 一部を抜粋します．</p>
+
+<table>
+  <tr>
+    <th colspan="2">数式・数学記号</th>
+  </tr>
+  <tr>
+    <th>上つき文字</th>
+    <td>x^{y}</td>
+  </tr>
+  <tr>
+    <th>下つき文字</th>
+    <td>x_{y}</td>
+  </tr>
+  <tr>
+    <th>分数</th>
+    <td>\frac{分子}{分母}</td>
+  </tr>
+  <tr>
+    <th>平方根</th>
+    <td>\sqrt{x}</td>
+  </tr>
+  <tr>
+    <th>３乗根</th>
+    <td>\sqrt[3]{x}</td>
+  </tr>
+  <tr>
+    <th>合計</th>
+    <td>\sum_{i=1}^{n} x_{i}</td>
+  </tr>
+  <tr>
+    <th>積分</th>
+<td>\int_{0}^{1} f(x) dx</td>
+</tr>
+<tr>
+<th>剰余</th>
+<td>a \bmod \b または x \pmod{y}</td>
+</tr>
+<tr>
+<th>極限</th>
+<td>\lim_{x \rightarrow \infty} f(x)</td>
+</tr>
+<tr>
+<th>関数</th><td>\sin \cos \tan \log \ln ほか</td></tr><tr>
+      <th>ギリシャ文字</th>
+      <td>\alpha \beta \pi \theta \phi \omega ほか</td>
+    </tr><tr>
+      <th>±</th>
+      <td>\pm</td>
+    </tr><tr><th>マイナスプラス</th><td>\mp</td></tr><tr><th>×</th><td>\times</td></tr><tr><th>÷</th><td>\div</td></tr><tr><th>・</th><td>\cdot</td></tr><tr><th>∩</th><td>\cap</td></tr><tr><th>∪</th><td>\cup</td></tr><tr><th>≦</th><td>\leq</td></tr><tr><th>≧</th><td>\geq</td></tr><tr><th>《</th><td>\ll</td></tr><tr><th>》</th><td>\gg</td></tr><tr><th>≠</th><td>\neq</td></tr><tr><th>∞</th><td>\infty</td></tr><tr><th>∈</th><td>\in</td></tr><tr><th>∋</th><td>\ni</td></tr><tr><th>⊂</th><td>\subset</td></tr><tr><th>⊃</th><td>\supset</td></tr><tr><th>⊆</th><td>\subseteq</td></tr><tr><th>⊇</th><td>\supseteq</td></tr><tr><th>∧</th><td>\wedge</td></tr><tr><th>∨</th><td>\vee</td></tr><tr><th>￢</th><td>\neg</td></tr><tr><th>⇒</th><td>\Rightarrow</td></tr><tr><th>⇔</th><td>\Leftrightarrow</td></tr><tr><th>∀</th><td>\forall</td></tr><tr><th>∃</th><td>\exists</td></tr><tr><th>∠</th><td>\angle</td></tr><tr><th>⊥</th><td>\bot</td></tr><tr><th>∂</th><td>\partial</td></tr><tr><th>∇</th><td>\nabla</td></tr><tr><th>≡</th><td>\equiv</td></tr><tr><th>∝</th><td>\propto</td></tr></table>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="array">配列</a></h2>
+
+<p>配列は <em>\begin{array}{桁位置}</em> ～ <em>\end{array}</em> の間に，要素を <em>&amp;</em> で区切り，行を <em>\\</em>で区切って書きます． 桁位置は対応する桁の要素を揃える位置を指定します． <em>l</em> は左，<em>c</em> は中央，<em>r</em> は右に揃えます．</p>
+
+<pre class="source">\[
+<code class="tag">\begin{array}{lcr}</code>
+a     <code class="tag">&amp;</code> x     <code class="tag">&amp;</code> 1    <code class="tag">\\</code>
+a+b   <code class="tag">&amp;</code> x+y   <code class="tag">&amp;</code> 10   <code class="tag">\\</code>
+a+b+c <code class="tag">&amp;</code> x+y+z <code class="tag">&amp;</code> 100
+<code class="tag">\end{array}</code>
+\]</pre>
+
+<div class="figure"><img src="latex3.gif"></div>
+
+<p>行列や行列式を表すために，配列を大きな（…）や│…│でくくりたいときは， <em>\left(</em> ～ <em>\right)</em> や <em>\left|</em> ～ <em>\right|</em> でくくります． ｛…｝でくくりたいときは <em>\left\{</em> ～ <em>\right\{</em> でくくってください．</p>
+
+<pre class="source">\[
+<code class="tag">\left(</code>
+\begin{array}{lcr}
+a     &amp; x     &amp; 1    \\
+a+b   &amp; x+y   &amp; 10   \\
+a+b+c &amp; x+y+z &amp; 100
+\end{array}
+<code class="tag">\right)</code>
+\]</pre>
+
+<div class="figure"><img src="latex4.gif"></div>
+
+<p><em>\left</em> と <em>\right</em> は対応している必要がありますが， <em>\left(</em> と <em>\right]</em> のように， 左右で異なる括弧を使っても構いません． 片方だけの括弧を使いたいときは， 括弧を置かない方に <em>\left.</em> あるいは <em>\right.</em> を使ってください．</p>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="table">表</a></h2>
+
+<p>表は配列に似ていて， <em>\begin{tabular}{桁位置}</em> ～ <em>\end{tabular}</em> の間に，要素を <em>&amp;</em> で区切り，行を <em>\\</em>で区切って書きます． 桁位置は対応する桁の要素を揃える位置を指定します． <em>l</em> は左，<em>c</em> は中央，<em>r</em> は右に揃えます．</p>
+
+<pre class="source"><code class="tag">\begin{tabular}{lcr}</code>
+ラーメン <code class="tag">&amp;</code> 並 <code class="tag">&amp;</code> 500 円 <code class="tag">\\</code>
+ラーメン <code class="tag">&amp;</code> 大 <code class="tag">&amp;</code> 600 円 <code class="tag">\\</code>
+チャーシューメン <code class="tag">&amp;</code> 並 <code class="tag">&amp;</code> 600 円 <code class="tag">\\</code>
+チャーシューメン <code class="tag">&amp;</code> 大 <code class="tag">&amp;</code> 700 円
+<code class="tag">\end{tabular}</code></pre>
+
+<div class="figure"><img src="latex5.gif"></div>
+
+<p>縦の罫線は桁位置の指定のところに <em>|</em> を置きます． <em>||</em> だと２重線になります． 横の罫線は各行の <em>\\</em> のあとに <em>\hline</em> を置きます． これも <em>\hline \hline</em> とすると２重線になります．</p>
+<pre class="source">\begin{tabular}{<code class="tag">||</code>l<code class="tag">|</code>c<code class="tag">|</code>r<code class="tag">||</code>} <code class="tag">\hline</code>
+ラーメン &amp; 並 &amp; 500 円 \\ <code class="tag">\hline</code>
+ラーメン &amp; 大 &amp; 600 円 \\ <code class="tag">\hline</code>
+チャーシューメン &amp; 並 &amp; 600 円 \\ <code class="tag">\hline</code>
+チャーシューメン &amp; 大 &amp; 700 円 <code class="tag"> \\ \hline</code>
+\end{tabular}</pre>
+
+<div class="figure"><img src="latex6.gif"></div>
+
+<p>表の下にも罫線を引くために，表の最後の行にも <em>\\</em> が追加されていることに注意してください．複数の列にわたる欄は，<em>\multicolumn{欄の数}{桁位置}{欄の内容}</em> を使って書きます． 桁位置は <em>l</em> または <em>c</em> または <em>r</em> で， この欄に罫線を引くときは桁位置の文字に <em>|</em> を追加します．</p>
+
+<pre class="source">\begin{tabular}{|l|c||r|} \hline
+<code class="tag">\multicolumn{2}{|c||}{メニュー}</code> &amp; <code class="tag">\multicolumn{1}{c|}{価格}</code> \\ \hline
+ラーメン &amp; 並 &amp; 500 円 \\ \hline
+ラーメン &amp; 大 &amp; 600 円 \\ \hline
+チャーシューメン &amp; 並 &amp; 600 円 \\ \hline
+チャーシューメン &amp; 大 &amp; 700 円  \\ \hline
+\end{tabular}</pre>
+
+<div class="figure"><img src="latex7.gif"></div>
+
+<p>なお，このほかに前後の行で桁位置を合わせるために用いる <em>tabbing</em> も表の作成に使えますが，ここでは割愛します． 自分で参考書等を読んでください．</p>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="fig">図</a></h2>
+
+<p>LaTeX の文書中に図をいれるにはいくつかの方法がありますが， tgif や gimp
+で作った図を入れるのが手っ取り早いと思います． ここでは graphicx というパッケージについて説明します．
+まず，tgif や gimp で図や画像を <strong>EPS 形式</strong> で保存してください． ファイル名の拡張子は &quot;.eps&quot; にしておくといいでしょう．</p>
+
+<p>プリアンブルにおいて，<em>\usepackage[dvips]{graphicx}</em> と宣言しておき，図や画像を埋め込みたいところに <em>\includegraphics[オプション]{ファイル名}</em> コマンドを置きます．</p>
+
+<pre class="source">\documentclass[オプション]{文書のクラス}
+
+<code class="tag">\usepackage[dvips]{graphicx}</code>
+
+\begin{document}
+   ：
+<code class="tag">\includegraphics{</code>figure.eps<code class="tag">}</code>
+   ：
+\end{document}</pre>
+
+<p>埋め込む図や画像のサイズなどを指定する場合は，<em>\includegraphics</em> コマンドのオプションで指定します．オプションには <em>width</em>（幅），<em>height</em>（高さ），<em>scale</em>（拡大縮小率），および <em>angle</em>（回転角）が指定できます．</p>
+
+<pre class="source">\documentclass[オプション]{文書のクラス}
+
+\usepackage[dvips]{graphicx}
+
+\begin{document}
+   ：
+\includegraphics<code class="tag">[width=8cm]</code>{figure1.eps}
+   ：
+\includegraphics<code class="tag">[height=2in]</code>{figure2.eps}
+   ：
+\includegraphics<code class="tag">[angle=90]</code>{figure3.eps}
+   ：
+\end{document}</pre>
+
+<p>figure1.eps は横幅 8 センチ， figure2.eps は高さ 2 インチ，figure3.eps
+は90度回転して埋め込まれます．</p>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+<h2><a class="label" name="figure">図表がうまく収まるようにする</a></h2>
+
+<p>表や図がそのページに収まりきらないと， 改ページして次のページに出力されてしまいます． すると，元のページには大きな空白ができてしまうことがあります．<em>\begin{figure}</em> ～ <em>\end{figure}</em>（図の場合）あるいは <em>\begin{table}</em> ～ <em>\end{table}</em>（表の場合） で図表をはさむと， その図や表を収まりのいい場所に自動的に移動することができます．</p>
+
+<pre class="source"><code class="tag">\begin{figure}</code>
+\epsfbox{figure.eps}
+\caption{尾も白い犬}
+<code class="tag">\end{figure}</code>
+</pre><pre class="source"><code class="tag">\begin{table}</code>
+\begin{tabular}{|l|c||r|} \hline
+\multicolumn{2}{|c||}{メニュー} &amp; \multicolumn{1}{c|}{価格} \\ \hline
+ラーメン &amp; 並 &amp; 500 円 \\ \hline
+ラーメン &amp; 大 &amp; 600 円 \\ \hline
+チャーシューメン &amp; 並 &amp; 600 円 \\ \hline
+チャーシューメン &amp; 大 &amp; 700 円  \\ \hline
+\end{tabular}
+\caption{ラーメン屋の価格表}
+<code class="tag">\end{table}</code></pre>
+
+<ul>
+  <li>図や表にキャプションを入れるときは <em>\caption{文字列}</em> を使います．</li>
+  <li><em>\begin{figure<code class="tag">*</code>}</em> ～ <em>\end{figure<code class="tag">*</code>}</em>（図の場合）あるいは <em>\begin{table<code class="tag">*</code>}</em> ～ <em>\end{table<code class="tag">*</code>}</em>（表の場合） を用いると，２段組の場合に２段抜きで図表を挿入できます．</li>
+  <li><em>\begin{figure}<code class="tag">[場所]</code></em> として， 図表を挿入する場所の候補を指定できます．
+  <ul>
+    <li><em>h</em>: Here: LaTeX のソースファイル中で図表の置かれている場所．</li>
+    <li><em>t</em>: Top: ページの上部に寄せる．</li>
+    <li><em>b</em>: Bottom: ページの下部に寄せる．</li>
+    <li><em>p</em>: Page: 改ページして独立したページに載せる．</li>
+  </ul>
+  </li>
+  <li>これを省略したときは <em>[tbp]</em> （上に寄せられなければ下に寄せ，それでもだめなら改ページ）． </li>
+</ul>
+
+<p>図表を中央に揃える場合には，図表の部分を <em>\begin{center}</em> ～ <em>\end{center}</em> ではさんでください． その場合 <em>\leavevmode</em> を追加しないと，うまく中央に揃えられない場合があります．</p>
+
+<pre class="source">\begin{figure}<code class="tag">[t]</code>
+\begin{center}
+<code class="tag">\leavevmode</code>
+\includegraphics[width=60mm]{figure.eps}
+\caption{A white tail dog}
+\end{center}
+\end{figure}</pre>
+
+<div class="back"><a href="#index"><IMG src="back.gif" width="64" height="16" alt="BACK"></a></div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<head>
+<title>情報基礎演習II − 課題２３</title>
+</head>
+
+<body>
+
+<h3>課題２３</h3>
+
+<hr>
+
+<ol>
+
+<li>次のプログラムは、
+入力した名前を素のまま表示するだけのプログラムです。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai23
+** 動作: 文字列の入力
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char name[100];
+
+    printf("あなたの名前をいれてください:");
+    scanf("%99s", name);
+    printf("あなたの名前は %s です\n", name);
+
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このプログラムは "Horosue Ryoko" のように、
+名前の間に空白があると、
+空白の前の部分しか表示しません。
+<p>
+
+<li>このプログラムを、
+１個の空白をはさんで姓名を入力したときに、
+それが全て表示されるように修正してください。
+<p>
+
+<li>ソースプログラムのファイル名は kadai23.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai23 としてください。
+
+</ol>
+
+</body>

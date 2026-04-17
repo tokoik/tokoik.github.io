@@ -1,0 +1,635 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第１３回：Python の条件分岐と繰り返し</title>
+</head>
+
+<BODY>
+<H1>情報処理 I - 第１３回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>Python で条件分岐処理について理解する</LI>
+  <LI>Python で繰り返し処理について理解する</LI>
+</OL>
+<div class="footer"><a href="12.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<!--
+<H2><A name="enquete" class="label">授業評価アンケートのお願い</A></H2>
+<P>授業評価アンケート調査を行っています．協力をお願いします．下記のページ（リンクになっています）から<strong>来週以降に</strong>希望調査のページを開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>アンケートページの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.sys.wakayama-u.ac.jp/enquete/">http://www.sys.wakayama-u.ac.jp/enquete/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+-->
+<h2>１．条件分岐</h2>
+<h3>１．１　対話的処理</h3>
+<p><a href="12.html" target="_blank">前回</a>はスクリプトの<em>引数</em>をデータに使う方法を紹介しました．</p>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+
+x = int(argv[1])
+y = int(argv[2])
+
+print x, '+', y, '=',
+print x + y</PRE>
+<P>このスクリプトを保存したファイル名を sample.py とすれば，これは次のように実行します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>
+2 + 3 = 5</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>しかし，このスクリプトを<em>引数を付けずに実行</em>すると，<em>エラー</em>になってしまいます．これはリスト argv に argv[1] という要素がないというエラーです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けずに実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span>
+  File &quot;./sample.py&quot;, line 8, in &lt;module&gt;
+    x = int(argv[1])
+IndexError: list index out of range</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>そこで今回は，このスクリプトを引数を付けずに実行したときに，不足するデータを<em>キーボードから入力</em>するよう求めるよう，スクリプトを変更します．</p>
+<h3>１．２　キーボード入力</h3>
+<p>Python スクリプトの実行中にキーボードからデータの入力を行うには，<em>raw_input()</em> という関数が便利です．例えば，次の内容の name.py というスクリプトがあったとします．</P>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+name = <em>raw_input(</em>'May I your your name, please? '<em>)</em>
+print 'Hi! ' + name + '. Nice to meet you.'</PRE>
+<p>このスクリプトを実行すると，関数 raw_input() の <kbd>（</kbd>～<kbd>)</kbd> の間に置いた<em>引数</em>の文字列を<em>プロンプト</em>として出力して，データの入力を待ちます．入力されたデータは<em>文字列</em>として得られます．これを変数 name に格納しています．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を付けて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./name.py<KBD>[Enter]</KBD></span>
+<span class="source">May I your your name, please</span>? <span class="type">Kentaro<KBD>[Enter]</KBD></span>
+Hi! Kentaro. Nice to meet you.</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><a name="condition">１．３　if 文</a></h3>
+<P>必要な数のデータが引数に与えられているかどうかは，引数の数を関数 <em>len()</em> を使って変数 <em>sys.argv</em> の要素数を調べればわかります．その結果，引数の数が<em>２以外の場合</em>に処理を変更するようにすれば，（引数の数の違いによる）エラーを避けることができます．このような判断には <em>if</em> を使います．引数を２個与えたときには，sys.argv の要素数は３（<em>実際の引数の数より１多い</em>）になりますから，それ以外の場合はメッセージを出力することにします．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+<span class="type">argc = len(argv)</span>     <span class="anon"># 引数の数</span>
+
+<span class="type">if argc == 3:</span>        <span class="anon"># 引数の数が２個なら以下を実行する</span>
+<span class="type"><span class="hilit">    </span></span>x = int(argv[1])
+<span class="type"><span class="hilit">    </span></span>y = int(argv[2])
+
+<span class="type"><span class="hilit">    </span></span>print x, '+', y, '=',
+<span class="type"><span class="hilit">    </span></span>print x + y</span>
+<span class="type">else:</span>                <span class="anon"># そうでなければ以下を実行する</span>
+<span class="type"><span class="hilit">    </span>print u&quot;引数が足りません&quot;</span></PRE>
+<P><em>if</em> や <em>else</em> に続く行の<em>行頭の空白</em><span class="hilit">&nbsp;&nbsp;&nbsp;&nbsp;</span>は<strong>必ず入れてください</strong>．emacs なら，<kbd>[Tab]</kbd> キーをタイプすれば自動的に必要な数の空白が入ります．このように行頭に空白を入れてプログラムの行をずらすことを，<em>インデント</em>（字下げ）といいます．インデントされた部分は，直前の <em>if</em> の条件によって実行されたりされなかったりします．このように Python では，このインデントによってプログラムの<em>実行順序の制御</em>を行います．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数の数を変えて実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span>        <span class="anon"># 引数なし</span>
+引数が足りません
+% <span class="type">./sample.py 2<KBD>[Enter]</KBD></span>      <span class="anon"># 引数１個</span>
+引数が足りません
+% <span class="type">./sample.py 2 3<KBD>[Enter]</KBD></span>    <span class="anon"># 引数２個</span>
+2 + 3 = 5
+% <span class="type">./sample.py 2 3 4<KBD>[Enter]</KBD></span>  <span class="anon"># 引数３個</span>
+引数が足りません</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><em>if</em> および <em>elif</em> は，その右から <em>:</em> （コロン）までの間に置かれた条件にしたがって，プログラムの実行を制御します．条件が <em>True</em>（真＝成立する）とき，それに続く<em>インデントされた行</em>が実行されます．<em>else:</em> に続くインデントされた行は，すべての条件が <em>False</em>（偽＝成立しない）ときに実行されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>if ～ elif ～ else</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>if</EM> 条件１<em>:</em>
+<SPAN class="anon">    # <span class="type">条件１</span>が <em>True</em>（真）なら
+    # この部分の処理が実行される</SPAN>
+<EM>elif</EM> 条件２<em>:</em>
+<SPAN class="anon">    # <span class="type">条件１</span>が <em>False</em>（偽）のとき（成立しなかったとき）<span class="type">条件２</span>が <em>True</em>（真）なら
+    # この部分の処理が実行される</SPAN>
+<EM>elif</EM> 条件３<em>:</em>
+<SPAN class="anon">    # <span class="type">条件１・２</span>が <em>False</em>（偽）のとき（成立しなかったとき）<span class="type">条件３</span>が <em>True</em>（真）なら
+    # この部分の処理が実行される
+</SPAN>
+<span class="gray">...</span>
+
+<EM>else:</EM>
+<SPAN class="anon">    # 上のいずれの条件も <em>False</em>（偽）のとき<span class="type"></span>
+    # この部分の処理が実行される
+</SPAN>
+
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので条件にかかわり無く実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この条件としては，次のようなものが使用できます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH colspan="2">条件</TH>
+    </TR>
+    <TR>
+      <TD><em>True</em></TD>
+      <TD class="action">常に真</TD>
+    </TR>
+    <TR>
+      <TD><em>False</em></TD>
+      <TD class="action">常に偽</TD>
+    </TR>
+    <TR>
+      <TD><EM>非 0</EM></TD>
+      <TD class="action">0 でない数値は常に <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>0</em></TD>
+      <TD class="action">数値の 0 は常に <em>False</em>（偽）</TD>
+    </TR>
+    <TR>
+      <TD><em>&quot;</em>abc<em>&quot;</em></TD>
+      <TD class="action">1 文字以上の長さの文字列は常に <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>&quot;&quot;</em></TD>
+      <TD class="action">文字数が 0 の文字列（空文字列）は常に <em>False</em>（偽）</TD>
+    </TR>
+    <TR>
+      <TD><em>(</em>1,<em>)</em></TD>
+      <TD class="action">空でないタプルは常に <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>()</em></TD>
+      <TD class="action">空のタプルは常に <em>False</em>（偽）</TD>
+    </TR>
+    <TR>
+      <TD><em>[</em>&quot;aaa&quot;<em>]</em></TD>
+      <TD class="action">空でないリストは常に <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>[]</em></TD>
+      <TD class="action">空のリストは常に <em>False</em>（偽）</TD>
+    </TR>
+    <TR>
+      <TD><em>{</em>&quot;aaa&quot;:1<em>}</em></TD>
+      <TD class="action">空でないディクショナリは常に <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>{}</em></TD>
+      <TD class="action">空のディクショナリは常に <em>False</em>（偽）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>==</em> y</TD>
+      <TD class="action">x と y が等しいとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&lt;</em> y</TD>
+      <TD class="action">x が y より小さいとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&gt;</em> y</TD>
+      <TD class="action">x が y より大きいとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&lt;=</em> y</TD>
+      <TD class="action">x が y より小さいか y と等しいとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>&gt;=</em> y</TD>
+      <TD class="action">x が y より大きいか y と等しいとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>!=</em> y</TD>
+      <TD class="action">x と y が等しくないとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>and</em> y</TD>
+      <TD class="action">x と y がともに真のとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>or</em> y</TD>
+      <TD class="action">x と y のどちらかが真のとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD><em>not</em> x</TD>
+      <TD class="action">x が真のとき偽，偽のとき <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>in</em> dic</TD>
+      <TD class="action">dic というディクショナリに x というキーが含まれていれば <em>True</em>（真）</TD>
+    </TR>
+    <TR>
+      <TD>x <em>not in</em> dic</TD>
+      <TD class="action"><em>not</em> x <em>in</em> dic と同じ</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>最初に，引数の数が２個かどうかを確かめていた部分を，２個<em>以下</em>かどうかに変更します．そうすると，<em>else:</em> 以降が処理されるのは引数の数が３個以上のときになるので，その場合に出すメッセージも変更します．</P>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc <span class="type">&lt;=</span> 3:              <span class="anon"># 引数の数が２個<em>以下</em>なら以下を実行する（<em>==</em> を <em>&lt;=</em> に変更）</span>
+    x = int(argv[1])
+    y = int(argv[2])
+
+    print x, '+', y, '=',
+    print x + y
+else:                      <span class="anon"># そうでなければ（３個以上）以下を実行する</span>
+    print u&quot;引数が<span class="type">多すぎます</span>&quot;</PRE>
+<P>そうすると，最初の <em>if</em> 以降の部分では，引数の数が 0，1，2 の三つの場合を処理する必要が出てきます．そこで，ここでもう一度 <em>if</em> （および <em>elif</em>）を使って場合分けをします．引数の数が 3 の場合の処理は以前と変わりません．ただし，二つ目の <em>if</em> によって実行される部分を，更にもう一段階<em>インデント</em>します．emacs であれば，そこで <kbd>[Tab]</kbd> をタイプします．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+<span class="type">    </span>if argc == 3:           <span class="anon"># 引数の数が２個のとき</span>
+<span class="type">    </span>    x = int(argv[1])
+<span class="type">    </span>    y = int(argv[2])
+
+    print x, '+', y, '=',
+    print x + y
+else:<span class="anon"></span>
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>引数が１個しかないときは，x にそれを使い，y は改めてキーボードから入力してもらうようにします．これを行うために，<em>raw_input()</em> を使います．入力された<em>文字列</em>ですから，これを <em>int()</em> を使って<em>整数値</em>に変換して，y に代入します．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+<span class="type">    elif argc == 2:</span>                 <span class="anon"># 引数の数が１個のとき</span>
+<span class="type">        x = int(argv[1])</span>
+<span class="type">        y = int(raw_input('y = '))</span>  <span class="anon"># キーボードからの入力．'y = ' はプロンプト</span>
+
+    print x, '+', y, '=',
+    print x + y
+else:<span class="anon"></span>
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>引数が０個の場合は，x も y もキーボードから入力してもらうようにします．raw_input() を使って得た文字列を，int() により整数値に変換して，x および y に代入します．</P>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+    elif argc == 2:
+        x = int(argv[1])
+        y = int(raw_input('y = '))
+<span class="type">    elif argc == 1:</span>                 <span class="anon"># 引数の数が０個のとき</span>
+<span class="type">        x = int(raw_input('x = '))</span>  <span class="anon"># キーボードからの入力．'x = ' はプロンプト</span>
+<span class="type">        y = int(raw_input('y = '))</span>  <span class="anon"># キーボードからの入力．'y = ' はプロンプト</span>
+
+    print x, '+', y, '=',
+    print x + y
+else:<span class="anon"></span>
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>それでは，このスクリプトを実行してみましょう．引数の数を変えて実行して，期待通りの動作をするでしょうか．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>Python スクリプトを引数を変えながら実行する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py<KBD>[Enter]</KBD></span>
+x = <span class="type">10<KBD>[Enter]</KBD></span>
+y = <span class="type">20<KBD>[Enter]</KBD></span>
+10 + 20 = 30
+% <span class="type">./sample.py 10<KBD>[Enter]</KBD></span>
+y = <span class="type">20<KBD>[Enter]</KBD></span>
+10 + 20 = 30
+% <span class="type">./sample.py 10 20<KBD>[Enter]</KBD></span>
+10 + 20 = 30
+% <span class="type">./sample.py 10 20 30<KBD>[Enter]</KBD></span>
+引数が多すぎます</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">raw_input() と input()</DIV>
+  <div class="body">実は Python には，raw_input() とは別に <em>input()</em> という便利な関数があります．これを使うと int() で整数に変換する必要もなくなります．ただし，これはキーボードからの入力を単なる文字列としてではなく，Python のプログラムとして実行してしまいます（正確には「評価する」と言います）．したがって，そのことを考慮せずにこれを使うと<em>非常に危険</em>です．多くの場合，<em>input() は使わないほうが無難</em>です．なお，これは Python 2.x の機能であり，Python 3.x の input() は raw_input() と同じになります．</div>
+  <pre class="source">&gt;&gt;&gt; <span class="type">x = input('x を入れてください: ')<KBD>[Enter]</KBD></span>
+x を入れてください: <span class="type">1+1<KBD>[Enter]</KBD></span>
+&gt;&gt;&gt; <span class="type">x<KBD>[Enter]</KBD></span>
+2               <span class="anon">&larr; raw_input() なら '1+1' という文字列が入っている</span></pre>
+</BLOCKQUOTE>
+<H2><a name="iteration" class="label">２．繰り返し</a></H2>
+<h3>２．１　for 文</h3>
+<P>コンピュータでは同じことを繰り返す処理が頻繁に現れます．Python の繰り返し処理を行う仕組みには，<em>for 文</em>や <em>while 文</em>があります．sample.py は二つの数値 x と y を入力して，その和を出力していますが，これをもとに，x 個の <kbd>*</kbd> からなる文字列の行を y 行出力することを考えてみます．以下に例を示します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を y 行出力する（例）</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>'*' という文字列を x 回繰り返して出力するには，'*' * x とします．したがって，sample.py を次のように変更します．</p>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+    elif argc == 2:
+        x = int(argv[1])
+        y = int(raw_input('y = '))
+    elif argc == 1:
+        x = int(raw_input('x = '))
+        y = int(raw_input('y = '))
+
+<span class="type">    print '*' * x</span>        <span class="anon"># '*' を x 回繰り返して出力する</span>
+else:<span class="anon"></span>
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すると，次のようになります．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>この出力を y 回繰り返せば，x 個の * が y 行出力されます．このような繰り返しには <em>for 文</em>が使います．for は，for の右に置いた変数に，<em>in</em> の右に置いた反復子（タプルやリストなど）の要素を一つ一つ代入して，次行以降のインデントされた行を繰り返します．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>for ～ in</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>for </EM>変数 <em>in</em> 反復子<em>:</em>
+<SPAN class="anon">    # <span class="type">反復子</span>の一つ一つの要素を<span class="type">変数</span>に代入して
+    # この部分の処理が実行される</SPAN>
+<EM></EM>
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので繰り返し終了後に実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>例えば，反復子として 'abc' という３文字の文字列を指定すれば，３回繰り返されます．print '*' * x の行の前に，<em>for</em> ～ <em>in</em> による繰り返しを追加します．また，print '*' * x の行<em>はインデントを一段追加</em>します．</P>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+    elif argc == 2:
+        x = int(argv[1])
+        y = int(raw_input('y = '))
+    elif argc == 1:
+        x = int(raw_input('x = '))
+        y = int(raw_input('y = '))
+
+<span class="type">    for i in 'abc':</span>    <span class="anon"># 反復子として３文字の文字列を指定する</span>
+<span class="type">    </span>    print '*' * x
+else:
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すると，次のように文字列の長さ（文字数）だけ繰り返されます．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>したがって，反復子を y 文字の文字列にすれば，y 回繰り返すことができます．</P>
+<PRE class="source">#!/usr/bin/python<EM>
+</EM># -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:<span class="anon"></span>
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+    elif argc == 2:
+        x = int(argv[1])
+        y = int(raw_input('y = '))
+    elif argc == 1:
+        x = int(raw_input('x = '))
+        y = int(raw_input('y = '))
+
+    for i in <span class="type">'a' * y</span>:    <span class="anon"># 反復子として y 文字の文字列を指定する</span>
+        print '*' * x
+else:
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すれば，期待したどおりの動作をするはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>反復子に文字列を指定した場合</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>反復子としては，文字列以外にタプルやリストも使えます．タプルの場合は (1,) *y，リストの場合は ['a'] * y で同じことができます．しかし，反復子には通常 range() か xrange() を使います．</p>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+
+argv = sys.argv
+argc = len(argv)
+
+if argc &lt;= 3:
+    if argc == 3:
+        x = int(argv[1])
+        y = int(argv[2])
+    elif argc == 2:
+        x = int(argv[1])
+        y = int(raw_input('y = '))
+    elif argc == 1:
+        x = int(raw_input('x = '))
+        y = int(raw_input('y = '))
+
+    for i in <span class="type">xrange(y):</span>    <span class="anon"># 反復子として xrange(y) を指定する</span>
+        print '*' * x
+else:
+    print u&quot;引数が多すぎます&quot;</PRE>
+<P>これを実行すれば，先ほどと同じ動作をするはずです．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>反復子に xrange() を指定した場合</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*****
+*****
+*****</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BLOCKQUOTE>
+  <DIV class="header">range() と xrange()</DIV>
+  <div class="body">range() は引数に指定した数の整数の要素をもつリストを生成します．range(5) は [0, 1, 2, 3, 4] というリストを生成します．range() は最大で三つの引数を指定できます．range(x, y, z) のように指定した場合，x は初期値として y を超えない最大の整数まで z ずつ増加させながら値を生成します．xrange() は range() と同様に反復子として使用しますが，単体ではリストを生成しません（その分メモリの節約します）．なお，Python 3.x では range() は xrange() と同じになります．</div>
+  <pre class="source">&gt;&gt;&gt; <span class="type">range(5)<KBD>[Enter]</KBD></span>
+[0, 1, 2, 3, 4]
+&gt;&gt;&gt; <span class="type">range(3,8,2)<KBD>[Enter]</KBD></span>
+[3, 5, 7]
+&gt;&gt;&gt; <span class="type">xrange(8,3,-2)<KBD>[Enter]</KBD></span>
+xrange(8, 2, -2)    <span class="anon"># xrange() は 'xrange オブジェクト' を生成する</span>
+&gt;&gt;&gt; <span class="type">list(range(8,3,-2))<KBD>[Enter]</KBD></span>
+[8, 6, 4]           <span class="anon"># list() の引数に使うとリストが生成される</span></pre>
+</BLOCKQUOTE>
+<h3><a name="while" class="label">２．２　while 文</a></h3>
+<p>繰り返しを行う方法には，他に <em>while</em> があります．<em>else:</em> 以降は省略できます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>while ～ else</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE><EM>while </EM>条件<em>:</em>
+<SPAN class="anon">    # <span class="type">条件</span>が <em>True</em>（真）の間（成立している限り），
+    # この部分の処理が実行される</SPAN>
+<em>else:</em>
+    <span class="anon"># <span class="type">条件</span>が <em>False</em>（偽）になって繰り返しが終了したら，</span>
+<SPAN class="anon">    # この部分の処理が実行される</SPAN>
+<EM></EM>
+<SPAN class="anon"># この部分は<em>インデントされていない</em>ので繰り返し終了後に実行される</SPAN></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>次のような使い方をします．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x 個の * からなる文字列の行を１行出力する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; i = 0
+&gt;&gt;&gt; while i &lt; 5:
+...     print i
+...     i += 1        <span class="anon"># i に 1 を足す</span>
+... else:
+...     print u&quot;おわり&quot;
+...
+0
+1
+2
+3
+4
+おわり</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>宿題</h2>
+<p>次の  (1) の作業を行ってください．完了したら，作成したスクリプトの内容を<span class="assign">メールの本文に<A href="04.html#copyandpaste">コピー＆ペースト</A>し，</span>その後に (2) の内容を追加して <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-13">tokoi@sys.wakayama-u.ac.jp</A> に送ってください．メールの件名 (Subject) は shori1-13 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) 「<a href="#iteration">２．４ 繰り返し</a>」において作成した sample.py
+  を次のような出力が得られるよう修正してください（ヒント：最初の行は i == 0，最後の行は i == y - 1 ですから，これで場合分けすることができます．あるいは，３つの部分を別々に出力するという方法もあると思います）．</DIV>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH><p>幅 x 高さ ｙ の箱を * で描く</p></TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">./sample.py 5 4<KBD>[Enter]</KBD></span>
+*****
+*   *
+*   *
+*****
+% <span class="type">./sample.py 8 7<KBD>[Enter]</KBD></span>
+********
+*      *
+*      *
+*      *
+*      *
+*      *
+********</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<div class="assign">(2) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="12.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</html>

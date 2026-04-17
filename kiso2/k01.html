@@ -1,0 +1,103 @@
+<head>
+<title>情報基礎演習II − 課題１</title>
+</head>
+
+<body>
+
+<h3>課題１</h3>
+
+<hr>
+
+<ol>
+
+<li>次のソースプログラムを
+kadai1.c というファイル名で作成してください。
+<p>
+
+<table width="90%" border bgcolor="#ffffff">
+<tr><td>
+<pre>
+/*
+** プログラム名: kadai1
+** 動作: なにもしないで終了ステータス０を返す。
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
+*/
+main()
+{
+    return 0;
+}
+</pre>
+</table>
+<p>
+
+<li>このソースプログラムをコンパイル／リンクし、
+kadai1 という名前の実行プログラムを作成してください。
+次のコマンドは kadai1.c をコンパイル／リンクして
+kadai1 という実行プログラムを作成します。
+
+<blockquote>
+<pre>
+% cc kadai1.c -o kadai1
+</pre>
+</blockquote>
+
+<li>kadai1 を実行し、
+なにも起こらないことを確かめてください。
+
+<blockquote>
+<pre>
+% kadai1
+% （何も起こらない）
+</pre>
+</blockquote>
+
+<li>このプログラムは、
+実行すると main のところから順番に処理を開始しようとします。
+<tt>return 0;</tt> は
+<a href="h06.html">終了ステータス</a>を 0 にして
+プログラムを終了させます。
+これはプログラムが正常に実行できたことを意味します。
+<p>
+
+<li>このプログラムの
+終了ステータスが 0 であったことを確かめてください。
+直前に実行したプログラムの終了ステータスは
+$status という csh 変数に格納されています。
+
+<blockquote>
+<pre>
+% kadai1
+% echo $status
+0
+</pre>
+</blockquote>
+
+<li>では次に、kadai1.c の終了ステータスが１になるよう修正してください。
+<p>
+
+<li>kadai1.c を再びコンパイル／リンクし、
+kadai1 という名前の実行プログラムを作成してください。
+<p>
+
+<li>kadai1 を実行し終了ステータスが１になっていることを確かめてください。
+<p>
+
+<li>以上の作業が終了したら、
+kadai1.c を <a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>
+までメールで送ってください。
+このとき Subject: は kadai1 にしてください。
+<p>
+
+<li>Subject: kadai1 で kadai1.c というファイルをメールで tokoi 宛に送るには、
+次のようなコマンドを実行してください。
+
+<blockquote>
+<pre>
+% euctojis kadai1.c | Mail -s kadai1 tokoi
+</pre>
+</blockquote>
+
+</ol>
+
+</body>

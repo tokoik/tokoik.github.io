@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<head>
+<META name="GENERATOR" content="IBM HomePage Builder 2001 V5.0.4.1 for Windows">
+<title>情報処理 I － 第２回：日本語の入力、ウィンドウシステムの操作、Webブラウザ</title>
+<STYLE type="text/css">
+<!--
+A { text-decoration: none; }
+A:hover { text-decoration: underline; color: #ff0000; }
+-->
+</STYLE>
+</head>
+
+<BODY bgcolor="#ddeeff" vlink="#000080">
+<h1>情報処理 I - 第２回</h1>
+
+<hr>
+<h2>１．日本語の入力</h2>
+<hr>
+
+<H3>１．１　Input Method</H3>
+
+<P>今の状態では、皆さんは日本語を使うことができません。日本語を使うためには、ログイン時に日本語の<B>入力方法 (Input Methid: IM</B>) を指定する必要があります。この授業では、日本語の入力に
+<B>Wnn7/input2</B> というシステムを使います。<B>Wnn7</B> が入力したかなやローマ字を漢字に変換するシステムで、<B>kinput2</B> がキーボードからの入力を Wnn7 に送り、変換結果をアプリケーションプログラムに渡します。</P>
+
+<H3>１．２　Input Method の選択</H3>
+
+<P align="center"><IMG src="im.gif" width="400" height="144" border="0"></P>
+
+<P>ログイン画面で<B>ログイン名</B>と<B>パスワード</B>を入力する<FONT color="#ff0000"><B>前</B></FONT>に、右下の
+<B>Input Method</B> のボタンをクリックして、<B>Wnn7/kinput2</B> を選んでおいてください。
+なお、この最初に操作は<B>１回だけ</B>行います（次回以降のログインでは、以前の設定が保存されています）。</P>
+
+<H3>１．３　Language について</H3>
+
+<P><B>Language</B> はデフォルト（なにも指定しなかった状態）では
+<B>Japanese (Japan) EUC-JP</B> が選択されているので、特に何も指定する必要はありません。
+もし、異なる言語で表示される場合は、ここで Japanese
+(Japan) EUC-JP を選択してからログインしてください。
+あるいは、自分の好みの言語を指定してください。</P>
+
+<H3>１．４　日本語の入力方法<IMG src="terminal.gif" width="48" height="48" border="0" align="right" hspace="5"></H3>
+
+<P>(1) まず、日本語を入力するアプリケーション（ウィンドウ）を選択します。ここでは試しに<B>ターミナル</B>を使ってみましょう。</P>
+
+<P>(2) 次に、<TT><B>Shift</B></TT>キーを押しながら<B>スペースバー</B>をタイプしてください。
+すると、どこかに<IMG src="a.gif" width="36" height="22" border="0" alt="[あ]" align="middle">
+という小さなウィンドウが現れます。</P>
+
+<P align="center"><IMG src="kinput1.gif" width="400" height="96" border="0"></P>
+
+<P>(3) そのまま<B>ローマ字</B>でタイプすると、それが<B>ひらがな</B>になって入力されます。</P>
+
+<P align="center"><IMG src="kinput2.gif" width="400" height="96" border="0"></P>
+
+<P>(4) <B>スペースバー</B>をタイプすると、入力したひらがなが<B>漢字かな混じり文</B>に変換されます。</P>
+
+<P align="center"><IMG src="kinput3.gif" width="400" height="96" border="0"></P>
+
+<P>(5) 上の例では「強-歯医者へ」でひとつの文節になっています。これを短くするには、
+<TT><B>Ctrl-I</B></TT> (<TT><B>Ctrl</B></TT> を押しながら <TT><B>I</B></TT>) をタイプするか、
+<TT><B>Shift</B></TT>を押しながら<B>←（左矢印）</B>キーをタイプします。
+文節を伸ばすには <TT><B>Ctrl-O</B></TT> をタイプするか、
+<TT><B>Shift</B></TT>を押しながら<B>→（右矢印）</B>キーをタイプします。</P>
+
+<P align="center"><IMG src="kinput4.gif" width="400" height="96" border="0"></P>
+
+<P>(6) 変換対象の文節を右に移動するには<TT><B>Ctrl-F</B></TT> をタイプするか、
+<B>→（右矢印）</B>をタイプします。
+左に移動するには <TT><B>Ctrl-B</B></TT> をタイプするか、
+<B>←（左矢印）</B>をタイプします。</P>
+
+<P align="center"><IMG src="kinput5.gif" width="400" height="96" border="0"></P>
+
+<P>(7) 次の変換候補を呼び出すには<B>スペースバー</B>あるいは <TT><B>Ctrl-N</B></TT><TT> あるいは
+</TT><B>↓（下矢印）</B>、前の候補を呼び出すには<TT><B>Ctrl-P</B></TT><TT> あるいは
+</TT>または<B>↑(上矢印）</B>をタイプします。
+なお、カタカナに変換するにはファンクションキーの<B>F7</B>、ひらがなに戻すには<B>F8</B>を使います。</P>
+
+<P align="center"><IMG src="kinput6.gif" width="400" height="96" border="0"></P>
+
+<P>(8) <TT><B>Ctrl-m</B></TT>か<TT><B>Ctrl-l</B></TT>か<TT><B>Enter</B></TT> をタイプすれば、
+変換結果が<B>確定</B>します。</P>
+
+<P align="center"><IMG src="kinput7.gif" width="400" height="96" border="0"></P>
+
+<P>(9) 再度、<TT><B>Shift</B></TT>キーを押しながら<B>スペースバー</B>をタイプすれば、日本語の入力を終了します。</P>
+<CENTER>
+<TABLE border="" width="512">
+  <TBODY>
+    <TR>
+      <TH bgcolor="#ffcccc">日本語の入力がうまくできないとき</TH>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffffcc">一旦ログアウトしてから、もう一度ログインしてみてください。それでもうまくいかなければ、Input
+      Method をもう一度選びなおしてからログインしなおしてみてください。どうしてもだめなようなら、教員に相談してください。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<hr>
+<h2>２．ウィンドウシステムの操作</h2>
+<hr>
+
+<h3><A name="window">２．１　ウィンドウシステムについて</A></h3>
+
+<P>コンピュータを起動すると、まず<A href="01.html#os">オペレーティングシステム</A>が起動します。
+このオペレーティングシステムの重要な役割のひとつに、
+ディスプレイやキーボードなどの入出力装置の管理があります。特に最近のオペレーティングシステムでは、
+ディスプレイ上に複数の仮想的な画面（ウィンドウ、窓）を開いて複数の作業を同時にこなすことができる
+<B>ウィンドウシステム</B>を搭載することが一般的です。Microsoft の
+Windows や Apple の MacOS では、ウィンドウシステムはオペレーティングシステムに<B>組み込まれて</B>いますが、
+この授業で使う Linux や Unix では
+<A href="http://www.mit.edu/">MIT</A>(マサチューセッツ工科大学） で開発された
+<B><A href="http://www.x.org/">X Window System</A></B> という
+(オペレーティングシステムとは独立した)ソフトウェアがよく使用されます。</P>
+<P><B>ターミナル</B>などのウィンドウシステムに対応したアプリケーションソフトウェアは、
+自分が行おうとする画面表示をウィンドウシステムに対して<B>要求</B>します。
+ウィンドウシステムはこの要求に基づいて画面表示を行います。
+言わば、ウィンドウシステムはお客の要求にしたがって食事を出す<B>サーバ</B>（給仕）であり、
+アプリケーションプログラムはサーバーに対して要求を出す<B>クライアント</B>（客)の役割を果たします。
+したがって、このようなソフトウェアの形態を<B>サーバ・クライアントモデル</B>と呼びます。</P>
+
+<P>X Window System では、画面表示用のハードウェア（ビデオカード等）を制御するソフトウェアのことを
+<B>X サーバ</B>、X サーバに対して画面表示を要求するソフトウェアのことを
+<B>X クライアント</B>と呼びます。X Window System における X サーバと
+X クライアント間の<B>通信</B>はネットワークに対して<B>透過的</B>であり、ある X クライアントの画面表示を、LAN
+等を介して他のコンピュータ上で稼動している
+X サーバに出力することができます。</P>
+
+<H3>２．２　ウィンドウを開く</H3>
+
+<P>では、<B>ターミナル</B>を開いてください。
+ターミナルは画面の下端のパネルにあるディスプレの形をした<B>アイコン</B>をクリックすれば開きます。</P>
+
+<P align="center"><IMG src="panel.gif" width="380" height="91" border="0"></P>
+
+<P>ターミナルは、<B>rxvt</B> というアプリケーションです。
+この中でさらに「<B>シェル</B>｣と呼ばれるプログラムが稼動しています。
+ターミナルのウィンドウの周囲は、次のようになっています。</P>
+
+<p align="center"><IMG src="frame.gif" width="401" height="281" border="0"></p>
+
+<P>このウィンドウの周囲の<B>枠</B>はターミナル自身が付けているのではなく、
+<B>ウィンドウマネージャ</B>という別のソフトウェアが付けています
+（<B>スクロールバー</B>はターミナル自身のものです)。</P>
+
+<H3>２．３　ウィンドウマネージャについて</H3>
+
+<P>ウィンドウマネージャはウィンドウシステム上の個々のウィンドウを管理し、
+マウスの操作などの情報をウィンドウシステムやアプリケーションプログラムに伝達します。
+ウィンドウを移動したり、ウィンドウのサイズを変えたり、ウィンドウを閉じたりする操作は、
+このウィンドウマネージャによって実現されています。</P>
+
+<P>X Window System ではウィンドウマネージャがウィンドウシステムやオペレーティングシステムから
+<B>独立</B>しているために、ウィンドウマネージャや<B>デスクトップ環境</B>が<B>交換可能</B>です。
+これらを別のものに交換することによって、
+コンピュータの画面の見かけや操作方法を全く異なるものに変更することができます。
+この授業では <B>sawfish</B> というウィンドウマネージャを使用しています。</P>
+
+<BLOCKQUOTE><FONT size="-1">デスクトップ環境とは、
+画面の背景部分やメニューなどを管理するソフトウェアです。Linux
+で使われる代表的なものに、<A href="http://www.gnome.org/">GNOME</A> と
+<A href="http://www.kde.org/">KDE</A> (K Desktop Environment) があります。
+sawfish は GNOME と組み合わせて使われるウィンドウマネージャです。</FONT></BLOCKQUOTE>
+
+<P>ウィンドウマネージャやデスクトップ環境の切り替えは、ログイン画面の
+<TT><B>Session</B></TT> のボタンで行います。最初は <B>GNOME</B> が選択されており、
+この授業も GNOME を前提にしています。もし他のものを選択した場合は、一旦ログアウトして
+GNOME に戻すか、自分の選択したものを自分で勉強して使ってください。</P>
+
+<P align="center"><IMG src="session.gif" width="400" height="144" border="0"></P>
+
+<H3>２．４　ウィンドウを移動する</H3>
+
+<p>ウィンドウを移動するには、次の２つの方法があります。</p>
+
+<ol>
+<li><B>タイトルバー</B>をドラッグする。</li>
+<li><B>ウィンドウフレーム</B>をマウスの<B>中ボタン</B>でドラッグする。</li>
+</ol>
+
+<P align="center"><IMG src="move.jpg" width="400" height="300" border="0"></P>
+
+<h3>２．５　ウィンドウのサイズを変える</h3>
+
+<p>ウィンドウのサイズを変更するには、次の２つの方法があります。</p>
+
+<ol>
+<li><B>タイトルバー</B>をマウスの<B>中ボタン</B>でドラッグする。</li>
+<li><B>ウィンドウフレーム</B>をドラッグする。</li>
+</ol>
+
+<P align="center"><IMG src="resize.jpg" width="400" height="300" border="0"></P>
+
+<h3>２．６　奥のウィンドウを手前に出す</h3>
+
+<p>他のウィンドウで隠されてしまったウィンドウを前面に出すには、次の２つの方法があります。</p>
+
+<ol>
+  <LI><B>タイトルバー</B>か<B>ウィンドウフレーム</B>をクリックする。</li>
+  <li><B>タイトルバー</B>か<B>ウィンドウフレーム</B>をマウスの<B>右ボタン</B>でクリックする
+  （クリックするたびに順序が入れ替わります)。</li>
+</ol>
+
+<P align="center"><IMG src="raise.jpg" width="600" height="225" border="0"></P>
+
+<UL>
+  <LI>この他に、タスク・リストや画面の右上隅のボタンを使って表に出したいウィンドウを選択することができます。</li>
+</UL>
+
+<P align="center"><IMG src="task.jpg" width="400" height="300" border="0"></P>
+
+<h3>２．７　手前のウィンドウを奥に送る</h3>
+
+<P>手前にあるウィンドウを奥に送って隠れているウィンドウを表に出す方法は、前節の２と同じです。</P>
+
+<ol>
+<li><B>タイトルバー</B>か<B>ウィンドウフレーム</B>をマウスの<B>右ボタン</B>でクリックする
+  （クリックするたびに順序が入れ替わります)。</li>
+</ol>
+
+<h3>２．８　ウィンドウを最小化する</h3>
+
+<P>ウィンドウを最小化するには、「<B>最小化</B>」ボタンをクリックしてください。</P>
+
+<center><IMG src="minimize.gif" width="400" height="96" border="0"></center>
+
+<UL>
+  <LI>最小化したウィンドウを元に戻すには、 画面下の<B>タスク・リスト</B>に表示されている、
+  対応する<B>タスク</B>をクリックしてください。</li>
+</UL>
+
+<P align="center"><IMG src="tasklist.jpg" width="400" height="48" border="0"></P>
+
+<h3>２．９　ウィンドウを最大化する</h3>
+
+<P>ウィンドウを最大化するには、「<B>最大化</B>」ボタンをクリックしてください。</P>
+
+<P align="center"><IMG src="maximize.gif" width="400" height="96" border="0"></P>
+
+<UL>
+  <LI>「最大化」ボタンをマウスの<B>中ボタン</B>でクリックすると<B>縦方向</B>に、
+  <B>右ボタン</B>でクリックすると<B>横方向</B>に最大化します。</li>
+  <LI>最大化したウィンドウを元に戻すには、<B>もう一度</B>最大化ボタンをクリックしてください。</li>
+</UL>
+
+<h3>２．１０　ウィンドウを折りたたむ</h3>
+
+<P>ウィンドウを折りたたむと、ウィンドウはタイトルバーだけになります。
+ウィンドウを折りたたむには、次の２つの方法があります。</P>
+
+<ol>
+  <LI><B>タイトルバー</B>を<B>ダブルクリック</B>する。</li>
+  <li>「<B>たたむ</B>」ボタンをクリックする。</li>
+</ol>
+
+<P align="center"><IMG src="collapse.gif" width="400" height="96" border="0"></P>
+
+<UL>
+  <LI>たたんだウィンドウを元に戻すには、<B>もう一度</B>タイトルバーをダブルクリックするか、
+  「たたむ」ボタンをクリックしてください。
+</UL>
+
+<H3>２．１１　ウィンドウを閉じる</H3>
+
+<P>次の２つの方法があります。</P>
+
+<OL>
+  <LI>アプリケーションプログラムを<B>終了</B>する。</li>
+  <LI>「<B>閉じる</B>｣ボタンをクリックする。</li>
+</OL>
+
+<UL>
+  <LI>ターミナル (rxvt) を終了させるには、その中で動いているシェルを終了させます。シェルを終了させるには
+  <B>exit</B> というコマンドを使います。<TT><B>Ctrl-D</B></TT> をタイプしてもシェルを終了することができます。</li>
+</UL>
+
+<P align="center"><IMG src="exit.gif" width="400" height="96" border="0"></P>
+
+<UL>
+  <LI>タイトルバーの左側にある「閉じる」ボタン（クローズボックス)は、単にそのウィンドウを閉じます。
+  ウィンドウを閉じたことによってアプリケーションプログラムがこれ以上動作している必要がないと自分で判断した場合に、
+  アプリケーションプログラムは終了します。</li>
+</UL>
+
+<P align="center"><IMG src="close.gif" width="400" height="96" border="0"></P>
+
+<UL>
+  <LI>通常はアプリケーションプログラムを<B>終了</B>させて、ウィンドウを閉じてください。</li>
+</UL>
+
+<H3>２．１２　ポップアップメニューによる操作</H3>
+
+<P>「<B>閉じる</B>」ボタンや「<B>最小化</B>」ボタンをマウスの<B>右ボタン</B>でクリックすると、
+<B>ポップアップメニュー</B>が現れます。</P>
+
+<P align="center"><IMG src="popup.jpg" width="400" height="250" border="0"></P>
+
+<P>ポップアップメニューからはこれまでに述べたウィンドウ操作のほか、より高度な操作が行えるようになっています。</P>
+
+<H3>２．１３　アプリケーションプログラムの強制終了</H3>
+
+<P>X Window Ssytem 上で動作しているアプリケーションプログラムが通常の方法では終了できなくなったり、
+「閉じる｣ボタンをクリックしてもウィンドウが閉じなくなったときは、<B>強制終了</B>することができます。</P>
+
+<UL>
+  <LI><B>タスク・リスト</B>の終了したい<B>タスク</B>の上でマウスの<B>右ボタン</B>をクリックし、
+  表示される<B>ポップアップメニュー</B>から「<B>殺す</B>」を選ぶ。</li>
+</UL>
+
+<P align="center"><IMG src="kill.jpg" width="400" height="192" border="0"></P>
+
+<UL>
+  <LI>他に<B>シェル</B>（ターミナル)で <B>xkill</B> というコマンドを実行する方法や、プロセス
+  ID を調べてシグナルを送る方法などがあります。</li>
+</UL>
+
+<hr>
+<h2>２．Ｗｅｂブラウザの操作</h2>
+<hr>
+
+<P>インターネットの代名詞でもある WWW (World
+Wide Web) を 参照するソフトウェアを“Web
+ブラウザ”と言います。 これには Windows に組み込まれている
+Internet Explorer が最もよく使われていますが、Linux
+用のものはありません。代わりにここの Linux
+にはオープンソースで開発が進められている
+<A href="http://www.mozilla.org/"><B>Mozilla</B></A> をはじめ、GNOME 標準で Mozilla をベースにしたタブブラウザ
+<B>Galeon</B>、テキストベースの <B>lynx</B> や <B>w3m</B>、テキストエディタ
+Emacs の中で動く <B>w3</B>、それにファイルマネージャである
+<B>Nautilus</B> など、さまざまなものがあります。この授業では
+Mozilla から派生した（そして、実際には Internet
+Explorer 以前に広く普及していてインターネットブームを起こす立役者であった）
+<A href="http://www.netscape.com/"><B>Netscape</B></A> を使用します。</P>
+
+<H3>２．１　Netscape の起動</H3>
+
+<p>画面の下のパネルにある Netscape のアイコンをクリックしてください。</p>
+<p align="center"><IMG src="netscape1.gif" width="380" height="64" border="0"></p>
+
+<p>すると、Netscape が起動します（ちょっと時間がかかります）。最初に
+Netscape を起動すると、有効化 (<B>Activation</B>) のウィンドウが現れます
+(次回以降このウィンドウは現れません)。</p>
+
+<p align="center"><IMG src="netscape2.jpg" width="400" height="414" border="0"></p>
+
+<P>有効化はしてもかまいませんが（Netscape 社から無料のメールアドレスがもらえます）、
+この授業では必要ないので、ここでは<B>キャンセル</B>してください。
+すると<B>念押し</B>のウィンドウが現れます。</P>
+
+<P align="center"><IMG src="netscape3.jpg" width="400" height="85" border="0"></P>
+
+<P>ここでも<B>キャンセル</B>をクリックしてください。しばらく待っていると、Netscape
+の本体が起動します。</P>
+
+<p align="center"><IMG src="netscape4.jpg" width="600" height="457" border="0"></p>
+
+<P>「<B>今すぐ使ってみよう！</B>」をクリックしてください。</P>
+
+<h3>２．２　Netscape の初期設定</h3>
+
+<p>Netscape を使うにあたり、
+いくつか初期設定を行っておく必要があります。
+まず最初に、メニューバーの "編集" メニューから、
+"設定" を選んでください。</p>
+
+<p align="center"><IMG src="netscape5.jpg" width="400" height="300" border="0"></p>
+
+<p>下のようなダイアログウィンドウが現れます。</p>
+
+<P align="center"><IMG src="netscape6.gif" width="400" height="280" border="0"></P>
+
+<P>&quot;カテゴリ&quot; という枠の中の 詳細&quot;
+の左にある<B>三角マーク</B>をクリックしてください。 そこに下層のメニューが広がります。</P>
+
+<P align="center"><IMG src="netscape7.gif" width="600" height="400" border="0"></P>
+
+<P>プロキシを選択し、自動プロキシ構成 URL: を選択した後、その下の欄に、以下の内容を設定してください。</P>
+
+<CENTER>
+<TABLE border="1" width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT>http://www.sys.wakayama-u.ac.jp/proxy.pac</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P>最後に OK をクリックしてください。</P>
+
+<P align="center"><IMG src="netscape8.gif" width="400" height="96" border="0"></P>
+
+<H3><A name="nsmail">２．３　メールの設定</A></H3>
+
+<P>Netscape のメール機能 (Netscape Mail) は、この授業では原則的に使用しませんが、Web
+ブラウジングの際などに Netscape Mail を使用しなければならない場面が少なからずあります。
+そのようなときに正しくメールの送受信ができるように、Netscape
+Mail のアカウント設定を行っておきます。</P>
+
+<P>NetNetscape のウィンドウの左下隅にある<B>封筒</B>のボタンをクリックしてください。</P>
+
+<P align="center"><IMG src="netscape9.gif" width="400" height="96" border="0"></P>
+
+<P>「<B>アカウントウィザード</B>」が起動します。</P>
+
+<P align="center"><IMG src="mail1.jpg" width="400" height="335" border="0"></P>
+
+<P>「<B>新規アカウントの設定</B>」では、「<B>ISPまたは電子メールプロバイダ</B>」を選択し、
+「<B>次へ</B>｣をクリックしてください。</P>
+
+<P align="center"><IMG src="mail2.jpg" width="400" height="335" border="0"></P>
+
+<P>「<B>個人情報</B>」では「<B>名前</B>｣の欄に<B>自分の名前</B>（ローマ字推奨）、
+電子メールのアドレスは「自分のログイン名@sys.wakayama-u.ac.jp」にしてください。
+ログイン名が<B> s075000</B> なら、メールアドレスは次のようになります
+(メールアドレスは<B>利用承認書</B>にも記載されています)。</P>
+
+<CENTER>
+<TABLE border="1" width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT>s075000@sys.wakayama-u.ac.jp</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER><P align="center"><IMG src="mail3.jpg" width="400" height="335" border="0"></P>
+<P>「<B>サーバ情報</B>」では、<B>使用する受信サーバ</B>のタイプとして <B>IMAP</B> を選択してください。また、<B>受信サーバ</B>、<B>送信サーバ</B>とも、以下の内容を設定してください。</P>
+<CENTER>
+<TABLE border="1" width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT>mail.sys.wakayama-u.ac.jp</TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P align="center"><IMG src="mail4.jpg" width="400" height="335" border="0"></P>
+
+<P><B>ユーザ名</B>には自分の<B>ログイン名</B>を指定してください。</P>
+
+<P align="center"><IMG src="mail7.jpg" width="400" height="335" border="0"></P>
+
+<P>｢<B>アカウント名</B>」は<B>そのまま</B>で結構です(変えてもかまいません)。</P>
+
+<P align="center"><IMG src="mail5.jpg" width="400" height="335" border="0"></P>
+
+<P>これでメールの設定が<B>完了</B>しました。設定が正しいかどうか確認してください。
+間違っていれば「<B>戻る</B>｣のボタンを押して、訂正してください。</P>
+
+<P align="center"><IMG src="mail6.jpg" width="400" height="294" border="0"></P>
+
+<P>Netscape の Mail が起動します。「<B>名前</B>｣の欄にあるアカウント名をクリックすれば、
+そのアカウントの操作画面が現れます。自分宛てのメールを読むには、
+「メッセージを読む｣をクリックしてください。そうすると<B>パスワード</B>を聞いてきます。</P>
+
+<P align="center"><IMG src="mail8.jpg" width="400" height="147" border="0"></P>
+
+<P><B>ログイン</B>のときに使う<B>パスワード</B>を入力してください。
+メールを読むたびにパスワードを入力するのが面倒なら、パスワードを<B>記憶</B>させておいてください。</P>
+
+<h3><A name="url">２．４　URL を開く</A></h3>
+<P>システム工学部のホームページを開いてみましょう。
+システム工学部のホームページを開くには、</P>
+
+<CENTER>
+<TABLE border="1" width="400">
+  <COL span="1" align="center">
+  <TBODY>
+    <TR>
+      <TD><TT><A href="http://www.sys.wakayama-u.ac.jp/" target="_blank">http://www.sys.wakayama-u.ac.jp/</A></TT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<P>という <B>URL</B> (Universal Resouce Locator) を指定します。URL
+は Web ページの<B>場所</B>（住所）です。</P>
+
+<P align="center"><IMG src="open.jpg" width="400" height="320" border="0"></P>
+
+<P>メニューバーの<B>ファイル</B>メニューから &quot;<B>Webの場所を開く</B>&quot; を選ぶか、
+<TT><B>Ctrl-Shift-L</B></TT> をタイプしてください。すると、次のようなウィンドウが現れます。</P>
+
+<P align="center"><IMG src="openurl.jpg" width="400" height="152" border="0"></P>
+
+<P>ここに上の <B>URL</B> をタイプし、 その後「<B>開く</B>」のボタンをクリックしてください。
+システム工学部のホームページが表示されると思います。
+Netscape 本体のウィンドウ上部にある欄に書かれている内容を直接書き換えた後
+<TT><B>Enter</B></TT> をタイプしてページを開くこともできます。</P>
+
+<P align="center"><IMG src="syskou.jpg" width="600" height="288" border="0"></P>
+
+<P>なお、この資料自体は
+<A href="http://www.sys.wakayama-u.ac.jp/~tokoi/lecture/shori1/" target="_blank">
+http://www.sys.wakayama-u.ac.jp/~tokoi/lecture/shori1/</A> にあります。</P>
+
+<h3><IMG src="bookmark.jpg" width="400" height="400" border="0" align="right">２．５　ブックマークに加える</h3>
+
+<p><B>ブックマーク</B>は、 よく参照するページを覚えておく機能です。</p>
+
+<ol>
+<li>ブックマークのボタンをクリックすると、 登録されている
+  Web ページの<B>一覧</B>が現れます。<li>この一覧の一番上の「<B>ブックマークに追加 Ctrl+D</B>」を選ぶか、
+  <TT><B>Ctrl-D</B></TT> をタイプすれば、 この一覧の一番下に、 現在表示されているページが登録されます。
+  以降はこれを選ぶだけで、 すぐこのページを表示することができます。</li>
+  <li>この講義は上記の Web ページを参照しながら進めますので、ブックマークに<B>追加</B>しておいてください。</li>
+</ol>
+
+<p>すでにいくつかのブックマークが登録されていますが、
+日本からでは使いようのないものも結構あるので、
+必要に応じて自分で整理してください。「<B>ブックマークの管理 Ctrl+B</B>」を選ぶか
+<TT><B>Ctrl-B</B></TT> をタイプすれば、 ブックマークの管理ウィンドウが現れます。</p>
+
+<h3>２．６　見たいページを探す</h3>
+
+<p>自分の見たいページを探すには、
+<B>サーチエンジン</B>と呼ばれる Web ページを利用します。 インターネット上には多くのサーチエンジンがありますが、
+これらはおおまかに次の２つのタイプに分類することができます。</p>
+
+<dl>
+
+<dt><b>ディレクトリ型</b></dt>
+<dd>人手によって Web ページの情報を分類・整理し、
+階層的なデータベースにしたものです。
+代表的なものには、以下のようなものがあります。
+  <ul>
+    <li><A href="http://www.yahoo.co.jp/" target="_blank">http://www.yahoo.co.jp/</A></li>
+    <li><A href="http://www.lycos.co.jp/" target="_blank">http://www.lycos.co.jp/</A></li>
+    <li><A href="http://search.biglobe.ne.jp/" target="_blank">http://search.biglobe.ne.jp/</A></li>
+    <li><A href="http://www.fresheye.com/" target="_blank">http://www.fresheye.com/</A></li>
+    <li><A href="http://www.inetg.com/" target="_blank">http://www.inetg.com/</A></li>
+    <li><A href="http://www.isize.com/" target="_blank">http://www.isize.com/</A></li>
+</ul></dd>
+
+<dt><b>全文検索型</b></dt>
+<dd>ロボットと呼ばれるプログラムでインターネットの
+あらゆるページの情報を自動的に集め、
+全文検索データベースを構築します。
+代表的なものには、以下のようなものがあります。
+  <ul>
+    <li><A href="http://www.google.com/" target="_blank">http://www.google.com/</A></li>
+    <li><A href="http://www.goo.ne.jp/" target="_blank">http://www.goo.ne.jp/</A></li>
+    <li><A href="http://japan.infoseek.com/" target="_blank">http://www.infoseek.co.jp/</A></li>
+    <li><A href="http://www.altavista.com/" target="_blank">http://www.altavista.com/</A></li>
+    <li><A href="http://www.excite.co.jp/" target="_blank">http://www.excite.co.jp/</A></li>
+    <li><A href="http://infonavi.infoweb.ne.jp/" target="_blank">http://infonavi.infoweb.ne.jp/</A></li>
+  </ul></dd>
+
+</dl>
+
+<P>ディレクトリ型は人手によって整理されているために、
+無駄な情報が少なく興味のあるカテゴリのページを見つけやすいという
+特徴がありますが、その分、
+漏れや更新の遅れが大きいと考えられます。</P>
+
+<p>全文検索型は Web ページに含まれる
+キーワードを機械的に抜き出してデータベースを構築するので、
+漏れが少なく更新も早いと考えられますが、
+検索結果の中からすばやく本当に必要な情報を見つけるには
+多少の経験が必要です。</p>
+
+<p>ただし、最近はこれらを含むほとんどのところで、
+ディレクトリ型と全文検索型の両方の機能を持たせています。
+また複数のサーチエンジンを横断して検索できる
+「メタサーチ」と呼ばれるものもありますが、
+ここでは割愛します。</p>
+
+<hr>
+<h2>課題</h2>
+<hr>
+
+<p>次のキーワードに関する情報を WWW を利用して調べ、
+簡単に説明してください。 なお、それぞれ情報源とした
+Web ページの URL も示してください。。</p>
+
+<ul>
+<li>コースティクス</li>
+<li>ペイオフ解禁</li>
+<li>LightWave</li>
+<li>４月１日に京都ミューズホールでライブをやったアーチスト</li>
+<li>自分と同姓同名の人物</li>
+</ul>
+
+</BODY>

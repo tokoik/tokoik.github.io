@@ -1,0 +1,57 @@
+<head>
+<title>情報処理 II － 補足：エラーについて</title>
+</head>
+
+<body bgcolor="#ffffcc">
+
+<h2>補足：エラーについて</h2>
+
+<hr>
+
+<p>エラーとはプログラムになんらかの誤りがあることを言います。
+CC コマンドの実行時に報告されるエラーには、
+次の２つのタイプがあります。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% <u>CC hello.cc<b><font color="#00cc66">[Enter]</font></b></u>
+"hello.cc", line 5: error(3105): missing closing quote
+            cout << "hello!\n;
+                    ^
+
+"hello.cc", line 6: error(3158): expected a ";"
+          }
+          ^
+
+2 errors detected in the compilation of "hello.cc".
+</table>
+</center>
+
+<p>これはソースプログラムに構文上の誤りがある場合に、
+コンパイラによって報告されるエラーです。
+この例では "Hello!\n という文字列の最後に " がありません
+(missing closing quote)。</p>
+
+<center>
+<table border width="90%">
+<tr><td bgcolor="#000060" valign="top"><font color="#ffffff">
+<pre>% CC sample.cc
+ld: ERROR 33: Unresolved text symbol
+"print(char*)" -- 1st referenced by hello.o.
+ld: INFO 60: Output file removed because of error.
+</table>
+</center>
+
+<p>これは構文上に誤りはないものの、
+存在しない
+<a href="03.html#kansu">関数</a>を使用してるために、
+リンカによって報告されているエラーです。
+この例の print はどこにも定義されていません。</p>
+
+<p>なお、printf などは、
+<a href="03.html#library">ライブラリ関数</a>
+として、あらかじめ用意されているので、
+自分で定義していなくてもエラーにはなりません。</p>
+
+</body>

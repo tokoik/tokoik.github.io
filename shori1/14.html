@@ -1,0 +1,703 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="shori1.css">
+<LINK rel="stylesheet" type="text/css" href="blue.css" title="blue">
+<LINK rel="alternate stylesheet" type="text/css" href="pink.css" title="pink">
+<title>情報処理 I － 第１４回：Python による簡単な文字処理，ホームページ制作 (CGI)</title>
+</head>
+<BODY>
+<H1>情報処理 I - 第１４回</H1>
+<H3>今回の目標</H3>
+<OL>
+  <LI>Python で Web の掲示板を作る</LI>
+</OL>
+<div class="footer"><a href="13.html">前回の講義資料</a><a href="./">講義概要</a></div>
+<!--
+<H2><A name="enquete" class="label">授業評価アンケートのお願い</A></H2>
+<P>授業評価アンケート調査を行っています．協力をお願いします．下記のページ（リンクになっています）から<strong>来週以降に</strong>希望調査のページを開いてください．</P>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>アンケートページの URL</TH>
+    </TR>
+    <TR>
+      <TD class="action" align="center"><A href="http://www.sys.wakayama-u.ac.jp/enquete/">http://www.sys.wakayama-u.ac.jp/enquete/</A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+-->
+<h2>１．関数</h2>
+<h3>１．１　関数を定義する</h3>
+<p>関数とは，例えば次のようなものです．</p>
+<div class="figure"><img src="function0.gif" width="80" height="31"></div>
+<p>この関数は，例えば次のように定義します．</p> 
+<div class="figure"><img src="function1.gif" width="85" height="32"></div>
+<p>Python ではあらかじめ用意された関数を使うだけではなく，自分で関数を定義して使用することができます．端末で python コマンドを実行し，Python の対話モードを起動してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>対話モードで Python を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type"><EM>python</EM><KBD>[Enter]</KBD></span>
+Python 2.7.5+ (default, Feb 27 2014, 19:37:08)
+[GCC 4.8.1] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>関数の<em>定義</em>には <em>def 文</em>を使います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>関数 f(x) を定義する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type"><em>def</em> f(x)<em>:</em><kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このようにして，関数の定義を開始します．f は関数の名前です．x はこの関数 f(x) が受け取る<em>引数</em>という変数です．関数を定義する時点では，この引数の値は定まっていないので，これは<em>仮引数</em>と呼びます．仮引数は，コンマで区切って複数使うことができます．この関数で行う処理は，仮引数に何らかの値が入っているものとして記述します．処理内容はこの後に続けて，<kbd>[Tab]</kbd> キーなどで字下げを行って記述します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>関数 f(x) の処理を記述する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; def f(x):
+... <span class="type">    answer = x * x<kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>x * x で x の二乗を求めます．x ** 2 でも同じ結果が得られますが，計算方法が違うので，二乗や三乗程度の定数によるべき乗では ** という演算子はあまり使わないように思います．計算結果をこの関数の値とするには，<em>return 文</em>を使います．この値を<em>戻り値</em>と言います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>結果を関数 f(x) の値として返す</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; def f(x):
+...     answer = x * x
+... <span class="type">    <em>return</em> answer<kbd>[Enter]</kbd></span>
+... <span class="type"><kbd>[Enter]</kbd></span>
+&gt;&gt;&gt; </PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これで関数 f(x) が使えるようになります．f(x) の引数に値を与えます．関数の引数として実際に使用するものは<em>実引数</em>と呼びます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>関数 f(x) を使う</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">f(2)<kbd>[Enter]</kbd></span>
+4
+&gt;&gt;&gt; <span class="type">f(3)<kbd>[Enter]</kbd></span>
+9
+&gt;&gt;&gt; <span class="type">f(423)<kbd>[Enter]</kbd></span>
+178929</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>なお，return 文に直接式を書くこともできます．</p>
+<pre class="source">def f(x):
+    return x * x</pre>
+<p>値を返さない関数を定義することもできます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>値を返さない関数</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">def g(x):<kbd>[Enter]</kbd></span>
+... <span class="type">    print '*' * x<kbd>[Enter]</kbd></span>
+... <span class="type"><kbd>[Enter]</kbd></span>
+&gt;&gt;&gt; </PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これは，このように使うことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>整数値を '*' の数に変換する関数</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g(<em>10</em>)<kbd>[Enter]</kbd></span>
+**********
+&gt;&gt;&gt; <span class="type">g(<em>25</em>)<kbd>[Enter]</kbd></span>
+*************************</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>しかし，実引数が実数だとエラーになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>実引数が実数だとエラーになる</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt;<span class="type">g(<em>3.5</em>)<kbd>[Enter]</kbd></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;&lt;stdin&gt;&quot;, line 2, in g
+TypeError: can't multiply sequence by non-int of type 'float'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このようなことが起こらないように，引数の<em>データの型</em>には気を付ける必要があります．</p>
+<pre class="source">def g(x):
+    print '*' * <em>int</em>(x)</pre>
+<p>このように定義すれば，整数のほか実数や数字でも処理を行うことができます．しかし，整数以外の文字列など，整数値に直せないものはやはりエラーになります．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>実引数を整数に変換してから使用する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">g(<em>10.5</em>)<kbd>[Enter]</kbd></span>
+**********
+&gt;&gt;&gt; <span class="type">g(<em>&quot;10&quot;</em>)<kbd>[Enter]</kbd></span>
+**********
+&gt;&gt;&gt; <span class="type">g(<em>&quot;10.5&quot;</em>)<kbd>[Enter]</kbd></span>
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;&lt;stdin&gt;&quot;, line 2, in g
+ValueError: invalid literal for int() with base 10: '10.5'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h3>１．２　関数を合成する</h3>
+<p>定義した関数を組み合わせて使うこともできます．次の関数 f(x) と g(x) がすでに定義されているとします（ここまでの手順が間違っていなければ，そのはずです）．</p>
+<pre class="source">def f(x):
+    return x * x
+
+def g(x):
+    print '*' * int(x)</pre>
+<p>このとき，たとえば関数 h(x) を次のように定義することができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>関数を合成する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">def h(x):<kbd>[Enter]</kbd></span>
+... <span class="type">    g(f(x))<kbd>[Enter]</kbd></span>
+... <span class="type"><kbd>[Enter]</kbd></span></pre>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これは，このように使うことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>合成した関数を使う</TH>
+    </TR>
+    <TR>
+      <TD class="action"><pre>&gt;&gt;&gt; <span class="type">for i in xrange(9):<kbd>[Enter]</kbd></span>
+... <span class="type">    <em>h</em>(i)<kbd>[Enter]</kbd></span>
+... <span class="type"><kbd>[Enter]</kbd></span>
+*
+****
+*********
+****************
+*************************
+************************************
+*************************************************
+****************************************************************</span></pre>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>２．クライアントからサーバにデータを送る</h2>
+<h3>２．１　フォーム</h3> 
+<p>HTML には Web ページ上でデータの入力を行う <em>Fill-in Form</em>（<em>form</em> タグ）という機能があります．今回はこれを使った Web ページを作成します．まず端末を開いてシェルのカレントディレクトリを public_html の下に移してください．そこでテキストエディタを使って，次の内容のファイル myform.html を作成してください．使用するテキストエディタは emacs でなくても構いません．下の emacs は使用するテキストエディタのコマンドに置き換えてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>public_html の下に myform.html を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action">
+      <PRE>% <span class="type">cd public_html<KBD>[Enter]</KBD></span>
+% <span class="type">emacs myform.html<kbd>[Enter]</KBD></span></PRE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>myform.html の内容は次の通りです．</p>
+<PRE class="source">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kentaro's form&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;和歌山健太郎の掲示板&lt;/h1&gt;
+&lt;hr&gt;
+&lt;form&gt;
+  &lt;p&gt;あなたのお名前：&lt;input type=&quot;TEXT&quot; name=&quot;name&quot; size=&quot;20&quot; maxlength=&quot;40&quot;&gt;&lt;/p&gt;
+  &lt;p&gt;メールアドレス：&lt;input type=&quot;TEXT&quot; name=&quot;address&quot; size=&quot;20&quot; maxlength=&quot;40&quot;&gt;&lt;/p&gt;
+  &lt;p&gt;メッセージ：&lt;/p&gt;
+  &lt;p&gt;&lt;textarea name=&quot;message&quot; cols=&quot;40&quot; rows=&quot;10&quot;&gt;ここにメッセージを書いてください&lt;/textarea&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type=&quot;SUBMIT&quot; value=&quot;このメッセージを送る&quot;&gt;&lt;input type=&quot;RESET&quot; value=&quot;取り消し&quot;&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</PRE>
+<p>この myform.html を（ファイルのアイコンをダブルクリックするのではなく）
+<strong>Web サーバー経由で</strong><em>開いて</em>ください．Web サーバー経由で開くには，URL に <em>http://com.center.wakayama-u.ac.jp/~ユーザ名/myform.html</em> を指定します．<a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-07/"
+target="_blank">第７回の提出課題</a>のところから<em>自分の Web ページを開いて</em>，その <em>アドレスバーの後ろに myform.html を追加して</em>改行（<kbd>[Enter]</kbd>）して開くこともできます．</p>
+<DIV class="figure"><img src="form00.gif" width="640" height="480" border="0"></DIV>
+<p>myhome.html を <em>Web サーバ経由で開いた</em>場合，この各欄にデータ（文字）を入力して &quot;このメッセージを送る&quot; というボタンをクリックすれば，各欄に入力したデータが <em>Web サーバに送られます</em>．アドレスバーの内容を見てみてください．しかし，今の状態ではまだ<em>何も起こりません</em>．</p>
+<h2>３．クライアントから送られてきたデータを受け取る</h2>
+<h3>３．１　CGI (Common Gateway Interface)</h3>
+<p>クライアント（Firefox などの Web ブラウザ）から送られてきたデータをサーバ側で利用するには， <em>サーバ側にデータを受け取るプログラムを仕掛ける</em>必要があります． このようなプログラムを <em>CGI</em> (Common Gateway Interface) といいます．そこで，まず始めに，サーバに送られてきたデータを，そのまま出力するプログラムを作成します．テキストエディタを使って，myform.<em>cgi</em> というファイルを作成してください．emacs では次のようにします．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>public_html の下に myform.cgi を作成する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">emacs myform.<em>cgi</em><kbd>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>myform.cgi の内容は Python スクリプトです．ただし，ファイル名の<em>拡張子</em>は &quot;.py&quot; <strong>ではなく</strong>，<em>&quot;.cgi</em>&quot; にします．なお，これは和歌山大学の Web サーバの設定であり，プログラムを CGI として動作させるための設定は，サーバ（プロバイダ）により異なります．</p>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+print 'Content-Type: text/plain; charset=utf-8'  <span class="anon"># データの形式を出力する</span>
+print                                            <span class="anon"># 空行を出力する</span>
+
+import sys
+print sys.stdin.readlines()                      <span class="anon"># 入力データを1行ごとのリストにして出力する</span><span class="anon"></span></PRE>
+<ul>
+  <li>最初に <em>print</em> している <code>'Content-Type: text/plain; charset=utf-8'</code> という文字列は， このプログラムから出力される<em>データの形式</em>を表します．
+<ul>
+      <li>&quot;text/plain&quot; は plain text，すなわち本文が（HTML などによりレイアウトされていない）生の<em>文字データ</em>であることを表します． </li>
+      <li>&quot;charset=utf-8&quot; はこの CGI によって出力される<em>文字コード</em>が utf-8 であることを表します．</li>
+    </ul>
+  </li>
+</ul>
+<blockquote><div class="header">MIME Type</div>Web サーバ上にファイルとして置いたデータの形式 (<em>MIME Type</em>) は，通常は Web サーバのソフトウェア（あるいはクライアント）がファイル名の拡張子によって判定します．しかし CGI から送り出されるデータでは，ファイル名の拡張子による判定を行うことができません．そこで，代りに送り出すデータの先頭でデータの形式を明示します．</blockquote>
+<ul>
+  <li>Content-Type: の行とデータの本体を区切るために， この行の後ろで空行を1行出力します．このために，<em>単独の print 文</em>を追加します．
+    <ul>
+      <li>単独の print 文は改行のみを出力します．</li>
+    </ul>
+  </li>
+  <li>そのあと，<em>sys.stdin.readlines()</em> を使って標準入力 <em>stdin</em> から<strong>データを全部読み出し</strong>，それをそのまま print します．
+    <ul>
+      <li><em>sys.stdin.readlines()</em> は <em>sys</em> モジュールの標準入力 <em>stdin</em> に与えられたデータを一行ごとに要素に格納した<em>リスト</em>にします．</li>
+    </ul>
+  </li>
+</ul>
+<p>ファイルを保存したら，chmod コマンドを使って作成したスクリプト myform.cgi を実行可能にしてください．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>myform.cgi を実行可能にする</th>
+    </tr>
+    <tr>
+      <td class="action"><pre>% <span class="type">chmod +x myform.cgi<kbd>[Enter]</kbd></span></pre></td>
+    </tr>
+  </tbody>
+</table>
+<p>試しに<em>端末</em>で myform.cgi を実行してみてください．カレントディレクトリにあるスクリプトファイルを実行するには，ファイル名の頭に &quot;<em>./</em>&quot; を付ける必要があります．実行するとデータの入力を待ちますから，何かタイプして<em>改行</em>（<kbd>[Enter]</kbd> をタイプ）してください．そして最後に <kbd>Ctrl-D</kbd> をタイプしてください．これは <em>cat コマンド</em>に似ていますが，<kbd>Ctrl-D</kbd> をタイプした後に入力したデータが<em>リスト</em>として出力されます．</p>
+<table>
+  <tbody>
+    <tr>
+      <th>myform.cgi を実行する</th>
+    </tr>
+    <tr>
+      <td class="action"><pre>% <span class="type">./myform.cgi<kbd>[Enter]</kbd></span>
+Content-Type: text/plain; charset=utf-8    <span class="anon">&larr;出力するデータの形式</span>
+                                           <span class="anon">&larr;空行</span>
+<span class="type">This is a pen.<kbd>[Enter]</kbd></span>                     <span class="anon">&larr;キーボードをタイプする</span>
+<span class="type">That is a boy.<kbd>[Enter]</kbd></span>
+<span class="type"><kbd>Ctrl-D</kbd></span>                                    <span class="anon">&larr;Ctrl-D をタイプして入力を終了する</span>
+['This is a pen.\n', 'That is a boy.\n']   <span class="anon">&larr;タイプした文字がリストで出力される</span>
+%                                          <span class="anon">&larr;スクリプトが終了する</span></pre></td>
+    </tr>
+  </tbody>
+</table>
+<p>このリストの各要素の最後の '\n' は改行 <kbd>[Enter]</kbd> を表します．このように myform.cgi が期待通り動くようなら，次に myform.html を変更します．最初の方にある <code class="tag">&lt;form&gt;</code> タグを次のように書き換えて，フォームへの入力内容を myform.cgi の標準入力に与えます．</p>
+<pre class="source">&lt;form <span class="type">method=&quot;POST&quot; action=&quot;./myform.cgi&quot;</span>&gt;</pre>
+<p>書き換えたら，<em>Web ブラウザで</em>このページを<strong>再読み込み</strong>してください．その後，何かデータ（<em>今はアルファベットのみ</em>）を入力してください．&quot;メッセージ&quot; のところでは，最後に<em>改行</em>（<kbd>[Enter]</kbd> をタイプ）してください．データが入力できたら，&quot;このメッセージを送る&quot; ボタンをクリックしてください．すると Web サーバ側で myform.cgi が実行され，その標準入力に myform.html の各欄に入力したデータが与えられます．</p>
+<div class="figure"><img src="form01.gif" alt="入力フォームに文字入力"></div>
+<p>この結果，次の内容のページが現われると思います． これが myform.cgi に与えられたデータです．</p>
+<pre class="source">['name<em>=</em>Kentaro<em>+</em>Wakayama<strong>&amp;</strong>address<em>=</em>s123456<em>%40</em>center.wakayama-u.ac.jp<strong>&amp;</strong>message<em>=</em>konbanwa<em>%0D%0A</em>']</pre>
+<blockquote><div class="header">Internal Server Error</div>CGI スクリプトでにエラーが発生すると，<em>Internal Server Error</em> という Web ページが表示されます．その場合はスクリプトを<em>端末で実行して</em>エラーメッセージを確認し，スクリプトを修正してください．</blockquote>
+<p>これを見ると，データの書式は次のようになっていることが分かります．</p>
+<ul>
+  <li>各欄のデータは <em>&amp;</em> （アンパーサント）で区切られている．</li>
+  <li><code class="tag">&lt;input&gt;</code> タグや <code class="tag">&lt;textarea&gt;</code> の<span class="type"> NAME= オプションに指定した文字列</span><em>=</em><span class="type">欄の文字列</span> という形式になっている．</li>
+  <li><em>空白</em>は <em>+</em> （プラス）に置き換わっている．</li>
+  <li><em>@</em> （アットマーク）は <em>%40</em> に置き換わっている．40は '@' という文字の文字コードを16進数で表したもの．</li>
+  <li><em>改行</em> <kbd>[Enter]</kbd> は <em>%0D%0A</em> になっている．0D と 0A も（復帰・改行）の文字コードを16進数で表したもの．</li>
+</ul>
+<h3>３．２　フォームのデータを分解する</h3>
+<p>sys.stdin.readlines() の出力は入力データの一行ごとのリストですから（上の出力は一行分しかありません），この要素を一つずつ取り出すようにします．これには <em>for</em> ～ <em>in</em> による繰り返しを使います．myform.cgi の<em>最後の行</em>を，次のように書き換えてください．</p>
+<pre class="source"><span class="type">for line in</span> sys.stdin.readlines()<em>:</em>                <span class="anon"># 入力データを一行ごとに取り出して変数 line に入れる</span>
+<span class="type">    print line</span>                                    <span class="anon"># 一行ごとに出力する</span></pre>
+<p>この <em>for</em> の次の行の<em>行頭の空白</em>は<strong>必ず入れてください</strong>．emacs なら <kbd>[Tab]</kbd> キーをタイプすれば適当文字数だけ字下げします．また，<span class="source">sys.stdin.readlines()</span> の右には '<em>:</em>'（<em>コロン</em>）を忘れずに置いてください．</p>
+<p>変更したらファイルを保存してください．Web ブラウザでデータを入力した入力フォームのページに戻り，もう一度，&quot;このメッセージを送る&quot; ボタンをクリックしてください．リストの <em>[</em>～<em>]</em> や文字列を表す <em>'</em>～<em>'</em> が表示されなくなります．</p>
+<pre class="source">name<em>=</em>Kentaro<em>+</em>Wakayama<strong>&amp;</strong>address<em>=</em>s123456<em>%40</em>center.wakayama-u.ac.jp<strong>&amp;</strong>message<em>=</em>konbanwa<em>%0D%0A</em></pre>
+<p>次に，この出力を <em>&amp;</em> で区切ってさらに分解してみましょう．この出力は変数 <em>line</em> に入っています．文字列を特定の文字で区切るには，<em>split</em> という<em>メソッド</em>を使います．myform.cgi の<em>最後の行</em>を，次のように書き換えてください．</p>
+<pre class="source">    print line<span class="type">.split('&amp;')</span>                         <span class="anon"># 一行を &amp; で区切ってリストにして出力する</span></pre>
+<p>変更したらファイルを保存してください．Web ブラウザでデータを入力した入力フォームのページに戻り，もう一度，&quot;このメッセージを送る&quot; ボタンをクリックしてください．今度は行を &amp; で分割したリストになっています．</p>
+<pre class="source">['name<em>=</em>Kentaro<em>+</em>Wakayama', '<strong></strong>address<em>=</em>s123456<em>%40</em>center.wakayama-u.ac.jp', <strong></strong>'message<em>=</em>konbanwa<em>%0D%0A</em>']</pre>
+<p>したがって，今度はこのリストの要素を一つずつ取り出します．これにも <em>for</em> ～ <em>in</em> による繰り返しを使います．myform.cgi の<em>最後の行</em>を，次のように書き換えてください．このとき，line.split('&amp;') の右に '<em>:</em>'（<em>コロン</em>）を忘れずに置いてください．</p>
+<pre class="source">for line in sys.stdin.readlines()<em>:</em>                <span class="anon"># 入力データを一行ごとに取り出して変数 line に入れる</span>
+<span class="type">    for data in</span> line.split('&amp;'):                  <span class="anon"># 一行を &amp; で区切って一つずつ出力する</span>
+<span class="type">        print data</span>                                <span class="anon"># 一つのデータを出力する</span></pre>
+<p>変更したらファイルを保存してください．Web ブラウザでデータを入力した入力フォームのページに戻り，もう一度，&quot;このメッセージを送る&quot; ボタンをクリックしてください．リストの要素の文字列が取り出されるので，リストに付いていた <kbd>[</kbd>～<kbd>]</kbd> や文字列を表す <kbd>'</kbd>～<kbd>'</kbd> が表示されなくなります．</p>
+<pre class="source">name<em>=</em>Kentaro<em>+</em>Wakayama
+<strong></strong>address<em>=</em>s123456<em>%40</em>center.wakayama-u.ac.jp
+<strong></strong>message<em>=</em>konbanwa<em>%0D%0A</em></pre>
+<h3>３．３　文字を置き換える</h3>
+<p>このデータから名前やメールアドレスなど必要な部分を取り出します．その前に，'<em>+</em>' は<em>空白</em>（' '）に置き換えます．また<em>一部の記号</em>や<em>日本語の文字</em>などは前述のように '<em>%16進数</em>' という表記になっていますから， これを元の文字に直す必要があります．この方法を考えてみます．端末で python コマンドを実行し，Python の対話モードを起動してください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>対話モードで Python を起動する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type"><EM>python</EM><KBD>[Enter]</KBD></span>
+Python 2.7.5+ (default, Feb 27 2014, 19:37:08)
+[GCC 4.8.1] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数 x に何か適当な文字列を代入します．次の内容を端末で動いている Python に<a href="04.html#copyandpaste" target="_blank">コピー＆ペースト</a>しても構いません．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>フォームのデータを変数 x に代入する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x = 'abcdefgh'<kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>この先頭の1文字を取り出します．これはスライス（<kbd>[</kbd>～<kbd>]</kbd>）を使います．文字列の先頭の文字は０番目です．これを変数 c に代入します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x の先頭の文字を変数 c に取り出す</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">c = x[0]<kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p> c には x の先頭の文字 'a' が入っているはずです．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数 c の内容</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">c<kbd>[Enter]</kbd></span>
+'a'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>c に x の先頭の文字を取り出したので，x からはその文字を取り除きます．x の先頭を除いた残りの文字は x[1:] で取り出すことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数 x の先頭を除いた残りの文字</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x[1:]<kbd>[Enter]</kbd></span>
+'bcdefgh'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>これを x に代入すれば，x から先頭の文字を取り除くことができます．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>x から先頭の文字を取り除く</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x = x[1:]<kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>変数 x の内容を確認してみてください．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>変数 x の内容</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">x<kbd>[Enter]</kbd></span>
+'bcdefgh'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このように x の先頭の1文字を取り出し，x に残りの文字を入れる処理を繰り返せば，x に含まれる文字を<em>1文字ずつ取り出す</em>ことができます．また，この処理の結果，最終的に x は<em>空文字列</em>（<em>''</em>）になってしまいます．空文字列は<em>条件判断</em>の際に <em>False</em>（偽）として扱われますから，x が空文字列になるまで繰り返すには，<em>while 文</em>による<a href="13.ｈｔml#while" target="_blank">繰り返し処理</a>を使います．</p>
+<blockquote>以下の内容は端末に打ち込んだりファイルを作成する必要はありませんが，<span class="type">下線部</span>を Python の対話モードに<a href="04.html#copyandpaste" target="_blank">コピー＆ペースト</a>すれば実行できると思います．</blockquote>
+<PRE class="source"><span class="type"><em>while</em> x:</span>                                          <span class="anon"># x が<em>空文字列でない間</em></span>
+<span class="type">    c = x[0]</span>                                      <span class="anon"># x の先頭の文字を取り出して c に入れる</span>
+<span class="type">    x = x[1:]</span>                                     <span class="anon"># x の残りの文字を x に入れる</span></PRE>
+<p>したがって，この c が '+' なら，c を ' '（スペース）に置き換えます．これは <em>if 文</em>による<a href="13.html#condition" target="_blank">条件判断</a>を使います．<em>比較</em>の <em>==</em>  と<em>代入</em>の <em>=</em> を<strong>間違えない</strong>ようにしててください．</p>
+<PRE class="source">while x:
+    c = x[0]
+    x = x[1:]
+<span class="type">    <em>if</em> c == '+':</span>                                  <span class="anon"># <em>もし</em> c が '+' なら</span>
+<span class="type">        c = ' '</span>                                   <span class="anon"># c を ' '（空白）に置き換える</span></PRE>
+<p>もし，c が '+' でなければ，こんどは c と '%' を比較します．この比較は，先の if の条件が成立しなかったときのみ行いたいので，<em>elif</em> を使います．</p>
+<PRE class="source">while x:
+    c = x[0]
+    x = x[1:]
+    if c == '+':
+        c = ' '
+<span class="type">    <em>elif</em> c == '%':</span>                                <span class="anon"># <em>ではなく，もし</em> c が '%' なら</span></PRE>
+<p>c が '%' だったときは，この文字自体は使わず，これに続く2文字を x[:2] によって取り出します．これは<em>16進数</em>で表された<em>文字コード</em>です．したがって，その2文字を16進数の文字列から<em>整数に変換</em>します．実数値や文字列を整数に変換するには <em>int() 関数</em>を使います．int() 関数の第２引数の 16 は，文字列が表す整数の基数です．16 なら文字列を16進数とみなして整数に変換します．</p>
+<PRE class="source">while x:
+    c = x[0]
+    x = x[1:]
+    if c == '+':
+        c = ' '
+    elif c == '%':
+<span class="type">        code = <em>int(</em>x[:2], 16<em>)</em></span>                     <span class="anon"># '% に続く2文字 x[:2] を16進数を表す文字列として<em>整数に変換</em></span></PRE>
+<p>さらにその整数で表された<em>文字コードに対応する文字</em>を求めます．また，整数値である文字コードから対応する文字を得るには <em>chr() 関数</em>を使います．そして，得られた文字を c に代入します．</p>
+<PRE class="source">while x:
+    c = x[0]
+    x = x[1:]
+    if c == '+':
+        c = ' '
+    elif c == '%':
+        code = int(x[:2], 16)
+<span class="type">        c = <em>chr(</em>code<em>)</em></span>                             <span class="anon"># <em>文字コードが code である文字を得て</em> c を置き換える</span></PRE><p>この最後の2行は1行にまとめることができます．この場合，変数 code は不要になります．</p>
+<pre class="source">while x:
+    c = x[0]
+    x = x[1:]
+    if c == '+':
+        c = ' '
+    elif c == '%':
+<span class="type">      c = chr(int(x[:2], 16))</span></pre>
+<p>こうして得られた文字 c を出力します．ところが，c は元の文字列 x を1文字ずつばらばらにしたものですから，これをつなぎ合わせて再度一つの文字列にする必要があります．そこで，これを一旦リストに保存します．試しに端末で動いている Python の対話モードで，以下の内容を実行してみてください．</p>
+<p>最初に空のリストを代入した変数 s を用意します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>s に空のリスト [] を代入する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">s = <em>[]</em><kbd>[Enter]</kbd></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>s に要素を追加するには，<em>append()</em> という<em>メソッド</em>を用います．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>s に要素を追加する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">s.<em>append(</em>'a'<em>)</em><kbd>[Enter]</kbd></span>
+&gt;&gt;&gt; <span class="type">s<kbd>[Enter]</kbd></span>
+['a']</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>s にさらに要素を追加します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>s にさらに要素を追加する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">s.append('b')<kbd>[Enter]</kbd></span>
+&gt;&gt;&gt; <span class="type">s.append('c')<kbd>[Enter]</kbd></span>
+&gt;&gt;&gt; <span class="type">s<kbd>[Enter]</kbd></span>
+['a', 'b', 'c']</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>このように append() メソッドによて s の末尾に要素が追加されていきます．このリスト s の要素をつないで一つの文字列にするには，文字列の <em>join()</em> というメソッドを使います．例えば，リスト s の要素を '===' でつないで一つの文字列にするには，join() メソッドを使って次のようにします．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>s の要素を '===' でつないだ文字列を作る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type">'==='.<em>join(</em>s<em>)</em><kbd>[Enter]</kbd></span>
+'a===b===c'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>もし，要素と要素の間に何も入れたくないなら，''（空文字列）に対して join() メソッドを適用します．</p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>s の要素を '===' でつないだ文字列を作る</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>&gt;&gt;&gt; <span class="type"><em>''</em>.join(s)<kbd>[Enter]</kbd></span>
+'abc'</PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>以上をもとに，フォームから送られてくる文字列を変換するしょりを<em>関数</em>にまとめると，次のようになります（実は Python の <em>cgi</em> モジュールには，このような機能がすでに用意されています）．この関数名は <em>decode(</em>x<em>)</em> とします．この x は<em>仮引数</em>と呼ばれる変数で，この関数を使うときに実際に値を設定します．したがって，ここではこの x を文字列だと思って，1文字ずつ文字を置き換えていきます．次の内容を，myform.cgi の二つ目の print（空行を出力しているもの）の<em>後</em>に追加してください．</p>
+<pre class="source">
+
+def decode(x):                                    <span class="anon"># 関数 decode() の定義</span>
+    s = []                                        <span class="anon"># s を空のリストにしておく</span>
+    while x:                                      <span class="anon"># x が空の文字列でない間</span>
+        c = x[0]                                  <span class="anon">#   先頭の 1 文字を c に取り出す</span>
+        x = x[1:]                                 <span class="anon">#   x の残りの文字列を x に入れる</span>
+        if c == '+':                              <span class="anon">#   もし c が '+'（プラス）なら</span>
+            c = ' '                               <span class="anon">#     ' '（スペース）に置き換える</span>
+        elif c == '%':                            <span class="anon">#   そうではなく，c が</span> <span class="anon">'%' だったら</span>
+            c = chr(int(x[:2], 16))               <span class="anon">#     続く 2 文字を 16 進数として整数 (int) に変換して更に文字 (chr) に変換</span>
+            x = x[2:]                             <span class="anon">#     x の最初の 2 文字を取り除いた残りの文字列を x に入れる</span>
+        s.append(c)                               <span class="anon">#   結果として得られた c をリスト s に追加する</span>
+    return ''.join(s)                             <span class="anon"># リストを結合して文字列に直して返す</span>
+
+</pre>
+<h3>３．４　データを取り出す</h3>
+<p>関数 decode() を myform.cgi に追加したら，myform.cgi の<em>最後の行</em>を次のように書き換えてください．変数 line を関数 decode() で変換してから出力するようにします．</p>
+<pre class="source">        print <span class="type">decode(</span>data<span class="type">)</span>                        <span class="anon"># 一つのデータを文字を置き換えてから出力する</span></pre>
+<p>ファイルを変更したら保存してください．そして Web ブラウザでデータを入力した入力フォームのページに戻り，また &quot;このメッセージを送る&quot; ボタンをクリックしてください．ちゃんと文字が置き換えられているでしょうか．</p>
+<pre class="source">name<em>=</em>Kentaro <em></em>Wakayama
+<strong></strong>address<em>=</em>s123456@<em></em>center.wakayama-u.ac.jp
+<strong></strong>message<em>=</em>konbanwa<em></em></pre>
+<p>それでは，この各行について，name= で始まっていれば変数 name に， address= で始まっていれば変数 address に， message= で始まっていれば変数 message に格納するよう myform.cgi の<em>最後の行</em>を変更します．</p>
+<pre class="source"><span class="type">        s =</span> decode(data)                          <span class="anon"># 一つのデータの文字を置き換えて print する代わりに s に入れる</span>
+<span class="type">        if s[:5] == 'name=':</span>                      <span class="anon"># 先頭から 5 文字目までが name= だったら</span>
+<span class="type">            name = s[5:]</span>                          <span class="anon">#   6 文字目以降を変数 name に格納する</span>
+<span class="type">        elif s[:8] == 'address=':</span>                 <span class="anon"># そうではなく先頭から 8 文字目までが address= だったら</span>
+<span class="type">            address = s[8:]</span>                       <span class="anon">#   9 文字目以降を変数 addr に格納する</span>
+<span class="type">        elif s[:8] == 'message=':</span>                 <span class="anon"># そうではなく先頭から 8 文字目までが message= だったら</span>
+<span class="type">            message = s[8:]</span>                       <span class="anon">#   9 文字目以降を変数 mesg に格納する</span>
+
+<span class="type">print name, address, message</span>                      <span class="anon"># 変数に格納したデータを出力する</span></pre>
+<p>Web ブラウザでデータを入力した入力フォームのページに戻り，&quot;このメッセージを送る&quot; ボタンをクリックしてください．次のような表示が得られるでしょうか．&quot;メッセージが日本語でも表示できるかもしれません（できないかもしれません）．</p>
+<pre class="source">Kentaro <em></em>Wakayama <em></em>s123456@<em></em>center.wakayama-u.ac.jp <em></em>konbanwa<em></em></pre>
+<h3>３．５　HTML 化して出力する</h3>
+<p>それでは，これらの変数に格納されているデータを使って，HTML を出力するようにします．ここでは次のようにレイアウトしてみましょう．</p>
+<div style="text-align: left; background-color: white; border: none; margin: 0.5em 5% 0.5em 5%; padding: 1em;">
+  <hr>
+  <p>Date: 2012-07-12 13:30:46 </p>
+  <p>From: Kentaro Wakayama &lt;s123456@center.wakayama-u.ac.jp&gt; </p>
+  <hr>
+  <p>konbanwa</p>
+</div>
+<p>このようなレイアウトで表示するには，myform.cgi の出力が下のようにする必要があります．'<em>&lt;</em>' や '<em>&gt;</em>'　は，HTML のタグと区別するために，それぞれ <em>&amp;lt;</em>，<em>&amp;gt;</em> に置き換えます．</p>
+<pre class="source">&lt;hr&gt;
+&lt;p&gt;Date: 2012-07-12 13:30:46&lt;/p&gt;
+&lt;p&gt;From: Kentaro Wakayama <em>&amp;lt;</em>s123456@center.wakayama-u.ac.jp<em>&amp;gt;</em>&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;
+konbanwa
+&lt;/p&gt;</pre>
+<p>そこで，myform.cgi の<em>最後の行</em> (print name, address, message)  を次のように変更します．<em>datetime</em> モジュールは日付や時刻を扱います．</p>
+<pre class="source"><span class="type">import datetime</span>                                   <span class="anon"># 日付データを取得するモジュールを導入する</span>
+<span class="type">date = datetime.datetime.today().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</span>
+<span class="type">print '&lt;hr&gt;'
+<span class="type">print '&lt;p&gt;Date: '</span>
+<span class="type">print date</span>
+<span class="type">print '&lt;/p&gt;'</span>
+<span class="type">print '&lt;p&gt;From: '</span>
+<span class="type">print name</span>
+<span class="type">print ' &amp;lt;' + address + '&amp;gt;'</span>
+<span class="type">print '&lt;/p&gt;'</span>
+<span class="type">print '&lt;hr&gt;'</span>
+<span class="type">print '&lt;p&gt;'</span>
+<span class="type">print message</span>
+<span class="type">print '&lt;/p&gt;'</span></span></pre>
+<p>Web ブラウザでデータを入力した入力フォームのページに戻り，&quot;このメッセージを送る&quot; ボタンをクリックしてください．次のような表示が得られるでしょうか．print 文は改行を出力するため，この出力は目的の出力に対して改行が余分に入っていますが，HTML では複数の空白や改行は一つの空白に置き換えられるので<em>気にしない</em>ことにします．</p>
+<pre class="source">&lt;hr&gt;
+&lt;p&gt;Date:
+2012-07-12 08:43:46
+&lt;/p&gt;
+&lt;p&gt;From:
+Kentaro Wakayama
+&lt;s123456@center.wakayama-u.ac.jp&gt;
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;
+konbanwa
+
+&lt;/p&gt;</pre>
+<p>しかし，この出力の Content-Type: は text/plain なので，このままでは HTML のソースが表示されてしまいます．これがちゃんとレイアウトされて表示されるようにするには，mycount.cgi の先頭で出力している Content-Type: を text/<em>html</em> に変更します．なお，この HTML のソースは，<em>HTML としては不完全なもの</em>ですが，Web ブラウザががんばって表示してくれると思います．</p>
+<PRE class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+print 'Content-Type: text/<span class="type">html</span>; charset=utf-8'    <span class="anon"># データの形式を出力する</span>
+print                                             <span class="anon"># 空行を出力する</span><span class="anon"></span><span class="anon"></span></PRE>
+<p>Web ブラウザでデータを入力した入力フォームのページに戻り，&quot;このメッセージを送る&quot; ボタンをクリックしてください．次のような表示が得られるでしょうか．</p>
+<DIV class="figure"><img src="form02.gif" width="640" height="480" border="0"></DIV>
+<h3>３．６　元のページに埋め込む</h3>
+<p>このデータをもとのページに埋め込みます．そのために，<span class="assign">myform.cgi の出力をそのままクライアントに返すのではなく，一旦ファイルに保存して，SSI (Server Side Include) を使ってそれを myform.html のページに含めるようにします．myform.<em>html</em> で SSI が使えるようにするために，このファイル名を myform.<strong>s</strong><em>html</em> に変更してください．</span></p>
+<TABLE>
+  <TBODY>
+    <TR>
+      <TH>myform.html を myform.shtml に変更する</TH>
+    </TR>
+    <TR>
+      <TD class="action"><PRE>% <span class="type">mv myform.<em>htm</em>l myform.<strong>s</strong><em>html</em><KBD>[Enter]</KBD></span></PRE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>次に，myform.<em>shtml</em> のフォーム部分の前（<code class="tag">&lt;form method=&quot;POST&quot; action=&quot;./myform.cgi&quot;&gt;</code> の前）に次の1行目（<code class="tag">&lt;!--#include file=&quot;mydata&quot;--&gt;</code> と <code class="tag">&lt;hr&gt;</code>）を入れてください．なお，ファイル mydata がない状態では，この部分にエラーメッセージが表示されますが，今は無視してください．．</p>
+<pre class="source"><span class="type">&lt;!--#include file=&quot;mydata&quot;--&gt;&lt;hr&gt;</span>
+&lt;form method=&quot;POST&quot; action=&quot;./myform.cgi&quot;&gt;</pre>
+<p>また，myform.<em>cgi</em> では，実行したときに出力をクライアントに表示する代りに，myform.shtml が表示されるようにします．このために，myform.cgi の先頭部分でで Content-Type: を出力するかわりに，ページの移動を指示する <em>Location:</em> を出力します．</p>
+<pre class="source">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+<span class="type">print 'Location: myform.shtml'</span>                    <span class="anon"># ページを移動する</span>
+print                                             <span class="anon"># 空行を出力する</span></pre>
+<p>最後に，HTML を出力していた部分を，mydata というファイルに書き込むようにします．そのために mydata というファイルを開いて (open)，print する代わりにそのファイルに書き込みます (write)．open() 関数の二つ目の引数 '<em>a</em>' は，既にあるファイルの後ろにデータを追加します (append)．また，最後にファイルを閉じます (close)．なお，以下は全部文字列の出力ですから，出力するものを '+' でつないで write() を一個で済ませることもできます（むしろそうしてください）．</p>
+<pre class="source">import datetime                                   <span class="anon"># 日付データを取得するモジュールを導入する</span>
+date = datetime.datetime.today().strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)
+<span class="type">f = open('mydata', 'a')</span>
+<span class="type">f.write(</span>'&lt;hr&gt;'<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;p&gt;Date: '<span class="type">)</span>
+<span class="type">f.write(</span>date<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;/p&gt;'<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;p&gt;From: '<span class="type">)</span>
+<span class="type">f.write(</span>name<span class="type">)</span>
+<span class="type">f.write(</span>' &amp;lt;' + address + '&amp;gt;'<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;/p&gt;'<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;hr&gt;'<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;p&gt;'<span class="type">)</span>
+<span class="type">f.write(</span>message<span class="type">)</span>
+<span class="type">f.write(</span>'&lt;/p&gt;'<span class="type">)</span>
+<span class="type">f.close()</span></pre>
+<p>以上の作業が完了したら，<a href="http://com.center.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-14/">http://www.wakayama-u.ac.jp/~tokoi/lecture/shori1/shori1-14/</a> にある自分のユーザ名をクリックして，実際に何か書き込んでテストしてみてください．</p>
+<BLOCKQUOTE>
+  <DIV class="header"><STRONG>注意</STRONG></DIV>
+  <DIV class="body">
+    <ul>
+      <li>CGI は <em>Web サーバの機能</em>です．Web サーバを経由せずに HTML ファイルを開いても動作しません．<em>HTML ファイルをダブルクリックして開いても動作しません</em>．</li>
+      <li>いつまでたっても終了しない（無限ループの）プログラムを CGI で使ってしまうと，Web サーバの負荷を非常に高めてしまいます．上記の Web ページ手テストする前に，作成したプログラムをコマンドとして実行するなどして，手元で動作テストをしてください．</li>
+      <li>このプログラムには<em>数多くの問題があります</em> ．まず，<a href="12.html#exclusive" target="_blank">排他制御</a>を行っていないので， 複数の人が同時に書き込むと<em>データが壊れます</em>．また，データをファイルの後ろに追加しているので，データが登録順に並んでしまって最新のものが下の方に行ってしまうなど，使い勝手もよくありません．何より，このスクリプトは<em>セキュリティ対策を全く行っていない</em>ので，<strong>実際に使うのは非常に危険</strong>です．そのあたりは将来の課題として，暇がある人は考えてみてください．</li>
+    </ul>
+  </DIV>
+</BLOCKQUOTE>
+<h2>宿題</h2>
+<p>次の  (1), (2) の作業を行ってください．完了したら  <A href="mailto:tokoi@sys.wakayama-u.ac.jp?Subject=shori1-14">tokoi@sys.wakayama-u.ac.jp</A> にメールで知らせてください．その際，メールの本文に (3) の内容を追加してください．メールの件名 (Subject) は shori1-14 にしてください．期限は次週の水曜日中までです．</p>
+<DIV class="assign">(1) このフォームに '<em>&lt;</em>' や '<em>&gt;</em>' の文字を入力しても，それらは HTML のタグの文字だと解釈されて，正常に表示されません．また，このようなフォームで HTML のタグが自由に入力できてしまうと，メッセージを書き込む人が<em>悪さし放題</em>になります．そこで <strong>c をリスト s に追加する直前</strong>に，'<em>&lt;</em>'，'<em>&gt;</em>'，と，それらに加えて '<em>&amp;</em>'，'<em>&quot;</em>'（二重引用符）を，それぞれ '<em>&amp;lt;</em>'，'<em>&amp;gt;</em>'，'<em>&amp;amp;</em>'，'<em>&amp;quot;</em>' に置き換えるよう，<em>関数 decode()</em> を変更してください．これは<a href="12.html#dictionary" target="_blank">ディクショナリ</a>を使えば簡単かもしれません．</DIV>
+<div class="assign">(2) フォームの「メッセージ」の欄で文章を改行しても，HTML では改行を空白文字として扱いますので，表示は改行されません．表示を改行するには，そこで <code class="tag">&lt;br&gt;</code> などを出力する必要があります．そこで (1) と同様に，改行を表す '<em>\n</em>' という文字を <code class="tag">&lt;br&gt;</code> に置き換えるよう，<em>関数 decode()</em> を変更してください．ただし，これは (1) とは別のところで判定する必要があります．</div>
+<div class="assign">(3) 今回の講義に対する意見や改善点．</div>
+<div class="footer"><a href="13.html">前回の講義資料</a><a href="./">講義概要</a></div>
+</BODY>
+</html>
