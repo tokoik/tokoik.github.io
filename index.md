@@ -1,9 +1,0 @@
----
-lang: ja
-title: 床井浩平のアーカイブ
-published: true
----
-
-## 床井研究室のアーカイブ
-
-[床井研究室](/blog/)
