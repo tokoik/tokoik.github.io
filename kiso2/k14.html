@@ -1,59 +1,59 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#1#4(B</title>
+<title>情報基礎演習II － 課題１４</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#1#4(B</h3>
+<h3>課題１４</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$r(B kadai14.c $B$H$$$&%U%!%$%kL>$G:n@.$7$F$/$@$5$$!#(B
-$B$=$N:](B <i>c</i> $B$K$O<+J,$NL>A0$N%$%K%7%c%k$r!"(B
-<i>n</i> $B$K$OL>A0$N%$%K%7%c%k$HL>;z$N%$%K%7%c%k$NJ8;z%3!<%I$N:9$rF~$l$F!"(B
-$B%W%m%0%i%`$r<B9T$7$?$H$-(B
-$B<+J,$N%$%K%7%c%k$,@5$7$/I=<($5$l$k$h$&$K$7$F$/$@$5$$(B
+<li>次のソースプログラムを kadai14.c というファイル名で作成してください。
+その際 <i>c</i> には自分の名前のイニシャルを、
+<i>n</i> には名前のイニシャルと名字のイニシャルの文字コードの差を入れて、
+プログラムを実行したとき
+自分のイニシャルが正しく表示されるようにしてください
 <p>
 
-<li>$BNc$($P%$%K%7%c%k$,(B BA $B$J$i!"(B
-<i>c</i> $B$O(B B$B!"(B
-A $B$NJ8;z%3!<%I$O(B B $B$N#1;zA0$K$"$k$N$G(B <i>n</i> $B$O(B -1 $B$K$J$j$^$9!#(B
+<li>例えばイニシャルが BA なら、
+<i>c</i> は B、
+A の文字コードは B の１字前にあるので <i>n</i> は -1 になります。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai14
-** $BF0:n(B: $B@0?t$HJ8;z$N7W;;(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai14
+** 動作: 整数と文字の計算
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 int main(void)
 {
-    char first; /* $BL>A0$N%$%K%7%c%k(B */
-    char last;  /* $BL>;z$N%$%K%7%c%k(B */
+    char first; /* 名前のイニシャル */
+    char last;  /* 名字のイニシャル */
 
     first = '<i>c</i>';
     last = first + (<i>n</i>);
-    printf("$B;d$N%$%K%7%c%k$O(B %c%c $B$G$9(B\n", first, last);
+    printf("私のイニシャルは %c%c です\n", first, last);
     return 0;
 }
 </pre>
 </table>
 <p>
 
-<li>$B$3$N%=!<%9%W%m%0%i%`$r%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai14 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
+<li>このソースプログラムをコンパイル／リンクし、
+kadai14 という名前の実行プログラムを作成してください。
 <p>
 
-<li>kadai14 $B$r<B9T$7!"(B
-$B@5$7$/%$%K%7%c%k$,I=<($5$l$?$i!"(B
-kadai14.c $B$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai14 $B$H$7$F$/$@$5$$!#(B
+<li>kadai14 を実行し、
+正しくイニシャルが表示されたら、
+kadai14.c をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai14 としてください。
 
 </ol>
 

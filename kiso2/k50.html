@@ -1,16 +1,16 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#5#0(B</title>
+<title>情報基礎演習II － 課題５０</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#5#0(B</h3>
+<h3>課題５０</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N$h$&$J%G!<%?$,$"$k$H$7$^$9!#(B
+<li>次のようなデータがあるとします。
 <p>
 
 <table border>
@@ -22,34 +22,34 @@
 </table>
 <p>
 
-<li>$B2<$N%W%m%0%i%`Cf$K(B
-$B$3$N%G!<%?$rJ];}$9$k9=B$BN$rDj5A$7$F$/$@$5$$!#(B
+<li>下のプログラム中に
+このデータを保持する構造体を定義してください。
 <p>
 
-<li>$B2<$N%W%m%0%i%`Cf$G(B
-$B>e$N%G!<%?$rJ];}$9$k$?$a$NG[NsJQ?t$r30ItJQ?t$H$7$F@k8@$7!"(B
-$B>e$K=>$C$F=i4|CM$rM?$($F$/$@$5$$!#(B
+<li>下のプログラム中で
+上のデータを保持するための配列変数を外部変数として宣言し、
+上に従って初期値を与えてください。
 <p>
 
-<li>$B2<$O>e$N%G!<%?$r=87W$9$k%W%m%0%i%`$G$9!#(B
-$B6uMs(B __(1)__, __(2)__, __(3)__ $B$rKd$a$F!"(B
-$B%W%m%0%i%`$r40@.$5$;$F$/$@$5$$!#(B
+<li>下は上のデータを集計するプログラムです。
+空欄 __(1)__, __(2)__, __(3)__ を埋めて、
+プログラムを完成させてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai50
-** $BF0:n(B: $BGd>e$29g7W(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai50
+** 動作: 売上げ合計
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
-/* $B9=B$BN$NDj5A$r$3$3$K=q$$$F$/$@$5$$(B */
+/* 構造体の定義をここに書いてください */
 
-/* $BG[NsJQ?t$N@k8@$r$3$3$K=q$$$F$/$@$5$$(B */
+/* 配列変数の宣言をここに書いてください */
 
 int main(void)
 {
@@ -58,7 +58,7 @@ int main(void)
     for (i = 0; i < __(1)__; i++) {
         sum += __(2)__ * __(3)__;
     }
-    printf("$BGd>e$29g7W$O(B%d$B1_(B\n", sum);
+    printf("売上げ合計は%d円\n", sum);
 
     return 0;
 }
@@ -66,9 +66,9 @@ int main(void)
 </table>
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai50.c $B$H$7!"$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai50 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai50.c とし、それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai50 としてください。
 
 </ol>
 

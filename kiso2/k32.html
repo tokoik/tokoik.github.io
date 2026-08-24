@@ -1,19 +1,19 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#3#2(B</title>
+<title>情報基礎演習II － 課題３２</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#3#2(B</h3>
+<h3>課題３２</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%W%m%0%i%`$O!"(B
-$BG[NsJQ?t$N@hF,$NMWAG$+$iC5$7$F!"(B
-0 $B$G$J$$MWAG$r8+$D$1$?$i$=$NE:;z$rEz$($k%W%m%0%i%`$G$9!#(B
-$B$3$NNc$N$h$&$K!"(Bfor $B$K$h$C$F7+$jJV$5$l$k=hM}$r=q$+$J$$>l9g$b$"$j$^$9!#(B
+<li>次のプログラムは、
+配列変数の先頭の要素から探して、
+0 でない要素を見つけたらその添字を答えるプログラムです。
+この例のように、for によって繰り返される処理を書かない場合もあります。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
@@ -23,27 +23,27 @@ int data[] = { 0, 0, 0, 0, 0, 10, 0, 20, 0 };
 int main(void)
 {
     int i;
-    for (i = 0; data[i] == 0; i++) /* $B2?$b$7$J$$(B */;
-    printf("%d $BHVL\$K(B %d $B$,$"$j$^$9(B\n", i, data[i]);
+    for (i = 0; data[i] == 0; i++) /* 何もしない */;
+    printf("%d 番目に %d があります\n", i, data[i]);
     return 0;
 }
 </pre>
 </table>
 <p>
 
-<li>$B>e$NNc$r;29M$K$7$F!"(B
-$BF~NO$7$?9T$ND9$5!JJ8;z?t!K$r5a$a$k%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
-$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai32.c $B$H$7$F$/$@$5$$!#(B
+<li>上の例を参考にして、
+入力した行の長さ（文字数）を求めるプログラムを作成してください。
+ソースプログラムのファイル名は kadai32.c としてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai32
-** $BF0:n(B: $BJ8;zNs$ND9$5(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai32
+** 動作: 文字列の長さ
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -54,22 +54,22 @@ int main(void)
 
     scanf("%99s", line);
 
-    /* $B$3$NItJ,$K%W%m%0%i%`$r=q$/(B */
+    /* この部分にプログラムを書く */
         
-    printf("$B9T$ND9$5$O(B %d $BJ8;z(B\n", length);
+    printf("行の長さは %d 文字\n", length);
     return 0;
 }
 </pre>
 </table>
 </p>
 
-<li>kadai32.c $B$r%3%s%Q%$%k!?%j%s%/$7$F(B kadai32 $B$H$$$&<B9T%W%m%0%i%`$r(B
-$B:n$C$F$/$@$5$$!#(B
+<li>kadai32.c をコンパイル／リンクして kadai32 という実行プログラムを
+作ってください。
 <p>
 
-<li>kadai32 $B$,@5>o$K<B9T$G$-$?$i!"(B kadai32.c $B$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai32 $B$H$7$F$/$@$5$$!#(B
+<li>kadai32 が正常に実行できたら、 kadai32.c をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai32 としてください。
 
 </ol>
 

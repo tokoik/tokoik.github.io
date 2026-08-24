@@ -1,29 +1,29 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#3#4(B</title>
+<title>情報基礎演習II － 課題３４</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#3#4(B</h3>
+<h3>課題３４</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%W%m%0%i%`$O!"(B
-$B$"$k7h$a$i$l$??t!J6b3[!"$3$N>l9g$O#1K|1_!K$+$i!"(B
-$B%-!<%\!<%I$+$iF~NO$7$??t!J;Y=P3[!K$r8:$8$F$f$-!"(B
-$B;D$j!J;D3[!K$,#00J2<$K$J$C$?$i=*N;$9$k%W%m%0%i%`$G$9!#(B
+<li>次のプログラムは、
+ある決められた数（金額、この場合は１万円）から、
+キーボードから入力した数（支出額）を減じてゆき、
+残り（残額）が０以下になったら終了するプログラムです。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai34
-** $BF0:n(B: $BM=;;4IM}(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai34
+** 動作: 予算管理
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -33,10 +33,10 @@ int main(void)
 
     budget  = 10000;
     while (budget &gt; 0) {
-        printf("$B;Y=P3[$rF~$l$F$/$@$5$$!'(B");
+        printf("支出額を入れてください：");
         scanf("%d", &payment);
         budget -= payment;
-        printf("$B;D3[$O(B %d $B1_$G$9(B\n", budget);
+        printf("残額は %d 円です\n", budget);
     }
     return 0;
 }
@@ -44,16 +44,16 @@ int main(void)
 </table>
 <p>
 
-<li>$B$3$N%W%m%0%i%`$O;D3[$,#00J2<$K$J$k$^$G=*N;$7$^$;$s!#(B
-$B$=$3$G;Y=P3[$H$7$F#0$rF~NO$7$?$H$-$O!"(B
-$B;D3[$,#00J2<$G$J$/$F$bESCf$G=*N;$9$k$h$&$K!"(B
-$B$3$N%W%m%0%i%`$K#19TDI2C$7$F$/$@$5$$!#(B
+<li>このプログラムは残額が０以下になるまで終了しません。
+そこで支出額として０を入力したときは、
+残額が０以下でなくても途中で終了するように、
+このプログラムに１行追加してください。
 <p>
 
-<li>$BJQ99$7$?%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai34.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai34 $B$H$7$F$/$@$5$$!#(B
+<li>変更したソースプログラムのファイル名は kadai34.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai34 としてください。
 
 </ol>
 

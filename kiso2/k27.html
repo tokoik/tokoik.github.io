@@ -1,37 +1,37 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#2#7(B</title>
+<title>情報基礎演習II － 課題２７</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#2#7(B</h3>
+<h3>課題２７</h3>
 
 <hr>
 
 <ol>
 
-<li>$B$?$H$($P!V#1#8:P0J>e#2#5:PL$K~$G!"(B
-$B?HD9#1#6#5%;%s%A0J>e$+$DBN=E#5#0%-%m0J>e!W$H$$$&$h$&$J(B
-$BJ#;($J>r7o$rI=8=$9$k$K$O!"(B
-$BJ#?t$N4X781i;;<0$rAH$_9g$o$;$kI,MW$,$"$j$^$9!#(B
+<li>たとえば「１８歳以上２５歳未満で、
+身長１６５センチ以上かつ体重５０キロ以上」というような
+複雑な条件を表現するには、
+複数の関係演算式を組み合わせる必要があります。
 
 <blockquote>
 <pre>
-age &gt;= 18$B!V$+$D!W(Bage &lt; 25$B!V$+$D!W(Bheight &gt; 165$B!V$+$D!W(Bweight &gt; 50
+age &gt;= 18「かつ」age &lt; 25「かつ」height &gt; 165「かつ」weight &gt; 50
 </pre>
 </blockquote>
 
-$B>e$N!V$+$D!W$N$h$&$J1i;;$r9T$&$N$,!VO@M}1i;;<0!W$G$9!#(B
+上の「かつ」のような演算を行うのが「論理演算式」です。
 
 <blockquote>
 <table border>
-<tr><td><tt>A &amp;&amp; B</tt><td>A $B$H(B B $B$NN>J}$,??$N>l9g$K8B$j??!JO@M}@Q!K(B
-<tr><td><tt>A || B</tt><td>A $B$+(B B $B$N$$$:$l$+$,??$G$"$l$P??!JO@M}OB!K(B
-<tr><td><tt>!A</tt><td>A $B$,??$J$i56!"56$J$i??!JH]Dj!K(B
+<tr><td><tt>A &amp;&amp; B</tt><td>A と B の両方が真の場合に限り真（論理積）
+<tr><td><tt>A || B</tt><td>A か B のいずれかが真であれば真（論理和）
+<tr><td><tt>!A</tt><td>A が真なら偽、偽なら真（否定）
 </table>
 </blockquote>
 
-$B>e$N>r7o$rO@M}1i;;<0$r;H$C$F=q$/$H<!$N$h$&$K$J$j$^$9!#(B
+上の条件を論理演算式を使って書くと次のようになります。
 
 <blockquote>
 <pre>
@@ -39,32 +39,32 @@ age &gt;= 18 && age &lt; 25 && height &gt; 165 && weight &gt; 50
 </pre>
 </blockquote>
 
-<li>$B$"$k9b9;$G$O!"9q8l!"?t3X!"1Q8l!"<R2q!"M}2J$N#5652J$N$&$A(B
-$B#1652J$G$b#3#0E@L$K~$N$b$N$,$"$k$+!"(B
-$B$^$?$O#6#0E@L$K~$N$b$N$,#3652J0J>e$"$k$H(B
-$BN1G/$5$;$i$l$F$7$^$$$^$9!#(B
-$B0J2<$N%=!<%9%W%m%0%i%`$O$=$N9b9;$N@.@SH=Dj%W%m%0%i%`$G$9!#(B
-$B6uMs!J(B????$B!K$rKd$a$F!"%W%m%0%i%`$r40@.$5$;$F$/$@$5$$!#(B
+<li>ある高校では、国語、数学、英語、社会、理科の５教科のうち
+１教科でも３０点未満のものがあるか、
+または６０点未満のものが３教科以上あると
+留年させられてしまいます。
+以下のソースプログラムはその高校の成績判定プログラムです。
+空欄（????）を埋めて、プログラムを完成させてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai27
-** $BF0:n(B: $B@.@SH=Dj%W%m%0%i%`!)(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai27
+** 動作: 成績判定プログラム？
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
 int main(void)
 {
-    int mark;       /* $BE@?t(B   */
-    int fuka = 0;   /* 60$BE@L$K~$N652J$N?t(B */
-    int daifuka = 0;/* 30$BE@L$K~$N652J$N?t(B */
+    int mark;       /* 点数   */
+    int fuka = 0;   /* 60点未満の教科の数 */
+    int daifuka = 0;/* 30点未満の教科の数 */
 
-    printf("$B9q8l$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("国語の点数を入れてください：");
     scanf("%d", &mark);
     if (mark &lt; 30) {
         daifuka++;
@@ -73,7 +73,7 @@ int main(void)
         fuka++;
     }
 
-    printf("$B?t3X$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("数学の点数を入れてください：");
     scanf("%d", &mark);
     if (mark &lt; 30) {
         daifuka++;
@@ -82,7 +82,7 @@ int main(void)
         fuka++;
     }
 
-    printf("$B1Q8l$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("英語の点数を入れてください：");
     scanf("%d", &mark);
     if (mark &lt; 30) {
         daifuka++;
@@ -91,7 +91,7 @@ int main(void)
         fuka++;
     }
 
-    printf("$BM}2J$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("理科の点数を入れてください：");
     scanf("%d", &mark);
     if (mark &lt; 30) {
         daifuka++;
@@ -100,7 +100,7 @@ int main(void)
         fuka++;
     }
 
-    printf("$B<R2q$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("社会の点数を入れてください：");
     scanf("%d", &mark);
     if (mark &lt; 30) {
         daifuka++;
@@ -110,10 +110,10 @@ int main(void)
     }
 
     if ( ???? ) {
-        printf("$BN1G/$7$J$5$$!#(B\n");
+        printf("留年しなさい。\n");
     }
     else {
-        printf("$B?J5i$5$;$F$"$2$^$7$g$&!#(B\n");
+        printf("進級させてあげましょう。\n");
     }
 
     return 0;
@@ -122,10 +122,10 @@ int main(void)
 </table>
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai27.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai27 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai27.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai27 としてください。
 
 </ol>
 

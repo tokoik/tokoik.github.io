@@ -1,28 +1,28 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#02s(B</title>
+<title>情報基礎演習II － 第１０回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#02s(B</h1>
+<h1>情報基礎演習II － 第１０回</h1>
 
 <hr>
 
-<h2>$B#1!%5-21%/%i%9(B</h2>
+<h2>１．記憶クラス</h2>
 
 <hr>
 
-<a href="07.html#block">$B%V%m%C%/(B</a>$B$N@hF,$G@k8@$5$l$?JQ?t$O!"(B
-$B$=$N%V%m%C%/$N;O$^$j$G@8@.!J5-21NN0h$N3d$jEv$F!K$5$l!"(B
-$B$=$N%V%m%C%/$N=*$j$G>C5n!J5-21NN0h$N3+J|!K$5$l$^$9!#(B
+<a href="07.html#block">ブロック</a>の先頭で宣言された変数は、
+そのブロックの始まりで生成（記憶領域の割り当て）され、
+そのブロックの終りで消去（記憶領域の開放）されます。
 <p>
 
-$B=>$C$F!"Nc$($PF1$84X?t$r#22s8F$S=P$7$?$H$-!"(B
-$B#12sL\$N8F$S=P$7$N$H$-$NJQ?t$NCM$O!"(B
-$B#22sL\$N8F$S=P$7$N$H$-$^$GJ]B8$5$l$^$;$s!#(B
-$BNc$($P!"<!$N%W%m%0%i%`$G$O!"(B
-sub1 $B$N#12sL\$N8F$S=P$7$GJQ?t(B i $B$K(B 10 $B$,BeF~$5$l$k$b$N$N!"(B
-$B#22sL\$N8F$S=P$7$N$H$-$K$O(B i $B$K(B 10 $B0J30$N$b$N$,F~$C$F$$$^$9!#(B
+従って、例えば同じ関数を２回呼び出したとき、
+１回目の呼び出しのときの変数の値は、
+２回目の呼び出しのときまで保存されません。
+例えば、次のプログラムでは、
+sub1 の１回目の呼び出しで変数 i に 10 が代入されるものの、
+２回目の呼び出しのときには i に 10 以外のものが入っています。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -32,7 +32,7 @@ sub1 $B$N#12sL\$N8F$S=P$7$GJQ?t(B i $B$K(B 10 $B$,BeF~$5$l$k$b$N$N!"(B
 
 void sub1(int f)
 {
-    int i; /* sub1 $B$NCf$@$1$GM-8z$JJQ?t!J<+F0JQ?t!K(B */
+    int i; /* sub1 の中だけで有効な変数（自動変数） */
 
     if (f == 0) {
       i = 10;
@@ -49,18 +49,18 @@ void sub2(void)
 
 int main(void)
 {
-    sub1(0);   /* sub1 $B$N(B i $B$K(B 10 $B$rF~$l$k(B */
+    sub1(0);   /* sub1 の i に 10 を入れる */
     sub2();
-    sub1(1);   /* sub1 $B$N(B i $B$rI=<($9$k(B */
-               /* i $B$,J]B8$5$l$F$$$l$P(B 10 $B$,I=<($5$l$k$O$:(B */
+    sub1(1);   /* sub1 の i を表示する */
+               /* i が保存されていれば 10 が表示されるはず */
     return 0;
 }
 </pre>
 </table>
 </blockquote>
 
-$B$3$N$h$&$JJQ?t$r(B<b>$B<+F0JQ?t(B</b>$B$H8F$S$^$9!#(B
-$B<+F0JQ?t$N@k8@$ODL>o<!$N$h$&$K9T$$$^$9!#(B
+このような変数を<b>自動変数</b>と呼びます。
+自動変数の宣言は通常次のように行います。
 
 <blockquote>
 <pre>
@@ -68,15 +68,15 @@ auto int i;
 </pre>
 </blockquote>
 
-auto $B$O<+F0JQ?t$N@k8@$G$"$k$3$H$r<($7$^$9!#(B
-auto $B$r>JN,$7$?>l9g!"(B
-$B%V%m%C%/$NFbB&$G@k8@$5$l$?JQ?t$O<+F0JQ?t$G$"$k$H8+$J$5$l$^$9!#(B
-$BIaDL(B auto $B$O>JN,$5$l$^$9!#(B
+auto は自動変数の宣言であることを示します。
+auto を省略した場合、
+ブロックの内側で宣言された変数は自動変数であると見なされます。
+普通 auto は省略されます。
 <p>
 
-$B%V%m%C%/Fb$GJQ?t$5$l$?JQ?t$,(B
-$B%V%m%C%/$N=*N;8e$bJ]B8$5$l$kMQ$K$9$k$K$O!"(B
-static $B$rIU$1$FJQ?t$r@k8@$7$^$9!#(B
+ブロック内で変数された変数が
+ブロックの終了後も保存される用にするには、
+static を付けて変数を宣言します。
 
 <blockquote>
 <pre>
@@ -84,28 +84,28 @@ static int i;
 </pre>
 </blockquote>
 
-$B$3$N$h$&$JJQ?t$r(B<b>$B@EE*JQ?t(B</b>$B$H8F$S$^$9!#(B
-$B@EE*JQ?t$N5-21NN0h$N3d$jEv$F$O!"(B
-$B%W%m%0%i%`$N<B9T3+;O;~$K9T$o$l!"(B
-$B%W%m%0%i%`$,=*N;$9$k$^$GJ]B8$5$l$^$9!#(B
-$B>e$N%W%m%0%i%`$K$*$$$F(B sub1 $B$NJQ?t(B i $B$r(B <tt>static int i;</tt> $B$H(B
-$B@k8@$9$l$P!"#22sL\$N8F$S=P$7$N$H$-$K$b(B i $B$K$O(B 10 $B$,F~$C$F$$$^$9!#(B
+このような変数を<b>静的変数</b>と呼びます。
+静的変数の記憶領域の割り当ては、
+プログラムの実行開始時に行われ、
+プログラムが終了するまで保存されます。
+上のプログラムにおいて sub1 の変数 i を <tt>static int i;</tt> と
+宣言すれば、２回目の呼び出しのときにも i には 10 が入っています。
 
-<a href="k44.html"><h3 align="center">$B"#2]Bj#4#4"#(B</h3></a>
-
-<hr>
-
-<h2>$B#2!%JQ?t$N%9%3!<%W(B</h2>
+<a href="k44.html"><h3 align="center">■課題４４■</h3></a>
 
 <hr>
 
-<a href="07.html#block">$B%V%m%C%/(B</a>$B$N@hF,$G@k8@$7$?JQ?t$O!"(B
-$B$=$N%V%m%C%/$NCf$G$N$_M-8z$G$9!#(B
-$B2<$NNc$G$O!"4X?t(B main $BFb$NJQ?t(B i $B$H!"(B
-$B4X?t(B sub $BFb$NJQ?t(B i $B$O!"(B
-$BJL$NJQ?t$K$J$j$^$9!#(B
-$B=>$C$F4X?t(B main $B$+$i(B sub $BFb$N(B i $B$r;2>H$9$k$3$H$O!"(B
-$B0z?t$J$I$rMQ$$$J$$8B$j$G$-$^$;$s!#(B
+<h2>２．変数のスコープ</h2>
+
+<hr>
+
+<a href="07.html#block">ブロック</a>の先頭で宣言した変数は、
+そのブロックの中でのみ有効です。
+下の例では、関数 main 内の変数 i と、
+関数 sub 内の変数 i は、
+別の変数になります。
+従って関数 main から sub 内の i を参照することは、
+引数などを用いない限りできません。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -115,7 +115,7 @@ static int i;
 
 void sub(void)
 {
-    int i;      /* $B4X?t(B sub $B$NCf$@$1$GM-8z(B */
+    int i;      /* 関数 sub の中だけで有効 */
 
     for (i = 0; i < 10; i++) {
         printf("%3d", i);
@@ -125,7 +125,7 @@ void sub(void)
 
 int main(void)
 {
-    int i;      /* $B4X?t(B main $B$NCf$@$1$GM-8z(B */
+    int i;      /* 関数 main の中だけで有効 */
 
     for (i = 0; i < 10; i++) {
         sub();
@@ -137,10 +137,10 @@ int main(void)
 </table>
 </blockquote>
 
-$B>e$NNc$G!"(B
-for $B$K$h$C$F7+$jJV$5$l$F$$$k(B <tt>{ ... }</tt> $B$NItJ,$b(B
-$B$R$H$D$N%V%m%C%/$G$9!#(B
-$B=>$C$F!"$3$NItJ,$G$bJQ?t@k8@$r9T$&$3$H$,$G$-$^$9!#(B
+上の例で、
+for によって繰り返されている <tt>{ ... }</tt> の部分も
+ひとつのブロックです。
+従って、この部分でも変数宣言を行うことができます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -167,27 +167,27 @@ int main(void)
 </table>
 </blockquote>
 
-$B>e$NNc$G$O!"(B(2) $B$N%V%m%C%/$G@k8@$5$l$F$$$kJQ?t(B j $B$O(B
-$B$=$NFbB&$N%V%m%C%/(B (1) $B$G$bM-8z$G$9$,!"(B
-$B%V%m%C%/(B (2) $B$N30B&$G$O;H$($^$;$s!#(B
+上の例では、(2) のブロックで宣言されている変数 j は
+その内側のブロック (1) でも有効ですが、
+ブロック (2) の外側では使えません。
 <p>
 
-$B$3$N$h$&$JJQ?t$NM-8zHO0O$N$3$H$r(B <b>$B%9%3!<%W(B</b>$B!J2D;kHO0O!K(B
-$B$H$$$$$^$9!#(B
+このような変数の有効範囲のことを <b>スコープ</b>（可視範囲）
+といいます。
 <p>
 
-<a href="k45.html"><h3 align="center">$B"#2]Bj#4#5"#(B</h3></a>
-<a href="k46.html"><h3 align="center">$B"#2]Bj#4#6"#(B</h3></a>
+<a href="k45.html"><h3 align="center">■課題４５■</h3></a>
+<a href="k46.html"><h3 align="center">■課題４６■</h3></a>
 <p>
 
 <a name="extern">
 <hr>
 
-<h3>$B30ItJQ?t(B</h3></a>
+<h3>外部変数</h3></a>
 
-$BJ#?t$N4X?t$N4V$GF1$8JQ?t$r6&M-$7$?$$$H$-$O!"(B
-$B$=$NJQ?t$r4X?t$N30B&$N!"(B
-$B$=$NJQ?t$r6&M-$7$h$&$H$9$kA4$F$N4X?t$h$jA0$G@k8@$7$^$9!#(B
+複数の関数の間で同じ変数を共有したいときは、
+その変数を関数の外側の、
+その変数を共有しようとする全ての関数より前で宣言します。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -195,24 +195,24 @@ int main(void)
 <pre>
 #include &lt;stdio.h&gt;
 
-int sum; /* $B6&M-$7$h$&$H$9$kJQ?t(B */
+int sum; /* 共有しようとする変数 */
 
 void goukei(int n)
 {
     do {
-      sum += n; /* $B6&M-$7$h$&$H$9$kJQ?t(B */
+      sum += n; /* 共有しようとする変数 */
     }
     while (--n > 0);
 }
 
 void hyouji(void)
 {
-    printf("$B9g7W$O(B %d\n", sum); /* $B6&M-$7$h$&$H$9$kJQ?t(B */
+    printf("合計は %d\n", sum); /* 共有しようとする変数 */
 }
 
 int main(void)
 {
-    sum = 0; /* $B6&M-$7$h$&$H$9$kJQ?t(B */
+    sum = 0; /* 共有しようとする変数 */
     goukei(100);
     hyouji();
 
@@ -222,15 +222,15 @@ int main(void)
 </table>
 </blockquote>
 
-$B$3$N$h$&$JJQ?t$O(B<b>$B30ItJQ?t(B</b>$B$H8F$P$l$^$9!#(B
-$B30ItJQ?t$N5-21NN0h$O%W%m%0%i%`$N<B9T3+;O;~$K3d$jEv$F$i$l$^$9!#(B
-$B$9$J$o$A30ItJQ?t$O@EE*JQ?t$G$9!#(B
+このような変数は<b>外部変数</b>と呼ばれます。
+外部変数の記憶領域はプログラムの実行開始時に割り当てられます。
+すなわち外部変数は静的変数です。
 <p>
 
-$B30ItJQ?t$N@k8@$,!"(B
-$B$=$NJQ?t$r;2>H$7$F$$$kItJ,$h$jA0$K$J$$$H$-$O!"(B
-$B$=$NItJ,$h$jA0$G(B
-$B!V$I$3$+$K$=$&8@$&JQ?t$,$"$k$h!W$H$$$&@k8@$r$7$^$9!#(B
+外部変数の宣言が、
+その変数を参照している部分より前にないときは、
+その部分より前で
+「どこかにそう言う変数があるよ」という宣言をします。
 
 <blockquote>
 <pre>
@@ -238,27 +238,27 @@ extern int i;
 </pre>
 </blockquote>
 
-$B$3$N@k8@<+BN$O(B i $B$H$$$&JQ?t$KBP$7$F%a%b%j$r3d$jEv$F$^$;$s$,!"(B
-$B$I$3$+B>$N$H$3$m$G(B i $B$,@k8@$5$l$F$$$k$3$H$r<($7$^$9!#(B
+この宣言自体は i という変数に対してメモリを割り当てませんが、
+どこか他のところで i が宣言されていることを示します。
 
-<a href="k47.html"><h3 align="center">$B"#2]Bj#4#7"#(B</h3></a>
+<a href="k47.html"><h3 align="center">■課題４７■</h3></a>
 <p>
 
 <a name="bunkatu">
 <hr>
 
-<h2>$B#3!%J,3d%3%s%Q%$%k(B</h2></a>
+<h2>３．分割コンパイル</h2></a>
 
 <hr>
 
-$B%=!<%9%W%m%0%i%`$OJ#?t$N%U%!%$%k$KJ,$1$F:n$k$3$H$,$G$-$^$9!#(B
+ソースプログラムは複数のファイルに分けて作ることができます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td><b>goukei.c</b>
 <tr><td>
 <pre>
-extern int sum; /* $B$I$3$+B>$G@k8@$5$l$F$$$k(B */
+extern int sum; /* どこか他で宣言されている */
 
 void goukei(int n)
 {
@@ -277,11 +277,11 @@ void goukei(int n)
 <pre>
 #include &lt;stdio.h&gt;
 
-extern int sum; /* $B$I$3$+B>$G@k8@$5$l$F$$$k(B */
+extern int sum; /* どこか他で宣言されている */
 
 void hyouji(void)
 {
-    printf("$B9g7W$O(B %d\n", sum);
+    printf("合計は %d\n", sum);
 }
 </pre>
 </table>
@@ -291,7 +291,7 @@ void hyouji(void)
 <tr><td><b>main.c</b>
 <tr><td>
 <pre>
-int sum; /* $B6&M-$7$h$&$H$9$kJQ?t$N@k8@(B */
+int sum; /* 共有しようとする変数の宣言 */
 
 int main(void)
 {
@@ -305,8 +305,8 @@ int main(void)
 </table>
 </blockquote>
 
-$B$3$N$h$&$K%U%!%$%k$rJ,$1$?>l9g$O!"(B
-$B<!$N$h$&$K$7$F%3%s%Q%$%k$7$^$9!#(B
+このようにファイルを分けた場合は、
+次のようにしてコンパイルします。
 
 <blockquote>
 <pre>
@@ -314,13 +314,13 @@ cc main.c goukei.c hyouji.c -o prog
 </pre>
 </blockquote>
 
-$B$3$l$K$h$C$F(B main.c goukei.c hyouji.c $B$r$=$l$>$l%3%s%Q%$%k$7!"(B
-$B:n@.$5$l$?%*%V%8%'%/%H%U%!%$%k$r7k9g$7$F(B prog $B$H$$$&<B9T%U%!%$%k$r(B
-$B:n@.$7$^$9!#(B
+これによって main.c goukei.c hyouji.c をそれぞれコンパイルし、
+作成されたオブジェクトファイルを結合して prog という実行ファイルを
+作成します。
 <p>
 
-$B$3$NNc$G$O!"30ItJQ?t(B sum $B!J$N<BBN!K$O(B main.c $B$NCf$@$1$G@k8@$5$l$F$*$j!"(B
-goukei.c hyouji.c $B$G$O!"(B
+この例では、外部変数 sum （の実体）は main.c の中だけで宣言されており、
+goukei.c hyouji.c では、
 
 <blockquote>
 <pre>
@@ -328,11 +328,11 @@ extern int sum;
 </pre>
 </blockquote>
 
-$B$K$h$C$F!"$=$l$>$l$N%=!<%9%W%m%0%i%`$NCf0J30$K(B
-sum $B$,MQ0U$5$l$F$$$k$3$H$r@k8@$7$F$$$^$9!#(B
+によって、それぞれのソースプログラムの中以外に
+sum が用意されていることを宣言しています。
 <p>
 
-$B0lJ}!"4X?t$N30It$G!"(B
+一方、関数の外部で、
 
 <blockquote>
 <pre>
@@ -340,21 +340,21 @@ static int sum;
 </pre>
 </blockquote>
 
-$B$N$h$&$K@k8@$7$?>l9g$K$O!"(B
-$B$3$NJQ?t$O$=$N%=!<%9%U%!%$%k$N(B
-$B$=$l$,@k8@$5$l$F$$$k>l=j$h$j8e$m0J30$+$i$O;2>H$5$l$J$$$3$H$r<($7$^$9!#(B
-$BNc$($P!">e5-$NNc$N(B main.c $B$K$*$$$F(B sum $B$r<!$N$h$&$K@k8@$9$k$H!"(B
-sum $B$,B>$+$i;2>H$G$-$J$/$J$k$?$a!"(B
-goukei.c $B$*$h$S(B hyouji.c $B$K$"$k(B
-<tt>extern int sum;</tt> $B$N<BBN$,$J$$$3$H$K$J$j!"(B
-$B%j%s%/;~$K%(%i!<$K$J$j$^$9!#(B
+のように宣言した場合には、
+この変数はそのソースファイルの
+それが宣言されている場所より後ろ以外からは参照されないことを示します。
+例えば、上記の例の main.c において sum を次のように宣言すると、
+sum が他から参照できなくなるため、
+goukei.c および hyouji.c にある
+<tt>extern int sum;</tt> の実体がないことになり、
+リンク時にエラーになります。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td><b>main.c</b>
 <tr><td>
 <pre>
-static int sum; /* $B$3$N%U%!%$%kFb$@$1$G;HMQ$5$l$kJQ?t$N@k8@(B */
+static int sum; /* このファイル内だけで使用される変数の宣言 */
 
 int main(void)
 {
@@ -368,17 +368,17 @@ int main(void)
 </table>
 </blockquote>
 
-<a href="k48.html"><h3 align="center">$B"#2]Bj#4#8"#(B</h3></a>
+<a href="k48.html"><h3 align="center">■課題４８■</h3></a>
 <p>
 
 <a name="prototype">
 <hr>
 
-<h3>$B4X?t%W%m%H%?%$%W(B</h3></a>
+<h3>関数プロトタイプ</h3></a>
 
-$B2]Bj#4#8$K$*$$$F!"(Bkadai48b.c $B$K4^$^$l$k4X?t(B inc $B$r(B
-kadai48a.c $B$N4X?t(B goukei $BFb$G;HMQ$9$k$?$a$K!"(B
-kadai48a.c $B$N@hF,$G<!$N$h$&$K@k8@$7$F$$$^$7$?!#(B
+課題４８において、kadai48b.c に含まれる関数 inc を
+kadai48a.c の関数 goukei 内で使用するために、
+kadai48a.c の先頭で次のように宣言していました。
 
 <blockquote>
 <pre>
@@ -386,18 +386,18 @@ extern int inc(void);
 </pre>
 </blockquote>
 
-$B$3$l$^$GNc$G$O!"(B
-$B4X?t$OI,$:$=$l$r8F$S=P$7$F$$$kItJ,$h$jA0$GDj5A$7$F$$$^$7$?!#(B
-$B$3$l$O30ItJQ?t$N@k8@$HF1$85,B'$G$9!#(B
+これまで例では、
+関数は必ずそれを呼び出している部分より前で定義していました。
+これは外部変数の宣言と同じ規則です。
 <p>
 
-$B=>$C$F!"(B
-$B4X?t$NDj5A$,F1$8%=!<%9%U%!%$%k$N4X?t$r8F$S=P$7$F$$$kItJ,$h$jA0$KL5$$>l9g$O!"(B
-$B30ItJQ?tF1MM$=$N4X?t$r(B extern $B$r;H$C$F@k8@$7$F$d$kI,MW$,$"$j$^$9!#(B
-$B$3$N>l9g!"La$jCM$N7?$NB>$K!"(B
-$B0z?t$N7?$b@k8@$7$^$9(B
-$B!J4X?t$NCf?H$OI,MW$"$j$^$;$s!K!#(B
-$B$3$l$r(B<b>$B4X?t%W%m$H%?%$%W(B</b>$B$H8@$$$^$9!#(B
+従って、
+関数の定義が同じソースファイルの関数を呼び出している部分より前に無い場合は、
+外部変数同様その関数を extern を使って宣言してやる必要があります。
+この場合、戻り値の型の他に、
+引数の型も宣言します
+（関数の中身は必要ありません）。
+これを<b>関数プロとタイプ</b>と言います。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -405,7 +405,7 @@ extern int inc(void);
 <pre>
 #include &lt;stdio.h&gt;
 
-extern void swap(int *, int *); /* $B4X?t%W%m%H%?%$%W(B */
+extern void swap(int *, int *); /* 関数プロトタイプ */
 
 int main(void)
 {
@@ -431,8 +431,8 @@ void swap(int *a, int *b)
 </table>
 </blockquote>
 
-$B$3$NNc$G$O4X?t(B swap $B$NLa$jCM$N7?$,(B void$B!JCM$rJV$5$J$$!K$G!"(B
-$B#2$D$N0z?t$,$$$:$l$b(B int $B7?$N%]%$%s%?$G$"$k$3$H$r<($7$F$$$^$9!#(B
+この例では関数 swap の戻り値の型が void（値を返さない）で、
+２つの引数がいずれも int 型のポインタであることを示しています。
 
 <blockquote>
 <pre>

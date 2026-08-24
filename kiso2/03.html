@@ -1,49 +1,49 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#32s(B</title>
+<title>情報基礎演習II － 第３回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#32s(B</h1>
+<h1>情報基礎演習II － 第３回</h1>
 
 <a name="kansu">
 <hr>
 
-<h2>$B#1!%4X?t(B</h2>
+<h2>１．関数</h2>
 
 <hr>
 </a>
 
-$B?t3X$N4X?t$O!"Nc$($P(B f(x) = x<sup>2</sup> $B$HDj5A$5$l$F$$$k$H$-!"(B
-f(2) = 4, f(3) = 9 $B$K$J$j$^$9!#(B
-$B$9$J$o$A!"(B
-$B%Q%i%a!<%?$H$7$FM?$($?CM$rDj5A$5$l$?<0$G7W;;$7$?CM$HEy$7$$$b$N(B
-$B$H$7$F07$$$^$9!#(B
+数学の関数は、例えば f(x) = x<sup>2</sup> と定義されているとき、
+f(2) = 4, f(3) = 9 になります。
+すなわち、
+パラメータとして与えた値を定義された式で計算した値と等しいもの
+として扱います。
 
 <blockquote>
 <img src="03-1.gif">
 </blockquote>
 
-$B$7$?$,$C$F!"(Bg(x) = f(x) * x $B$H8@$&$h$&$K!"(B
-$B4X?t$rJL$N4X?tDj5A$G;2>H$9$k$3$H$b$G$-$^$9!#(B
+したがって、g(x) = f(x) * x と言うように、
+関数を別の関数定義で参照することもできます。
 
 <blockquote>
 <img src="03-2.gif">
 </blockquote>
 
-$B#C8@8l$K$*$$$F$b!"(B
-$B4X?t$O$J$s$i$+$N%G!<%?$rF@$F!"(B
-$B$=$l$r=hM}$7!"(B
-$B$J$s$i$+$N7k2L$rJV$7$^$9!#(B
-$B$3$l$,(BC$B8@8l$N%W%m%0%i%`$NC10L$K$J$j$^$9!#(B
-$B7k2L$rJV$94X?t$O!"(B
-$BDj?t$dJQ?tF1MM!"CM$r;}$D$b$N$H$7$F07$o$l$^$9!#(B
-$B?t3X$N4X?t$H0c$&$H$3$m$O!"(B
-$B$=$NDj5A$,!V<jB3$-!W$G$"$k$H$3$m$G$9!#(B
+Ｃ言語においても、
+関数はなんらかのデータを得て、
+それを処理し、
+なんらかの結果を返します。
+これがC言語のプログラムの単位になります。
+結果を返す関数は、
+定数や変数同様、値を持つものとして扱われます。
+数学の関数と違うところは、
+その定義が「手続き」であるところです。
 <p>
 
-f(x) $B$d(B g(x) $B$r#C8@8l$N4X?t$H$7$FI=$;$P!"(B
-$B<!$N$h$&$K$J$j$^$9!#(B
+f(x) や g(x) をＣ言語の関数として表せば、
+次のようになります。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -62,11 +62,11 @@ int g(int x)
 </table>
 </blockquote>
 
-$B4X?t(B g(x) $B$O4X?t(B f(x) $B$rI>2A$7$F$=$NCM$r5a$a!"(B
-$B$=$l$K(B x $B$r$+$1$?$b$N$r<+J,<+?H$NCM$H$7$F$$$^$9!#(B
+関数 g(x) は関数 f(x) を評価してその値を求め、
+それに x をかけたものを自分自身の値としています。
 <p>
 
-main $B$b0l$D$N4X?t$G$9!#(B
+main も一つの関数です。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -80,43 +80,43 @@ int main(void)
 </table>
 </blockquote>
 
-$B$3$NNc$O4X?t(B main $B$rDj5A$7!"(B
-{ } $BFb$K(B main $B$K$*$$$F9T$&$Y$-=hM}$r5-=R$7$F$$$^$9!#(B
-return 0; $B$K$h$C$F!"(B
-$B$3$N4X?t$NCM$r(B 0 $B$K@_Dj$7!"(B
-$B$3$N4X?t$rI>2A$7$F$$$k$H$3$m$KLa$j$^$9!#(B
-$B$3$N4X?t$NCM$N$3$H$r4X?t$N(B<a href="#retval">$BLa$jCM(B</a>$B$H8@$$$^$9!#(B
-main $B$N:8$N(B int $B$O!"$3$NLa$jCM!J$9$J$o$A4X?t<+?H!K$N%G!<%?7?$r<($7$^$9!#(B
+この例は関数 main を定義し、
+{ } 内に main において行うべき処理を記述しています。
+return 0; によって、
+この関数の値を 0 に設定し、
+この関数を評価しているところに戻ります。
+この関数の値のことを関数の<a href="#retval">戻り値</a>と言います。
+main の左の int は、この戻り値（すなわち関数自身）のデータ型を示します。
 <p>
 
-$B%W%m%0%i%`$r<B9T$9$k$H!"(B
-<a href="h05.html">$B%*%Z%l!<%F%#%s%0%7%9%F%`(B</a>$B$O(B
-$B:G=i$K$3$N4X?t(B main $B$rI>2A$7$^$9!#(B
-$B>e$NNc$G$O4X?t(B main $B$rI>2A$7$?CM$O(B 0 $B$K$J$j$^$9!#(B
-$B%*%Z%l!<%F%#%s%0%7%9%F%`$O$3$l$r(B
-<a href="h06.html">$B=*N;%9%F!<%?%9(B</a>$B$K@_Dj$7$F!"(B
-$B%W%m%0%i%`$r=*N;$7$^$9!#(B
+プログラムを実行すると、
+<a href="h05.html">オペレーティングシステム</a>は
+最初にこの関数 main を評価します。
+上の例では関数 main を評価した値は 0 になります。
+オペレーティングシステムはこれを
+<a href="h06.html">終了ステータス</a>に設定して、
+プログラムを終了します。
 <p>
 
-$B$3$N(B main $B$N$h$&$JL>A0$r4X?tL>$H$$$$$^$9!#(B
-$B4X?tL>$NIU$1J}$O(B
-<a href="02.html#hensumei">$BJQ?tL>$HF1$8(B</a>$B$G$9!#(B
-$B$?$@$7(B main $B$O!">e$G=R$Y$?$h$&$K(B
-$B%*%Z%l!<%F%#%s%0%7%9%F%`$,%W%m%0%i%`$N<B9T$r3+;O$9$k$H$-$N(B
-$B!VL\0u!W$H$7$F;H$$$^$9$+$i!"(B
-$B%W%m%0%i%`Cf$K$O(B main $B$,I,$:#1$D$@$1B8:_$9$kI,MW$,$"$j$^$9!#(B
+この main のような名前を関数名といいます。
+関数名の付け方は
+<a href="02.html#hensumei">変数名と同じ</a>です。
+ただし main は、上で述べたように
+オペレーティングシステムがプログラムの実行を開始するときの
+「目印」として使いますから、
+プログラム中には main が必ず１つだけ存在する必要があります。
 <p>
 
-<a href="k07.html"><h3 align="center">$B"#2]Bj#7"#(B</h3></a>
+<a href="k07.html"><h3 align="center">■課題７■</h3></a>
 <p>
 
 <a name="library">
 <hr>
 
-<h3>$B%i%$%V%i%j4X?t(B</h3>
+<h3>ライブラリ関数</h3>
 </a>
 
-main $B$+$iJL$N4X?t$r8F$S=P$9$3$H$,$G$-$^$9!#(B
+main から別の関数を呼び出すことができます。
 <p>
 
 <blockquote>
@@ -135,23 +135,23 @@ int main(void)
 </blockquote>
 <p>
 
-$B$3$NNc$G$O!"(B
-main $B$+$i(B printf $B$H$$$&4X?t$r8F$S=P$7!"(B
-$B$=$l$K(B "Hello!\n" $B$H$$$&%G!<%?$rM?$($F$$$^$9!#(B
-$B$3$N$h$&$K4X?t$KM?$($k%G!<%?$N$3$H$r0z?t!J$R$-$9$&!K$H8F$S$^$9!#(B
-printf $B$O!"0z?t$KM?$($i$l$?%G!<%?$rI8=`=PNO$K=PNO!J2hLL$KI=<(!K$7$^$9!#(B
+この例では、
+main から printf という関数を呼び出し、
+それに "Hello!\n" というデータを与えています。
+このように関数に与えるデータのことを引数（ひきすう）と呼びます。
+printf は、引数に与えられたデータを標準出力に出力（画面に表示）します。
 <p>
 
-$B2hLLI=<(!JF~=PNO!K$N$h$&$K%W%m%0%i%`Cf$GIQHK$K;H$o$l$k5!G=$O!"(B
-$B$"$i$+$8$aItIJ$N$h$&$K;H$($k4X?t$H$7$FMQ0U$5$l$F$$$^$9!#(B
-$B$3$N$h$&$J4X?t$r%i%$%V%i%j4X?t$H8@$$$^$9!#(B
-printf $B$O%i%$%V%i%j4X?t$N$R$H$D$G$9!#(B
-$B$3$l$O%j%s%/$N$H$-$K(B
-<a href="h01.html">$B%i%$%V%i%j%U%!%$%k(B</a>$B$+$i<h$j=P$5$l$F!"(B
-main $B4X?t$H7k9g$5$l$^$9!#(B
+画面表示（入出力）のようにプログラム中で頻繁に使われる機能は、
+あらかじめ部品のように使える関数として用意されています。
+このような関数をライブラリ関数と言います。
+printf はライブラリ関数のひとつです。
+これはリンクのときに
+<a href="h01.html">ライブラリファイル</a>から取り出されて、
+main 関数と結合されます。
 <p>
 
-$B$3$N%W%m%0%i%`$N#19TL\$K$"$k!"(B
+このプログラムの１行目にある、
 
 <blockquote>
 <pre>
@@ -159,54 +159,54 @@ main $B4X?t$H7k9g$5$l$^$9!#(B
 </pre>
 </blockquote>
 
-$B$O!"(Bstdio.h $B$H$$$&JL$N>l=j!J(B/usr/include$B!K$K$"$k%U%!%$%k$r(B
-$B%=!<%9%U%!%$%k$N$3$N0LCV$KKd$a9~$_$^$9!#(B
-$B$3$N%U%!%$%k$K$O(B
-printf $B$N$h$&$JI8=`F~=PNO!J(Bstandard input/output$B!K$r;H$&(B
-$B%i%$%V%i%j4X?t$N@k8@$J$I$,5-=R$5$l$F$$$^$9!#(B
-printf $B$r;H$&$H$-$O!"(B
-$B$*$^$8$J$$$@$H$G$b;W$C$F!"(B
-$B%W%m%0%i%`$N@hF,$K$3$N#19T$rF~$l$F$/$@$5$$!#(B
+は、stdio.h という別の場所（/usr/include）にあるファイルを
+ソースファイルのこの位置に埋め込みます。
+このファイルには
+printf のような標準入出力（standard input/output）を使う
+ライブラリ関数の宣言などが記述されています。
+printf を使うときは、
+おまじないだとでも思って、
+プログラムの先頭にこの１行を入れてください。
 <p>
 
-printf $B$OJ#?t$N0z?t$r<u$1<h$k>l9g$b$"$j$^$9!#(B
-$B<!$NNc$O!"(B
-printf $B$K(B ,$B!J%3%s%^!K$G6h@Z$C$F#3$D$N0z?t$rM?$($F$$$^$9!#(B
+printf は複数の引数を受け取る場合もあります。
+次の例は、
+printf に ,（コンマ）で区切って３つの引数を与えています。
 
 <blockquote>
 <pre>
-printf("%d$B$N#2G\$O(B%d\n", x, x * 2);
+printf("%dの２倍は%d\n", x, x * 2);
 </pre>
 </blockquote>
 
-$B$3$N$&$A0l$DL\$N0z?t(B "%d$B$N#2G\$O(B%d\n" $B$O=q<0J8;zNs$H8F$P$l!"(B
-$B2?$r$I$N$h$&$J=q<0$G=PNO$9$k$N$+$r(B printf $B$K;X<($7$^$9!#(B
-$B=q<0J8;zNs$N:G8e$N(B \n $B$O2~9T$r<($7$^$9!#(B
+このうち一つ目の引数 "%dの２倍は%d\n" は書式文字列と呼ばれ、
+何をどのような書式で出力するのかを printf に指示します。
+書式文字列の最後の \n は改行を示します。
 <p>
 
-$B=q<0J8;zNs$K4^$^$l$k#2$D$N(B %d $B$OJQ49;XDj;R$H8F$P$l!"(B
-$B$=$N0LCV$K$=$l$>$lFs$DL\!";0$DL\$N0z?t$H$7$FM?$($i$l$?<0!J@0?t7?!K$r!"(B
-$B$=$N0LCV$K#1#0?J?t$NJ8;zNs$KJQ49$7$F(B
-$B!J%3%s%T%e!<%?$NFbIt$G$O#2?J?t$@$+$i!KI=<($9$k$3$H$r<($7$F$$$^$9!#(B
+書式文字列に含まれる２つの %d は変換指定子と呼ばれ、
+その位置にそれぞれ二つ目、三つ目の引数として与えられた式（整数型）を、
+その位置に１０進数の文字列に変換して
+（コンピュータの内部では２進数だから）表示することを示しています。
 <p>
 
-$B=q<0J8;zNsCf$G(B % $B<+?H$rI=<($7$?$$>l9g$O!"(B%% $B$H=q$-$^$9!#(B
+書式文字列中で % 自身を表示したい場合は、%% と書きます。
 
 <blockquote>
 <pre>
-printf("%d$B$N(B10%%$B$O(B%d$B$G$9(B\n", x, x * 10 / 100);
+printf("%dの10%%は%dです\n", x, x * 10 / 100);
 </pre>
 </blockquote>
 
-<a href="k08.html"><h3 align="center">$B"#2]Bj#8"#(B</h3></a>
+<a href="k08.html"><h3 align="center">■課題８■</h3></a>
 
 <hr>
 
-<h3>$B4X?t$rDj5A$9$k(B</h3>
+<h3>関数を定義する</h3>
 
-$B<+J,$G$b4X?t$r:n$k$3$H$,$G$-$^$9!#(B
-$B<+J,$G4X?t$r:n$k$3$H$G!"(B
-$B%W%m%0%i%`$rJ#?t$NItJ,$KJ,3d$9$k$3$H$,$G$-$^$9!#(B
+自分でも関数を作ることができます。
+自分で関数を作ることで、
+プログラムを複数の部分に分割することができます。
 <p>
 
 <blockquote>
@@ -217,37 +217,37 @@ printf("%d$B$N(B10%%$B$O(B%d$B$G$9(B\n", x, x * 10 / 100);
 
 void sub1(void)
 {
-    printf("$B4X?t(Bsub1$B$r<B9T$7$F$$$^$9(B\n");
+    printf("関数sub1を実行しています\n");
 }
 
 void sub2(void)
 {
-    printf("$B4X?t(Bsub2$B$r<B9T$7$F$$$^$9(B\n");
+    printf("関数sub2を実行しています\n");
 }
 
 int main(void)
 {
-    printf("$B4X?t(Bmain$B$r<B9T$7$F$$$^$9(B\n");
+    printf("関数mainを実行しています\n");
     sub1();
     sub2();
-    printf("$B4X?t(Bmain$B$,=*N;$7$^$7$?(B\n");
+    printf("関数mainが終了しました\n");
     return 0;
 }
 </pre>
 </table>
 </blockquote>
 
-$B$3$NNc$G$O!"(B
-main $B$NCf$+$i(B sub1 $B$H(B sub2 $B$r=g$K8F$S=P$7$F$$$^$9!#(B
+この例では、
+main の中から sub1 と sub2 を順に呼び出しています。
 <p>
 
-<a href="k09.html"><h3 align="center">$B"#2]Bj#9"#(B</h3></a>
+<a href="k09.html"><h3 align="center">■課題９■</h3></a>
 
 <hr>
 
-<h3>$B0z?t(B</h3>
+<h3>引数</h3>
 
-$B4X?t$K%G!<%?$rEO$9$K$O!"0z?t$rMQ$$$^$9!#(B
+関数にデータを渡すには、引数を用います。
 <p>
 
 <blockquote>
@@ -256,7 +256,7 @@ main $B$NCf$+$i(B sub1 $B$H(B sub2 $B$r=g$K8F$S=P$7$F$$$^$9!#(B
 <pre>
 #include &lt;stdio.h&gt;
 
-void add(int a, int b) /* $B2>0z?t$N@k8@(B */
+void add(int a, int b) /* 仮引数の宣言 */
 {
     printf("%d+%d=%d\n", a, b, a+b);
 }
@@ -267,21 +267,21 @@ int main(void)
 
     i = 10;
     j = 20;
-    add(i, j);      /* i, j $B$O<B0z?t(B */
+    add(i, j);      /* i, j は実引数 */
     return 0;
 }
 </pre>
 </table>
 </blockquote>
 
-$B4X?t$,0z?t$r<u$1$H$k$H$-$O!"(B
-$B4X?tL>!J>e$G$O(B add$B!K$KB3$/(B ( $B!A(B ) $BFb$K(B
-$B0z?t$r<u$1<h$k%G!<%?7?$HJQ?tL>$NBP$r%3%s%^$G6h@Z$C$FNs5s$7$^$9!#(B
-$B$3$NJQ?t$r2>0z?t$H8F$S$^$9!#(B
+関数が引数を受けとるときは、
+関数名（上では add）に続く ( ～ ) 内に
+引数を受け取るデータ型と変数名の対をコンマで区切って列挙します。
+この変数を仮引数と呼びます。
 <p>
 
-$B<!$N$h$&$K!"2>0z?t$NJB$S$,(B void $B$N$H$-$O!"(B
-$B$3$N4X?t$,0z?t$r;HMQ$7$J$$$3$H$rI=$7$^$9!#(B
+次のように、仮引数の並びが void のときは、
+この関数が引数を使用しないことを表します。
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
@@ -294,24 +294,24 @@ void sub(void)
 </table>
 </blockquote>
 
-$B0lJ}!"4X?t$r8F$S=P$9$H$-$K<B:]$KM?$($k%G!<%?$r<B0z?t$H8F$S$^$9!#(B
-$B2>0z?t$H<B0z?t$N%G!<%?7?$O0lCW$7$F$$$J$1$l$P$J$j$^$;$s(B
-$B!J<B$O4X?t$,;2>H>l=j$h$jA0$GDj5A$5$l$F$$$k>l9g$d(B
-<a href="10.html#prototype">$B4X?t%W%m%H%?%$%W(B</a>$B$,Dj5A$5$l$F$$$k>l9g$O!"(B
-$B<B0z?t$N7?$r2>0z?t$N7?$K9g$&$h$&JQ49$7$F$/$l$k>l9g$b$"$k$s$G$9$,!"(B
-$B$$$m$$$m$d$d$3$7$$$3$H$b5/$3$C$?$j$9$k$N$G$H$j$"$($:$=$&;W$C$F$$$F$/$@$5$$!K!#(B
+一方、関数を呼び出すときに実際に与えるデータを実引数と呼びます。
+仮引数と実引数のデータ型は一致していなければなりません
+（実は関数が参照場所より前で定義されている場合や
+<a href="10.html#prototype">関数プロトタイプ</a>が定義されている場合は、
+実引数の型を仮引数の型に合うよう変換してくれる場合もあるんですが、
+いろいろややこしいことも起こったりするのでとりあえずそう思っていてください）。
 <p>
 
-$B$J$*!"8E$$7A<0$N#C8@8l$G$O!"(B
-$B<!$N$h$&$K4X?tL>$N@k8@$N<!$K!"(B
-$B0z?t$N@k8@$rCV$-$^$9!#(B
+なお、古い形式のＣ言語では、
+次のように関数名の宣言の次に、
+引数の宣言を置きます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
-add(a, b)   /* $B2>0z?t$N@k8@(B     */
-int a, b;   /* $B2>0z?t$N7?$N@k8@(B */
+add(a, b)   /* 仮引数の宣言     */
+int a, b;   /* 仮引数の型の宣言 */
 {
     printf("%d+%d=%d\n", a, b, a+b);
 }
@@ -319,18 +319,18 @@ int a, b;   /* $B2>0z?t$N7?$N@k8@(B */
 </table>
 </blockquote>
 
-$B$3$3$G$O(B ANSI-C$B!J?7$7$$HG$N#C!K$N7A<0$r07$&$3$H$K$7$^$9!#(B
+ここでは ANSI-C（新しい版のＣ）の形式を扱うことにします。
 <p>
 
-<a href="k10.html"><h3 align="center">$B"#2]Bj#1#0"#(B</h3></a>
+<a href="k10.html"><h3 align="center">■課題１０■</h3></a>
 
 <hr>
 
 <a name="retval">
-<h3>$BLa$jCM(B</h3></a>
+<h3>戻り値</h3></a>
 
-$B4X?t$+$i$O!"La$jCM$r;H$C$F(B
-$B4X?t$r8F$S=P$7$?B&$K%G!<%?$rJV$9$3$H$,$G$-$^$9!#(B
+関数からは、戻り値を使って
+関数を呼び出した側にデータを返すことができます。
 <p>
 
 <blockquote>
@@ -339,23 +339,23 @@ int a, b;   /* $B2>0z?t$N7?$N@k8@(B */
 <pre>
 #include &lt;stdio.h&gt;
 
-/* $B0z?t$KM?$($i$l$?@0?t$NOB$rJV$94X?t$NDj5A(B */
+/* 引数に与えられた整数の和を返す関数の定義 */
 int add(int a, int b)
 {
     int c;
 
     c = a + b;
-    return c;       /* $B7k2L$rJV$9!"(Breturn a+b; $B$G$b2D(B */
+    return c;       /* 結果を返す、return a+b; でも可 */
 }
 
-/* $B%a%$%s4X?t$NDj5A(B */
+/* メイン関数の定義 */
 int main(void)
 {
     int i, j, k;
 
     i = 10;
     j = 20;
-    k = add(i, j); /* $B4X?t(B add $B$NLa$jCM$,(B k $B$KBeF~$5$l$^$9(B */
+    k = add(i, j); /* 関数 add の戻り値が k に代入されます */
 
     return 0;
 }
@@ -363,7 +363,7 @@ int main(void)
 </table>
 </blockquote>
 
-return $B$KB3$/<0$NCM$,!"$=$N4X?t$NLa$jCM$K$J$j$^$9!#(B
+return に続く式の値が、その関数の戻り値になります。
 
 <blockquote>
 <pre>
@@ -371,9 +371,9 @@ return a+b;
 </pre>
 </blockquote>
 
-$B4X?t$OLa$jCM$K$h$C$F8F$S=P$7$?B&$KCM$rJV$9$3$H$,$G$-$k$N$G!"(B
-$B8F$S=P$7$?B&$G$O4X?t$rDj?t$dJQ?tF1MM!"<0$NCf$G;HMQ$G$-$^$9!#(B
-$B4X?t(B add $B$r<!$N$h$&$K;H$&$3$H$b$G$-$^$9!#(B
+関数は戻り値によって呼び出した側に値を返すことができるので、
+呼び出した側では関数を定数や変数同様、式の中で使用できます。
+関数 add を次のように使うこともできます。
 
 <blockquote>
 <pre>
@@ -381,48 +381,48 @@ k = add(10, 20) * 3;  /* (10 + 20) * 3 */
 </pre>
 </blockquote>
 
-main $BLa$jCM$O%W%m%0%i%`$N=*N;%9%F!<%?%9$K$J$j$^$9!#(B
+main 戻り値はプログラムの終了ステータスになります。
 
 <blockquote>
 <pre>
-return 0; /* 0 $B$O@5>o=*N;$r<($9=*N;%9%F!<%?%9(B */
+return 0; /* 0 は正常終了を示す終了ステータス */
 </pre>
 </blockquote>
 
-$BLa$jCM$,$"$k4X?t$O!"(B
-$BLa$jCM$N%G!<%?7?$r4X?t<+?H$N7?$H$7$F@k8@$7$F$*$/I,MW$,$"$j$^$9!#(B
+戻り値がある関数は、
+戻り値のデータ型を関数自身の型として宣言しておく必要があります。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
-int add(int a, int b) /* add $B$O(B int $B7?(B      */
+int add(int a, int b) /* add は int 型      */
 {
     int c;
     ...
-    return c;         /* c $B$b(B int $B7?(B        */
+    return c;         /* c も int 型        */
 }
 </pre>
 </table>
 </blockquote>
 
-$B7?@k8@$,>JN,$5$l$?4X?t$O(B int $B7?$@$H$_$J$5$l$^$9!#(B
+型宣言が省略された関数は int 型だとみなされます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
-main(void)            /* main $B$O(B int $B7?(B     */
+main(void)            /* main は int 型     */
 {
     ...
-    return 0;         /* 0 $B$O(B int $B7?(B $B$NDj?t(B */
+    return 0;         /* 0 は int 型 の定数 */
 }
 </pre>
 </table>
 </blockquote>
 
-$BLa$jCM$N$J$$4X?t$O!"(B
-$B$=$N$3$H$rL@<($9$k$?$a$K(B void $B7?$H$7$F@k8@$7$F$*$/$Y$-$G$9!#(B
+戻り値のない関数は、
+そのことを明示するために void 型として宣言しておくべきです。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -445,12 +445,12 @@ void sub(void)
 </table>
 </blockquote>
 
-$B>e$N#2$D$OF1$8$G$9!#(B
-$B4X?tCf$K(B return $B$,L5$1$l$P!"(B
-$B$=$N4X?t$N=*$j$G$3$N4X?t$r8F$S=P$7$F$$$k=j$KLa$j$^$9!#(B
+上の２つは同じです。
+関数中に return が無ければ、
+その関数の終りでこの関数を呼び出している所に戻ります。
 <p>
 
-return $B$O4X?t$NESCf$K=q$/$3$H$b$G$-$^$9!#(B
+return は関数の途中に書くこともできます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -459,7 +459,7 @@ return $B$O4X?t$NESCf$K=q$/$3$H$b$G$-$^$9!#(B
 int main(void)
 {
     sub1();
-    return 1; /* $B$3$3$G%W%m%0%i%`$,=*$o$C$F$7$^$&(B */
+    return 1; /* ここでプログラムが終わってしまう */
     sub2();
     return 0;
 }
@@ -467,9 +467,9 @@ int main(void)
 </table>
 </blockquote>
 
-$B$3$N>l9g!"4X?t(B sub2 $B$O<B9T$5$l$^$;$s!#(B
+この場合、関数 sub2 は実行されません。
 <p>
 
-<a href="k11.html"><h3 align="center">$B"#2]Bj#1#1"#(B</h3></a>
+<a href="k11.html"><h3 align="center">■課題１１■</h3></a>
 
 </body>

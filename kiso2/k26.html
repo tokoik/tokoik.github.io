@@ -1,54 +1,54 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#2#6(B</title>
+<title>情報基礎演習II － 課題２６</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#2#6(B</h3>
+<h3>課題２６</h3>
 
 <hr>
 
 <ol>
 
-<li>$B$"$kBg3X$G$O!";n83$NE@?t$,#6#0E@L$K~$J$i!VIT2D!W!"(B
-$B#6#0E@0J>e#7#0E@L$K~$J$i!V2D!W!"(B
-$B#7#0E@0J>e#8#0E@L$K~$J$i!VNI!W!"(B
-$B#8#0E@0J>e$J$i!VM%!W$H$$$&@.@S$rIU$1$F$$$^$9!#(B
+<li>ある大学では、試験の点数が６０点未満なら「不可」、
+６０点以上７０点未満なら「可」、
+７０点以上８０点未満なら「良」、
+８０点以上なら「優」という成績を付けています。
 <p>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$O$=$NBg3X$N@.@SH=Dj%W%m%0%i%`$G$9!#(B
-$B6uMs!J(B????$B!K$rKd$a$F!"%W%m%0%i%`$r40@.$5$;$F$/$@$5$$!#(B
+<li>次のソースプログラムはその大学の成績判定プログラムです。
+空欄（????）を埋めて、プログラムを完成させてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai26
-** $BF0:n(B: $B@.@SH=Dj%W%m%0%i%`!)(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai26
+** 動作: 成績判定プログラム？
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
 int main(void)
 {
-    int mark;       /* $BE@?t(B   */
+    int mark;       /* 点数   */
 
-    printf("$B;n83$NE@?t$rF~$l$F$/$@$5$$!'(B");
+    printf("試験の点数を入れてください：");
     scanf("%d", &mark);
 
     if ( ???? ) {
-        printf("$B$3$NE@?t$G$OIT2D$G$9!#Mn$A$J$5$$!#(B\n");
+        printf("この点数では不可です。落ちなさい。\n");
     }
     else if ( ???? ) {
-        printf("$B$J$s$H$+2D$G$9!#C10L$r$"$2$^$7$g$&!#(B\n");
+        printf("なんとか可です。単位をあげましょう。\n");
     }
     else if ( ???? ) {
-        printf("$BNI$G$9!#$h$/$G$-$^$7$?!#(B\n");
+        printf("良です。よくできました。\n");
     }
     else {
-        printf("$BM%$G$9!#$?$$$X$s$h$/$G$-$^$7$?!#(B\n");
+        printf("優です。たいへんよくできました。\n");
     }
 
     return 0;
@@ -57,10 +57,10 @@ int main(void)
 </table>
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai26.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai26 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai26.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai26 としてください。
 
 </ol>
 

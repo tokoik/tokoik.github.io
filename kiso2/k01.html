@@ -1,27 +1,27 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#1(B</title>
+<title>情報基礎演習II － 課題１</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#1(B</h3>
+<h3>課題１</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$r(B
-kadai1.c $B$H$$$&%U%!%$%kL>$G:n@.$7$F$/$@$5$$!#(B
+<li>次のソースプログラムを
+kadai1.c というファイル名で作成してください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai1
-** $BF0:n(B: $B$J$K$b$7$J$$$G=*N;%9%F!<%?%9#0$rJV$9!#(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai1
+** 動作: なにもしないで終了ステータス０を返す。
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 main()
 {
@@ -31,10 +31,10 @@ main()
 </table>
 <p>
 
-<li>$B$3$N%=!<%9%W%m%0%i%`$r%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai1 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
-$B<!$N%3%^%s%I$O(B kadai1.c $B$r%3%s%Q%$%k!?%j%s%/$7$F(B
-kadai1 $B$H$$$&<B9T%W%m%0%i%`$r:n@.$7$^$9!#(B
+<li>このソースプログラムをコンパイル／リンクし、
+kadai1 という名前の実行プログラムを作成してください。
+次のコマンドは kadai1.c をコンパイル／リンクして
+kadai1 という実行プログラムを作成します。
 
 <blockquote>
 <pre>
@@ -42,28 +42,28 @@ kadai1 $B$H$$$&<B9T%W%m%0%i%`$r:n@.$7$^$9!#(B
 </pre>
 </blockquote>
 
-<li>kadai1 $B$r<B9T$7!"(B
-$B$J$K$b5/$3$i$J$$$3$H$r3N$+$a$F$/$@$5$$!#(B
+<li>kadai1 を実行し、
+なにも起こらないことを確かめてください。
 
 <blockquote>
 <pre>
 % kadai1
-% $B!J2?$b5/$3$i$J$$!K(B
+% （何も起こらない）
 </pre>
 </blockquote>
 
-<li>$B$3$N%W%m%0%i%`$O!"(B
-$B<B9T$9$k$H(B main $B$N$H$3$m$+$i=gHV$K=hM}$r3+;O$7$h$&$H$7$^$9!#(B
-<tt>return 0;</tt> $B$O(B
-<a href="h06.html">$B=*N;%9%F!<%?%9(B</a>$B$r(B 0 $B$K$7$F(B
-$B%W%m%0%i%`$r=*N;$5$;$^$9!#(B
-$B$3$l$O%W%m%0%i%`$,@5>o$K<B9T$G$-$?$3$H$r0UL#$7$^$9!#(B
+<li>このプログラムは、
+実行すると main のところから順番に処理を開始しようとします。
+<tt>return 0;</tt> は
+<a href="h06.html">終了ステータス</a>を 0 にして
+プログラムを終了させます。
+これはプログラムが正常に実行できたことを意味します。
 <p>
 
-<li>$B$3$N%W%m%0%i%`$N(B
-$B=*N;%9%F!<%?%9$,(B 0 $B$G$"$C$?$3$H$r3N$+$a$F$/$@$5$$!#(B
-$BD>A0$K<B9T$7$?%W%m%0%i%`$N=*N;%9%F!<%?%9$O(B
-$status $B$H$$$&(B csh $BJQ?t$K3JG<$5$l$F$$$^$9!#(B
+<li>このプログラムの
+終了ステータスが 0 であったことを確かめてください。
+直前に実行したプログラムの終了ステータスは
+$status という csh 変数に格納されています。
 
 <blockquote>
 <pre>
@@ -73,24 +73,24 @@ $status $B$H$$$&(B csh $BJQ?t$K3JG<$5$l$F$$$^$9!#(B
 </pre>
 </blockquote>
 
-<li>$B$G$O<!$K!"(Bkadai1.c $B$N=*N;%9%F!<%?%9$,#1$K$J$k$h$&=$@5$7$F$/$@$5$$!#(B
+<li>では次に、kadai1.c の終了ステータスが１になるよう修正してください。
 <p>
 
-<li>kadai1.c $B$r:F$S%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai1 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
+<li>kadai1.c を再びコンパイル／リンクし、
+kadai1 という名前の実行プログラムを作成してください。
 <p>
 
-<li>kadai1 $B$r<B9T$7=*N;%9%F!<%?%9$,#1$K$J$C$F$$$k$3$H$r3N$+$a$F$/$@$5$$!#(B
+<li>kadai1 を実行し終了ステータスが１になっていることを確かめてください。
 <p>
 
-<li>$B0J>e$N:n6H$,=*N;$7$?$i!"(B
-kadai1.c $B$r(B <a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>
-$B$^$G%a!<%k$GAw$C$F$/$@$5$$!#(B
-$B$3$N$H$-(B Subject: $B$O(B kadai1 $B$K$7$F$/$@$5$$!#(B
+<li>以上の作業が終了したら、
+kadai1.c を <a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>
+までメールで送ってください。
+このとき Subject: は kadai1 にしてください。
 <p>
 
-<li>Subject: kadai1 $B$G(B kadai1.c $B$H$$$&%U%!%$%k$r%a!<%k$G(B tokoi $B08$KAw$k$K$O!"(B
-$B<!$N$h$&$J%3%^%s%I$r<B9T$7$F$/$@$5$$!#(B
+<li>Subject: kadai1 で kadai1.c というファイルをメールで tokoi 宛に送るには、
+次のようなコマンドを実行してください。
 
 <blockquote>
 <pre>

@@ -1,166 +1,166 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#22s(B</title>
+<title>情報基礎演習II － 第２回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#22s(B</h1>
+<h1>情報基礎演習II － 第２回</h1>
 
 <hr>
 
-<h2>$B#1!%<0(B</h2>
+<h2>１．式</h2>
 
 <hr>
 
-$B%3%s%T%e!<%?$O!VEE;R7W;;5!!W$H$$$&$/$i$$$G$9$+$i!"(B
-$B7W;;$O!VK\6H!W$_$?$$$J$b$N$G$9!#(B
-$B$=$N$?$a$K$O!V<0!W$H$$$&$b$N$r<h$j07$o$J$$$H!"(B
-$BOC$r;O$a$i$l$^$;$s!#(B
-$B$3$3$G$O(B
-$B%W%m%0%i%_%s%08@8l$K$*$1$k!V<0!W$H$$$&$b$N$K$D$$$F9M$($^$9!#(B
+コンピュータは「電子計算機」というくらいですから、
+計算は「本業」みたいなものです。
+そのためには「式」というものを取り扱わないと、
+話を始められません。
+ここでは
+プログラミング言語における「式」というものについて考えます。
 <p>
 
-$B<0$O2?$i$+$N!V?t!W!"(B
-$B$"$k$$$O$=$l$r!V1i;;;R!W$K$h$C$F7k9g$7$?$b$N$G$9!#(B
-$B$3$N!V?t!W$K$O!"#0$d#1#5$H$$$C$?!VDj?t!W$NB>!"(B
-$B!V(B<a href="#hensu">$BJQ?t(B</a>$B!W!"(B
-$B!V(B<a href="03.html#kansu">$B4X?t(B</a>$B!W(B
-$B$,$"$j$^$9!#(B
+式は何らかの「数」、
+あるいはそれを「演算子」によって結合したものです。
+この「数」には、０や１５といった「定数」の他、
+「<a href="#hensu">変数</a>」、
+「<a href="03.html#kansu">関数</a>」
+があります。
 <p>
 
-$B1i;;;R$K$O<!$N$h$&$J$b$N$,$"$j$^$9!#(B
-$B$3$l$i$O$[$s$N0lNc$G!"(B
-$B#C8@8l$K$OB>$K$b$$$m$$$m$J1i;;;R$,MQ0U$5$l$F$$$^$9!#(B
+演算子には次のようなものがあります。
+これらはほんの一例で、
+Ｃ言語には他にもいろいろな演算子が用意されています。
 
 <blockquote>
 <table border>
-<tr><td>+<td>$B2C;;(B
-<tr><td>-<td>$B8:;;(B
-<tr><td>*<td>$B>h;;(B
-<tr><td>/<td>$B=|;;(B
-<tr><td>%<td>$B>jM>(B
+<tr><td>+<td>加算
+<tr><td>-<td>減算
+<tr><td>*<td>乗算
+<tr><td>/<td>除算
+<tr><td>%<td>剰余
 </table>
 </blockquote>
 
-$B0[$J$k1i;;;R$rAH$_9g$o$;$F;H$&$H$-$K$O!"(B
-$B1i;;;R$N!VM%@h=g0L!W$K5$$rIU$1$J$1$l$P$J$j$^$;$s!#(B
-$BF1$8M%@h=g0L$N1i;;;R$K$D$$$F$O:8$+$i=g$K7W;;$5$l$^$9$,!"(B
-$B0[$J$C$F$$$k$H$-$OM%@h=g0L$N9b$$$b$N$,@h$K7W;;$5$l$^$9!#(B
-$B<!$NNc$O:8$N$b$N$[$IM%@h=g0L$,9b$/$J$C$F$$$^$9!#(B
-$B<0A4BN$r(B ( $B!D(B ) $B$G$/$/$C$?$b$N$O!"(B
-$B0lHVM%@h=g0L$,9b$/$J$j$^$9!#(B
+異なる演算子を組み合わせて使うときには、
+演算子の「優先順位」に気を付けなければなりません。
+同じ優先順位の演算子については左から順に計算されますが、
+異なっているときは優先順位の高いものが先に計算されます。
+次の例は左のものほど優先順位が高くなっています。
+式全体を ( … ) でくくったものは、
+一番優先順位が高くなります。
 
 <blockquote>
 <table border>
-<tr><th>$B9b(B<th>$B!D(B<th>$BDc(B
-<tr><td>( $B<0(B )<td>* / % <td>+ -
+<tr><th>高<th>…<th>低
+<tr><td>( 式 )<td>* / % <td>+ -
 </table>
 </blockquote>
 
 <ul>
-<li>1 + 2 * 3 $B$O(B 7
-<li>(1 + 2) * 3 $B$O(B 9
+<li>1 + 2 * 3 は 7
+<li>(1 + 2) * 3 は 9
 </ul>
 
-<a href="k03.html"><h3 align="center">$B"#2]Bj#3"#(B</h3></a>
+<a href="k03.html"><h3 align="center">■課題３■</h3></a>
 
 
 <a name="hensu">
 <hr>
 
-<h2>$B#2!%JQ?t(B</h2>
+<h2>２．変数</h2>
 
 <hr>
 </a>
 
-$B%3%s%T%e!<%?$N5!G=$H$7$F!"(B
-$B!V7W;;!W$H$J$i$s$G=EMW$J$b$N$K!"(B
-$B!V5-21!W$,$"$j$^$9!#(B
-$B%3%s%T%e!<%?$O5-21$7$?%G!<%?$r=hM}!J7W;;$J$I!K$9$k$3$H$G!"(B
-$B7k2L$rF@$^$9!#(B
+コンピュータの機能として、
+「計算」とならんで重要なものに、
+「記憶」があります。
+コンピュータは記憶したデータを処理（計算など）することで、
+結果を得ます。
 <p>
 
-$B%W%m%0%i%`Cf$G0l;~E*$K%G!<%?$r5-21$7$F$*$/$?$a$K$O!"(B
-$BJQ?t$r;H$$$^$9!#(B
+プログラム中で一時的にデータを記憶しておくためには、
+変数を使います。
 <p>
 
 <a name="hensumei">
 <hr>
 
-<h3>$BJQ?tL>(B</h3>
+<h3>変数名</h3>
 </a>
 
-$BJQ?t$K$OL>A0$,IU$1$i$l!"$=$l$rJQ?tL>$H8F$S$^$9!#(B
-$BJQ?tL>$NIU$1J}$O<!$N$h$&$J5,B'$K=>$$$^$9!#(B
+変数には名前が付けられ、それを変数名と呼びます。
+変数名の付け方は次のような規則に従います。
 
 <ul>
-<li>$B%"%k%U%!%Y%C%H$^$?$O%"%s%@!<%9%3%"(B (_) $B$G;O$^$j$^$9!#(B
-<li>$B%"%k%U%!%Y%C%H$^$?$O%"%s%@!<%9%3%"$^$?$O?t;z$,B3$-$^$9!#(B
-<li>$BBgJ8;z!?>.J8;z$OJL$NJ8;z$H$7$F6hJL$5$l$^$9!#(B
-<li>C $B8@8l$K$*$$$FFCJL$J0UL#$r;}$D$b$N!JM=Ls8l!K$O;H$($^$;$s!#(B
+<li>アルファベットまたはアンダースコア (_) で始まります。
+<li>アルファベットまたはアンダースコアまたは数字が続きます。
+<li>大文字／小文字は別の文字として区別されます。
+<li>C 言語において特別な意味を持つもの（予約語）は使えません。
 </ul>
 
-$B<!$NL>A0$OJQ?tL>$H$7$F;H$($^$9!#(B
+次の名前は変数名として使えます。
 
 <blockquote>
 <table width="90%">
-<tr><td width="40%">average<td>/* $B%G!<%?$NJ?6Q(B */
-<tr><td width="40%">pi<td>/* $B#67e$^$G$N1_<~N((B */
-<tr><td width="40%">number_of_students<td>/* $B3X@8?t(B */
-<tr><td width="40%">DayOfTheWeek<td>/* $BMKF|(B */
+<tr><td width="40%">average<td>/* データの平均 */
+<tr><td width="40%">pi<td>/* ６桁までの円周率 */
+<tr><td width="40%">number_of_students<td>/* 学生数 */
+<tr><td width="40%">DayOfTheWeek<td>/* 曜日 */
 </table>
 </blockquote>
 
-$B<!$NL>A0$OJQ?tL>$H$7$F;H$($^$;$s!#(B
+次の名前は変数名として使えません。
 
 <blockquote>
 <table width="90%">
-<tr><td width="40%">3rd_entry<td>/* $B?t;z$G$O$8$^$C$F$$$k(B */
-<tr><td width="40%">all$done<td>/* $B;H$($J$$J8;z(B($)$B$,$"$k(B */
-<tr><td width="40%">the end<td>/* $B6uGr$,F~$C$F$$$k(B */
-<tr><td width="40%">int<td>/* $BM=Ls8l(B */
+<tr><td width="40%">3rd_entry<td>/* 数字ではじまっている */
+<tr><td width="40%">all$done<td>/* 使えない文字($)がある */
+<tr><td width="40%">the end<td>/* 空白が入っている */
+<tr><td width="40%">int<td>/* 予約語 */
 </table>
 </blockquote>
 
-<a href="k04.html"><h3 align="center">$B"#2]Bj#4"#(B</h3></a>
+<a href="k04.html"><h3 align="center">■課題４■</h3></a>
 
 <a name="sengen">
 <hr>
 
-<h3>$BJQ?t@k8@(B</h3></a>
+<h3>変数宣言</h3></a>
 
-$BJQ?t$r;H$&$K$O!"(B
-$B$=$N$3$H$r@k8@$9$kI,MW$,$"$j$^$9!#(B
+変数を使うには、
+そのことを宣言する必要があります。
 
 <blockquote>
 <table width="90%">
-<tr><td width="40%">int answer;<td>/* $BEz$((B */
+<tr><td width="40%">int answer;<td>/* 答え */
 </table>
 </blockquote>
 
-$B$3$N@k8@$K$h$j(B answer $B$H$$$&(B int $B7?$NJQ?t$r;HMQ$G$-$k$h$&$K$J$j$^$9!#(B
-$B$3$N(B int $B$O!"(B
-$B8e$KB3$/L>A0$,@0?t$r3JG<$9$kJQ?t$G$"$k$3$H$r@k8@$7$^$9!#(B
-$B$3$N$h$&$JJQ?t$NMQES$N$3$H$r%G!<%?7?!J$"$k$$$OC1$K7?!K$H8F$S!"(B
-$B$3$N>l9g(B answer $B$O@0?t(B(int)$B7?JQ?t$H8F$P$l$^$9!#(B
+この宣言により answer という int 型の変数を使用できるようになります。
+この int は、
+後に続く名前が整数を格納する変数であることを宣言します。
+このような変数の用途のことをデータ型（あるいは単に型）と呼び、
+この場合 answer は整数(int)型変数と呼ばれます。
 
 <p>
 
-$BJQ?t$r@k8@$G$-$k>l=j$O<!$N$H$*$j$G$9!#(B
+変数を宣言できる場所は次のとおりです。
 
 <ul>
-<li><a href="03.html#kansu">$B4X?t(B</a>$BDj5A$N30B&(B
-<li><a href="07.html#block">$B%V%m%C%/(B</a>$B$N@hF,!J(B{ $B$ND>8e$G<B9TJ8$NA0!K(B
+<li><a href="03.html#kansu">関数</a>定義の外側
+<li><a href="07.html#block">ブロック</a>の先頭（{ の直後で実行文の前）
 </ul>
 
-<a href="k05.html"><h3 align="center">$B"#2]Bj#5"#(B</h3></a>
+<a href="k05.html"><h3 align="center">■課題５■</h3></a>
 
 <hr>
 
-<h3>$BBeF~(B</h3>
+<h3>代入</h3>
 
-$BJQ?t$K%G!<%?$r3JG<$9$k$K$O!"(B
-= $B$r;H$C$FBeF~$r9T$$$^$9!#(B
+変数にデータを格納するには、
+= を使って代入を行います。
 
 <blockquote>
 <pre>
@@ -169,28 +169,28 @@ answer = 1 + 2 * 3;
 </blockquote>
 
 <ul>
-<li>= $B$N:8JU$K$OJQ?t$rCV$-$^$9!#(B
-<li>= $B$N1&JU$K$O<0$rCV$-$^$9!#(B
+<li>= の左辺には変数を置きます。
+<li>= の右辺には式を置きます。
 </ul>
 
-$B$3$NBeF~$N8e!"(B
-$BJQ?t(B answer $B$O@0?t$N(B 7 $B$HEy2A$K$J$j$^$9!#(B
+この代入の後、
+変数 answer は整数の 7 と等価になります。
 
 <p>
 
-$B%G!<%?$,3JG<$5$l$?JQ?t$O!"(B
-1 $B$d(B 2 $B$N$h$&$J?tCM$H$7$FI=$5$l$??t!J$3$l$i$rDj?t$H8F$S$^$9!K$HF1MM$K(B
-$B<0$NCf$G;HMQ$9$k$3$H$,$G$-$^$9!#(B
+データが格納された変数は、
+1 や 2 のような数値として表された数（これらを定数と呼びます）と同様に
+式の中で使用することができます。
 
 <blockquote>
 <table width="90%">
-<tr><td width="40%">int x, y, z;<td>/* x, y, z $B$H$$$&#3$D$N@0?t7?JQ?t$r@k8@$9$k(B */
-<tr><td width="40%">x = 1;<td>/* x $B$K(B 1 $B$rBeF~(B */
-<tr><td width="40%">y = 2;<td>/* y $B$K(B 2 $B$rBeF~(B */
-<tr><td width="40%">z = x + y * 3;<td>/* z $B$K$O(B 6 $B$,F~$k(B */
+<tr><td width="40%">int x, y, z;<td>/* x, y, z という３つの整数型変数を宣言する */
+<tr><td width="40%">x = 1;<td>/* x に 1 を代入 */
+<tr><td width="40%">y = 2;<td>/* y に 2 を代入 */
+<tr><td width="40%">z = x + y * 3;<td>/* z には 6 が入る */
 </table>
 </blockquote>
 
-<a href="k06.html"><h3 align="center">$B"#2]Bj#6"#(B</h3></a>
+<a href="k06.html"><h3 align="center">■課題６■</h3></a>
 
 </body>

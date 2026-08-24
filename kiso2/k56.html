@@ -1,17 +1,17 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#5#6(B</title>
+<title>情報基礎演習II － 課題５６</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#5#6(B</h3>
+<h3>課題５６</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N$h$&$JFbMF$N#C8@8l$N%=!<%9%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
-$B%U%!%$%kL>$O$=$l$>$l(B kadai56a.c $B$*$h$S(B kadai56b.c $B$H$7$F$/$@$5$$!#(B
+<li>次のような内容のＣ言語のソースプログラムを作成してください。
+ファイル名はそれぞれ kadai56a.c および kadai56b.c としてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
@@ -19,10 +19,10 @@
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai56a
-** $BF0:n(B: $B%\!<%kEj$2!J%a%$%s!K(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai56a
+** 動作: ボール投げ（メイン）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 #include "kadai56.h"
@@ -36,7 +36,7 @@ int main(void)
     int i;
 
     do {
-        printf("$B9b$5$rF~NO$7$F$/$@$5$$!J(B1$B!A(B%d$B$N4V!K!'(B", MAXWIDTH);
+        printf("高さを入力してください（1～%dの間）：", MAXWIDTH);
         scanf("%d", &width);
     }
     while (width < 1 || width > MAXWIDTH);
@@ -56,23 +56,23 @@ int main(void)
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai56b
-** $BF0:n(B: $B%\!<%kEj$2!J%5%V!K(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai56b
+** 動作: ボール投げ（サブ）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include "kadai56.h"
 
-#define G 0.5 /* $B2CB.EY(B */
-#define D 0.9 /* $B8:?jN((B */
+#define G 0.5 /* 加速度 */
+#define D 0.9 /* 減衰率 */
 
 /*
-** $B0LCV$r7W;;$9$k(B
+** 位置を計算する
 */
 float bound(int i)
 {
-    static float v0 = 1.0;      /* $B=iB.EY!!!!!!!!!!!!!!!!(B */
-    static int t0 = 0;          /* $B4p=`;~4V!!!!!!!!!!!!!!(B */
+    static float v0 = 1.0;      /* 初速度　　　　　　　　 */
+    static int t0 = 0;          /* 基準時間　　　　　　　 */
     float t = (i - t0) * 0.1;
     float x = (v0 - 0.5 * G * t) * t;
 
@@ -86,37 +86,37 @@ float bound(int i)
 }
 
 /*
-** $BD9$5(B x $BJ8;z$NK@%0%i%U$r:n@.$9$k(B
+** 長さ x 文字の棒グラフを作成する
 */
 char *bar(float x)
 {
-    static char line[MAXWIDTH]; /* $B6uGr$r3JG<$9$kG[Ns!!!!(B */
-    int n = x * width + 0.5;    /* $B>.?tE@0J2<$r;M<N8^F~!!(B */
+    static char line[MAXWIDTH]; /* 空白を格納する配列　　 */
+    int n = x * width + 0.5;    /* 小数点以下を四捨五入　 */
     int i;
 
     for (i = 0; i < n; i++) {
         line[i] = '=';
     }
-    line[i] = '\0';             /* $BJ8;zNs$N:G8e!!!!!!!!!!(B */
+    line[i] = '\0';             /* 文字列の最後　　　　　 */
 
-    return line;                /* $BJ8;zNs$N%]%$%s%?$rJV$9(B */
+    return line;                /* 文字列のポインタを返す */
 }
 </pre>
 </table>
 <p>
 
-<li>$B$3$N%W%m%0%i%`$,@5>o$K%3%s%Q%$%k!?%j%s%/$G$-!"(B
-$B@5$7$/<B9T$G$-$k$h$&$K!"(B
-$B5-9fDj?t$NDj5A$d(B
-<a href="10.html#prototype">$B4X?t%W%m%H%?%$%W(B</a>$B!"(B
-<a href="10.html#extern">$B30ItJQ?t(B</a>$B$N@k8@$J$I$r5-=R$7$?(B
-$B%X%C%@%U%!%$%k$r:n@.$7$F$/$@$5$$!#(B
+<li>このプログラムが正常にコンパイル／リンクでき、
+正しく実行できるように、
+記号定数の定義や
+<a href="10.html#prototype">関数プロトタイプ</a>、
+<a href="10.html#extern">外部変数</a>の宣言などを記述した
+ヘッダファイルを作成してください。
 <p>
 
-<li>$B%X%C%@%U%!%$%k$N%U%!%$%kL>$O(B  kadai56.h $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai56 $B$H$7$F$/$@$5$$!#(B
+<li>ヘッダファイルのファイル名は  kadai56.h とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai56 としてください。
 
 </ol>
 

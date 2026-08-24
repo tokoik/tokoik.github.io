@@ -1,71 +1,71 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#8(B</title>
+<title>情報基礎演習II － 課題８</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#8(B</h3>
+<h3>課題８</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$r(B kadai8.c $B$H$$$&%U%!%$%kL>$G:n@.$7$F$/$@$5$$!#(B
+<li>次のソースプログラムを kadai8.c というファイル名で作成してください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai8
-** $BF0:n(B: $B#3!_#5$r7W;;$7!"$=$N#2G\$*$h$S#3G\$r=PNO$9$k(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai8
+** 動作: ３×５を計算し、その２倍および３倍を出力する
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 int main(void)
 {
     int x;
 
     x = 3 * 5;
-    printf("%d$B$N#2G\$O(B%d", x, x * 2);
-    printf("%d$B$N#3G\$O(B%d", x, x * 3);
-    return 0; /* $B@5>o=*N;(B */
+    printf("%dの２倍は%d", x, x * 2);
+    printf("%dの３倍は%d", x, x * 3);
+    return 0; /* 正常終了 */
 }
 </pre>
 </table>
 <p>
 
-<li>$B$3$N%=!<%9%W%m%0%i%`$r%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai8 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
+<li>このソースプログラムをコンパイル／リンクし、
+kadai8 という名前の実行プログラムを作成してください。
 <p>
 
-<li>kadai8 $B$r<B9T$7$F$/$@$5$$!#(B
+<li>kadai8 を実行してください。
 <p>
 
-<li>kadai8 $B$r<B9T$9$k$H!"(B
+<li>kadai8 を実行すると、
 
 <blockquote>
 <pre>
-$B!V!A$N#2G\$O!A!A$N#3G\$O!A!W(B
+「～の２倍は～～の３倍は～」
 </pre>
 </blockquote>
 
-$B$H$$$&6q9g$K!"(B
-$B=PNO$,#19T$GI=<($5$l$k$H;W$$$^$9(B
-$B!J%W%m%s%W%H$N(B % $B$bF1$89T$K8=$l$k$+$bCN$l$^$;$s!K!#(B
-$B$3$l$r!"(B
+という具合に、
+出力が１行で表示されると思います
+（プロンプトの % も同じ行に現れるかも知れません）。
+これを、
 
 <blockquote>
 <pre>
-$B!V!A$N#2G\$O!A!W(B
-$B!V!A$N#3G\$O!A!W(B
+「～の２倍は～」
+「～の３倍は～」
 </pre>
 </blockquote>
 
-$B$N$h$&$K!"#29T$KJ,$1$F=PNO$9$k$h$&(B kadai8.c $B$r=$@5$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai8 $B$H$7$F$/$@$5$$!#(B
+のように、２行に分けて出力するよう kadai8.c を修正し、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai8 としてください。
 
 </ol>
 

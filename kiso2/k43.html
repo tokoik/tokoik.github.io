@@ -1,62 +1,62 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#4#3(B</title>
+<title>情報基礎演習II － 課題４３</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#4#3(B</h3>
+<h3>課題４３</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N4X?t(B move $B$O!"(B
-$B0z?t(B i $B$NCM$K$h$C$F!"(B
-$B0z?t(B x, y $B$N;X$9FbMF$r!^#1$7$^$9!#(B
+<li>次の関数 move は、
+引数 i の値によって、
+引数 x, y の指す内容を±１します。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai43
-** $BF0:n(B: $B:BI8$N0\F0(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai43
+** 動作: 座標の移動
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 void right(int *x, int *y)
 {
-    ++*x; /* $B1&$K$R$H$D0\F0(B */
+    ++*x; /* 右にひとつ移動 */
 }
 
 void left(int *x, int *y)
 {
-    --*x; /* $B:8$K$R$H$D0\F0(B */
+    --*x; /* 左にひとつ移動 */
 }
 
 void up(int *x, int *y)
 {
-    ++*y; /* $B>e$K$R$H$D0\F0(B */
+    ++*y; /* 上にひとつ移動 */
 }
 
 void down(int *x, int *y)
 {
-    --*y; /* $B2<$K$R$H$D0\F0(B */
+    --*y; /* 下にひとつ移動 */
 }
 
 void move(int i, int *x, int *y)
 {
     switch(i) {
-    case 0: /* $B1&(B */
+    case 0: /* 右 */
         right(x, y);
         break;
-    case 1: /* $B:8(B */
+    case 1: /* 左 */
         left(x, y);
         break;
-    case 2: /* $B>e(B */
+    case 2: /* 上 */
         up(x, y);
         break;
-    case 3: /* $B2<(B */
+    case 3: /* 下 */
         down(x, y);
         break;
     }
@@ -65,19 +65,19 @@ void move(int i, int *x, int *y)
 </table>
 <p>
 
-<li>$B$3$N4X?t(B move $B$r!"(B
-switch $B$r;H$o$:4X?t$N%]%$%s%?$r;H$C$F(B
-$B=q$-49$($F$/$@$5$$!#(B
+<li>この関数 move を、
+switch を使わず関数のポインタを使って
+書き換えてください。
 <p>
 
-<li>$B$J$*!"0z?t(B i $B$K$O!"(B
-0$B!A(B3 $B0J30$N@0?t$,M?$($i$l$k$3$H$O$J$$$H$7$^$9!#(B
+<li>なお、引数 i には、
+0～3 以外の整数が与えられることはないとします。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai43.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai43 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai43.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai43 としてください。
 
 </ol>
 

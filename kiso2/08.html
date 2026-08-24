@@ -1,92 +1,92 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#82s(B</title>
+<title>情報基礎演習II － 第８回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#82s(B</h1>
+<h1>情報基礎演習II － 第８回</h1>
 
 <hr>
 
-<h2>$B#1!%@)8f9=B$!J$D$E$-!K(B</h2>
+<h2>１．制御構造（つづき）</h2>
 
 <hr>
 
 <h3>for</h3>
 
-$B<!$N$h$&$J0lDj2s?t$N7+$jJV$7$O!"%W%m%0%i%`$N;j$k=j$G8=$l$^$9!#(B
+次のような一定回数の繰り返しは、プログラムの至る所で現れます。
 
 <blockquote>
 <pre>
 int i;
 i = 0;
 while (i &lt; 5) {
-    printf("$B$*$O$h$&$5$s(B\n");
+    printf("おはようさん\n");
     i++;
 }
 </pre>
 </blockquote>
 
 <img src="07-1.gif" align="right" hspace="10" vspace="10">
-for $B$H$$$&%-!<%o!<%I$r;H$($P!"$3$l$r<!$N$h$&$K4JN,2=$G$-$^$9!#(B
+for というキーワードを使えば、これを次のように簡略化できます。
 
 <blockquote>
 <pre>
 for (i = 0; i &lt; 5; i++) {
-    printf("$B$*$O$h$&$5$s(B\n");
+    printf("おはようさん\n");
 }
 </pre>
 </blockquote>
 
-$B$3$l$b(B for ( ) $B$KB3$/(B { } $BFb$,C10l$NJ8$N$H$-$O!"(B{ } $B$r>JN,$G$-$^$9!#(B
+これも for ( ) に続く { } 内が単一の文のときは、{ } を省略できます。
 
 <blockquote>
 <pre>
 for (i = 0; i &lt; 5; i++)
-    printf("$B$*$O$h$&$5$s(B\n");
+    printf("おはようさん\n");
 </pre>
 </blockquote>
 
-for $B$N(B ( ) $BFb$O(B ; $B$K6h@Z$i$l$?#3$D$NItJ,$+$i$J$j!"(B
-$B$=$l$>$l!VA0=hM}!W!V7QB3>r7o!W!V7QB3=hM}!W$r5-=R$7$^$9!#(B
-$B$3$l$i$O1&$N$h$&$J=g=x$G<B9T$5$l$^$9!#(B
+for の ( ) 内は ; に区切られた３つの部分からなり、
+それぞれ「前処理」「継続条件」「継続処理」を記述します。
+これらは右のような順序で実行されます。
 
 <blockquote>
 <pre>
-for ($BA0=hM}(B; $B7QB3>r7o(B; $B7QB3=hM}(B) {
-    $B7+$jJV$9%W%m%0%i%`(B;
+for (前処理; 継続条件; 継続処理) {
+    繰り返すプログラム;
     ...
 }
 </pre>
 </blockquote>
 
-$B>e$NNc$G$O!"(Bi $B$O(B 0$B"*(B1$B"*(B2$B"*(B3$B"*(B4 $B$HJQ2=$7!"(B
-i == 5 $B$H$J$C$?$H$-$K>r7o$rK~$?$5$J$/$J$j!"(B
-$B7+$jJV$7$r=*N;$7$^$9!#(B
+上の例では、i は 0→1→2→3→4 と変化し、
+i == 5 となったときに条件を満たさなくなり、
+繰り返しを終了します。
 <br clear="all">
 
-<a href="k31.html"><h3 align="center">$B"#2]Bj#3#1"#(B</h3></a>
+<a href="k31.html"><h3 align="center">■課題３１■</h3></a>
 <p>
 
-for $B$NMQES$O(B while $BF1MM!"(B
-$B0lDj2s?t$N7+$jJV$7$@$1$K8B$j$^$;$s!#(B
-$B<!$NNc$O!"J8;zNs$N#1;z#1;z$r<h$j=P$7$^$9!#(B
+for の用途は while 同様、
+一定回数の繰り返しだけに限りません。
+次の例は、文字列の１字１字を取り出します。
 
 <blockquote>
 <pre>
 for (i = 0; str[i] != '\0'; i++) {
-    printf("%d $BJ8;zL\$O(B %c\n", i, str[i]);
+    printf("%d 文字目は %c\n", i, str[i]);
 }
 </pre>
 </blockquote>
 
-$B$3$l$OJ8;z7?$NG[NsJQ?t(B str $B$K3JG<$5$l$F$$$kJ8;zNs$r!"(B
-$B@hF,$+$i#1;z$:$D<h$j=P$7$F=PNO$7$^$9!#(B
-$BJ8;zNs$N:G8e$O(B '\0' $B$G=*$o$C$F$$$^$9$+$i!"(B
-$B$3$l$,8=$l$?$i7+$jJV$7$r=*N;$7$^$9!#(B
+これは文字型の配列変数 str に格納されている文字列を、
+先頭から１字ずつ取り出して出力します。
+文字列の最後は '\0' で終わっていますから、
+これが現れたら繰り返しを終了します。
 <p>
 
-for $B$N7QB3>r7o$r>JN,$9$k$H!"=hM}$rL58B$K7+$jJV$7$^$9!#(B
+for の継続条件を省略すると、処理を無限に繰り返します。
 
 <blockquote>
 <pre>
@@ -94,7 +94,7 @@ for (i = 0; ; i++) { ... }
 </pre>
 </blockquote>
 
-i $B$r#1$:$DA}$7$J$,$i(B { ... } $BFb$N=hM}$rL58B$K7+$jJV$7$^$9!#(B
+i を１ずつ増しながら { ... } 内の処理を無限に繰り返します。
 
 <blockquote>
 <pre>
@@ -102,11 +102,11 @@ for ( ; ; ) { ... }
 </pre>
 </blockquote>
 
-{ ... } $BFb$N=hM}$rL58B$K7+$jJV$7$^$9!#(B
+{ ... } 内の処理を無限に繰り返します。
 <p>
 
-while $B$O(B ( ) $BFb$N>r7o$r>JN,$G$-$^$;$s!#(B
-$B>e$HF1$8$3$H$r9T$&>l9g$K$O!">r7o$H$7$FHs(B 0 $B$N@0?tCM$r;XDj$7$^$9!#(B
+while は ( ) 内の条件を省略できません。
+上と同じことを行う場合には、条件として非 0 の整数値を指定します。
 
 <blockquote>
 <pre>
@@ -114,34 +114,34 @@ while (1) { ... }
 </pre>
 </blockquote>
 
-$B>r7o$K$*$$$FHs(B 0 $B$N@0?t$O??$rI=$7!"(B0 $B$O56$rI=$7$^$9!#(B
+条件において非 0 の整数は真を表し、0 は偽を表します。
 <p>
 
-while $B$HF1MM!"(Bbreak $B$d(B continue $B$K$h$C$F7+$jJV$7$rCfCG!?7QB3$G$-$^$9!#(B
+while と同様、break や continue によって繰り返しを中断／継続できます。
 
 <blockquote>
 <pre>
 for ( ; ; ) {
     scanf("%d", &x);
-    if (x == 0) break; /* 0 $B$,F~NO$5$l$?$i=*$o$j(B */
+    if (x == 0) break; /* 0 が入力されたら終わり */
     sum += x;
 }
 </pre>
 </blockquote>
 
-$B$3$NNc$OF~NO$5$l$??tCM$r9g7W$7$^$9!#(B
-$B2~9T$@$1$,F~NO$5$l$k$H7+$jJV$7$r=*$o$j$^$9!#(B
+この例は入力された数値を合計します。
+改行だけが入力されると繰り返しを終わります。
 
-<a href="k32.html"><h3 align="center">$B"#2]Bj#3#2"#(B</h3></a>
+<a href="k32.html"><h3 align="center">■課題３２■</h3></a>
 <p>
 
 <hr>
 
-<h3>do $B!A(B while</h3>
+<h3>do ～ while</h3>
 
-$B$3$l$i$NB>$K=hM}$r7+$jJV$9<jCJ$H$7$F!"(B
-do $B!A(B while $B$,$"$j$^$9!#(B
-$B$3$l$O(B do $B$H(B while $B$N4V$K7+$jJV$9$Y$-%W%m%0%i%`$r=q$-$^$9!#(B
+これらの他に処理を繰り返す手段として、
+do ～ while があります。
+これは do と while の間に繰り返すべきプログラムを書きます。
 
 <blockquote>
 <pre>
@@ -154,25 +154,25 @@ while (--i &gt; 0);
 </pre>
 </blockquote>
 
-while () { ... } $B$H$O0[$J$j!"(B
-$B7+$jJV$7$N7QB3>r7o$NH=Dj$r(B { ... } $B$N<B9T8e$K9T$&$?$a!"(B
-$B7QB3>r7o$K$h$i$::GDc0l2s$O=hM}$r<B9T$7$^$9!#(B
+while () { ... } とは異なり、
+繰り返しの継続条件の判定を { ... } の実行後に行うため、
+継続条件によらず最低一回は処理を実行します。
 <p>
 
-$B>e$NNc$G$O!":G=i(B i = 1 $B$G$b(B i = 0 $B$G$b#12s(B Hello $B$,I=<($5$l$^$9!#(B
+上の例では、最初 i = 1 でも i = 0 でも１回 Hello が表示されます。
 <p>
 
-<a href="k33.html"><h3 align="center">$B"#2]Bj#3#3"#(B</h3></a>
+<a href="k33.html"><h3 align="center">■課題３３■</h3></a>
 <p>
 
 <hr>
 
-<h3>break $B$H(B continue</h3>
+<h3>break と continue</h3>
 
-while $B$N$h$&$J7+$jJV$7$r!"(B
-while $B$KB3$/(B ( ) $BFb$N>r7o0J30$NMW0x$G=*N;$5$;$?$j!"(B
-$BESCf$r$O$7$g$C$?$j$9$k$?$a$K!"(B
-break $B$H(B continue $B$H$$$&%-!<%o!<%I$,MQ0U$5$l$F$$$^$9!#(B
+while のような繰り返しを、
+while に続く ( ) 内の条件以外の要因で終了させたり、
+途中をはしょったりするために、
+break と continue というキーワードが用意されています。
 
 <blockquote>
 <pre>
@@ -180,13 +180,13 @@ int i;
 i = 0;
 while (i &lt; 5) {
     if (i == 3) break;
-    printf("%d $B2sL\(B\n", ++i);
+    printf("%d 回目\n", ++i);
 }
 </pre>
 </blockquote>
 
-$B$3$l$O(B i == 3 $B$K$J$C$?$H$3$m$G(B break $B$,<B9T$5$l$F(B
-while $B$K$h$k7+$jJV$7$,=*$o$k$N$G!V(B2 $B2sL\!W$^$G$7$+=PNO$5$l$^$;$s!#(B
+これは i == 3 になったところで break が実行されて
+while による繰り返しが終わるので「2 回目」までしか出力されません。
 
 <blockquote>
 <pre>
@@ -194,23 +194,23 @@ int i;
 i = 0;
 while (i &lt; 5) {
     if (i == 3) continue;
-    printf("%d $B2sL\(B\n", ++i);
+    printf("%d 回目\n", ++i);
 }
 </pre>
 </blockquote>
 
-$B$3$l$O(B i == 3 $B$K$J$C$?$H$3$m$G(B continue $B$,<B9T$5$l$F(B
-$B;D$j$NItJ,!J(Bprintf$B!K$,Ht$P$5$l$k$N$G!V(B3 $B2sL\!W$O=PNO$5$l$^$;$s!#(B
+これは i == 3 になったところで continue が実行されて
+残りの部分（printf）が飛ばされるので「3 回目」は出力されません。
 
-<a href="k34.html"><h3 align="center">$B"#2]Bj#3#4"#(B</h3></a>
+<a href="k34.html"><h3 align="center">■課題３４■</h3></a>
 <p>
 
 <hr>
 
 <h3>switch</h3>
 
-$B%-!<%\!<%I$+$iF~NO$5$l$??tCM$K=>$C$F!"(B
-$B0[$J$k=hM}$r$9$k$h$&$J%W%m%0%i%`$r9M$($^$9!#(B
+キーボードから入力された数値に従って、
+異なる処理をするようなプログラムを考えます。
 
 <blockquote>
 <pre>
@@ -219,25 +219,25 @@ int x;
 scanf("%d", &x);
 
 if (x == 1) {
-    printf("$B#1HV$N=hM}(B\n");
+    printf("１番の処理\n");
 }
 else if (x == 2) {
-    printf("$B#2HV$N=hM}(B\n");
+    printf("２番の処理\n");
 }
 else if (x == 3) {
-    printf("$B#3HV$N=hM}(B\n");
+    printf("３番の処理\n");
 }
 else if (x == 4) {
-    printf("$B#4HV$N=hM}(B\n");
+    printf("４番の処理\n");
 }
 else {
-    printf("$B$=$N$h$&$J=hM}$O$G$-$^$;$s(B\n");
+    printf("そのような処理はできません\n");
 }
 </pre>
 </blockquote>
 
-$B$3$NNc$N$h$&$K!"$"$k@0?tCM$KBP$7$F!"(B
-$B<B9T$9$k=hM}$,7h$^$C$F$$$k$H$-$O!"(Bswitch $B$r;H$&$HJXMx$G$9!#(B
+この例のように、ある整数値に対して、
+実行する処理が決まっているときは、switch を使うと便利です。
 
 <blockquote>
 <pre>
@@ -246,112 +246,112 @@ int x;
 scanf("%d", &x);
 
 switch (x) {
-case 1: /* x == 1 $B$N$H$-$3$3$+$i2<$r<B9T(B */
-    printf("$B#1HV$N=hM}(B\n");
+case 1: /* x == 1 のときここから下を実行 */
+    printf("１番の処理\n");
    break;
-case 2: /* x == 2 $B$N$H$-$3$3$+$i2<$r<B9T(B */
-    printf("$B#2HV$N=hM}(B\n");
+case 2: /* x == 2 のときここから下を実行 */
+    printf("２番の処理\n");
     break;
-case 3: /* x == 3 $B$N$H$-$3$3$+$i2<$r<B9T(B */
-    printf("$B#3HV$N=hM}(B\n");
+case 3: /* x == 3 のときここから下を実行 */
+    printf("３番の処理\n");
     break;
-case 4: /* x == 4 $B$N$H$-$3$3$+$i2<$r<B9T(B */
-    printf("$B#4HV$N=hM}(B\n");
+case 4: /* x == 4 のときここから下を実行 */
+    printf("４番の処理\n");
     break;
-default: /* $B>e$N$$$:$l$K$b3:Ev$7$J$$$H$-$3$3$+$i2<$r<B9T(B */
-    printf("$B$=$N$h$&$J=hM}$O$G$-$^$;$s(B\n");
+default: /* 上のいずれにも該当しないときここから下を実行 */
+    printf("そのような処理はできません\n");
     break;
 }
 </pre>
 </blockquote>
 
-switch $B$O!"(B
+switch は、
 
 <ul>
-<li>switch $B$KB3$/(B ( ) $BFb$N<0$NCM$r;}$D(B case $B%i%Y%k0J9_$N=hM}$r<B9T$7$^$9!#(B
-<li>$B3:Ev$9$k(B case $B%i%Y%k$,$J$1$l$P!"(Bdefault $B%i%Y%k0J9_$N=hM}$r<B9T$7$^$9!#(B
+<li>switch に続く ( ) 内の式の値を持つ case ラベル以降の処理を実行します。
+<li>該当する case ラベルがなければ、default ラベル以降の処理を実行します。
 </ul>
 
-$B$3$N$H$-!"(B
+このとき、
 
 <ul>
-<li>switch $B$N(B ( ) $BFb$N<0$O@0?t7?$G$J$1$l$P$J$j$^$;$s!#(B
-<li>case $B%i%Y%k$K$O@0?t7?$NDj?t$N$_$,;XDj$G$-$^$9!#(B
+<li>switch の ( ) 内の式は整数型でなければなりません。
+<li>case ラベルには整数型の定数のみが指定できます。
 </ul>
 
-$B$^$?!"(Bswitch $B$K$*$$$F(B break $B$O!"(B
-switch ( ) { ... } $B$+$i$NC&=P$r0UL#$7$^$9!#(B
+また、switch において break は、
+switch ( ) { ... } からの脱出を意味します。
 
 <blockquote>
 <pre>
 switch (x) {
 case 1:
-    printf("$B#1HV$N=hM}(B\n");
+    printf("１番の処理\n");
 case 2:
-    printf("$B#2HV$N=hM}(B\n");
+    printf("２番の処理\n");
     break;
 ...
 </pre>
 </blockquote>
 
-$B>e$NNc$N$h$&$K(B case 2: $B$NA0$N(B break $B$,L5$$>l9g$O!"(B
-x == 1 $B$N$H$-$O(B case 1: $B$N=hM}$N8e(B case 2: $B$N=hM}$b<B9T$5$l$^$9!#(B
+上の例のように case 2: の前の break が無い場合は、
+x == 1 のときは case 1: の処理の後 case 2: の処理も実行されます。
 <p>
 
-<a href="k35.html"><h3 align="center">$B"#2]Bj#3#5"#(B</h3></a>
+<a href="k35.html"><h3 align="center">■課題３５■</h3></a>
 <p>
 
 <hr>
 
 <h3>goto</h3>
 
-$B<!$N#1$DL\$N%W%m%0%i%`$N(B break $B$O(B switch $B$N=hM}$+$i$NC&=P$K$J$k$?$a!"(B
-$B#2$DL\$N%W%m%0%i%`$N$h$&$K(B for $B$K$h$k7+$jJV$7$r=*N;$9$k$3$H$O$G$-$^$;$s!#(B
+次の１つ目のプログラムの break は switch の処理からの脱出になるため、
+２つ目のプログラムのように for による繰り返しを終了することはできません。
 
 <blockquote>
 <pre>
 for (i = 0; i &lt; 100; i++) {
     switch (data[i]) {
     case 0:
-        printf("%d$BHVL\$N%G!<%?$,#0$K$J$C$F$$$^$9(B\n");
-        break; /* $B$3$N(B break $B$O(B switch $B$+$iH4$1=P$9$@$1(B */
+        printf("%d番目のデータが０になっています\n");
+        break; /* この break は switch から抜け出すだけ */
     }
 }
 <hr>
 for (i = 0; i &lt; 100; i++) {
     if (data[i] == 0) {
-        printf("%d$BHVL\$N%G!<%?$,#0$K$J$C$F$$$^$9(B\n");
-        break; /* $B$3$N(B break $B$O(B for $B$K$h$k7+$jJV$7$r=*N;$9$k(B */
+        printf("%d番目のデータが０になっています\n");
+        break; /* この break は for による繰り返しを終了する */
     }
 }
 </pre>
 </blockquote>
 
-$B>e$N#1$DL\$NNc$N$h$&$K(B switch $B$r;H$C$?>l9g$K!"(B
-$B#2$DL\$NNc$N$h$&$K(B for $B$N30B&$^$GC&=P$7$?$$$H$-$K$O!"(B
-goto $B$r;H$&$3$H$,$G$-$^$9!#(B
+上の１つ目の例のように switch を使った場合に、
+２つ目の例のように for の外側まで脱出したいときには、
+goto を使うことができます。
 
 <blockquote>
 <pre>
     for (i = 0; i &lt; 100; i++) {
         switch (data[i]) {
         case 0:
-            printf("%d$BHVL\$N%G!<%?$,#0$K$J$C$F$$$^$9(B\n");
-            goto out_of_loop; /* out_of_loop $B$H$$$&%i%Y%k$KD>9T(B */
+            printf("%d番目のデータが０になっています\n");
+            goto out_of_loop; /* out_of_loop というラベルに直行 */
         }
     }
 out_of_loop:
-    printf("$B=*N;(B\n");
+    printf("終了\n");
 </pre>
 </blockquote>
 
-$B!V(Bgoto $B%i%Y%k(B;$B!W$H$9$k$H!"(B
-$B$=$3$+$i!JF1$84X?tFb$K$"$k!K!V%i%Y%k(B:$B!W$,=q$+$l$?$H$3$m$K=hM}$r0\$7$^$9!#(B
-$B!V%i%Y%k(B:$B!W$N8e$m$K$OJ8$,I,MW$G$9!#(B
-$B<B9T$9$k=hM}$,$J$1$l$P!"6uJ8!J%;%_%3%m%s(B ";" $B$N$_!K$rCV$$$F$/$@$5$$!#(B
+「goto ラベル;」とすると、
+そこから（同じ関数内にある）「ラベル:」が書かれたところに処理を移します。
+「ラベル:」の後ろには文が必要です。
+実行する処理がなければ、空文（セミコロン ";" のみ）を置いてください。
 <p>
 
-for $B$d(B while $B$K$h$k7+$jJV$7$,#2=E$K$J$C$F$$$k>l9g$bF1MM$G$9!#(B
+for や while による繰り返しが２重になっている場合も同様です。
 
 <blockquote>
 <pre>
@@ -361,17 +361,17 @@ for $B$d(B while $B$K$h$k7+$jJV$7$,#2=E$K$J$C$F$$$k>l9g$bF1MM$G$9!#(B
         }
     }
 exit_loop:
-    printf("(%d,%d) $B$N%G!<%?$,#0$G$9(B\n", i, j);
+    printf("(%d,%d) のデータが０です\n", i, j);
 </pre>
 </blockquote>
 
-goto $B$O0B0W$K;H$&$Y$-$G$O$"$j$^$;$s!#(B
-$B%(%i!<=hM}$J$I!"(Bgoto $B$r;H$o$J$$$3$H$K$h$C$F!"(B
-$B$+$($C$F%=!<%9%W%m%0%i%`$N2DFI@-!JFI$_$d$9$5!K$r2<$2$k$3$H$,(B
-$BL@$i$+$J>l9g$@$1$K8BDj$7$F;HMQ$7$?J}$,L5Fq$G$7$g$&!#(B
+goto は安易に使うべきではありません。
+エラー処理など、goto を使わないことによって、
+かえってソースプログラムの可読性（読みやすさ）を下げることが
+明らかな場合だけに限定して使用した方が無難でしょう。
 <p>
 
-<a href="k36.html"><h3 align="center">$B"#2]Bj#3#6"#(B</h3></a>
+<a href="k36.html"><h3 align="center">■課題３６■</h3></a>
 <p>
 
 </body>

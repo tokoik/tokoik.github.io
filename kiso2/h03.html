@@ -1,32 +1,32 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BJdB-#3(B</title>
+<title>情報基礎演習II － 補足３</title>
 </head>
 
 <body>
 
-<h3>$BJdB-#3!'%W%m%0%i%`$r=q$/%9%?%$%k(B</h3>
+<h3>補足３：プログラムを書くスタイル</h3>
 
 <hr>
 
-$B%=!<%9%W%m%0%i%`$O%3%s%T%e!<%?$K;E;v$r$5$;$k$?$a$N!"(B
-$B0l<o$N!V<j=g=q!W$H8F$Y$k$b$N$G$9$,!"(B
-$B?M4V<+?H$b$=$l$r8+$^$9!#(B
-$B%=!<%9%W%m%0%i%`$r=q$/>l9g$K$O!"(B
-$B<+J,0J30$N?M$,$=$l$r8+$F!"(B
-$B<+J,$,2?$r%3%s%T%e!<%?$K$5$;$h$&$H$7$F$$$k$N$+$,(B
-$BMF0W$KM}2r$G$-$k$h$&N10U$9$kI,MW$,$"$j$^$9!#(B
-$B8+$+$1$NH~$7$$%W%m%0%i%`$r=q$/$3$H$O!"(B
-$BL5BL$J$3$H$G$O$"$j$^$;$s!#(B
+ソースプログラムはコンピュータに仕事をさせるための、
+一種の「手順書」と呼べるものですが、
+人間自身もそれを見ます。
+ソースプログラムを書く場合には、
+自分以外の人がそれを見て、
+自分が何をコンピュータにさせようとしているのかが
+容易に理解できるよう留意する必要があります。
+見かけの美しいプログラムを書くことは、
+無駄なことではありません。
 <p>
 
 <hr>
 
-<h3>$B%3%a%s%H!JCm<a!K(B</h3>
+<h3>コメント（注釈）</h3>
 
-$B$=$N%W%m%0%i%`$rB>$N?M$d!"(B
-$B%W%m%0%i%`$N:n<T<+?H$,FI$`$H$-$N;29M$K$J$k!"(B
-$B$=$N%W%m%0%i%`$KBP$9$k2r@b$G$9!#%3%s%Q%$%i$O$=$l$rL5;k$7$^$9!#(B
-$B#C8@8l$N%3%a%s%H$O(B /* $B$G;O$^$j(B */ $B$G=*$o$j$^$9!#(B
+そのプログラムを他の人や、
+プログラムの作者自身が読むときの参考になる、
+そのプログラムに対する解説です。コンパイラはそれを無視します。
+Ｃ言語のコメントは /* で始まり */ で終わります。
 <p>
 
 <blockquote>
@@ -34,15 +34,15 @@
 <tr><td>
 <pre>
 /*
-**      $B%W%m%0%i%`!'(B hello.c -- "Hello!" $B$rI8=`=PNO$K=PNO$9$k(B
-**      $BL\E*!'(B $B%W%m%0%i%`$NNc(B
-**      $B:n<T!'(B $B;3EDB@O:(B
-**      $B:n@.F|!'(B $B#1#9#9#4G/#1#07n!!#3F|(B
-**      $B=$@5F|!'(B $B#1#9#9#4G/#1#07n#1#7F|(B
+**      プログラム： hello.c -- "Hello!" を標準出力に出力する
+**      目的： プログラムの例
+**      作者： 山田太郎
+**      作成日： １９９４年１０月　３日
+**      修正日： １９９４年１０月１７日
 */
 int main(void)
 {
-    /* $B0';"$r$9$k(B */
+    /* 挨拶をする */
     printf("Hello!\n");
     return 0;
 }
@@ -50,49 +50,49 @@ int main(void)
 </table>
 </blockquote>
 
-$B%3%a%s%H$NF~$l;R!J%M%9%F%#%s%0!K$O$G$-$^$;$s!#(B
-$B<!$N$h$&$JNc$O%(%i!<$K$J$j$^$9!#(B
+コメントの入れ子（ネスティング）はできません。
+次のような例はエラーになります。
 
 <blockquote>
 <tt>
 <table>
 <tr>
-<td><tt>/* $B!D!D!D!D!D!D(B /* $B!D!D!D!D!D!D(B */</tt>
+<td><tt>/* ……………… /* ……………… */</tt>
 <hr>
-<td><tt>$B!D!D!D!D!D!D!D!D(B */</tt>
+<td><tt>…………………… */</tt>
 <hr>
 <tr>
-<td align="center">$B$3$NItJ,$,(B<br>$B$R$H$D$N%3%a%s%H$K$J$k(B
-<td align="center">$B$3$N$KItJ,$K$O(B<br>/* $B$,$J$$$3$H$K$J$k(B
+<td align="center">この部分が<br>ひとつのコメントになる
+<td align="center">このに部分には<br>/* がないことになる
 </table>
 </tt>
 </blockquote>
 
-$B%W%m%0%i%`$O%(%C%;%$$N$h$&$KFI$`$3$H$,$G$-$k$b$N$G$J$1$l$P$J$j$^$;$s!#(B
-$BE,@Z$J%3%a%s%H$N$J$$%W%m%0%i%`$K$O(B
-$B!V%H%i%V%k$N860x$,@x:_$7$F$$$k!W$H$$$&%(%i!<$,$"$k$H$_$J$5$l$^$9!#(B
+プログラムはエッセイのように読むことができるものでなければなりません。
+適切なコメントのないプログラムには
+「トラブルの原因が潜在している」というエラーがあるとみなされます。
 <p>
 
 <hr>
 
-<h3>$B%$%s%G%s%H!J;z2<$2!K(B</h3>
+<h3>インデント（字下げ）</h3>
 
-$B%W%m%0%i%`$N9=B$$r;k3PE*$KI=8=$9$k$?$a$K!"(B
-$B%W%m%0%i%`$K%$%s%G%s%H$rIU$1$F$/$@$5$$!#(B
-mule $B$G$O%?%V%-!<$r%?%$%W$9$k$H!"(B
-$BE,@Z$J%$%s%G%s%H$r<+F0E*$KIU$1$F$/$l$^$9!#(B
+プログラムの構造を視覚的に表現するために、
+プログラムにインデントを付けてください。
+mule ではタブキーをタイプすると、
+適切なインデントを自動的に付けてくれます。
 <p>
 
 <blockquote>
 <table width="90%" border>
-<tr><td>$B%+!<%=%k$N$"$k9T$K%$%s%G%s%H$rIU$1$k(B<td>Tab $B$^$?$O(B C-i
+<tr><td>カーソルのある行にインデントを付ける<td>Tab または C-i
 </table>
 </blockquote>
 
-$B%$%s%G%s%H$O%V%m%C%/!J(B{ $B$H(B } $B$K$O$5$^$l$?ItJ,!KC10L$G!"(B
-$BF~$l;R$K$J$C$F$$$kItJ,$r?<$/!J1&$K!K$7$^$9!#(B
-$B$9$J$o$A!"(B{ $B$K=P2q$&EY$K!"$=$N<!$N9T$O#1CJ1&$+$i=q$-;O$a!"(B
-} $B$K=P2q$&EY$K!"$=$N<!$N9T$O#1CJ:8$+$i=q$-;O$a$^$9!#(B
+インデントはブロック（{ と } にはさまれた部分）単位で、
+入れ子になっている部分を深く（右に）します。
+すなわち、{ に出会う度に、その次の行は１段右から書き始め、
+} に出会う度に、その次の行は１段左から書き始めます。
 
 
 <blockquote>
@@ -116,7 +116,7 @@ int main(void)
 </table>
 </blockquote>
 
-$B$3$&$$$&%9%?%$%k$G=q$/?M$b$$$^$9!#(B
+こういうスタイルで書く人もいます。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">
@@ -141,8 +141,8 @@ int main(void)
 </table>
 </blockquote>
 
-$B%$%s%G%s%H$rIU$1$J$$$H!"(B
-$BHs>o$KFI$_$K$/$$%W%m%0%i%`$K$J$j$^$9!#(B
+インデントを付けないと、
+非常に読みにくいプログラムになります。
 
 <blockquote>
 <table width="90%" border bgcolor="#ffffff">

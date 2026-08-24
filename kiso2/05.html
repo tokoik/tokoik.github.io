@@ -1,43 +1,43 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#52s(B</title>
+<title>情報基礎演習II － 第５回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#52s(B</h1>
+<h1>情報基礎演習II － 第５回</h1>
 
 <hr>
 
-<h2>$B#1!%G[Ns(B</h2>
+<h2>１．配列</h2>
 
 <hr>
 
-$BJQ?t$N@k8@$N:]!"JQ?tL>$N8e$K(B [ ] $B$rIU$1$F?t$r;XDj$9$k$3$H$G!"(B
-$BJ#?t$N5-21MWAG$r;}$DJQ?t$rMQ0U$9$k$3$H$,$G$-$^$9!#(B
-$B$3$l$rG[NsJQ?t$H8F$S$^$9!#(B
+変数の宣言の際、変数名の後に [ ] を付けて数を指定することで、
+複数の記憶要素を持つ変数を用意することができます。
+これを配列変数と呼びます。
 
 <blockquote>
 <pre>
-int marks[3]; /* $B#3?MJ,$NE@?t%G!<%?(B */
+int marks[3]; /* ３人分の点数データ */
 </pre>
 </blockquote>
 
 <img src="05-1.gif" vspace="10" hspace="10" align="right">
 
-$B>e5-$N@k8@$K$h$C$F!"(B
-$B#3$DJ,$N(B int $B7?$N%G!<%?$r3JG<$9$kNN0h$,%3%s%T%e!<%?$N%a%b%j>e$K(B
-$BO"B3$7$F3NJ]$5$l!"$=$N@hF,$K(B marks $B$H$$$&G[NsJQ?tL>$,IU$-$^$9!#(B
+上記の宣言によって、
+３つ分の int 型のデータを格納する領域がコンピュータのメモリ上に
+連続して確保され、その先頭に marks という配列変数名が付きます。
 <p>
 
-$B$3$NG[NsJQ?t$NMWAG$N0l$D$r;XDj$9$k$H$-$O!"(B
-[ ] $B$KHV9f!J@0?t!K$r=q$-$^$9!#(B
-$B$3$l$rE:;z$H8F$S$^$9!#(B
-$BE:;z$O3NJ]$5$l$?NN0h$N@hF,$N0LCV$+$i$N%*%U%;%C%H!JJQ0L!K$G$9!#(B
+この配列変数の要素の一つを指定するときは、
+[ ] に番号（整数）を書きます。
+これを添字と呼びます。
+添字は確保された領域の先頭の位置からのオフセット（変位）です。
 <p>
 
-$B$3$N@k8@$K$h$j(B marks[0], marks[1], marks[2] $B$H$$$&(B
-$B#3$D$N(B int $B7?JQ?t$,;HMQ$G$-$k$h$&$K$J$j$^$9!#(B
-$B$J$*!"(Bmarks[3] $B$O4^$^$l$J$$$N$GCm0U$7$F$/$@$5$$!#(B
+この宣言により marks[0], marks[1], marks[2] という
+３つの int 型変数が使用できるようになります。
+なお、marks[3] は含まれないので注意してください。
 <br clear="all">
 
 <blockquote>
@@ -46,11 +46,11 @@ marks[0] = 10;
 marks[1] = 24;
 marks[2] = 42;
 
-printf("$B9g7WE@(B = %d\n", marks[0] + marks[1] + marks[2]);
+printf("合計点 = %d\n", marks[0] + marks[1] + marks[2]);
 </pre>
 </blockquote>
 
-$BE:;z$K$O@0?t7?$NJQ?t$d<0$r;H$&$3$H$b$G$-$^$9!#(B
+添字には整数型の変数や式を使うこともできます。
 
 <blockquote>
 <pre>
@@ -59,25 +59,25 @@ printf("%d,%d,%d\n", marks[i], marks[i+1], marks[i-1]);
 </pre>
 </blockquote>
 
-<a href="k17.html"><h3 align="center">$B"#2]Bj#1#7"#(B</h3></a>
+<a href="k17.html"><h3 align="center">■課題１７■</h3></a>
 <p>
 
 <a name="multi-dimension">
 <hr>
 
-<h3>$BB?<!85G[Ns(B</h3></a>
+<h3>多次元配列</h3></a>
 
-$BI=7A<0$N%G!<%?$J$I$r=hM}$9$k$N$KJXMx$J$h$&$K!"(B
-$BFs<!85$NG[Ns$b;H$&$3$H$,$G$-$^$9!#(B
-$B$3$l$O<!$N$h$&$K$7$F@k8@$7$^$9!#(B
+表形式のデータなどを処理するのに便利なように、
+二次元の配列も使うことができます。
+これは次のようにして宣言します。
 
 <blockquote>
 <pre>
-int table[3][3]; /* $B#2<!85G[Ns(B */
+int table[3][3]; /* ２次元配列 */
 </pre>
 </blockquote>
 
-$B$3$l$O0J2<$N$h$&$K#3!_#3!a#98D$NMWAG$r;}$DG[Ns$r@k8@$7$^$9!#(B
+これは以下のように３×３＝９個の要素を持つ配列を宣言します。
 
 <blockquote>
 <table width="90%" border>
@@ -92,44 +92,44 @@ int table[3][3]; /* $B#2<!85G[Ns(B */
 
 <img src="05-2.gif" vspace="10" hspace="10" align="right">
 
-$B%3%s%T%e!<%?$N5-216u4V!J%a%b%j!K$O!"(B
-$B<B:]$K$O0l<!85G[Ns$N9=B$$r$7$F$$$k$N$G!"(B
-$B#2<!850J>e$NG[Ns$NNN0h$O(B
-$B1&?^$N$h$&$K0l<!85$KE83+$7$F3NJ]$5$l$^$9!#(B
+コンピュータの記憶空間（メモリ）は、
+実際には一次元配列の構造をしているので、
+２次元以上の配列の領域は
+右図のように一次元に展開して確保されます。
 <p>
 
-$B$3$N?^$r8+$FJ,$+$k$H$*$j!"(B
-$B$3$NG[Ns$O#3$D$N(B int $B7?$NMWAG$r;}$DG[Ns$r!"(B
-$B#3AHMQ0U$7$?$b$N$K$J$j$^$9!#(B
+この図を見て分かるとおり、
+この配列は３つの int 型の要素を持つ配列を、
+３組用意したものになります。
 <p>
 
-$BF1MM$K$7$F!";0<!85$NG[Ns$O<!$N$h$&$K$7$F@k8@$7$^$9!#(B
+同様にして、三次元の配列は次のようにして宣言します。
 
 <blockquote>
 <pre>
-int volume[4][3][2]; /* $B#3<!85G[Ns(B */
+int volume[4][3][2]; /* ３次元配列 */
 </pre>
 </blockquote>
 
-$B$3$NG[Ns$O#4!_#3!_#2!a#2#48D$NMWAG$r;}$DG[Ns$r@k8@$7$^$9!#(B
-$B$3$l$O#28D$NMWAG$r;}$D(B int $B7?$NG[Ns#3AH$r$R$H$^$H$a$K$7$F!"(B
-$B$=$l$r99$K#4AHMQ0U$7$^$9!#(B
-$B$3$N$h$&$K$7$F!"$5$i$K<!85$N9b$$$NG[Ns$r@k8@$9$k$3$H$b$G$-$^$9!#(B
+この配列は４×３×２＝２４個の要素を持つ配列を宣言します。
+これは２個の要素を持つ int 型の配列３組をひとまとめにして、
+それを更に４組用意します。
+このようにして、さらに次元の高いの配列を宣言することもできます。
 <p>
 <br clear="all">
 
-<a href="k18.html"><h3 align="center">$B"#2]Bj#1#8"#(B</h3></a>
+<a href="k18.html"><h3 align="center">■課題１８■</h3></a>
 <p>
 
 <hr>
 
-<h2>$B#2!%J8;zNs(B</h2>
+<h2>２．文字列</h2>
 
 <hr>
 
-char $B7?%G!<%?$NG[NsJQ?t$K$*$$$F!"(B
-$B:G8e$NMWAG$NFbMF$r(B '\0'$B!JJ8;z%3!<%I(B 0 $B$NJ8;z!"$9$J$o$A?tCM$N(B 0$B!K$H$7$?$b$N$r!"(B
-$BFC$KJ8;zNs$H8F$S$^$9!#(B
+char 型データの配列変数において、
+最後の要素の内容を '\0'（文字コード 0 の文字、すなわち数値の 0）としたものを、
+特に文字列と呼びます。
 
 <img src="05-3.gif" vspace="10" hspace="10" align="right">
 <blockquote>
@@ -143,7 +143,7 @@ name[3] = '\0';
 </blockquote>
 <br clear="all">
 
-printf $B$GJ8;zNs$rI=<($9$k$K$O(B %s $B$r;H$$$^$9!#(B
+printf で文字列を表示するには %s を使います。
 
 <blockquote>
 <pre>
@@ -151,20 +151,20 @@ printf("He is %s\n", name);
 </pre>
 </blockquote>
 
-$B0z?t$H$7$F!J8D!9$NMWAG$G$O$J$/!KG[NsJQ?tA4BN$rMQ$$$k$H$-$O!"(B
-$BG[NsJQ?tL>!J$3$N>l9g(B name$B!K$@$1$r;XDj$7$^$9!#(B
-$B=q<0J8;zNsCf$NJQ49;XDj;R(B %s $B$,(B name $B$NFbMF$KCV$-49$o$j$^$9!#(B
+引数として（個々の要素ではなく）配列変数全体を用いるときは、
+配列変数名（この場合 name）だけを指定します。
+書式文字列中の変換指定子 %s が name の内容に置き換わります。
 <p>
 
-printf $B$O=q<0J8;zNsCf$KJQ49;XDj;R(B %s $B$,$"$k$H!"(B
-$B$=$l$KBP1~$9$kJQ?t$rJ8;zNs$H$_$J$7!"(B
-$B$=$N:G=i$NMWAG$+$i(B '\0' $B$,8+$D$+$k$^$G#1J8;z$:$D=gHV$K=PNO$7$F$$$-$^$9!#(B
-$B$b$7G[NsJQ?t(B name $B$N:G8e$NMWAG$,(B '\0' $B$G$J$1$l$P!"(B
-printf $B$OJ8;zNs$N:G8e$,8+$D$1$i$l$J$$$?$a!"(B
-$BK=Av$7$F$7$^$$$^$9!#(B
+printf は書式文字列中に変換指定子 %s があると、
+それに対応する変数を文字列とみなし、
+その最初の要素から '\0' が見つかるまで１文字ずつ順番に出力していきます。
+もし配列変数 name の最後の要素が '\0' でなければ、
+printf は文字列の最後が見つけられないため、
+暴走してしまいます。
 <p>
 
-"$B!D(B" $B$G64$^$l$?$b$N$O!"J8;zNsDj?t$H8F$S$^$9!#(B
+"…" で挟まれたものは、文字列定数と呼びます。
 
 <blockquote>
 <pre>
@@ -172,11 +172,11 @@ printf("He is %s\n", "Ken");
 </pre>
 </blockquote>
 
-"Ken" $B$OA0=R$NG[NsJQ?t(B name $B$HF1MM!"(B
-'K', 'e', 'n', '\0' $B$N#4$D$NMWAG$+$i$J$kG[Ns$G$9!#(B
-$B8+$F$o$+$k$H$*$j!"(B
-printf $B$N=q<0J8;zNs(B "He is %s\n" $B$bJ8;zNs$G$9!#(B
-$B=>$C$F!"<!$N$h$&$J$3$H$b$G$-$^$9!#(B
+"Ken" は前述の配列変数 name と同様、
+'K', 'e', 'n', '\0' の４つの要素からなる配列です。
+見てわかるとおり、
+printf の書式文字列 "He is %s\n" も文字列です。
+従って、次のようなこともできます。
 
 <blockquote>
 <pre>
@@ -195,74 +195,74 @@ printf(format, "Ken");
 </pre>
 </blockquote>
 
-<a href="k19.html"><h3 align="center">$B"#2]Bj#1#9"#(B</h3></a>
+<a href="k19.html"><h3 align="center">■課題１９■</h3></a>
 <p>
 
 <hr>
 
-<h3>$BJ8;zNs$NA`:n(B</h3>
+<h3>文字列の操作</h3>
 
-$BJ8;zDj?t$OJ8;z7?JQ?t$KBeF~$9$k$3$H$,$G$-$^$9$,!"(B
-$BJ8;zNsDj?t$rJ8;z7?$NG[NsJQ?t$KBeF~$9$k$3$H$O$G$-$^$;$s!#(B
-$B<!$NNc$O%(%i!<$K$J$j$^$9!#(B
+文字定数は文字型変数に代入することができますが、
+文字列定数を文字型の配列変数に代入することはできません。
+次の例はエラーになります。
 
 <blockquote>
 <pre>
 char name[4];
-name = "Ken"; /* $B!_(B $B$3$l$O%(%i!<(B */
+name = "Ken"; /* × これはエラー */
 </pre>
 </blockquote>
 
-$BJ8;zNsDj?t$dG[NsJQ?t$K3JG<$5$l$?J8;zNs$rA4ItG[NsJQ?t$K%3%T!<$9$k$K$O!"(B
-strcpy $B$J$I$N%i%$%V%i%j4X?t$r;HMQ$7$^$9!#(B
+文字列定数や配列変数に格納された文字列を全部配列変数にコピーするには、
+strcpy などのライブラリ関数を使用します。
 <p>
 
 <b>strcpy(s1, s2)</b>
 <ul>
-<li>s2 $B$OJ8;zNs$,3JG<$5$l$?G[NsJQ?t$+J8;zNsDj?t$G!"(B
-$B$=$l$rG[NsJQ?t(B s1 $B$K%3%T!<$7$^$9!#(B
-<li>s1 $B$O!H(Bs2 $B$NJ8;zNs$NJ8;z?t!I!\#1$h$jBg$-$JMWAG?t$r(B
-$B;}$C$F$$$kI,MW$,$"$j$^$9!#(B
-<li>$BLa$jCM$O(B s1 $B$G$9!#(B
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 にコピーします。
+<li>s1 は“s2 の文字列の文字数”＋１より大きな要素数を
+持っている必要があります。
+<li>戻り値は s1 です。
 </ul>
 
 <b>strcat(s1, s2)</b>
 <ul>
-<li>s2 $B$OJ8;zNs$,3JG<$5$l$?G[NsJQ?t$+J8;zNsDj?t$G!"(B
-$B$=$l$rG[NsJQ?t(B s1 $B$K3JG<$5$l$F$$$kJ8;zNs$N:G8e$KDI2C$7$^$9!#(B
-<li>s1 $B$O!H(Bs1 $B$K4{$K3JG<$5$l$F$$$kJ8;zNs$NJ8;z?t!I(B
-$B!\(B $B!H(Bs2 $B$NJ8;zNs$NJ8;z?t!I!\#1(B
-$B$h$jBg$-$JMWAG?t$r;}$C$F$$$kI,MW$,$"$j$^$9!#(B
-<li>$BLa$jCM$O(B s1 $B$G$9!#(B
+<li>s2 は文字列が格納された配列変数か文字列定数で、
+それを配列変数 s1 に格納されている文字列の最後に追加します。
+<li>s1 は“s1 に既に格納されている文字列の文字数”
+＋ “s2 の文字列の文字数”＋１
+より大きな要素数を持っている必要があります。
+<li>戻り値は s1 です。
 <blockquote>
 <pre>
 strcpy(name, "Hazuki ");
 strcat(name, "Riona");
 </pre>
 </blockquote>
-$B$3$N7k2L(B name $B$K$O(B "Hazuki Riona" $B$H$$$&J8;zNs$,F~$k$?$a!"(B
-name $B$O!!(Bchar name[13$B0J>e(B]; $B$H$7$F@k8@$5$l$F$$$kI,MW$,$"$j$^$9!#(B
+この結果 name には "Hazuki Riona" という文字列が入るため、
+name は　char name[13以上]; として宣言されている必要があります。
 </ul>
 
 <b>strlen(s)</b>
 <ul>
-<li>s $B$K;XDj$7$?J8;zNs$NJ8;z?t$r5a$a!"(B
-$BLa$jCM$H$7$FJV$7$^$9!#(B
-<li>$BJ8;z?t$K(B '\0' $B$O4^$_$^$;$s!#(B
+<li>s に指定した文字列の文字数を求め、
+戻り値として返します。
+<li>文字数に '\0' は含みません。
 <blockquote>
 <pre>
 int length;
 length = strlen("Ken");
 </pre>
 </blockquote>
-$B$3$N7k2L!"(Blength $B$O#3$K$J$j$^$9!#(B
+この結果、length は３になります。
 </ul>
 
 <b>strcmp(s1, s2)</b>
 <ul>
-<li>$B#2$D$NJ8;zNs(B s1 $B$H(B s2 $B$,F1$8FbMF$J$i(B 0$B!"(B
-s1 $B$,(B s2 $B$h$j!V<-=q$N=g$G!WA0$K$"$l$PIi!"(B
-$B8e$K$"$l$P@5$NCM$rLa$jCM$H$7$FJV$7$^$9!#(B
+<li>２つの文字列 s1 と s2 が同じ内容なら 0、
+s1 が s2 より「辞書の順で」前にあれば負、
+後にあれば正の値を戻り値として返します。
 <blockquote>
 <pre>
 strcmp("abc", "def") < 0
@@ -271,9 +271,9 @@ strcmp("ghi", "def") > 0
 </blockquote>
 </ul>
 
-$B$3$l$i$N%i%$%V%i%j4X?t$r;HMQ$9$k>l9g$K$O!"(B
-string.h $B$H$$$&%X%C%@%U%!%$%k$r(B
-$B%W%m%0%i%`$N:G=i$NItJ,$G%$%s%/%k!<%I$7$F$*$/I,MW$,$"$j$^$9!#(B
+これらのライブラリ関数を使用する場合には、
+string.h というヘッダファイルを
+プログラムの最初の部分でインクルードしておく必要があります。
 
 <blockquote>
 <pre>
@@ -281,7 +281,7 @@ string.h $B$H$$$&%X%C%@%U%!%$%k$r(B
 </pre>
 </blockquote>
 
-<a href="k20.html"><h3 align="center">$B"#2]Bj#2#0"#(B</h3></a>
+<a href="k20.html"><h3 align="center">■課題２０■</h3></a>
 <p>
 
 </body>

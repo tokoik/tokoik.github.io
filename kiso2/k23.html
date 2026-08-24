@@ -1,27 +1,27 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#2#3(B</title>
+<title>情報基礎演習II － 課題２３</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#2#3(B</h3>
+<h3>課題２３</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%W%m%0%i%`$O!"(B
-$BF~NO$7$?L>A0$rAG$N$^$^I=<($9$k$@$1$N%W%m%0%i%`$G$9!#(B
+<li>次のプログラムは、
+入力した名前を素のまま表示するだけのプログラムです。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai23
-** $BF0:n(B: $BJ8;zNs$NF~NO(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai23
+** 動作: 文字列の入力
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -29,9 +29,9 @@ int main(void)
 {
     char name[100];
 
-    printf("$B$"$J$?$NL>A0$r$$$l$F$/$@$5$$(B:");
+    printf("あなたの名前をいれてください:");
     scanf("%99s", name);
-    printf("$B$"$J$?$NL>A0$O(B %s $B$G$9(B\n", name);
+    printf("あなたの名前は %s です\n", name);
 
     return 0;
 }
@@ -39,20 +39,20 @@ int main(void)
 </table>
 <p>
 
-<li>$B$3$N%W%m%0%i%`$O(B "Horosue Ryoko" $B$N$h$&$K!"(B
-$BL>A0$N4V$K6uGr$,$"$k$H!"(B
-$B6uGr$NA0$NItJ,$7$+I=<($7$^$;$s!#(B
+<li>このプログラムは "Horosue Ryoko" のように、
+名前の間に空白があると、
+空白の前の部分しか表示しません。
 <p>
 
-<li>$B$3$N%W%m%0%i%`$r!"(B
-$B#18D$N6uGr$r$O$5$s$G@+L>$rF~NO$7$?$H$-$K!"(B
-$B$=$l$,A4$FI=<($5$l$k$h$&$K=$@5$7$F$/$@$5$$!#(B
+<li>このプログラムを、
+１個の空白をはさんで姓名を入力したときに、
+それが全て表示されるように修正してください。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai23.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai23 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai23.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai23 としてください。
 
 </ol>
 

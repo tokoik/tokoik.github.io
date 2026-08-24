@@ -1,34 +1,34 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#5#3(B</title>
+<title>情報基礎演習II － 課題５３</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#5#3(B</h3>
+<h3>課題５３</h3>
 
 <hr>
 
 <ol>
 
-<li>$B2<$NG[NsJQ?t(B sakura $B$+$i(B
-kokugo, sansu, rika, shakai $B$N$=$l$>$l$N(B
-$BJ?6Q$*$h$SA4It$NJ?6Q$r5a$a$k%W%m%0%i%`$r:n$C$F$/$@$5$$!#(B
+<li>下の配列変数 sakura から
+kokugo, sansu, rika, shakai のそれぞれの
+平均および全部の平均を求めるプログラムを作ってください。
 <p>
 
-<li>$B%G!<%??t$r?t$($J$/$F$b:Q$`$h$&$K!"(B
-$B%G!<%?$N:G8e$OJ8;zNs$NMWAG(B myouji $B$,6u(B
-$B!J(B""$B!"$3$l$OJ8;zNs$N:G=iJ8;z!A(Bsakura.namae[0] $B$,(B '\0'$B!K(B 
-$B$K$J$C$F$$$k$H2>Dj$7$F$/$@$5$$!#(B
+<li>データ数を数えなくても済むように、
+データの最後は文字列の要素 myouji が空
+（""、これは文字列の最初文字～sakura.namae[0] が '\0'） 
+になっていると仮定してください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai53
-** $BF0:n(B: $B9=B$BN$NG[Ns$r%]%$%s%?$GA`:n(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai53
+** 動作: 構造体の配列をポインタで操作
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -47,12 +47,12 @@ struct seiseki {
     { "Anza",   "Oyama",   90, 80, 70, 60 },
     { "Noriko", "Kato",    75, 80, 65, 60 },
     { "Miho",   "Kan'no",  80, 65, 95, 70 },
-    { "", "", 0, 0 } /* $BHh$l$?$N$G$3$l$G=*$j(B */
+    { "", "", 0, 0 } /* 疲れたのでこれで終り */
 };
 
 int main(void)
 {
-    /* $B$3$3$K%W%m%0%i%`$r=q$$$F$/$@$5$$(B */
+    /* ここにプログラムを書いてください */
 
     return 0;
 }
@@ -60,9 +60,9 @@ int main(void)
 </table>
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai53.c $B$H$7!"$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai53 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai53.c とし、それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai53 としてください。
 
 </ol>
 

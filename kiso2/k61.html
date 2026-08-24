@@ -1,28 +1,28 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#6#1(B</title>
+<title>情報基礎演習II － 課題６１</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#6#1(B</h3>
+<h3>課題６１</h3>
 
 <hr>
 
 <ol>
 
-<li>$B%P%$%*%j%:%`$H$O!"(B
-$B?HBN!"46>p!"CN@-$N%"%/%F%#%S%F%#!<$,!"(B
-$B@8$^$l$?F|$r5/E@$H$7$F!"(B
-$B$=$l$>$l#2#3F|!"#2#8F|!"#3#3F|C10L$G<~4|E*$KJQ2=$9$k$3$H$r(B
-$B$$$$$^$9!#(B
+<li>バイオリズムとは、
+身体、感情、知性のアクティビティーが、
+生まれた日を起点として、
+それぞれ２３日、２８日、３３日単位で周期的に変化することを
+いいます。
 <p>
 
-<li>$B$"$k?M$N:#F|$N%P%$%*%j%:%`$r7W;;$9$k$K$O!"(B
-$B<!$N$h$&$J<j=g$G9T$$$^$9!#(B
+<li>ある人の今日のバイオリズムを計算するには、
+次のような手順で行います。
 <p>
 
-<li>$B$^$:!"$=$N?M$NCB@8F|$+$i:#F|$^$G$NF|?t$r7W;;$7$^$9!#(B
-$B$3$l$O<!$N4X?t$G7W;;$G$-$^$9!#(B
+<li>まず、その人の誕生日から今日までの日数を計算します。
+これは次の関数で計算できます。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
@@ -31,11 +31,11 @@
 #include &lt;time.h&gt;
 
 /*
-** $BCB@8F|$+$i:#F|$^$G$NF|?t!J#1#9#7#0G/0J9_!K(B
+** 誕生日から今日までの日数（１９７０年以降）
 **
-** year - $B@8$^$l$?G/(B
-** month - $B@8$^$l$?7n(B
-** day - $B@8$^$l$?F|(B
+** year - 生まれた年
+** month - 生まれた月
+** day - 生まれた日
 */
 int days(int year, int month, int day)
 {
@@ -53,7 +53,7 @@ int days(int year, int month, int day)
     ret = mktime(&birth);
 
     if (ret == -1) {
-        printf("$B7W;;$G$-$^$;$s(B\n");
+        printf("計算できません\n");
         exit(1);
     }
 
@@ -63,27 +63,27 @@ int days(int year, int month, int day)
 </table>
 <p>
 
-<li>$B<!$K!"$=$NF|?t$r(B 23$B!"(B28$B!"(B33 $B$G3d$C$?M>$j$r5a$a$^$9!#(B
+<li>次に、その日数を 23、28、33 で割った余りを求めます。
 <p>
 
-<li>$BF@$i$l$?M>$j$r$=$l$>$l!"(B
-2.0 * 3.14159 / 23.0 $BG\!"(B
-2.0 * 3.14159 / 28.0 $BG\!"(B
-2.0 * 3.14159 / 33.0 $BG\$7$^$9!#(B
+<li>得られた余りをそれぞれ、
+2.0 * 3.14159 / 23.0 倍、
+2.0 * 3.14159 / 28.0 倍、
+2.0 * 3.14159 / 33.0 倍します。
 <p>
 
-<li>$B$=$l$>$l$N@589$,!":#F|$N%P%$%*%j%:%`$NCM$H$J$j$^$9!#(B
-$B$3$NCM$O(B 100 $BG\$7$F!"I4J,N($GI=$9$HJ,$+$j$d$9$$$G$7$g$&!#(B
+<li>それぞれの正弦が、今日のバイオリズムの値となります。
+この値は 100 倍して、百分率で表すと分かりやすいでしょう。
 <p>
 
-<li>$BCB@8F|$rF~NO$9$k$H!"(B
-$B:#F|$N%P%$%*%j%:%`$r7W;;$9$k%W%m%0%i%`$r:n$C$F$/$@$5$$!#(B
+<li>誕生日を入力すると、
+今日のバイオリズムを計算するプログラムを作ってください。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai61.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai61 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai61.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai61 としてください。
 
 </ol>
 

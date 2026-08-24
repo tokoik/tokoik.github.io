@@ -1,51 +1,51 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#2#0(B</title>
+<title>情報基礎演習II － 課題２０</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#2#0(B</h3>
+<h3>課題２０</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`Cf$N8m$j$r=$@5$7!"(B
-$B$5$i$K(B "firstname" $B$H(B "lastname" $B$r=q$-49$($F!"(B
-$B<+J,$N%U%k%M!<%`$r(B "My name is ????" $B$H$$$&$h$&$K=PNO$9$k(B
-$B%W%m%0%i%`$r:n$C$F$/$@$5$$!#(B
+<li>次のソースプログラム中の誤りを修正し、
+さらに "firstname" と "lastname" を書き換えて、
+自分のフルネームを "My name is ????" というように出力する
+プログラムを作ってください。
 <p>
 
-<li>$B$3$l$bG[NsJQ?t$NMWAG$N?t$J$I$r(B
-$B<+J,$NL>A0$NJ8;z?t$K9g$o$;$k$3$H$rK:$l$J$$$h$&$K$7$F$/$@$5$$!#(B
+<li>これも配列変数の要素の数などを
+自分の名前の文字数に合わせることを忘れないようにしてください。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai20.c $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai20.c としてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai20
-** $BF0:n(B: $B<+8J>R2p%Q!<%H#2(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai20
+** 動作: 自己紹介パート２
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 
 int main(void)
 {
-    char first[10]; /* $BID;z$rF~$l$kG[NsJQ?t(B   */
-    char last[10];  /* $BL>A0$rF~$l$kJQ?t(B       */
-    char full[20];  /* $B%U%k%M!<%`$rF~$l$kJQ?t(B */
+    char first[10]; /* 苗字を入れる配列変数   */
+    char last[10];  /* 名前を入れる変数       */
+    char full[20];  /* フルネームを入れる変数 */
 
-    strcpy(first, "firstname"); /* $B$"$J$?$NID;z$rF~$l$F$/$@$5$$(B */
-    strcpy(last, "lastname");   /* $B$"$J$?$NL>A0$rF~$l$F$/$@$5$$(B */
+    strcpy(first, "firstname"); /* あなたの苗字を入れてください */
+    strcpy(last, "lastname");   /* あなたの名前を入れてください */
 
     strcpy(full, first);
-    strcat(full, ' ');          /* $BID;z$HL>A0$N4V$K6uGr$r$"$1$k(B */
+    strcat(full, ' ');          /* 苗字と名前の間に空白をあける */
     strcat(full, last);
 
     printf("My name is %s.\n", full);
@@ -56,14 +56,14 @@ int main(void)
 </table>
 <p>
 
-<li>$B$3$N%=!<%9%W%m%0%i%`$r%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai20 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$F$/$@$5$$!#(B
+<li>このソースプログラムをコンパイル／リンクし、
+kadai20 という名前の実行プログラムを作成してください。
 <p>
 
-<li>kadai20 $B$r<B9T$7$F;W$&$H$*$j$N7k2L$,F@$i$l$?$i!"(B
-$B%=!<%9%W%m%0%i%`!J(Bkadai20.c$B!K$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai20 $B$H$7$F$/$@$5$$!#(B
+<li>kadai20 を実行して思うとおりの結果が得られたら、
+ソースプログラム（kadai20.c）をメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai20 としてください。
 
 </ol>
 

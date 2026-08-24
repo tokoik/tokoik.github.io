@@ -1,28 +1,28 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#4#6(B</title>
+<title>情報基礎演習II － 課題４６</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#4#6(B</h3>
+<h3>課題４６</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%W%m%0%i%`$G$O!"(B
-1 $B$+$i(B 10 $B$^$G$N@0?t$K$D$$$F!"(B
-1 $B$+$i$=$N?t$^$G$N9g7W$rC`<!5a$a$h$&$H$7$F$$$^$9!#(B
+<li>次のプログラムでは、
+1 から 10 までの整数について、
+1 からその数までの合計を逐次求めようとしています。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai46
-** $BF0:n(B: $B%V%m%C%/$NCf$NJQ?t(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai46
+** 動作: ブロックの中の変数
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -35,26 +35,26 @@ int main(void)
 
         sum += i;
 
-        printf("1 $B$+$i(B %2d $B$^$G$N9g7W$O(B %2d\n", i, sum);
+        printf("1 から %2d までの合計は %2d\n", i, sum);
     }
 }
 </pre>
 </table>
 <p>
 
-<li>$B$7$+$7<B:]$K$O!"(B
-$BJQ?t(B sum $B$NFbMF$O@Q;;$5$l$^$;$s!#(B
+<li>しかし実際には、
+変数 sum の内容は積算されません。
 <p>
 
-<li>$B$=$NM}M3$r9M;!$9$k$H6!$K!"(B
-$B>e$N%W%m%0%i%`Cf$N$I$l$+#19T$N>l=j$r0\F0$7$F!"(B
-$B>e5-$NL\E*$I$*$j$K%W%m%0%i%`$,F0$/$h$&$K$7$F$/$@$5$$!#(B
+<li>その理由を考察すると供に、
+上のプログラム中のどれか１行の場所を移動して、
+上記の目的どおりにプログラムが動くようにしてください。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai46.c $B$H$7!"(B
-$B$=$l$H9M;!$r(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai46 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai46.c とし、
+それと考察を
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai46 としてください。
 
 </ol>
 

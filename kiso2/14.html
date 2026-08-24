@@ -1,34 +1,34 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#42s(B</title>
+<title>情報基礎演習II － 第１４回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#42s(B</h1>
+<h1>情報基礎演習II － 第１４回</h1>
 
 <hr>
 
-<h2>$B#1!%%U%!%$%k=hM}(B</h2>
+<h2>１．ファイル処理</h2>
 
 <hr>
 
-<h3>$B%U%!%$%k$r3+$/!?JD$8$k(B</h3>
+<h3>ファイルを開く／閉じる</h3>
 
-$B%G!<%?$NF~=PNO$r!"(B
-$B%-!<%\!<%I$d2hLL$KBP$7$F9T$&Be$o$j$K!"(B
-$B%G!<%?%U%!%$%k$KBP$7$F9T$&$3$H$,$G$-$^$9!#(B
-$B%G!<%?%U%!%$%k$r07$&$K$O!"(B
-$B<!$N#3$D$N%9%F%C%W$r7P$^$9!#(B
+データの入出力を、
+キーボードや画面に対して行う代わりに、
+データファイルに対して行うことができます。
+データファイルを扱うには、
+次の３つのステップを経ます。
 
 <ol>
-<li>$B%G!<%?%U%!%$%k$r3+$/!#(B
-<li>$B%G!<%?%U%!%$%k$KBP$7$F!"%G!<%?$NF~=PNO$r9T$&!#(B
-<li>$B%G!<%?%U%!%$%k$rJD$8$k!#(B
+<li>データファイルを開く。
+<li>データファイルに対して、データの入出力を行う。
+<li>データファイルを閉じる。
 </ol>
 
-data $B$H$$$&L>A0$N%U%!%$%k$+$i(B
-$B%G!<%?$rFI$_=P$9>l9g!"(B
-$B$3$l$O<!$N$h$&$J%W%m%0%i%`$K$J$j$^$9!#(B
+data という名前のファイルから
+データを読み出す場合、
+これは次のようなプログラムになります。
 
 <blockquote>
 <pre>
@@ -38,62 +38,62 @@ void func(void)
 {
     FILE *fp;
 
-    fp = fopen("data", "r"); /* data $B$H$$$&%G!<%?%U%!%$%k$r3+$/(B */
+    fp = fopen("data", "r"); /* data というデータファイルを開く */
 
-    /* $B$3$3$G(B data $B$H$$$&%G!<%?%U%!%$%k$+$i%G!<%?$rFI$_=P$9(B */
+    /* ここで data というデータファイルからデータを読み出す */
 
-    fclose(fp); /* data $B$H$$$&%G!<%?%U%!%$%k$rJD$8$k(B */
+    fclose(fp); /* data というデータファイルを閉じる */
 }
 </pre>
 </blockquote>
 
-$B$3$3$G(B fp/fopen/fclose $B$O!"<!$N$h$&$JLr3d$r;}$C$F$$$^$9!#(B
+ここで fp/fopen/fclose は、次のような役割を持っています。
 
 <dl>
 <dt><b>FILE *fp</b>
-<dd>fp $B$O(B FILE $B7?$N%]%$%s%?JQ?t$G$9!#(B
-$B%U%!%$%k%]%$%s%?$H8F$P$l$^$9!#(B
-$BJQ?t$G$9$+$i(B<a href="02.html#hensu">$BJQ?tL>(B</a>$B$O<+J,$G7h$a$F$/$@$5$$!#(B
-FILE $B$H$$$&%G!<%?7?$O(B stdio.h $B$GDj5A$5$l$F$$$^$9!#(B
-$B%U%!%$%k%]%$%s%?$O(B fopen $B$J$I$NLa$jCM$H$7$FF@$i$l!"(B
-$B%G!<%?%U%!%$%k$X$NFI$_=q$-$O$3$NJQ?t$r2p$7$F9T$$$^$9!#(B
+<dd>fp は FILE 型のポインタ変数です。
+ファイルポインタと呼ばれます。
+変数ですから<a href="02.html#hensu">変数名</a>は自分で決めてください。
+FILE というデータ型は stdio.h で定義されています。
+ファイルポインタは fopen などの戻り値として得られ、
+データファイルへの読み書きはこの変数を介して行います。
 <p>
 <dt><b>fopen("data", "r")</b>
-<dd>$B%G!<%?%U%!%$%k$r3+$-$^$9!#(B
-$BLa$jCM$H$7$F3+$$$?%U%!%$%k$N%U%!%$%k%]%$%s%?$rJV$7$^$9!#(B
-$B%U%!%$%k$,3+$1$J$+$C$?$H$-$O!"(BNULL $B$H$$$&5-9fDj?t(B
-$B!J$3$l$b(B stdio.h $B$GDj5A$5$l$F$$$^$9!K$rJV$7$^$9!#(B
-$B0l$DL\$N0z?t$O3+$/%U%!%$%k$N%Q%9L>$NJ8;zNs$G!"(B
-$BFs$DL\$N0z?t$O3+$/!V%b!<%I!W$r;XDj$9$kJ8;zNs$G$9!#(B
+<dd>データファイルを開きます。
+戻り値として開いたファイルのファイルポインタを返します。
+ファイルが開けなかったときは、NULL という記号定数
+（これも stdio.h で定義されています）を返します。
+一つ目の引数は開くファイルのパス名の文字列で、
+二つ目の引数は開く「モード」を指定する文字列です。
 <p>
 <dl compact>
-<dt>"r"<dd>$BFI$_=P$7MQ$G3+$-$^$9!#(B
-<dt>"w"<dd>$B=q$-9~$_MQ$G3+$-$^$9!#(B
-<dt>"a"<dd>$B%U%!%$%k$N:G8e$K%G!<%?$rDI2C$9$k$h$&$K3+$-$^$9!#(B
-$B=q$-9~$_MQ$K$J$j$^$9!#(B
-<dt>"r+"<dd>$BFI$_=q$-N>MQ$K3+$-$^$9!#(B
-$B%U%!%$%k$O@hF,$NItJ,$+$iFI$_=q$-$7$^$9!#(B
-<dt>"w+"<dd>$BFI$_=q$-N>MQ$K3+$-$^$9!#(B
-$B4{$KB8:_$7$?%U%!%$%k$NCf?H$O>C$7$^$9!#(B
-<dt>"a+"<dd>$BFI$_=q$-N>MQ$K3+$-$^$9!#(B
-$B%U%!%$%k$N:G8e$NItJ,$+$iFI$_=q$-$7$^$9!#(B
+<dt>"r"<dd>読み出し用で開きます。
+<dt>"w"<dd>書き込み用で開きます。
+<dt>"a"<dd>ファイルの最後にデータを追加するように開きます。
+書き込み用になります。
+<dt>"r+"<dd>読み書き両用に開きます。
+ファイルは先頭の部分から読み書きします。
+<dt>"w+"<dd>読み書き両用に開きます。
+既に存在したファイルの中身は消します。
+<dt>"a+"<dd>読み書き両用に開きます。
+ファイルの最後の部分から読み書きします。
 </dl>
 <p>
 <dt><b>fclose(fp)</b>
-$B%U%!%$%k%]%$%s%?(B fp $B$G<($5$l$?(B
-$B%G!<%?%U%!%$%k$NFI$_=q$-$r=*N;$7$^$9!#(B
+ファイルポインタ fp で示された
+データファイルの読み書きを終了します。
 </dl>
 
 <hr>
 
-<h3>$B%U%!%$%k$NFI$_=q$-(B</h3>
+<h3>ファイルの読み書き</h3>
 
-$B<B:]$K%G!<%?%U%!%$%k$K%G!<%?$r=q$$$?$j!"(B
-$B%G!<%?%U%!%$%k$+$i%G!<%?$rFI$s$@$j$9$k$K$O!"(B
-fprintf/fscanf $B$,;H$($^$9!#(B
-$B$3$l$OI8=`F~=PNO!J%-!<%\!<%I!"2hLL!K$KBP$9$k(B
-$BF~=PNO$K;H$&(B printf/scanf $B$H$[$\F1$8$G!"(B
-$B:G=i$N0z?t!JBh#10z?t!K$K%U%!%$%k%]%$%s%?$r;XDj$7$^$9!#(B
+実際にデータファイルにデータを書いたり、
+データファイルからデータを読んだりするには、
+fprintf/fscanf が使えます。
+これは標準入出力（キーボード、画面）に対する
+入出力に使う printf/scanf とほぼ同じで、
+最初の引数（第１引数）にファイルポインタを指定します。
 
 <blockquote>
 <pre>
@@ -101,25 +101,25 @@ fprintf/fscanf $B$,;H$($^$9!#(B
 
 int main(void)
 {
-    FILE *fp; /* $B%U%!%$%k%]%$%s%?(B */
-    int w, x, y, z; /* $B=q$-9~$`%G!<%?(B */
+    FILE *fp; /* ファイルポインタ */
+    int w, x, y, z; /* 書き込むデータ */
 
-    /* $B%U%!%$%k$r=q$-9~$_MQ$K3+$/!J$3$N>l9g$O?75,:n@.$K$J$k!K(B*/
+    /* ファイルを書き込み用に開く（この場合は新規作成になる）*/
     fp = fopen("data", "w");
 
-    /* $B%U%!%$%k$,3+$1$J$+$C$?$i%a%C%;!<%8$rI=<($7$F!"(B*/
-    /* $B=*N;%9%F!<%?%9$r(B 1 $B$K$7$F%W%m%0%i%`$r=*N;$9$k(B */
+    /* ファイルが開けなかったらメッセージを表示して、*/
+    /* 終了ステータスを 1 にしてプログラムを終了する */
     if (fp == NULL) {
-        printf("$B%U%!%$%k$,3+$1$^$;$s$G$7$?(B\n");
+        printf("ファイルが開けませんでした\n");
         exit(1);
     }
 
     z = (y = (x = (w = 1) + 1) + 1) + 1;
 
-    /* $B%G!<%?$r=q$-9~$`(B */
+    /* データを書き込む */
     fprintf(fp, "%d %d %d %d\n", w, x, y, z);
 
-    /* $B%U%!%$%k$rJD$8$k(B */
+    /* ファイルを閉じる */
     fclose(fp);
 
     return 0;
@@ -127,8 +127,8 @@ int main(void)
 </pre>
 </blockquote>
 
-$B>e$N$h$&$J%W%m%0%i%`$K$h$C$F@8@.$5$l$?%U%!%$%k(B data $B$NFbMF$O!"(B
-$B2<$N$h$&$J%W%m%0%i%`$GFI$_=P$9$3$H$,$G$-$^$9!#(B
+上のようなプログラムによって生成されたファイル data の内容は、
+下のようなプログラムで読み出すことができます。
 
 <blockquote>
 <pre>
@@ -136,25 +136,25 @@ int main(void)
 
 int main(void)
 {
-    FILE *fp; /* $B%U%!%$%k%]%$%s%?(B */
-    int w, x, y, z; /* $BFI$_=P$9%G!<%?(B */
+    FILE *fp; /* ファイルポインタ */
+    int w, x, y, z; /* 読み出すデータ */
 
-    /* $B%U%!%$%k$rFI$_9~$_MQ$K3+$/(B */
+    /* ファイルを読み込み用に開く */
     fp = fopen("data", "r");
 
-    /* $B%U%!%$%k$,3+$1$J$+$C$?$i%a%C%;!<%8$rI=<($7$F!"(B*/
-    /* $B=*N;%9%F!<%?%9$r(B 1 $B$K$7$F%W%m%0%i%`$r=*N;$9$k(B */
+    /* ファイルが開けなかったらメッセージを表示して、*/
+    /* 終了ステータスを 1 にしてプログラムを終了する */
     if (fp == NULL) {
-        printf("$B%U%!%$%k$,3+$1$^$;$s$G$7$?(B\n");
+        printf("ファイルが開けませんでした\n");
         exit(1);
     }
 
-    /* $B%G!<%?$rFI$_=P$9(B */
+    /* データを読み出す */
     fscanf(fp, "%d %d %d %d", &w, &x, &y, &z);
 
     printf("%d %d %d %d\n", w, x, y, z);
 
-    /* $B%U%!%$%k$rJD$8$k(B */
+    /* ファイルを閉じる */
     fclose(fp);
 
     return 0;
@@ -162,11 +162,11 @@ int main(void)
 </pre>
 </blockquote>
 
-$B$J$*!"$3$NNc$G$OJQ?t$NFbMF$r(B fprintf $B$GJ8;zNs$KJQ49$7$F(B
-$B=PNO$7$F$$$k$N$G!"%G!<%?%U%!%$%k(B data $B$O%F%-%9%H%U%!%$%k(B
-$B!J2hLLI=<(2DG=$JJ8;z$+$i$J$k%U%!%$%k!K$K$J$j$^$9!#(B
-cat $B%3%^%s%I$d(B more$B!"(Bless $B$J$I$K$h$C$F!"(B
-$B%F%-%9%H%U%!%$%k$r2hLL$G8+$k$3$H$,$G$-$^$9!#(B
+なお、この例では変数の内容を fprintf で文字列に変換して
+出力しているので、データファイル data はテキストファイル
+（画面表示可能な文字からなるファイル）になります。
+cat コマンドや more、less などによって、
+テキストファイルを画面で見ることができます。
 
 <blockquote>
 <pre>
@@ -174,17 +174,17 @@ cat $B%3%^%s%I$d(B more$B!"(Bless $B$J$I$K$h$C$F!"(B
 </pre>
 </blockquote>
 
-<a href="k62.html"><h3 align="center">$B"#2]Bj#6#2"#(B</h3></a>
-<a href="k63.html"><h3 align="center">$B"#2]Bj#6#3"#(B</h3></a>
+<a href="k62.html"><h3 align="center">■課題６２■</h3></a>
+<a href="k63.html"><h3 align="center">■課題６３■</h3></a>
 <p>
 
 <hr>
 
-<h3>$BF~NO$N7+$jJV$7(B</h3>
+<h3>入力の繰り返し</h3>
 
-$B%G!<%?%U%!%$%k$+$i7+$jJV$7%G!<%?$rF~NO$9$k>l9g!"(B
-$B%G!<%?$N=*$j$KC#$7$?!J$=$l0J>e%G!<%?$,$J$$!K$3$H$r8!=P$7$F!"(B
-$B%G!<%?$NF~NO$r=*$o$kI,MW$,$"$j$^$9!#(B
+データファイルから繰り返しデータを入力する場合、
+データの終りに達した（それ以上データがない）ことを検出して、
+データの入力を終わる必要があります。
 
 <blockquote>
 <pre>
@@ -195,7 +195,7 @@ int main(void)
     FILE *fp;
     int i, n;
 
-    printf("$B%G!<%?$N?t$rF~$l$F$/$@$5$$(B: ");
+    printf("データの数を入れてください: ");
     scanf("%d", &n);
 
     fp = fopen("data", "w");
@@ -211,10 +211,10 @@ int main(void)
 </pre>
 </blockquote>
 
-$B>e$NNc$O%-!<%\!<%I$+$i@0?t$rF~NO$7!"(B
-$B#1$+$i$=$N?t$^$G$N?t$r%G!<%?%U%!%$%k(B data $B$KJ]B8$7$^$9!#(B
-$B$3$N$h$&$J%W%m%0%i%`$K$h$C$F:n$i$l$?%G!<%?%U%!%$%k$+$i(B
-$B%G!<%?$rFI$_9~$`$K$O!"%G!<%?$r$R$H$DFI$`EY$K%G!<%?$N=*$j$r8!::$7$^$9!#(B
+上の例はキーボードから整数を入力し、
+１からその数までの数をデータファイル data に保存します。
+このようなプログラムによって作られたデータファイルから
+データを読み込むには、データをひとつ読む度にデータの終りを検査します。
 
 <blockquote>
 <pre>
@@ -228,7 +228,7 @@ int main(void)
     fp = fopen("data", "r");
 
     if (fp == NULL) {
-        printf("$B%U%!%$%k$,3+$1$^$;$s(B\n");
+        printf("ファイルが開けません\n");
         exit(1);
     }
 
@@ -239,30 +239,30 @@ int main(void)
 
     fclose(fp);
 
-    printf("$B%G!<%?$N?t$O(B %d $B8D$G$7$?(B\n", n);
-    printf("$B%G!<%?$N9g7W$O(B %d $B$G$7$?(B\n", sum);
+    printf("データの数は %d 個でした\n", n);
+    printf("データの合計は %d でした\n", sum);
 
     return 0;
 }
 </pre>
 </blockquote>
 
-scanf/fscanf $B$O(B
-$BLa$jCM$H$7$FJQ49$7$?%G!<%?$N?t$rJV$7$^$9!#(B
-$B$b$74{$K%G!<%?%U%!%$%k$N=*$j$^$GFI$_9~$s$G$$$F!"(B
-$B$=$l0J>eF~NO$9$k%G!<%?$,$J$1$l$P!"(B
-EOF $B$H$$$&5-9fDj?t$rJV$7$^$9!J$3$l$b(B stdio.h $B$GDj5A$5$l$F$$$^$9!K!#(B
+scanf/fscanf は
+戻り値として変換したデータの数を返します。
+もし既にデータファイルの終りまで読み込んでいて、
+それ以上入力するデータがなければ、
+EOF という記号定数を返します（これも stdio.h で定義されています）。
 <p>
 
-$B$^$?!"(Bfeof $B$r;H$($P!"(B
-$BF~NO$N=*$j$KC#$7$F$$$k$+$I$&$+$@$1$rD4$Y$k$3$H$,$G$-$^$9!#(B
+また、feof を使えば、
+入力の終りに達しているかどうかだけを調べることができます。
 
 <dl>
 <dt><b>feof(fp)</b>
-<dd>$B%U%!%$%k%]%$%s%?(B fp $B$,F~NO$N=*$j$KC#$7$F$$$l$PHs#0!J??!K!"(B
-$BC#$7$F$$$J$1$l$P#0!J56!K$rJV$7$^$9!#(B
+<dd>ファイルポインタ fp が入力の終りに達していれば非０（真）、
+達していなければ０（偽）を返します。
 </dl>
 
-<a href="k64.html"><h3 align="center">$B"#2]Bj#6#4"#(B</h3></a>
+<a href="k64.html"><h3 align="center">■課題６４■</h3></a>
 
 </body>

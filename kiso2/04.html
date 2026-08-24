@@ -1,31 +1,31 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#42s(B</title>
+<title>情報基礎演習II － 第４回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#42s(B</h1>
+<h1>情報基礎演習II － 第４回</h1>
 
 <hr>
 
-<h2>$B#1!%<B?t(B</h2>
+<h2>１．実数</h2>
 
 <hr>
 
-$B#C8@8l$G$O!"(B
-$B$3$l$^$G;H$C$F$-$?@0?t$NB>$K!"(B
-$B<B?t$r07$&$3$H$,$G$-$^$9!#(B
-$B<B?t$O>.?tIt$r;}$D?t$G!"(B
-$B%3%s%T%e!<%?>e$G$O(B
-$BIbF0>.?tE@?t(B (floating-point number) $B$H8F$P$l$k7A<0$GI=8=$5$l$^$9!#(B
+Ｃ言語では、
+これまで使ってきた整数の他に、
+実数を扱うことができます。
+実数は小数部を持つ数で、
+コンピュータ上では
+浮動小数点数 (floating-point number) と呼ばれる形式で表現されます。
 <p>
 
 <hr>
 
-<h3>$B<B?t7?$NDj?t(B</h3>
+<h3>実数型の定数</h3>
 
-$B>.?tE@$r4^$`Dj?t$O!"<B?t7?$NDj?t$K$J$j$^$9!#(B
-0.5 $B$d(B 1.0 $B$N$h$&$J>l9g$O!"(B0 $B$r>JN,$7$F(B .5 $B$d(B 1. $B$HI=$9$3$H$b$G$-$^$9!#(B
+小数点を含む定数は、実数型の定数になります。
+0.5 や 1.0 のような場合は、0 を省略して .5 や 1. と表すこともできます。
 <p>
 
 <blockquote>
@@ -34,8 +34,8 @@
 </pre>
 </blockquote>
 
-e $B$d(B E $B$r;H$C$F;X?tI=8=$7$?>l9g$b<B?t$rI=$9Dj?t$K$J$j$^$9!#(B
-1e23 $B$O(B 1$B!_(B10<sup>23</sup>$B!"(B0.25e-31 $B$O(B 0.25$B!_(B10<sup>-31</sup>$B$rI=$7$^$9!#(B
+e や E を使って指数表現した場合も実数を表す定数になります。
+1e23 は 1×10<sup>23</sup>、0.25e-31 は 0.25×10<sup>-31</sup>を表します。
 
 <blockquote>
 <pre>
@@ -45,25 +45,25 @@ e $B$d(B E $B$r;H$C$F;X?tI=8=$7$?>l9g$b<B?t$rI=$9Dj?t$K$J$j$^$9!#(B
 
 <hr>
 
-<h3>$B<B?t7?$NJQ?t(B</h3>
+<h3>実数型の変数</h3>
 
-$B<B?t7?$NJQ?t$N@k8@$K$O(B float $B$^$?$O(B double $B$rMQ$$$^$9!#(B
+実数型の変数の宣言には float または double を用います。
 
 <blockquote>
 <pre>
-float sum;              /* $B9g7W(B */
+float sum;              /* 合計 */
 </pre>
 </blockquote>
 
-float $B$O!"(B
-$B$KB3$/L>A0$,<B?t$r3JG<$9$kJQ?t$G$"$k$3$H$r@k8@$7$^$9!#(B
-$B$3$NNc$G$O(B sum $B$O(B float$B7?JQ?t$H8F$P$l$^$9!#(B
+float は、
+に続く名前が実数を格納する変数であることを宣言します。
+この例では sum は float型変数と呼ばれます。
 <p>
 
-float $B7?$NJQ?t$NM-8z?t;z$OLs#77e$G$9!#(B
-$B$h$j@:EY$N9b$$7W;;$r9T$&I,MW$,$"$k>l9g$K$O!"(B
-double$B!JG\@:EY!K7?$r;H$$$^$9!#(B
-double $B7?$NM-8z?t;z$OLs#1#67e$G$9!#(B
+float 型の変数の有効数字は約７桁です。
+より精度の高い計算を行う必要がある場合には、
+double（倍精度）型を使います。
+double 型の有効数字は約１６桁です。
 <p>
 
 <blockquote>
@@ -72,23 +72,23 @@ double accurate;
 </pre>
 </blockquote>
 
-$B$5$i$K9b@:EY$J7W;;$r9T$&$?$a$K!"(B
-long double $B7?$H8F$P$l$k(B
-$B%G!<%?7?$rMQ0U$7$F$$$k=hM}7O$b$"$j$^$9!#(B
+さらに高精度な計算を行うために、
+long double 型と呼ばれる
+データ型を用意している処理系もあります。
 <p>
 
 <hr>
 
-<h3>$B<B?t7?%G!<%?$NI=<((B</h3>
+<h3>実数型データの表示</h3>
 
-printf $B$G(B float $B7?$N%G!<%?$rI=<($9$kJQ49;XDj;R$O(B %f$B!"(B
-double $B7?$N>l9g$K$O(B %lf $B$G$9!#(B
-$B$^$?(B long double $B7?$N>l9g$O(B %Lf $B$r;H$$$^$9!#(B
+printf で float 型のデータを表示する変換指定子は %f、
+double 型の場合には %lf です。
+また long double 型の場合は %Lf を使います。
 
 <blockquote>
 <table width="90%" border>
 <tr>
-<th>$B%G!<%?7?(B<th>$BJQ49;XDj;R(B
+<th>データ型<th>変換指定子
 <tr>
 <td>float<td>%f
 <tr>
@@ -100,23 +100,23 @@ double $B7?$N>l9g$K$O(B %lf $B$G$9!#(B
 
 <blockquote>
 <pre>
-printf("$B#13d$k#3$O(B%f\n", 1.0 / 3.0);
+printf("１割る３は%f\n", 1.0 / 3.0);
 </pre>
 </blockquote>
 
-$BK\Ev$N$3$H$r8@$&$H<B?t7?$NDj?t$N%G!<%?7?$O(B double $B$J$N$G!"(B
-$B$3$3$G$O(B %lf $B$r;HMQ$9$Y$-$J$N$G$9$,!"(B
-float $B7?$N%G!<%?$OIaDL(B printf $B$K$O(B double $B$KJQ49$5$l$F$+$iEO$5$l$k$N$G(B
-$B!J$D$^$j!"(Bprintf $B$G$O(B %f $B$H(B %lf $B$OF1$8!K!"(B
-%f $B$G$b@5>o$KI=<($G$-$^$9!#(B
+本当のことを言うと実数型の定数のデータ型は double なので、
+ここでは %lf を使用すべきなのですが、
+float 型のデータは普通 printf には double に変換されてから渡されるので
+（つまり、printf では %f と %lf は同じ）、
+%f でも正常に表示できます。
 
-<a href="k12.html"><h3 align="center">$B"#2]Bj#1#2"#(B</h3></a>
+<a href="k12.html"><h3 align="center">■課題１２■</h3></a>
 
 <hr>
 
-<h3>$B<B?t7?$H@0?t7?$NJQ49(B</h3>
+<h3>実数型と整数型の変換</h3>
 
-$B@0?t$H<B?t$N1i;;$O!"@0?t$r<B?t$KJQ49$7$F<B9T$5$l$^$9!#(B
+整数と実数の演算は、整数を実数に変換して実行されます。
 
 <blockquote>
 <pre>
@@ -124,7 +124,7 @@ float $B7?$N%G!<%?$OIaDL(B printf $B$K$O(B double $B$KJQ49$5$l$F$+$iEO$5$l$
 </pre>
 </blockquote>
 
-$B$3$NNc$G$O@0?t$NDj?t(B 3 $B$r<B?t(B (3.0) $B$KD>$7$F7W;;$7$^$9!#(B
+この例では整数の定数 3 を実数 (3.0) に直して計算します。
 
 <blockquote>
 <pre>
@@ -132,11 +132,11 @@ float $B7?$N%G!<%?$OIaDL(B printf $B$K$O(B double $B$KJQ49$5$l$F$+$iEO$5$l$
 </pre>
 </blockquote>
 
-$B$3$l$O@0?tF1;N$N1i;;$J$N$G!"@Z$j<N$F$i$l$F7k2L$O(B 0 $B$K$J$j$^$9!#(B
+これは整数同士の演算なので、切り捨てられて結果は 0 になります。
 <p>
 
-$B<B?t7?$NJQ?t$X$N@0?t$NBeF~$O!"(B
-$B@0?t$r<B?t$KD>$7$F9T$o$l$^$9!#(B
+実数型の変数への整数の代入は、
+整数を実数に直して行われます。
 
 <blockquote>
 <pre>
@@ -147,12 +147,12 @@ x = i;
 </pre>
 </blockquote>
 
-x $B$K$O(B 10.0 $B$,F~$j$^$9!#(B
+x には 10.0 が入ります。
 <p>
 
-$B@0?t7?$NJQ?t$X$N<B?t$NBeF~$O!"(B
-$B<B?t$N>.?tIt$r@Z$j<N$F$?8e!"(B
-$B$=$l$r@0?t$KD>$7$F9T$o$l$^$9!#(B
+整数型の変数への実数の代入は、
+実数の小数部を切り捨てた後、
+それを整数に直して行われます。
 
 <blockquote>
 <pre>
@@ -161,31 +161,31 @@ i = 7.0 / 3.0;
 </pre>
 </blockquote>
 
-i $B$K$O(B 2 $B$,F~$j$^$9!#(B
+i には 2 が入ります。
 
-<a href="k13.html"><h3 align="center">$B"#2]Bj#1#3"#(B</h3></a>
-
-<hr>
-
-<h2>$B#2!%J8;z(B</h2>
+<a href="k13.html"><h3 align="center">■課題１３■</h3></a>
 
 <hr>
 
-$B#C8@8l$OJ8;z$b%G!<%?$H$7$F07$&$3$H$,$G$-$^$9!#(B
-$BJ8;z7?$NJQ?t$N@k8@$K$O(B char $B$rMQ$$$^$9!#(B
+<h2>２．文字</h2>
+
+<hr>
+
+Ｃ言語は文字もデータとして扱うことができます。
+文字型の変数の宣言には char を用います。
 
 <blockquote>
 <pre>
-char one;               /* $B#1J8;z(B */
+char one;               /* １文字 */
 </pre>
 </blockquote>
 
-char $B$O!"8e$m$KB3$/L>A0$,J8;z$r3JG<$9$kJQ?t$G$"$k$3$H$r@k8@$7$^$9!#(B
-$B$3$N>l9g(B one $B$O(B char $B7?JQ?t$H8F$P$l$^$9!#(B
+char は、後ろに続く名前が文字を格納する変数であることを宣言します。
+この場合 one は char 型変数と呼ばれます。
 <p>
 
-$BJ8;z$NDj?t$O#1J8;z$r(B '$B!D(B' $B$G$O$5$s$@$b$N$G!"!VJ8;z%j%F%i%k!W$H8F$P$l$^$9!#(B
-$B$J$*(B<font color="#ff0000">$BJ8;z%j%F%i%k$N%G!<%?7?$O(B int</font> $B$G$9!#(B
+文字の定数は１文字を '…' ではさんだもので、「文字リテラル」と呼ばれます。
+なお<font color="#ff0000">文字リテラルのデータ型は int</font> です。
 
 <blockquote>
 <pre>
@@ -193,40 +193,40 @@ char $B$O!"8e$m$KB3$/L>A0$,J8;z$r3JG<$9$kJQ?t$G$"$k$3$H$r@k8@$7$^$9!#(B
 </pre>
 </blockquote>
 
-$B$3$l$i$O:8$+$iBgJ8;z$N(B A$B!">.J8;z$N(B a$B!"?t;z$N(B 0$B!"6uGr!"%3%s%^$r<($7$^$9!#(B
-'$B!D(B' $B$N4V$K#2J8;z0J>e$r$O$5$`$3$H$O$G$-$^$;$s!#(B
-<a href="h07.html">$BF|K\8lMQ$NJ8;z(B</a>$B$O#2J8;z$H$_$J$5$l$k$N$G!"(B
-$BJ8;z7?$NDj?t$K$O;H$($^$;$s!#(B
-"$B!D(B" $B$G$O$5$s$@$b$N$OJ8;z7?$NDj?t$G$O$"$j$^$;$s(B
-$B!JJ8;zNsDj?t$H8F$S!"JL$N$b$N$G$9!K!#(B
+これらは左から大文字の A、小文字の a、数字の 0、空白、コンマを示します。
+'…' の間に２文字以上をはさむことはできません。
+<a href="h07.html">日本語用の文字</a>は２文字とみなされるので、
+文字型の定数には使えません。
+"…" ではさんだものは文字型の定数ではありません
+（文字列定数と呼び、別のものです）。
 <p>
 
-$B2~9T(B (\n) $B$N$h$&$JFC<lJ8;z$O!"(B
-$B#1J8;z$H$7$F07$o$l$^$9!#(B
+改行 (\n) のような特殊文字は、
+１文字として扱われます。
 
 <blockquote>
 <table>
 <tr>
 <td><tt>'\b'</tt>
-<td>$B%P%C%/%9%Z!<%9(B<td>$B!J%+!<%=%k$r#1J8;z:8$X0\F0!K(B
+<td>バックスペース<td>（カーソルを１文字左へ移動）
 <tr>
 <td><tt>'\f'</tt>
-<td>$B%U%)!<%`%U%#!<%I(B<td>$B!J2~%Z!<%8!K(B
+<td>フォームフィード<td>（改ページ）
 <tr>
 <td><tt>'\n'</tt>
-<td>$B2~9T(B<td>$B!J<!$N9T$K0\F0!K(B
+<td>改行<td>（次の行に移動）
 <tr>
 <td><tt>'\r'</tt>
-<td>$BI|5"(B<td>$B!J8=:_$N9T$N@hF,$K0\F0!K(B
+<td>復帰<td>（現在の行の先頭に移動）
 <tr>
 <td><tt>'\t'</tt>
-<td>$B%?%V(B<td>$B!J<!$N%?%V%9%H%C%W$K0\F0!K(B
+<td>タブ<td>（次のタブストップに移動）
 </table>
 </blockquote>
 
-' $B$d(B " $B$d(B \ $B$H$$$&J8;z<+BN$rI=$7$?$$$H$-$O!"(B
-$B$$$:$l$b(B \ $B$r:8$KCV$$$F!"(B
-$B$=$NJ8;z$,;}$DFC<l$J0UL#$r<h$j>C$9!J%(%9%1!<%W$9$k!KI,MW$,$"$j$^$9!#(B
+' や " や \ という文字自体を表したいときは、
+いずれも \ を左に置いて、
+その文字が持つ特殊な意味を取り消す（エスケープする）必要があります。
 
 <blockquote>
 <pre>
@@ -234,27 +234,27 @@ char $B$O!"8e$m$KB3$/L>A0$,J8;z$r3JG<$9$kJQ?t$G$"$k$3$H$r@k8@$7$^$9!#(B
 </pre>
 </blockquote>
 
-printf $B$GJ8;z$rI=<($9$k$K$O!"JQ49;XDj;R$H$7$F(B %c $B$r;H$$$^$9!#(B
+printf で文字を表示するには、変換指定子として %c を使います。
 
 <blockquote>
 <pre>
-printf("$B$3$l$O(B %c $B$H$$$&J8;z$G$9(B", 'A');
+printf("これは %c という文字です", 'A');
 </pre>
 </blockquote>
 
 <a name="mojicode">
 <hr>
 
-<h3>$BJ8;z%3!<%I(B</h3>
+<h3>文字コード</h3>
 </a>
 
-$B%3%s%T%e!<%?$NFbIt$G$O!"(B
-$BJ8;z$OJ8;z%3!<%I!JJ8;z$NHV9f!K$rI=$9?tCM$GI=8=$5$l$F$$$^$9!#(B
-$BNc$($P(B 'A' $B$NJ8;z%3!<%I$O==?J?t$G(B 65 $B$G$9(B (ASCII $B%3!<%I$N>l9g(B)$B!#(B
-$B#C8@8l$G$OJ8;z7?$N%G!<%?$rJ8;z%3!<%I$rI=$9@0?tCM$H$7$F<h$j07$&$?$a!"(B
-$B<B:]$K$O@0?t7?$N%G!<%?$H$+$o$j$O$"$j$^$;$s!#(B
-$B$9$J$o$A(B char $B7?$O!VJ8;z%3!<%I$NHO0O!W$N@0?t$@$1$rI=$9$3$H$N$G$-$k(B
-$B@0?t7?$@$H$$$($^$9!#(B
+コンピュータの内部では、
+文字は文字コード（文字の番号）を表す数値で表現されています。
+例えば 'A' の文字コードは十進数で 65 です (ASCII コードの場合)。
+Ｃ言語では文字型のデータを文字コードを表す整数値として取り扱うため、
+実際には整数型のデータとかわりはありません。
+すなわち char 型は「文字コードの範囲」の整数だけを表すことのできる
+整数型だといえます。
 
 <blockquote>
 <pre>
@@ -262,7 +262,7 @@ printf("%d\n", 'A');
 </pre>
 </blockquote>
 
-'A' $B$NJ8;z%3!<%I(B 65 $B$,=PNO$5$l$^$9!#(B
+'A' の文字コード 65 が出力されます。
 
 <blockquote>
 <pre>
@@ -270,7 +270,7 @@ printf("%c\n", 65);
 </pre>
 </blockquote>
 
-'A' $B$,=PNO$5$l$^$9!#(B
+'A' が出力されます。
 
 <blockquote>
 <pre>
@@ -278,12 +278,12 @@ printf("%c\n", 'A' + 1);
 </pre>
 </blockquote>
 
-'B' $B$,=PNO$5$l$^$9!#(B
+'B' が出力されます。
 <p>
 
-$BJ8;zDj?t$K$*$$$F!"(B
-\ $B$N8e$KJ8;z%3!<%I$rI=$9#37e0J2<$N#8?J?t$rCV$1$P!"(B
-$BA0=R$NJ}K!$GI=$9$3$H$N$G$-$J$$FC<l$JJ8;z$rI=8=$9$k$3$H$,$G$-$^$9!#(B
+文字定数において、
+\ の後に文字コードを表す３桁以下の８進数を置けば、
+前述の方法で表すことのできない特殊な文字を表現することができます。
 
 <blockquote>
 <pre>
@@ -291,76 +291,76 @@ printf("%c\n", 'A' + 1);
 </pre>
 </blockquote>
 
-$B$3$l$i$O:8$+$i(B '\n'$B!"(B'A'$B!"J8;z%3!<%I(B 0 $B$NJ8;z$rI=$7$^$9!#(B
-$BJ8;z%3!<%I(B 0 $B$NJ8;z$O@0?t$N(B 0 $B$HEy2A$G$9!#(B
+これらは左から '\n'、'A'、文字コード 0 の文字を表します。
+文字コード 0 の文字は整数の 0 と等価です。
 <p>
 
-<a href="k14.html"><h3 align="center">$B"#2]Bj#1#4"#(B</h3></a>
+<a href="k14.html"><h3 align="center">■課題１４■</h3></a>
 
 <hr>
 
-<h2>$B#3!%$=$NB>$N%G!<%?7?(B</h2>
+<h2>３．その他のデータ型</h2>
 
 <hr>
 
-char $B7?$O<B:]$K$O(B int $BF1MM@0?t$rI=$9%G!<%?7?$G$9$,!"(B
-$B@0?t$r07$&%G!<%?7?$K$OB>$K$b$$$/$D$+$N%P%j%(!<%7%g%s$,$"$j$^$9!#(B
-$B$3$l$r@:EY$GJ,N`$9$k$H!"<!$N$h$&$K$J$j$^$9!#(B
+char 型は実際には int 同様整数を表すデータ型ですが、
+整数を扱うデータ型には他にもいくつかのバリエーションがあります。
+これを精度で分類すると、次のようになります。
 <p>
 <blockquote>
 <table width="90%" border>
 <tr>
-<th>$B%G!<%?7?(B<th>$B@bL@(B<th>$BCM$NHO0O(B
+<th>データ型<th>説明<th>値の範囲
 <tr>
-<td>char<td>$BJ8;z7?(B<td>-128$B!A(B127
+<td>char<td>文字型<td>-128～127
 <tr>
-<td>short<td>$BC;@:EY@0?t7?(B<td>-32768$B!A(B32767
+<td>short<td>短精度整数型<td>-32768～32767
 <tr>
-<td>long<td>$BD9@:EY@0?t7?(B<td>-2147483648$B!A(B2147483647
+<td>long<td>長精度整数型<td>-2147483648～2147483647
 </table>
 </blockquote>
 
 <ul>
 
-<li>$B$3$l$O(B char $B7?$,(B 8 $B%S%C%H!"(Bshort $B7?$,(B 16 $B%S%C%H!"(B
-long $B7?$,(B 32 $B%S%C%H$N>l9g$G$9!#(B
-$B$3$l$O%3%s%T%e!<%?$K$h$C$F0[$J$j$^$9$,!"(B
-$B@$4V$NBgH>$N%3%s%T%e!<%?$O!"(B
-$B$3$NDL$j$G$9!#(B
+<li>これは char 型が 8 ビット、short 型が 16 ビット、
+long 型が 32 ビットの場合です。
+これはコンピュータによって異なりますが、
+世間の大半のコンピュータは、
+この通りです。
 <p>
 
-<li>int $B7?$O(B short $B7?$+(B long $B7?$N$I$A$i$+0lJ}$HF1$8@:EY$r$b$A$^$9!#(B
-$B$I$A$i$HF1$8$K$J$k$+$O%3%s%T%e!<%?$K$h$C$F0[$J$j$^$9$,!"(B
-$BDL>o$=$N%3%s%T%e!<%?$K$H$C$F:G$b8zN($NNI$$$b$N$,A*$P$l$^$9!#(B
-$BNc$($P(B 16 $B%S%C%H%3%s%T%e!<%?$J$i(B short$B!"(B
-32 $B%S%C%H%3%s%T%e!<%?$J$i(B long $B$H0lCW$7$^$9!#(B
+<li>int 型は short 型か long 型のどちらか一方と同じ精度をもちます。
+どちらと同じになるかはコンピュータによって異なりますが、
+通常そのコンピュータにとって最も効率の良いものが選ばれます。
+例えば 16 ビットコンピュータなら short、
+32 ビットコンピュータなら long と一致します。
 <p>
 
-<li>short $B$H(B long $B$O!"(B
-$B$=$l$>$l(B short int$B!"(Blong int $B$H=q$/$3$H$b$G$-$^$9!#(B
+<li>short と long は、
+それぞれ short int、long int と書くこともできます。
 
 </ul>
 
-$B$5$i$K!"$3$l$i$KBP$7$FId9fIU$-!?Id9f$J$7$r;XDj$9$k$3$H$,$G$-$^$9!#(B
+さらに、これらに対して符号付き／符号なしを指定することができます。
 
 <blockquote>
 <table width="90%" border>
 <tr>
-<th>$B=$>~;R(B<th>$B@bL@(B
+<th>修飾子<th>説明
 <tr>
-<td>signed<td>$BId9fIU$-@0?t(B
+<td>signed<td>符号付き整数
 <tr>
-<td>unsigned<td>$BId9f$J$7@0?t(B
+<td>unsigned<td>符号なし整数
 </table>
 </blockquote>
 
 <ul>
 
-<li>signed/unsigned $B$r>JN,$9$k$H!"(Bsigned $B$@$H8+$J$5$l$^$9(B
-$B!J0lIt(B char $B$rId9f$J$7@0?t$H$7$F07$&=hM}7O$b$"$k$N$GCm0U$7$F$/$@$5$$!K!#(B
+<li>signed/unsigned を省略すると、signed だと見なされます
+（一部 char を符号なし整数として扱う処理系もあるので注意してください）。
 <p>
 
-<li>char/short/int/long $B$r>JN,$9$k$H!"(Bint $B$G$"$k$H8+$J$5$l$^$9!#(B
+<li>char/short/int/long を省略すると、int であると見なされます。
 
 <ul>
 <li>signed = int
@@ -369,17 +369,17 @@ long $B7?$,(B 32 $B%S%C%H$N>l9g$G$9!#(B
 
 </ul>
 
-$BA4It$rNs5s$9$k$H!"(B
-<a href="h08.html">$B$3$NI=(B</a>$B$N$h$&$K$J$j$^$9!#(B
+全部を列挙すると、
+<a href="h08.html">この表</a>のようになります。
 <p>
 
-$B3F%G!<%?7?$N(B printf $B$K$*$1$kJQ49;XDj;R$O!"(B
-$B$=$l$>$l<!$N$h$&$K$J$j$^$9!#(B
+各データ型の printf における変換指定子は、
+それぞれ次のようになります。
 
 <blockquote>
 <table width="90%" border>
 <tr>
-<th>$B%G!<%?7?(B<th>$BJQ49;XDj;R(B
+<th>データ型<th>変換指定子
 <tr>
 <td>short<td>%hd
 <tr>
@@ -395,12 +395,12 @@ long $B7?$,(B 32 $B%S%C%H$N>l9g$G$9!#(B
 </table>
 </blockquote>
 
-$B$J$*(B char/unsigned char $B$O!"(B
-$B$=$l$>$l(B int/unsigned int $B$KJQ49$7$F(B printf $B$N0z?t$KEO$5$l$k$N$G!"(B
-$B$3$l$r@0?t$H$7$F!JJ8;z$G$O$J$/!K=PNO$9$k>l9g$O!"(B
-$B$=$l$=$l(B %d/%u $B$r;H$$$^$9!#(B
+なお char/unsigned char は、
+それぞれ int/unsigned int に変換して printf の引数に渡されるので、
+これを整数として（文字ではなく）出力する場合は、
+それそれ %d/%u を使います。
 
-<a href="k15.html"><h3 align="center">$B"#2]Bj#1#5"#(B</h3></a>
-<a href="k16.html"><h3 align="center">$B"#2]Bj#1#6"#(B</h3></a>
+<a href="k15.html"><h3 align="center">■課題１５■</h3></a>
+<a href="k16.html"><h3 align="center">■課題１６■</h3></a>
 
 </body>

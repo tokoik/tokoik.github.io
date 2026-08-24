@@ -1,16 +1,16 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BJdB-#2(B</title>
+<title>情報基礎演習II － 補足２</title>
 </head>
 
 <body>
 
-<h3>$BJdB-#2!'%(%i!<$K$D$$$F(B</h3>
+<h3>補足２：エラーについて</h3>
 
 <hr>
 
-$B%(%i!<$H$O%W%m%0%i%`$K$J$s$i$+$N8m$j$,$"$k$3$H$r8@$$$^$9!#(B
-cc $B%3%^%s%I$N<B9T;~$KJs9p$5$l$k%(%i!<$K$O!"(B
-$B<!$N#2$D$N%?%$%W$,$"$j$^$9!#(B
+エラーとはプログラムになんらかの誤りがあることを言います。
+cc コマンドの実行時に報告されるエラーには、
+次の２つのタイプがあります。
 
 <blockquote>
 <pre>
@@ -25,9 +25,9 @@ ccom: Error: hello.c, line 6: syntax error
 </pre>
 </blockquote>
 
-$B$3$l$O%=!<%9%W%m%0%i%`$K9=J8>e$N8m$j$,$"$k>l9g$K!"(B
-$B%3%s%Q%$%i$K$h$C$FJs9p$5$l$k%(%i!<$G$9!#(B
-$B$3$NNc$G$O(B "Hello!\n $B$H$$$&J8;zNs$N:G8e$K(B " $B$,$"$j$^$;$s!#(B
+これはソースプログラムに構文上の誤りがある場合に、
+コンパイラによって報告されるエラーです。
+この例では "Hello!\n という文字列の最後に " がありません。
 
 <blockquote>
 <pre>
@@ -39,15 +39,15 @@ print
 </pre>
 </blockquote>
 
-$B$3$l$O9=J8>e$K8m$j$O$J$$$b$N$N!"(B
-$BB8:_$7$J$$(B
-<a href="03.html#kansu">$B4X?t(B</a>$B$r;HMQ$7$F$k$?$a$K!"(B
-$B%j%s%+$K$h$C$FJs9p$5$l$F$$$k%(%i!<$G$9!#(B
-$B$3$NNc$N(B print $B$O$I$3$K$bDj5A$5$l$F$$$^$;$s!#(B
+これは構文上に誤りはないものの、
+存在しない
+<a href="03.html#kansu">関数</a>を使用してるために、
+リンカによって報告されているエラーです。
+この例の print はどこにも定義されていません。
 <p>
 
-$B$J$*!"(Bprintf $B$O(B
-<a href="03.html#library">$B%i%$%V%i%j4X?t(B</a>
-$B$H$7$F!"$"$i$+$8$aMQ0U$5$l$F$$$^$9!#(B
+なお、printf は
+<a href="03.html#library">ライブラリ関数</a>
+として、あらかじめ用意されています。
 
 </body>

@@ -1,29 +1,29 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#2#8(B</title>
+<title>情報基礎演習II － 課題２８</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#2#8(B</h3>
+<h3>課題２８</h3>
 
 <hr>
 
 <ol>
 
-<li><tt>A &amp;&amp; B</tt> $B$H$$$&O@M}1i;;<0$K$*$$$F!"(B
-A $B$,56$J$i(B B $B$NCM$K4X78$J$/(B
-<tt>A &amp;&amp; B</tt> $B$O56$G$"$k$3$H$OL@Gr$J$N$G!"(B
-$B$3$N>l9g$O(B B $B$OI>2A!J7W;;!K$5$l$^$;$s!#(B
-$B$D$^$j(B B $B$O(B A $B$,??$N;~$N$_I>2A$5$l$^$9!#(B
+<li><tt>A &amp;&amp; B</tt> という論理演算式において、
+A が偽なら B の値に関係なく
+<tt>A &amp;&amp; B</tt> は偽であることは明白なので、
+この場合は B は評価（計算）されません。
+つまり B は A が真の時のみ評価されます。
 <p>
 
-<li>$BF1MM$K(B <tt>A || B</tt> $B$H$$$&O@M}1i;;<0$K$*$$$F!"(B
-A $B$,??$J$i(B B $B$NCM$K4X78$J$/(B <tt>A || B</tt> $B$O??$G$"$k$3$H$OL@Gr$J$N$G!"(B
-$B$3$N>l9g$O(B B $B$OI>2A$5$l$^$;$s!#(B
-$B$D$^$j(B B $B$O(B A $B$,56$N;~$N$_I>2A$5$l$^$9!#(B
+<li>同様に <tt>A || B</tt> という論理演算式において、
+A が真なら B の値に関係なく <tt>A || B</tt> は真であることは明白なので、
+この場合は B は評価されません。
+つまり B は A が偽の時のみ評価されます。
 <p>
 
-<li>$B$3$N5,B'$r1~MQ$7$F!"<!$N$h$&$JO@M}1i;;<0$r=q$/$3$H$,$G$-$^$9!#(B
+<li>この規則を応用して、次のような論理演算式を書くことができます。
 
 <blockquote>
 <pre>
@@ -31,21 +31,21 @@ x &lt; 0 && x = -x;
 </pre>
 </blockquote>
 
-$B$3$l$O(B <tt>if (x &lt; 0) x = -x;</tt> $B$HF1$8F0:n$r$7$^$9!#(B
-$B$3$NO@M}1i;;<0$NCM!J??$+56$+!K$O;H$o$l$^$;$s!#(B
+これは <tt>if (x &lt; 0) x = -x;</tt> と同じ動作をします。
+この論理演算式の値（真か偽か）は使われません。
 <p>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$r(B kadai28.c $B$H$$$&%U%!%$%kL>$G:n@.$7$F$/$@$5$$!#(B
+<li>次のソースプログラムを kadai28.c というファイル名で作成してください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai28
-** $BF0:n(B: $BO@M}1i;;<0$NI>2A=g=x(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai28
+** 動作: 論理演算式の評価順序
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -53,17 +53,17 @@ int main(void)
 {
     int x = 0, y = 0;
 
-    /* $B#12sL\(B */
+    /* １回目 */
     if (++x &lt; 2 || ++y &gt;= 2) {
         printf("x=%d,y=%d\n", x, y);
     }
 
-    /* $B#22sL\(B */
+    /* ２回目 */
     if (++x &lt; 2 || ++y &gt;= 2) {
         printf("x=%d,y=%d\n", x, y);
     }
 
-    /* $B#32sL\(B */
+    /* ３回目 */
     if (++x &lt; 2 || ++y &gt;= 2) {
         printf("x=%d,y=%d\n", x, y);
     }
@@ -74,14 +74,14 @@ int main(void)
 </table>
 </p>
 
-<li>$B$3$N%=!<%9%W%m%0%i%`$r%3%s%Q%$%k!?%j%s%/$7!"(B
-kadai28 $B$H$$$&L>A0$N<B9T%W%m%0%i%`$r:n@.$7$?8e!"(B
-kadai28 $B$r<B9T$7$F=PNO$r3N$+$a$F$/$@$5$$!#(B
+<li>このソースプログラムをコンパイル／リンクし、
+kadai28 という名前の実行プログラムを作成した後、
+kadai28 を実行して出力を確かめてください。
 <p>
 
-<li>$B$3$N%W%m%0%i%`$,2>$K(B if $B$N>r7oFb$G(B x $B$H(B y $B$,(B
-$BF1;~$K#1$:$DA}$($F$$$/$3$H$rA[Dj$7$F:n$i$l$F$$$k$H$9$k$H!"(B
-$B<!$N$h$&$J=PNO$,4|BT$G$-$^$9!#(B
+<li>このプログラムが仮に if の条件内で x と y が
+同時に１ずつ増えていくことを想定して作られているとすると、
+次のような出力が期待できます。
 
 <blockquote>
 <pre>
@@ -91,10 +91,10 @@ x=3,y=3
 </pre>
 </blockquote>
 
-$B$7$+$7<B:]$N=PNO$O>e$N$h$&$K$O$J$j$^$;$s!#(B
-$B$=$NM}M3$r9M;!$7$F!"%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai28 $B$H$7$F$/$@$5$$!#(B
+しかし実際の出力は上のようにはなりません。
+その理由を考察して、メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai28 としてください。
 
 </ol>
 

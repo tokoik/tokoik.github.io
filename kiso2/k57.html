@@ -1,16 +1,16 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#5#7(B</title>
+<title>情報基礎演習II － 課題５７</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#5#7(B</h3>
+<h3>課題５７</h3>
 
 <hr>
 
 <ol>
 
-<li>$B5-9fDj?t$NDj5A$O(B cc $B%3%^%s%I$G$b9T$&$3$H$,$G$-$^$9!#(B
+<li>記号定数の定義は cc コマンドでも行うことができます。
 
 <blockquote>
 <pre>
@@ -18,8 +18,8 @@ cc -DDEBUG program.c
 </pre>
 </blockquote>
 
-$B>e$NNc$G$O!"(B<tt>#define DEBUG 1</tt> $B$HDj5A$5$l$F$$$k$b$N$H$7$F!"(B
-program.c $B$r%3%s%Q%$%k$7$^$9!#(B
+上の例では、<tt>#define DEBUG 1</tt> と定義されているものとして、
+program.c をコンパイルします。
 
 <blockquote>
 <pre>
@@ -27,27 +27,27 @@ cc -DMYNAME='"hinagata"' akiko.c
 </pre>
 </blockquote>
 
-$B>e$NNc$G$O(B<tt>#define MYNAME "hinagata"</tt> $B$HDj5A$5$l$F$$$k$b$N$H$7$F!"(B
-program.c $B$r%3%s%Q%$%k$7$^$9!#(B<tt>'..'</tt>$B$G$/$/$C$F$$$k$N$O!"(B
-<tt>".."</tt>$B$,%7%'%k$K$h$C$F=hM}$5$l$F$7$^$&$N$rKI$0$?$a$G$9!#(B
+上の例では<tt>#define MYNAME "hinagata"</tt> と定義されているものとして、
+program.c をコンパイルします。<tt>'..'</tt>でくくっているのは、
+<tt>".."</tt>がシェルによって処理されてしまうのを防ぐためです。
 <p>
 
-<li>$B<!$N$h$&$J%=!<%9%W%m%0%i%`$K$*$$$F!"(B
-$B!V(BMy name is $B$"$J$?$NL>A0!W(B
-$B$H$$$&<B9T=PNO$,F@$i$l$k$h$&$K%3%s%Q%$%k$9$k(B cc $B%3%^%s%I$N0z?t$r!"(B
-$B%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai57 $B$H$7$F$/$@$5$$!#(B
+<li>次のようなソースプログラムにおいて、
+「My name is あなたの名前」
+という実行出力が得られるようにコンパイルする cc コマンドの引数を、
+メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai57 としてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai57
-** $BF0:n(B: $B<+8J>R2p(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai57
+** 動作: 自己紹介
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 

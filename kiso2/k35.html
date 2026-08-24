@@ -1,33 +1,33 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#3#5(B</title>
+<title>情報基礎演習II － 課題３５</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#3#5(B</h3>
+<h3>課題３５</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N#3$D$N%=!<%9%W%m%0%i%`(B (kadai35a, kadai35b, kadai35c) $B$NCf$K!"(B
-$B4V0c$$$r4^$s$G$$$k$?$a%3%s%Q%$%k;~$K%(%i!<$K$J$k$b$N$,$"$j$^$9!#(B
+<li>次の３つのソースプログラム (kadai35a, kadai35b, kadai35c) の中に、
+間違いを含んでいるためコンパイル時にエラーになるものがあります。
 <p>
 
-<li>$B%W%m%0%i%`Cf$N4V0c$$$N$"$k2U=j$r;XE&$7!"$=$NM}M3$r=R$Y$F$/$@$5$$!#(B
-$B2rEz$O%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai35 $B$H$7$F$/$@$5$$!#(B
+<li>プログラム中の間違いのある箇所を指摘し、その理由を述べてください。
+解答はメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai35 としてください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai35a
-** $BF0:n(B: switch $B$N;H$$J}!J$=$N#1!K(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai35a
+** 動作: switch の使い方（その１）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -35,18 +35,18 @@ int main(void)
 {
     float x;
 
-    printf("$B?t$rF~$l$F$/$@$5$$!'(B");
+    printf("数を入れてください：");
     scanf("%f", &x);
 
     switch (x) {
     case 1.0:
-        printf("$B$3$l$O(B1.0$B$G$9(B\n");
+        printf("これは1.0です\n");
         break;
     case 2.0:
-        printf("$B$3$l$O(B2.0$B$G$9(B\n");
+        printf("これは2.0です\n");
         break;
     default:
-        printf("$B$3$l$O(B1.0$B$G$b(B2.0$B$G$b$"$j$^$;$s(B\n");
+        printf("これは1.0でも2.0でもありません\n");
         break;
     }
     return 0;
@@ -55,10 +55,10 @@ int main(void)
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai35b
-** $BF0:n(B: switch $B$N;H$$J}!J$=$N#2!K(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai35b
+** 動作: switch の使い方（その２）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -68,18 +68,18 @@ int main(void)
 {
     int x;
 
-    printf("$B?t$rF~$l$F$/$@$5$$!'(B");
+    printf("数を入れてください：");
     scanf("%d", &x);
 
     switch (x) {
     case label[0]:
-        printf("$B$3$l$O(B%d$B$G$9(B\n", label[0]);
+        printf("これは%dです\n", label[0]);
         break;
     case label[1]:
-        printf("$B$3$l$O(B%d$B$G$9(B\n", label[1]);
+        printf("これは%dです\n", label[1]);
         break;
     default:
-        printf("$B$3$l$O(B%d$B$G$b(B%d$B$G$b$"$j$^$;$s(B\n",
+        printf("これは%dでも%dでもありません\n",
             label[0], label[1]);
         break;
     }
@@ -89,10 +89,10 @@ int main(void)
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai35c
-** $BF0:n(B: switch $B$N;H$$J}!J$=$N#3!K(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai35c
+** 動作: switch の使い方（その３）
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 #include &lt;stdio.h&gt;
 
@@ -100,18 +100,18 @@ int main(void)
 {
     char line[100];
 
-    printf("$BJ8;z$rF~$l$F$/$@$5$$!'(B");
+    printf("文字を入れてください：");
     scanf("%99s", line);
 
     switch (line[0]) {
     case 'u':
-        printf("$B>e$K>e$,$j$^$9(B\n");
+        printf("上に上がります\n");
         break;
     case 'd':
-        printf("$B2<$K2<$,$j$^$9(B\n");
+        printf("下に下がります\n");
         break;
     default:
-        printf("$B$=$A$i$K$O9T$1$^$;$s(B\n");
+        printf("そちらには行けません\n");
         break;
     }
     return 0;

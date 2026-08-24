@@ -1,33 +1,33 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#22s(B</title>
+<title>情報基礎演習II － 第１２回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#22s(B</h1>
+<h1>情報基礎演習II － 第１２回</h1>
 
 <hr>
 
-<h2>$B#1!%%W%j%W%m%;%C%5(B</h2>
+<h2>１．プリプロセッサ</h2>
 
 <hr>
 
-$B%3%s%Q%$%k$N:]!"(B
-$B#C8@8l$N%=!<%9%W%m%0%i%`$O!"(B
-$B5!3#8l$KK]Lu$5$l$kA0$K0lC6%W%j%W%m%;%C%5$H8F$P$l$k%W%m%0%i%`$K$h$C$F(B
-$B=hM}$5$l$^$9!#(B
+コンパイルの際、
+Ｃ言語のソースプログラムは、
+機械語に翻訳される前に一旦プリプロセッサと呼ばれるプログラムによって
+処理されます。
 <p>
 
-$B%W%j%W%m%;%C%5$O!"(B
-$B%=!<%9%W%m%0%i%`Cf$+$i(B
-$BK]Lu$K$O4X78$J$$%3%a%s%H$r<h$j=|$/$[$+!"(B
-$B%=!<%9%W%m%0%i%`Cf$N%W%j%W%m%;%C%5@)8fJ8$r$b$H$K(B
-$B%=!<%9%W%m%0%i%`$r2C9)$7!"(B
-$B$=$l$r%3%s%Q%$%iK\BN$K0z$-7Q$.$^$9!#(B
+プリプロセッサは、
+ソースプログラム中から
+翻訳には関係ないコメントを取り除くほか、
+ソースプログラム中のプリプロセッサ制御文をもとに
+ソースプログラムを加工し、
+それをコンパイラ本体に引き継ぎます。
 <p>
 
-$B%W%j%W%m%;%C%5$N@)8f$O!"(B
-$B%=!<%9%W%m%0%i%`$NBh#17eL\$K(B <tt>#</tt> $B$r=q$/$3$H$K$h$C$F9T$$$^$9!#(B
+プリプロセッサの制御は、
+ソースプログラムの第１桁目に <tt>#</tt> を書くことによって行います。
 
 <blockquote>
 <pre>
@@ -35,17 +35,17 @@
 </pre>
 </blockquote>
 
-$B%W%j%W%m%;%C%5$O%=!<%9%W%m%0%i%`Cf$G>e5-$N;XNa$K=P9g$&$H!"(B
-$B%=!<%9%W%m%0%i%`$N$=$NItJ,$+$i8e$K4^$^$l$k(B
-$BA4$F$N(B <tt>SIZE</tt> $B$H$$$&J8;zNs$r!"(B
-<tt>1024</tt> $B$KCV$-49$($^$9!#(B
+プリプロセッサはソースプログラム中で上記の指令に出合うと、
+ソースプログラムのその部分から後に含まれる
+全ての <tt>SIZE</tt> という文字列を、
+<tt>1024</tt> に置き換えます。
 
 <hr>
 
-<h3>$B%^%/%m(B</h3>
+<h3>マクロ</h3>
 
-$BA0=R$NNc$N$h$&$K!"(B
-$B%=!<%9%W%m%0%i%`Cf$NDj?t$J$I$r5-9fDj?t$KCV$-49$($k$3$H$,$G$-$^$9!#(B
+前述の例のように、
+ソースプログラム中の定数などを記号定数に置き換えることができます。
 
 <blockquote>
 <pre>
@@ -66,15 +66,15 @@ float heikin(void)
 </pre>
 </blockquote>
 
-$B>e$N4X?t(B heikin $B$O!"(B
-$BG[Ns(B tensu $B$K(B 100 $B?M$NE@?t%G!<%?$,F~$C$F$$$k$H$-!"(B
-$B$=$NJ?6QE@$r7W;;$9$k$b$N$G$"$k$H$7$^$9!#(B
-$B$3$3$G2>$K(B NINSU $B$H$$$&5-9fDj?t$r;H$o$:$K(B 100 $B$H$$$&Dj?t$r(B
-$B$=$N$^$^=q$$$?$H$9$k$H!"(B
-$B%G!<%?$N?t$,JQ$o$C$?$H$-#32U=j$N(B 100 $B$rJQ99$7$J$1$l$P$J$j$^$;$s!#(B
-$B$3$l$r$"$i$+$8$a5-9fDj?t$G=q$$$F$*$1$P!"(B
-$B$=$&$$$&JQ99$N$H$-$b5-9fDj?t$NDj5A$N$H$3$m$@$1$r(B
-$BJQ99$9$k$@$1$G:Q$_$^$9!#(B
+上の関数 heikin は、
+配列 tensu に 100 人の点数データが入っているとき、
+その平均点を計算するものであるとします。
+ここで仮に NINSU という記号定数を使わずに 100 という定数を
+そのまま書いたとすると、
+データの数が変わったとき３箇所の 100 を変更しなければなりません。
+これをあらかじめ記号定数で書いておけば、
+そういう変更のときも記号定数の定義のところだけを
+変更するだけで済みます。
 
 <blockquote>
 <pre>
@@ -82,11 +82,11 @@ float heikin(void)
 </pre>
 </blockquote>
 
-$B>e5-$N$h$&$K5-9fDj?t$K3d$jEv$F$kCM$r>JN,$7$?>l9g!"(B
-$B$=$N5-9fDj?t$NFbMF$O6u$K$J$j$^$9!#(B
+上記のように記号定数に割り当てる値を省略した場合、
+その記号定数の内容は空になります。
 <p>
 
-$B5-9fDj?t$NDj5A$r<h$j>C$9$K$O!"(B<tt>#undef</tt> $B$r;H$$$^$9!#(B
+記号定数の定義を取り消すには、<tt>#undef</tt> を使います。
 
 <blockquote>
 <pre>
@@ -95,15 +95,15 @@ float heikin(void)
 </pre>
 </blockquote>
 
-$B5-9fDj?t$NL>A0$N7h$aJ}$N%k!<%k$O0lHL$NJQ?t$HF1$8$G$9$,!"(B
-$BJQ?t$H6hJL$7$d$9$$$h$&$KA4ItBgJ8;z$K$9$k$J$I$N(B
-$BG[N8$r$7$?$[$&$,$$$$$G$7$g$&!#(B
+記号定数の名前の決め方のルールは一般の変数と同じですが、
+変数と区別しやすいように全部大文字にするなどの
+配慮をしたほうがいいでしょう。
 
 <p>
 
-<a href="k54.html"><h3 align="center">$B"#2]Bj#5#4"#(B</h3></a>
+<a href="k54.html"><h3 align="center">■課題５４■</h3></a>
 
-$B5-9fDj?t$O0z?t$r;H$&$3$H$b$G$-$^$9!#(B
+記号定数は引数を使うこともできます。
 
 <blockquote>
 <pre>
@@ -119,9 +119,9 @@ void func(float x[], float y[], int n)
 </pre>
 </blockquote>
 
-$B$3$N(B SWAP $B$O4X?t$GDj5A$7$?>l9g$H0[$J$j!"(B
-$B0z?t(B type $B$K0z?t(B a, b $B$K;XDj$7$?JQ?t$N7?$r;XDj$9$k$3$H$G!"(B
-$BG$0U$N7?$NJQ?t$NFbMF$N8r49$,$G$-$^$9!#(B
+この SWAP は関数で定義した場合と異なり、
+引数 type に引数 a, b に指定した変数の型を指定することで、
+任意の型の変数の内容の交換ができます。
 
 <blockquote>
 <pre>
@@ -134,14 +134,14 @@ int func(int x)
 </pre>
 </blockquote>
 
-$B$3$N(B EXPR $B$O<0$NCf$G;H$&$3$H$,$G$-$^$9!#(B
-$B$3$3$G(B <tt>EXPR(x + 1) * 5</tt> $B$O(B <tt>((x + 1) * 5 + 3) * 5</tt>
-$B$KCV$-BX$o$j$^$9!#(B
+この EXPR は式の中で使うことができます。
+ここで <tt>EXPR(x + 1) * 5</tt> は <tt>((x + 1) * 5 + 3) * 5</tt>
+に置き替わります。
 <p>
 
-$B$3$3$GCm0U$9$Y$-$3$H$O!"(B
-$B0z?t$*$h$SDj5AA4BN$,(B <tt>( )</tt> $B$G$/$/$C$F$"$kE@$G$9!#(B
-$B2>$K!"<!$N$h$&$JDj5A$r9T$C$?$H$7$^$9!#(B
+ここで注意すべきことは、
+引数および定義全体が <tt>( )</tt> でくくってある点です。
+仮に、次のような定義を行ったとします。
 
 <blockquote>
 <pre>
@@ -149,9 +149,9 @@ int func(int x)
 </pre>
 </blockquote>
 
-$B$3$N>l9g(B <tt>EXPR(x + 1) * 5</tt> $B$O(B
-<tt>(x + 1 * 5 + 3) * 5</tt> $B$KCV$-BX$o$C$F$7$^$$$^$9!#(B
-$BF1MM$K<!$N$h$&$JDj5A$r9T$C$?>l9g$K$D$$$F$b9M$($F$_$^$9!#(B
+この場合 <tt>EXPR(x + 1) * 5</tt> は
+<tt>(x + 1 * 5 + 3) * 5</tt> に置き替わってしまいます。
+同様に次のような定義を行った場合についても考えてみます。
 
 <blockquote>
 <pre>
@@ -159,11 +159,11 @@ int func(int x)
 </pre>
 </blockquote>
 
-$B$3$N>l9g$O(B <tt>SQARE(x + 1) * 5</tt> $B$,(B
-<tt>(x + 1) * 5 + 3 * 5</tt> $B$KCV$-BX$o$C$F$7$^$$$^$9!#(B
+この場合は <tt>SQARE(x + 1) * 5</tt> が
+<tt>(x + 1) * 5 + 3 * 5</tt> に置き替わってしまいます。
 <p>
 
-$B$3$NB>!"<!$N$h$&$J>l9g$bCm0U$,I,MW$G$9!#(B
+この他、次のような場合も注意が必要です。
 
 <blockquote>
 <pre>
@@ -171,19 +171,19 @@ int func(int x)
 </pre>
 </blockquote>
 
-$B$3$N$H$-!"(B<tt>SQARE(++x)</tt> $B$O(B
-<tt>((++x) * (++x))</tt> $B$KCV$-BX$o$k$?$a!"(B
-$BJQ?t(B x $B$NFbMF$O#2A}$($F$7$^$$$^$9!#(B
+このとき、<tt>SQARE(++x)</tt> は
+<tt>((++x) * (++x))</tt> に置き替わるため、
+変数 x の内容は２増えてしまいます。
 <p>
 
-<a href="k55.html"><h3 align="center">$B"#2]Bj#5#5"#(B</h3></a>
+<a href="k55.html"><h3 align="center">■課題５５■</h3></a>
 
 <hr>
 
-<h3>$B30It%=!<%9%W%m%0%i%`$NA^F~(B</h3>
+<h3>外部ソースプログラムの挿入</h3>
 
-$B%=!<%9%W%m%0%i%`Fb$KJL$N%=!<%9%W%m%0%i%`$rKd$a9~$`$?$a$K!"(B
-<tt>#include</tt>$B$,;HMQ$5$l$^$9!#(B
+ソースプログラム内に別のソースプログラムを埋め込むために、
+<tt>#include</tt>が使用されます。
 
 <blockquote>
 <pre>
@@ -191,35 +191,35 @@ int func(int x)
 </pre>
 </blockquote>
 
-$B$3$N(B stdio.h $B$N$h$&$J%U%!%$%k$b#C8@8l$N%=!<%9%W%m%0%i%`$G!"(B
-$B%X%C%@%U%!%$%k$H$P$l$^$9!#(B
-$B%X%C%@%U%!%$%k$K$OIaDL4X?tDj5A$O=q$+$:!"(B
-$B30ItJQ?t$N@k8@$d4X?t%W%m%H%?%$%W!"%^%/%mDj5A$J$I$r=q$-$^$9!#(B
-$BDL>o$N#C$N%=!<%9%W%m%0%i%`$H6hJL$9$k$?$a$K!"(B
-$BIaDL%U%!%$%kL>$N:G8e$K$O(B ".h" $B$rIU$1$^$9!#(B
-stdio.h $B$K$OI8=`F~=PNO!J(Bstandard input/output$B!"(Bprintf/scanf $B$J$I!K(B
-$B$r;H$&$?$a$N4X?t%W%m%H%?%$%W$J$I$,=q$+$l$F$$$^$9!#(B
+この stdio.h のようなファイルもＣ言語のソースプログラムで、
+ヘッダファイルとばれます。
+ヘッダファイルには普通関数定義は書かず、
+外部変数の宣言や関数プロトタイプ、マクロ定義などを書きます。
+通常のＣのソースプログラムと区別するために、
+普通ファイル名の最後には ".h" を付けます。
+stdio.h には標準入出力（standard input/output、printf/scanf など）
+を使うための関数プロトタイプなどが書かれています。
 <p>
 
-<tt>#include</tt> $B$K$*$$$F!"(B
-$BKd$a9~$`%U%!%$%kL>$r(B <tt>&lt; &gt;</tt> $B$G$O$5$s$@>l9g!"(B
-$B$=$N%U%!%$%k$r(B
-<a href="h09.html">$B%7%9%F%`$K:G=i$+$iMQ0U$5$l$F$$$k%X%C%@%U%!%$%k(B</a>$B$r(B
-$B=8$a$?>l=j$+$i<h$j=P$7$^$9!#(B
-$B>pJs=hM}%;%s%?!<$N%7%9%F%`!JBgH>$N(B UNIX$B!K$G$O!"$3$l$O(B
-<tt>/usr/include</tt>$B$H$$$&%G%#%l%/%H%j$K$"$j$^$9!#(B
-$B>e$NNc$G$O!"(B
-$B<B:]$K$O(B <tt>/usr/include/stdio.h</tt> $B$H$$$&%U%!%$%k$,(B
-$BKd$a9~$^$l$^$9!#(B
+<tt>#include</tt> において、
+埋め込むファイル名を <tt>&lt; &gt;</tt> ではさんだ場合、
+そのファイルを
+<a href="h09.html">システムに最初から用意されているヘッダファイル</a>を
+集めた場所から取り出します。
+情報処理センターのシステム（大半の UNIX）では、これは
+<tt>/usr/include</tt>というディレクトリにあります。
+上の例では、
+実際には <tt>/usr/include/stdio.h</tt> というファイルが
+埋め込まれます。
 <p>
 
-$B%X%C%@%U%!%$%k$K$O(B stdio.h $B$N$h$&$K(B
-$B%7%9%F%`$K:G=i$+$iMQ0U$5$l$F$$$k$b$N$NB>$K!"(B
-$B<+J,$G$b:n$k$3$H$,$G$-$^$9!#(B
-<tt>#include</tt> $B$K$*$$$F!"(B
-$BKd$a9~$`%U%!%$%kL>$r(B <tt>" "</tt> $B$G$O$5$s$@>l9g!"(B
-$B$=$N%U%!%$%k$O8=:_$N%G%#%l%/%H%j(B
-$B!J$b$H$N%=!<%9%3!<%I$N$"$k%G%#%l%/%H%j!K$+$i<h$j=P$7$^$9!#(B
+ヘッダファイルには stdio.h のように
+システムに最初から用意されているものの他に、
+自分でも作ることができます。
+<tt>#include</tt> において、
+埋め込むファイル名を <tt>" "</tt> ではさんだ場合、
+そのファイルは現在のディレクトリ
+（もとのソースコードのあるディレクトリ）から取り出します。
 
 <blockquote>
 <pre>
@@ -227,15 +227,15 @@ stdio.h $B$K$OI8=`F~=PNO!J(Bstandard input/output$B!"(Bprintf/scanf $B$J$I!
 </pre>
 </blockquote>
 
-<a href="k56.html"><h3 align="center">$B"#2]Bj#5#6"#(B</h3></a>
+<a href="k56.html"><h3 align="center">■課題５６■</h3></a>
 
 <hr>
 
-<h3>$B>r7o%3%s%Q%$%k(B</h3>
+<h3>条件コンパイル</h3>
 
-$B<!$N$h$&$K$7$F!"(B
-$B%=!<%9%W%m%0%i%`$N0lIt$@$1$rM-8z$K$9$k!J$"$k$$$O!"(B
-$B0lIt$rL58z$K$9$k!K$3$H$,$G$-$^$9!#(B
+次のようにして、
+ソースプログラムの一部だけを有効にする（あるいは、
+一部を無効にする）ことができます。
 
 <blockquote>
 <pre>
@@ -245,107 +245,107 @@ stdio.h $B$K$OI8=`F~=PNO!J(Bstandard input/output$B!"(Bprintf/scanf $B$J$I!
 </pre>
 </blockquote>
 
-$B$3$N$h$&$K$9$k$H!"(B
-<tt>#if $B!A(B #endif</tt> $B$N4V$O(B
-$B5-9fDj?t(B DEBUG $B$,??!JHs#0!K$N$H$-$N$_%3%s%Q%$%k$5$l$^$9!#(B
-$B$3$l$O%=%U%H%&%'%"$N3+H/Cf$O(B
-$BF0:n$r3N$+$a$k%W%m%0%i%`$rKd$a9~$s$G$*$-$?$$$,!"(B
-$B40@.$7$?$H$-$K$O$=$NItJ,$O=|$-$?$$>l9g$J$I$K$h$/;H$o$l$^$9!#(B
+このようにすると、
+<tt>#if ～ #endif</tt> の間は
+記号定数 DEBUG が真（非０）のときのみコンパイルされます。
+これはソフトウェアの開発中は
+動作を確かめるプログラムを埋め込んでおきたいが、
+完成したときにはその部分は除きたい場合などによく使われます。
 <p>
 
-<tt>#if</tt> $B$N>r7o$K$O(B
-$BJQ?t$r4^$^$J$$<0$r;H$&$3$H$,$G$-$^$9!#(B
-$B$3$l$K$O#C8@8l!J$NK\J8!KF1MM!"(B
-$BDj?tF1;N$N;MB'1i;;$d(B
-<a href="07.html#kankei">$B4X781i;;(B</a>$B!"(B
-<a href="07.html#ronri">$BO@M}1i;;(B</a>$B!"(B
-$B$=$l$+$i(B <a href="k55.html#jouken"><tt>?:</tt>$B1i;;;R(B</a>
-$B$J$I$r;H$&$3$H$,$G$-$^$9!#(B
+<tt>#if</tt> の条件には
+変数を含まない式を使うことができます。
+これにはＣ言語（の本文）同様、
+定数同士の四則演算や
+<a href="07.html#kankei">関係演算</a>、
+<a href="07.html#ronri">論理演算</a>、
+それから <a href="k55.html#jouken"><tt>?:</tt>演算子</a>
+などを使うことができます。
 
 <blockquote>
 <pre>
 <b>#if</b> X > 5 && X < 10
-    printf("X$B$O(B5$B$h$jBg$-$/(B10$B$h$j>.$5$$(B\n");
+    printf("Xは5より大きく10より小さい\n");
 <b>#else</b>
-    printf("X$B$O(B5$B0J2<$"$k$$$O(B10$B0J>e(B\n");
+    printf("Xは5以下あるいは10以上\n");
 <b>#endif</b>
 
 <b>#if</b> DEBUG == 1
-    printf("$B%G%P%C%0%l%Y%k#1(B\n")
+    printf("デバッグレベル１\n")
 <b>#elif</b> DEBUG == 2
-    printf("$B%G%P%C%0%l%Y%k#2(B\n")
+    printf("デバッグレベル２\n")
 <b>#elif</b> DEBUG == 3
-    printf("$B%G%P%C%0%l%Y%k#3(B\n")
+    printf("デバッグレベル３\n")
 <b>#endif</b>
 
 <b>#if</b> 0
-    $B$3$NItJ,$O0l@Z%3%s%Q%$%k$5$l$^$;$s!#(B
-    $B=>$C$F%3%a%s%H$N$h$&$K;H$&$3$H$b$G$-$^$9!#(B
-    $B$G$b$=$&8@$&$3$H$O$"$^$j$7$^$;$s!#(B
+    この部分は一切コンパイルされません。
+    従ってコメントのように使うこともできます。
+    でもそう言うことはあまりしません。
 <b>#endif</b>
 </pre>
 </blockquote>
 
-<tt>#else</tt> $B0J9_$NItJ,$O(B
-<tt>#if</tt> $B$N>r7o$,56!J#0!K$N$H$-$N$_(B
-$B%3%s%Q%$%k$5$l$^$9!#(B
-$B$^$?(B <tt>#elif</tt> $B$O(B
-$B$$$/$D$+$N>r7oH=CG$rB3$1$?$$$H$-$K;H$$$^$9!#(B
-<tt>#elif</tt> $B$r;H$o$J$$>l9g$O!"(B
-<tt>#if $B!A(B #endif</tt> $B$OF~$l;R$K$9$kI,MW$,$"$j$^$9!#(B
+<tt>#else</tt> 以降の部分は
+<tt>#if</tt> の条件が偽（０）のときのみ
+コンパイルされます。
+また <tt>#elif</tt> は
+いくつかの条件判断を続けたいときに使います。
+<tt>#elif</tt> を使わない場合は、
+<tt>#if ～ #endif</tt> は入れ子にする必要があります。
 
 <blockquote>
 <pre>
 <b>#if</b> DEBUG == 1
-        printf("$B%G%P%C%0%l%Y%k#1(B\n")
+        printf("デバッグレベル１\n")
 <b>#else</b>
 <b>#  if</b> DEBUG == 2
-        printf("$B%G%P%C%0%l%Y%k#2(B\n")
+        printf("デバッグレベル２\n")
 <b>#  else</b>
 <b>#    if</b> DEBUG == 3
-        printf("$B%G%P%C%0%l%Y%k#3(B\n")
+        printf("デバッグレベル３\n")
 <b>#    endif</b>
 <b>#  endif</b>
 <b>#endif</b>
 </pre>
 </blockquote>
 
-<tt>#</tt> $B$,:8C<!J#17eL\!K$K$"$l$P!"(B
-<tt>#</tt> $B$N1&$K6uGr$,$"$C$F$b9=$$$^$;$s!#(B
+<tt>#</tt> が左端（１桁目）にあれば、
+<tt>#</tt> の右に空白があっても構いません。
 <p>
 
-$B5-9fDj?t$NFbMF$G$O$J$/!"(B
-$B5-9fDj?t$,Dj5A$5$l$F$$$k$+$I$&$+$rD4$Y$?$$$H$-$O(B
-<tt>defined(..)</tt>$B$r;H$$$^$9!#(B
+記号定数の内容ではなく、
+記号定数が定義されているかどうかを調べたいときは
+<tt>defined(..)</tt>を使います。
 
 <blockquote>
 <pre>
 <b>#if defined(</b>DEBUG<b>)</b>
-    printf("$B%G%P%C%0$7$^$9(B\n");
+    printf("デバッグします\n");
 <b>#endif</b>
 
 <b>#if defined(</b>SUN<b>)</b> || !<b>defined(</b>SGI<b>)</b>
-    printf("$B$3$l$O(B SUN $B$+!"$"$k$$$O(B SGI $B$G$J$$$b$N$J$iF0$-$^$9(B\n");
+    printf("これは SUN か、あるいは SGI でないものなら動きます\n");
 <b>#endif</b>
 </pre>
 </blockquote>
 
-$B$J$*(B <tt>#if defined(..)</tt> $B$O(B <tt>#ifdef ..</tt>$B!"(B
-<tt>#if !defined(..)</tt> $B$O(B <tt>#ifndef ..</tt> $B$H=q$/$3$H$b$G$-$^$9!#(B
+なお <tt>#if defined(..)</tt> は <tt>#ifdef ..</tt>、
+<tt>#if !defined(..)</tt> は <tt>#ifndef ..</tt> と書くこともできます。
 
 <blockquote>
 <pre>
 <b>#ifdef DEBUG</b>
-    printf("$B%G%P%C%0$7$^$9(B\n");
+    printf("デバッグします\n");
 <b>#endif</b>
 
-/* $B$I$3$+$G5-9fDj?t(B SIZE $B$,Dj5A$5$l$F$$$J$1$l$P$3$3$GDj5A$9$k(B */
+/* どこかで記号定数 SIZE が定義されていなければここで定義する */
 <b>#ifndef</b> SIZE
 <b>#  define</b> SIZE 1024
 <b>#endif
 </pre>
 </blockquote>
 
-<a href="k57.html"><h3 align="center">$B"#2]Bj#5#7"#(B</h3></a>
+<a href="k57.html"><h3 align="center">■課題５７■</h3></a>
 
 </body>

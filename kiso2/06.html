@@ -1,134 +1,134 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#62s(B</title>
+<title>情報基礎演習II － 第６回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#62s(B</h1>
+<h1>情報基礎演習II － 第６回</h1>
 
 <hr>
 
-<h2>$B#1!%%3%s%=!<%kF~=PNO(B</h2>
+<h2>１．コンソール入出力</h2>
 
 <hr>
 
 <h3>printf</h3>
 
-$B4{$K(B printf $B$K$D$$$F$O4JC1$K@bL@$7$F$$$^$9$,!"(B
-$B$3$N%i%$%V%i%j4X?t$OHs>o$K5!G=$,K-IY$GJXMx$J4X?t$J$N$G!"(B
-$B$3$3$G:#0lEY@0M}$r$7$?$$$H;W$$$^$9!#(B
+既に printf については簡単に説明していますが、
+このライブラリ関数は非常に機能が豊富で便利な関数なので、
+ここで今一度整理をしたいと思います。
 <p>
 
-printf $B$O0z?t$KM?$($i$l$?%G!<%?$r!"(B
-$B=q<0J8;zNs$K=>$C$FJ8;zNs$K!VJQ49!W$7!"(B
-$B%3%s%=!<%k!J2hLL!K>e$K=PNO$7$^$9!#(B
+printf は引数に与えられたデータを、
+書式文字列に従って文字列に「変換」し、
+コンソール（画面）上に出力します。
 
 <blockquote>
 <img src="06-1.gif">
 </blockquote>
 
-$B@0?t$d<B?t$O%3%s%T%e!<%?$NFbIt$G$OFs?J?t$G$"$j!"(B
-$B$3$l$r$=$N$^$^2hLL$KI=<($9$k$3$H$O$G$-$^$;$s!#(B
-$B2hLL>e$KI=<($5$l$k(B 0123... $B$J$I$N?t;z$OJ8;z$J$N$G!"(B
-$B%G!<%?$r0lC6J8;z$KD>$7$F$+$i=PNO$9$kI,MW$,$"$j$^$9!#(B
-printf $B$O$3$N$h$&$JJQ49$r9T$$$^$9!#(B
+整数や実数はコンピュータの内部では二進数であり、
+これをそのまま画面に表示することはできません。
+画面上に表示される 0123... などの数字は文字なので、
+データを一旦文字に直してから出力する必要があります。
+printf はこのような変換を行います。
 
 <blockquote>
 <pre>
-printf($B=q<0J8;zNs(B, $B0z?t(B, $B0z?t(B, ...)
+printf(書式文字列, 引数, 引数, ...)
 </pre>
 </blockquote>
 
 <ul>
-<li>$B=q<0J8;zNs$O(B % $B$G;O$^$kJQ49;XDj;R$r=|$$$F$=$N$^$^=PNO$5$l$^$9!#(B
-<li>$BJQ49;XDj;R$NItJ,$KBP1~$9$k0z?t$NFbMF$,JQ49$5$l$FKd$a9~$^$l$^$9!#(B
-<li>$B=q<0J8;zNsCf$G$O!"(B%% $B$G#18D$N(B % $B$,=PNO$5$l$^$9!#(B
+<li>書式文字列は % で始まる変換指定子を除いてそのまま出力されます。
+<li>変換指定子の部分に対応する引数の内容が変換されて埋め込まれます。
+<li>書式文字列中では、%% で１個の % が出力されます。
 </ul>
 
-$B=q<0J8;zNs$N0lHL7A$O<!$N$h$&$K$J$j$^$9!#(B
-[ .. ] $B$O>JN,2DG=$G$"$k$3$H$r<($7$^$9!#(B
+書式文字列の一般形は次のようになります。
+[ .. ] は省略可能であることを示します。
 
 <blockquote>
 <pre>
-%[$B%U%i%0(B][$B%U%#!<%k%II}(B][.$B@:EY(B][h|l]$B7?(B
+%[フラグ][フィールド幅][.精度][h|l]型
 </pre>
 
 <table width="90%" border>
-<tr><td rowspan="3">$B%U%i%0(B<td>+<td>$BCM$,@5$N$H$-$bId9f(B (+) $B$r=q$/(B
-<tr><td>-<td>$B:84s$;$G=q$/(B
-<tr><td>#<td>$BBeBX7A<0!J$3$N%U%i%0$N8z2L$O7?$K$h$C$F0[$J$k!K(B
-<tr><td>$B%U%#!<%k%II}(B<td>$B@0?t(B<td>$BMs$NI}!JJ8;z?t!K!"(B
-0 $B$G;O$^$C$F$$$l$P6uGr$NItJ,$r(B 0 $B$GKd$a$k(B
-<tr><td>$B@:EY(B<td>$B@0?t(B<td>$B@0?t$N$H$-$O:G>.8BI=<($9$k7e?t!"(B
-$B<B?t$N$H$-$O>.?tE@0J2<$N7e?t(B
-<tr><td rowspan="2">h | l<td>h<td>$BC;@:EY@0?t(B (short) $B$N$H$-(B
-<tr><td>l<td>$BD9@:EY@0?t(B (long) $B$"$k$$$OG\@:EY<B?t(B (double) $B$N$H$-(B
-<tr><td rowspan="10">$B7?(B<td>c<td>$BJ8;z(B
-<tr><td>d<td>$BId9fIU$-==?J@0?t(B
-<tr><td>u<td>$BId9f$J$7==?J@0?t(B
-<tr><td>o<td>$BH,?J@0?t(B
-<tr><td>x<td>$B==O;?J@0?t!J(Ba$B!A(Bf $B>.J8;z!K(B
-<tr><td>X<td>$B==O;?J@0?t!J(BA$B!A(BF $B>.J8;z!K(B
-<tr><td>f<td>$B<B?t(B
-<tr><td>e<td>$B<B?t!J;X?tI=8=!K(B
-<tr><td>g<td>$B<B?t!J(Be $B$+(B f $B$N$I$A$i$+%3%s%Q%/%H$KI=<($G$-$kJ}!K(B
-<tr><td>s<td>$BJ8;zNs(B
+<tr><td rowspan="3">フラグ<td>+<td>値が正のときも符号 (+) を書く
+<tr><td>-<td>左寄せで書く
+<tr><td>#<td>代替形式（このフラグの効果は型によって異なる）
+<tr><td>フィールド幅<td>整数<td>欄の幅（文字数）、
+0 で始まっていれば空白の部分を 0 で埋める
+<tr><td>精度<td>整数<td>整数のときは最小限表示する桁数、
+実数のときは小数点以下の桁数
+<tr><td rowspan="2">h | l<td>h<td>短精度整数 (short) のとき
+<tr><td>l<td>長精度整数 (long) あるいは倍精度実数 (double) のとき
+<tr><td rowspan="10">型<td>c<td>文字
+<tr><td>d<td>符号付き十進整数
+<tr><td>u<td>符号なし十進整数
+<tr><td>o<td>八進整数
+<tr><td>x<td>十六進整数（a～f 小文字）
+<tr><td>X<td>十六進整数（A～F 小文字）
+<tr><td>f<td>実数
+<tr><td>e<td>実数（指数表現）
+<tr><td>g<td>実数（e か f のどちらかコンパクトに表示できる方）
+<tr><td>s<td>文字列
 </table>
 </blockquote>
 
-$B<!$NI=$OJQ49;XDj;R$N=q<0$NNc$H!"(B
-$B$=$l$K$h$k=PNO$r<($7$^$9!#(B
+次の表は変換指定子の書式の例と、
+それによる出力を示します。
 
 <blockquote>
 <img src="06-2.gif">
 </blockquote>
 
-$B$J$*(B printf $B$NLa$jCM$O!"=PNO$7$?J8;zNs$NJ8;z?t$G$9!#(B
-$BJ8;zNs$X$NJQ49$K<:GT$7$?>l9g$O!"$3$l$,Ii$K$J$j$^$9!#(B
+なお printf の戻り値は、出力した文字列の文字数です。
+文字列への変換に失敗した場合は、これが負になります。
 
-<a href="k21.html"><h3 align="center">$B"#2]Bj#2#1"#(B</h3></a>
+<a href="k21.html"><h3 align="center">■課題２１■</h3></a>
 <p>
 
 <hr>
 
 <h3>scanf</h3>
 
-$B%3%s%=!<%k!J%-!<%\!<%I!K$+$iF~NO$5$l$?J8;zNs$r!"(B
-$B%W%m%0%i%`Cf$NJQ?t$K3JG<$9$k$K$O!"(B
-scanf $B$r;H$&$HJXMx$G$9!#(B
+コンソール（キーボード）から入力された文字列を、
+プログラム中の変数に格納するには、
+scanf を使うと便利です。
 
 <blockquote>
 <font size="-1">
-scanf $B$O;H$&$Y$-$G$O$J$$$H$$$&5DO@$b$"$j$^$9$,!"(B
-$BI8=`E*$J4X?t$N0l$D$G$b$"$j$^$9$7!"(B
-fgets $BEy$r;H$&J}K!$O$3$N9V5A$N@bL@$K;H$&$K$O>/$7HQ;($J$N$G!"(B
-$B$3$3$G$O(B scanf $B$rMQ$$$^$9!#(B
-scanf $B$r;H$o$J$$J}K!$O(B
-<a href="h10.html">scanf $B$r;H$o$J$$%3%s%=!<%kF~NO(B</a>
-$B$r;2>H$7$F$/$@$5$$!#$J$*!"(Bgets() $B$O<v$o$l$F$$$k$N$G?($l$F$O$J$j$^$;$s!#(B
+scanf は使うべきではないという議論もありますが、
+標準的な関数の一つでもありますし、
+fgets 等を使う方法はこの講義の説明に使うには少し煩雑なので、
+ここでは scanf を用います。
+scanf を使わない方法は
+<a href="h10.html">scanf を使わないコンソール入力</a>
+を参照してください。なお、gets() は呪われているので触れてはなりません。
 </font>
 </blockquote>
 
-$B%-!<%\!<%I$+$iF~NO$5$l$k$N$OJ8;z$J$N$G!"(B
-$BNc$($P(B 10 $B$H$$$&F~NO$r?tCM$N(B 10 $B$H$7$FJQ?t$K3JG<$9$k$K$O!"(B
-$BJ8;z$rFs?J?t$KJQ49$9$kI,MW$,$"$j$^$9!#(B
-scanf $B$O$3$N$h$&$JJQ49$r9T$$$^$9!#(B
-$B$^$?F~NO$5$l$?J8;zNs$r$I$N$h$&$J%G!<%?7?$KJQ49$9$k$N$+$O!"(B
-printf $B$K;w$?=q<0J8;zNs$r;H$C$F;XDj$7$^$9!#(B
+キーボードから入力されるのは文字なので、
+例えば 10 という入力を数値の 10 として変数に格納するには、
+文字を二進数に変換する必要があります。
+scanf はこのような変換を行います。
+また入力された文字列をどのようなデータ型に変換するのかは、
+printf に似た書式文字列を使って指定します。
 <p>
 
 <blockquote>
 <pre>
-scanf($B=q<0J8;zNs(B, $B0z?t(B, $B0z?t(B, ...)
+scanf(書式文字列, 引数, 引数, ...)
 </pre>
 </blockquote>
 
-scanf $B$OF~NO$7$?%G!<%?$rJQ49$7!"(B
-$B0z?t$K;XDj$5$l$?!V>l=j!W$K3JG<$7$^$9!#(B
-$B$D$^$j(B scanf $B$KM?$($k0z?t$OJQ?t$NFbMF$G$O$J$/!"(B
-$BF~NO$5$l$?%G!<%?$r3JG<$9$Y$-!V>l=j!W$G$"$kI,MW$,$"$j$^$9!#(B
-$B$3$N>l=j$r<($9%G!<%?$N$3$H$r!V%]%$%s%?!W$H8@$$!"(B
-$BJQ?t$N%]%$%s%?$rF@$k$?$a$K!"(B& $B$H$$$&1i;;;R$rMQ$$$^$9!#(B
+scanf は入力したデータを変換し、
+引数に指定された「場所」に格納します。
+つまり scanf に与える引数は変数の内容ではなく、
+入力されたデータを格納すべき「場所」である必要があります。
+この場所を示すデータのことを「ポインタ」と言い、
+変数のポインタを得るために、& という演算子を用います。
 
 <blockquote>
 <pre>
@@ -137,49 +137,49 @@ scanf("%d", <b>&</b>x);
 </pre>
 </blockquote>
 
-$B>e$NNc$G$O!"%-!<%\!<%I$r%?%$%W$7$?J8;z$r==?J?t$H$7$F!"(B
-int $B7?$NJQ?t(B x $B$K3JG<$7$^$9!#(B
-%d $B$OF~NOJ8;zNs$r==?J?t$H$7$F!"(B
-int $B7?$KJQ49$9$kJQ49;XDj;R$G$9!#(B
-$B$3$NB>$NJQ49;XDj;R$b!"(B
-printf $B$HBgBNF1$8$G$9!#(B
+上の例では、キーボードをタイプした文字を十進数として、
+int 型の変数 x に格納します。
+%d は入力文字列を十進数として、
+int 型に変換する変換指定子です。
+この他の変換指定子も、
+printf と大体同じです。
 
 <blockquote>
 <pre>
-%[$B%U%i%0(B][$B%U%#!<%k%II}(B][h|l]$B7?(B
+%[フラグ][フィールド幅][h|l]型
 </pre>
 
 <table width="90%" border>
-<tr><td>$B%U%i%0(B<td>*<td>$B%G!<%?$rJQ?t$K3JG<$7$J$$!JFI$_Ht$P$7!K(B
-<tr><td>$B%U%#!<%k%II}(B<td>$B@0?t(B<td>$BMs$NI}!JJ8;z?t!K(B
-<tr><td rowspan="2">h | l<td>h<td>$BC;@:EY@0?t(B (short) $B$KJQ49(B
-<tr><td>l<td>$BD9@:EY@0?t(B (long) $B$"$k$$$OG\@:EY<B?t(B (double) $B$KJQ49(B
-<tr><td rowspan="8">$B7?(B<td>c<td>$BJ8;z$KJQ49(B
-<tr><td>d<td>$BId9fIU$-==?J@0?t$KJQ49(B
-<tr><td>u<td>$BId9f$J$7==?J@0?t$KJQ49(B
-<tr><td>o<td>$BH,?J@0?t$KJQ49(B
-<tr><td>x<td>$B==O;?J@0?t!J(Ba$B!A(Bf $B>.J8;z!K$KJQ49(B
-<tr><td>X<td>$B==O;?J@0?t!J(BA$B!A(BF $B>.J8;z!K$KJQ49(B
-<tr><td>f<td>$B<B?t(B (float) $B$KJQ49(B
-<tr><td>s<td>$BJ8;zNs$H$7$F3JG<(B
+<tr><td>フラグ<td>*<td>データを変数に格納しない（読み飛ばし）
+<tr><td>フィールド幅<td>整数<td>欄の幅（文字数）
+<tr><td rowspan="2">h | l<td>h<td>短精度整数 (short) に変換
+<tr><td>l<td>長精度整数 (long) あるいは倍精度実数 (double) に変換
+<tr><td rowspan="8">型<td>c<td>文字に変換
+<tr><td>d<td>符号付き十進整数に変換
+<tr><td>u<td>符号なし十進整数に変換
+<tr><td>o<td>八進整数に変換
+<tr><td>x<td>十六進整数（a～f 小文字）に変換
+<tr><td>X<td>十六進整数（A～F 小文字）に変換
+<tr><td>f<td>実数 (float) に変換
+<tr><td>s<td>文字列として格納
 </table>
 </blockquote>
 
-$B=q<0;XDj;R$,O"B3$7$F$$$k$+!"(B
-$B$"$k$$$O6uGr$G6h@Z$i$l$FJ#?t;XDj$5$l$F$$$k>l9g$O!"(B
-$BF~NOJ8;zNsCf$N8D!9$N%G!<%?$O(B
-$B6uGrJ8;z!J6uGr!"%?%V!"2~9T!K$G6h@Z$i$l$F$$$kI,MW$,$"$j$^$9!#(B
+書式指定子が連続しているか、
+あるいは空白で区切られて複数指定されている場合は、
+入力文字列中の個々のデータは
+空白文字（空白、タブ、改行）で区切られている必要があります。
 
 <blockquote>
 <pre>
 int x;
 float y;
 double z;
-scanf("%d %f %lf", &x, &y, &z);  /* "%d%f%lf" $B$G$bF1$8(B */
+scanf("%d %f %lf", &x, &y, &z);  /* "%d%f%lf" でも同じ */
 </pre>
 </blockquote>
 
-$B>e$NNc$KBP$7$F$O!"<!$N$h$&$JJ8;zNs$rF~NO$7$^$9!#(B
+上の例に対しては、次のような文字列を入力します。
 
 <blockquote>
 <pre>
@@ -187,11 +187,11 @@ scanf("%d %f %lf", &x, &y, &z);  /* "%d%f%lf" $B$G$bF1$8(B */
 </pre>
 </blockquote>
 
-$B=q<0J8;zNs$KJQ49;XDj;R0J30$NJ8;z$r4^$s$G$$$k$H$-$O!"(B
-$B$=$l$,F~NOJ8;zNs$K4^$^$l$F$$$kI,MW$,$"$j$^$9(B
-$B!J$=$NJ8;z$,8=$o$l$k$^$G(B scanf $B$,;_$^$C$F$7$^$$$^$9!K!#(B
-$B$^$?=q<0J8;zNsCf$N(B '\n' $B$OF~NO$N:G8e$r0UL#$7$^$9(B
-$B!JF~NO$N:G8e$^$GFI$_Ht$P$7$^$9!K!#(B
+書式文字列に変換指定子以外の文字を含んでいるときは、
+それが入力文字列に含まれている必要があります
+（その文字が現われるまで scanf が止まってしまいます）。
+また書式文字列中の '\n' は入力の最後を意味します
+（入力の最後まで読み飛ばします）。
 
 <blockquote>
 <pre>
@@ -202,10 +202,10 @@ scanf("%d,%f,%lf\n", &x, &y, &z);
 </pre>
 </blockquote>
 
-$B>e$NNc$O$GJQ49;XDj;R$,%3%s%^$G6h@Z$i$l$F$$$^$9$+$i!"(B
-$BF~NOJ8;zNs$b%3%s%^$G6h@Z$i$l$F$$$kI,MW$,$"$j$^$9!#(B
-$B$^$?(B '\n' $B$,$"$j$^$9$+$i!"(B
-$B:G8e$KF~NO$N=*N;!J(BCtrl-D, ^D$B!K$r%?%$%W$9$kI,MW$,$"$j$^$9!#(B
+上の例はで変換指定子がコンマで区切られていますから、
+入力文字列もコンマで区切られている必要があります。
+また '\n' がありますから、
+最後に入力の終了（Ctrl-D, ^D）をタイプする必要があります。
 
 <blockquote>
 <pre>
@@ -214,8 +214,8 @@ scanf("%d,%f,%lf\n", &x, &y, &z);
 </pre>
 </blockquote>
 
-$B=q<0J8;zNs$GA[Dj$7$F$$$J$$J8;z$rF~NOJ8;zNs$KM?$($k$H!"(B
-scanf $B$O;_$^$C$F$7$^$$$^$9!#(B
+書式文字列で想定していない文字を入力文字列に与えると、
+scanf は止まってしまいます。
 
 <blockquote>
 <pre>
@@ -233,16 +233,16 @@ int main(void)
 </pre>
 </blockquote>
 
-$B>e$N%W%m%0%i%`$O@0?tCM$N(B 0 $B$,F~NO$5$l$?$i=*N;$7$^$9$,!"(B
-$B0lEY$G$b%"%k%U%!%Y%C%H$J$I?t;z!J$H6uGrJ8;z!K0J30$N$b$N$rF~NO$9$k$H!"(B
-scanf $B$,$=$NJ8;z$+$i@h$rFI$_9~$^$J$/$J$j!"(B
-$B%W%m%0%i%`$,=*N;$7$J$/$J$C$F$7$^$$$^$9!#(B<p>
+上のプログラムは整数値の 0 が入力されたら終了しますが、
+一度でもアルファベットなど数字（と空白文字）以外のものを入力すると、
+scanf がその文字から先を読み込まなくなり、
+プログラムが終了しなくなってしまいます。<p>
 
-scanf $B$,F~NOJ8;zNs$NJQ49$K@.8y$7$?$+$I$&$+$r3N$+$a$k$K$O!"(B
-scanf $B$NLa$jCM$,=q<0J8;zNs$K4^$^$l$k(B
-$BJQ49;XDj;R$N?t$H0lCW$7$F$$$k$+$I$&$+$rD4$Y$^$9!#(B
-$B>e$NNc$G$O!"(Bscanf $B$N9T$r2<$N$h$&$KJQ99$9$k$3$H$G!"(B
-$B$H$j$"$($:L58B%k!<%W$OHr$1$k$3$H$,$G$-$^$9!#(B
+scanf が入力文字列の変換に成功したかどうかを確かめるには、
+scanf の戻り値が書式文字列に含まれる
+変換指定子の数と一致しているかどうかを調べます。
+上の例では、scanf の行を下のように変更することで、
+とりあえず無限ループは避けることができます。
 
 <blockquote>
 <pre>
@@ -250,8 +250,8 @@ scanf $B$NLa$jCM$,=q<0J8;zNs$K4^$^$l$k(B
 </pre>
 </blockquote>
 
-$BJQ49;XDj;R$K%U%#!<%k%II}$,;XDj$5$l$F$$$k$H$-!"(B
-$BF~NOJ8;zNs$K4^$^$l$k%G!<%?$O$=$l$K=>$C$F@Z$j=P$5$l$^$9!#(B
+変換指定子にフィールド幅が指定されているとき、
+入力文字列に含まれるデータはそれに従って切り出されます。
 
 <blockquote>
 <pre>
@@ -262,7 +262,7 @@ scanf("%2d%3f%4lf", &x, &y, &z);
 </pre>
 </blockquote>
 
-$B$3$l$K<!$N$h$&$JF~NO$r2C$($^$9!#(B
+これに次のような入力を加えます。
 
 <blockquote>
 <pre>
@@ -270,16 +270,16 @@ scanf("%2d%3f%4lf", &x, &y, &z);
 </pre>
 </blockquote>
 
-x = 12, y = 345.0, z = 6789.0 $B$H$$$&$h$&$K3JG<$5$l$^$9!#(B
+x = 12, y = 345.0, z = 6789.0 というように格納されます。
 <p>
 
-<a href="k22.html"><h3 align="center">$B"#2]Bj#2#2"#(B</h3></a>
+<a href="k22.html"><h3 align="center">■課題２２■</h3></a>
 <p>
 
-$BF~NO$5$l$?J8;zNs$r?tCM$KJQ49$;$:!"(B
-$B$=$N$^$^J8;zNs$H$7$F3JG<$7$?$$$H$-$O!"(B
-$BJ8;zNs$r3JG<$9$kG[NsJQ?t$NJQ?tL>$K(B & $B$rIU$1$kI,MW$O$"$j$^$;$s!#(B
-$B$3$l$OG[NsJQ?t$NJQ?tL><+BN$,!"%]%$%s%?$K$J$C$F$$$k$+$i$G$9!#(B
+入力された文字列を数値に変換せず、
+そのまま文字列として格納したいときは、
+文字列を格納する配列変数の変数名に & を付ける必要はありません。
+これは配列変数の変数名自体が、ポインタになっているからです。
 
 <blockquote>
 <pre>
@@ -288,20 +288,20 @@ scanf("%20s", str);
 </pre>
 </blockquote>
 
-$BJQ49;XDj;R(B %<$BMs$NI}(B>s $B$NMs$NI}$K$O!"(B
-$BI,$:3JG<$9$kG[NsJQ?t$N%5%$%:$h$j(B
-$B#1>.$5$$%U%#!<%k%I$NI}$r;XDj$7$F$/$@$5$$!#(B
-$B$3$l$O!"(Bscanf $B$,F~NO$5$l$?J8;zNs$N:G8e$K!"(B
-$B<+F0E*$K(B '\0'$B!JJ8;zNs$N=*C<!K$rDI2C$9$k$+$i$G$9!#(B
+変換指定子 %<欄の幅>s の欄の幅には、
+必ず格納する配列変数のサイズより
+１小さいフィールドの幅を指定してください。
+これは、scanf が入力された文字列の最後に、
+自動的に '\0'（文字列の終端）を追加するからです。
 <p>
 
-%s $B$N$h$&$K%U%#!<%k%I$NI}$r>JN,$9$k$3$H$b$G$-$^$9$,!"(B
-$B$3$N>l9gJ8;zNs$r3JG<$9$kG[Ns$h$jD9$$F~NOJ8;z$,$"$k$H!"(B
-$B%W%m%0%i%`$N0[>oF0:n$r0z$-5/$3$7$^$9!#(B
+%s のようにフィールドの幅を省略することもできますが、
+この場合文字列を格納する配列より長い入力文字があると、
+プログラムの異常動作を引き起こします。
 <p>
 
-$BJ8;zNs$O6uGrJ8;z!J6uGr!"%?%V!"2~9T!K$G6h@Z$C$FJQ?t$K3JG<$5$l$^$9!#(B
-$B>e$N<!$N$h$&$JF~NO$rM?$($?>l9g!"(B
+文字列は空白文字（空白、タブ、改行）で区切って変数に格納されます。
+上の次のような入力を与えた場合、
 
 <blockquote>
 <pre>
@@ -309,28 +309,28 @@ Hello! How are you?
 </pre>
 </blockquote>
 
-$BJQ?t(B str $B$K$O(B Hello! $B$@$1$,3JG<$5$l$^$9!#(B
+変数 str には Hello! だけが格納されます。
 <p>
 
-<a href="k23.html"><h3 align="center">$B"#2]Bj#2#3"#(B</h3></a>
+<a href="k23.html"><h3 align="center">■課題２３■</h3></a>
 <p>
 
 <hr>
 
-<h2>$B#2!%JQ?t$N=i4|2=(B</h2>
+<h2>２．変数の初期化</h2>
 
 <hr>
 
-$BJQ?t$NFbMF$r!"@k8@$7$?;~E@@_Dj$9$k$3$H$,$G$-$^$9!J=i4|2=!K!#(B
+変数の内容を、宣言した時点設定することができます（初期化）。
 
 <blockquote>
 <pre>
-int sum = 0;            /* $B9g7W$r5a$a$kJQ?t!"=i4|CM$O#0(B */
-char alpha = ' ';       /* $B%"%k%U%!%Y%C%H!"=i4|CM$O6uGr(B */
+int sum = 0;            /* 合計を求める変数、初期値は０ */
+char alpha = ' ';       /* アルファベット、初期値は空白 */
 </pre>
 </blockquote>
 
-$BG[Ns$N>l9g$O!"8D!9$NMWAG$N=i4|CM$r%3%s%^$G6h@Z$C$F(B { } $B$G$/$/$j$^$9!#(B
+配列の場合は、個々の要素の初期値をコンマで区切って { } でくくります。
 
 <blockquote>
 <pre>
@@ -338,8 +338,8 @@ int data[3] = { 1, 2, 3 };
 </pre>
 </blockquote>
 
-data[0] $B$K#1!"(Bdata[1] $B$K#2!"(Bdata[2] $B$K#3$,F~$j$^$9!#(B
-$B=i4|CM$N?t$,G[Ns$NMWAG?t$HF1$8$H$-$O!"G[Ns$NMWAG?t$r>JN,$G$-$^$9!#(B
+data[0] に１、data[1] に２、data[2] に３が入ります。
+初期値の数が配列の要素数と同じときは、配列の要素数を省略できます。
 
 <blockquote>
 <pre>
@@ -347,7 +347,7 @@ char name[] = { 'K', 'e', 'n', '\0' };
 </pre>
 </blockquote>
 
-$BJ8;z7?$NG[Ns$rJ8;zNs$G=i4|2=$9$k$H$-$O!"<!$N$h$&$K=q$/$3$H$b$G$-$^$9!#(B
+文字型の配列を文字列で初期化するときは、次のように書くこともできます。
 
 <blockquote>
 <pre>
@@ -355,14 +355,14 @@ char name[] = "Ken";
 </pre>
 </blockquote>
 
-$BDL>o$NBeF~J8$G$O$3$N5-K!$rMQ$$$k$3$H$O$G$-$^$;$s$,!"(B
-$B=i4|2=$N>l9g$O2DG=$G$9!#(B
-$B%W%m%0%i%`Cf$GG[NsJQ?t$KJ8;zNs$r3JG<$9$k$H$-$O!"(B
-strcpy $B$J$I$N%i%$%V%i%j4X?t$r;HMQ$7$^$9!#(B
+通常の代入文ではこの記法を用いることはできませんが、
+初期化の場合は可能です。
+プログラム中で配列変数に文字列を格納するときは、
+strcpy などのライブラリ関数を使用します。
 <p>
 
-$B=i4|CM$N?t$,G[Ns$NMWAG?t$h$j>/$J$$>l9g$O!"(B
-$BG[Ns$N@hF,$+$i=i4|CM$N?t$@$1MWAG$KCM$,F~$j$^$9!#(B
+初期値の数が配列の要素数より少ない場合は、
+配列の先頭から初期値の数だけ要素に値が入ります。
 
 <blockquote>
 <pre>
@@ -370,54 +370,54 @@ char line[100] = "blank";
 </pre>
 </blockquote>
 
-$BJ8;z7?$NG[Ns(B line $B$N:G=i$N#68D$NMWAG(B
-$B!J(Bline[0]$B!A(Bline[5]$B!K$,=i4|2=$5$l$^$9(B
-$B!J(Bline[5] $B$K$O(B '\0' $B$,F~$C$F$$$^$9!K!#(B
+文字型の配列 line の最初の６個の要素
+（line[0]～line[5]）が初期化されます
+（line[5] には '\0' が入っています）。
 <p>
 
-$B0J>e$O(B ANSI-C $B$N>l9g$G$9!#(B
-$B8E$$%P!<%8%g%s$N#C8@8l(B
-$B!J(BUNIX-C $B$"$k$$$O(B Kernighan & Richie C $B$H8F$P$l$k$b$N!K$G$O!"(B
-$B4X?t$NFbB&$G@k8@$5$l$F$$$k(B static $B$G$O$J$$(B
-$B!J(Bstatic $B$K4X$7$F$O8e=R$7$^$9!KG[NsJQ?t$r(B
-$B=i4|2=$9$k$3$H$O$G$-$^$;$s!#(B
+以上は ANSI-C の場合です。
+古いバージョンのＣ言語
+（UNIX-C あるいは Kernighan & Richie C と呼ばれるもの）では、
+関数の内側で宣言されている static ではない
+（static に関しては後述します）配列変数を
+初期化することはできません。
 
-<a href="k24.html"><h3 align="center">$B"#2]Bj#2#4"#(B</h3></a>
+<a href="k24.html"><h3 align="center">■課題２４■</h3></a>
 <p>
 
 <hr>
 
-<h2>$B#3!%BeF~1i;;;R(B</h2>
+<h2>３．代入演算子</h2>
 
 <hr>
 
-$B2<$N:8$N$h$&$J$NBeF~$O!"1&$N$h$&$K$b=q$/$3$H$,$G$-$^$9!#(B
+下の左のようなの代入は、右のようにも書くことができます。
 
 <blockquote>
 <table>
-<tr><td>i = i + 5;<td>$B"*(B<td>i += 5;
-<tr><td>j = j - 5;<td>$B"*(B<td>j -= 5;
-<tr><td>k = k * (i + j);<td>$B"*(B<td>k *= i + j;
-<tr><td>l = l / (i * j);<td>$B"*(B <td>l /= i * j;
+<tr><td>i = i + 5;<td>→<td>i += 5;
+<tr><td>j = j - 5;<td>→<td>j -= 5;
+<tr><td>k = k * (i + j);<td>→<td>k *= i + j;
+<tr><td>l = l / (i * j);<td>→ <td>l /= i * j;
 </table>
 </blockquote>
 
-$BFC$KJQ?t$NFbMF$r#1$@$1A}$9!"(B
-$B$"$k$$$O#1$@$18:$8$k>l9g$O!"(B
-$B<!$N$h$&$J1i;;;R$r;H$&$3$H$,$G$-$^$9!#(B
+特に変数の内容を１だけ増す、
+あるいは１だけ減じる場合は、
+次のような演算子を使うことができます。
 
 <blockquote>
 <table>
-<tr><td>i = i + 1;<td>$B"*(B<td>i += 1;<td>$B"*(B<td>++i;
-<tr><td>i = i - 1;<td>$B"*(B<td>i -= 1;<td>$B"*(B<td>--i;
+<tr><td>i = i + 1;<td>→<td>i += 1;<td>→<td>++i;
+<tr><td>i = i - 1;<td>→<td>i -= 1;<td>→<td>--i;
 </table>
 </blockquote>
 
-++, -- $B$OJQ?t$K$@$1E,MQ$G$-$kC19`1i;;;R$G!"(B
-$B>e5-$N$h$&$KJQ?t$N:8B&$K=q$/>l9g$NB>!"(B
-$B1&B&$K=q$/>l9g$b$"$j$^$9!#(B
-$B:8B&$H1&B&$G$OJQ?t$KBP$9$k8z1!aJ#12C8:$9$k!K$OF1$8$G$9$,!"(B
-$B$=$N1i;;$r!VI>2A!W$7$?$H$-$NCM$,0[$J$j$^$9!#(B
+++, -- は変数にだけ適用できる単項演算子で、
+上記のように変数の左側に書く場合の他、
+右側に書く場合もあります。
+左側と右側では変数に対する効院疂１加減する）は同じですが、
+その演算を「評価」したときの値が異なります。
 
 <blockquote>
 <pre>
@@ -426,7 +426,7 @@ j = ++i;
 </pre>
 </blockquote>
 
-i $B$b(B j $B$b#2$K$J$j$^$9!#(Bj $B$K$O(B i $B$NFbMF$,#1A}$d$5$l$?8e$NCM$,F~$j$^$9!#(B
+i も j も２になります。j には i の内容が１増やされた後の値が入ります。
 
 <blockquote>
 <pre>
@@ -435,11 +435,11 @@ j = i++;
 </pre>
 </blockquote>
 
-i $B$O#2!"(Bj $B$O#1$K$J$j$^$9!#(B
-j $B$K$O(B i $B$NFbMF$,#1A}$d$5$l$kA0$NCM$,F~$j$^$9!#(B
+i は２、j は１になります。
+j には i の内容が１増やされる前の値が入ります。
 <p>
 
-++i $B$N$h$&$J<0$K8B$i$:!"IaDL$NBeF~$bCM$r;}$A$^$9!#(B
+++i のような式に限らず、普通の代入も値を持ちます。
 
 <blockquote>
 <pre>
@@ -447,8 +447,8 @@ j = (i = 1) + 1;
 </pre>
 </blockquote>
 
-i = 1 $B$H$$$&<0$O#1$H$$$&CM$r;}$A$^$9$N$G!"(B
-j $B$O$=$l$K#1$r2C$($F#2$K$J$j$^$9!#(B
+i = 1 という式は１という値を持ちますので、
+j はそれに１を加えて２になります。
 
 <blockquote>
 <pre>
@@ -456,13 +456,13 @@ i = j = k = 3;
 </pre>
 </blockquote>
 
-i, j, k $B$H$b#3$,BeF~$5$l$^$9!#(B
-= $B$O1&JU$rI>2A$7$FCM$r5a$a!"(B
-$B:8JU$NJQ?t$KBeF~$7$^$9$N$G!"(B
-$B$3$l$O(B <tt>i = (j = (k = 3));</tt> $B$H$$$&6q9g$K=hM}$5$l$^$9!#(B
+i, j, k とも３が代入されます。
+= は右辺を評価して値を求め、
+左辺の変数に代入しますので、
+これは <tt>i = (j = (k = 3));</tt> という具合に処理されます。
 <p>
 
-$BC"$7!"<!$N$h$&$J=q$-J}$O5v$5$l$F$$$^$;$s!#(B
+但し、次のような書き方は許されていません。
 
 <blockquote>
 <pre>
@@ -470,11 +470,11 @@ i = 1 + j = 3;
 </pre>
 </blockquote>
 
-$B$3$l$O(B = $B$h$j(B + $B$NJ}$,M%@h=g0L$,9b$$$?$a!"(B
-<tt>i = (1 + j) = 3;</tt> $B$H=hM}$5$l$F$7$^$&$?$a$G$9!#(B
-$B#C8@8l$G$O(B <tt>1 + j = 3;</tt> $B$N$h$&$K!"(B
-= $B$N:8JU$K$3$N$h$&$J<0$r=q$/$3$H$O$G$-$^$;$s!#(B
-$B$3$N>l9g$O3g8L$r;H$$$^$9!#(B
+これは = より + の方が優先順位が高いため、
+<tt>i = (1 + j) = 3;</tt> と処理されてしまうためです。
+Ｃ言語では <tt>1 + j = 3;</tt> のように、
+= の左辺にこのような式を書くことはできません。
+この場合は括弧を使います。
 
 <blockquote>
 <pre>
@@ -482,7 +482,7 @@ i = 1 + (j = 3);
 </pre>
 </blockquote>
 
-<a href="k25.html"><h3 align="center">$B"#2]Bj#2#5"#(B</h3></a>
+<a href="k25.html"><h3 align="center">■課題２５■</h3></a>
 <p>
 
 </body>

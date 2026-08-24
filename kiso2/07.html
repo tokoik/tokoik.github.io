@@ -1,92 +1,92 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#72s(B</title>
+<title>情報基礎演習II － 第７回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#72s(B</h1>
+<h1>情報基礎演習II － 第７回</h1>
 
 <hr>
 
-<h2>$B#1!%J8$H%V%m%C%/(B</h2>
+<h2>１．文とブロック</h2>
 
 <a name="bun">
 <hr>
 
-<h3>$BJ8(B</h3></a>
+<h3>文</h3></a>
 
-$BJ8$O%W%m%0%i%`$N9=@.MWAG$N:G>.C10L$G$9!#(B
+文はプログラムの構成要素の最小単位です。
 
 <blockquote>
 <table>
-<tr><td><tt>int x;</tt><td><tt>/* $B@k8@J8(B<td>*/</tt>
-<tr><td><tt>x = 10;</tt><td><tt>/* $BBeF~J8!J<B9TJ8!K(B<td>*/</tt>
-<tr><td><tt>printf("%d\n", x);</tt><td><tt>/* $B4X?t8F$S=P$7!J<B9TJ8!K(B<td>*/</tt>
+<tr><td><tt>int x;</tt><td><tt>/* 宣言文<td>*/</tt>
+<tr><td><tt>x = 10;</tt><td><tt>/* 代入文（実行文）<td>*/</tt>
+<tr><td><tt>printf("%d\n", x);</tt><td><tt>/* 関数呼び出し（実行文）<td>*/</tt>
 </table>
 </blockquote>
 
-$B$R$H$D$NJ8$N=*$j$K$O!"(B
-$BI,$:(B ;$B!J%;%_%3%m%s!K$rCV$-$^$9!#(B
+ひとつの文の終りには、
+必ず ;（セミコロン）を置きます。
 <blockquote>
 <pre>
-$BJ8(B;
-$BJ8(B;
+文;
+文;
 ...
 </pre>
 </blockquote>
-$BJ8$O>e$+$i=g$K<B9T$5$l$^$9!#(B
+文は上から順に実行されます。
 <p>
 
 <a name="block">
 <hr>
 
-<h3>$B%V%m%C%/(B</h3></a>
+<h3>ブロック</h3></a>
 
-$BJ#?t$NJ8$r(B { } $B$G$/$/$C$F$R$H$^$H$a$K$7$?$b$N$r!"(B
-$B%V%m%C%/$H8F$S$^$9!#(B
+複数の文を { } でくくってひとまとめにしたものを、
+ブロックと呼びます。
 
 <blockquote>
 <pre>
 {
-    $BJ8(B;
-    $BJ8(B;
+    文;
+    文;
     ...
 }
 </pre>
 </blockquote>
 
-$B$3$N%V%m%C%/$N:G=i$NItJ,$KJQ?t$N@k8@$r=q$/$3$H$,$G$-$^$9!#(B
+このブロックの最初の部分に変数の宣言を書くことができます。
 
 <blockquote>
 <pre>
 {
-    int x;    /* $BJQ?t@k8@(B */
-    int y;    /* $BJQ?t@k8@(B */
+    int x;    /* 変数宣言 */
+    int y;    /* 変数宣言 */
 
-    x = 10;   /* $B$3$3$+$i8e$O<B9TJ8(B */
+    x = 10;   /* ここから後は実行文 */
     y = 20;
     print("%d+%d=%d\n", x, y, x + y);
 }
 </pre>
 </blockquote>
 
-$B%V%m%C%/$NFbB&$K!"(B
-$B99$K%V%m%C%/$r:n$k$3$H$b$G$-$^$9!J%V%m%C%/$NF~$l;R!K!#(B
+ブロックの内側に、
+更にブロックを作ることもできます（ブロックの入れ子）。
 
 <blockquote>
 <pre>
 {
-    int x;    /* $BJQ?t@k8@(B */
-    int y;    /* $BJQ?t@k8@(B */
+    int x;    /* 変数宣言 */
+    int y;    /* 変数宣言 */
 
-    x = 10;   /* $B$3$3$+$i8e$O<B9TJ8(B */
+    x = 10;   /* ここから後は実行文 */
     y = 20;
     print("%d+%d=%d\n", x, y, x + y);
 
     {
-        int z;      /* $BFbB&$N%V%m%C%/$G$NJQ?t@k8@(B */
+        int z;      /* 内側のブロックでの変数宣言 */
 
-        z = x - y;  /* $B$3$3$+$i8e$OFbB&$N%V%m%C%/$N<B9TJ8(B */
+        z = x - y;  /* ここから後は内側のブロックの実行文 */
         printf("%d-%d=%d\n", x, y, z);
     }
 }
@@ -96,47 +96,47 @@
 
 <hr>
 
-<h2>$B#2!%4X781i;;$HO@M}1i;;(B</h2>
+<h2>２．関係演算と論理演算</h2>
 
 <a name="kankei">
 <hr>
 
-<h3>$B4X781i;;(B</h3></a>
+<h3>関係演算</h3></a>
 
-$B#C8@8l$G$O!"?tCM$NBg>.Hf3S$r<0$H$7$F<h$j07$$$^$9!#(B
-$B$3$N$h$&$J<0$r4X781i;;<0$H8@$$$^$9!#(B
-$B$^$?Bg>.Hf3S$r9T$&1i;;;R$r4X781i;;;R$H8F$S$^$9!#(B
-
-<blockquote>
-<table width="90%" border>
-<tr>
-<td><tt>x &gt; y</tt><td>x $B$,(B y $B$h$jBg$-$$$J$i??(B
-<tr>
-<td><tt>x &gt;= y</tt><td>x $B$,(B y $B0J>e$J$i??(B
-<tr>
-<td><tt>x &lt; y</tt><td>x $B$,(B y $B$h$j>.$5$$$J$i??(B
-<tr>
-<td><tt>x &lt;= y</tt><td>x $B$,(B y $B0J2<$J$i??(B
-<tr>
-<td><tt>x == y</tt><td>x $B$H(B y $B$,Ey$7$$$J$i??(B
-<tr>
-<td><tt>x != y</tt><td>x $B$H(B y $B$,Ey$7$/$J$$$J$i??(B
-</table>
-</blockquote>
-
-$B4X781i;;<0$NCM$O!V??!W!V56!W$N$$$:$l$+$K$J$j$^$9!#(B
-$B$3$N$h$&$JCM$rO@M}CM$H8F$S$^$9!#(B
+Ｃ言語では、数値の大小比較を式として取り扱います。
+このような式を関係演算式と言います。
+また大小比較を行う演算子を関係演算子と呼びます。
 
 <blockquote>
 <table width="90%" border>
-<tr><th width="50%">$B??(B<th width="*">$B56(B
-<tr><td align="center">0 $B$G$J$$@0?t(B<td align="center">0
+<tr>
+<td><tt>x &gt; y</tt><td>x が y より大きいなら真
+<tr>
+<td><tt>x &gt;= y</tt><td>x が y 以上なら真
+<tr>
+<td><tt>x &lt; y</tt><td>x が y より小さいなら真
+<tr>
+<td><tt>x &lt;= y</tt><td>x が y 以下なら真
+<tr>
+<td><tt>x == y</tt><td>x と y が等しいなら真
+<tr>
+<td><tt>x != y</tt><td>x と y が等しくないなら真
 </table>
 </blockquote>
 
-$BO@M}CM$N%G!<%?7?$O@0?t$G$9!#(B
-$B2<$NNc$G$O!"(Bx $B$H(B y $B$,Ey$7$1$l$P(B a $B$K(B 0 $B$G$J$$@0?t$,!"(B
-$BEy$7$/$J$1$l$P(B 0 $B$,F~$j$^$9!#(B
+関係演算式の値は「真」「偽」のいずれかになります。
+このような値を論理値と呼びます。
+
+<blockquote>
+<table width="90%" border>
+<tr><th width="50%">真<th width="*">偽
+<tr><td align="center">0 でない整数<td align="center">0
+</table>
+</blockquote>
+
+論理値のデータ型は整数です。
+下の例では、x と y が等しければ a に 0 でない整数が、
+等しくなければ 0 が入ります。
 
 <blockquote>
 <pre>
@@ -146,9 +146,9 @@ a = x == y;
 </pre>
 </blockquote>
 
-$B$J$*!"J8;zNsF1;N$NHf3S$K$O(B strcmp $B$J$I$N%i%$%V%i%j4X?t$rMQ$$$^$9!#(B
-strcmp $B$O0z?t$KM?$($i$l$?#2$D$NJ8;zNs$NFbMF$,F1$8;~(B 0 $B$rLa$jCM$H$7$F(B
-$BJV$7$^$9$+$i!"2<$NNc$G$OJ8;zNs(B s $B$,(B "abc" $B$N;~$K??$K$J$j$^$9!#(B
+なお、文字列同士の比較には strcmp などのライブラリ関数を用います。
+strcmp は引数に与えられた２つの文字列の内容が同じ時 0 を戻り値として
+返しますから、下の例では文字列 s が "abc" の時に真になります。
 
 <blockquote>
 <pre>
@@ -156,9 +156,9 @@ strcmp(s, "abc") == 0
 </pre>
 </blockquote>
 
-$B4X781i;;;R$NM%@h=g0L$O!"(B
-$B4X781i;;;RF1;N$G$OF1$8$G$9$,!"(B
-$B;MB'1i;;!J2C8:>h=|!K$h$jDc$/$J$C$F$$$^$9!#(B
+関係演算子の優先順位は、
+関係演算子同士では同じですが、
+四則演算（加減乗除）より低くなっています。
 
 <blockquote>
 <pre>
@@ -166,33 +166,33 @@ x + 1 > 10
 </pre>
 </blockquote>
 
-$B>e$NNc$G$O!"(Bx + 1 $B$r7W;;$7$?8e!"$=$N7k2L$H(B 10 $B$rHf3S$7$F$$$^$9!#(B
+上の例では、x + 1 を計算した後、その結果と 10 を比較しています。
 
 <a name="ronri">
 <hr>
 
-<h3>$BO@M}1i;;(B</h3></a>
+<h3>論理演算</h3></a>
 
-$B>e$NO@M}CM$rBP>]$H$7$?1i;;$G$9!#(B
-$B$3$N$h$&$J1i;;$r9T$&1i;;;R$rO@M}1i;;;R$H8F$S$^$9!#(B
+上の論理値を対象とした演算です。
+このような演算を行う演算子を論理演算子と呼びます。
 
 <blockquote>
 <table width="90%" border>
 <tr>
-<td><tt>x &amp;&amp; y</tt><td>x $B$,(B y $B$H$b$K??$N$H$-??(B
+<td><tt>x &amp;&amp; y</tt><td>x が y ともに真のとき真
 <tr>
-<td><tt>x || y</tt><td>x $B$H(B y $B$N$$$:$l$+0lJ}$,??$N$H$-??(B
+<td><tt>x || y</tt><td>x と y のいずれか一方が真のとき真
 <tr>
-<td><tt>!x</tt><td>x $B$,(B $BQ&$J$i??!"??$J$i56!JH?E>!K(B
+<td><tt>!x</tt><td>x が 僞なら真、真なら偽（反転）
 </table>
 </blockquote>
 
-$BO@M}1i;;;R$NM%@h=g0L$O(B <tt>!&gt;&amp;&amp;&gt;||</tt> $B$N=g$G!"(B
-<tt>&amp;&amp;</tt>$B!"(B<tt>||</tt> $B$O4X781i;;;R$h$jDc$/!"(B
-<tt>!</tt> $B$O>h=|$h$j$b9b$/$J$j$^$9!#(B
-$B2<$NNc$G$O(B x &gt;= 16 $B$H(B x &lt 26 $B$r7W;;$7$?8e!"(B
-&amp;&amp; $B$K$h$kO@M}1i;;$,9T$o$l$^$9!#(B
-$B=>$C$F$3$N<0$O(B x $B$,(B 16 $B0J>e(B 26 $BL$K~$N$H$-$K??$K$J$j$^$9!#(B
+論理演算子の優先順位は <tt>!&gt;&amp;&amp;&gt;||</tt> の順で、
+<tt>&amp;&amp;</tt>、<tt>||</tt> は関係演算子より低く、
+<tt>!</tt> は乗除よりも高くなります。
+下の例では x &gt;= 16 と x &lt 26 を計算した後、
+&amp;&amp; による論理演算が行われます。
+従ってこの式は x が 16 以上 26 未満のときに真になります。
 
 <blockquote>
 <pre>
@@ -200,7 +200,7 @@ x &gt;= 16 && x &lt 26
 </pre>
 </blockquote>
 
-$BO@M}1i;;<0$NCM$OO@M}CM$K$J$j$^$9!#(B
+論理演算式の値は論理値になります。
 
 <blockquote>
 <pre>
@@ -208,8 +208,8 @@ x &gt;= 16 && x &lt 26
 </pre>
 </blockquote>
 
-$B$3$NNc$G$O(B !x $B$,@h$K7W;;$5$l$k$?$a!"(B
-$B$3$N<0$O(B x $B$,56$+!"$"$k$$$O(B y $B$,??$N$H$-??$K$J$j$^$9!#(B
+この例では !x が先に計算されるため、
+この式は x が偽か、あるいは y が真のとき真になります。
 
 <blockquote>
 <table width="90%" border>
@@ -221,27 +221,27 @@ x &gt;= 16 && x &lt 26
 </table>
 </blockquote>
 
-$B0lJ}!">e$N:8$NNc$G$O(B x || y $B$r7W;;$7$?8e$K(B ! $B1i;;;R$K$h$k7W;;$,(B
-$B9T$o$l$k$N$G!"$3$N<0$O(B x $B$H(B y $B$,N>J}$H$b56$N$H$-??$K$J$j$^$9!#(B
-$B$9$J$o$A!"$3$N<0$O!">e$N1&$N<0$HEy2A$G$9!#(B
+一方、上の左の例では x || y を計算した後に ! 演算子による計算が
+行われるので、この式は x と y が両方とも偽のとき真になります。
+すなわち、この式は、上の右の式と等価です。
 <p>
 
 <hr>
 
-<h2>$B#3!%@)8f9=B$(B</h2>
+<h2>３．制御構造</h2>
 
 <hr>
 
 <h3>if</h3>
 
-if $B$H$$$&%-!<%o!<%I$r;H$($P!"(B
-$B!V>r7o!W$K$h$C$FFCDj$N=hM}$r9T$C$?$j!"(B
-$B9T$o$J$+$C$?$j$9$k$3$H$,$G$-$^$9!#(B
+if というキーワードを使えば、
+「条件」によって特定の処理を行ったり、
+行わなかったりすることができます。
 <p>
 
-if $B$N8e$KB3$/(B ( ) $BFb$NO@M}CM$,??$J$i!"(B
-$B$=$ND>8e$N(B { } $B$K=q$+$l$?=hM}$r<B9T$7!"(B
-$B56!J??$G$J$$>l9g!K$J$i(B else $B$N8e$N(B { } $BFb$N=hM}$r<B9T$7$^$9!#(B
+if の後に続く ( ) 内の論理値が真なら、
+その直後の { } に書かれた処理を実行し、
+偽（真でない場合）なら else の後の { } 内の処理を実行します。
 
 <blockquote>
 <pre>
@@ -254,14 +254,14 @@ else {
 </pre>
 </blockquote>
 
-x $B$,(B y $B$h$jBg$-$$!J(Bx &gt; y $B$,??!K$J$i(B z = x $B$r<B9T$7!"(B
-$B>.$5$$!J(Bx &gt; y $B$,56!K$J$i(B z = y $B$r<B9T$7$^$9!#(B
-$B$3$N7k2L!"(Bz $B$K$O(B x $B$H(B y $B$NBg$-$$$[$&$NCM$,F~$j$^$9!#(B
+x が y より大きい（x &gt; y が真）なら z = x を実行し、
+小さい（x &gt; y が偽）なら z = y を実行します。
+この結果、z には x と y の大きいほうの値が入ります。
 <p>
 
-if ( ) $B$d(B else $B$KB3$1$F!"(B
-$B%V%m%C%/$"$k$$$OC10l$NJ8$rCV$/$3$H$,$G$-$^$9!#(B
-$B=>$C$F!">e$NNc$O2<$N$h$&$K=q$/$3$H$b$G$-$^$9!#(B
+if ( ) や else に続けて、
+ブロックあるいは単一の文を置くことができます。
+従って、上の例は下のように書くこともできます。
 <p>
 
 <blockquote>
@@ -273,9 +273,9 @@ else
 </pre>
 </blockquote>
 
-$B$7$+$7!"(B{ } $B$r>JN,$9$k$HHs>o$K8+$D$1$K$/$$%W%m%0%i%`$N%_%9$r(B
-$BM6H/$9$k$3$H$,$"$j$^$9!#(B
-$B>JN,2DG=$G$b>JN,$7$J$$J}$,$$$$$N$G$O$J$$$+$H;W$$$^$9!#(B
+しかし、{ } を省略すると非常に見つけにくいプログラムのミスを
+誘発することがあります。
+省略可能でも省略しない方がいいのではないかと思います。
 
 <blockquote>
 <table width="90%" border>
@@ -299,13 +299,13 @@ if (x &gt; 0)
 </table>
 </blockquote>
 
-$B>e$N#2$D$NNc$OF1$8$b$N$G$9$,!"(B
-$B:8$N$b$N$O!"(Bx &gt; 0 $B$,??$N;~$K(B z = 2 $B$,<B9T$5$l$k$h$&$K8+$($^$9!#(B
-$B$7$+$7!"<B:]$K$O$3$N(B else $B$O#2$DL\$N(B if $B$KBP1~$7$^$9!#(B
-$B1&$NNc$b4+$a$i$l$^$;$s!#(B{ } $B$r;H$C$F=q$/$Y$-$G$7$g$&!#(B
+上の２つの例は同じものですが、
+左のものは、x &gt; 0 が真の時に z = 2 が実行されるように見えます。
+しかし、実際にはこの else は２つ目の if に対応します。
+右の例も勧められません。{ } を使って書くべきでしょう。
 <p>
 
-else $B$KB3$/=hM}$,I,MW$J$1$l$P!"(Belse $B0J9_$O>JN,$G$-$^$9!#(B
+else に続く処理が必要なければ、else 以降は省略できます。
 
 <blockquote>
 <table width="90%" border>
@@ -323,90 +323,90 @@ if (x &lt; 0) x = -x;
 </table>
 </blockquote>
 
-$B$$$:$l$b(B x $B$,Ii!J(Bx &lt; 0 $B$,??!K$J$i(B x = -x; $B$r<B9T$7$^$9!#(B
-$B$9$J$o$A(B x $B$N@dBPCM$r5a$a$^$9!#(B
+いずれも x が負（x &lt; 0 が真）なら x = -x; を実行します。
+すなわち x の絶対値を求めます。
 <p>
 
-else $B$N8e$K$^$?(B if $B$rCV$/$3$H$,$G$-$^$9!#(B
+else の後にまた if を置くことができます。
 
 <blockquote>
 <pre>
 if (x &lt; 0) {
-    printf("x $B$OIi$G$9(B\n");
+    printf("x は負です\n");
 }
 else if (x == 0) {
-    printf("x $B$O#0$G$9(B\n");
+    printf("x は０です\n");
 }
-else { /* $BIi$G$b#0$G$b$J$1$l$P@5(B */
-    printf("x $B$O@5$G$9(B\n");
+else { /* 負でも０でもなければ正 */
+    printf("x は正です\n");
 }
 </pre>
 </blockquote>
 
-<a href="k26.html"><h3 align="center">$B"#2]Bj#2#6"#(B</h3></a>
-<a href="k27.html"><h3 align="center">$B"#2]Bj#2#7"#(B</h3></a>
-<a href="k28.html"><h3 align="center">$B"#2]Bj#2#8"#(B</h3></a>
+<a href="k26.html"><h3 align="center">■課題２６■</h3></a>
+<a href="k27.html"><h3 align="center">■課題２７■</h3></a>
+<a href="k28.html"><h3 align="center">■課題２８■</h3></a>
 <p>
 
 <hr>
 
 <h3>while</h3>
 
-while $B$H$$$&%-!<%o!<%I$r;H$($P!"(B
-$B$"$k>r7o$,@.N)$9$k!J??$G$"$k!K4V!"(B
-$BF1$8=hM}$r7+$jJV$9$3$H$,$G$-$^$9!#(B
+while というキーワードを使えば、
+ある条件が成立する（真である）間、
+同じ処理を繰り返すことができます。
 <p>
 
-while $B$N8e$KB3$/(B ( ) $BFb$N>r7o$,??$J$i!"(B
-$B$=$ND>8e$N(B { } $BFb$N=hM}$r<B9T$7$F:FEY>r7o$rD4$Y$^$9!#(B
-$B>r7o$,??$J$i!"F1$8$3$H$r7+$jJV$7$^$9!#(B
+while の後に続く ( ) 内の条件が真なら、
+その直後の { } 内の処理を実行して再度条件を調べます。
+条件が真なら、同じことを繰り返します。
 <p>
 <blockquote>
 <pre>
 int i;
 i = 0;
 while (i &lt; 5) {
-    printf("$B$*$O$h$&$5$s(B\n");
+    printf("おはようさん\n");
     i++;
 }
 </pre>
 </blockquote>
 
-$B$3$l$O!V$*$O$h$&$5$s!W$H#12s=PNO$9$kEY$K(B
-i $B$r#1A}$9$H$$$&=hM}$r!"(Bi &lt; 5 $B$N4V7+$jJV$7$^$9!#(B
+これは「おはようさん」と１回出力する度に
+i を１増すという処理を、i &lt; 5 の間繰り返します。
 <p>
 
-$B=>$C$F!"(Bi $B$O(B 0, 1, 2, 3, 4, 5 $B$HJQ2=$7!"(B
-i $B$,(B 5 $B$N$H$-$O(B { } $BFb$N=hM}$O<B9T$;$:$K<!$K?J$_$^$9!#(B
+従って、i は 0, 1, 2, 3, 4, 5 と変化し、
+i が 5 のときは { } 内の処理は実行せずに次に進みます。
 <p>
 
-$B$3$N7k2L!V$*$O$h$&$5$s!W$O(B i $B$,(B 0, 1, 2, 3, 4 $B$N$H$-!"(B
-$B$9$J$o$A#52s=PNO$5$l$^$9!#(B
+この結果「おはようさん」は i が 0, 1, 2, 3, 4 のとき、
+すなわち５回出力されます。
 <p>
 
-if $B$HF1MM(B while ( ) $B$KB3$/(B { } $BFb$,C10l$NJ8$N$H$-$O!"(B
-{ } $B$r>JN,$G$-$^$9!#(B
+if と同様 while ( ) に続く { } 内が単一の文のときは、
+{ } を省略できます。
 
 <blockquote>
 <pre>
 int i;
 i = 0;
-while (i &lt; 5) printf("%d $B2sL\$N$*$O$h$&$5$s(B\n", ++i);
+while (i &lt; 5) printf("%d 回目のおはようさん\n", ++i);
 </pre>
 </blockquote>
 
-$B$J$*!">e$N%W%m%0%i%`$O<!$N$h$&$K=q$/$3$H$b$G$-$^$9!#(B
+なお、上のプログラムは次のように書くこともできます。
 
 <blockquote>
 <pre>
 int i;
 i = 0;
-while (i++ &lt; 5) printf("%d $B2sL\$N$*$O$h$&$5$s(B\n", i);
+while (i++ &lt; 5) printf("%d 回目のおはようさん\n", i);
 </pre>
 </blockquote>
 
-<a href="k29.html"><h3 align="center">$B"#2]Bj#2#9"#(B</h3></a>
-<a href="k30.html"><h3 align="center">$B"#2]Bj#3#0"#(B</h3></a>
+<a href="k29.html"><h3 align="center">■課題２９■</h3></a>
+<a href="k30.html"><h3 align="center">■課題３０■</h3></a>
 <p>
 
 </body>

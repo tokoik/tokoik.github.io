@@ -1,31 +1,31 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#32s(B</title>
+<title>情報基礎演習II － 第１３回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#32s(B</h1>
+<h1>情報基礎演習II － 第１３回</h1>
 
 <hr>
 
-<h2>$B#1!%<B?t7W;;(B</h2>
+<h2>１．実数計算</h2>
 
 <hr>
 
-$B<B?t7W;;$N:]$K;HMQ$9$k0lHLE*$J;;=Q4X?t$O!"(B
-printf $B$J$I$N%i%$%V%i%j4X?t$,<}$a$i$l$F$$$k(B
-$B#C8@8l$NI8=`E*$J%i%$%V%i%j%U%!%$%k$H$OJL$N!"(B
-$B;;=Q%i%$%V%i%j%U%!%$%k$K<}$a$i$l$F$$$^$9!#(B
+実数計算の際に使用する一般的な算術関数は、
+printf などのライブラリ関数が収められている
+Ｃ言語の標準的なライブラリファイルとは別の、
+算術ライブラリファイルに収められています。
 <p>
 
-$B$3$l$i$r;HMQ$9$k>l9g$K$O!"(B
-$B%=!<%9%W%m%0%i%`$N:G=i$NJ}$K(B
-<a href="h09.html">$B%X%C%@%U%!%$%k(B
+これらを使用する場合には、
+ソースプログラムの最初の方に
+<a href="h09.html">ヘッダファイル
 <tt>#include &lt;math.h&gt;</a>
-$B$rCV$/$[$+!"(B
-$B%3%s%Q%$%k$N:]!"(Bcc $B%3%^%s%I$K(B -lm $B$H$$$&%*%W%7%g%s(B
-$B!J$3$l$O;;=Q%i%$%V%i%j%U%!%$%k$r;H$&$3$H$r0UL#$7$^$9!K(B
-$B$rIU$1$^$9!#(B
+を置くほか、
+コンパイルの際、cc コマンドに -lm というオプション
+（これは算術ライブラリファイルを使うことを意味します）
+を付けます。
 
 <blockquote>
 <pre>
@@ -33,42 +33,42 @@ printf $B$J$I$N%i%$%V%i%j4X?t$,<}$a$i$l$F$$$k(B
 </pre>
 </blockquote>
 
-$B;;=Q%i%$%V%i%j$K$O<!$N$h$&$J$b$N$,$"$j$^$9!#(B
+算術ライブラリには次のようなものがあります。
 
 <blockquote>
 <dl>
 <dt><b>double sin(double x)</b>
-<dd>x$B!J%i%8%"%s!K$N@589$rJV$7$^$9!#(B
+<dd>x（ラジアン）の正弦を返します。
 <dt><b>double cos(double x)</b>
-<dd>x$B!J%i%8%"%s!K$NM>89$rJV$7$^$9!#(B
+<dd>x（ラジアン）の余弦を返します。
 <dt><b>double tan(double x)</b>
-<dd>x$B!J%i%8%"%s!K$N@5@\$rJV$7$^$9!#(B
+<dd>x（ラジアン）の正接を返します。
 <dt><b>double asin(double x)</b>
-<dd>x $B$N5U@589$r(B -$B&P(B/2 $B$+$i&P(B/2 $B$NHO0O$G%i%8%"%s$GJV$7$^$9!#(B
+<dd>x の逆正弦を -π/2 からπ/2 の範囲でラジアンで返します。
 <dt><b>double acos(double x)</b>
-<dd>x $B$N5UM>89$r(B 0 $B$+$i&P$NHO0O$G%i%8%"%s$GJV$7$^$9!#(B
+<dd>x の逆余弦を 0 からπの範囲でラジアンで返します。
 <dt><b>double atan(double x)</b>
-<dd>x $B$N5U@5@\$r(B -$B&P(B/2 $B$+$i&P(B/2 $B$NHO0O$G%i%8%"%s$GJV$7$^$9!#(B
+<dd>x の逆正接を -π/2 からπ/2 の範囲でラジアンで返します。
 <dt><b>double atan2(double y, double x)</b>
-<dd>y / x $B$N5U@5@\$r(B -$B&P(B/2 $B$+$i&P(B/2 $B$NHO0O$G%i%8%"%s$GJV$7$^$9!#(B
+<dd>y / x の逆正接を -π/2 からπ/2 の範囲でラジアンで返します。
 <dt><b>double log(double x)</b>
-<dd>x $B$N<+A3BP?t$rJV$7$^$9!#(B
+<dd>x の自然対数を返します。
 <dt><b>double log10(double x)</b>
-<dd>x $B$N(B 10 $B$rDl$H$7$?BP?t$rJV$7$^$9!#(B
+<dd>x の 10 を底とした対数を返します。
 <dt><b>double exp(double x)</b>
-<dd><i>e</i><sup>x</sup> $B$rJV$7$^$9!#(B
+<dd><i>e</i><sup>x</sup> を返します。
 <dt><b>double pow(double x, double y)</b>
-<dd>x $B$N(B y $B>e$rJV$7$^$9!##2>h$d#3>h$/$i$$$J$i!"(B
-$B$3$l$r;H$&$h$j(B x*x $B$H$+(B x*x*x $B$J$I$H$7$?J}$,(B
-$B9bB.$G@:EY$b9b$/$J$j$^$9!#(B
+<dd>x の y 上を返します。２乗や３乗くらいなら、
+これを使うより x*x とか x*x*x などとした方が
+高速で精度も高くなります。
 <dt><b>double sqrt(double x)</b>
-<dd>x $B$NJ?J}:,$rJV$7$^$9!#(B
+<dd>x の平方根を返します。
 <dt><b>double cbrt(double x)</b>
-<dd>x $B$NN)J}:,$rJV$7$^$9!#(B
+<dd>x の立方根を返します。
 </dl>
 </blockquote>
 
-$BB>$K$b?'!9$"$j$^$9!#(B
+他にも色々あります。
 
 <blockquote>
 <pre>
@@ -76,12 +76,12 @@ printf $B$J$I$N%i%$%V%i%j4X?t$,<}$a$i$l$F$$$k(B
 </pre>
 </blockquote>
 
-$B$r8+$F$*$$$F$/$@$5$$!#(B
+を見ておいてください。
 <p>
 
-<a href="k58.html"><h3 align="center">$B"#2]Bj#5#8"#(B</h3></a>
-<a href="k59.html"><h3 align="center">$B"#2]Bj#5#9"#(B</h3></a>
-<a href="k60.html"><h3 align="center">$B"#2]Bj#6#0"#(B</h3></a>
-<a href="k61.html"><h3 align="center">$B"#2]Bj#6#1"#(B</h3></a>
+<a href="k58.html"><h3 align="center">■課題５８■</h3></a>
+<a href="k59.html"><h3 align="center">■課題５９■</h3></a>
+<a href="k60.html"><h3 align="center">■課題６０■</h3></a>
+<a href="k61.html"><h3 align="center">■課題６１■</h3></a>
 
 </body>

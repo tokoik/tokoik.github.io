@@ -1,63 +1,63 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#9(B</title>
+<title>情報基礎演習II － 課題９</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#9(B</h3>
+<h3>課題９</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N%=!<%9%W%m%0%i%`$rFI$s$G$/$@$5$$!#(B
+<li>次のソースプログラムを読んでください。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai9
-** $BF0:n(B: $B$$$D$^$G$b=*$o$i$J$$(B
+** プログラム名: kadai9
+** 動作: いつまでも終わらない
 */
 
-/* $B4X?t(B sub $B$NDj5A(B */
+/* 関数 sub の定義 */
 void sub(void)
 {
     sub();
 }
 
-/* $B%a%$%s%W%m%0%i%`(B */
+/* メインプログラム */
 int main(void)
 {
-    sub();    /* $B4X?t(B sub $B$N8F$S=P$7(B */
+    sub();    /* 関数 sub の呼び出し */
     return 0;
 }
 </pre>
 </table>
 <p>
 
-<li>$B<B$O!"$3$N%W%m%0%i%`$O$A$g$C$H<B9T$K;~4V$,$+$+$C$?8e!"(B
-$B%3%s%T%e!<%?$N%a%b%j$r;H$$2L$?$7$F0[>o=*N;$7$^$9!#(B
+<li>実は、このプログラムはちょっと実行に時間がかかった後、
+コンピュータのメモリを使い果たして異常終了します。
 <p>
 
-<li>$B$H$$$&$3$H$G!"(B
-$B$3$N%W%m%0%i$O<B9T$9$kI,MW$"$j$^$;$s!#(B
-$B$b$7<B9T$7$?>l9g$O(B
-$B%a%b%j$r;H$$?T$/$9A0$K(B Ctrl-C$B!J(BCtrl $B%-!<$r2!$7$J$,$i(B C $B$N%-!<$r2!$9!K(B
-$B$G;_$a$F$/$@$5$$!#(B
-$B$^$?(B core $B$H$$$&%U%!%$%k$,$G$-$F$$$?$i!"(B
-$B$=$l$b>C$7$F$/$@$5$$!#(B
+<li>ということで、
+このプログラは実行する必要ありません。
+もし実行した場合は
+メモリを使い尽くす前に Ctrl-C（Ctrl キーを押しながら C のキーを押す）
+で止めてください。
+また core というファイルができていたら、
+それも消してください。
 
 <blockquote>
 % rm core
 </blockquote>
 
-<li>$B$3$N%W%m%0%i%`$N<B9T$K;~4V$,$+$+$j!"(B
-$B$=$N$&$A0[>o=*N;$7$F$7$^$&M}M3$r9M;!$7$F!"(B
-$B%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai9 $B$H$7$F$/$@$5$$!#(B
+<li>このプログラムの実行に時間がかかり、
+そのうち異常終了してしまう理由を考察して、
+メールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai9 としてください。
 
 </ol>
 

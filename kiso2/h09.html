@@ -1,22 +1,22 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BJdB-#9(B</title>
+<title>情報基礎演習II － 補足９</title>
 </head>
 
 <body>
 
-<h3>$BJdB-#9!'%i%$%V%i%j4X?t$N%X%C%@%U%!%$%k$K$D$$$F(B</h3>
+<h3>補足９：ライブラリ関数のヘッダファイルについて</h3>
 
 <hr>
 
-printf/scanf $B0J30$K$b!"(B
-$B%7%9%F%`$K:G=i$+$iMQ0U$5$l$F$$$k4X?t!J%i%$%V%i%j4X?t!K$r;HMQ$9$k>l9g$K$O!"(B
-$B$=$N4X?t%W%m%H%?%$%W$,5-=R$5$l$F$$$k%X%C%@%U%!%$%k$r(B
-<tt>#include</tt>$B$9$kI,MW$,$"$j$^$9!#(B
+printf/scanf 以外にも、
+システムに最初から用意されている関数（ライブラリ関数）を使用する場合には、
+その関数プロトタイプが記述されているヘッダファイルを
+<tt>#include</tt>する必要があります。
 <p>
 
-$B$I$N$h$&$J%X%C%@%U%!%$%k$,I,MW$J$N$+$O!"(B
-man $B%3%^%s%I$K$h$C$FCN$k$3$H$,$G$-$^$9!#(B
-$BNc$($P;03Q4X?t$r7W;;$9$k;;=Q4X?t(B sin/cos $B$r;HMQ$7$h$&$H$9$k$H$-$O!"(B
+どのようなヘッダファイルが必要なのかは、
+man コマンドによって知ることができます。
+例えば三角関数を計算する算術関数 sin/cos を使用しようとするときは、
 
 <blockquote>
 <pre>
@@ -24,9 +24,9 @@ man $B%3%^%s%I$K$h$C$FCN$k$3$H$,$G$-$^$9!#(B
 </pre>
 </blockquote>
 
-$B$r<B9T$9$l$P!"(Bmath.h $B$r(B <tt>#include</tt> $B$9$l$P$h$$$3$H$,J,$+$j$^$9(B
-$B!J$3$NB>!"%3%s%Q%$%k$N:](B cc $B%3%^%s%I$N:G8e$K(B -lm $B$H$$$&%*%W%7%g%s$r(B
-$BIU$1$kI,MW$,$"$j$^$9!K!#(B
+を実行すれば、math.h を <tt>#include</tt> すればよいことが分かります
+（この他、コンパイルの際 cc コマンドの最後に -lm というオプションを
+付ける必要があります）。
 <p>
 
 <hr>
@@ -54,7 +54,7 @@ SYNOPSIS
      float ftan(float x);
      float tanf(float x);
 
-$B!J0J2<N,!K(B
+（以下略）
 </pre>
 
 </body>

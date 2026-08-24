@@ -1,29 +1,29 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $B2]Bj#4#2(B</title>
+<title>情報基礎演習II － 課題４２</title>
 </head>
 
 <body>
 
-<h3>$B2]Bj#4#2(B</h3>
+<h3>課題４２</h3>
 
 <hr>
 
 <ol>
 
-<li>$B<!$N4X?t(B stringcopy $B$O!"(B
-$B#2$DL\$N0z?t(B (b) $B$K;XDj$5$l$?J8;zNs$r!"(B
-$B#1$DL\$N0z?t(B (a) $B$K;XDj$5$l$?G[Ns$NNN0h$K%3%T!<$7$^$9(B
-$B!J(Bstrcpy $B$HF1$8!K!#(B
+<li>次の関数 stringcopy は、
+２つ目の引数 (b) に指定された文字列を、
+１つ目の引数 (a) に指定された配列の領域にコピーします
+（strcpy と同じ）。
 <p>
 
 <table width="90%" border bgcolor="#ffffff">
 <tr><td>
 <pre>
 /*
-** $B%W%m%0%i%`L>(B: kadai42
-** $BF0:n(B: $BJ8;zNs$N%3%T!<(B
-** $B:n<T(B: $B<+J,$NL>A0!"3X@RHV9f(B
-** $BF|IU(B: $B:#F|$NF|IU(B
+** プログラム名: kadai42
+** 動作: 文字列のコピー
+** 作者: 自分の名前、学籍番号
+** 日付: 今日の日付
 */
 void stringcopy(char a[], char b[])
 {
@@ -36,20 +36,20 @@ void stringcopy(char a[], char b[])
 </table>
 <p>
 
-<li>$BJ8;zNs$N:G8e$O(B '\0'$B!"$9$J$o$A@0?t$N(B 0 $B$KEy$7$$$N$G!"(B
-<tt>a[i++] = b[i++]</tt> $B$H$$$&<0$NCM$OJ8;zNs$N:G8e$G(B 0 $B$K$J$j!"(B
-while $B$N>r7o$,56$K$J$C$F$3$N7+$jJV$7$O=*N;$7$^$9!#(B
-$B$J$*!"$3$N(B while $B$K$h$C$F7+$jJV$5$l$kJ8$O6uJ8!J(B; $B$N$_!K$K$J$C$F$$$^$9!#(B
+<li>文字列の最後は '\0'、すなわち整数の 0 に等しいので、
+<tt>a[i++] = b[i++]</tt> という式の値は文字列の最後で 0 になり、
+while の条件が偽になってこの繰り返しは終了します。
+なお、この while によって繰り返される文は空文（; のみ）になっています。
 <p>
 
-<li>$B$3$N<0(B <tt>a[i++] = b[i++]</tt> $B$r!"(B
-i, j $B$r;H$o$:$K%]%$%s%?$r;H$&$h$&$K=q$-49$($F$/$@$5$$!#(B
+<li>この式 <tt>a[i++] = b[i++]</tt> を、
+i, j を使わずにポインタを使うように書き換えてください。
 <p>
 
-<li>$B%=!<%9%W%m%0%i%`$N%U%!%$%kL>$O(B kadai42.c $B$H$7!"(B
-$B$=$l$r%a!<%k$G(B
-<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>$B$^$GAw$C$F$/$@$5$$!#(B
-Subject: $B$O(B kadai42 $B$H$7$F$/$@$5$$!#(B
+<li>ソースプログラムのファイル名は kadai42.c とし、
+それをメールで
+<a href="mailto:tokoi@center.wakayama-u.ac.jp">tokoi</a>まで送ってください。
+Subject: は kadai42 としてください。
 
 </ol>
 

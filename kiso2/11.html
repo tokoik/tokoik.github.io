@@ -1,19 +1,19 @@
 <head>
-<title>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#12s(B</title>
+<title>情報基礎演習II － 第１１回</title>
 </head>
 
 <body>
 
-<h1>$B>pJs4pAC1i=,(BII $B!](B $BBh#1#12s(B</h1>
+<h1>情報基礎演習II － 第１１回</h1>
 
 <hr>
 
-<h2>$B#1!%%G!<%?7?$NDj5A(B</h2>
+<h2>１．データ型の定義</h2>
 
 <hr>
 
-char $B$d(B int $B$J$I!":G=i$+$iMQ0U$5$l$F$$$k$b$N0J30$K!"(B
-$B<+J,$G%G!<%?7?$rDj5A$9$k$3$H$b$G$-$^$9!#(B
+char や int など、最初から用意されているもの以外に、
+自分でデータ型を定義することもできます。
 
 <blockquote>
 <pre>
@@ -21,11 +21,11 @@ typedef unsigned short word;
 </pre>
 </blockquote>
 
-$B>e$NDj5A$K$h$C$F!"(B
-word $B$H$$$&?7$7$$%G!<%?7?$,;H$($k$h$&$K$J$j$^$9!#(B
-$B$3$l$O(B unsigned short $B$HF1$8$G$9!#(B
-$B$3$NDj5A$N8e$+$i!"(B
-$B<!$N$h$&$JJQ?t@k8@$,$G$-$k$h$&$K$J$j$^$9!#(B
+上の定義によって、
+word という新しいデータ型が使えるようになります。
+これは unsigned short と同じです。
+この定義の後から、
+次のような変数宣言ができるようになります。
 
 <blockquote>
 <pre>
@@ -33,7 +33,7 @@ word w;
 </pre>
 </blockquote>
 
-$BG[Ns$N$h$&$KJ#?t$NMWAG$r;}$C$?%G!<%?7?$rDj5A$9$k$3$H$b$G$-$^$9!#(B
+配列のように複数の要素を持ったデータ型を定義することもできます。
 
 <blockquote>
 <pre>
@@ -41,10 +41,10 @@ typedef float vector[3];
 </pre>
 </blockquote>
 
-$B>e$NNc$N>l9g!"(B
-vector $B$O(B float $B7?$N#38D$NMWAG$r;}$DG[Ns$N%G!<%?7?$K$J$j$^$9!#(B
-$B=>$C$F$3$NDj5A$N8e!"<!$N$h$&$KJQ?t@k8@$r9T$&$H!"(B
-normal $B$O#3$D$NMWAG$r;}$C$?G[NsJQ?t$H$7$F@k8@$5$l$^$9!#(B
+上の例の場合、
+vector は float 型の３個の要素を持つ配列のデータ型になります。
+従ってこの定義の後、次のように変数宣言を行うと、
+normal は３つの要素を持った配列変数として宣言されます。
 
 <blockquote>
 <pre>
@@ -52,7 +52,7 @@ vector normal;
 </pre>
 </blockquote>
 
-$BDj5A$7$?7?$r$b$H$K!"$5$i$K?7$7$$7?$r:n$k$3$H$b$G$-$^$9!#(B
+定義した型をもとに、さらに新しい型を作ることもできます。
 
 <blockquote>
 <pre>
@@ -60,31 +60,31 @@ typedef vector matrix[3];
 </pre>
 </blockquote>
 
-$B>e$K$h$C$FDj5A$5$l$?(B matrix $B$O(B
-$B#3!_#3$NMWAG$r;}$D#2<!85G[NsJQ?t$r@k8@$7$^$9!#(B
+上によって定義された matrix は
+３×３の要素を持つ２次元配列変数を宣言します。
 <p>
 
-<a href="k49.html"><h3 align="center">$B"#2]Bj#4#9"#(B</h3></a>
+<a href="k49.html"><h3 align="center">■課題４９■</h3></a>
 
 <hr>
 
-<h2>$B#2!%9=B$BN(B</h2>
+<h2>２．構造体</h2>
 
 <hr>
 
-$B%W%m%0%i%`$r=q$$$F$$$k$H!"(B
-$BJ#?t$N%G!<%?$r$R$H$D$K$^$H$a$F<h$j07$$$?$$$H;W$&>lLL$,(B
-$B>/$J$+$i$:$"$j$^$9!#(B
-$B7r9/?GCG$N%G!<%?$rNc$K$H$C$F9M$($F$_$^$7$g$&!#(B
+プログラムを書いていると、
+複数のデータをひとつにまとめて取り扱いたいと思う場面が
+少なからずあります。
+健康診断のデータを例にとって考えてみましょう。
 
 <ul>
-<li>$B?HD9(B
-<li>$BBN=E(B
-<li>$B6;0O(B
+<li>身長
+<li>体重
+<li>胸囲
 </ul>
 
-$B$3$l$,0l?MJ,$N%G!<%?$@$H$9$l$P!"(B
-$BG[Ns$r;H$C$F<!$N$h$&$KI=$9$3$H$,$G$-$^$9!#(B
+これが一人分のデータだとすれば、
+配列を使って次のように表すことができます。
 
 <blockquote>
 <pre>
@@ -92,22 +92,22 @@ float data[3];
 </pre>
 </blockquote>
 
-$B$3$NNc$G$O!"(B
-$BG[NsJQ?t(B data[0] $B$K?HD9!"(B
-data[1] $B$KBN=E!"(B
-data[2] $B$K6;0O$r3JG<$9$k$H7h$a$F$*$1$P!"(B
-data $B$H$$$&G[NsJQ?t$R$H$D$G!"(B
-$B0l?MJ,$N%G!<%?$rJ]B8$9$k$3$H$,$G$-$^$9!#(B
+この例では、
+配列変数 data[0] に身長、
+data[1] に体重、
+data[2] に胸囲を格納すると決めておけば、
+data という配列変数ひとつで、
+一人分のデータを保存することができます。
 <p>
 
-$B<!$K!"$3$N%G!<%?$KHo83<T$N;aL>$b4^$a$h$&$H9M$($?$H$7$^$9!#(B
-$B?HD9$dBN=E!"6;0O$O?tCM$G$7$?$+$i!"(B
-$B$3$l$i$O$$$:$l$b(B float $B7?$N%G!<%?$H$7$FE}0l$G$-$^$7$?$,!"(B
-$B;aL>$OJ8;zNs$GI=$9I,MW$,$"$j$^$9!#(B
-$B$3$l$O(B float $B7?$NG[Ns$G$"$k(B data $B$K4^$a$k$3$H$O$G$-$^$;$s!#(B
+次に、このデータに被験者の氏名も含めようと考えたとします。
+身長や体重、胸囲は数値でしたから、
+これらはいずれも float 型のデータとして統一できましたが、
+氏名は文字列で表す必要があります。
+これは float 型の配列である data に含めることはできません。
 <p>
 
-$B$=$&8@$&>l9g$K!"(B<b>$B9=B$BN(B</b>$B$H$$$&%G!<%?7?$rMQ$$$^$9!#(B
+そう言う場合に、<b>構造体</b>というデータ型を用います。
 <p>
 
 <blockquote>
@@ -122,18 +122,18 @@ struct kenshin {
 </blockquote>
 
 
-$BJQ?t$N@k8@!J>e$NNc$G$O(B data$B!K$O>JN,$G$-$^$9!#(B
-$B$3$N>l9g!"9=B$BN$NDj5A$N$_$r9T$$$^$9!#(B
+変数の宣言（上の例では data）は省略できます。
+この場合、構造体の定義のみを行います。
 <p>
 
-$B9=B$BN$N3FMWAG$r;XDj$9$k$K$O!"(B
-$B9=B$BNJQ?tL>$N8e$K(B .$B!J%T%j%*%I!K$KB3$1$FMWAGL>$r=q$-$^$9!#(B
-$B>e$NNc$G@k8@$5$l$?9=B$BNJQ?t(B data $B$N3FMWAG$O!"(B
-$B<!$N$h$&$K;XDj$7$^$9!#(B
+構造体の各要素を指定するには、
+構造体変数名の後に .（ピリオド）に続けて要素名を書きます。
+上の例で宣言された構造体変数 data の各要素は、
+次のように指定します。
 
 <blockquote>
 <pre>
-/* i-dic $B$K$h$kNkLZ0I<y$N%G!<%?(B */
+/* i-dic による鈴木杏樹のデータ */
 strcpy(data.name, "Anju Suzuki");
 data.height = 161.0;
 data.weight = 43.0;
@@ -141,9 +141,9 @@ data.bust = 81.0;
 </pre>
 </blockquote>
 
-$B9=B$BN$r0lEYDj5A$9$l$P!"(B
-$BF1$89=B$$r$b$D9=B$BNJQ?t$O(B
-$B9=B$BNL>!J>e$NNc$G$O(B kenshin$B!K$N$_$r;XDj$7$F@k8@$G$-$^$9!#(B
+構造体を一度定義すれば、
+同じ構造をもつ構造体変数は
+構造体名（上の例では kenshin）のみを指定して宣言できます。
 
 <blockquote>
 <pre>
@@ -151,8 +151,8 @@ struct kenshin anotherData;
 </pre>
 </blockquote>
 
-$BF1$89=B$BNJQ?t$rJL$N$H$3$m$G@k8@$9$kI,MW$,$J$1$l$P!"(B
-$B9=B$BNL>$b>JN,$9$k$3$H$,$G$-$^$9!#(B
+同じ構造体変数を別のところで宣言する必要がなければ、
+構造体名も省略することができます。
 
 <blockquote>
 <pre>
@@ -162,8 +162,8 @@ struct {
 </pre>
 </blockquote>
 
-$B$^$?(B typedef $B$r;HMQ$7$F!"(B
-$B?7$7$$%G!<%?7?$rDj5A$9$kJ}K!$b$h$/MQ$$$i$l$^$9!#(B
+また typedef を使用して、
+新しいデータ型を定義する方法もよく用いられます。
 
 <blockquote>
 <pre>
@@ -176,13 +176,13 @@ typedef struct {
 </pre>
 </blockquote>    
 
-$B9=B$BN$NJQ?t$N=i4|2=$NJ}K!$O!"(B
-$BG[Ns$N=i4|2=$K=`$8$^$9!#(B
+構造体の変数の初期化の方法は、
+配列の初期化に準じます。
 
 <blockquote>
 <pre>
 struct kenshin miho = {
-    /* i-dic $B$K$h$k?{LnH~Jf$N%G!<%?(B */
+    /* i-dic による菅野美穂のデータ */
     "Miho Kan'no",
     160.0,
     40.0,
@@ -191,18 +191,18 @@ struct kenshin miho = {
 </pre>
 </blockquote>
 
-<a href="k50.html"><h3 align="center">$B"#2]Bj#5#0"#(B</h3></a>
+<a href="k50.html"><h3 align="center">■課題５０■</h3></a>
 
 <hr>
 
-<h2>$B#3!%6&MQBN(B</h2>
+<h2>３．共用体</h2>
 
 <hr>
 
 <img src="11-1.gif" align="right" hspace="10" vspace="10">
 
-$B6&MQBN$O9=B$BN$KHs>o$K$h$/;w$F$$$^$9$,!"(B
-$B3FMWAG$,F10l$N%a%b%j$r6&MQ$9$kE@$,0[$J$j$^$9!#(B
+共用体は構造体に非常によく似ていますが、
+各要素が同一のメモリを共用する点が異なります。
 
 <blockquote>
 <pre>
@@ -215,25 +215,25 @@ union kenshin {
 </pre>
 </blockquote>
 
-$B=>$C$F!"(B
-$B6&MQBN$N$R$H$D$NMWAG$KBeF~$r9T$&$H!"(B
-$BB>$NMWAG$NFbMF$OGK2u$5$l$F$7$^$$$^$9!#(B
-$B$3$N$?$a!"6&MQBN$G$O0lEY$K$R$H$D$NMWAG$@$1$,;HMQ$G$-$^$9!#(B
+従って、
+共用体のひとつの要素に代入を行うと、
+他の要素の内容は破壊されてしまいます。
+このため、共用体では一度にひとつの要素だけが使用できます。
 <p>
 
 <br clear="all">
 
-<a href="k51.html"><h3 align="center">$B"#2]Bj#5#1"#(B</h3></a>
+<a href="k51.html"><h3 align="center">■課題５１■</h3></a>
 
 <hr>
 
-<h2>$B#4!%%S%C%H%U%#!<%k%I(B </h2>
+<h2>４．ビットフィールド </h2>
 
 <hr>
 
-$B9=B$BN$d6&MQBN$NMWAG$K$O!"(B
-$BG$0U$N@:EY!J%S%C%H?t!K$r$b$D@0?t$r4^$a$k$3$H$,$G$-$^$9!#(B
-$B@:EY$OMWAGL>$N8e$K(B :$B!J%3%m%s!K$rCV$$$F;XDj$7$^$9!#(B
+構造体や共用体の要素には、
+任意の精度（ビット数）をもつ整数を含めることができます。
+精度は要素名の後に :（コロン）を置いて指定します。
 
 <blockquote>
 <pre>
@@ -244,28 +244,28 @@ struct bitfield {
 </pre>
 </blockquote>
 
-$BC"$7!"@:EY$OMWAG$N7?$N@:EY$r1[$($k$3$H$O$G$-$^$;$s!#(B
+但し、精度は要素の型の精度を越えることはできません。
 
 <blockquote>
 <pre>
 struct bitfield {
-    char x:12;         /* $B"+%(%i!<(B */
+    char x:12;         /* ←エラー */
     unsigned char y:4;
 };
 </pre>
 </blockquote>
 
-<a href="k52.html"><h3 align="center">$B"#2]Bj#5#2"#(B</h3></a>
+<a href="k52.html"><h3 align="center">■課題５２■</h3></a>
 
 <hr>
 
-<h2>$B#5!%9=B$BN!?6&MQBN$N%]%$%s%?(B</h2>
+<h2>５．構造体／共用体のポインタ</h2>
 
 <hr>
 
-$B9=B$BN$d6&MQBN$NJQ?t$X$N%]%$%s%?$O!"(B
-$BDL>o$NJQ?tF1MM(B &amp; $B1i;;;R$K$h$C$FF@$i$l$^$9!#(B
-$B$^$?%]%$%s%?JQ?t$bDL>o$NJQ?t$HF1MM(B * $B1i;;;R$rIU$1$F@k8@$7$^$9!#(B
+構造体や共用体の変数へのポインタは、
+通常の変数同様 &amp; 演算子によって得られます。
+またポインタ変数も通常の変数と同様 * 演算子を付けて宣言します。
 
 <blockquote>
 <pre>
@@ -278,7 +278,7 @@ struct kenshin {
 
 void sub(struct kenshin *p)
 {
-    /* i-dic $B$K$h$k1J:nGnH~$N%G!<%?(B */
+    /* i-dic による永作博美のデータ */
     strcpy((*p).name, "Hiromi Nagasaku");
     (*p).height = 156.0;
     (*p).weight = 42.0;
@@ -294,9 +294,9 @@ int main(void)
 </pre>
 </blockquote>
 
-$B9=B$BN$N%]%$%s%?JQ?t$NMWAG$N;XDj$O!"(B
-.$B!J%T%j%*%I!K$NM%@h=g0L$,(B * $B$h$j$b9b$$$?$a!"(B
-$B>e$N$h$&$K3g8L$r;H$&I,MW$,$"$j$^$9!#(B
+構造体のポインタ変数の要素の指定は、
+.（ピリオド）の優先順位が * よりも高いため、
+上のように括弧を使う必要があります。
 
 <blockquote>
 <pre>
@@ -304,8 +304,8 @@ int main(void)
 </pre>
 </blockquote>
 
-$B$3$N5-K!$OHK;($J$N$G!"(B
-$BBe$o$j$K(B <tt>-></tt> $B$H$$$&1i;;;R$,MQ0U$5$l$F$$$^$9!#(B
+この記法は繁雑なので、
+代わりに <tt>-></tt> という演算子が用意されています。
 
 <blockquote>
 <pre>
@@ -313,14 +313,14 @@ p->height = 156.0;
 </pre>
 </blockquote>
 
-$B=>$C$F!">e$NNc$N4X?t(B sub $B$O!"(B
-$B2<$N$h$&$K=q$/$3$H$,$G$-$^$9!#(B
+従って、上の例の関数 sub は、
+下のように書くことができます。
 
 <blockquote>
 <pre>
 void sub(struct kenshin *p)
 {
-    /* i-dic $B$K$h$k1J:nGnH~$N%G!<%?(B */
+    /* i-dic による永作博美のデータ */
     strcpy(p->name, "Hiromi Nagasaku");
     p->height = 156.0;
     p->weight = 42.0;
@@ -329,6 +329,6 @@ void sub(struct kenshin *p)
 </pre>
 </blockquote>
 
-<a href="k53.html"><h3 align="center">$B"#2]Bj#5#3"#(B</h3></a>
+<a href="k53.html"><h3 align="center">■課題５３■</h3></a>
 
 </body>
