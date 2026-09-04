@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eyecount_539',['eyeCount',['../classWindow.html#a767776600fc858073366016590f449d5',1,'Window']]]
+  ['ggbufferalignment_0',['ggBufferAlignment',['../namespacegg.html#a3760bb8490c7d6103a5f186b705b313e',1,'gg']]]
 ];

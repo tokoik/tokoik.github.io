@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['ggvector_546',['GgVector',['../namespacegg.html#a686bdd049e83786c661ebc6d940e6af4',1,'gg']]]
+  ['pathchar_0',['pathChar',['../gg_8h.html#af70ef6365a062670f496b86f311000cf',1,'gg.h']]],
+  ['pathstring_1',['pathString',['../gg_8h.html#a79e8f410a97d0a6e7bf6c4d3fe6b58fb',1,'gg.h']]]
 ];

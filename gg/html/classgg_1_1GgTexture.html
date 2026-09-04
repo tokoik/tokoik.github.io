@@ -1,14 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>ゲームグラフィックス特論: gg::GgTexture クラス</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -19,8 +24,9 @@
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
  <tbody>
- <tr style="height: 56px;">
-  <td id="projectalign" style="padding-left: 0.5em;">
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="gg.ico"/></td>
+  <td id="projectalign">
    <div id="projectname">ゲームグラフィックス特論
    </div>
   </td>
@@ -29,22 +35,38 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.1 -->
+<!-- 構築: Doxygen 1.15.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'検索','.html');
-/* @license-end */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 $(function() {
-  initMenu('',true,false,'search.php','検索');
-  $(document).ready(function() { init_search(); });
+  initMenu('',true,false,'search.php','検索',true);
+  $(function() { init_search(); });
 });
-/* @license-end */</script>
+</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classgg_1_1GgTexture.html','','classgg_1_1GgTexture-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -54,74 +76,50 @@ $(function() {
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespacegg.html">gg</a></li><li class="navelem"><a class="el" href="classgg_1_1GgTexture.html">GgTexture</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">公開メンバ関数</a> &#124;
-<a href="classgg_1_1GgTexture-members.html">全メンバ一覧</a>  </div>
-  <div class="headertitle">
-<div class="title">gg::GgTexture クラス</div>  </div>
+  <div class="headertitle"><div class="title">gg::GgTexture クラス</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>テクスチャ.  
- <a href="classgg_1_1GgTexture.html#details">[詳解]</a></p>
-
 <p><code>#include &lt;<a class="el" href="gg_8h_source.html">gg.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a45f86c46694007d20001db084b158b6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a45f86c46694007d20001db084b158b6d">GgTexture</a> (const GLvoid *image, GLsizei width, GLsizei height, GLenum format=GL_BGR, GLenum type=GL_UNSIGNED_BYTE, GLenum internal=GL_RGBA, GLenum wrap=GL_CLAMP_TO_EDGE)</td></tr>
-<tr class="memdesc:a45f86c46694007d20001db084b158b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">メモリ上のデータからテクスチャを作成するコンストラクタ.  <a href="classgg_1_1GgTexture.html#a45f86c46694007d20001db084b158b6d">[詳解]</a><br /></td></tr>
-<tr class="separator:a45f86c46694007d20001db084b158b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3ee898413f36bf7000c0b7c82d22286"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#ae3ee898413f36bf7000c0b7c82d22286">~GgTexture</a> ()</td></tr>
-<tr class="memdesc:ae3ee898413f36bf7000c0b7c82d22286"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタ.  <a href="classgg_1_1GgTexture.html#ae3ee898413f36bf7000c0b7c82d22286">[詳解]</a><br /></td></tr>
-<tr class="separator:ae3ee898413f36bf7000c0b7c82d22286"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea81519e17073383c5d907acb661af1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a0ea81519e17073383c5d907acb661af1">GgTexture</a> (const <a class="el" href="classgg_1_1GgTexture.html">GgTexture</a> &amp;o)=delete</td></tr>
-<tr class="memdesc:a0ea81519e17073383c5d907acb661af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">コピーコンストラクタは使用禁止.  <a href="classgg_1_1GgTexture.html#a0ea81519e17073383c5d907acb661af1">[詳解]</a><br /></td></tr>
-<tr class="separator:a0ea81519e17073383c5d907acb661af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f95639de500db44890090faef3e8bbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgg_1_1GgTexture.html">GgTexture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a2f95639de500db44890090faef3e8bbc">operator=</a> (const <a class="el" href="classgg_1_1GgTexture.html">GgTexture</a> &amp;o)=delete</td></tr>
-<tr class="memdesc:a2f95639de500db44890090faef3e8bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">代入演算子は使用禁止.  <a href="classgg_1_1GgTexture.html#a2f95639de500db44890090faef3e8bbc">[詳解]</a><br /></td></tr>
-<tr class="separator:a2f95639de500db44890090faef3e8bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5624464f93502a641e3a0233093d7b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#af5624464f93502a641e3a0233093d7b5">bind</a> () const</td></tr>
-<tr class="memdesc:af5624464f93502a641e3a0233093d7b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">テクスチャの使用開始 (このテクスチャを使用する際に呼び出す).  <a href="classgg_1_1GgTexture.html#af5624464f93502a641e3a0233093d7b5">[詳解]</a><br /></td></tr>
-<tr class="separator:af5624464f93502a641e3a0233093d7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a069450f8066f3c57ae9b4a2633ea3da8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a069450f8066f3c57ae9b4a2633ea3da8">unbind</a> () const</td></tr>
-<tr class="memdesc:a069450f8066f3c57ae9b4a2633ea3da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">テクスチャの使用終了 (このテクスチャを使用しなくなったら呼び出す).  <a href="classgg_1_1GgTexture.html#a069450f8066f3c57ae9b4a2633ea3da8">[詳解]</a><br /></td></tr>
-<tr class="separator:a069450f8066f3c57ae9b4a2633ea3da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89f1b891bac7b425b6d0d9a76a541b89"><td class="memItemLeft" align="right" valign="top">GLsizei&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a89f1b891bac7b425b6d0d9a76a541b89">getWidth</a> () const</td></tr>
-<tr class="memdesc:a89f1b891bac7b425b6d0d9a76a541b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているテクスチャの横の画素数を取り出す.  <a href="classgg_1_1GgTexture.html#a89f1b891bac7b425b6d0d9a76a541b89">[詳解]</a><br /></td></tr>
-<tr class="separator:a89f1b891bac7b425b6d0d9a76a541b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c612961d6f47d2501db61f89ff325eb"><td class="memItemLeft" align="right" valign="top">GLsizei&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a5c612961d6f47d2501db61f89ff325eb">getHeight</a> () const</td></tr>
-<tr class="memdesc:a5c612961d6f47d2501db61f89ff325eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているテクスチャの縦の画素数を取り出す.  <a href="classgg_1_1GgTexture.html#a5c612961d6f47d2501db61f89ff325eb">[詳解]</a><br /></td></tr>
-<tr class="separator:a5c612961d6f47d2501db61f89ff325eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af146fa5435ecf5d2b2bcc7d309d41934"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934">getSize</a> (GLsizei *size) const</td></tr>
-<tr class="memdesc:af146fa5435ecf5d2b2bcc7d309d41934"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているテクスチャのサイズを取り出す.  <a href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934">[詳解]</a><br /></td></tr>
-<tr class="separator:af146fa5435ecf5d2b2bcc7d309d41934"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80feff8155e1218ad634c425b25a880b"><td class="memItemLeft" align="right" valign="top">const GLsizei *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#a80feff8155e1218ad634c425b25a880b">getSize</a> () const</td></tr>
-<tr class="memdesc:a80feff8155e1218ad634c425b25a880b"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているテクスチャのサイズを取り出す.  <a href="classgg_1_1GgTexture.html#a80feff8155e1218ad634c425b25a880b">[詳解]</a><br /></td></tr>
-<tr class="separator:a80feff8155e1218ad634c425b25a880b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6e3536745bb83ee5a24ed8388b9cca4"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgg_1_1GgTexture.html#ae6e3536745bb83ee5a24ed8388b9cca4">getTexture</a> () const</td></tr>
-<tr class="memdesc:ae6e3536745bb83ee5a24ed8388b9cca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">使用しているテクスチャのテクスチャ名を得る.  <a href="classgg_1_1GgTexture.html#ae6e3536745bb83ee5a24ed8388b9cca4">[詳解]</a><br /></td></tr>
-<tr class="separator:ae6e3536745bb83ee5a24ed8388b9cca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a928c60ee04d1253e74ab1723a8aa4c92" id="r_a928c60ee04d1253e74ab1723a8aa4c92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> (const GLvoid *image, GLsizei width, GLsizei height, GLenum format=GL_RGB, GLenum type=GL_UNSIGNED_BYTE, GLenum internal=GL_RGBA, GLenum wrap=GL_CLAMP_TO_EDGE, bool swizzle=false)</td></tr>
+<tr class="memitem:a229f8467a9ab478f178b4f13be519b12" id="r_a229f8467a9ab478f178b4f13be519b12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a229f8467a9ab478f178b4f13be519b12">GgTexture</a> (const GgTexture &amp;texture)=delete</td></tr>
+<tr class="memitem:aa8eda8bc41f80767be6750a404e30f12" id="r_aa8eda8bc41f80767be6750a404e30f12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8eda8bc41f80767be6750a404e30f12">GgTexture</a> (GgTexture &amp;&amp;o) noexcept</td></tr>
+<tr class="memitem:ae3ee898413f36bf7000c0b7c82d22286" id="r_ae3ee898413f36bf7000c0b7c82d22286"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3ee898413f36bf7000c0b7c82d22286">~GgTexture</a> ()</td></tr>
+<tr class="memitem:a2d2368e8364287f514b1323c10c38134" id="r_a2d2368e8364287f514b1323c10c38134"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d2368e8364287f514b1323c10c38134">operator=</a> (const <a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;texture)=delete</td></tr>
+<tr class="memitem:a9cde2476f2639c5fd6add1412ec516d8" id="r_a9cde2476f2639c5fd6add1412ec516d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cde2476f2639c5fd6add1412ec516d8">operator=</a> (<a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;&amp;o) noexcept</td></tr>
+<tr class="memitem:af5624464f93502a641e3a0233093d7b5" id="r_af5624464f93502a641e3a0233093d7b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5624464f93502a641e3a0233093d7b5">bind</a> () const</td></tr>
+<tr class="memitem:a069450f8066f3c57ae9b4a2633ea3da8" id="r_a069450f8066f3c57ae9b4a2633ea3da8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a069450f8066f3c57ae9b4a2633ea3da8">unbind</a> () const</td></tr>
+<tr class="memitem:a52ed5cb2a58d5aa0ad3f46cc15f98a46" id="r_a52ed5cb2a58d5aa0ad3f46cc15f98a46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52ed5cb2a58d5aa0ad3f46cc15f98a46">swapRandB</a> (bool swizzle) const</td></tr>
+<tr class="memitem:a0990799facf6f2affd41be247f5ce9f1" id="r_a0990799facf6f2affd41be247f5ce9f1"><td class="memItemLeft" align="right" valign="top">const GLsizei &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0990799facf6f2affd41be247f5ce9f1">getWidth</a> () const</td></tr>
+<tr class="memitem:a352d7fd4fa497ffe06e3d774a29735a0" id="r_a352d7fd4fa497ffe06e3d774a29735a0"><td class="memItemLeft" align="right" valign="top">const GLsizei &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a352d7fd4fa497ffe06e3d774a29735a0">getHeight</a> () const</td></tr>
+<tr class="memitem:af146fa5435ecf5d2b2bcc7d309d41934" id="r_af146fa5435ecf5d2b2bcc7d309d41934"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af146fa5435ecf5d2b2bcc7d309d41934">getSize</a> (GLsizei *size) const</td></tr>
+<tr class="memitem:ab33080bbd6f3274eb79caea188f39cf0" id="r_ab33080bbd6f3274eb79caea188f39cf0"><td class="memItemLeft" align="right" valign="top">const GLsizei *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab33080bbd6f3274eb79caea188f39cf0">getSize</a> () const</td></tr>
+<tr class="memitem:a099c84d3d0ea7a01d0bc5acbbc7f0052" id="r_a099c84d3d0ea7a01d0bc5acbbc7f0052"><td class="memItemLeft" align="right" valign="top">const GLuint &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a099c84d3d0ea7a01d0bc5acbbc7f0052">getTexture</a> () const</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
-<div class="textblock"><p>テクスチャ. </p>
-<p>画像データを読み込んでテクスチャマップを作成する. </p>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">詳解</h2>
+<div class="textblock"><p>テクスチャ.</p>
+<dl class="section note"><dt>覚え書き</dt><dd>画像データを読み込んでテクスチャマップを作成する. </dd></dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03868">3868</a> 行目に定義があります。</p>
-</div><h2 class="groupheader">構築子と解体子</h2>
-<a id="a45f86c46694007d20001db084b158b6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45f86c46694007d20001db084b158b6d">&#9670;&nbsp;</a></span>GgTexture() <span class="overload">[1/2]</span></h2>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05224">5224</a> 行目に定義があります。</p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">構築子と解体子</h2>
+<a id="a928c60ee04d1253e74ab1723a8aa4c92" name="a928c60ee04d1253e74ab1723a8aa4c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a928c60ee04d1253e74ab1723a8aa4c92">&#9670;&#160;</a></span>GgTexture() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,59 +130,51 @@ $(function() {
         <tr>
           <td class="memname">gg::GgTexture::GgTexture </td>
           <td>(</td>
-          <td class="paramtype">const GLvoid *&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
+          <td class="paramtype">const GLvoid *</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLsizei&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="paramtype">GLsizei</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLsizei&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
+          <td class="paramtype">GLsizei</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLenum&#160;</td>
-          <td class="paramname"><em>format</em> = <code>GL_BGR</code>, </td>
+          <td class="paramtype">GLenum</td>          <td class="paramname"><span class="paramname"><em>format</em></span><span class="paramdefsep"> = </span><span class="paramdefval">GL_RGB</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLenum&#160;</td>
-          <td class="paramname"><em>type</em> = <code>GL_UNSIGNED_BYTE</code>, </td>
+          <td class="paramtype">GLenum</td>          <td class="paramname"><span class="paramname"><em>type</em></span><span class="paramdefsep"> = </span><span class="paramdefval">GL_UNSIGNED_BYTE</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLenum&#160;</td>
-          <td class="paramname"><em>internal</em> = <code>GL_RGBA</code>, </td>
+          <td class="paramtype">GLenum</td>          <td class="paramname"><span class="paramname"><em>internal</em></span><span class="paramdefsep"> = </span><span class="paramdefval">GL_RGBA</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">GLenum&#160;</td>
-          <td class="paramname"><em>wrap</em> = <code>GL_CLAMP_TO_EDGE</code>&#160;</td>
+          <td class="paramtype">GLenum</td>          <td class="paramname"><span class="paramname"><em>wrap</em></span><span class="paramdefsep"> = </span><span class="paramdefval">GL_CLAMP_TO_EDGE</span>, </td>
         </tr>
         <tr>
+          <td class="paramkey"></td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>swizzle</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>メモリ上のデータからテクスチャを作成するコンストラクタ. </p>
+<p>メモリ上のデータからテクスチャを作成するコンストラクタ.</p>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>テクスチャとして用いる画像データ, nullptr ならデータを読み込まない. </td></tr>
@@ -194,16 +184,134 @@ $(function() {
     <tr><td class="paramname">type</td><td>画像のデータ型. </td></tr>
     <tr><td class="paramname">internal</td><td>テクスチャの内部フォーマット. </td></tr>
     <tr><td class="paramname">wrap</td><td>テクスチャのラッピングモード, デフォルトは GL_CLAMP_TO_EDGE. </td></tr>
+    <tr><td class="paramname">swizzle</td><td>true ならテクスチャの赤と青を入れ替える, デフォルトは false. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03886">3886</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05246">5246</a> 行目に定義があります。</p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_cgraph" id="aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,177,32"/>
+<area shape="rect" href="namespacegg.html#ab4085c8da7546d15a8e25dc2f11e79f6" title=" " alt="" coords="225,5,353,32"/>
+<area shape="poly" title=" " alt="" coords="177,16,212,19,206,19,177,21"/>
+</map>
+</div>
+<div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_icgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_icgraph" id="aclassgg_1_1GgTexture_a928c60ee04d1253e74ab1723a8aa4c92_icgraph">
+<area shape="rect" title=" " alt="" coords="225,81,396,108"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a229f8467a9ab478f178b4f13be519b12" title=" " alt="" coords="5,5,177,32"/>
+<area shape="poly" title=" " alt="" coords="259,76,176,47,141,35,141,30,178,41,264,74"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#aa8eda8bc41f80767be6750a404e30f12" title=" " alt="" coords="5,56,177,83"/>
+<area shape="poly" title=" " alt="" coords="207,84,178,82,177,77,212,82"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a2d2368e8364287f514b1323c10c38134" title=" " alt="" coords="8,107,174,133"/>
+<area shape="poly" title=" " alt="" coords="207,107,175,113,174,108,212,106"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a9cde2476f2639c5fd6add1412ec516d8" title=" " alt="" coords="8,157,174,184"/>
+<area shape="poly" title=" " alt="" coords="264,113,178,148,142,159,140,154,176,143,258,115"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="ae3ee898413f36bf7000c0b7c82d22286"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3ee898413f36bf7000c0b7c82d22286">&#9670;&nbsp;</a></span>~GgTexture()</h2>
+<a id="a229f8467a9ab478f178b4f13be519b12" name="a229f8467a9ab478f178b4f13be519b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a229f8467a9ab478f178b4f13be519b12">&#9670;&#160;</a></span>GgTexture() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">gg::GgTexture::GgTexture </td>
+          <td>(</td>
+          <td class="paramtype">const GgTexture &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>コピーコンストラクタは使用しない.</p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>コピー元のテクスチャ. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_a229f8467a9ab478f178b4f13be519b12_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a229f8467a9ab478f178b4f13be519b12_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a229f8467a9ab478f178b4f13be519b12_cgraph" id="aclassgg_1_1GgTexture_a229f8467a9ab478f178b4f13be519b12_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,177,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a928c60ee04d1253e74ab1723a8aa4c92" title=" " alt="" coords="225,5,396,32"/>
+<area shape="poly" title=" " alt="" coords="177,16,212,19,206,19,177,21"/>
+<area shape="rect" href="namespacegg.html#ab4085c8da7546d15a8e25dc2f11e79f6" title=" " alt="" coords="444,5,572,32"/>
+<area shape="poly" title=" " alt="" coords="396,16,431,19,426,19,396,21"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa8eda8bc41f80767be6750a404e30f12" name="aa8eda8bc41f80767be6750a404e30f12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8eda8bc41f80767be6750a404e30f12">&#9670;&#160;</a></span>GgTexture() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">gg::GgTexture::GgTexture </td>
+          <td>(</td>
+          <td class="paramtype">GgTexture &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>o</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ムーブコンストラクタ.</p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">o</td><td>ムーブ元のテクスチャ.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>覚え書き</dt><dd>テクスチャ名の所有権を移動し, ムーブ元のテクスチャ名を 0 にする. ムーブ元のデストラクタが同じテクスチャを削除しないようにするため. </dd></dl>
+
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05277">5277</a> 行目に定義があります。</p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_aa8eda8bc41f80767be6750a404e30f12_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_aa8eda8bc41f80767be6750a404e30f12_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_aa8eda8bc41f80767be6750a404e30f12_cgraph" id="aclassgg_1_1GgTexture_aa8eda8bc41f80767be6750a404e30f12_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,177,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a928c60ee04d1253e74ab1723a8aa4c92" title=" " alt="" coords="225,5,396,32"/>
+<area shape="poly" title=" " alt="" coords="177,16,212,19,206,19,177,21"/>
+<area shape="rect" href="namespacegg.html#ab4085c8da7546d15a8e25dc2f11e79f6" title=" " alt="" coords="444,5,572,32"/>
+<area shape="poly" title=" " alt="" coords="396,16,431,19,426,19,396,21"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae3ee898413f36bf7000c0b7c82d22286" name="ae3ee898413f36bf7000c0b7c82d22286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3ee898413f36bf7000c0b7c82d22286">&#9670;&#160;</a></span>~GgTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,54 +322,25 @@ $(function() {
         <tr>
           <td class="memname">virtual gg::GgTexture::~GgTexture </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p>デストラクタ. </p>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03894">3894</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05287">5287</a> 行目に定義があります。</p>
 
 </div>
 </div>
-<a id="a0ea81519e17073383c5d907acb661af1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea81519e17073383c5d907acb661af1">&#9670;&nbsp;</a></span>GgTexture() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">gg::GgTexture::GgTexture </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgg_1_1GgTexture.html">GgTexture</a> &amp;&#160;</td>
-          <td class="paramname"><em>o</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>コピーコンストラクタは使用禁止. </p>
-
-</div>
-</div>
-<h2 class="groupheader">関数詳解</h2>
-<a id="af5624464f93502a641e3a0233093d7b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5624464f93502a641e3a0233093d7b5">&#9670;&nbsp;</a></span>bind()</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">関数詳解</h2>
+<a id="af5624464f93502a641e3a0233093d7b5" name="af5624464f93502a641e3a0233093d7b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5624464f93502a641e3a0233093d7b5">&#9670;&#160;</a></span>bind()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,25 +351,24 @@ $(function() {
         <tr>
           <td class="memname">void gg::GgTexture::bind </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p>テクスチャの使用開始 (このテクスチャを使用する際に呼び出す). </p>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03907">3907</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05331">5331</a> 行目に定義があります。</p>
 
 </div>
 </div>
-<a id="a5c612961d6f47d2501db61f89ff325eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c612961d6f47d2501db61f89ff325eb">&#9670;&nbsp;</a></span>getHeight()</h2>
+<a id="a352d7fd4fa497ffe06e3d774a29735a0" name="a352d7fd4fa497ffe06e3d774a29735a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a352d7fd4fa497ffe06e3d774a29735a0">&#9670;&#160;</a></span>getHeight()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,37 +377,37 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLsizei gg::GgTexture::getHeight </td>
+          <td class="memname">const GLsizei &amp; gg::GgTexture::getHeight </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>使用しているテクスチャの縦の画素数を取り出す. </p>
+<p>使用しているテクスチャの縦の画素数を取り出す.</p>
 <dl class="section return"><dt>戻り値</dt><dd>テクスチャの縦の画素数. </dd></dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03927">3927</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05366">5366</a> 行目に定義があります。</p>
 <div class="dynheader">
 被呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="classgg_1_1GgTexture_a5c612961d6f47d2501db61f89ff325eb_icgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a5c612961d6f47d2501db61f89ff325eb_icgraph" alt=""/></div>
-<map name="aclassgg_1_1GgTexture_a5c612961d6f47d2501db61f89ff325eb_icgraph" id="aclassgg_1_1GgTexture_a5c612961d6f47d2501db61f89ff325eb_icgraph">
-<area shape="rect" title="使用しているテクスチャの縦の画素数を取り出す." alt="" coords="209,5,376,32"/>
-<area shape="rect" href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934" title="使用しているテクスチャのサイズを取り出す." alt="" coords="5,5,161,32"/>
+<div class="center"><img src="classgg_1_1GgTexture_a352d7fd4fa497ffe06e3d774a29735a0_icgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a352d7fd4fa497ffe06e3d774a29735a0_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a352d7fd4fa497ffe06e3d774a29735a0_icgraph" id="aclassgg_1_1GgTexture_a352d7fd4fa497ffe06e3d774a29735a0_icgraph">
+<area shape="rect" title=" " alt="" coords="209,5,376,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934" title=" " alt="" coords="5,5,161,32"/>
+<area shape="poly" title=" " alt="" coords="190,19,161,21,161,16,196,19"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a80feff8155e1218ad634c425b25a880b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80feff8155e1218ad634c425b25a880b">&#9670;&nbsp;</a></span>getSize() <span class="overload">[1/2]</span></h2>
+<a id="ab33080bbd6f3274eb79caea188f39cf0" name="ab33080bbd6f3274eb79caea188f39cf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab33080bbd6f3274eb79caea188f39cf0">&#9670;&#160;</a></span>getSize() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,28 +416,27 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const GLsizei* gg::GgTexture::getSize </td>
+          <td class="memname">const GLsizei * gg::GgTexture::getSize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>使用しているテクスチャのサイズを取り出す. </p>
+<p>使用しているテクスチャのサイズを取り出す.</p>
 <dl class="section return"><dt>戻り値</dt><dd>テクスチャのサイズを格納した配列へのポインタ. </dd></dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03942">3942</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05387">5387</a> 行目に定義があります。</p>
 
 </div>
 </div>
-<a id="af146fa5435ecf5d2b2bcc7d309d41934"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af146fa5435ecf5d2b2bcc7d309d41934">&#9670;&nbsp;</a></span>getSize() <span class="overload">[2/2]</span></h2>
+<a id="af146fa5435ecf5d2b2bcc7d309d41934" name="af146fa5435ecf5d2b2bcc7d309d41934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af146fa5435ecf5d2b2bcc7d309d41934">&#9670;&#160;</a></span>getSize() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,19 +447,17 @@ $(function() {
         <tr>
           <td class="memname">void gg::GgTexture::getSize </td>
           <td>(</td>
-          <td class="paramtype">GLsizei *&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype">GLsizei *</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>使用しているテクスチャのサイズを取り出す. </p>
+<p>使用しているテクスチャのサイズを取り出す.</p>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>テクスチャのサイズを格納する GLsizei 型の 2 要素の配列変数. </td></tr>
@@ -390,22 +465,24 @@ $(function() {
   </dd>
 </dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03934">3934</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05376">5376</a> 行目に定義があります。</p>
 <div class="dynheader">
 呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="classgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph" alt=""/></div>
+<div class="center"><img src="classgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph" loading="lazy" alt=""/></div>
 <map name="aclassgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph" id="aclassgg_1_1GgTexture_af146fa5435ecf5d2b2bcc7d309d41934_cgraph">
-<area shape="rect" title="使用しているテクスチャのサイズを取り出す." alt="" coords="5,31,161,57"/>
-<area shape="rect" href="classgg_1_1GgTexture.html#a5c612961d6f47d2501db61f89ff325eb" title="使用しているテクスチャの縦の画素数を取り出す." alt="" coords="209,5,376,32"/>
-<area shape="rect" href="classgg_1_1GgTexture.html#a89f1b891bac7b425b6d0d9a76a541b89" title="使用しているテクスチャの横の画素数を取り出す." alt="" coords="211,56,375,83"/>
+<area shape="rect" title=" " alt="" coords="5,31,161,57"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a352d7fd4fa497ffe06e3d774a29735a0" title=" " alt="" coords="209,5,376,32"/>
+<area shape="poly" title=" " alt="" coords="161,32,196,30,190,31,162,37"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a0990799facf6f2affd41be247f5ce9f1" title=" " alt="" coords="211,56,374,83"/>
+<area shape="poly" title=" " alt="" coords="161,51,198,57,193,58,161,56"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ae6e3536745bb83ee5a24ed8388b9cca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6e3536745bb83ee5a24ed8388b9cca4">&#9670;&nbsp;</a></span>getTexture()</h2>
+<a id="a099c84d3d0ea7a01d0bc5acbbc7f0052" name="a099c84d3d0ea7a01d0bc5acbbc7f0052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a099c84d3d0ea7a01d0bc5acbbc7f0052">&#9670;&#160;</a></span>getTexture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,28 +491,27 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLuint gg::GgTexture::getTexture </td>
+          <td class="memname">const GLuint &amp; gg::GgTexture::getTexture </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>使用しているテクスチャのテクスチャ名を得る. </p>
+<p>使用しているテクスチャのテクスチャ名を得る.</p>
 <dl class="section return"><dt>戻り値</dt><dd>テクスチャ名. </dd></dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03949">3949</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05397">5397</a> 行目に定義があります。</p>
 
 </div>
 </div>
-<a id="a89f1b891bac7b425b6d0d9a76a541b89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89f1b891bac7b425b6d0d9a76a541b89">&#9670;&nbsp;</a></span>getWidth()</h2>
+<a id="a0990799facf6f2affd41be247f5ce9f1" name="a0990799facf6f2affd41be247f5ce9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0990799facf6f2affd41be247f5ce9f1">&#9670;&#160;</a></span>getWidth()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -444,37 +520,37 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLsizei gg::GgTexture::getWidth </td>
+          <td class="memname">const GLsizei &amp; gg::GgTexture::getWidth </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>使用しているテクスチャの横の画素数を取り出す. </p>
+<p>使用しているテクスチャの横の画素数を取り出す.</p>
 <dl class="section return"><dt>戻り値</dt><dd>テクスチャの横の画素数. </dd></dl>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03920">3920</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05356">5356</a> 行目に定義があります。</p>
 <div class="dynheader">
 被呼び出し関係図:</div>
 <div class="dyncontent">
-<div class="center"><img src="classgg_1_1GgTexture_a89f1b891bac7b425b6d0d9a76a541b89_icgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a89f1b891bac7b425b6d0d9a76a541b89_icgraph" alt=""/></div>
-<map name="aclassgg_1_1GgTexture_a89f1b891bac7b425b6d0d9a76a541b89_icgraph" id="aclassgg_1_1GgTexture_a89f1b891bac7b425b6d0d9a76a541b89_icgraph">
-<area shape="rect" title="使用しているテクスチャの横の画素数を取り出す." alt="" coords="209,5,373,32"/>
-<area shape="rect" href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934" title="使用しているテクスチャのサイズを取り出す." alt="" coords="5,5,161,32"/>
+<div class="center"><img src="classgg_1_1GgTexture_a0990799facf6f2affd41be247f5ce9f1_icgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a0990799facf6f2affd41be247f5ce9f1_icgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a0990799facf6f2affd41be247f5ce9f1_icgraph" id="aclassgg_1_1GgTexture_a0990799facf6f2affd41be247f5ce9f1_icgraph">
+<area shape="rect" title=" " alt="" coords="209,5,372,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#af146fa5435ecf5d2b2bcc7d309d41934" title=" " alt="" coords="5,5,161,32"/>
+<area shape="poly" title=" " alt="" coords="190,19,161,21,161,16,195,19"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a2f95639de500db44890090faef3e8bbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f95639de500db44890090faef3e8bbc">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="a2d2368e8364287f514b1323c10c38134" name="a2d2368e8364287f514b1323c10c38134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d2368e8364287f514b1323c10c38134">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -483,26 +559,117 @@ $(function() {
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgg_1_1GgTexture.html">GgTexture</a>&amp; gg::GgTexture::operator= </td>
+          <td class="memname"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp; gg::GgTexture::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgg_1_1GgTexture.html">GgTexture</a> &amp;&#160;</td>
-          <td class="paramname"><em>o</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>代入演算子は使用禁止. </p>
+<p>代入演算子は使用しない.</p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>代入元のテクスチャ. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>代入後のこのテクスチャの参照. </dd></dl>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_a2d2368e8364287f514b1323c10c38134_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a2d2368e8364287f514b1323c10c38134_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a2d2368e8364287f514b1323c10c38134_cgraph" id="aclassgg_1_1GgTexture_a2d2368e8364287f514b1323c10c38134_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,172,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a928c60ee04d1253e74ab1723a8aa4c92" title=" " alt="" coords="220,5,391,32"/>
+<area shape="poly" title=" " alt="" coords="172,16,207,19,201,19,172,21"/>
+<area shape="rect" href="namespacegg.html#ab4085c8da7546d15a8e25dc2f11e79f6" title=" " alt="" coords="439,5,567,32"/>
+<area shape="poly" title=" " alt="" coords="391,16,426,19,421,19,391,21"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a069450f8066f3c57ae9b4a2633ea3da8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a069450f8066f3c57ae9b4a2633ea3da8">&#9670;&nbsp;</a></span>unbind()</h2>
+<a id="a9cde2476f2639c5fd6add1412ec516d8" name="a9cde2476f2639c5fd6add1412ec516d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cde2476f2639c5fd6add1412ec516d8">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp; gg::GgTexture::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a928c60ee04d1253e74ab1723a8aa4c92">GgTexture</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>o</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ムーブ代入演算子.</p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">o</td><td>ムーブ代入元のテクスチャ. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>ムーブ代入後のこのテクスチャの参照.</dd></dl>
+<dl class="section note"><dt>覚え書き</dt><dd>元々保持していたテクスチャを削除してから所有権を移動する. </dd></dl>
+
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05310">5310</a> 行目に定義があります。</p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="classgg_1_1GgTexture_a9cde2476f2639c5fd6add1412ec516d8_cgraph.png" border="0" usemap="#aclassgg_1_1GgTexture_a9cde2476f2639c5fd6add1412ec516d8_cgraph" loading="lazy" alt=""/></div>
+<map name="aclassgg_1_1GgTexture_a9cde2476f2639c5fd6add1412ec516d8_cgraph" id="aclassgg_1_1GgTexture_a9cde2476f2639c5fd6add1412ec516d8_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,172,32"/>
+<area shape="rect" href="classgg_1_1GgTexture.html#a928c60ee04d1253e74ab1723a8aa4c92" title=" " alt="" coords="220,5,391,32"/>
+<area shape="poly" title=" " alt="" coords="172,16,207,19,201,19,172,21"/>
+<area shape="rect" href="namespacegg.html#ab4085c8da7546d15a8e25dc2f11e79f6" title=" " alt="" coords="439,5,567,32"/>
+<area shape="poly" title=" " alt="" coords="391,16,426,19,421,19,391,21"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a52ed5cb2a58d5aa0ad3f46cc15f98a46" name="a52ed5cb2a58d5aa0ad3f46cc15f98a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ed5cb2a58d5aa0ad3f46cc15f98a46">&#9670;&#160;</a></span>swapRandB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gg::GgTexture::swapRandB </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>swizzle</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>テクスチャの赤と青を交換する</p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">swizzle</td><td>赤と青を交換するなら true </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition"> <a class="el" href="gg_8cpp_source.html">gg.cpp</a> の <a class="el" href="gg_8cpp_source.html#l04021">4021</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a069450f8066f3c57ae9b4a2633ea3da8" name="a069450f8066f3c57ae9b4a2633ea3da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069450f8066f3c57ae9b4a2633ea3da8">&#9670;&#160;</a></span>unbind()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -513,30 +680,42 @@ $(function() {
         <tr>
           <td class="memname">void gg::GgTexture::unbind </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p>テクスチャの使用終了 (このテクスチャを使用しなくなったら呼び出す). </p>
 
-<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l03913">3913</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="gg_8h_source.html">gg.h</a> の <a class="el" href="gg_8h_source.html#l05339">5339</a> 行目に定義があります。</p>
 
 </div>
 </div>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
 <li><a class="el" href="gg_8h_source.html">gg.h</a></li>
+<li><a class="el" href="gg_8cpp_source.html">gg.cpp</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-2021年03月23日(火) 14時36分25秒作成 - ゲームグラフィックス特論 / 構成: &#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacegg.html">gg</a></li><li class="navelem"><a href="classgg_1_1GgTexture.html">GgTexture</a></li>
+    <li class="footer"><span class="timestamp"></span>作成 - ゲームグラフィックス特論 / 構成:  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,6 +1,9 @@
 <map id="gg::GgSimpleShader::MaterialBuffer::select" name="gg::GgSimpleShader::MaterialBuffer::select">
-<area shape="rect" id="node1" title="材質を選択する." alt="" coords="5,71,157,112"/>
-<area shape="rect" id="node2" href="$classgg_1_1GgUniformBuffer.html#ad327c1c3f214d85efcbd28db019bbaa4" title="ユニフォームバッファオブジェクト名を取り出す." alt="" coords="207,5,358,47"/>
-<area shape="rect" id="node3" href="$classgg_1_1GgUniformBuffer.html#ad4b0676ee460d8884f2f041fd2dc3506" title="ユニフォームバッファオブジェクトのアライメントを考慮したデータの間隔を取り出す." alt="" coords="207,71,359,112"/>
-<area shape="rect" id="node4" href="$classgg_1_1GgUniformBuffer.html#a4ad0f5571d91f9148872318d6ae24601" title="ユニフォームバッファオブジェクトのターゲットを取り出す." alt="" coords="205,136,360,177"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,72,158,115"/>
+<area shape="rect" id="Node000002" href="$classgg_1_1GgUniformBuffer.html#a2b32d9bbfd87830bc2db3d4431d89176" title=" " alt="" coords="207,5,358,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,69,204,52,199,55,149,74"/>
+<area shape="rect" id="Node000003" href="$classgg_1_1GgUniformBuffer.html#ad4b0676ee460d8884f2f041fd2dc3506" title=" " alt="" coords="207,72,358,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,91,194,93,189,94,159,96"/>
+<area shape="rect" id="Node000004" href="$classgg_1_1GgUniformBuffer.html#ad097650d4355144a15deb49bf78e6198" title=" " alt="" coords="206,139,359,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="148,113,204,133,199,134,147,118"/>
 </map>

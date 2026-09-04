@@ -1,0 +1,1129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.15.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ゲームグラフィックス特論: GgApp.h ソースファイル</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="gg.ico"/></td>
+  <td id="projectalign">
+   <div id="projectname">ゲームグラフィックス特論
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.15.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','検索',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('GgApp_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GgApp.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="GgApp_8h.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"></span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">ゲームグラフィックス特論用補助プログラム GLFW3 版</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"></span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">Copyright (c) 2011-2025 Kohe Tokoi. All Rights Reserved.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"></span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">Permission is hereby granted, free of charge,  to any person obtaining a copy</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">of this software and associated documentation files (the &quot;Software&quot;), to deal</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">in the Software without restriction,  including without limitation the rights</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">to use, copy,  modify, merge,  publish, distribute,  sublicense,  and/or sell</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">copies or substantial portions of the Software.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"></span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">The above  copyright notice  and this permission notice  shall be included in</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">all copies or substantial portions of the Software.</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"></span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">THE SOFTWARE  IS PROVIDED &quot;AS IS&quot;,  WITHOUT WARRANTY OF ANY KIND,  EXPRESS OR</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">IMPLIED,  INCLUDING  BUT  NOT LIMITED  TO THE WARRANTIES  OF MERCHANTABILITY,</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">FITNESS  FOR  A PARTICULAR PURPOSE  AND NONINFRINGEMENT.  IN  NO EVENT  SHALL</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">KOHE TOKOI  BE LIABLE FOR ANY CLAIM,  DAMAGES OR OTHER LIABILITY,  WHETHER IN</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">AN ACTION  OF CONTRACT,  TORT  OR  OTHERWISE,  ARISING  FROM,  OUT OF  OR  IN</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"></span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">*/</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// Dear ImGui を使うなら</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#if !defined(GG_USE_IMGUI) &amp;&amp; !defined(GG_NO_IMGUI)</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#  if defined(__has_include)</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#    if __has_include(&lt;imgui.h&gt;) || __has_include(&quot;imgui.h&quot;)</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#      define GG_USE_IMGUI</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// OpenXR を使うなら</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//#define GG_USE_OPENXR</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// 使用するマウスのボタン数</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#if !defined(GG_BUTTON_COUNT)</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">   49</a></span><span class="preprocessor">#  define GG_BUTTON_COUNT 3</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">// 使用するユーザインタフェースの数</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#if !defined(GG_INTERFACE_COUNT)</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="GgApp_8h.html#a65e9ad0c9a623761c24f44a8fbdf6d2d">   54</a></span><span class="preprocessor">#  define GG_INTERFACE_COUNT 5</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// 補助プログラム</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &quot;<a class="code" href="gg_8h.html">gg.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacegg.html">gg</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// 標準ライブラリ</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// ImGui の組み込み</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#if defined(GG_USE_IMGUI)</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#  include &quot;imgui.h&quot;</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#  include &quot;imgui_impl_glfw.h&quot;</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#  include &quot;imgui_impl_opengl3.h&quot;</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// OpenXR ライブラリの組み込み</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#if defined(GG_USE_OPENXR)</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#  if defined(_WIN32)</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#    define XR_USE_PLATFORM_WIN32</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#    define XR_USE_GRAPHICS_API_OPENGL</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#    define GLFW_EXPOSE_NATIVE_WIN32</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#    define GLFW_EXPOSE_NATIVE_WGL</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#    include &lt;GLFW/glfw3native.h&gt;</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#    include &lt;windows.h&gt;</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#    include &lt;unknwn.h&gt;</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#    if defined(_MSC_VER)</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#      pragma comment(lib, &quot;openxr_loader.lib&quot;)</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#  else</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#    if !defined(__gl_h_)</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#      define __gl_h_</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#    define XR_USE_PLATFORM_XLIB</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#    define XR_USE_GRAPHICS_API_OPENGL</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#    define GLFW_EXPOSE_NATIVE_X11</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#    define GLFW_EXPOSE_NATIVE_GLX</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#    include &lt;GLFW/glfw3native.h&gt;</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#  include &lt;openxr/openxr.h&gt;</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#  include &lt;openxr/openxr_platform.h&gt;</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#  include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#  include &lt;cstdio&gt;</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#  include &lt;cstring&gt;</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#  include &lt;string&gt;</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#  include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#  include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="};">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="classGgApp.html">  108</a></span><span class="keyword">class </span><a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>{</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  <a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>(<span class="keywordtype">int</span> major = 0, <span class="keywordtype">int</span> minor = 1);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classGgApp.html#af905bd13f79aa30dd7f0a55ce9b67526">  125</a></span>  <a class="code hl_function" href="classGgApp.html#af905bd13f79aa30dd7f0a55ce9b67526">GgApp</a>(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp; w) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classGgApp.html#a3dcd6fed8efd0db4dd882ab59d3d5a30">  132</a></span>  <a class="code hl_function" href="classGgApp.html#a3dcd6fed8efd0db4dd882ab59d3d5a30">GgApp</a>(<a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp;&amp; w) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  <span class="keyword">virtual</span> <a class="code hl_function" href="classGgApp.html#a9468936a1ff450fa3e0d75ef88d55c5c">~GgApp</a>();</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classGgApp.html#a29bae97040d59fbf2a046c4e47e99de2">  145</a></span>  <a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp; <a class="code hl_function" href="classGgApp.html#a29bae97040d59fbf2a046c4e47e99de2">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp; w) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classGgApp.html#a8772cedbd09638d96a55e434e8bd1430">  153</a></span>  <a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp; <a class="code hl_function" href="classGgApp.html#a8772cedbd09638d96a55e434e8bd1430">operator=</a>(<a class="code hl_function" href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp</a>&amp;&amp; w) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="classGgApp.html#ad2e50a5e84d4fd6162e03039ac00c7ae">  162</a></span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classGgApp.html#ad2e50a5e84d4fd6162e03039ac00c7ae">main</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* <span class="keyword">const</span>* argv);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span></div>
+<div class="foldopen" id="foldopen00170" data-start="{" data-end="};">
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html">  170</a></span>  <span class="keyword">class </span><a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  {</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">// ウィンドウの識別子</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    GLFWwindow* window{ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="comment">// ビューポートの横幅と高さ</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    std::array&lt;GLsizei, 2&gt; size;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">// フレームバッファの横幅と高さ</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    std::array&lt;GLsizei, 2&gt; fboSize;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="preprocessor">#if defined(IMGUI_VERSION)</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="comment">// メニューバーの高さ</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    GLsizei menubarHeight{ 0 };</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="comment">// ビューポートの縦横比</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    GLfloat aspect{ 1.0f };</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">// マウスの移動速度[X/Y/Z]</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    std::array&lt;GLfloat, 3&gt; velocity{ 1.0f, 1.0f, 0.1f };</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="comment">// マウスボタンの状態</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    std::array&lt;bool, GG_BUTTON_COUNT&gt; status{};</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="comment">// ユーザインタフェースのデータ構造</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keyword">struct </span>HumanInterface</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      <span class="comment">// 最後にタイプしたキー</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>      <span class="keywordtype">int</span> lastKey{ 0 };</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      <span class="comment">// 矢印キー</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>      std::array&lt;std::array&lt;int, 2&gt;, 4&gt; arrow{};</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>      <span class="comment">// マウスの現在位置</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>      std::array&lt;GLfloat, 2&gt; mouse{};</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>      <span class="comment">// マウスホイールの回転量</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>      std::array&lt;GLfloat, 2&gt; wheel{};</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>      <span class="comment">// 平行移動量[ボタン][直前/更新][X/Y/Z]</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>      std::array&lt;std::array&lt;gg::GgVector, 2&gt;, <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>&gt; translation{};</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>      <span class="comment">// トラックボール</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>      std::array&lt;gg::GgTrackball, GG_BUTTON_COUNT&gt; rotation;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>      <span class="comment">// コンストラクタ</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>      HumanInterface()</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>      {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <a class="code hl_function" href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">resetTranslation</a>();</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>      }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>      <span class="comment">//</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>      <span class="comment">// マウスや矢印キーによる平行移動量を初期化する</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      <span class="comment">//</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>      <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">resetTranslation</a>();</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>      <span class="comment">//</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>      <span class="comment">// 平行移動量と回転量を更新する (X, Y のみ, Z は wheel() で計算する)</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      <span class="comment">//</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>      <span class="keywordtype">void</span> calcTranslation(<span class="keywordtype">int</span> button, <span class="keyword">const</span> std::array&lt;GLfloat, 3&gt;&amp; velocity);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    };</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="comment">// ヒューマンインタフェースデバイスのデータ</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    std::array&lt;HumanInterface, GG_INTERFACE_COUNT&gt; interfaceData;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">// ヒューマンインタフェースデバイスの番号</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordtype">int</span> interfaceNo{ 0 };</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// ユーザー定義のコールバック関数へのポインタ</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordtype">void</span>* userPointer{ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    void (*resizeFunc)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height){ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    void (*keyboardFunc)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> key, <span class="keywordtype">int</span> scancode, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods){ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    void (*mouseFunc)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> button, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods){ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    void (*wheelFunc)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y){ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="comment">// ウィンドウのサイズ変更時の処理</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> resize(GLFWwindow* window, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="comment">// キーボードをタイプした時の処理</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> keyboard(GLFWwindow* window, <span class="keywordtype">int</span> key, <span class="keywordtype">int</span> scancode, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="comment">// マウスボタンを操作したときの処理</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> mouse(GLFWwindow* window, <span class="keywordtype">int</span> button, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">// マウスホイールを操作した時の処理</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> wheel(GLFWwindow* window, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>(<span class="keyword">const</span> std::string&amp; title = <span class="stringliteral">&quot;GLFW Window&quot;</span>, <span class="keywordtype">int</span> width = 640, <span class="keywordtype">int</span> height = 480,</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      <span class="keywordtype">int</span> fullscreen = 0, GLFWwindow* share = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ae5d861cc5384a9345370038451126247">  287</a></span>    <a class="code hl_function" href="classGgApp_1_1Window.html#ae5d861cc5384a9345370038451126247">Window</a>(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp; w) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>(<a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp;&amp; w) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span></div>
+<div class="foldopen" id="foldopen00299" data-start="{" data-end="}">
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a94c6ee97910853aafc9dd886e0d44e05">  299</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a94c6ee97910853aafc9dd886e0d44e05">~Window</a>()</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>      <span class="comment">// ウィンドウが作成されていなければ戻る</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>      <span class="keywordflow">if</span> (!window) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>      <span class="comment">// ウィンドウを破棄する</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>      glfwDestroyWindow(window);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    }</div>
+</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aee308edd9b401ca148f3b28fc7f77774">  314</a></span>    <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp; <a class="code hl_function" href="classGgApp_1_1Window.html#aee308edd9b401ca148f3b28fc7f77774">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp; w) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp; <a class="code hl_function" href="classGgApp_1_1Window.html#aee308edd9b401ca148f3b28fc7f77774">operator=</a>(<a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>&amp;&amp; w) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span></div>
+<div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ae4d2d5b01b708a68cfbbd694eea14116">  329</a></span>    <span class="keyword">auto</span>* <a class="code hl_function" href="classGgApp_1_1Window.html#ae4d2d5b01b708a68cfbbd694eea14116">get</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>      <span class="keywordflow">return</span> window;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    }</div>
+</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span></div>
+<div class="foldopen" id="foldopen00339" data-start="{" data-end="}">
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a2c90728cd2fcebd0f3c0d6d48741c5fd">  339</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a2c90728cd2fcebd0f3c0d6d48741c5fd">setClose</a>(<span class="keywordtype">int</span> flag = GLFW_TRUE)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>      glfwSetWindowShouldClose(window, flag);</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    }</div>
+</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span></div>
+<div class="foldopen" id="foldopen00349" data-start="{" data-end="}">
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aa8401b4de974f114d3fb9d1ecac74eb9">  349</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classGgApp_1_1Window.html#aa8401b4de974f114d3fb9d1ecac74eb9">shouldClose</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>      <span class="comment">// ウィンドウを閉じるべきなら true を返す</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>      <span class="keywordflow">return</span> glfwWindowShouldClose(window) != GLFW_FALSE;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    }</div>
+</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keyword">explicit</span> <span class="keyword">operator</span> bool();</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a19ae0ed75fc177b2a0672fc2af3c78a4">swapBuffers</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span></div>
+<div class="foldopen" id="foldopen00370" data-start="{" data-end="}">
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a515578a995bb8d3e37ce1767f4095efd">  370</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a515578a995bb8d3e37ce1767f4095efd">restoreViewport</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>      <span class="keywordflow">if</span> (!glfwGetWindowAttrib(window, GLFW_ICONIFIED)) glViewport(0, 0, fboSize[0], fboSize[1]);</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    }</div>
+</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a6b349c4887749cd9e5c6e655a0eea865">updateViewport</a>();</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="preprocessor">#if defined(IMGUI_VERSION)</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keywordtype">void</span> setMenubarHeight(GLsizei height)</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    {</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>      <span class="comment">// メニューバーの高さを保存する</span></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>      menubarHeight = height;</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>      <span class="comment">// ビューポートを復帰する</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>      <a class="code hl_function" href="classGgApp_1_1Window.html#a6b349c4887749cd9e5c6e655a0eea865">updateViewport</a>();</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    }</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span></div>
+<div class="foldopen" id="foldopen00401" data-start="{" data-end="}">
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a579867ae1179b9d946e2a0e34a62e830">  401</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a579867ae1179b9d946e2a0e34a62e830">getWidth</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>      <span class="keywordflow">return</span> size[0];</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    }</div>
+</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span></div>
+<div class="foldopen" id="foldopen00411" data-start="{" data-end="}">
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a6c9fe611549defaacbd77eb1178b63c5">  411</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a6c9fe611549defaacbd77eb1178b63c5">getHeight</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>      <span class="keywordflow">return</span> size[1];</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    }</div>
+</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span></div>
+<div class="foldopen" id="foldopen00421" data-start="{" data-end="}">
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aa9584690e81de333b5ede0e10b184212">  421</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#aa9584690e81de333b5ede0e10b184212">getFboWidth</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>      <span class="keywordflow">return</span> fboSize[0];</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>    }</div>
+</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span></div>
+<div class="foldopen" id="foldopen00431" data-start="{" data-end="}">
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a65f86fe33c40b5ca0f374484df5a2132">  431</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a65f86fe33c40b5ca0f374484df5a2132">getFboHeight</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>      <span class="keywordflow">return</span> fboSize[1];</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    }</div>
+</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span></div>
+<div class="foldopen" id="foldopen00441" data-start="{" data-end="}">
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a4601eaeb4c129cfe4080b93a421df484">  441</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classGgApp_1_1Window.html#a4601eaeb4c129cfe4080b93a421df484">getSize</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>      <span class="keywordflow">return</span> size;</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    }</div>
+</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span></div>
+<div class="foldopen" id="foldopen00451" data-start="{" data-end="}">
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a5efeec0d33380bc170b768db972a9150">  451</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a5efeec0d33380bc170b768db972a9150">getSize</a>(GLsizei* size)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>      size[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#a579867ae1179b9d946e2a0e34a62e830">getWidth</a>();</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>      size[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#a6c9fe611549defaacbd77eb1178b63c5">getHeight</a>();</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>    }</div>
+</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span></div>
+<div class="foldopen" id="foldopen00462" data-start="{" data-end="}">
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ae86fec088b4d80bbe2cac9f11ef95adb">  462</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classGgApp_1_1Window.html#ae86fec088b4d80bbe2cac9f11ef95adb">getFboSize</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>      <span class="keywordflow">return</span> fboSize;</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    }</div>
+</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span></div>
+<div class="foldopen" id="foldopen00472" data-start="{" data-end="}">
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a55b581c4f03c8685f6632b69413aa774">  472</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a55b581c4f03c8685f6632b69413aa774">getFboSize</a>(GLsizei* fboSize)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>      fboSize[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#aa9584690e81de333b5ede0e10b184212">getFboWidth</a>();</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>      fboSize[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#a65f86fe33c40b5ca0f374484df5a2132">getFboHeight</a>();</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>    }</div>
+</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span></div>
+<div class="foldopen" id="foldopen00483" data-start="{" data-end="}">
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ac175ec3d297b415120c6cc29b6392fdd">  483</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ac175ec3d297b415120c6cc29b6392fdd">getAspect</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>      <span class="keywordflow">return</span> aspect;</div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>    }</div>
+</div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span></div>
+<div class="foldopen" id="foldopen00493" data-start="{" data-end="}">
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ae35ef8daf8ae087a8972923ce7d6d22f">  493</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ae35ef8daf8ae087a8972923ce7d6d22f">getKey</a>(<span class="keywordtype">int</span> key)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span><span class="preprocessor">#if defined(IMGUI_VERSION)</span></div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>      <span class="comment">// ImGui がキーボードを使うときはキーボードの処理を行わない</span></div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>      <span class="keywordflow">if</span> (ImGui::GetIO().WantCaptureKeyboard) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span> </div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>      <span class="keywordflow">return</span> glfwGetKey(window, key) != GLFW_RELEASE;</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    }</div>
+</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span></div>
+<div class="foldopen" id="foldopen00508" data-start="{" data-end="}">
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a7c11756525ab64e276fbf90bff68bbc9">  508</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7c11756525ab64e276fbf90bff68bbc9">selectInterface</a>(<span class="keywordtype">int</span> no)</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    {</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>      assert(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(no) &lt; interfaceData.size());</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>      interfaceNo = no;</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>    }</div>
+</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span></div>
+<div class="foldopen" id="foldopen00521" data-start="{" data-end="}">
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a5026c2115f22e214b979655ca9820e13">  521</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a5026c2115f22e214b979655ca9820e13">setVelocity</a>(GLfloat vx, GLfloat vy, GLfloat vz = 0.1f)</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    {</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>      velocity = std::array&lt;GLfloat, 3&gt;{ vx, vy, vz };</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    }</div>
+</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span></div>
+<div class="foldopen" id="foldopen00531" data-start="{" data-end="}">
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#afc88ed5fdc4ad5c6b4c99e1dc73c44e8">  531</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classGgApp_1_1Window.html#afc88ed5fdc4ad5c6b4c99e1dc73c44e8">getLastKey</a>()</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    {</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>      <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>      <span class="keyword">const</span> <span class="keywordtype">int</span> key{ current_if.lastKey };</div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>      current_if.lastKey = 0;</div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>      <span class="keywordflow">return</span> key;</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    }</div>
+</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span></div>
+<div class="foldopen" id="foldopen00546" data-start="{" data-end="}">
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">  546</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(<span class="keywordtype">int</span> direction = 0, <span class="keywordtype">int</span> mods = 0)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>      <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>GLfloat<span class="keyword">&gt;</span>(current_if.arrow[mods &amp; 3][direction &amp; 1]);</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    }</div>
+</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span></div>
+<div class="foldopen" id="foldopen00558" data-start="{" data-end="}">
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a78660227f814654a1bc2e886365e0996">  558</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a78660227f814654a1bc2e886365e0996">getArrowX</a>(<span class="keywordtype">int</span> mods = 0)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(0, mods);</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    }</div>
+</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span></div>
+<div class="foldopen" id="foldopen00569" data-start="{" data-end="}">
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a46411c2f5238715c5347356ba9282dfc">  569</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a46411c2f5238715c5347356ba9282dfc">getArrowY</a>(<span class="keywordtype">int</span> mods = 0)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(1, mods);</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    }</div>
+</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span></div>
+<div class="foldopen" id="foldopen00580" data-start="{" data-end="}">
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aed83d934df05d6cb8c8a902711a9329c">  580</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#aed83d934df05d6cb8c8a902711a9329c">getArrow</a>(GLfloat* arrow, <span class="keywordtype">int</span> mods = 0)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>      arrow[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#a78660227f814654a1bc2e886365e0996">getArrowX</a>(mods);</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>      arrow[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#a46411c2f5238715c5347356ba9282dfc">getArrowY</a>(mods);</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    }</div>
+</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span></div>
+<div class="foldopen" id="foldopen00591" data-start="{" data-end="}">
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a0c2238b6a1ad09eaeaf9f268b79bf00d">  591</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a0c2238b6a1ad09eaeaf9f268b79bf00d">getShiftArrowX</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(0, 1);</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    }</div>
+</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span></div>
+<div class="foldopen" id="foldopen00601" data-start="{" data-end="}">
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ad622962036e9c6dc8210b16a67486862">  601</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ad622962036e9c6dc8210b16a67486862">getShiftArrowY</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(1, 1);</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    }</div>
+</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span></div>
+<div class="foldopen" id="foldopen00611" data-start="{" data-end="}">
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a2201654415ccd466ce8c2e25de831e7f">  611</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a2201654415ccd466ce8c2e25de831e7f">getShiftArrow</a>(GLfloat* shift_arrow)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>      shift_arrow[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#a0c2238b6a1ad09eaeaf9f268b79bf00d">getShiftArrowX</a>();</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>      shift_arrow[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#ad622962036e9c6dc8210b16a67486862">getShiftArrowY</a>();</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    }</div>
+</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span></div>
+<div class="foldopen" id="foldopen00622" data-start="{" data-end="}">
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a05de269eb17027de60e41e3776b581b2">  622</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a05de269eb17027de60e41e3776b581b2">getControlArrowX</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(0, 2);</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    }</div>
+</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span></div>
+<div class="foldopen" id="foldopen00632" data-start="{" data-end="}">
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a0707b5143ccc9f5c8df94cce446bdab2">  632</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a0707b5143ccc9f5c8df94cce446bdab2">getControlArrowY</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(1, 2);</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    }</div>
+</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span></div>
+<div class="foldopen" id="foldopen00642" data-start="{" data-end="}">
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a95461db15ac62a3f5200d9563d245d1d">  642</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a95461db15ac62a3f5200d9563d245d1d">getControlArrow</a>(GLfloat* control_arrow)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>      control_arrow[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#a05de269eb17027de60e41e3776b581b2">getControlArrowX</a>();</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>      control_arrow[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#a0707b5143ccc9f5c8df94cce446bdab2">getControlArrowY</a>();</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    }</div>
+</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span></div>
+<div class="foldopen" id="foldopen00653" data-start="{" data-end="}">
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ac41a2596b28817ae5f807af75d451121">  653</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ac41a2596b28817ae5f807af75d451121">getAltArrowX</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(0, 3);</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    }</div>
+</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span></div>
+<div class="foldopen" id="foldopen00663" data-start="{" data-end="}">
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#abf24b249cfff5f6df4f05e3454ef5822">  663</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#abf24b249cfff5f6df4f05e3454ef5822">getAltArrowY</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">getArrow</a>(1, 3);</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    }</div>
+</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span></div>
+<div class="foldopen" id="foldopen00673" data-start="{" data-end="}">
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a81b80d842793faa2f5becac5d92586e4">  673</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a81b80d842793faa2f5becac5d92586e4">getAltArrow</a>(GLfloat* alt_arrow)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>      alt_arrow[0] = <a class="code hl_function" href="classGgApp_1_1Window.html#ac41a2596b28817ae5f807af75d451121">getAltArrowX</a>();</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>      alt_arrow[1] = <a class="code hl_function" href="classGgApp_1_1Window.html#abf24b249cfff5f6df4f05e3454ef5822">getAltArrowY</a>();</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>    }</div>
+</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span></div>
+<div class="foldopen" id="foldopen00684" data-start="{" data-end="}">
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a222e4a998fbef8e2e818bb8a3457dd9b">  684</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>* <a class="code hl_function" href="classGgApp_1_1Window.html#a222e4a998fbef8e2e818bb8a3457dd9b">getMouse</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>      <span class="keywordflow">return</span> current_if.mouse.data();</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    }</div>
+</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span></div>
+<div class="foldopen" id="foldopen00695" data-start="{" data-end="}">
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a7472df8c6089d4e85c236f16d5981c6e">  695</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7472df8c6089d4e85c236f16d5981c6e">getMouse</a>(GLfloat* position)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>      position[0] = current_if.mouse[0];</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>      position[1] = current_if.mouse[1];</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    }</div>
+</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span></div>
+<div class="foldopen" id="foldopen00708" data-start="{" data-end="}">
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a4165aa1f7754ebacc0fb0a6dbcecd832">  708</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a4165aa1f7754ebacc0fb0a6dbcecd832">getMouse</a>(<span class="keywordtype">int</span> direction)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>      <span class="keywordflow">return</span> current_if.mouse[direction &amp; 1];</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    }</div>
+</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span></div>
+<div class="foldopen" id="foldopen00719" data-start="{" data-end="}">
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a55666f5d7c3c754090622944b84a04a0">  719</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a55666f5d7c3c754090622944b84a04a0">getMouseX</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>      <span class="keywordflow">return</span> current_if.mouse[0];</div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>    }</div>
+</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span></div>
+<div class="foldopen" id="foldopen00730" data-start="{" data-end="}">
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a7e6fb715e92cb734ba644c90916b1360">  730</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7e6fb715e92cb734ba644c90916b1360">getMouseY</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>      <span class="keywordflow">return</span> current_if.mouse[1];</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>    }</div>
+</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span></div>
+<div class="foldopen" id="foldopen00741" data-start="{" data-end="}">
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#af12e09dffd442b7b49d5a8386ff253c4">  741</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>* <a class="code hl_function" href="classGgApp_1_1Window.html#af12e09dffd442b7b49d5a8386ff253c4">getWheel</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>      <span class="keywordflow">return</span> current_if.wheel.data();</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>    }</div>
+</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span></div>
+<div class="foldopen" id="foldopen00752" data-start="{" data-end="}">
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ad27764b87b9f7d09ca49de137cfbeb78">  752</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ad27764b87b9f7d09ca49de137cfbeb78">getWheel</a>(GLfloat* rotation)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>      rotation[0] = current_if.wheel[0];</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>      rotation[1] = current_if.wheel[1];</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>    }</div>
+</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span></div>
+<div class="foldopen" id="foldopen00765" data-start="{" data-end="}">
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a37cdade6e1a2fe60049650552ea7505c">  765</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a37cdade6e1a2fe60049650552ea7505c">getWheel</a>(<span class="keywordtype">int</span> direction)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>      <span class="keywordflow">return</span> current_if.wheel[direction &amp; 1];</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>    }</div>
+</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span></div>
+<div class="foldopen" id="foldopen00776" data-start="{" data-end="}">
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ad45195a5efaae1bf44b20ffd1cf0c18d">  776</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ad45195a5efaae1bf44b20ffd1cf0c18d">getWheelX</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>      <span class="keywordflow">return</span> current_if.wheel[0];</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>    }</div>
+</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span></div>
+<div class="foldopen" id="foldopen00787" data-start="{" data-end="}">
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#af0ffc69a289b38b33f137e40a2f4dae5">  787</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#af0ffc69a289b38b33f137e40a2f4dae5">getWheelY</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>      <span class="keywordflow">return</span> current_if.wheel[1];</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>    }</div>
+</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span></div>
+<div class="foldopen" id="foldopen00799" data-start="{" data-end="}">
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a6227b2825a8a7e8481fb5bb27c8c3753">  799</a></span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_function" href="classGgApp_1_1Window.html#a6227b2825a8a7e8481fb5bb27c8c3753">getTranslation</a>(<span class="keywordtype">int</span> button = GLFW_MOUSE_BUTTON_1)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>      assert(button &gt;= GLFW_MOUSE_BUTTON_1 &amp;&amp; button &lt; GLFW_MOUSE_BUTTON_1 + <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>);</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>      <span class="keywordflow">return</span> current_if.translation[button][1];</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    }</div>
+</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span></div>
+<div class="foldopen" id="foldopen00812" data-start="{" data-end="}">
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a074e392cd47e92946d23308cae934e40">  812</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a074e392cd47e92946d23308cae934e40">getTranslationMatrix</a>(<span class="keywordtype">int</span> button = GLFW_MOUSE_BUTTON_1)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>      assert(button &gt;= GLFW_MOUSE_BUTTON_1 &amp;&amp; button &lt; GLFW_MOUSE_BUTTON_1 + <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>);</div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t{ current_if.translation[button][1] };</div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span> </div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>      <a class="code hl_class" href="classgg_1_1GgMatrix.html">gg::GgMatrix</a> m</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>      {</div>
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>        1.0f, 0.0f, 0.0f, 0.0f,</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>        0.0f, 1.0f, 0.0f, 0.0f,</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>        0.0f, 0.0f, 1.0f, 0.0f,</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>        t[0], t[1], t[2], 1.0f</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>      };</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span> </div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>      <span class="keywordflow">return</span> m;</div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>    }</div>
+</div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span></div>
+<div class="foldopen" id="foldopen00835" data-start="{" data-end="}">
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a5a882289de8c5dabb26c1370d036607a">  835</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a5a882289de8c5dabb26c1370d036607a">getScrollMatrix</a>(<span class="keywordtype">int</span> button = GLFW_MOUSE_BUTTON_1)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>      assert(button &gt;= GLFW_MOUSE_BUTTON_1 &amp;&amp; button &lt; GLFW_MOUSE_BUTTON_1 + <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>);</div>
+<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; t{ current_if.translation[button][1] };</div>
+<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span> </div>
+<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>      <a class="code hl_class" href="classgg_1_1GgMatrix.html">gg::GgMatrix</a> m</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>      {</div>
+<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>        t[2] + 1.0f, 0.0f, 0.0f, 0.0f,</div>
+<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        0.0f, t[2] + 1.0f, 0.0f, 0.0f,</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        0.0f, 0.0f, 1.0f, 0.0f,</div>
+<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>        t[0], t[1], 0.0f, 1.0f</div>
+<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>      };</div>
+<div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span> </div>
+<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>      <span class="keywordflow">return</span> m;</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    }</div>
+</div>
+<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span></div>
+<div class="foldopen" id="foldopen00858" data-start="{" data-end="}">
+<div class="line"><a id="l00858" name="l00858"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aa9b5b4830a2e6c5491292a83d2b744f5">  858</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#aa9b5b4830a2e6c5491292a83d2b744f5">getRotation</a>(<span class="keywordtype">int</span> button = GLFW_MOUSE_BUTTON_1)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>      assert(button &gt;= GLFW_MOUSE_BUTTON_1 &amp;&amp; button &lt; GLFW_MOUSE_BUTTON_1 + <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>);</div>
+<div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>      <span class="keywordflow">return</span> current_if.rotation[button].getQuaternion();</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>    }</div>
+</div>
+<div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span></div>
+<div class="foldopen" id="foldopen00871" data-start="{" data-end="}">
+<div class="line"><a id="l00871" name="l00871"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ae072fc515e5a2fc54b8a11a552fc10b0">  871</a></span>    <span class="keyword">auto</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ae072fc515e5a2fc54b8a11a552fc10b0">getRotationMatrix</a>(<span class="keywordtype">int</span> button = GLFW_MOUSE_BUTTON_1)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>      <span class="keyword">const</span> <span class="keyword">auto</span>&amp; current_if{ interfaceData[interfaceNo] };</div>
+<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>      assert(button &gt;= GLFW_MOUSE_BUTTON_1 &amp;&amp; button &lt; GLFW_MOUSE_BUTTON_1 + <a class="code hl_define" href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a>);</div>
+<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>      <span class="keywordflow">return</span> current_if.rotation[button].getMatrix();</div>
+<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>    }</div>
+</div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span></div>
+<div class="foldopen" id="foldopen00881" data-start="{" data-end="}">
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#aa0e5bf92c55529a7ac9b5722528ae2b6">  881</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#aa0e5bf92c55529a7ac9b5722528ae2b6">resetRotation</a>()</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>    {</div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>      <span class="comment">// トラックボールを初期化する</span></div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; tb : interfaceData[interfaceNo].rotation) tb.reset();</div>
+<div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>    }</div>
+</div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span></div>
+<div class="foldopen" id="foldopen00890" data-start="{" data-end="}">
+<div class="line"><a id="l00890" name="l00890"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">  890</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">resetTranslation</a>()</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>    {</div>
+<div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>      <span class="comment">// 現在のインターフェースの平行移動量を初期化する</span></div>
+<div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>      interfaceData[interfaceNo].resetTranslation();</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>    }</div>
+</div>
+<div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span></div>
+<div class="foldopen" id="foldopen00899" data-start="{" data-end="}">
+<div class="line"><a id="l00899" name="l00899"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a7931a21c03bd1865a90f7b05964f7cdc">  899</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a7931a21c03bd1865a90f7b05964f7cdc">reset</a>()</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>    {</div>
+<div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>      <span class="comment">// トラックボール処理を初期化する</span></div>
+<div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span>      <a class="code hl_function" href="classGgApp_1_1Window.html#aa0e5bf92c55529a7ac9b5722528ae2b6">resetRotation</a>();</div>
+<div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span> </div>
+<div class="line"><a id="l00904" name="l00904"></a><span class="lineno">  904</span>      <span class="comment">// 平行移動量を初期化する</span></div>
+<div class="line"><a id="l00905" name="l00905"></a><span class="lineno">  905</span>      <a class="code hl_function" href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">resetTranslation</a>();</div>
+<div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>    }</div>
+</div>
+<div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span></div>
+<div class="foldopen" id="foldopen00913" data-start="{" data-end="}">
+<div class="line"><a id="l00913" name="l00913"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a5959f9f57f4b12cab5e729732a0b54e7">  913</a></span>    <span class="keywordtype">void</span>* <a class="code hl_function" href="classGgApp_1_1Window.html#a5959f9f57f4b12cab5e729732a0b54e7">getUserPointer</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00914" name="l00914"></a><span class="lineno">  914</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00915" name="l00915"></a><span class="lineno">  915</span>      <span class="keywordflow">return</span> userPointer;</div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span>    }</div>
+</div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span></div>
+<div class="foldopen" id="foldopen00923" data-start="{" data-end="}">
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a3e8975f427f140148331b0bc294e931d">  923</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a3e8975f427f140148331b0bc294e931d">setUserPointer</a>(<span class="keywordtype">void</span>* pointer)</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    {</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>      userPointer = pointer;</div>
+<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>    }</div>
+</div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span></div>
+<div class="foldopen" id="foldopen00933" data-start="{" data-end="}">
+<div class="line"><a id="l00933" name="l00933"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#ad40d89ff090cf184882fab3048a323d0">  933</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#ad40d89ff090cf184882fab3048a323d0">setResizeFunc</a>(<span class="keywordtype">void</span> (*func)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height))</div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    {</div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>      resizeFunc = func;</div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    }</div>
+</div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span></div>
+<div class="foldopen" id="foldopen00943" data-start="{" data-end="}">
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a3f03a692bf813089182b2331262265a6">  943</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a3f03a692bf813089182b2331262265a6">setKeyboardFunc</a>(<span class="keywordtype">void</span> (*func)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> key, <span class="keywordtype">int</span> scancode, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods))</div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span>    {</div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>      keyboardFunc = func;</div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>    }</div>
+</div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span></div>
+<div class="foldopen" id="foldopen00953" data-start="{" data-end="}">
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a3be62ffb0be6016f7ce531755667730b">  953</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a3be62ffb0be6016f7ce531755667730b">setMouseFunc</a>(<span class="keywordtype">void</span> (*func)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">int</span> button, <span class="keywordtype">int</span> action, <span class="keywordtype">int</span> mods))</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>    {</div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span>      mouseFunc = func;</div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>    }</div>
+</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span></div>
+<div class="foldopen" id="foldopen00963" data-start="{" data-end="}">
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno"><a class="line" href="classGgApp_1_1Window.html#a658fd07bb623e4e6e0745211d1870e46">  963</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a658fd07bb623e4e6e0745211d1870e46">setWheelFunc</a>(<span class="keywordtype">void</span> (*func)(<span class="keyword">const</span> <a class="code hl_function" href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">Window</a>* window, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y))</div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span>    {</div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>      wheelFunc = func;</div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>    }</div>
+</div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>  };</div>
+</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span> </div>
+<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span><span class="preprocessor">#if defined(GG_USE_OPENXR)</span></div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span>  <span class="keyword">class </span>OpenXR</div>
+<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span>  {</div>
+<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span></div>
+<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>    <span class="keyword">enum</span> Hand</div>
+<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>    {</div>
+<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>      Left = 0,   </div>
+<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span>      Right = 1,  </div>
+<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span>      Count = 2   </div>
+<div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span>    };</div>
+<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span> </div>
+<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span>  <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span> </div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>    <span class="comment">// OpenXR のインスタンスとシステム</span></div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>    XrInstance instance{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span>    XrSystemId systemId{ XR_NULL_SYSTEM_ID };</div>
+<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span> </div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>    <span class="comment">// OpenXR のシステムの名前</span></div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span>    std::string systemName;</div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span> </div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span>    <span class="comment">// OpenXR のセッション</span></div>
+<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span>    XrSession session{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span>    XrSessionState sessionState{ XR_SESSION_STATE_UNKNOWN };</div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span> </div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span>    <span class="comment">// OpenXR の参照空間</span></div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>    XrSpace appSpace{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>    XrReferenceSpaceType referenceSpaceType{ XR_REFERENCE_SPACE_TYPE_STAGE };</div>
+<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span> </div>
+<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span>    <span class="comment">// ビュー設定とステート</span></div>
+<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>    std::vector&lt;XrViewConfigurationView&gt; views;</div>
+<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span>    std::vector&lt;XrView&gt; viewStates;</div>
+<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span> </div>
+<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>    <span class="comment">// OpenXR のスワップチェーン</span></div>
+<div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>    std::vector&lt;XrSwapchain&gt; swapchains;</div>
+<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span>    std::vector&lt;std::vector&lt;XrSwapchainImageOpenGLKHR&gt;&gt; swapchainImages;</div>
+<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span> </div>
+<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span>    <span class="comment">// OpenXR へのレンダリングに使う FBO とデプスバッファ (ビューの数だけ確保する)</span></div>
+<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span>    std::vector&lt;GLuint&gt; openxrFbo;</div>
+<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span>    std::vector&lt;GLuint&gt; openxrDepth;</div>
+<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span> </div>
+<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span>    <span class="comment">// スワップチェーンのカラーフォーマットが sRGB なら true</span></div>
+<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span>    <span class="keywordtype">bool</span> swapchainIsSrgb{ <span class="keyword">true</span> };</div>
+<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span> </div>
+<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span>    <span class="comment">// 環境の合成方法</span></div>
+<div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>    XrEnvironmentBlendMode blendMode{ XR_ENVIRONMENT_BLEND_MODE_OPAQUE };</div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span> </div>
+<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>    <span class="comment">// フレームの同期状態</span></div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>    XrFrameState frameState{ XR_TYPE_FRAME_STATE };</div>
+<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>    <span class="keywordtype">bool</span> isSessionRunning{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span> </div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>    <span class="comment">// xrBeginFrame() を呼んで xrEndFrame() を呼んでいない状態なら true</span></div>
+<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>    <span class="keywordtype">bool</span> frameBegun{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span> </div>
+<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span>    <span class="comment">// 視点の姿勢が取得できていれば true</span></div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span>    <span class="keywordtype">bool</span> viewPoseValid{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span> </div>
+<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span>    <span class="comment">// 初期化が完了していれば true</span></div>
+<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span>    <span class="keywordtype">bool</span> initialized{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span> </div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span>    <span class="comment">// 各フレームで取得したスワップチェーンイメージのインデックス</span></div>
+<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span>    std::vector&lt;uint32_t&gt; currentImageIndex;</div>
+<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span> </div>
+<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span>    <span class="comment">// スワップチェーンイメージを取得中のビューなら true</span></div>
+<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span>    std::vector&lt;bool&gt; imageAcquired;</div>
+<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span> </div>
+<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span>    <span class="comment">// ミラー表示を行うビューの番号, ミラー表示を行わないなら -1</span></div>
+<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span>    <span class="keywordtype">int</span> mirrorView{ 0 };</div>
+<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span> </div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span>    <span class="comment">// OpenXR のミラー表示を行うウィンドウ</span></div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>    <span class="keyword">const</span> Window* window{ <span class="keyword">nullptr</span> };</div>
+<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span> </div>
+<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span>    <span class="comment">// アクションセット</span></div>
+<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>    XrActionSet actionSet{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span> </div>
+<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>    <span class="comment">// アクション定義</span></div>
+<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>    XrAction aimPoseAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span>    XrAction gripPoseAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    XrAction triggerAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>    XrAction gripAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>    XrAction thumbstickAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>    XrAction thumbstickClickAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>    XrAction primaryButtonAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>    XrAction secondaryButtonAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>    XrAction menuButtonAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>    XrAction hapticAction{ XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span> </div>
+<div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>    <span class="comment">// コントローラーのスペース</span></div>
+<div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>    XrSpace aimSpace[Hand::Count]{ XR_NULL_HANDLE, XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>    XrSpace gripSpace[Hand::Count]{ XR_NULL_HANDLE, XR_NULL_HANDLE };</div>
+<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span> </div>
+<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>    <span class="comment">// コントローラーの状態キャッシュ</span></div>
+<div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span>    <span class="keyword">struct </span>ControllerState</div>
+<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span>    {</div>
+<div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span>      <span class="keywordtype">bool</span> isTracked{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01075" name="l01075"></a><span class="lineno"> 1075</span>      XrPosef gripPose{ { 0.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 0.0f } };</div>
+<div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span>      XrPosef aimPose{ { 0.0f, 0.0f, 0.0f, 1.0f }, { 0.0f, 0.0f, 0.0f } };</div>
+<div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span>      <span class="keywordtype">float</span> trigger{ 0.0f };</div>
+<div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span>      <span class="keywordtype">float</span> grip{ 0.0f };</div>
+<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>      std::array&lt;float, 2&gt; thumbstick{ 0.0f, 0.0f };</div>
+<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>      <span class="keywordtype">bool</span> thumbstickClick{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span>      <span class="keywordtype">bool</span> primaryButton{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span>      <span class="keywordtype">bool</span> secondaryButton{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>      <span class="keywordtype">bool</span> menuButton{ <span class="keyword">false</span> };</div>
+<div class="line"><a id="l01084" name="l01084"></a><span class="lineno"> 1084</span>    };</div>
+<div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>    ControllerState controllerStates[Hand::Count];</div>
+<div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span> </div>
+<div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>    <span class="comment">// サポートするパスの文字列</span></div>
+<div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>    XrPath handSubactionPath[Hand::Count]{ XR_NULL_PATH, XR_NULL_PATH };</div>
+<div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span> </div>
+<div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01091" name="l01091"></a><span class="lineno"> 1091</span>    <span class="comment">// アクションシステムを初期化する</span></div>
+<div class="line"><a id="l01092" name="l01092"></a><span class="lineno"> 1092</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01093" name="l01093"></a><span class="lineno"> 1093</span>    <span class="keywordtype">void</span> initActions();</div>
+<div class="line"><a id="l01094" name="l01094"></a><span class="lineno"> 1094</span> </div>
+<div class="line"><a id="l01095" name="l01095"></a><span class="lineno"> 1095</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01096" name="l01096"></a><span class="lineno"> 1096</span>    <span class="comment">// アクション状態を更新する</span></div>
+<div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>    <span class="keywordtype">void</span> pollActions();</div>
+<div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span> </div>
+<div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01101" name="l01101"></a><span class="lineno"> 1101</span>    <span class="comment">// OpenXR のイベントを処理する</span></div>
+<div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01103" name="l01103"></a><span class="lineno"> 1103</span>    <span class="keywordtype">void</span> pollEvents();</div>
+<div class="line"><a id="l01104" name="l01104"></a><span class="lineno"> 1104</span> </div>
+<div class="line"><a id="l01105" name="l01105"></a><span class="lineno"> 1105</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01106" name="l01106"></a><span class="lineno"> 1106</span>    <span class="comment">// スワップチェーンを作成する</span></div>
+<div class="line"><a id="l01107" name="l01107"></a><span class="lineno"> 1107</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span>    <span class="keywordtype">void</span> createSwapchains();</div>
+<div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span> </div>
+<div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>    <span class="comment">// 描画中のフレームを合成器に転送する</span></div>
+<div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>    <span class="keywordtype">void</span> endFrame();</div>
+<div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span> </div>
+<div class="line"><a id="l01115" name="l01115"></a><span class="lineno"> 1115</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01116" name="l01116"></a><span class="lineno"> 1116</span>    <span class="comment">// OpenXR のハンドルを破棄する (OpenGL の資源には触れない)</span></div>
+<div class="line"><a id="l01117" name="l01117"></a><span class="lineno"> 1117</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01118" name="l01118"></a><span class="lineno"> 1118</span>    <span class="keywordtype">void</span> destroyXr();</div>
+<div class="line"><a id="l01119" name="l01119"></a><span class="lineno"> 1119</span> </div>
+<div class="line"><a id="l01120" name="l01120"></a><span class="lineno"> 1120</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01121" name="l01121"></a><span class="lineno"> 1121</span>    <span class="comment">// ミラー表示を行う</span></div>
+<div class="line"><a id="l01122" name="l01122"></a><span class="lineno"> 1122</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01123" name="l01123"></a><span class="lineno"> 1123</span>    <span class="keywordtype">void</span> blitMirror() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01124" name="l01124"></a><span class="lineno"> 1124</span> </div>
+<div class="line"><a id="l01125" name="l01125"></a><span class="lineno"> 1125</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01126" name="l01126"></a><span class="lineno"> 1126</span>    <span class="comment">// コンストラクタ</span></div>
+<div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>    OpenXR();</div>
+<div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span> </div>
+<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span>    <span class="comment">// デストラクタ</span></div>
+<div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l01133" name="l01133"></a><span class="lineno"> 1133</span>    <span class="keyword">virtual</span> ~OpenXR();</div>
+<div class="line"><a id="l01134" name="l01134"></a><span class="lineno"> 1134</span> </div>
+<div class="line"><a id="l01135" name="l01135"></a><span class="lineno"> 1135</span>  <span class="keyword">public</span>:</div>
+<div class="line"><a id="l01136" name="l01136"></a><span class="lineno"> 1136</span> </div>
+<div class="line"><a id="l01137" name="l01137"></a><span class="lineno"> 1137</span>    <span class="comment">// シングルトンなのでコピー・ムーブ禁止</span></div>
+<div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>    OpenXR(<span class="keyword">const</span> OpenXR&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span>    OpenXR&amp; operator=(<span class="keyword">const</span> OpenXR&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>    OpenXR(OpenXR&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>    OpenXR&amp; operator=(OpenXR&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span></div>
+<div class="line"><a id="l01156" name="l01156"></a><span class="lineno"> 1156</span>    <span class="keyword">static</span> OpenXR&amp; initialize(<span class="keyword">const</span> Window&amp; window,</div>
+<div class="line"><a id="l01157" name="l01157"></a><span class="lineno"> 1157</span>      XrReferenceSpaceType spaceType = XR_REFERENCE_SPACE_TYPE_STAGE,</div>
+<div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>      <span class="keyword">const</span> <span class="keywordtype">char</span>* appName = <span class="stringliteral">&quot;GgApp&quot;</span>);</div>
+<div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span></div>
+<div class="line"><a id="l01167" name="l01167"></a><span class="lineno"> 1167</span>    <span class="keywordtype">void</span> terminate();</div>
+<div class="line"><a id="l01168" name="l01168"></a><span class="lineno"> 1168</span></div>
+<div class="line"><a id="l01181" name="l01181"></a><span class="lineno"> 1181</span>    <span class="keywordtype">bool</span> begin();</div>
+<div class="line"><a id="l01182" name="l01182"></a><span class="lineno"> 1182</span></div>
+<div class="line"><a id="l01188" name="l01188"></a><span class="lineno"> 1188</span>    <span class="keywordtype">void</span> select(<span class="keywordtype">int</span> eye);</div>
+<div class="line"><a id="l01189" name="l01189"></a><span class="lineno"> 1189</span></div>
+<div class="line"><a id="l01198" name="l01198"></a><span class="lineno"> 1198</span>    <span class="keywordtype">void</span> select(<span class="keywordtype">int</span> eye, GLfloat* screen, GLfloat* position, GLfloat* orientation);</div>
+<div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span></div>
+<div class="line"><a id="l01209" name="l01209"></a><span class="lineno"> 1209</span>    <span class="keywordtype">void</span> commit(<span class="keywordtype">int</span> eye);</div>
+<div class="line"><a id="l01210" name="l01210"></a><span class="lineno"> 1210</span></div>
+<div class="line"><a id="l01222" name="l01222"></a><span class="lineno"> 1222</span>    <span class="keywordtype">bool</span> submit(<span class="keywordtype">bool</span> mirror = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l01223" name="l01223"></a><span class="lineno"> 1223</span></div>
+<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>    <span class="keywordtype">void</span> setMirror(<span class="keywordtype">int</span> eye);</div>
+<div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span></div>
+<div class="line"><a id="l01236" name="l01236"></a><span class="lineno"> 1236</span>    <span class="keywordtype">int</span> getMirror() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01237" name="l01237"></a><span class="lineno"> 1237</span></div>
+<div class="line"><a id="l01243" name="l01243"></a><span class="lineno"> 1243</span>    <span class="keywordtype">bool</span> isRunning() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01244" name="l01244"></a><span class="lineno"> 1244</span></div>
+<div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>    <span class="keywordtype">bool</span> isFocused() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span></div>
+<div class="line"><a id="l01257" name="l01257"></a><span class="lineno"> 1257</span>    <span class="keyword">const</span> std::string&amp; getSystemName() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01258" name="l01258"></a><span class="lineno"> 1258</span></div>
+<div class="line"><a id="l01267" name="l01267"></a><span class="lineno"> 1267</span>    gg::GgMatrix getProjectionMatrix(<span class="keywordtype">int</span> eye, GLfloat zNear = 0.1f, GLfloat zFar = 100.0f) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01268" name="l01268"></a><span class="lineno"> 1268</span></div>
+<div class="line"><a id="l01275" name="l01275"></a><span class="lineno"> 1275</span>    gg::GgMatrix getViewMatrix(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01276" name="l01276"></a><span class="lineno"> 1276</span></div>
+<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>    gg::GgMatrix getPoseMatrix(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span></div>
+<div class="line"><a id="l01291" name="l01291"></a><span class="lineno"> 1291</span>    gg::GgVector getPosition(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span></div>
+<div class="line"><a id="l01299" name="l01299"></a><span class="lineno"> 1299</span>    gg::GgQuaternion getOrientation(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01300" name="l01300"></a><span class="lineno"> 1300</span></div>
+<div class="line"><a id="l01307" name="l01307"></a><span class="lineno"> 1307</span>    <span class="keyword">const</span> XrFovf&amp; getFov(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01308" name="l01308"></a><span class="lineno"> 1308</span></div>
+<div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span>    <span class="keyword">const</span> XrPosef&amp; getPose(<span class="keywordtype">int</span> eye) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span></div>
+<div class="line"><a id="l01322" name="l01322"></a><span class="lineno"> 1322</span>    <span class="keywordtype">bool</span> isPoseValid() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01323" name="l01323"></a><span class="lineno"> 1323</span></div>
+<div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>    GLsizei getWidth(<span class="keywordtype">int</span> eye = 0) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span></div>
+<div class="line"><a id="l01338" name="l01338"></a><span class="lineno"> 1338</span>    GLsizei getHeight(<span class="keywordtype">int</span> eye = 0) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01339" name="l01339"></a><span class="lineno"> 1339</span></div>
+<div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span>    GLfloat getAspect(<span class="keywordtype">int</span> eye = 0) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span></div>
+<div class="line"><a id="l01353" name="l01353"></a><span class="lineno"> 1353</span>    uint32_t getViewCount() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01354" name="l01354"></a><span class="lineno"> 1354</span></div>
+<div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>    XrReferenceSpaceType getReferenceSpaceType() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span></div>
+<div class="line"><a id="l01368" name="l01368"></a><span class="lineno"> 1368</span>    <span class="keywordtype">bool</span> isTracked(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01369" name="l01369"></a><span class="lineno"> 1369</span></div>
+<div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span>    gg::GgMatrix getGripMatrix(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span></div>
+<div class="line"><a id="l01384" name="l01384"></a><span class="lineno"> 1384</span>    gg::GgMatrix getAimMatrix(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01385" name="l01385"></a><span class="lineno"> 1385</span></div>
+<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span>    gg::GgVector getGripPosition(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span></div>
+<div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span>    gg::GgQuaternion getGripOrientation(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span></div>
+<div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span>    gg::GgVector getAimPosition(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span></div>
+<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span>    gg::GgQuaternion getAimOrientation(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span></div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span>    <span class="keywordtype">float</span> getTrigger(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span></div>
+<div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span>    <span class="keywordtype">float</span> getGrip(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span></div>
+<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>    std::array&lt;float, 2&gt; getThumbstick(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span></div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span>    <span class="keywordtype">bool</span> getThumbstickClick(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span></div>
+<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span>    <span class="keywordtype">bool</span> getPrimaryButton(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span></div>
+<div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span>    <span class="keywordtype">bool</span> getSecondaryButton(<span class="keywordtype">int</span> hand) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01465" name="l01465"></a><span class="lineno"> 1465</span></div>
+<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>    <span class="keywordtype">bool</span> getMenuButton(<span class="keywordtype">int</span> hand = Hand::Left) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span></div>
+<div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span>    <span class="keywordtype">void</span> applyHapticVibration(<span class="keywordtype">int</span> hand, <span class="keywordtype">float</span> durationSeconds = 0.1f, <span class="keywordtype">float</span> frequency = XR_FREQUENCY_UNSPECIFIED, <span class="keywordtype">float</span> amplitude = 0.5f);</div>
+<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span>  };</div>
+<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span></div>
+<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span>  <span class="keyword">static</span> std::string <a class="code hl_function" href="classGgApp.html#ad1955da79da506e73e4dabb2673e2363">getUsername</a>();</div>
+<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span>};</div>
+</div>
+<div class="ttc" id="aGgApp_8h_html_a1ed2c057903764ef8477b9da6ac4ed64"><div class="ttname"><a href="GgApp_8h.html#a1ed2c057903764ef8477b9da6ac4ed64">GG_BUTTON_COUNT</a></div><div class="ttdeci">#define GG_BUTTON_COUNT</div><div class="ttdef"><b>Definition</b> <a href="#l00049">GgApp.h:49</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a05de269eb17027de60e41e3776b581b2"><div class="ttname"><a href="classGgApp_1_1Window.html#a05de269eb17027de60e41e3776b581b2">GgApp::Window::getControlArrowX</a></div><div class="ttdeci">auto getControlArrowX() const</div><div class="ttdef"><b>Definition</b> <a href="#l00622">GgApp.h:622</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a0707b5143ccc9f5c8df94cce446bdab2"><div class="ttname"><a href="classGgApp_1_1Window.html#a0707b5143ccc9f5c8df94cce446bdab2">GgApp::Window::getControlArrowY</a></div><div class="ttdeci">auto getControlArrowY() const</div><div class="ttdef"><b>Definition</b> <a href="#l00632">GgApp.h:632</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a074e392cd47e92946d23308cae934e40"><div class="ttname"><a href="classGgApp_1_1Window.html#a074e392cd47e92946d23308cae934e40">GgApp::Window::getTranslationMatrix</a></div><div class="ttdeci">auto getTranslationMatrix(int button=GLFW_MOUSE_BUTTON_1) const</div><div class="ttdef"><b>Definition</b> <a href="#l00812">GgApp.h:812</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a0c2238b6a1ad09eaeaf9f268b79bf00d"><div class="ttname"><a href="classGgApp_1_1Window.html#a0c2238b6a1ad09eaeaf9f268b79bf00d">GgApp::Window::getShiftArrowX</a></div><div class="ttdeci">auto getShiftArrowX() const</div><div class="ttdef"><b>Definition</b> <a href="#l00591">GgApp.h:591</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a127c516045e716c271524fa45998cbc0"><div class="ttname"><a href="classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0">GgApp::Window::Window</a></div><div class="ttdeci">Window(const std::string &amp;title=&quot;GLFW Window&quot;, int width=640, int height=480, int fullscreen=0, GLFWwindow *share=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l00344">GgApp.cpp:344</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a19ae0ed75fc177b2a0672fc2af3c78a4"><div class="ttname"><a href="classGgApp_1_1Window.html#a19ae0ed75fc177b2a0672fc2af3c78a4">GgApp::Window::swapBuffers</a></div><div class="ttdeci">void swapBuffers() const</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l00528">GgApp.cpp:528</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a2201654415ccd466ce8c2e25de831e7f"><div class="ttname"><a href="classGgApp_1_1Window.html#a2201654415ccd466ce8c2e25de831e7f">GgApp::Window::getShiftArrow</a></div><div class="ttdeci">void getShiftArrow(GLfloat *shift_arrow) const</div><div class="ttdef"><b>Definition</b> <a href="#l00611">GgApp.h:611</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a222e4a998fbef8e2e818bb8a3457dd9b"><div class="ttname"><a href="classGgApp_1_1Window.html#a222e4a998fbef8e2e818bb8a3457dd9b">GgApp::Window::getMouse</a></div><div class="ttdeci">const auto * getMouse() const</div><div class="ttdef"><b>Definition</b> <a href="#l00684">GgApp.h:684</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a2c90728cd2fcebd0f3c0d6d48741c5fd"><div class="ttname"><a href="classGgApp_1_1Window.html#a2c90728cd2fcebd0f3c0d6d48741c5fd">GgApp::Window::setClose</a></div><div class="ttdeci">void setClose(int flag=GLFW_TRUE) const</div><div class="ttdef"><b>Definition</b> <a href="#l00339">GgApp.h:339</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a37cdade6e1a2fe60049650552ea7505c"><div class="ttname"><a href="classGgApp_1_1Window.html#a37cdade6e1a2fe60049650552ea7505c">GgApp::Window::getWheel</a></div><div class="ttdeci">auto getWheel(int direction) const</div><div class="ttdef"><b>Definition</b> <a href="#l00765">GgApp.h:765</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a3be62ffb0be6016f7ce531755667730b"><div class="ttname"><a href="classGgApp_1_1Window.html#a3be62ffb0be6016f7ce531755667730b">GgApp::Window::setMouseFunc</a></div><div class="ttdeci">void setMouseFunc(void(*func)(const Window *window, int button, int action, int mods))</div><div class="ttdef"><b>Definition</b> <a href="#l00953">GgApp.h:953</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a3e8975f427f140148331b0bc294e931d"><div class="ttname"><a href="classGgApp_1_1Window.html#a3e8975f427f140148331b0bc294e931d">GgApp::Window::setUserPointer</a></div><div class="ttdeci">void setUserPointer(void *pointer)</div><div class="ttdef"><b>Definition</b> <a href="#l00923">GgApp.h:923</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a3f03a692bf813089182b2331262265a6"><div class="ttname"><a href="classGgApp_1_1Window.html#a3f03a692bf813089182b2331262265a6">GgApp::Window::setKeyboardFunc</a></div><div class="ttdeci">void setKeyboardFunc(void(*func)(const Window *window, int key, int scancode, int action, int mods))</div><div class="ttdef"><b>Definition</b> <a href="#l00943">GgApp.h:943</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a4165aa1f7754ebacc0fb0a6dbcecd832"><div class="ttname"><a href="classGgApp_1_1Window.html#a4165aa1f7754ebacc0fb0a6dbcecd832">GgApp::Window::getMouse</a></div><div class="ttdeci">auto getMouse(int direction) const</div><div class="ttdef"><b>Definition</b> <a href="#l00708">GgApp.h:708</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a4601eaeb4c129cfe4080b93a421df484"><div class="ttname"><a href="classGgApp_1_1Window.html#a4601eaeb4c129cfe4080b93a421df484">GgApp::Window::getSize</a></div><div class="ttdeci">const auto &amp; getSize() const</div><div class="ttdef"><b>Definition</b> <a href="#l00441">GgApp.h:441</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a46411c2f5238715c5347356ba9282dfc"><div class="ttname"><a href="classGgApp_1_1Window.html#a46411c2f5238715c5347356ba9282dfc">GgApp::Window::getArrowY</a></div><div class="ttdeci">auto getArrowY(int mods=0) const</div><div class="ttdef"><b>Definition</b> <a href="#l00569">GgApp.h:569</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a5026c2115f22e214b979655ca9820e13"><div class="ttname"><a href="classGgApp_1_1Window.html#a5026c2115f22e214b979655ca9820e13">GgApp::Window::setVelocity</a></div><div class="ttdeci">void setVelocity(GLfloat vx, GLfloat vy, GLfloat vz=0.1f)</div><div class="ttdef"><b>Definition</b> <a href="#l00521">GgApp.h:521</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a515578a995bb8d3e37ce1767f4095efd"><div class="ttname"><a href="classGgApp_1_1Window.html#a515578a995bb8d3e37ce1767f4095efd">GgApp::Window::restoreViewport</a></div><div class="ttdeci">void restoreViewport() const</div><div class="ttdef"><b>Definition</b> <a href="#l00370">GgApp.h:370</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a55666f5d7c3c754090622944b84a04a0"><div class="ttname"><a href="classGgApp_1_1Window.html#a55666f5d7c3c754090622944b84a04a0">GgApp::Window::getMouseX</a></div><div class="ttdeci">auto getMouseX() const</div><div class="ttdef"><b>Definition</b> <a href="#l00719">GgApp.h:719</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a55b581c4f03c8685f6632b69413aa774"><div class="ttname"><a href="classGgApp_1_1Window.html#a55b581c4f03c8685f6632b69413aa774">GgApp::Window::getFboSize</a></div><div class="ttdeci">void getFboSize(GLsizei *fboSize) const</div><div class="ttdef"><b>Definition</b> <a href="#l00472">GgApp.h:472</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a579867ae1179b9d946e2a0e34a62e830"><div class="ttname"><a href="classGgApp_1_1Window.html#a579867ae1179b9d946e2a0e34a62e830">GgApp::Window::getWidth</a></div><div class="ttdeci">auto getWidth() const</div><div class="ttdef"><b>Definition</b> <a href="#l00401">GgApp.h:401</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a5959f9f57f4b12cab5e729732a0b54e7"><div class="ttname"><a href="classGgApp_1_1Window.html#a5959f9f57f4b12cab5e729732a0b54e7">GgApp::Window::getUserPointer</a></div><div class="ttdeci">void * getUserPointer() const</div><div class="ttdef"><b>Definition</b> <a href="#l00913">GgApp.h:913</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a5a882289de8c5dabb26c1370d036607a"><div class="ttname"><a href="classGgApp_1_1Window.html#a5a882289de8c5dabb26c1370d036607a">GgApp::Window::getScrollMatrix</a></div><div class="ttdeci">auto getScrollMatrix(int button=GLFW_MOUSE_BUTTON_1) const</div><div class="ttdef"><b>Definition</b> <a href="#l00835">GgApp.h:835</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a5efeec0d33380bc170b768db972a9150"><div class="ttname"><a href="classGgApp_1_1Window.html#a5efeec0d33380bc170b768db972a9150">GgApp::Window::getSize</a></div><div class="ttdeci">void getSize(GLsizei *size) const</div><div class="ttdef"><b>Definition</b> <a href="#l00451">GgApp.h:451</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a6227b2825a8a7e8481fb5bb27c8c3753"><div class="ttname"><a href="classGgApp_1_1Window.html#a6227b2825a8a7e8481fb5bb27c8c3753">GgApp::Window::getTranslation</a></div><div class="ttdeci">const auto &amp; getTranslation(int button=GLFW_MOUSE_BUTTON_1) const</div><div class="ttdef"><b>Definition</b> <a href="#l00799">GgApp.h:799</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a658fd07bb623e4e6e0745211d1870e46"><div class="ttname"><a href="classGgApp_1_1Window.html#a658fd07bb623e4e6e0745211d1870e46">GgApp::Window::setWheelFunc</a></div><div class="ttdeci">void setWheelFunc(void(*func)(const Window *window, double x, double y))</div><div class="ttdef"><b>Definition</b> <a href="#l00963">GgApp.h:963</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a65f86fe33c40b5ca0f374484df5a2132"><div class="ttname"><a href="classGgApp_1_1Window.html#a65f86fe33c40b5ca0f374484df5a2132">GgApp::Window::getFboHeight</a></div><div class="ttdeci">auto getFboHeight() const</div><div class="ttdef"><b>Definition</b> <a href="#l00431">GgApp.h:431</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a6b349c4887749cd9e5c6e655a0eea865"><div class="ttname"><a href="classGgApp_1_1Window.html#a6b349c4887749cd9e5c6e655a0eea865">GgApp::Window::updateViewport</a></div><div class="ttdeci">void updateViewport()</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l00547">GgApp.cpp:547</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a6c9fe611549defaacbd77eb1178b63c5"><div class="ttname"><a href="classGgApp_1_1Window.html#a6c9fe611549defaacbd77eb1178b63c5">GgApp::Window::getHeight</a></div><div class="ttdeci">auto getHeight() const</div><div class="ttdef"><b>Definition</b> <a href="#l00411">GgApp.h:411</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a7472df8c6089d4e85c236f16d5981c6e"><div class="ttname"><a href="classGgApp_1_1Window.html#a7472df8c6089d4e85c236f16d5981c6e">GgApp::Window::getMouse</a></div><div class="ttdeci">void getMouse(GLfloat *position) const</div><div class="ttdef"><b>Definition</b> <a href="#l00695">GgApp.h:695</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a78660227f814654a1bc2e886365e0996"><div class="ttname"><a href="classGgApp_1_1Window.html#a78660227f814654a1bc2e886365e0996">GgApp::Window::getArrowX</a></div><div class="ttdeci">auto getArrowX(int mods=0) const</div><div class="ttdef"><b>Definition</b> <a href="#l00558">GgApp.h:558</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a7931a21c03bd1865a90f7b05964f7cdc"><div class="ttname"><a href="classGgApp_1_1Window.html#a7931a21c03bd1865a90f7b05964f7cdc">GgApp::Window::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> <a href="#l00899">GgApp.h:899</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a7c11756525ab64e276fbf90bff68bbc9"><div class="ttname"><a href="classGgApp_1_1Window.html#a7c11756525ab64e276fbf90bff68bbc9">GgApp::Window::selectInterface</a></div><div class="ttdeci">void selectInterface(int no)</div><div class="ttdef"><b>Definition</b> <a href="#l00508">GgApp.h:508</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a7e6fb715e92cb734ba644c90916b1360"><div class="ttname"><a href="classGgApp_1_1Window.html#a7e6fb715e92cb734ba644c90916b1360">GgApp::Window::getMouseY</a></div><div class="ttdeci">auto getMouseY() const</div><div class="ttdef"><b>Definition</b> <a href="#l00730">GgApp.h:730</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a7fbe5cd9550549cce2eb0c148653ac39"><div class="ttname"><a href="classGgApp_1_1Window.html#a7fbe5cd9550549cce2eb0c148653ac39">GgApp::Window::resetTranslation</a></div><div class="ttdeci">void resetTranslation()</div><div class="ttdef"><b>Definition</b> <a href="#l00890">GgApp.h:890</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a81b80d842793faa2f5becac5d92586e4"><div class="ttname"><a href="classGgApp_1_1Window.html#a81b80d842793faa2f5becac5d92586e4">GgApp::Window::getAltArrow</a></div><div class="ttdeci">void getAltArrow(GLfloat *alt_arrow) const</div><div class="ttdef"><b>Definition</b> <a href="#l00673">GgApp.h:673</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a94c6ee97910853aafc9dd886e0d44e05"><div class="ttname"><a href="classGgApp_1_1Window.html#a94c6ee97910853aafc9dd886e0d44e05">GgApp::Window::~Window</a></div><div class="ttdeci">virtual ~Window()</div><div class="ttdef"><b>Definition</b> <a href="#l00299">GgApp.h:299</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_a95461db15ac62a3f5200d9563d245d1d"><div class="ttname"><a href="classGgApp_1_1Window.html#a95461db15ac62a3f5200d9563d245d1d">GgApp::Window::getControlArrow</a></div><div class="ttdeci">void getControlArrow(GLfloat *control_arrow) const</div><div class="ttdef"><b>Definition</b> <a href="#l00642">GgApp.h:642</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aa0e5bf92c55529a7ac9b5722528ae2b6"><div class="ttname"><a href="classGgApp_1_1Window.html#aa0e5bf92c55529a7ac9b5722528ae2b6">GgApp::Window::resetRotation</a></div><div class="ttdeci">void resetRotation()</div><div class="ttdef"><b>Definition</b> <a href="#l00881">GgApp.h:881</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aa8401b4de974f114d3fb9d1ecac74eb9"><div class="ttname"><a href="classGgApp_1_1Window.html#aa8401b4de974f114d3fb9d1ecac74eb9">GgApp::Window::shouldClose</a></div><div class="ttdeci">bool shouldClose() const</div><div class="ttdef"><b>Definition</b> <a href="#l00349">GgApp.h:349</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aa9584690e81de333b5ede0e10b184212"><div class="ttname"><a href="classGgApp_1_1Window.html#aa9584690e81de333b5ede0e10b184212">GgApp::Window::getFboWidth</a></div><div class="ttdeci">auto getFboWidth() const</div><div class="ttdef"><b>Definition</b> <a href="#l00421">GgApp.h:421</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aa9b5b4830a2e6c5491292a83d2b744f5"><div class="ttname"><a href="classGgApp_1_1Window.html#aa9b5b4830a2e6c5491292a83d2b744f5">GgApp::Window::getRotation</a></div><div class="ttdeci">auto getRotation(int button=GLFW_MOUSE_BUTTON_1) const</div><div class="ttdef"><b>Definition</b> <a href="#l00858">GgApp.h:858</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_abf24b249cfff5f6df4f05e3454ef5822"><div class="ttname"><a href="classGgApp_1_1Window.html#abf24b249cfff5f6df4f05e3454ef5822">GgApp::Window::getAltArrowY</a></div><div class="ttdeci">auto getAltArrowY() const</div><div class="ttdef"><b>Definition</b> <a href="#l00663">GgApp.h:663</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ac175ec3d297b415120c6cc29b6392fdd"><div class="ttname"><a href="classGgApp_1_1Window.html#ac175ec3d297b415120c6cc29b6392fdd">GgApp::Window::getAspect</a></div><div class="ttdeci">auto getAspect() const</div><div class="ttdef"><b>Definition</b> <a href="#l00483">GgApp.h:483</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ac41a2596b28817ae5f807af75d451121"><div class="ttname"><a href="classGgApp_1_1Window.html#ac41a2596b28817ae5f807af75d451121">GgApp::Window::getAltArrowX</a></div><div class="ttdeci">auto getAltArrowX() const</div><div class="ttdef"><b>Definition</b> <a href="#l00653">GgApp.h:653</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ad27764b87b9f7d09ca49de137cfbeb78"><div class="ttname"><a href="classGgApp_1_1Window.html#ad27764b87b9f7d09ca49de137cfbeb78">GgApp::Window::getWheel</a></div><div class="ttdeci">void getWheel(GLfloat *rotation) const</div><div class="ttdef"><b>Definition</b> <a href="#l00752">GgApp.h:752</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ad40d89ff090cf184882fab3048a323d0"><div class="ttname"><a href="classGgApp_1_1Window.html#ad40d89ff090cf184882fab3048a323d0">GgApp::Window::setResizeFunc</a></div><div class="ttdeci">void setResizeFunc(void(*func)(const Window *window, int width, int height))</div><div class="ttdef"><b>Definition</b> <a href="#l00933">GgApp.h:933</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ad45195a5efaae1bf44b20ffd1cf0c18d"><div class="ttname"><a href="classGgApp_1_1Window.html#ad45195a5efaae1bf44b20ffd1cf0c18d">GgApp::Window::getWheelX</a></div><div class="ttdeci">auto getWheelX() const</div><div class="ttdef"><b>Definition</b> <a href="#l00776">GgApp.h:776</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ad622962036e9c6dc8210b16a67486862"><div class="ttname"><a href="classGgApp_1_1Window.html#ad622962036e9c6dc8210b16a67486862">GgApp::Window::getShiftArrowY</a></div><div class="ttdeci">auto getShiftArrowY() const</div><div class="ttdef"><b>Definition</b> <a href="#l00601">GgApp.h:601</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ae072fc515e5a2fc54b8a11a552fc10b0"><div class="ttname"><a href="classGgApp_1_1Window.html#ae072fc515e5a2fc54b8a11a552fc10b0">GgApp::Window::getRotationMatrix</a></div><div class="ttdeci">auto getRotationMatrix(int button=GLFW_MOUSE_BUTTON_1) const</div><div class="ttdef"><b>Definition</b> <a href="#l00871">GgApp.h:871</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ae35ef8daf8ae087a8972923ce7d6d22f"><div class="ttname"><a href="classGgApp_1_1Window.html#ae35ef8daf8ae087a8972923ce7d6d22f">GgApp::Window::getKey</a></div><div class="ttdeci">bool getKey(int key) const</div><div class="ttdef"><b>Definition</b> <a href="#l00493">GgApp.h:493</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ae4d2d5b01b708a68cfbbd694eea14116"><div class="ttname"><a href="classGgApp_1_1Window.html#ae4d2d5b01b708a68cfbbd694eea14116">GgApp::Window::get</a></div><div class="ttdeci">auto * get() const</div><div class="ttdef"><b>Definition</b> <a href="#l00329">GgApp.h:329</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ae5d861cc5384a9345370038451126247"><div class="ttname"><a href="classGgApp_1_1Window.html#ae5d861cc5384a9345370038451126247">GgApp::Window::Window</a></div><div class="ttdeci">Window(const Window &amp;w)=delete</div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_ae86fec088b4d80bbe2cac9f11ef95adb"><div class="ttname"><a href="classGgApp_1_1Window.html#ae86fec088b4d80bbe2cac9f11ef95adb">GgApp::Window::getFboSize</a></div><div class="ttdeci">const auto &amp; getFboSize() const</div><div class="ttdef"><b>Definition</b> <a href="#l00462">GgApp.h:462</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aed83d934df05d6cb8c8a902711a9329c"><div class="ttname"><a href="classGgApp_1_1Window.html#aed83d934df05d6cb8c8a902711a9329c">GgApp::Window::getArrow</a></div><div class="ttdeci">void getArrow(GLfloat *arrow, int mods=0) const</div><div class="ttdef"><b>Definition</b> <a href="#l00580">GgApp.h:580</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_aee308edd9b401ca148f3b28fc7f77774"><div class="ttname"><a href="classGgApp_1_1Window.html#aee308edd9b401ca148f3b28fc7f77774">GgApp::Window::operator=</a></div><div class="ttdeci">Window &amp; operator=(const Window &amp;w)=delete</div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_af0ffc69a289b38b33f137e40a2f4dae5"><div class="ttname"><a href="classGgApp_1_1Window.html#af0ffc69a289b38b33f137e40a2f4dae5">GgApp::Window::getWheelY</a></div><div class="ttdeci">auto getWheelY() const</div><div class="ttdef"><b>Definition</b> <a href="#l00787">GgApp.h:787</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_af12e09dffd442b7b49d5a8386ff253c4"><div class="ttname"><a href="classGgApp_1_1Window.html#af12e09dffd442b7b49d5a8386ff253c4">GgApp::Window::getWheel</a></div><div class="ttdeci">const auto * getWheel() const</div><div class="ttdef"><b>Definition</b> <a href="#l00741">GgApp.h:741</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_afc88ed5fdc4ad5c6b4c99e1dc73c44e8"><div class="ttname"><a href="classGgApp_1_1Window.html#afc88ed5fdc4ad5c6b4c99e1dc73c44e8">GgApp::Window::getLastKey</a></div><div class="ttdeci">int getLastKey()</div><div class="ttdef"><b>Definition</b> <a href="#l00531">GgApp.h:531</a></div></div>
+<div class="ttc" id="aclassGgApp_1_1Window_html_affa358bdcc627505e042577790c8444a"><div class="ttname"><a href="classGgApp_1_1Window.html#affa358bdcc627505e042577790c8444a">GgApp::Window::getArrow</a></div><div class="ttdeci">auto getArrow(int direction=0, int mods=0) const</div><div class="ttdef"><b>Definition</b> <a href="#l00546">GgApp.h:546</a></div></div>
+<div class="ttc" id="aclassGgApp_html_a29bae97040d59fbf2a046c4e47e99de2"><div class="ttname"><a href="classGgApp.html#a29bae97040d59fbf2a046c4e47e99de2">GgApp::operator=</a></div><div class="ttdeci">GgApp &amp; operator=(const GgApp &amp;w)=delete</div></div>
+<div class="ttc" id="aclassGgApp_html_a3dcd6fed8efd0db4dd882ab59d3d5a30"><div class="ttname"><a href="classGgApp.html#a3dcd6fed8efd0db4dd882ab59d3d5a30">GgApp::GgApp</a></div><div class="ttdeci">GgApp(GgApp &amp;&amp;w)=default</div></div>
+<div class="ttc" id="aclassGgApp_html_a612eb78a646538d6441a25cfcd6d88d8"><div class="ttname"><a href="classGgApp.html#a612eb78a646538d6441a25cfcd6d88d8">GgApp::GgApp</a></div><div class="ttdeci">GgApp(int major=0, int minor=1)</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l00049">GgApp.cpp:49</a></div></div>
+<div class="ttc" id="aclassGgApp_html_a8772cedbd09638d96a55e434e8bd1430"><div class="ttname"><a href="classGgApp.html#a8772cedbd09638d96a55e434e8bd1430">GgApp::operator=</a></div><div class="ttdeci">GgApp &amp; operator=(GgApp &amp;&amp;w)=default</div></div>
+<div class="ttc" id="aclassGgApp_html_a9468936a1ff450fa3e0d75ef88d55c5c"><div class="ttname"><a href="classGgApp.html#a9468936a1ff450fa3e0d75ef88d55c5c">GgApp::~GgApp</a></div><div class="ttdeci">virtual ~GgApp()</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l00091">GgApp.cpp:91</a></div></div>
+<div class="ttc" id="aclassGgApp_html_ad1955da79da506e73e4dabb2673e2363"><div class="ttname"><a href="classGgApp.html#ad1955da79da506e73e4dabb2673e2363">GgApp::getUsername</a></div><div class="ttdeci">static std::string getUsername()</div><div class="ttdef"><b>Definition</b> <a href="GgApp_8cpp_source.html#l01997">GgApp.cpp:1997</a></div></div>
+<div class="ttc" id="aclassGgApp_html_ad2e50a5e84d4fd6162e03039ac00c7ae"><div class="ttname"><a href="classGgApp.html#ad2e50a5e84d4fd6162e03039ac00c7ae">GgApp::main</a></div><div class="ttdeci">int main(int argc, const char *const *argv)</div></div>
+<div class="ttc" id="aclassGgApp_html_af905bd13f79aa30dd7f0a55ce9b67526"><div class="ttname"><a href="classGgApp.html#af905bd13f79aa30dd7f0a55ce9b67526">GgApp::GgApp</a></div><div class="ttdeci">GgApp(const GgApp &amp;w)=delete</div></div>
+<div class="ttc" id="aclassgg_1_1GgMatrix_html"><div class="ttname"><a href="classgg_1_1GgMatrix.html">gg::GgMatrix</a></div><div class="ttdef"><b>Definition</b> <a href="gg_8h_source.html#l02157">gg.h:2158</a></div></div>
+<div class="ttc" id="agg_8h_html"><div class="ttname"><a href="gg_8h.html">gg.h</a></div></div>
+<div class="ttc" id="anamespacegg_html"><div class="ttname"><a href="namespacegg.html">gg</a></div><div class="ttdef"><b>Definition</b> <a href="gg_8h_source.html#l01350">gg.h:1351</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="GgApp_8h.html">GgApp.h</a></li>
+    <li class="footer"><span class="timestamp"></span>作成 - ゲームグラフィックス特論 / 構成:  <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
+  </ul>
+</div>
+</body>
+</html>

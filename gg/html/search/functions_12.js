@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window_517',['Window',['../classWindow.html#a6dd95b8ba304a9257523eccd1d1a3ef7',1,'Window::Window(const char *title=&quot;GLFW Window&quot;, int width=640, int height=480, int fullscreen=0, GLFWwindow *share=nullptr)'],['../classWindow.html#a0ce0353fc6ae2a98054a92fae433e624',1,'Window::Window(const Window &amp;w)=delete']]]
+  ['window_0',['Window',['../classGgApp_1_1Window.html#a127c516045e716c271524fa45998cbc0',1,'GgApp::Window::Window(const std::string &amp;title=&quot;GLFW Window&quot;, int width=640, int height=480, int fullscreen=0, GLFWwindow *share=nullptr)'],['../classGgApp_1_1Window.html#ae5d861cc5384a9345370038451126247',1,'GgApp::Window::Window(const Window &amp;w)=delete'],['../classGgApp_1_1Window.html#afe60830775ca81845168edc324e0f35c',1,'GgApp::Window::Window(Window &amp;&amp;w) noexcept']]]
 ];

@@ -1,5 +1,7 @@
 <map id="gg::GgPointShader::loadModelviewMatrix" name="gg::GgPointShader::loadModelviewMatrix">
-<area shape="rect" id="node1" title="モデルビュー変換行列を設定する." alt="" coords="5,27,147,69"/>
-<area shape="rect" id="node2" href="$classgg_1_1GgMatrix.html#aa5b928ad41aa3ea57c0d1e8b4fc50614" title="変換行列を取り出す." alt="" coords="204,5,327,32"/>
-<area shape="rect" id="node3" href="$classgg_1_1GgPointShader.html#ac6e9398fa71096e9866fcd84cb542a91" title="モデルビュー変換行列を設定する." alt="" coords="195,57,336,98"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,149,69"/>
+<area shape="rect" id="Node000002" href="$classgg_1_1GgMatrix.html#a85419e1b591aa77fda6a908dab1d9468" title=" " alt="" coords="207,5,330,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,34,194,29,189,31,150,40"/>
+<area shape="rect" id="Node000003" href="$classgg_1_1GgPointShader.html#ac6e9398fa71096e9866fcd84cb542a91" title=" " alt="" coords="197,56,340,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,56,184,64,179,64,149,62"/>
 </map>
