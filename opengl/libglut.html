@@ -1,103 +1,118 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="GLUTを用いたOpenGLのチュートリアル「GLUTによる手抜きOpenGL入門」のアーカイブです。">
+<title>GLUTによる「手抜き」OpenGL入門 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" type="text/css" href="opengl.css">
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<title>GLUTによる「手抜き」OpenGL入門</title>
 </head>
 
-<body>
+<body id="top">
 
-<h1 class="title">GLUTによる「手抜き」OpenGL入門</h1>
-<h3 class="title">
-<a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
-<a href="http://www.sys.wakayama-u.ac.jp/">システム工学部</a>
-<a href="http://www.sys.wakayama-u.ac.jp/di/">デザイン情報学科</a>
-</h3>
-<h2 class="title">床井浩平</h2>
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ GLUTによる「手抜き」OpenGL入門</h2>
+    <div class="header-meta">
+      <span>著者: 床井浩平</span>
+    </div>
+  </div>
+</header>
 
-<h3 class="title">この文書の位置づけ</h3>
-<blockquote>
-この文書は学生実験のテーマ「ＶＲ実験」の参考資料の,
-GLUT を用いた OpenGL のチュートリアルです.
-180 分&times; 2 日＋&alpha;で実験部分に到達できると思います.
-ただし内容は不十分なので,
-必要に応じて<a href="#reference">資料</a>やオンラインマニュ
-アル等を参照してください.
-また間違いも含まれていると思います.
-コメントをお願いします.
-なお, このページはリンク＆コピーフリーです. このディレクトリをまとめたものを
-<a href="../tenuki.tar.gz">ここ</a>
-に用意していますので, ご自由にお使いください.
-</blockquote>
+<main>
 
-<blockquote></blockquote>
+<div class="doc-card">
+  <h1 style="text-align: center; margin-top: 0.2em; border: none;">GLUTによる「手抜き」OpenGL入門</h1>
+  <p style="text-align: center; color: #464; font-size: 0.95rem; margin-bottom: 0.5em;">
+    <a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
+    <a href="http://www.sys.wakayama-u.ac.jp/">システム工学部</a>
+    <a href="http://www.sys.wakayama-u.ac.jp/di/">デザイン情報学科</a> &nbsp;/&nbsp; <strong>床井浩平</strong>
+  </p>
+  <p style="text-align: center; font-size: 0.85rem; color: #686; margin-top: 0;">
+    初版: 1997/09/30 &nbsp;|&nbsp; 最終更新: 2016/07/22
+  </p>
 
-<p class="title">
-初版 1997/09/30,
-最終更新 2016/07/22<br><br>
-<span style="color: #844;">この学生実験 (演習) は 2016 年度をもって終了しました. 18 年間 (演習で使用した期間) ありがとうございました.</span>
-</p>
+  <div class="alert-notice">
+    <strong>この学生実験 (演習) は 2016 年度をもって終了しました。</strong> 18 年間 (演習で使用した期間) ありがとうございました。
+  </div>
 
-<blockquote>
-<h3>目次</h3>
-<div>　<a href="#1">１．はじめに</a></div>
-<div>　　<a href="#1.1">１．１ なぜ GLUT か</a></div>
-<div>　　<a href="#1.2">１．２ それ以前に, なぜ OpenGL か</a></div>
-<div>　<a href="#2">２．GLUT のインストール</a></div>
-<div>　　<a href="#2.1">２．１ GLUT を入手する</a></div>
-<div>　　<a href="#2.2">２．２ UNIX 系 OS にインストールする</a></div>
-<div>　　<a href="#2.3">２．３ Windows 系 OS にインストールする</a></div>
-<div>　　<a href="#2.4">２．４ Mac OS X にインストールする</a></div>
-<div>　<a href="#3">３．コンパイルの仕方</a></div>
-<div>　　<a href="#3.1">３．１ UNIX 系 OS の場合</a></div>
-<div>　　<a href="#3.2">３．２ Windows 系 OS (Visual Studio) の場合</a></div>
-<div>　　<a href="#3.3">３．３ Mac OS X (Developer Tools) の場合</a></div>
-<div>　<a href="#4">４．ウィンドウを開く</a></div>
-<div>　　<a href="#4.1">４．１ 空のウィンドウを開く</a></div>
-<div>　　<a href="#4.2">４．２ ウィンドウを塗りつぶす</a></div>
-<div>　<a href="#5">５．二次元図形を描く</a></div>
-<div>　　<a href="#5.1">５．１ 線を引く</a></div>
-<div>　　<a href="#5.2">５．２ 図形のタイプ</a></div>
-<div>　　<a href="#5.3">５．３ 線に色を付ける</a></div>
-<div>　　<a href="#5.4">５．４ 図形を塗りつぶす</a></div>
-<div>　　<a href="#5.5">５．５ 関数の命名法</a></div>
-<div>　<a href="#6">６．座標軸を設定する</a></div>
-<div>　　<a href="#6.1">６．１ 座標軸とビューポート</a></div>
-<div>　　<a href="#6.2">６．２ 位置やサイズを指定してウィンドウを開く</a></div>
-<div>　<a href="#7">７．マウスとキーボード</a></div>
-<div>　　<a href="#7.1">７．１ マウスボタンをクリックする</a></div>
-<div>　　<a href="#7.2">７．２ マウスをドラッグする</a></div>
-<div>　　<a href="#7.3">７．３ キーボードから読み込む</a></div>
-<div>　<a href="#8">８．三次元図形を描く</a></div>
-<div>　　<a href="#8.1">８．１ 二次元と三次元</a></div>
-<div>　　<a href="#8.2">８．２ 線画を表示する</a></div>
-<div>　　<a href="#8.3">８．３ 透視投影する</a></div>
-<div>　　<a href="#8.4">８．４ 視点の位置を変更する</a></div>
-<div>　<a href="#9">９．アニメーション</a></div>
-<div>　　<a href="#9.1">９．１ 図形を動かす</a></div>
-<div>　　<a href="#9.2">９．２ ダブルバッファリング</a></div>
-<div><a href="#10">１０．隠面消去処理</a></div>
-<div>　<a href="#10.1">１０．１ 多面体を塗りつぶす</a></div>
-<div>　<a href="#10.2">１０．２ デプスバッファを使う</a></div>
-<div>　<a href="#10.3">１０．３ カリング</a></div>
-<div><a href="#11">１１．陰影付け</a></div>
-<div>　<a href="#11.1">１１．１ 光を当ててみる</a></div>
-<div>　<a href="#11.2">１１．２ 光源を設定する</a></div>
-<div>　<a href="#11.3">１１．３ 材質を設定する</a></div>
-<div><a href="#12">１２．階層構造</a></div>
-<div><a href="#ex1">実験１．基本実験</a></div>
-<div><a href="#ex2">実験２．立体視の実験</a></div>
-<div><a href="#ex3">実験３．自由課題</a></div>
-<!--
-<div><a href="#ex3">実験３．仮想のぞき穴の実験</a></div>
-<div><a href="#ex4">実験４．仮想パペットの実験</a></div>
-<div><a href="#ex5">実験５．仮想パンチングボールの実験</a></div>
--->
+  <h3 style="margin-top: 1.2em;">この文書の位置づけ</h3>
+  <blockquote>
+    この文書は学生実験のテーマ「ＶＲ実験」の参考資料の、GLUT を用いた OpenGL のチュートリアルです。
+    180 分&times; 2 日＋&alpha;で実験部分に到達できると思います。
+    ただし内容は不十分なので、必要に応じて<a href="#reference">資料</a>やオンラインマニュアル等を参照してください。
+    また間違いも含まれていると思います。コメントをお願いします。<br><br>
+    なお、このページはリンク＆コピーフリーです。このディレクトリをまとめたものを
+    <a href="../tenuki.tar.gz"><strong>ここ (tenuki.tar.gz)</strong></a>
+    に用意していますので、ご自由にお使いください。
+  </blockquote>
+</div>
 
-<h3><a class="label" name="reference">資料：</a></h3>
+<details class="toc-box" open>
+  <summary>目次 (Table of Contents)</summary>
+  <div class="toc-grid">
+    <div class="toc-col">
+      <div class="toc-item"><strong><a href="#1">１．はじめに</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#1.1">１．１ なぜ GLUT か</a></div>
+      <div class="toc-item toc-subitem"><a href="#1.2">１．２ それ以前に、なぜ OpenGL か</a></div>
+      <div class="toc-item"><strong><a href="#2">２．GLUT のインストール</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#2.1">２．１ GLUT を入手する</a></div>
+      <div class="toc-item toc-subitem"><a href="#2.2">２．２ UNIX 系 OS にインストールする</a></div>
+      <div class="toc-item toc-subitem"><a href="#2.3">２．３ Windows 系 OS にインストールする</a></div>
+      <div class="toc-item toc-subitem"><a href="#2.4">２．４ Mac OS X にインストールする</a></div>
+      <div class="toc-item"><strong><a href="#3">３．コンパイルの仕方</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#3.1">３．１ UNIX 系 OS の場合</a></div>
+      <div class="toc-item toc-subitem"><a href="#3.2">３．２ Windows 系 OS (Visual Studio) の場合</a></div>
+      <div class="toc-item toc-subitem"><a href="#3.3">３．３ Mac OS X (Developer Tools) の場合</a></div>
+      <div class="toc-item"><strong><a href="#4">４．ウィンドウを開く</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#4.1">４．１ 空のウィンドウを開く</a></div>
+      <div class="toc-item toc-subitem"><a href="#4.2">４．２ ウィンドウを塗りつぶす</a></div>
+      <div class="toc-item"><strong><a href="#5">５．二次元図形を描く</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#5.1">５．１ 線を引く</a></div>
+      <div class="toc-item toc-subitem"><a href="#5.2">５．２ 図形のタイプ</a></div>
+      <div class="toc-item toc-subitem"><a href="#5.3">５．３ 線に色を付ける</a></div>
+      <div class="toc-item toc-subitem"><a href="#5.4">５．４ 図形を塗りつぶす</a></div>
+      <div class="toc-item toc-subitem"><a href="#5.5">５．５ 関数の命名法</a></div>
+      <div class="toc-item"><strong><a href="#6">６．座標軸を設定する</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#6.1">６．１ 座標軸とビューポート</a></div>
+      <div class="toc-item toc-subitem"><a href="#6.2">６．２ 位置やサイズを指定してウィンドウを開く</a></div>
+    </div>
+    <div class="toc-col">
+      <div class="toc-item"><strong><a href="#7">７．マウスとキーボード</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#7.1">７．１ マウスボタンをクリックする</a></div>
+      <div class="toc-item toc-subitem"><a href="#7.2">７．２ マウスをドラッグする</a></div>
+      <div class="toc-item toc-subitem"><a href="#7.3">７．３ キーボードから読み込む</a></div>
+      <div class="toc-item"><strong><a href="#8">８．三次元図形を描く</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#8.1">８．１ 二次元と三次元</a></div>
+      <div class="toc-item toc-subitem"><a href="#8.2">８．２ 線画を表示する</a></div>
+      <div class="toc-item toc-subitem"><a href="#8.3">８．３ 透視投影する</a></div>
+      <div class="toc-item toc-subitem"><a href="#8.4">８．４ 視点の位置を変更する</a></div>
+      <div class="toc-item"><strong><a href="#9">９．アニメーション</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#9.1">９．１ 図形を動かす</a></div>
+      <div class="toc-item toc-subitem"><a href="#9.2">９．２ ダブルバッファリング</a></div>
+      <div class="toc-item"><strong><a href="#10">１０．隠面消去処理</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#10.1">１０．１ 多面体を塗りつぶす</a></div>
+      <div class="toc-item toc-subitem"><a href="#10.2">１０．２ デプスバッファを使う</a></div>
+      <div class="toc-item toc-subitem"><a href="#10.3">１０．３ カリング</a></div>
+      <div class="toc-item"><strong><a href="#11">１１．陰影付け</a></strong></div>
+      <div class="toc-item toc-subitem"><a href="#11.1">１１．１ 光を当ててみる</a></div>
+      <div class="toc-item toc-subitem"><a href="#11.2">１１．２ 光源を設定する</a></div>
+      <div class="toc-item toc-subitem"><a href="#11.3">１１．３ 材質を設定する</a></div>
+      <div class="toc-item"><strong><a href="#12">１２．階層構造</a></strong></div>
+      <div class="toc-item" style="margin-top: 0.6rem;"><strong>実験課題</strong></div>
+      <div class="toc-item toc-subitem"><a href="#ex1">実験１．基本実験</a></div>
+      <div class="toc-item toc-subitem"><a href="#ex2">実験２．立体視の実験</a></div>
+      <div class="toc-item toc-subitem"><a href="#ex3">実験３．自由課題</a></div>
+      <div class="toc-item" style="margin-top: 0.6rem;"><strong>関連資料</strong></div>
+      <div class="toc-item toc-subitem"><a href="#reference">資料・リンク集</a></div>
+    </div>
+  </div>
+</details>
+
+<h3><a class="label" name="reference" id="reference">資料：</a></h3>
 <ul>
 <li><a href="faq.html">今までにあった質問</a></li>
 <li><a href="refresh.html">リフレッシュレートの変更</a></li>
@@ -126,7 +141,6 @@ OpenGL プログラミングコース</a> (本格的な教材・公開に感謝)
 <li><a href="https://github.com/toruwest/jogl-tutorial-document">JOGL (Java 版 OpenGL)  のチュートリアル</a> (この「手抜き OpenGL」をもとに作成されました)</li>
 <li><a href="http://opengl.jp/ml/">OpenGL Mailing List</a> (日本の OpenGL エキスパートが集う)</li>
 </ul>
-</blockquote>
 
 <h2><a class="label" name="1">１．はじめに</a></h2>
 
@@ -4092,5 +4106,55 @@ SuperGrove からのデータの読み込みについては,
 IsoTrak からのデータの読み込みについては,
 <a href="isotrak/">IsoTrak II の資料</a>を参照してください.</p>
 -->
+
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+// ソースコードブロックにコピーボタンを動的配置
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source').forEach(function(pre) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
 </body>
 </html>
+

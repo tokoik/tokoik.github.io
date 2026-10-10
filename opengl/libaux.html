@@ -1,50 +1,70 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>AUXライブラリを使った手抜きOpenGL入門</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="AUXライブラリを使った手抜きOpenGL入門のアーカイブです。">
+<title>AUXライブラリを使った手抜きOpenGL入門 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
 </head>
 
-<body>
+<body id="top">
 
-<center>
-<h1>AUXライブラリを使った手抜きOpenGL入門</h1>
-<h3>和歌山大学システム工学部</h3>
-<h2><a href="mailto:tokoi@sys.wakayama-u.ac.jp">床井浩平</a></h2>
-</center>
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ AUXライブラリを使った手抜きOpenGL入門</h2>
+    <div class="header-meta">
+      <span>著者: 床井浩平</span>
+    </div>
+  </div>
+</header>
 
-<blockquote>
-<h3 align="center">この文書の位置づけ</h3>
-この文書は経済学部学部生及びゼミ生向けの
-OpenGLの入門テキストです。
-内容は不十分なので、
-必要に応じてオンラインマニュアル等を参照してください。
-また間違いも含んでいます。
-コメントをお願いします。
-<a href="libaux.pdf">PDF形式 (100KB)</a>もあります。<p>
-<center>
-（この文書は
-<a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a>
-に置き換えました）
-</center>
-</blockquote>
+<main>
 
-<blockquote>
-<h3>目次</h3>
-<a href="#1">１．はじめに</a><br>
-<a href="#2">２．AUXライブラリを使えるようにする</a><br>
-<a href="#3">３．ウィンドウを開く</a><br>
-<a href="#4">４．図形を描く</a><br>
-<a href="#5">５．ウィンドウマネージャとのインタフェース</a><br>
-<a href="#6">６．マウス</a><br>
-<a href="#7">７．３次元表示</a><br>
-<a href="#8">８．アニメーション</a><br>
-<a href="#9">９．隠面消去</a><br>
-<a href="#10">１０．陰影付け</a><br>
-<a href="#11">１１．階層構造</a><br>
-</blockquote>
+<div class="doc-card">
+  <h1 style="text-align: center; margin-top: 0.2em; border: none;">AUXライブラリを使った手抜きOpenGL入門</h1>
+  <p style="text-align: center; color: #464; font-size: 0.95rem; margin-bottom: 0.5em;">
+    <a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
+    <a href="http://www.sys.wakayama-u.ac.jp/">システム工学部</a> &nbsp;/&nbsp;
+    <strong><a href="mailto:tokoi@sys.wakayama-u.ac.jp">床井浩平</a></strong>
+  </p>
+
+  <div class="alert-notice">
+    この文書は <strong><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></strong> に置き換えられました。
+  </div>
+
+  <h3 style="margin-top: 1.2em;">この文書の位置づけ</h3>
+  <blockquote>
+    この文書は経済学部学部生及びゼミ生向けの OpenGL の入門テキストです。
+    内容は不十分なので、必要に応じてオンラインマニュアル等を参照してください。
+    また間違いも含んでいます。コメントをお願いします。<br><br>
+    <a href="libaux.pdf"><strong>PDF形式 (100KB)</strong></a> もあります。
+  </blockquote>
+</div>
+
+<details class="toc-box" open>
+  <summary>目次 (Table of Contents)</summary>
+  <div class="toc-grid">
+    <div class="toc-col">
+      <div class="toc-item"><strong><a href="#1">１．はじめに</a></strong></div>
+      <div class="toc-item"><strong><a href="#2">２．AUXライブラリを使えるようにする</a></strong></div>
+      <div class="toc-item"><strong><a href="#3">３．ウィンドウを開く</a></strong></div>
+      <div class="toc-item"><strong><a href="#4">４．図形を描く</a></strong></div>
+      <div class="toc-item"><strong><a href="#5">５．ウィンドウマネージャとのインタフェース</a></strong></div>
+      <div class="toc-item"><strong><a href="#6">６．マウス</a></strong></div>
+    </div>
+    <div class="toc-col">
+      <div class="toc-item"><strong><a href="#7">７．３次元表示</a></strong></div>
+      <div class="toc-item"><strong><a href="#8">８．アニメーション</a></strong></div>
+      <div class="toc-item"><strong><a href="#9">９．隠面消去</a></strong></div>
+      <div class="toc-item"><strong><a href="#10">１０．陰影付け</a></strong></div>
+      <div class="toc-item"><strong><a href="#11">１１．階層構造</a></strong></div>
+    </div>
+  </div>
+</details>
 
 <a name="1">
 <h2>１．はじめに</h2></a>
@@ -72,41 +92,23 @@ AUX ライブラリ、GLUT のいずれも UNIX/Windows のいずれでも動き
 
 まず、AUX ライブラリを使えるようにします。
 適当なところに OpenGL というディレクトリを作り、そこに移動してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% mkdir OpenGL
-% cd OpenGL</pre></table>
-</blockquote>
+<pre class="source">% mkdir OpenGL
+% cd OpenGL</pre>
 そのディレクトリにファイルをコピーします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cp -r /usr/share/src/OpenGL/toolkits/{libaux,libtk} .</pre></table>
-</blockquote>
+<pre class="source">% cp -r /usr/share/src/OpenGL/toolkits/{libaux,libtk} .</pre>
 libtk に移って、ライブラリをコンパイルします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cd libtk
-% make</pre></table>
-</blockquote>
+<pre class="source">% cd libtk
+% make</pre>
 libaux に移って、ライブラリをコンパイルします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cd ../libaux
-% make</pre></table>
-</blockquote>
+<pre class="source">% cd ../libaux
+% make</pre>
 もとのディレクトリに戻ります。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cd ..</pre></table>
-</blockquote>
+<pre class="source">% cd ..</pre>
 これで libaux.a の 32bit 版、新 32bit (n32) 版、
 64bit 版の３つのライブラリができます。
 とりあえずこの 32bit 版だけを使うことにします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% ln -s libaux/libaux.32/libaux.a .
-% ln -s libaux/aux.h .</pre></table>
-</blockquote>
+<pre class="source">% ln -s libaux/libaux.32/libaux.a .
+% ln -s libaux/aux.h .</pre>
 
 <h3>Windows NT/95 の場合</h3>
 
@@ -149,9 +151,7 @@ Delphi で OpenGL を使う場合のレポート</a>を
 
 最初にウィンドウを開くだけのプログラムを作ってみます。
 このプログラムのソースファイル名は glprog1.c とします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -165,26 +165,17 @@ int main(int argc, char *argv[])
 {
   auxInitWindow(argv[0]);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 これをコンパイルします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cc glprog1.c libaux.a -lGL -lX11</pre></table>
-</blockquote>
+<pre class="source">% cc glprog1.c libaux.a -lGL -lX11</pre>
 できた a.out を実行してみます。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% a.out</pre></table>
-</blockquote>
+<pre class="source">% a.out</pre>
 何も表示しないか、一瞬何か表示してすぐにプログラムが終わってしまうと思います。
 すぐにプログラムが終わってしまうのも何なので、
 終わるまでの間に１０秒ほど眠ってもらいましょう。
 網掛の部分を追加して、
 もう一度コンパイルして実行してみてください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -199,8 +190,7 @@ int main(int argc, char *argv[])
   auxInitWindow(argv[0]);
   <b>sleep(10);</b>
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 今度は何か表示されたんじゃないかと思います。
 auxInitWindow(string) は、単に新しいウィンドウを開きます。
 引数の string がウィンドウのタイトルバーに表示されます。
@@ -209,9 +199,7 @@ glprog1.c では argv[0] を表示しているので、
 <p>
 ウィンドウ内を塗りつぶしてみます。
 glprog1.c に太字の部分を追加してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -229,8 +217,7 @@ int main(int argc, char *argv[])
   glFlush();
   sleep(10);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 glClearColor(), glClear(), glFlush() は OpenGL オリジナルの関数です。
 <p>
 glClearColor() は glClear() でウィンドウを塗りつぶす色を指定します。
@@ -268,9 +255,7 @@ glFlush() はそういう状況で
 ウィンドウ内に線を引いてみます。
 ウィンドウの背景は黒色にします。
 glprog1.c を次のように変更してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -294,8 +279,7 @@ int main(int argc, char *argv[])
   glFlush();
   sleep(10);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 図形を描くには、
 glBegin()〜glEnd() の間に、
 その図形の各頂点の座標値を設定する関数を置きます。
@@ -341,9 +325,7 @@ GL_TRIANGLE_STRIP や GL_TRIANGLE_FAN を使うよう
 また GL_QUADS も GL_POLYGON より高速です。
 <p>
 線に色を付けてみます。glprog1.c を次のように修正します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -369,8 +351,7 @@ int main(int argc, char *argv[])
   glFlush();
   sleep(10);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 auxInitDisplayMode() は、画面の表示モードを設定します。
 引数の AUX_RGBA は画面を RGBA モードで使用することを意味し、
 描画の際の色の指定を RGB（赤、緑、青）で行うことができます。
@@ -382,9 +363,7 @@ glColor3d() は、これから描画するものの色を、
 <p>
 図形を塗りつぶしてみます。
 glprog1.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -410,13 +389,10 @@ int main(int argc, char *argv[])
   glFlush();
   sleep(10);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 色は頂点毎に指定することもできます。
 glprog1.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -445,16 +421,15 @@ int main(int argc, char *argv[])
   glFlush();
   sleep(10);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 この場合、多角形の内部は頂点の色から補間した色で塗りつぶされます。
 <p>
 glVertex*() や glColor*() のような関数の * の部分は、
 引数の型や数などを示しています。
 詳しくは man glVertex2d や man glColor3d を読んでください。
-<blockquote>
+<div class="figure">
 <img src="libaux2.gif">
-</blockquote>
+</div>
 
 <a name="5">
 <h2>５．ウィンドウマネージャとのインタフェース</h2></a>
@@ -498,9 +473,7 @@ glLoadIdentity() は座標変換用の行列に単位行列を設定します。
 以上をもとにプログラムに修正を加えると、
 下のようになります。
 glprog1.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -539,8 +512,7 @@ int main(int argc, char *argv[])
   <b>auxReshapeFunc(resize);</b>
   <b>auxMainLoop(draw);</b>
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 auxMainLoop() は無限ループですが、
 キーボードの ESC キーが押されたら終了するようになっています。
 <p>
@@ -549,9 +521,7 @@ auxMainLoop() は無限ループですが、
 ウィンドウの大きさにあわせて、
 ウィンドウ内に表示されているものの大きさを変えるようにします。
 glprog1.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -580,8 +550,7 @@ int main(int argc, char *argv[])
   auxReshapeFunc(resize);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 glViewPort() はウィンドウ内のどの部分に表示するかを指定します。
 引数は左からビューポート（表示領域）の左下隅のＸ座標およびＹ座標、
 それにビューポートの幅と高さを画素数で指定します。
@@ -602,9 +571,7 @@ glOrtho() は座標軸を指定します。
 あらかじめ指定したサイズでウィンドウを開くには、
 auxInitWindow() でウィンドウを開く前に auxInitPosition() を使って指定します。
 glprog1.c を次のように修正します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -632,8 +599,7 @@ int main(int argc, char *argv[])
   auxReshapeFunc(resize);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 この例では画面上の左端から 200 画素、上から 100 画素の位置に、
 幅 640 画素、高さ 480 画素のウィンドウを開きます。
 <p>
@@ -646,9 +612,7 @@ auxMouseFunc() という関数で、
 マウスのボタンを操作したときに呼び出す関数を指定します。
 次のようなプログラムを作成してください。
 ファイル名は glprog2.c としてください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -685,8 +649,7 @@ int main(int argc, char *argv[])
   auxMouseFunc(AUX_LEFTBUTTON, AUX_MOUSEDOWN, left);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 上のプログラムでは、
 マウスの左ボタンを押す度に関数 left() が呼び出されます。
 left() の引数には AUX_EVENTREC 型の構造体のポインタが渡されます。
@@ -706,9 +669,7 @@ event->data[AUX_MOUSEX], event->data[AUX_MOUSEY] に格納されている座標�
 それと、最初にウィンドウ内を白色で塗りつぶしておきましょう。
 これは resize() で行うことにします。
 glprog2.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -759,8 +720,7 @@ int main(int argc, char *argv[])
   auxMouseFunc(AUX_LEFTBUTTON, AUX_MOUSEDOWN, left);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 前のプログラムでは、ウィンドウのサイズを変えたり、
 ウインドウが他のウィンドウに隠されたあと再び表示される度に、
 ウィンドウの中身が消えてしまいます。
@@ -772,9 +732,7 @@ AUX ライブラリは、
 left() では頂点列の位置を記憶するだけにして、
 draw() において画面 の再表示を行うときに一度に描画します。
 glprog2.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -829,8 +787,7 @@ int main(int argc, char *argv[])
   auxMouseFunc(AUX_LEFTBUTTON, AUX_MOUSEDOWN, left);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 glVertex2iv() は引数に２つの GLint 型（int 型）の要素を持つ
 配列のポインタを与えます。
 この例のように、複数の点の座標を指定する場合に便利です。
@@ -853,9 +810,7 @@ AUX ライブラリでは多少泥臭くなります。
 右ボタンを押した時に多角形を閉じるようにします。
 面倒なので、再描画が行われたときにも多角形を閉じることにします。
 glprog2.c を次のように修正してください。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -929,8 +884,7 @@ int main(int argc, char *argv[])
   <b>auxMouseFunc(AUX_RIGHTBUTTON, AUX_MOUSEDOWN, right);</b>
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 
 <a name="7">
 <h2>７．３次元表示</h2></a>
@@ -940,9 +894,7 @@ OpenGL の内部では実際には３次元の処理を行っています。
 すなわち、画面表示に対して垂直に Z 軸が伸びており、
 これまではその３次元空間の XY 平面への平行投影像を表示していました。
 試しに glprog1.c で図形を Y 軸中心に 45 ど回転してみましょう。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -985,8 +937,7 @@ int main(int argc, char *argv[])
   auxReshapeFunc(resize);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 glRotated() はこれから描画する図形を回転します。
 引数はいずれも double 型で、１つ目の引数は回転角、
 残りの３つの引数は回転軸の方向ベクトルです。
@@ -996,14 +947,12 @@ glRotated() はこれから描画する図形を回転します。
 AUX ライブラリには auxWireCube() など、
 いくつか基本的な立体を描く関数があるのですが、
 ここでは自分で形状を定義してみたいと思います。
-<blockquote>
+<div class="figure">
 <img src="libaux3.gif">
-</blockquote>
+</div>
 この図形は８個の点を１２本の線分で結びます。
 点の位置（幾何情報）と線分（位相情報）を別々にデータにします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>GLdouble vertex[][3] = {
+<pre class="source">GLdouble vertex[][3] = {
   { 0.0, 0.0, 0.0 },
   { 1.0, 0.0, 0.0 },
   { 1.0, 1.0, 0.0 },
@@ -1027,27 +976,21 @@ int edge[][2] = {
   { 1, 5 },
   { 2, 6 },
   { 3, 7 }
-};</pre></table>
-</blockquote>
+};</pre>
 この場合、例えば (0,0,0) と (1,0,0)  を結ぶ線分は、
 次のようにして描画できます。
 glVertex3dv() は、
 引数に３つの要素を持つ double 型の配列のポインタを与えて、
 頂点を指定します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>glBegin(GL_LINES);
+<pre class="source">glBegin(GL_LINES);
 glVertex3dv(vertex[edge[0][0]]);
 glVertex3dv(vertex[edge[0][1]]);
-glEnd();</pre></table>
-</blockquote>
+glEnd();</pre>
 従って、立方体全部を描くプログラムは次のようになります。
 ファイル名を glprog3.c として、このプログラムを作成してください。
 なお、立方体がウィンドウからはみ出ないように、
 glOrtho() でウィンドウの座標系を (-2,-2)〜(2,2) にしています。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1099,8 +1042,7 @@ int main(int argc, char *argv[])
   auxReshapeFunc(resize);
   auxMainLoop(draw);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 前のプログラムでは、立方体が画面に平行投影されるため、
 正方形しか描かないと思います。
 そこで、現実のカメラのように、透視投影をしてみます。
@@ -1117,16 +1059,11 @@ gluPerspective() の最初の引数はカメラの画角であり、度で表し
 <p>
 なお、glu*() で始まる関数は GL Utility ライブラリの関数で、
 これを使うときにはコンパイルの際に -lGLU というオプションを追加します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>% cc glprog3.c libaux.a <b>-lGLU</b> -lGL -lX11</pre></table>
-</blockquote>
+<pre class="source">% cc glprog3.c libaux.a <b>-lGLU</b> -lGL -lX11</pre>
 視点の位置の初期値は原点なので、
 このままでは立方体が視点に重なってしまいます。
 そこで glTranslated() を使って立方体の位置を少し奥にずらします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1161,15 +1098,12 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 視点の位置を指定したいときには gluLookAt() を使います。
 この最初の３つの引数は視点の位置、
 次の３つは目標の位置、
 最後の３つはウィンドウに表示される画像の「上」の方向を示すベクトルです。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1204,8 +1138,7 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 この例では (3,4,5) の位置から原点 (0,0,0) を眺めますから、
 立方体の (0,0,0) の頂点がウィンドウの中心に来ると思います。
 <p>
@@ -1259,9 +1192,7 @@ auxIdleFunc() は「何もイベントがない」ときに実行する関数を
 直後に glMatrixMode(GL_MODELVIEW) を実行します。
 <p>
 あとは描画の度にモデリング−ビューイング変換行列を設定します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1327,8 +1258,7 @@ int main(int argc, char *argv[])
   <b>auxIdleFunc(draw);</b>
   auxMainLoop(<b>none</b>);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 前のプログラムでは、毎回画面を全部描き換えているため、表示がちらつきます。
 これを防ぐためには、ダブルバッファリングという方法を用います。
 これは画面を２つに分け、
@@ -1338,9 +1268,7 @@ int main(int argc, char *argv[])
 AUX ライブラリでダブルバッファリングを使うには、
 auxInitDisplayMode() で AUX_DOUBLE を指定します。
 また、２つの画面の入れ換えは auxSwapBuffers() を用います。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1403,25 +1331,19 @@ int main(int argc, char *argv[])
   auxIdleFunc(draw);
   auxMainLoop(none);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 それでは、次に立方体の面を塗りつぶしてみましょう。
 面のデータは、稜線とは別に次のように用意します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>int face[][4] = {
+<pre class="source">int face[][4] = {
   { 0, 1, 2, 3 },
   { 1, 5, 6, 2 },
   { 5, 4, 7, 6 },
   { 4, 0, 3, 7 },
   { 4, 5, 1, 0 },
   { 3, 2, 6, 7 }
-};</pre></table>
-</blockquote>
+};</pre>
 線を引く代わりに、６枚の４角形を描きます。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1479,28 +1401,22 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 
 
 でもこれだと真っ白で何もわからないので、
 面ごとに色を変えてみましょう。
 色のデータは次のように作ってみます。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>GLdouble color[][3] = {
+<pre class="source">GLdouble color[][3] = {
   { 1.0, 0.0, 0.0 },
   { 0.0, 1.0, 0.0 },
   { 0.0, 0.0, 1.0 },
   { 1.0, 1.0, 0.0 },
   { 1.0, 0.0, 1.0 },
   { 0.0, 1.0, 1.0 }
-};</pre></table>
-</blockquote>
+};</pre>
 それで、一つの面を描く度に、この色を設定してやります。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1561,8 +1477,7 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 でもこれだとなんか変な表示になるかもしれません。
 前のプログラムではデータの順番で面を描いていますから、
 先に描いたものが後に描いたもので塗りつぶされてしまいます。
@@ -1582,9 +1497,7 @@ Z バッファを使うと、使わないときより処理速度が低下しま
 そこで、必要なときだけ Z バッファを使うようにします。
 Z バッファを使う処理の前で glEnable(GL_DEPTH_TEST) を実行し、
 使い終わったら glDisable(GL_DEPTH_TEST) を実行します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1655,8 +1568,7 @@ int main(int argc, char *argv[])
   auxIdleFunc(draw);
   auxMainLoop(none);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 立方体のように閉じた立体の場合、裏側にある面、
 すなわち視点に対して裏を向いている面は見ることはできません。
 そういう面をあらかじめ取り除いておくことで、
@@ -1668,9 +1580,7 @@ int main(int argc, char *argv[])
 <p>
 また、glCullFace() を有効にするには glEnable(GL_CULL_FACE)、
 無効にするには glEnable(GL_CULL_FACE) を実行します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1744,8 +1654,7 @@ int main(int argc, char *argv[])
   <b>glCullFace(GL_BACK);</b>
   auxMainLoop(none);
   return 0;
-}</pre></table>
-</blockquote>
+}</pre>
 このプログラムも、
 多分妙な表示になります。
 裏側の面を表示しないはずなのに、
@@ -1770,17 +1679,14 @@ glFrontFace(GL_CW) を実行します。
 陰影付け（光源の処理）の計算を行うためには、
 面ごとの色の代わりに法線ベクトルを与えます。
 glColor3dv() のかわりに glNormal3dv() を使います。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>GLdouble normal[][3] = {
+<pre class="source">GLdouble normal[][3] = {
   { 0.0, 0.0,-1.0 },
   { 1.0, 0.0, 0.0 },
   { 0.0, 0.0, 1.0 },
   {-1.0, 0.0, 0.0 },
   { 0.0,-1.0, 0.0 },
   { 0.0, 1.0, 0.0 }
-};</pre></table>
-</blockquote>
+};</pre>
 光を当てるためには、もちろん光源も設定する必要があります。
 OpenGL には、最初からいくつかの光源が用意されています。
 いくつの光源が用意されているかは、システムによって異なります。
@@ -1791,9 +1697,7 @@ OpenGL には、最初からいくつかの光源が用意されています。
 陰影付けを行うと、陰影付けを行わないより処理速度は低下します。
 陰影付けを有効にするには glEnable(GL_LIGHTING)、
 無効にするには glDisable(GL_LIGHTING) を実行します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1862,8 +1766,7 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 
 前の例では物体に色を付けていませんでしたから、
 デフォルトの色（白）で表示されたと思います。
@@ -1871,23 +1774,17 @@ int main(int argc, char *argv[])
 物体に色を付けるということは、
 物体の材質パラメータを設定することに他なりません。
 材質パラメータには色以外にいくつかのものを設定できます。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>GLfloat ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+<pre class="source">GLfloat ambient[] = { 0.2, 0.2, 0.2, 1.0 };
 GLfloat diffuse[] = { 0.8, 0.0, 0.0, 1.0 };
 GLfloat specular[] = { 0.5, 0.5, 0.5, 1.0 };
-GLfloat shininess = 40.0;</pre></table>
-</blockquote>
+GLfloat shininess = 40.0;</pre>
 ambient/diffuse/specular は RGBA で指定します。
 A には、ここでは 1.0 を指定しておいてください。
 これらを glMaterialf() および glMaterialfv() で指定します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
+<pre class="source">glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse);
 glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
-glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);</pre></table>
-</blockquote>
+glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);</pre>
 ambient は環境光（光源以外からの光）に対する反射率で、
 光の当たらない部分の明るさになります。
 diffuse は光源の光に対する拡散反射率で、これが物体の色になります。
@@ -1895,9 +1792,7 @@ specular は光源に対する鏡面反射率で、
 物体表面の光源の映り込み（ハイライト）の強さです。
 shininess はこの鏡面反射の細さを示し、
 大きいほどハイライトの部分が小さくなります。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -1976,8 +1871,7 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 
 <a name="11">
 <h2>１１．階層構造</h2></a>
@@ -1985,9 +1879,7 @@ int main(int argc, char *argv[])
 次に物体の階層構造を表現してみます。
 これまでのプログラムで実際に立方体を描いている部分を
 cube() として抜き出します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>void cube()
+<pre class="source">void cube()
 {
   int i, j;
 
@@ -1999,13 +1891,10 @@ cube() として抜き出します。
     }
   }
   glEnd();
-}</pre></table>
-</blockquote>
+}</pre>
 視点の位置や画角などは変更しないので、
 ウィンドウを開いたりサイズが変更されたときに設定するようにします。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>GLvoid CALLBACK resize(GLsizei w, GLsizei h)
+<pre class="source">GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -2014,17 +1903,14 @@ cube() として抜き出します。
   glMatrixMode(GL_MODELVIEW);
   <b>glLoadIdentity();</b>
   <b>gluLookAt(3.0, 4.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);</b>
-}</pre></table>
-</blockquote>
+}</pre>
 しかし、こうすると変換行列は glRotated() で変更されたあと元に戻されないため、
 次に描画するときにはおかしくなってしまいます。
 そこで、glRoatated() を使う前に、
 その時の変換行列の内容を保存しておき、
 あとでその内容を戻します。
 これには glPushMatrix() と glPopMatrix() を使います。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -2089,14 +1975,11 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 この図形に、もう一つ立方体を追加してみましょう。
 ２つ目の cube() を実行する前に、
 その cube() の位置をずらすために、glTranslated() を実行します。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -2165,17 +2048,14 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 本当は、
 この２つ目の cube() をはさんでいる glPushMatrix()、glPopMatrix() は
 不要なのですが、説明をわかりやすくするために付けています。
 <p>
 では、
 この２つ目の cube() を、１つ目の cube() の倍の速度で回転させてみましょう。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -2245,17 +2125,14 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 この例では、１つ目の glRotated() による回転が
 両方の cube() に影響しているのに対し、
 ２つ目の glRotated() は２つ目の cube() にしか影響していません。
 これによって、物体の動きの階層構造を表現できます。
 <p>
 最後に、この２つの立方体の色を変えてみましょう。
-<blockquote>
-<table border width="90%" bgcolor="#ffffff"><tr><td>
-<pre>#ifdef unix
+<pre class="source">#ifdef unix
 #  include &lt;GL/gl.h&gt;
 #  include "aux.h"
 #  define CALLBACK
@@ -2329,8 +2206,7 @@ GLvoid CALLBACK resize(GLsizei w, GLsizei h)
 int main(int argc, char *argv[])
 {
   /* 省略 */
-}</pre></table>
-</blockquote>
+}</pre>
 
 上のようなプログラムだと、
 実際は GL_LIGHT0、GL_LIGHTING、GL_DEPTH_TEST を有効にしたまま
@@ -2341,3 +2217,54 @@ glDisable() は消してしまって構わないでしょう。
 
 つづく…（本当？）
 </body>
+
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT版へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source').forEach(function(pre) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
+</body>
+</html>

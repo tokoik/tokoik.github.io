@@ -1,15 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>C. ピッチングマシーンの実験</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="放物運動と速度ベクトルの実験課題です。">
+<title>実験１．C. ピッチングマシーンの実験 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
+
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ 実験１．C. ピッチングマシーンの実験</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>ピッチングマシーンの実験</h1>
 
 <p>マウスをクリックすると， 向こうからボールが飛んで来るプログラムを作ってみましょう．
@@ -150,44 +174,100 @@ alt="マウスによる投球方向の制御">
 <p>このプログラムでは，ボールの現在位置を display() の中の px, py, pz の三つの変数で指定し，初期位置としてそれぞれ
 QX, QY, QZ が設定されています．したがって px, py, pz を変更すれば，球の位置を変えることができます．</p>
 
-<p>上図において地面の大きさは W = 10, D = 10 で， 原点はこの地面の中央にあります．
-投球位置は原点から Z 方向に -5，高さ H = 1.5 の位置にあります． 球はそこから初速度
-|<b>V</b>| = 25 で (θ,φ) 方向に放出されます． このとき重力加速度 G = -9.8 とし，
+<p>上図において地面の大きさは $W = 10$, $D = 10$ で， 原点はこの地面の中央にあります．
+投球位置は原点から Z 方向に -5，高さ $H = 1.5$ の位置にあります． 球はそこから初速度
+$|\mathbf{V}| = 25$ で $(\theta, \phi)$ 方向に放出されます． このとき重力加速度 $G = -9.8$ とし，
 風や空気抵抗・ボールの回転などの影響は無いものとします．</p>
 
-<p>球の初速度の速度ベクトル <b>V</b> は次式で求めることができます．</p>
+<p>球の初速度の速度ベクトル $\mathbf{V}$ は次式で求めることができます．</p>
 
 <div class="expression">
-<b>V</b> = (V<sub>x</sub>, V<sub>y</sub>, V<sub>z</sub>) = (|<b>V</b>| sinθ cosφ, |<b>V</b>| sinφ, |<b>V</b>| cosθ cosφ)
+\[ \mathbf{V} = (V_x, V_y, V_z) = (|\mathbf{V}|\sin\theta\cos\phi, |\mathbf{V}|\sin\phi, |\mathbf{V}|\cos\theta\cos\phi) \]
 </div>
 
-<p>したがって，ボールの位置ベクトル <b>P</b> = (P<sub>x</sub>, P<sub>y</sub>, P<sub>z</sub>) は，ボールの初期位置を <b>Q</b> = (Q<sub>x</sub>, Q<sub>y</sub>, Q<sub>z</sub>) とするとき，次式で求めることができます．</p>
+<p>したがって，ボールの位置ベクトル $\mathbf{P} = (P_x, P_y, P_z)$ は，ボールの初期位置を $\mathbf{Q} = (Q_x, Q_y, Q_z)$ とするとき，次式で求めることができます．</p>
 
 <div class="expression">
-P<sub>x</sub> = V<sub>x</sub> t + Q<sub>x</sub><br>
-P<sub>y</sub> = (0.5 G t + V<sub>y</sub>) t + Q<sub>y</sub><br>
-P<sub>z</sub> = V<sub>z</sub> t + Q<sub>z</sub>
+\[
+\begin{aligned}
+P_x &= V_x t + Q_x \\
+P_y &= \left(\frac{1}{2} G t + V_y\right) t + Q_y \\
+P_z &= V_z t + Q_z
+\end{aligned}
+\]
 </div>
 
-<p>ここで t は経過時間で， アニメーションの場合は画面の書き換えを行う時間間隔
+<p>ここで $t$ は経過時間で， アニメーションの場合は画面の書き換えを行う時間間隔
 （リフレッシュレートの逆数）で増加します （この時間間隔内で描画が完了する場合）．
-ここではこの間隔に t<sub>step</sub> = 0.01 くらいを設定してみてください．なお， 上式では球を地面でバウンドさせる処理が多少ややこしくなるかも知れません．
+ここではこの間隔に $t_{\text{step}}$ = 0.01 くらいを設定してみてください．なお， 上式では球を地面でバウンドさせる処理が多少ややこしくなるかも知れません．
 分かりにくいときは以下の漸化式を参考にしてください （誤差が累積してしまうけど…）．</p>
 
 <div class="expression">
-P<sub>x</sub> ← P<sub>x</sub> + V<sub>x</sub> t<sub>step</sub><br>
-V<sub>y</sub> ← V<sub>y</sub> + G t<sub>step</sub><br>
-P<sub>y</sub> ← P<sub>y</sub> + V<sub>y</sub> t<sub>step</sub><br>
-P<sub>z</sub> ← P<sub>z</sub> + V<sub>z</sub> t<sub>step</sub>
+\[
+\begin{aligned}
+P_x &\leftarrow P_x + V_x t_{\text{step}} \\
+V_y &\leftarrow V_y + G t_{\text{step}} \\
+P_y &\leftarrow P_y + V_y t_{\text{step}} \\
+P_z &\leftarrow P_z + V_z t_{\text{step}}
+\end{aligned}
+\]
 </div>
 
-<p><b>P</b> = (P<sub>x</sub>, P<sub>y</sub>, P<sub>z</sub>)
+<p>$\mathbf{P} = (P_x, P_y, P_z)$
 の初期値は
-<b>Q</b> = (Q<sub>x</sub>, Q<sub>y</sub>, Q<sub>z</sub>) です．こうすると球の地面への着地を P<sub>y</sub> - R ≦ 0 （R は球の半径）となったかどうかで判断できます．このときに V<sub>y</sub> ←-A V<sub>y</sub> とすれば，球は再び上昇をはじめます．A はバウンドしたときの速度の減衰率で，0
-&lt; A &lt; 1 の値を設定してみてください．</p>
+$\mathbf{Q} = (Q_x, Q_y, Q_z)$ です．こうすると球の地面への着地を $P_y - R \le 0$ （$R$ は球の半径）となったかどうかで判断できます．このときに $V_y \leftarrow -A V_y$ とすれば，球は再び上昇をはじめます．$A$ はバウンドしたときの速度の減衰率で，$0 < A < 1$ の値を設定してみてください．</p>
 
 <p>これはあくまで「一例」に過ぎません． 各定数値の長さと時間の単位を， それぞれ「メートル」と「秒」とすれば考えやすいのではないかと思います．
 これらも適当に変更してください． 自分が思う通りの「ピッチングマシーン」を作ってください．
 ただし，飛び方は手裏剣やブーメランやミサイルではなく， ボールらしい飛び方にしてください．</p>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
 </body>
 </html>

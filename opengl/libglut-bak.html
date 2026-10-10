@@ -1,15 +1,28 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>GLUTによる「手抜き」OpenGL入門</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="GLUT入門のバックアップです。">
+<title>GLUTによる「手抜き」OpenGL入門 (バックアップ) - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
 </head>
 
-<body bgcolor="#c0d0d0" text="#000000" link="#0000ee" vlink="#000088" alink="#ff0000">
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ GLUTによる「手抜き」OpenGL入門 (バックアップ)</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門 (現行版)</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1 align="center">GLUTによる「手抜き」OpenGL入門</h1>
 <h3 align="center">
 <a href="http://www.wakayama-u.ac.jp/">和歌山大学</a>
@@ -1092,10 +1105,10 @@ prog2.c というコピーを作っておいてください。</p>
 引数の型や数などを示しています。
 詳しくは man glVertex2d や man glColor3d を参照してください。</p>
 
-<blockquote>
+<div class="figure">
 <img src="libaux2.gif" width="472" height="211"
 alt="関数の命名法概略図">
-</blockquote>
+</div>
 
 <h2><a name="6">６．座標軸を設定する</a></h2>
 
@@ -1208,10 +1221,10 @@ glOrtho() で指定した領域内の図形を表示するようになります�
 resize() の引数で得られる領域の大きさに比例するように設定すれば、
 図形の空間のディスプレイ上での“密度”を一定に保つことができます。</p>
 
-<blockquote>
+<div class="figure">
 <img src="libglut4.gif" width="487" height="227"
 alt="ウィンドウ−ビューポート変換">
-</blockquote>
+</div>
 
 <p>図形はワールド座標系と呼ばれる空間にあり、
 その２点 (l, b), (r, t) を結ぶ線分を対角線とする矩形領域を、
@@ -2001,9 +2014,9 @@ glut には glutWireCube() など、
 いくつか基本的な立体を描く関数があるのですが、
 ここでは自分で形状を定義してみたいと思います。</p>
 
-<blockquote>
+<div class="figure">
 <img src="libglut5.gif" width="400" height="337" alt="立方体の構造">
-</blockquote>
+</div>
 
 <p>この図形は８個の点を１２本の線分で結びます。
 点の位置（幾何情報）と線分（位相情報）を別々にデータにします。</p>
@@ -4174,9 +4187,9 @@ int main(int argc, char *argv[])
 ディスプレイの表示面の高さ、表示面との距離、
 自分の両目の間隔の実測値から割り出してください。</p>
 
-<blockquote>
+<div class="figure">
 <img src="stereo1.gif" alt="両眼立体視の原理">
-</blockquote>
+</div>
 
 <blockquote><font size="-1">本当は gluLookAt() を使わずに、
 <a href="faq.html#Q7">gluPerspective() を glFrustum()
@@ -4218,6 +4231,54 @@ SuperGrove からのデータの読み込みについては、
 パンチングボールを殴ります。
 IsoTrak からのデータの読み込みについては、
 <a href="isotrak/">IsoTrak II の資料</a>を参照してください。</p>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">現行版へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
 
 </body>
 </html>

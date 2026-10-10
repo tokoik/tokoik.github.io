@@ -1,15 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>A. ウォークスルーの実験</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="視点移動によるアニメーション（ウォークスルー）の実験課題です。">
+<title>実験１．A. ウォークスルーの実験 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
+
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ 実験１．A. ウォークスルーの実験</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>ウォークスルーの実験</h1>
 
 <p>ウォークスルーは３次元ＣＧシーンの中を歩き回る効果のことを言います． これは視点の移動によるアニメーションです．マウスで視点の位置を動かすプログラムを作ってみましょう． これまでに作ったプログラムをベースを改造するのが手っ取り早いと思いますが，うまく行かなければ下の手順を参考にしてください． ソースファイル名は prog3.c としてください．</p>
@@ -160,29 +184,29 @@ int main(int argc, char *argv[])
 
 <ol>
 
-<li>視点の現在位置は display() の中の ex および ez の二つの変数で設定しています．この値を変更することで，視点の位置を変えることができます． また，その位置での進行方向は r で設定しています．</li>
+<li>視点の現在位置は display() の中の $ex$ および $ez$ の二つの変数で設定しています．この値を変更することで，視点の位置を変えることができます． また，その位置での進行方向は $r$ で設定しています．</li>
 
-<li>現在位置を <b>P</b> = (ex, ez) とし，速度ベクトルを <b>V</b> とすれば， t 秒後の位置 <b>P</b>' = (ex', ez') は次式で求められます．
+<li>現在位置を $\mathbf{P} = (\mathit{ex}, \mathit{ez})$ とし，速度ベクトルを $\mathbf{V}$ とすれば， $t$ 秒後の位置 $\mathbf{P}' = (\mathit{ex}', \mathit{ez}')$ は次式で求められます．
 <div class="expression">
-<b>P</b>' = <b>V</b> t + <b>P</b>
+\[ \mathbf{P}' = \mathbf{V}t + \mathbf{P} \]
 </div></li>
 
-<li>またその位置における進行方向 r' は， 現在の進行方向を r，進行方向を変える速度（ハンドルを切る速さ）を a とすれば，次式で求められます．
+<li>またその位置における進行方向 $r'$ は， 現在の進行方向を $r$，進行方向を変える速度（ハンドルを切る速さ）を $a$ とすれば，次式で求められます．
 <div class="expression">
-r' = a t + r
+\[ r' = at + r \]
 </div></li>
 
-<li>したがって，ウィンドウの中心位置とマウスカーソルの関係から， 速度ベクトルの絶対値（進行方向に対する速度） |<b>V</b>| と角速度 a を求めます． 現在位置における速度ベクトル <b>V</b>は次式で求められます．
+<li>したがって，ウィンドウの中心位置とマウスカーソルの関係から， 速度ベクトルの絶対値（進行方向に対する速度） $|\mathbf{V}|$ と角速度 $a$ を求めます． 現在位置における速度ベクトル $\mathbf{V}$は次式で求められます．
 <div class="expression">
-<b>V</b> = (|<b>V</b>|sin r, |<b>V</b>|cos r)
+\[ \mathbf{V} = (|\mathbf{V}|\sin r, |\mathbf{V}|\cos r) \]
 </div>
-ただし，<a href="libglut.html#glRotated">glRotated()</a>の第１引数 r は左回転が正なのに対してマウスの座標系は右方向が正であること，および r の単位は<EM>度</EM>なのに対して数学関数 sin(), cos() の引数は<EM>ラジアン</EM>で与える必要があることに注意してください．</li>
+ただし，<a href="libglut.html#glRotated">glRotated()</a>の第１引数 $r$ は左回転が正なのに対してマウスの座標系は右方向が正であること，および $r$ の単位は<EM>度</EM>なのに対して数学関数 sin(), cos() の引数は<EM>ラジアン</EM>で与える必要があることに注意してください．</li>
 
 <li>ウィンドウのサイズは resize() の引数で得られますから， それらからウィンドウの中心位置を求めます． 得られた位置は，他の関数で利用できるように， 適当な<EM>外部変数</EM>に代入しておきます．</li>
 
 <li><a href="libglut.html#7.2">ドラッグ</a>中のマウスの位置を得るために， このプログラムにマウスのドラッグ中に呼び出す関数を追加し，それを <a href="libglut.html#glutmotionfunc">glutMotionFunc()</a> の引数に指定します．マウスの位置は追加した関数の引数で得ることができますから，その位置のウィンドウの中心からの変位を元に， 進行方向とその方向に対する速度を決定します．これらも適当な外部変数に代入します．</li>
 
-<li>この進行方向とその方向に対する速度をもとに， 視点の現在位置を変更します．なお，時刻 t は経過時間を計測して決定する必要がありますが， 面倒なら定数でも構いません．t = 1 くらいから始めて適当なスピードになるよう調整してみて下さい．</li>
+<li>この進行方向とその方向に対する速度をもとに， 視点の現在位置を変更します．なお，時刻 $t$ は経過時間を計測して決定する必要がありますが， 面倒なら定数でも構いません．$t = 1$ くらいから始めて適当なスピードになるよう調整してみて下さい．</li>
 
 <li>もちろん，視点の移動は<EM>滑らかに</EM>行われるようにしてください． また画面の<EM>ちらつきも抑制</EM>するようにしてください．</li>
 
@@ -192,7 +216,7 @@ r' = a t + r
 <img src="walk2.gif" alt="移動の仕方">
 </div>
 
-<p>上のプログラムでは，視点を移動するかわりに <strong>物体の方を逆方向に動かす</strong>ことを前提にしています．このため ex, ez および r の値は， 進行方向とは逆に設定する必要がありますので，注意してください．</p>
+<p>上のプログラムでは，視点を移動するかわりに <strong>物体の方を逆方向に動かす</strong>ことを前提にしています．このため $ex, ez$ および $r$ の値は， 進行方向とは逆に設定する必要がありますので，注意してください．</p>
 
 <p>scene() の図形は自分なりに色々変えてみてください． ただし，あまり複雑なものを描くと表示が遅くなります．部品には glutSolidCube() のほか，glutSolidSphere(), glutSolidCone(), glutSolidDodecahedron(), glutSolidOctahedron(), glutSolidIcosahedron(), glutSolidTetrahedron(), glutSolidTorus(), それに glutSolidTeapot() などが用意されています．詳しくはオンラインマニュアル等を参照してください．</p>
 
@@ -207,5 +231,54 @@ r' = a t + r
 </dl>
 
 <p>なお，これはあくまで「一例」に過ぎません． 自分の思う方法で歩き回り方を考えてくれれば結構です．ただし， ちゃんと物体の背後に「回り込む」ことができるようにして下さい．</p>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
 </body>
 </html>

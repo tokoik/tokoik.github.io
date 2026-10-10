@@ -1,15 +1,28 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>Frequently Asked Questions</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="GLUTやOpenGLに関するFAQ集です。">
+<title>今までにあった質問 (FAQ) - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
 </head>
 
-<body>
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ 今までにあった質問 (FAQ)</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>今までにあった質問</h1>
 
 <ul>
@@ -130,9 +143,9 @@ hits には得られたデータの数が入ります．
 <p>glSerectBuffer() の引数に指定した（一次元）配列 buffer には，
 次のような順序でデータが格納されています．</p>
 
-<blockquote>
+<div class="figure">
 <img src="libglut9.gif" alt="selection バッファの構造">
-</blockquote>
+</div>
 
 <a name="selectionsample"></a>
 <ul>
@@ -224,8 +237,11 @@ void mouse(int button, int state, int x, int y)
 
 <h2>回答３</h2>
 
-<img src="frustum.gif" align="right" alt="Frustum">
 <p>gluPerspective() の代りに glFrustum() を使ってみてください．</p>
+
+<div class="figure">
+<img src="frustum.gif" alt="Frustum">
+</div>
 
 <pre class="sample">
 void glFrustum( GLdouble left,
@@ -556,9 +572,9 @@ sides は円柱の側面の数（＝上面の辺の数）です．
 また記号定数 PI2 は“２π”です．
 したがって step には１辺あたりの中心角が代入されます．</p>
 
-<blockquote>
+<div class="figure">
 <img src="top.gif" alt="円柱の上面">
-</blockquote>
+</div>
 
 <p>結局，sin/cos を使って円を描くのと同じです．
 「下面」も同様ですが，面の向きが「上面」と反対になるので，
@@ -633,9 +649,9 @@ gluPerspective() を glFrustum()
 この状態で視線と垂直な投影面（前方面というわけではありません）
 に投影された図形が，ディスプレイに表示されます．</p>
 
-<blockquote>
+<div class="figure">
 <img src="stereo4.gif" alt="gluLookAt() で視差を付けた場合">
-</blockquote>
+</div>
 
 <p>しかし，ディスプレイの表示面は視線に対して垂直ではありませんから，
 投影面に投影された図形をそのままディスプレイに表示すると，
@@ -650,9 +666,9 @@ gluPerspective() を glFrustum()
 <p>glFrustum() は視線を回転させずに投影面をずらす事ができるため，
 このずれを生じさせずに視差を与える事ができます．</p>
 
-<blockquote>
+<div class="figure">
 <img src="stereo2.gif" alt="glFrustum() で視差を付けた場合">
-</blockquote>
+</div>
 
 <p>いま，左目とディスプレイとの距離を D，
 視差（両目の間隔）を P とします．
@@ -662,9 +678,9 @@ gluPerspective() を glFrustum()
 <pre class="sample">
 F = P × 0.5 × zNear ／ D
 </pre>
-<blockquote>
+<div class="figure">
 <img src="stereo3.gif" alt="表示領域のずれ F">
-</blockquote>
+</div>
 
 <p>またディスプレイ表示面の幅を W，高さを H とすれば
 （アスペクト比は１とします），
@@ -735,7 +751,54 @@ top = H × 0.5 × zNear ／ D
 
   /* シーンの描画 */
   ...</span></pre>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
 
 </body>
-
 </html>

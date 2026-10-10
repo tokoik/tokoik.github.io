@@ -1,100 +1,620 @@
-body {
-  color: #020;
-  background-color: #ffe;
-  font-size: medium;
-}
-a:link {
-  color: #060;
-}
-a:active {
-  color: #f00;
-}
-a:visited {
-  color: #040;
-}
-a:hover {
-  color: #840;
-  text-decoration: underline;
-}
-a.label {
-  color: #020;
-  text-decoration: none;
-}
-h2 {
-  margin-top: 2em;
-  border-bottom: solid 2px #080;
-}
-dl {
-  margin: 1em 2em 1em 2em;
-}
-dt         {
-  margin-top: 0.5em;
-  font-style: normal;
-  font-weight: bold;
-}
-blockquote {
-  margin: 1em 2em 1em 2em;
-  font-size: smaller;
-}
-pre.source {
-  background-color: #fff;
-  margin: 1em 2em 1em 2em;
-  padding: 0.5em 1em 0.5em 1em;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ada;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+@charset "utf-8";
 
+/*
+ * opengl.css
+ * 和歌山大学 床井研究室 blog デザインシステムに準拠したスタイル
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
-pre.display {
-  color: #fff;
-  background-color: #004;
-  margin: 1em 2em 1em 2em;
-  padding: 0.5em 1em 0.5em 1em;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #fff;
+
+html {
+  scroll-behavior: smooth;
 }
-pre.sample {
-  margin: 1em 2em 1em 2em;
-  padding: 0.5em 1em 0.5em 1em;
-  border: none;
-}
-pre {
-  font-family: "Menlo", "Osaka-mono", "VL Gothic", "Andale Mono", "MS Gothic", monospace;
+
+body {
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, "Noto Sans JP", sans-serif;
   font-size: medium;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color: #030;
+  background-color: #ffe;
+  margin: 0;
+  padding: 0;
 }
-div.figure {
-  margin: 1em 0 1em 2em
+
+/*
+ * 等幅フォント
+ */
+pre, code, var, samp, kbd, dt, .mono {
+  font-family: ui-monospace, Consolas, Menlo, "BIZ UDGothic", "Noto Sans Mono CJK JP", monospace;
 }
-div.expression {
-  margin: 0.5em 0 0.5em 2em
-}
+
+/*
+ * 文字の修飾
+ */
 em {
   font-style: normal;
   font-weight: bold;
+  color: #050;
 }
+
 strong {
   font-style: normal;
   font-weight: bold;
-  color: #f00;
+  color: #b00;
 }
+
 kbd {
-  color: #c55;
-  font-family: monospace;
+  color: #922;
+  background-color: #f7ede2;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  border: 1px solid #d4c2b0;
+  font-size: 0.9em;
 }
+
+.blue {
+  color: #0066cc;
+}
+
+.gray {
+  color: #8a8;
+}
+
+/*
+ * リンク文字列
+ */
+a:link {
+  color: #360;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #240;
+  text-decoration: none;
+}
+
+a:focus {
+  color: #080;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #4a4;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #a40;
+  text-decoration: underline;
+}
+
+a.label {
+  color: inherit;
+  text-decoration: none;
+}
+
+/*
+ * 罫線
+ */
+hr {
+  border-style: solid;
+  border-width: 1px 0 0 0;
+  border-color: #ada;
+  margin: 1.5rem 0;
+}
+
+/*
+ * ヘッダー (blogレイアウト準拠)
+ */
+header {
+  width: 100%;
+  max-width: 980px;
+  margin: 0.5rem auto 0 auto;
+  padding: 0 1rem;
+}
+
+header h1 {
+  margin: 0.2em 0;
+  padding: 0.35em 0.6em;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #073;
+  border-radius: 4px;
+}
+
+header h1 a:link,
+header h1 a:visited,
+header h1 a:focus,
+header h1 a:hover,
+header h1 a:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+/*
+ * ナビゲーションバー
+ */
+div.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+header div.navigation h2 {
+  margin: 0.4em 0;
+  padding: 0;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #030;
+}
+
+header div.navigation .header-meta {
+  font-size: 0.9rem;
+  color: #363;
+}
+
+/*
+ * フッター (blogレイアウト準拠)
+ */
+footer {
+  clear: both;
+  width: 100%;
+  max-width: 980px;
+  border-top: solid 1px #ada;
+  margin: 3rem auto 2rem auto;
+  padding: 1rem 1rem 0 1rem;
+}
+
+footer div.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer div.license {
+  display: flex;
+  align-items: center;
+}
+
+footer div.license img {
+  border: none;
+  vertical-align: middle;
+}
+
+footer div.center {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+footer div.center a {
+  font-weight: bold;
+}
+
+footer div.buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+footer div.buttons .button,
+footer div.buttons button {
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ada;
+  color: #030;
+  padding: 0.3em 0.8em;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+footer div.buttons .button:hover,
+footer div.buttons button:hover {
+  background-color: #8c8;
+}
+
+/*
+ * メインコンテンツ
+ */
+main {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/*
+ * 旧ページ互換用 (header/main がないページでも読みやすいコンテナ幅にする)
+ */
+body:not(:has(header)) {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.8rem 1rem;
+}
+
+/*
+ * 見出し
+ */
+h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #052;
+  margin: 1.2rem 0 0.8rem 0;
+}
+
+h2 {
+  margin-top: 2.2rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.35rem;
+  border-bottom: solid 2px #073;
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #052;
+  scroll-margin-top: 1.2rem;
+}
+
+h3 {
+  margin-top: 1.6rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #063;
+  border-left: 4px solid #073;
+  padding-left: 0.5rem;
+  scroll-margin-top: 1.2rem;
+}
+
+h4 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+  font-weight: bold;
+  scroll-margin-top: 1.2rem;
+}
+
 .title {
   margin-top: 1em;
   border: none;
   text-align: center;
 }
-.blue {
-  color: #00f;
+
+/*
+ * 本文の段落
+ */
+p {
+  line-height: 1.7;
+  margin: 0.8em 0;
 }
-.gray {
-  color: #8a8;
+
+/*
+ * 引用
+ */
+blockquote {
+  border-style: none;
+  background-color: #efe;
+  border-left: 4px solid #8ca;
+  margin: 1.2em 0;
+  padding: 0.8em 1.2em;
+  border-radius: 0 4px 4px 0;
+}
+
+/*
+ * お知らせ / アラート
+ */
+.alert-notice {
+  background-color: #fff4f4;
+  border: 1px solid #f5c2c7;
+  border-left: 5px solid #d9534f;
+  color: #721c24;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 4px;
+}
+
+/*
+ * ドキュメント情報カード
+ */
+.doc-card {
+  background-color: #f7faf5;
+  border: 1px solid #cce5cc;
+  border-radius: 6px;
+  padding: 1rem 1.4rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.doc-card p {
+  margin: 0.4em 0;
+}
+
+/*
+ * 目次コンテナ (モダンUI)
+ */
+.toc-box {
+  background-color: #f6faf5;
+  border: 1px solid #c3e2c3;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 2rem 0;
+}
+
+.toc-box summary {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #052;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  outline: none;
+  user-select: none;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.4rem 1.5rem;
+  margin-top: 0.8rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #ada;
+}
+
+.toc-item {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding: 0.15rem 0;
+}
+
+.toc-subitem {
+  padding-left: 1.4rem;
+  font-size: 0.9rem;
+  color: #454;
+}
+
+/*
+ * 整形済みテキスト & コードブロック
+ */
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: #fff;
+  border: 1px solid #ada;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  position: relative;
+}
+
+/* C言語などのソースコード */
+pre.source {
+  background-color: #ffffff;
+  border: 1px solid #99cc99;
+  border-left: 4px solid #073;
+}
+
+/* 実行結果などの画面表示 */
+pre.display {
+  color: #e6f4ea;
+  background-color: #17221d;
+  border: 1px solid #2d3b36;
+}
+
+/* コマンドライン実行例 */
+pre.sample {
+  background-color: #f7faf7;
+  border: 1px dashed #9bc49b;
+}
+
+/* コードブロックコンテナとコピーボタン */
+.code-container {
+  position: relative;
+  margin: 1.2rem 0;
+}
+
+.code-container pre {
+  margin: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: #073;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.2s, background-color 0.2s;
+  z-index: 5;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  background-color: #094;
+}
+
+.copy-btn.copied {
+  background-color: #2e7d32;
+  opacity: 1;
+}
+
+/*
+ * リスト
+ */
+ul, ol {
+  margin: 0.8em 0 0.8em 1.5em;
+  padding: 0 0 0 0.5em;
+}
+
+li {
+  line-height: 1.6;
+  margin-bottom: 0.3em;
+}
+
+dl {
+  margin: 1em 0 1em 1em;
+}
+
+dt {
+  margin-top: 0.6em;
+  font-weight: bold;
+  color: #052;
+}
+
+dd {
+  margin-left: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+/*
+ * テーブル
+ */
+table {
+  margin: 1.5rem auto;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #ada;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* 旧HTMLでコードブロックを囲むために使われていたテーブルの装飾をリセット */
+blockquote > table,
+table:has(pre) {
+  border: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+blockquote > table td,
+blockquote > table th,
+table:has(pre) td,
+table:has(pre) th {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+th, td {
+  padding: 0.6rem 0.8rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ada;
+}
+
+th {
+  background-color: #eaf5ea;
+  color: #052;
+  font-weight: bold;
+}
+
+/*
+ * 画像と図
+ */
+img {
+  border: none;
+  max-width: 100%;
+  height: auto;
+}
+
+div.figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+div.figure img {
+  display: inline-block;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+
+div.expression {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/*
+ * トップへ戻るフローティングボタン
+ */
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: #073;
+  color: #fff !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  font-size: 1.3rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.3s, transform 0.2s, background-color 0.2s;
+  z-index: 1000;
+  opacity: 0.85;
+}
+
+.back-to-top:hover {
+  opacity: 1;
+  background-color: #0a4;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+/*
+ * レスポンシブデザイン
+ */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  header h1 {
+    font-size: 1.25rem;
+  }
+  header div.navigation h2 {
+    font-size: 1.05rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1.05rem;
+  }
+  pre {
+    padding: 0.8rem;
+    font-size: 0.88rem;
+  }
+  .toc-grid {
+    grid-template-columns: 1fr;
+  }
+  footer div.navigation {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+  }
 }

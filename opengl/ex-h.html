@@ -1,15 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>H. ビー玉の実験</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="斜面上の転がり運動の実験課題です。">
+<title>実験１．H. ビー玉の実験 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
+
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ 実験１．H. ビー玉の実験</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>ビー玉の実験</h1>
 
 <p>ビー玉遊びっぽいゲームや，ビリヤードみたいなゲームのプログラムを作ってみましょう．
@@ -231,79 +255,130 @@ int main(int argc, char *argv[])
 <div class="figure">
 <img src="ball0.gif" width="384" height="288" alt="ビー玉の衝突検出">
 </div>
-<p>ビー玉が等速運動するなら，ビー玉の初期位置を <b>P</b><sub><i>b</i></sub>，速度ベクトルを <b>V</b>，初期位置からの時刻を <i>t</i> とすると，ビー玉の現在位置 <b>P</b> は次式で求めることができます．</p>
-<div class="figure">
-<img src="ball-ex01.gif" width="384" height="48" alt="式 (1)">
+<p>ビー玉が等速運動するなら，ビー玉の初期位置を $\mathbf{P}_b$，速度ベクトルを $\mathbf{V}$，初期位置からの時刻を $t$ とすると，ビー玉の現在位置 $\mathbf{P}$ は次式で求めることができます．</p>
+<div class="expression">
+\[ \mathbf{P} = \mathbf{P}_b + \mathbf{V}t \tag{1} \]
 </div>
-<p>アニメーションを行う場合，あるフレームにおけるビー玉の現在位置が <b>P</b><sub><i>b</i></sub> で，アニメーションのフレーム間隔（リフレッシュレートの逆数）が <i>t<sub>step</sub></i> であれば，次のフレーム（画面表示）におけるビー玉の位置 <b>P</b>'<sub><i>b</i></sub> は次のようになります．</p>
-<div class="figure">
-<img src="ball-ex02.gif" width="384" height="48" alt="式 (2)">
+<p>アニメーションを行う場合，あるフレームにおけるビー玉の現在位置が $\mathbf{P}_b$ で，アニメーションのフレーム間隔（リフレッシュレートの逆数）が $t_{\text{step}}$ であれば，次のフレーム（画面表示）におけるビー玉の位置 $\mathbf{P}'_b$ は次のようになります．</p>
+<div class="expression">
+\[ \mathbf{P}'_b = \mathbf{P}_b + \mathbf{V}t_{\text{step}} \tag{2} \]
 </div>
-<p>上図においてビー玉は <b>P</b><sub><i>b</i></sub> でも <b>P</b>'<sub><i>b</i></sub> でも目標と接触することはありませんが，実際には <b>P</b> で接触しています．このため，ビー玉と目標の衝突を，各フレームにおけるビー玉の位置と目標の位置の比較により検出しようとすると，衝突が検出できずにビー玉が目標をすり抜けてしまう場合があります．</p>
-<p>そこで，このような問題が起こらない衝突の検出方法を考えてみます．ビー玉も目標もともに半径 <i>r</i> の球だとした場合，この二つが接する条件は次のようになります．</p>
-<div class="figure">
-<img src="ball-ex03.gif" width="384" height="48" alt="式 (3)">
+<p>上図においてビー玉は $\mathbf{P}_b$ でも $\mathbf{P}'_b$ でも目標と接触することはありませんが，実際には $\mathbf{P}$ で接触しています．このため，ビー玉と目標の衝突を，各フレームにおけるビー玉の位置と目標の位置の比較により検出しようとすると，衝突が検出できずにビー玉が目標をすり抜けてしまう場合があります．</p>
+<p>そこで，このような問題が起こらない衝突の検出方法を考えてみます．ビー玉も目標もともに半径 $r$ の球だとした場合，この二つが接する条件は次のようになります．</p>
+<div class="expression">
+\[ |\mathbf{P}_t - \mathbf{P}| = 2r \tag{3} \]
 </div>
-<p>(3) 式に (1) 式を代入した後，両辺を二乗します．ここで <b>V</b><sup>2</sup> = <b>V</b>&sdot;<b>V</b> です．演算子&sdot;（ドット）はベクトルの内積を表します．</p>
-<div class="figure">
-<img src="ball-ex04.gif" width="384" height="48" alt="式 (4)">
+<p>(3) 式に (1) 式を代入した後，両辺を二乗します．ここで $\mathbf{V}^2 = \mathbf{V}\cdot\mathbf{V}$ です．演算子&sdot;（ドット）はベクトルの内積を表します．</p>
+<div class="expression">
+\[ (\mathbf{P}_t - \mathbf{P}_b - \mathbf{V}t)^2 = 4r^2 \tag{4} \]
 </div>
-<p>これを <i>t</i> について整理すると，次の二次方程式になります．</p>
-<div class="figure">
-<img src="ball-ex05.gif" width="384" height="48" alt="式 (5)">
+<p>これを $t$ について整理すると，次の二次方程式になります．</p>
+<div class="expression">
+\[ \mathbf{V}^2 t^2 - 2\mathbf{V}\cdot(\mathbf{P}_t - \mathbf{P}_b)t + (\mathbf{P}_t - \mathbf{P}_b)^2 - 4r^2 = 0 \tag{5} \]
 </div>
-<p>この二次方程式の解の公式の判別式 <i>D</i> を求めます．</p>
-<div class="figure">
-<img src="ball-ex06.gif" width="384" height="48" alt="式 (6)">
+<p>この二次方程式の解の公式の判別式 $D$ を求めます．</p>
+<div class="expression">
+\[ D = \{\mathbf{V}\cdot(\mathbf{P}_t - \mathbf{P}_b)\}^2 - \mathbf{V}^2 \{(\mathbf{P}_t - \mathbf{P}_b)^2 - 4r^2\} \tag{6} \]
 </div>
-<p><i>D</i> が正なら，ビー玉の軌跡が目標と交差します．</p>
-<div class="figure">
-<img src="ball-ex07.gif" width="384" height="48" alt="式 (7)">
+<p>$D$ が正なら，ビー玉の軌跡が目標と交差します．</p>
+<div class="expression">
+\[ D > 0 \tag{7} \]
 </div>
-<p>ビー玉が目標と接触する時刻 <i>t</i> は，解の公式より次式で得られます．</p>
-<div class="figure">
-<img src="ball-ex08.gif" width="384" height="48" alt="式 (8)">
+<p>ビー玉が目標と接触する時刻 $t$ は，解の公式より次式で得られます．</p>
+<div class="expression">
+\[ t = \frac{\mathbf{V}\cdot(\mathbf{P}_t - \mathbf{P}_b) \pm \sqrt{D}}{\mathbf{V}^2} \tag{8} \]
 </div>
-<p>ここで目標がビー玉よりも前方にあれば <b>V</b>&sdot;(<b>P</b><sub><i>t</i></sub> - <b>P</b><sub><i>b</i></sub>) は正になるので，根号の前の符号が -（マイナス）のとき，時刻 <i>t</i> でビー玉は目標と初めて接触することになります．</p>
-<div class="figure">
-<img src="ball-ex09.gif" width="384" height="48" alt="式 (9)">
+<p>ここで目標がビー玉よりも前方にあれば $\mathbf{V}\cdot(\mathbf{P}_t - \mathbf{P}_b)$ は正になるので，根号の前の符号が -（マイナス）のとき，時刻 $t$ でビー玉は目標と初めて接触することになります．</p>
+<div class="expression">
+\[ t = \frac{\mathbf{V}\cdot(\mathbf{P}_t - \mathbf{P}_b) - \sqrt{D}}{\mathbf{V}^2} \tag{9} \]
 </div>
-<p>また現在のフレームと次のフレームとの間でビー玉が目標と衝突するなら，時刻 <i>t</i> は次の範囲にあります．</p>
-<div class="figure">
-<img src="ball-ex10.gif" width="384" height="48" alt="式 (10)">
+<p>また現在のフレームと次のフレームとの間でビー玉が目標と衝突するなら，時刻 $t$ は次の範囲にあります．</p>
+<div class="expression">
+\[ 0 < t < t_{\text{step}} \tag{10} \]
 </div>
 <p>したがって，<em>(7) 式と (10) 式がともに成立</em>すれば，現在のフレームから次のフレームまでの間で，ビー玉は目標と衝突します．次に，この衝突によるビー玉の跳ね返り方向を求めます．</p>
 <div class="figure">
 <img src="ball1.gif" width="384" height="288" alt="ビー玉の跳ね返り">
 </div>
-<p>まず，衝突位置における，ビー玉の中心から目標の中心に向かう方向単位ベクトル <b>N</b> を求めます．</p>
-<div class="figure">
-<img src="ball-ex11.gif" width="384" height="48" alt="式 (11)">
+<p>まず，衝突位置における，ビー玉の中心から目標の中心に向かう方向単位ベクトル $\mathbf{N}$ を求めます．</p>
+<div class="expression">
+\[ \mathbf{N} = \frac{\mathbf{P}_t - \mathbf{P}}{|\mathbf{P}_t - \mathbf{P}|} \tag{11} \]
 </div>
-<p>衝突後のビー玉の速度ベクトル <b>V</b><sub><i>b</i></sub> と目標の速度ベクトル <b>V</b><sub><i>t</i></sub> は，以下のようにして求めることにします．</p>
+<p>衝突後のビー玉の速度ベクトル $\mathbf{V}_b$ と目標の速度ベクトル $\mathbf{V}_t$ は，以下のようにして求めることにします．</p>
 <div class="figure">
   <img src="ball2.gif" width="384" height="288" alt="衝突後のビー玉の速度">
 </div>
-<p>ビー玉の速度ベクトル <b>V</b> の <b>N</b> 方向の成分 <b>V</b><sub><i>t</i></sub> は次式により求められます．</p>
-<div class="figure"> <img src="ball-ex12.gif" width="384" height="48" alt="式 (12)"> </div>
+<p>ビー玉の速度ベクトル $\mathbf{V}$ の $\mathbf{N}$ 方向の成分 $\mathbf{V}_t$ は次式により求められます．</p>
+<div class="expression">
+\[ \mathbf{V}_t = (|\mathbf{V}|\cos\theta)\mathbf{N} = (\mathbf{V}\cdot\mathbf{N})\mathbf{N} \tag{12} \]
+</div>
 <p>これが衝突時に目標から見たビー玉の相対的な速度ベクトルになります．ビー玉と目標の質量が等しく，また衝突による運動エネルギーの損失がなければ，運動量保存の法則より，目標はビー玉からこの速度をそのまま受け取って動き出します．</p>
-<p>一方，衝突後のビー玉の速度 <b>V</b><sub><i>b</i></sub> は，これも運動量保存の法則から，ビー玉と目標の質量が等しければ次式で得られます．</p>
-<div class="figure">
-  <img src="ball-ex13.gif" width="384" height="48" alt="式 (13)">
+<p>一方，衝突後のビー玉の速度 $\mathbf{V}_b$ は，これも運動量保存の法則から，ビー玉と目標の質量が等しければ次式で得られます．</p>
+<div class="expression">
+\[ \mathbf{V}_b = \mathbf{V} - \mathbf{V}_t \tag{13} \]
 </div>
-<p>したがってビー玉が目標と衝突した場合の，ビー玉の次のフレーム（<i>t<sub>step</sub></i> 後）における位置 <b>P</b>'<sub><i>b</i></sub> は次のようになります．</p>
-<div class="figure">
-<img src="ball-ex14.gif" width="384" height="48" alt="式 (14)">
+<p>したがってビー玉が目標と衝突した場合の，ビー玉の次のフレーム（$t_{\text{step}}$ 後）における位置 $\mathbf{P}'_b$ は次のようになります．</p>
+<div class="expression">
+\[ \mathbf{P}'_b = \mathbf{P} + \mathbf{V}_b (t_{\text{step}} - t) \tag{14} \]
 </div>
-<p>次のフレームの描画が完了したら <b>P</b><sub><i>b</i></sub> と <b>V</b> を更新して，その次のフレームの処理に備えます．</p>
-<div class="figure">
-<img src="ball-ex15.gif" width="384" height="48" alt="式 (15)">
+<p>次のフレームの描画が完了したら $\mathbf{P}_b$ と $\mathbf{V}$ を更新して，その次のフレームの処理に備えます．</p>
+<div class="expression">
+\[ \mathbf{P}_b \leftarrow \mathbf{P}'_b,\quad \mathbf{V} \leftarrow \mathbf{V}_b \tag{15} \]
 </div>
 
 <ol>
   <li>マウスのボタンを離したときに，現在向いている方向 r の正面にビー玉が射出されるようにしてください．ここで r に格納されている値の単位は度であることに注意してください．</li>
   <li>コンピュータの負荷を節約するために，ビー玉が見えなくなったら（ビー玉までの距離が ZFAR を超えたら），アニメーションを止めるようにしましょう．</li>
-  <li>可能なら目標を複数にして，ビー玉や目標がビリヤードのように互いに衝突しあうプログラムを作成してください．この場合，目標も移動するものとして衝突の検出を行う必要があります．すなわち，(4) 式において <b>P</b><sub><i>t</i></sub> も <b>P</b> 同様 <i>t</i> の関数で表す必要がありますが，(5) 式が二次方程式であることは変わりません．</li>
+  <li>可能なら目標を複数にして，ビー玉や目標がビリヤードのように互いに衝突しあうプログラムを作成してください．この場合，目標も移動するものとして衝突の検出を行う必要があります．すなわち，(4) 式において $\mathbf{P}_t$ も $\mathbf{P}$ 同様 $t$ の関数で表す必要がありますが，(5) 式が二次方程式であることは変わりません．</li>
 </ol>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
 </body>
 </html>

@@ -1,15 +1,28 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>リフレッシュレートの変更</title>
-<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="CRTやゲームモードでのリフレッシュレート設定方法の解説です。">
+<title>リフレッシュレートの変更 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
 </head>
 
-<BODY>
+<body id="top">
+
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ リフレッシュレートの変更</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>リフレッシュレートの変更</h1>
 <ul>
 <li><a href="#byproperty">１．画面のプロパティによる方法</a></li>
@@ -19,15 +32,15 @@
 <a name="byproperty"></a>
 <H2>１．画面のプロパティによる方法</H2>
 <P>マウスの右ボタンでデスクトップをクリックし，「プロパティ」を選びます．</P>
-<P align="center"><IMG src="dispprop.gif" width="528" height="480" border="0"></P>
+<div class="figure"><IMG src="dispprop.gif" width="528" height="480" border="0"></div>
 <P>「設定」のタブを選んで，「画面の領域」のスライダを動かして「800×600ピクセル」程度にし，そのまま「詳細」のボタンをクリックしてください．</P>
-<P align="center"><IMG src="dispres.gif" width="528" height="480" border="0"></P>
+<div class="figure"><IMG src="dispres.gif" width="528" height="480" border="0"></div>
 <P>「モニタ」のタブを選んで「リフレッシュレート」の中から「100ヘルツ」〜「120ヘルツ」程度を選んだ後，「OK」をクリックしてください．</P>
-<P align="center"><IMG src="dispmon.gif" width="528" height="480" border="0"></P>
+<div class="figure"><IMG src="dispmon.gif" width="528" height="480" border="0"></div>
 <P>解像度を変更してよいかどうか聞いてきます．ここも「OK」をクリックしてください．</P>
-<P align="center"><IMG src="dispconf.gif" width="528" height="480" border="0"></P>
+<div class="figure"><IMG src="dispconf.gif" width="528" height="480" border="0"></div>
 <P>解像度が変更され，一瞬画面が消えるか，ちょっと乱れた後に次のウィンドウが現れます．この画面が現れたら「はい」をクリックしてください．現れなければ（画面がまともに見えなければ）そのまま１５秒ほど待っていてください．</P>
-<P align="center"><IMG src="dispsave.gif" width="528" height="480" border="0"></P>
+<div class="figure"><IMG src="dispsave.gif" width="528" height="480" border="0"></div>
 <a name="bygamemode"></a>
 <H2>２．GLUTのゲームモードを使う方法</H2>
 <P>GLUTのゲームモードは，画面の表示解像度，リフレッシュレート，それに色深度（最大表示色数）をプログラムから制御すると同時に，画面をフルスクリーンモードにします．</P>
@@ -105,6 +118,54 @@ int main(int argc, char *argv[])
 を指定しても，やはり実行時にエラーになってしまいます．</P>
 <P>ところが，nVIDIA 自身が一般向けビデオカード向けに提供している「ステレオドライバ」をインストールすると，ゲームモードにするだけで勝手にステレオにしてくれます．glDrawBuffer()
 を使って左右の眼用の画像を描き分けたりする必要もありません．このとき視差はドライバの設定（「画面のプロパティ」の「詳細」）で指定できるようになってます．でも，これを使っちゃうと課題にならないので（だいたい演習室のマシンにはステレオドライバ入ってないし），課題はこういうものがあることは考えないでやってください．</P>
-</BODY>
+</main>
 
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
+
+</body>
 </html>

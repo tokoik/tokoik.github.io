@@ -1,15 +1,39 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<link rev="MADE" href="mailto:tokoi@sys.wakayama-u.ac.jp">
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<META http-equiv="Content-Style-Type" content="text/css">
-<LINK rel="stylesheet" type="text/css" href="opengl.css">
-<title>F. エアホッケーの実験</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="床井浩平">
+<meta name="description" content="衝突判定と反射の実験課題です。">
+<title>実験１．F. エアホッケーの実験 - 床井研究室</title>
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="opengl.css">
+
+<!-- MathJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body>
+<body id="top">
 
+<header>
+  <h1><a href="https://tokoik.github.io/">床井研究室</a></h1>
+  <div class="navigation">
+    <h2>■ 実験１．F. エアホッケーの実験</h2>
+    <div class="header-meta">
+      <span><a href="libglut.html">GLUTによる「手抜き」OpenGL入門</a></span>
+    </div>
+  </div>
+</header>
+
+<main>
 <h1>エアホッケーの実験</h1>
 
 <p>エアホッケーのパック（玉）の動きを再現するプログラムを作ってみましょう．
@@ -289,8 +313,8 @@ int main(int argc, char *argv[])
 <img src="hockeymov.gif" width="120" height="120" alt="歩く箱男">
 </div>
 
-<p>台は幅が 2W，奥行きが 2D の大きさで，中心に原点があります． またパックは
-(px, pz) に中心をもち，半径が R の円盤です． したがって， パックの可動範囲は一点鎖線内の領域（鴬色の領域）に限られます．</p>
+<p>台は幅が $2W$，奥行きが $2D$ の大きさで，中心に原点があります． またパックは
+$(px, pz)$ に中心をもち，半径が $R$ の円盤です． したがって， パックの可動範囲は一点鎖線内の領域（鴬色の領域）に限られます．</p>
 
 <p>パックが台の壁に衝突した時，パックは反対側に跳ね返るものとします． 衝突による速度低下は考慮しなくても構いません．</p>
 
@@ -299,27 +323,78 @@ int main(int argc, char *argv[])
 <li>パックの現在位置は関数 display() 内の px および pz の二つの変数で設定しています．
   この値を変更すれば，パックの位置を変えることができます．</li>
 
-<li>パックの質量を m とし，それが速度 v に比例した摩擦力 -&micro;v を受けて運動するとき，初期位置を
-  p<sub>0</sub>，初速度を v<sub>0</sub> とすれば，時刻 t における速度 v と位置 p は次式で求めることができます．
+<li>パックの質量を $m$ とし，それが速度 $v$ に比例した摩擦力 $-\mu v$ を受けて運動するとき，初期位置を
+  $p_0$，初速度を $v_0$ とすれば，時刻 $t$ における速度 $v$ と位置 $p$ は次式で求めることができます．
   <div class="expression">
-v = v<sub>0</sub> e<sup>-(&micro;/m) t</sup><br>
-p = p<sub>0</sub> + v<sub>0</sub> (m/&micro;) {1 - e<sup>-(&micro;/m) t</sup>}
+\[
+\begin{aligned}
+v &= v_0 e^{-(\mu/m) t} \\
+p &= p_0 + v_0 \frac{m}{\mu} \left(1 - e^{-(\mu/m) t}\right)
+\end{aligned}
+\]
 </div></li>
 
-<li>時刻 t におけるパックの位置 p が台上の稼働範囲外に出れば，p を衝突した壁に対して反対側の位置
-  p' に移動させ，その p' を新しい初期位置 p<sub>0</sub> とします．</li>
+<li>時刻 $t$ におけるパックの位置 $p$ が台上の稼働範囲外に出れば，p を衝突した壁に対して反対側の位置 $p'$ に移動させ，その $p'$ を新しい初期位置 $p_0$ とします．</li>
 
-<li>そして，その時刻 t における速度 v の符号を反転したもの -v をその位置における新しい初速度
-  v<sub>0</sub> とします．ただし，上記のプログラムでは速度 v を台上の座標軸に分解したもの
-  (v<sub>x</sub>, v<sub>z</sub>) として取り扱っているので， 壁の向きによって v<sub>x</sub> あるいは v<sub>z</sub> のいずれかの符号を反転します．</li>
+<li>そして，その時刻 $t$ における速度 $v$ の符号を反転したもの $-v$ をその位置における新しい初速度
+  $v_0$ とします．ただし，上記のプログラムでは速度 $v$ を台上の座標軸に分解したもの
+  $(v_x, v_z)$ として取り扱っているので， 壁の向きによって $v_x$ あるいは $v_z$ のいずれかの符号を反転します．</li>
 
-<li>時間 t を 0 にします．</li>
+<li>時間 $t$ を 0 にします．</li>
 
 <li>この 3 〜 5 の処理を４つの壁について行います．</li>
 
 <li>もちろん，パックは<em>滑らかに</em>動くようにしてください． また画面の<em>ちらつきも抑制</em>するようにしてください．</li>
 
 </ol>
+</main>
+
+<footer>
+  <div class="navigation">
+    <div class="license">
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" width="80" height="15"></a>
+    </div>
+    <div class="center">
+      <a href="https://tokoik.github.io/">床井研究室</a>
+    </div>
+    <div class="buttons">
+      <a href="libglut.html" class="button">GLUT入門へ</a>
+      <a href="#top" class="button">トップへ戻る</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('pre.source, pre:not(.sample):not(.display)').forEach(function(pre) {
+    if (pre.closest('.code-container')) return;
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-container';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'コピー';
+    btn.setAttribute('aria-label', 'コードをクリップボードにコピー');
+
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(pre.innerText).then(function() {
+        btn.textContent = 'コピー完了!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+          btn.textContent = 'コピー';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+
+    wrapper.appendChild(btn);
+  });
+});
+</script>
 
 </body>
 </html>
