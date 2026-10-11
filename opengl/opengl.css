@@ -173,20 +173,22 @@ footer {
   max-width: 980px;
   border-top: solid 1px #ada;
   margin: 3rem auto 2rem auto;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 4.5rem 1rem;
 }
 
 footer div.navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  margin-top: 0;
 }
 
 footer div.license {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 footer div.license img {
@@ -197,6 +199,7 @@ footer div.license img {
 footer div.center {
   font-size: 0.95rem;
   text-align: center;
+  white-space: nowrap;
 }
 
 footer div.center a {
@@ -206,6 +209,8 @@ footer div.center a {
 footer div.buttons {
   display: flex;
   gap: 0.4rem;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 footer div.buttons .button,
@@ -612,9 +617,12 @@ div.expression {
   .toc-grid {
     grid-template-columns: 1fr;
   }
-  footer div.navigation {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.8rem;
+  footer {
+    padding: 1rem 0.5rem 4.5rem 0.5rem;
+  }
+  footer div.buttons .button,
+  footer div.buttons button {
+    padding: 0.25em 0.5em;
+    font-size: 0.85rem;
   }
 }
