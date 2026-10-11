@@ -117,6 +117,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     wrapper.appendChild(btn);
   });
+    // トップへ戻るボタンの表示制御（スクロール量とフッター重複防止）
+    var backToTop = document.querySelector('.back-to-top');
+    var footer = document.querySelector('footer');
+    if (backToTop) {
+      var footerVisible = false;
+
+      if (footer && 'IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            footerVisible = entry.isIntersecting;
+            updateBackToTop();
+          });
+        }, { rootMargin: '0px 0px 60px 0px' });
+        observer.observe(footer);
+      }
+
+      function updateBackToTop() {
+        var footerInView = footerVisible;
+        if (!('IntersectionObserver' in window) && footer) {
+          var rect = footer.getBoundingClientRect();
+          footerInView = rect.top < (window.innerHeight || document.documentElement.clientHeight);
+        }
+        if (window.scrollY < 200 || footerInView) {
+          backToTop.classList.add('hide');
+        } else {
+          backToTop.classList.remove('hide');
+        }
+      }
+
+      window.addEventListener('scroll', updateBackToTop, { passive: true });
+      updateBackToTop();
+    }
+
 });
 </script>
 

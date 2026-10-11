@@ -173,7 +173,7 @@ footer {
   max-width: 980px;
   border-top: solid 1px #ada;
   margin: 3rem auto 2rem auto;
-  padding: 1rem 1rem 4.5rem 1rem;
+  padding: 1rem 1rem calc(4.5rem + env(safe-area-inset-bottom, 0px)) 1rem;
 }
 
 footer div.navigation {
@@ -566,8 +566,8 @@ div.expression {
  */
 .back-to-top {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  right: calc(1.5rem + env(safe-area-inset-right, 0px));
   background-color: #073;
   color: #fff !important;
   width: 44px;
@@ -582,6 +582,12 @@ div.expression {
   transition: opacity 0.3s, transform 0.2s, background-color 0.2s;
   z-index: 1000;
   opacity: 0.85;
+}
+
+.back-to-top.hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
 }
 
 .back-to-top:hover {
@@ -618,7 +624,7 @@ div.expression {
     grid-template-columns: 1fr;
   }
   footer {
-    padding: 1rem 0.5rem 4.5rem 0.5rem;
+    padding: 1rem 0.5rem calc(4.5rem + env(safe-area-inset-bottom, 0px)) 0.5rem;
   }
   footer div.buttons .button,
   footer div.buttons button {
