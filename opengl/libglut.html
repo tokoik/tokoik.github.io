@@ -52,7 +52,7 @@
 </div>
 
 <details class="toc-box" open>
-  <summary>目次 (Table of Contents)</summary>
+  <summary>目次</summary>
   <div class="toc-grid">
     <div class="toc-col">
       <div class="toc-item"><strong><a href="#1">１．はじめに</a></strong></div>
@@ -153,7 +153,7 @@ OpenGL プログラミングコース</a> (本格的な教材・公開に感謝)
 ウィンドウを開いたりマウスの操作を受け付けたりするところは,
 それぞれの OS の流儀に則って,
 OS やウィンドウシステムにお願いしないといけません.
-すなわち, OpenGL の機能を使えるようにするためには, 
+すなわち, OpenGL の機能を使えるようにするためには,
 Windows なら Windows の, X Window なら X Window のやり方で,
 あらかじめお膳立てをしてやる必要があるのです.</p>
 
@@ -217,7 +217,7 @@ Developer Tools (Xcode) には標準で GLUT が含まれています.
 私の記憶が正しければ, かつて (いつの話だ?) は
 Calcomp のプロッタライブラリとか, Tektronix 4014
 ターミナルのエスケープシーケンスとか, あるいは
-N88BASIC のグラフィックス (GLIO 呼び出しとか) 
+N88BASIC のグラフィックス (GLIO 呼び出しとか)
 なんかがそういう目的に使われてたように思います.</p>
 
 <p>現在なら, そういう目的には何を使えばいいのでしょうか?
@@ -243,7 +243,7 @@ X Window なら Motif や GTK などのツールキットを使えば見栄え�
 なにより, これを使うと N88BASIC の
 LINE 文で図形を書いていた頃 (遠くなったなぁ) の気楽さで
 グラフィックスプログラミングができます (あくまで個人的な印象です).
-それでいて,  (当たり前だけど) 
+それでいて,  (当たり前だけど)
 N88BASIC とは比較にならないほどいろんなことができます.</p>
 
 <p>ということで, OpenGL と GLUT を組み合わせれば, </p>
@@ -273,7 +273,7 @@ OpenGL から派生した OpenGL ES が使われています.</blockquote>
 これについては,
 <a href="http://ktm11.eng.shizuoka.ac.jp/glui/">
 GLUIリファレンスマニュアル日本語版</a>
-に日本語で書かれた詳しい資料があります. また 
+に日本語で書かれた詳しい資料があります. また
 <a href="http://www.clutter-project.org/">Clutter</a> という
 OpenGL のほかに OpenGL ES でも使用できるマルチプラットホームの
 ツールキットも開発されています.</p>
@@ -429,7 +429,7 @@ Linux のパッケージに標準的に含まれることはないようです.
 などを参照してください. また
 <a href="http://utah-glx.sourceforge.net/">Utah-GLX</a>
 にもいくつかのグラフィックスプロセッサのドライバがあります.
-ところで SGI は 2000 年の 1 月，ついに 
+ところで SGI は 2000 年の 1 月，ついに
 <a href="http://oss.sgi.com/projects/ogl-sample/">
 OpenGL のサンプルインプリメンテーションをオープンソース化</a>してしまいました.
 </blockquote>
@@ -457,7 +457,7 @@ ftp://ftp.microsoft.com/softlib/MSLFILES/opengl95.exe</a>
 開発環境は Visual Studio 2013 を想定しています.</p>
 
 <ol>
-  <li>freeglut はバージョン 3 から CMake を使用して作成するようになっています. 
+  <li>freeglut はバージョン 3 から CMake を使用して作成するようになっています.
   freeglut のインストールに先立ち, CMake の Windows 用バイナリのインストーラを入手してください.
   <a href="http://www.cmake.org/">CMake のサイト</a>の &quot;Download the Latest Version of CMake&quot;
   のボタンをクリックして, &quot;Binary distributions:&quot; の &quot;Windows (Win32 Installer)&quot;
@@ -534,7 +534,7 @@ ftp://ftp.microsoft.com/softlib/MSLFILES/opengl95.exe</a>
         </ul>
       </dd>
     </dl>
-  自分のプログラムを Release 
+  自分のプログラムを Release
   ビルドする可能性がある場合は, Visual Studio 2013 の「アクティブ ソリューション 構成」を &quot;Release&quot; に切り替えて, freeglut を Release ビルドしてください. &quot;bin&quot; フォルダと &quot;lib&quot; フォルダのそれぞれの &quot;Release&quot; フォルダの下に freeglut.dll および freeglut.lib, freeglut_static.lib が作成されますから, これらを上記と同じ場所にコピーしてください.</li>
   <li>展開した freeglut のフォルダにある &quot;include&quot; フォルダの中の &quot;GL&quot; フォルダにあるヘッダファイルを下記の場所にコピーします.
     <dl>
@@ -591,7 +591,7 @@ $ sudo mkdir /usr/local/include/GL
 $ cd /usr/local/include/GL
 $ sudo ln -s /System/Library/Frameworks/GLUT.framework/Headers/glut.h .</pre>
 
-<p>この最後のシンボリックリンクを<em>作成しない場合</em>は, 
+<p>この最後のシンボリックリンクを<em>作成しない場合</em>は,
 以下のソースプログラムにおいて <strong>GL</strong>/glut.h ではなく
 <strong>GLUT</strong>/glut.h
 を #include するようにしてください (Mac OS X ではそうするのがスジでしょう).</p>
@@ -617,7 +617,7 @@ $ sudo ln -s /System/Library/Frameworks/GLUT.framework/Headers/glut.h .</pre>
 <a href="http://xquartz.macosforge.org/">XQuartz</a> も
 GLX (OpenGL Extension) をサポートしており,
 この上でも OpenGL を使うことができます. GLUT も含まれています.
-freeglut を使用する場合は, 
+freeglut を使用する場合は,
 <a href="#2.2">２．２</a>と同様にソースからコンパイルしてください.</p>
 
 <h2><a class="label" name="3">３．コンパイルの仕方</a></h2>
@@ -706,7 +706,7 @@ prog2: prog2.c
 
 <h3><a class="label" name="3.2">３．２ Windows 系 OS (Visual Studio) の場合</A></h3>
 
-<p>プロジェクトを新規作成する際に「Win32 コンソール アプリケーション」を選び, 
+<p>プロジェクトを新規作成する際に「Win32 コンソール アプリケーション」を選び,
 「空のプロジェクト」を作成してください.
 Visual Studio の使い方を知らない人は,
 まず<a href="vs2008/">こちら (Visual Studio 2008)</a>
@@ -875,7 +875,7 @@ display() が呼び出されても何も仕事をしません.
 ウィンドウの中の表示はおかしなものになっていると思います.</p>
 
 <p>このように複数の
-(オーバーラップ可能な) 
+(オーバーラップ可能な)
 ウィンドウが使用できるウィンドウシステムに対応したプログラムでは,
 処理の流れは時間軸に沿って「プログラムの始めから終りへ」ではなく,
 何かこと (事象) が起るたびに「プログラムの各部がランダムに」実行されます.
@@ -892,7 +892,7 @@ display() が呼び出されても何も仕事をしません.
 
 <p>今までは関数 display() の中に何も記述していなかったので,
 ウィンドウの中身はでたらめ
-(おそらく, そのウィンドウの位置に以前に描かれていた内容の残骸) 
+(おそらく, そのウィンドウの位置に以前に描かれていた内容の残骸)
 だと思います.
 そこで, 今度は開いたウィンドウを塗りつぶしてみます.
 prog1.c に<em>太字</em>のところを追加し,
@@ -1162,7 +1162,7 @@ int main(int argc, char *argv[])
 }</pre>
 
 <p>色は頂点毎に指定することもできます.
-glBegin() の前の glColor3d() を消して, 
+glBegin() の前の glColor3d() を消して,
 かわりに四つの glVertex2d() の前に glColor3d() を置きます.
 prog1.c を以下のように変更してください.
 コンパイルしてプログラムを実行すると,
@@ -1348,7 +1348,7 @@ alt="ウィンドウ−ビューポート変換"></div>
 実は OpenGL は二次元図形の表示においても内部的に三次元の処理を行っており,
 ワールド座標系は奥行き (Z) 方向にも軸を持つ三次元空間になっています.
 n と f には,
-それぞれこの空間の前方面 (可視範囲の手前側の限界) 
+それぞれこの空間の前方面 (可視範囲の手前側の限界)
 と後方面 (可視範囲の遠方の限界) を指定します.
 n より手前にある面や f より遠方にある面は表示されません.</p>
 
@@ -1439,7 +1439,7 @@ int main(int argc, char *argv[])
 コマンドラインからウィンドウを開く位置やサイズを指定できます.
 これは glutInit() によって処理されるので,
 -geometry オプションを有効にするには
-glutInitWindowPosition() と glutInitWindowSize() を 
+glutInitWindowPosition() と glutInitWindowSize() を
 glutInit() より前に置き, 無効にするには後に置きます.</p>
 
 <h2><a class="label" name="7">７．マウスとキーボード</a></h2>
@@ -1689,7 +1689,7 @@ void mouse(int button, int state, int x, int y)
       <em>glVertex2iv(point[pointnum]);     /* 今の位置は離した位置 */</em>
       glEnd();
       glFlush();
-    }    
+    }
     else {
       <em>/* 削除 */</em>
     }
@@ -1745,7 +1745,7 @@ glutPassiveMotionFunc() で指定した関数は,
 <p>前のプログラムでは,
 マウスの左ボタンを押してから離すまでウィンドウには何も表示されませんでした.
 これを, マウスのドラッグ中は線分をマウスに追従して描くようにします.
-このような効果を<em>ラバーバンド</em> (輪ゴム) 
+このような効果を<em>ラバーバンド</em> (輪ゴム)
 と言います. このために glutMotionFunc() を使って,
 マウスのドラッグ中にラバーバンドを表示するようにします
 (大川 様 ご指摘ありがとうございました).</p>
@@ -1828,7 +1828,7 @@ void mouse(int button, int state, int x, int y)
   /* 今描いたラバーバンドの端点を保存 */
   savepoint[0] = x;
   savepoint[1] = y;
- 
+
   /* 今描いたラバーバンドは次のタイミングで消す */
   rubberband = 1;
 }</em>
@@ -2433,7 +2433,7 @@ glutIdleFunc() で指定します.</p>
 
 <p>カメラ (視点) の位置を動かすアニメーションを行う場合は,
 描画のたびに gluLookAt() によるカメラの位置や方向の設定
-(ビューイング変換行列の設定) 
+(ビューイング変換行列の設定)
 を行う必要があります.
 同様に物体が移動したり回転したりするアニメーションを行う場合も,
 描画のたびに物体の位置や回転角の設定 (モデリング変換行列の設定) を
@@ -2530,7 +2530,7 @@ void resize(int w, int h)
     break;
   }
 }</em>
-  
+
 <em>void keyboard(unsigned char key, int x, int y)
 {
   switch (key) {
@@ -2663,7 +2663,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -2784,7 +2784,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -2880,7 +2880,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -2988,7 +2988,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3098,7 +3098,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3235,7 +3235,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3358,7 +3358,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3538,7 +3538,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3564,7 +3564,7 @@ int main(int argc, char *argv[])
 設定できる材質 pname には GL_AMBIENT (環境光に対する反射係数),
 GL_DIFFUSE (拡散反射係数), GL_SPECULAR (鏡面反射係数),
 GL_EMISSION (発光係数), GL_SHININESS (ハイライトの輝き),
-あるいは GL_AMBIENT_AND_DIFFUSE (拡散反射係数と鏡面反射係数の両方) 
+あるいは GL_AMBIENT_AND_DIFFUSE (拡散反射係数と鏡面反射係数の両方)
 があります. 他にインデックスカラーモード (GLUT_INDEX) であれば
 GL_COLOR_INDEXES も使用できますが,
 この資料では使用していません.
@@ -3708,7 +3708,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3804,7 +3804,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -3910,7 +3910,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
@@ -4011,7 +4011,7 @@ void mouse(int button, int state, int x, int y)
 {
   /* 変更なし */
 }
-  
+
 void keyboard(unsigned char key, int x, int y)
 {
   /* 変更なし */
