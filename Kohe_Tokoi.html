@@ -7,19 +7,13 @@
     <meta http-equiv="Content-Language" content="ja">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="床井浩平">
-    <meta name="description" content="床井浩平（工学博士）のポートフォリオ・求職情報ページです。リアルタイム3DCG、GPU/シェーダプログラミング、点群処理・3D Gaussian Splatting、VR/AR・テレイグジスタンス分野の技術開発、技術顧問、コンサルティング、研修等を承ります。">
-    <title>求職情報・ポートフォリオ - 床井 浩平 | 床井研究室</title>
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@tokoik">
-    <meta name="twitter:title" content="床井浩平 ポートフォリオ / 求職情報">
-    <meta name="twitter:description" content="リアルタイム3DCG、3D Gaussian Splatting、VR/テレイグジスタンスの研究開発・技術コンサルティング">
+    <meta name="description" content="床井浩平（和歌山大学 准教授・博士（工学））の求職・活動案内および職務経歴のページです。コンピュータグラフィックス、リアルタイムレンダリング、点群処理・3D Gaussian Splatting、VR/AR・テレイグジスタンス分野の研究開発、技術コンサルティング、教材開発について記載しています。">
+    <title>求職のご案内・職務経歴 - 床井 浩平 | 床井研究室</title>
 
     <!-- OGP -->
-    <meta property="og:title" content="床井浩平 ポートフォリオ / 求職情報">
+    <meta property="og:title" content="求職のご案内・職務経歴 - 床井 浩平">
     <meta property="og:site_name" content="床井研究室">
-    <meta property="og:description" content="リアルタイム3DCG、3D Gaussian Splatting、VR/テレイグジスタンスの研究開発・技術コンサルティング">
+    <meta property="og:description" content="コンピュータグラフィックス、リアルタイムレンダリング、点群処理、テレイグジスタンス分野の研究開発・技術コンサルティング">
     <meta property="og:type" content="profile">
     <meta property="og:locale" content="ja_JP">
 
@@ -40,7 +34,7 @@
       body {
         font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, "Noto Sans JP", sans-serif;
         font-size: medium;
-        line-height: 1.7;
+        line-height: 1.75;
         color: #030;
         background-color: #ffe;
         margin: 0;
@@ -84,12 +78,16 @@
         font-weight: bold;
         color: #030;
       }
+      header div.navigation .header-meta {
+        font-size: 0.9rem;
+        color: #464;
+      }
       h2 {
         margin-top: 2.2rem;
         margin-bottom: 0.8rem;
         padding-bottom: 0.35rem;
         border-bottom: solid 2px #073;
-        font-size: 1.35rem;
+        font-size: 1.3rem;
         font-weight: bold;
         color: #052;
         scroll-margin-top: 1.2rem;
@@ -97,17 +95,41 @@
       h3 {
         margin-top: 1.6rem;
         margin-bottom: 0.5rem;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: #063;
         border-left: 4px solid #073;
-        padding-left: 0.5rem;
+        padding-left: 0.55rem;
         scroll-margin-top: 1.2rem;
       }
       a:link { color: #360; text-decoration: none; }
       a:visited { color: #240; text-decoration: none; }
       a:hover, a:focus { color: #4a4; text-decoration: underline; }
       a.label { color: inherit; text-decoration: none; }
+      p {
+        margin: 0.8em 0;
+      }
+      ul {
+        margin: 0.7em 0 0.7em 1.4em;
+        padding: 0 0 0 0.5em;
+      }
+      li {
+        line-height: 1.7;
+        margin-bottom: 0.35em;
+      }
+      dl {
+        margin: 1rem 0;
+      }
+      dt {
+        font-weight: bold;
+        color: #052;
+        margin-top: 0.9rem;
+        font-family: inherit;
+      }
+      dd {
+        margin: 0.25rem 0 0.6rem 1.2rem;
+        color: #131;
+      }
       footer {
         border-top: solid 1px #ada;
         margin: 3rem auto 2rem auto;
@@ -123,140 +145,67 @@
         background-color: #f7faf5;
         border: 1px solid #cce5cc;
         border-radius: 6px;
-        padding: 1rem 1.4rem;
-        margin: 1.5rem 0;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        padding: 1.2rem 1.5rem;
+        margin: 1.4rem 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
       }
       .doc-card p {
-        margin: 0.4em 0;
+        margin: 0.5em 0;
       }
-      ul {
-        margin: 0.8em 0 0.8em 1.5em;
-        padding: 0 0 0 0.5em;
-      }
-      li {
-        line-height: 1.65;
-        margin-bottom: 0.35em;
-      }
-      strong {
-        color: #b00;
-        font-weight: bold;
-      }
-      em {
-        font-style: normal;
-        font-weight: bold;
-        color: #050;
-      }
-      .gray { color: #686; }
 
-      /* 求職ページ用補足スタイル（blog.css / libglut.html トーン＆マナー準拠） */
-      .profile-header {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 1.5rem;
-        margin-bottom: 1.2rem;
-      }
-      .profile-titles {
-        flex: 1 1 320px;
-      }
-      .profile-titles h1 {
-        margin: 0 0 0.3rem 0;
-        font-size: 1.85rem;
-        color: #052;
-        border: none;
-      }
-      .profile-subtitle {
-        font-size: 1.05rem;
-        color: #274;
-        font-weight: 500;
-        margin: 0 0 0.5rem 0;
-      }
-      .tag-cloud {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-        margin: 0.6rem 0;
-      }
-      .tag {
-        display: inline-block;
-        background-color: #eaf5ea;
-        color: #063;
-        border: 1px solid #bce0bc;
-        padding: 0.15rem 0.55rem;
-        border-radius: 4px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        white-space: nowrap;
-      }
-      .tag.primary {
-        background-color: #073;
-        color: #fff;
-        border-color: #062;
-      }
-      .contact-banner {
-        background: #f0f8f0;
-        border: 1px solid #c2e2c2;
-        border-left: 5px solid #073;
-        border-radius: 4px;
-        padding: 0.9rem 1.2rem;
-        margin: 1.2rem 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.8rem;
-      }
-      .contact-banner-text {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-      .contact-btn {
-        display: inline-block;
-        background-color: #073;
-        color: #fff !important;
+      /* 落ち着いたページ専用スタイル */
+      .profile-name {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.65rem;
         font-weight: bold;
-        font-size: 0.95rem;
-        padding: 0.45rem 1.2rem;
-        border-radius: 4px;
-        text-decoration: none !important;
-        transition: background-color 0.2s, transform 0.1s;
-      }
-      .contact-btn:hover {
-        background-color: #0a4;
-      }
-      .value-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.2rem;
-        margin: 1.2rem 0;
-      }
-      .value-card {
-        background-color: #fff;
-        border: 1px solid #cce5cc;
-        border-top: 3px solid #073;
-        border-radius: 4px;
-        padding: 1rem 1.2rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-      }
-      .value-card h3 {
-        margin: 0 0 0.5rem 0;
-        padding: 0;
-        border: none;
-        font-size: 1.1rem;
         color: #052;
+        border: none;
       }
-      .value-card p {
-        margin: 0;
-        font-size: 0.92rem;
-        color: #242;
-        line-height: 1.6;
+      .profile-ruby {
+        font-size: 0.95rem;
+        font-weight: normal;
+        color: #464;
+        margin-left: 0.4rem;
+      }
+      .profile-affiliation {
+        font-size: 1rem;
+        color: #252;
+        margin: 0 0 0.8rem 0;
+      }
+      .profile-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1.6rem;
+        font-size: 0.93rem;
+        color: #353;
+        padding: 0.65rem 0;
+        margin: 0.6rem 0 0.9rem 0;
+        border-top: 1px solid #d5e6d5;
+        border-bottom: 1px solid #d5e6d5;
+      }
+      .profile-meta span strong,
+      .emphasis {
+        color: #052;
+        font-weight: bold;
+      }
+      .keyword-list {
+        font-size: 0.88rem;
+        color: #363;
+        margin-top: 0.8rem;
+      }
+      .keyword-list span {
+        display: inline-block;
+        background-color: #eef5ee;
+        border: 1px solid #cde0cd;
+        border-radius: 3px;
+        padding: 0.1rem 0.5rem;
+        margin: 0.15rem 0.3rem 0.15rem 0;
       }
       .table-responsive {
         width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        margin: 1.2rem 0;
+        margin: 1rem 0;
       }
       .info-table {
         width: 100%;
@@ -270,6 +219,7 @@
         color: #052;
         font-weight: bold;
         text-align: left;
+        vertical-align: top;
         padding: 0.65rem 0.9rem;
         border: 1px solid #ada;
         white-space: nowrap;
@@ -279,38 +229,23 @@
         padding: 0.65rem 0.9rem;
         border: 1px solid #ada;
         font-size: 0.95rem;
-        line-height: 1.6;
+        line-height: 1.65;
+        vertical-align: top;
       }
-      .badge-condition {
-        display: inline-block;
-        background-color: #073;
-        color: #fff;
-        padding: 0.1rem 0.45rem;
-        border-radius: 3px;
-        font-size: 0.8rem;
-        font-weight: normal;
-        margin-right: 0.4rem;
+      .note {
+        font-size: 0.9rem;
+        color: #464;
       }
-      .highlight-metric {
-        display: inline-block;
-        background: #fdf5e6;
-        border: 1px solid #f0d5a8;
-        color: #930;
-        padding: 0.1rem 0.4rem;
-        border-radius: 3px;
-        font-weight: bold;
-        font-size: 0.9em;
-      }
-      /* 目次スタイル (libglut準拠) */
+      /* 目次スタイル (libglut.html 準拠) */
       .toc-box {
         background-color: #f6faf5;
         border: 1px solid #c3e2c3;
         border-radius: 6px;
-        padding: 1rem 1.2rem;
-        margin: 1.8rem 0;
+        padding: 0.9rem 1.2rem;
+        margin: 1.6rem 0;
       }
       .toc-box summary {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: bold;
         color: #052;
         cursor: pointer;
@@ -319,32 +254,66 @@
       .toc-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 0.4rem 1.5rem;
-        margin-top: 0.8rem;
+        gap: 0.35rem 1.5rem;
+        margin-top: 0.7rem;
         padding-top: 0.6rem;
         border-top: 1px dashed #ada;
       }
       .toc-item {
         font-size: 0.93rem;
-        line-height: 1.5;
-        padding: 0.15rem 0;
+        line-height: 1.55;
+        padding: 0.1rem 0;
       }
       .toc-subitem {
         padding-left: 1.2rem;
         font-size: 0.88rem;
         color: #454;
       }
-      .project-item {
-        background-color: #ffffff;
-        border: 1px solid #d4ebd4;
-        border-radius: 6px;
-        padding: 1.1rem 1.3rem;
-        margin: 1.2rem 0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      .nav-link-btn {
+        font-size: 0.88rem;
+        border: 1px solid #ada;
+        border-radius: 4px;
+        background-color: #eef5ee;
+        color: #030 !important;
+        padding: 0.25em 0.75em;
+        text-decoration: none !important;
+        display: inline-block;
       }
-      .project-item h3 {
-        margin-top: 0;
-        margin-bottom: 0.6rem;
+      .nav-link-btn:hover {
+        background-color: #dcecdc;
+      }
+      .back-to-top {
+        position: fixed;
+        bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+        right: calc(1.5rem + env(safe-area-inset-right, 0px));
+        background-color: #073;
+        color: #fff !important;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none !important;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+        transition: opacity 0.3s, background-color 0.2s;
+        z-index: 1000;
+        opacity: 0.8;
+      }
+      .back-to-top.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .back-to-top:hover {
+        opacity: 1;
+        background-color: #094;
+      }
+      @media print {
+        body { background-color: #fff; font-size: 10.5pt; }
+        .toc-box, .back-to-top, header .buttons, footer .buttons { display: none; }
+        .doc-card { background-color: #fff; box-shadow: none; }
+        a { color: #030; text-decoration: none; }
       }
     </style>
 
@@ -354,397 +323,315 @@
     <header>
       <h1><a href="/blog/">床井研究室</a></h1>
       <div class="navigation">
-        <h2>■ 求職情報・ポートフォリオ</h2>
-        <div class="buttons">
-          <a href="/blog/" class="button" style="text-decoration:none; padding: 0.3em 0.8em; background-color: #ada; color: #030; border-radius: 4px; font-size: 0.9rem;">ブログへ</a>
-          <a href="#contact" class="button" style="text-decoration:none; padding: 0.3em 0.8em; background-color: #073; color: #fff; border-radius: 4px; font-size: 0.9rem;">お問い合わせ</a>
+        <h2>■ 求職のご案内・職務経歴</h2>
+        <div class="header-meta">
+          <span>2026年11月現在</span>
         </div>
       </div>
     </header>
 
     <main>
 
-      <!-- プロフィール・導入カード -->
-      <div class="doc-card" style="margin-top: 1.2rem;">
-        <div class="profile-header">
-          <div class="profile-titles">
-            <h1>床井 浩平 <span style="font-size: 1.15rem; font-weight: normal; color: #464;">（とこい こうへい / Kohe Tokoi, Ph.D.）</span></h1>
-            <p class="profile-subtitle">和歌山大学 システム工学部 情報学領域 准教授（2027年3月退職予定）</p>
-            <div class="tag-cloud">
-              <span class="tag primary">リアルタイム3DCG</span>
-              <span class="tag primary">3D Gaussian Splatting</span>
-              <span class="tag primary">OpenGL / GLSL</span>
-              <span class="tag">点群処理</span>
-              <span class="tag">ボリュメトリック映像</span>
-              <span class="tag">VR / AR / テレイグジスタンス</span>
-              <span class="tag">C++ / GPU最適化</span>
-              <span class="tag">技術教育・教材開発</span>
-            </div>
-          </div>
+      <!-- 基本情報・概要カード -->
+      <div class="doc-card">
+        <h1 class="profile-name">床井 浩平<span class="profile-ruby">（とこい こうへい / Kohe Tokoi, Ph.D.）</span></h1>
+        <p class="profile-affiliation">和歌山大学 システム工学部 情報学領域 准教授（2027年3月まで在職予定）</p>
+
+        <div class="profile-meta">
+          <span><span class="emphasis">居住地：</span>和歌山県和歌山市（JR和歌山駅近郊）</span>
+          <span><span class="emphasis">連絡先：</span><a href="mailto:kohe.tokoi@outlook.jp">kohe.tokoi@outlook.jp</a></span>
+          <span><span class="emphasis">ブログ：</span><a href="https://tokoik.github.io/blog/">tokoik.github.io/blog/</a></span>
         </div>
 
-        <p style="margin-bottom: 0.8em; line-height: 1.75;">
-          1986年より40年にわたり和歌山大学にて一貫して<strong>コンピュータグラフィックス、リアルタイムレンダリング、テレイグジスタンス（遠隔存在感）技術</strong>の研究開発および教育に従事してまいりました。
-          研究者であると同時に、自らC++/OpenGL/GLSLで先端実装を行う開発者として、毎フレーム3D Gaussianを直接生成し超高速立体提示を行うシステム（2026年論文投稿）や、オープンソースの遠隔臨場感システム「TED」、企業との共同研究によるボリュメトリック映像システム「ADTPS」など、<strong>「実際に高速に動作するシステムの実装」</strong>を継続して創出してまいりました。
+        <p>
+          1986年より和歌山大学に勤務し、一貫してコンピュータグラフィックス、リアルタイムレンダリング、テレイグジスタンス（遠隔存在感）技術の研究開発と教育に従事してまいりました。研究者であると同時に、自ら C++/OpenGL/GLSL で実装を行う開発者として、点群から毎フレーム 3D Gaussian を生成して立体提示するシステム（2026年、論文投稿）や、遠隔地の視覚環境を再現するオープンソースの実験システム TED（TelExistence Display System）など、動作する実装を伴う成果を継続して公開しています。
         </p>
-        <p style="margin-top: 0; line-height: 1.75;">
-          2027年3月の大学退職後、培ってきたCG・画像処理・点群処理・GPU技術を活かし、企業の技術課題解決、先端ソフトウェア受託開発、技術顧問・コンサルティング、技術教育・人材育成等で貢献できる場を求めております。
+        <p>
+          2027年3月の退職を控え、これまでの研究開発および実装・教育の経験を活かし、コンピュータグラフィックス・画像処理・点群処理のソフトウェア開発による課題解決の提案や技術コンサルティング、技術研修などの分野でお役に立てる場を探しております。
         </p>
 
-        <div class="contact-banner">
-          <div class="contact-banner-text">
-            <strong>【お気軽にご相談ください】</strong><br>
-            技術相談・プロジェクト参画・業務委託・顧問契約・採用に関するご連絡をお待ちしております。<br>
-            <span style="font-size: 0.9em; color: #353;">※2027年4月開始の案件はもちろん、在職中の事前のご相談・兼業による参画も対応可能です。</span>
-          </div>
-          <div>
-            <a href="mailto:tokoik@hotmail.co.jp?subject=%E6%8A%80%E8%A1%93%E7%9B%B8%E8%AB%87%E3%83%BB%E6%B1%82%E8%81%B7%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" class="contact-btn">✉ メールでお問い合わせ</a>
-          </div>
+        <div class="keyword-list" aria-label="専門キーワード">
+          <span>リアルタイムレンダリング</span>
+          <span>C++ / OpenGL / GLSL</span>
+          <span>点群処理・3D Gaussian Splatting</span>
+          <span>ボリュメトリック映像</span>
+          <span>VR / AR・テレイグジスタンス</span>
+          <span>OpenXR</span>
+          <span>技術教育・教材開発</span>
         </div>
       </div>
 
-      <!-- 目次 (libglut.html準拠) -->
+      <!-- 目次 (libglut.html 準拠) -->
       <details class="toc-box" open>
         <summary>目次 (Table of Contents)</summary>
         <div class="toc-grid">
           <div class="toc-col">
-            <div class="toc-item"><strong><a href="#value">１．提供可能な価値・対応領域</a></strong></div>
-            <div class="toc-item"><strong><a href="#conditions">２．希望条件・稼働形態</a></strong></div>
-            <div class="toc-item"><strong><a href="#projects">３．主な開発・研究実績</a></strong></div>
-            <div class="toc-item toc-subitem"><a href="#proj1">3.1 環境適応型 3D Gaussian Splatting 立体提示</a></div>
-            <div class="toc-item toc-subitem"><a href="#proj2">3.2 SWCC共同研究: トランスポータ ADTPS</a></div>
-            <div class="toc-item toc-subitem"><a href="#proj3">3.3 遠隔臨場感システム TED (オープンソース)</a></div>
-            <div class="toc-item toc-subitem"><a href="#proj4">3.4 20年以上のCG教材開発・技術発信</a></div>
+            <div class="toc-item"><a href="#areas">1. お手伝いできること・対応領域</a></div>
+            <div class="toc-item"><a href="#conditions">2. 希望条件</a></div>
+            <div class="toc-item"><a href="#projects">3. 主な開発・研究実績</a></div>
+            <div class="toc-item toc-subitem"><a href="#proj1">3.1 環境適応型の実時間3次元映像描画・提示システム</a></div>
+            <div class="toc-item toc-subitem"><a href="#proj2">3.2 SWCC株式会社との共同研究：ADTPS</a></div>
+            <div class="toc-item toc-subitem"><a href="#proj3">3.3 TED（TelExistence Display System）の開発・公開</a></div>
+            <div class="toc-item toc-subitem"><a href="#proj4">3.4 CG教育・教材開発</a></div>
           </div>
           <div class="toc-col">
-            <div class="toc-item"><strong><a href="#skills">４．保有スキル・技術スタック</a></strong></div>
-            <div class="toc-item"><strong><a href="#career">５．職歴・学歴・学位</a></strong></div>
-            <div class="toc-item"><strong><a href="#publications">６．著書・受賞・教育実績</a></strong></div>
-            <div class="toc-item"><strong><a href="#research">７．主な論文・発表・プロジェクト</a></strong></div>
-            <div class="toc-item"><strong><a href="#contact">８．連絡先・関連リンク</a></strong></div>
+            <div class="toc-item"><a href="#skills">4. 保有スキル</a></div>
+            <div class="toc-item"><a href="#career">5. 職歴・学歴・学位</a></div>
+            <div class="toc-item"><a href="#publications">6. 著書・受賞・教育実績</a></div>
+            <div class="toc-item"><a href="#research">7. 論文・発表・研究プロジェクト・学会活動</a></div>
+            <div class="toc-item"><a href="#contact">8. 連絡先・関連リンク</a></div>
           </div>
         </div>
       </details>
 
-      <!-- 1. 提供可能な価値・対応領域 -->
-      <h2 id="value"><a class="label" href="#value">１．提供可能な価値・対応領域</a></h2>
-      <p>長年の研究と自らコードを書く開発実践を通じて培った、確固たる理論的背景と高度な実装力により、以下の分野で貴社のビジネス・技術開発を強力に支援いたします。</p>
+      <!-- 1. お手伝いできること・対応領域 -->
+      <h2 id="areas"><a class="label" href="#areas">1. お手伝いできること・対応領域</a></h2>
+      <p>
+        研究知見と実装経験の両面から、以下のような開発・調査・技術支援に対応いたします。
+      </p>
 
-      <div class="value-grid">
-        <div class="value-card">
-          <h3>⚡ リアルタイムCG・GPU最適化</h3>
-          <p>
-            C++/OpenGL/GLSLを用いた高効率な描画パイプラインの設計・実装。シェーダによる高速幾何・画像演算、GPUメモリ帯域と演算性能を限界まで引き出すチューニング、クロスプラットフォーム対応。
-          </p>
-        </div>
-        <div class="value-card">
-          <h3>🌐 点群処理・3DGS・ボリュメトリック映像</h3>
-          <p>
-            RGB-Dセンサ群からの点群統合、異方性3D Gaussian Splattingの実時間生成（300fps超）、TSDFボリューム統合、球面調和関数を用いた実時間再照明、プロジェクタ多重投影の幾何補正。
-          </p>
-        </div>
-        <div class="value-card">
-          <h3>🥽 VR/AR・テレイグジスタンス（遠隔臨場感）</h3>
-          <p>
-            OpenXR対応HMD（Meta Quest 3等）、魚眼・全方位・ステレオカメラ映像の低遅延伝送・半透明重畳表示、ハンドトラッキング連携、遠隔操縦・ロボット視覚インターフェースの構築。
-          </p>
-        </div>
-        <div class="value-card">
-          <h3>🤝 技術コンサルティング・産学共同研究・PoC開発</h3>
-          <p>
-            先端アルゴリズムの事業適用評価、PoC（概念実証）の高速プロトタイピング、大手企業との共同研究・実用化推進（SWCC様とのADTPS開発等）。
-          </p>
-        </div>
-        <div class="value-card">
-          <h3>📚 技術教育・企業内研修・ドキュメント作成</h3>
-          <p>
-            CG Japan Award受賞、情報処理学会優秀教材賞受賞の実績。難解な3DCG・数学・GPUの概念を直感的かつ実践的に落とし込んだ教育カリキュラムの設計・実施、教材執筆。
-          </p>
-        </div>
-        <div class="value-card">
-          <h3>🔬 学術的知見に基づく課題解決</h3>
-          <p>
-            博士（工学）としての深い学術的素養（論文34件、学会発表180件超、著書9冊）。最新の学術論文のリサーチからアルゴリズムの再現・独自改良まで一気通貫で対応可能。
-          </p>
-        </div>
-      </div>
+      <dl>
+        <dt>リアルタイム3DCG・GPUプログラミング</dt>
+        <dd>C++ / OpenGL / GLSL を用いた描画パイプラインの設計・実装、シェーダによる高速処理、GPU負荷の最適化、Windows / Linux / macOS 間のクロスプラットフォーム対応。</dd>
 
-      <!-- 2. 希望条件・稼働形態 -->
-      <h2 id="conditions"><a class="label" href="#conditions">２．希望条件・稼働形態</a></h2>
-      <p>2027年4月以降（在職中の事前相談・兼業相談可）の活動について、柔軟な参画形態をご用意しております。</p>
+        <dt>点群処理・3D Gaussian Splatting・ボリュメトリック映像</dt>
+        <dd>複数 RGB-D センサからの実時間点群統合、3D Gaussian の生成と描画、球面調和関数を用いた再照明、ステレオ表示・プロジェクタ投影の幾何較正。</dd>
+
+        <dt>VR / AR・テレイグジスタンス（遠隔臨場感）システム</dt>
+        <dd>OpenXR 対応 HMD、3D ディスプレイ、全方位・魚眼・ステレオカメラを用いた映像処理と重畳表示、UDP による低遅延な映像・姿勢共有システムの設計と実装。</dd>
+
+        <dt>技術コンサルティング・プロトタイプ（PoC）開発</dt>
+        <dd>コンピュータグラフィックス・画像処理・点群処理に関する技術調査、方式検討、課題解決の提案、動作するプロトタイプの試作、共同研究の推進。</dd>
+
+        <dt>技術教育・研修・教材制作</dt>
+        <dd>OpenGL / GLSL や 3DCG の基礎から実践までの講義・演習の設計および実施、技術解説書・Web教材の執筆（CG Japan Award、情報処理学会優秀教材賞 受賞）。</dd>
+      </dl>
+
+      <!-- 2. 希望条件 -->
+      <h2 id="conditions"><a class="label" href="#conditions">2. 希望条件</a></h2>
 
       <div class="table-responsive">
         <table class="info-table">
           <tr>
             <th>希望職種</th>
             <td>
-              <strong>技術コンサルタント、受託プログラマ、技術開発職、技術アドバイザー・教育研修</strong><br>
-              ・コンピュータグラフィックス、画像処理、点群・3次元ビジョン分野<br>
-              ・企業内エンジニア向けのCG・シェーダ研修や技術教材の開発<br>
-              <span class="gray">※学生の研究指導が中心となる大学教職等は希望しておりません。</span>
+              技術コンサルタント、プログラマ、技術開発職（コンピュータグラフィックス、画像・点群処理分野）。<br>
+              教育・研修関連も対応可能です。<br>
+              <span class="note">※学生の研究指導が中心となる職は希望しておりません。</span>
             </td>
           </tr>
           <tr>
-            <th>勤務地・通勤</th>
+            <th>勤務地</th>
             <td>
-              <strong>リモート勤務、またはJR阪和線沿線の通勤可能範囲</strong>（大阪府南部・和歌山市近郊など）<br>
-              現住地：和歌山県和歌山市（JR和歌山駅近郊）
+              JR阪和線沿線の通勤可能範囲、またはリモート勤務。<br>
+              <span class="note">現住地：和歌山県和歌山市（JR和歌山駅近郊）</span>
             </td>
           </tr>
           <tr>
-            <th>稼働形態・日数</th>
+            <th>勤務日数</th>
             <td>
-              <strong>週数日勤務、時短勤務、プロジェクト単位の契約など柔軟に対応可能</strong><br>
-              週1日〜数日の技術指導・開発支援から、集中開発プロジェクトまでご都合に応じます。
+              不問（週数日勤務・プロジェクト単位の契約も可）。
             </td>
           </tr>
           <tr>
-            <th>契約形態</th>
+            <th>雇用・契約形態</th>
             <td>
-              <strong>組織への雇用、または組織経由の契約を希望</strong><br>
-              （正社員・契約社員・特命教員/客員研究員・嘱託・顧問雇用、または既存組織経由での業務委託契約。個人事業主としての直接独立開業は希望しておりません）
+              組織への雇用、または組織経由の契約を希望しております。<br>
+              <span class="note">※個人事業としての独立開業は希望しておりません。</span>
             </td>
           </tr>
           <tr>
-            <th>参画時期</th>
+            <th>着任時期</th>
             <td>
-              <strong>2027年4月以降</strong><br>
-              ※2027年3月までは和歌山大学に在職予定ですが、事前の技術相談、大学の兼業承認に基づくプロジェクト準備・アドバイザー就任等は対応可能です。
+              2027年4月以降（2027年3月まで和歌山大学に在職予定）。<br>
+              <span class="note">※事前のご相談や面談は随時お受けしております。</span>
             </td>
           </tr>
         </table>
       </div>
 
       <!-- 3. 主な開発・研究実績 -->
-      <h2 id="projects"><a class="label" href="#projects">３．主な開発・研究実績（ハイライト）</a></h2>
+      <h2 id="projects"><a class="label" href="#projects">3. 主な開発・研究実績</a></h2>
 
-      <!-- 実績1 -->
-      <div class="project-item" id="proj1">
-        <h3>1. 環境適応型の実時間3次元映像描画・提示システム（2026年、論文投稿）</h3>
-        <p>
-          運動する人物や実物体を、利用者に特殊な装着型デバイス（HMDや3Dメガネ等）を要求することなく実空間へ立体提示する先進的リアルタイムシステムを開発・実装しました。
-        </p>
-        <ul>
-          <li><strong>毎フレーム直接3D Gaussianを生成:</strong> 複数台のRGB-Dセンサ点群から、Surfel状の異方性3D Gaussian（約156万個）を毎フレーム実時間で直接生成。</li>
-          <li><strong>高精度幾何補正:</strong> 深度センサ基準のバンドル調整と逆奥行き線形補正、標本化密度に基づくGaussian単位の最良視点選択により、複数カメラ点群特有の「二重面」アーティファクトを完全に除去。</li>
-          <li><strong>実時間再照明（Relighting）:</strong> 撮影環境と提示環境の2次球面調和関数（Spherical Harmonics）放射照度比を用い、アルベド分離を行うことなくGaussian生成時にダイナミックな再照明を実行。</li>
-          <li><strong>提示側の高度較正:</strong> 平行2台プロジェクタのOff-axis投影、逆カメラ較正、ステレオ窓マスク、プロジェクタ光のクロストーク相殺を実装。</li>
-          <li><strong>圧倒的なリアルタイム性能:</strong> <span class="highlight-metric">生成〜描画 2.17 ms/視点</span>、<span class="highlight-metric">総処理 3.13 ms/フレーム（319.8 fps）</span>を達成（V-Sync無効時。従来のTSDFボリューム表示の238.6 fpsを大幅に凌駕）。</li>
-        </ul>
-      </div>
+      <h3 id="proj1">3.1 環境適応型の実時間3次元映像描画・提示システム（2026年、論文投稿）</h3>
+      <ul>
+        <li>運動する人物や実物体を、装着型デバイスなしに実空間へ立体提示するシステムを開発しました。</li>
+        <li>複数 RGB-D センサの点群から毎フレーム直接、Surfel 状の異方性 3D Gaussian（約156万個）を生成。深度センサ基準のバンドル調整と逆奥行き線形補正、標本化密度に基づく Gaussian 単位の最良視点選択により二重面を除去しています。</li>
+        <li>撮影側／提示側の2次球面調和関数放射照度比による再照明を Gaussian 生成時に実行（アルベド分離なし）。</li>
+        <li>提示側は平行2台プロジェクタの Off-axis 投影、逆カメラ較正、ステレオ窓マスク、クロストーク相殺を実装しました。</li>
+        <li>性能：生成〜描画 2.17 ms/視点、総処理 3.13 ms/フレーム、319.8 fps（V-Sync 無効時、TSDF ボリューム表示の 238.6 fps を上回る）。</li>
+      </ul>
 
-      <!-- 実績2 -->
-      <div class="project-item" id="proj2">
-        <h3>2. SWCC株式会社との共同研究：トランスポータシステム「ADTPS」</h3>
-        <p>
-          大手電線・機能性材料メーカーであるSWCC株式会社の新規事業開発において、和歌山大学のボリュメトリック技術担当として共同研究に参画しました。
-        </p>
-        <ul>
-          <li><strong>技術の融合:</strong> 最小限のカメラ映像からリアルタイムに人物や物体の3D立体データを生成するボリュメトリック技術と、SWCCのAVR（Augmented Virtual Reality）技術を融合。</li>
-          <li><strong>ソリューション展開:</strong> 遠隔空間や過去の空間へ体験者を瞬時に「転送」するトランスポータシステム「ADTPS (Advanced Digital Transporter System)」として具現化。インフラ設備の遠隔巡視・点検・工事支援・保安教育向けソリューション（SWCC SmartStream事業）として展開。</li>
-          <li><strong>メディア掲載:</strong> 日刊工業新聞電子版（PR TIMES）「和歌山大学とＳＷＣＣの共同研究からの展開」 <a href="https://www.nikkan.co.jp/releases/view/177181" target="_blank" rel="noopener">https://www.nikkan.co.jp/releases/view/177181</a></li>
-        </ul>
-      </div>
+      <h3 id="proj2">3.2 SWCC株式会社との共同研究：トランスポータシステム ADTPS</h3>
+      <ul>
+        <li>和歌山大学のボリュメトリック技術（最小限のカメラ映像から人や物の3D立体データを生成）と SWCC の AVR 技術を組み合わせたトランスポータシステム「ADTPS（Advanced Digital Transporter System）」の開発において、ボリュメトリック技術側を担当しました。</li>
+        <li>リアルタイムに離れた空間・過去の空間へ体験者を「転送」するシステムであり、インフラの巡視・点検・工事・教育向けソリューション（SWCC の SmartStream 事業）として展開されています。</li>
+        <li>公開情報：日刊工業新聞電子版（PR TIMES 配信）「和歌山大学とＳＷＣＣの共同研究からの展開」 <a href="https://www.nikkan.co.jp/releases/view/177181" target="_blank" rel="noopener">https://www.nikkan.co.jp/releases/view/177181</a></li>
+      </ul>
 
-      <!-- 実績3 -->
-      <div class="project-item" id="proj3">
-        <h3>3. TED（TelExistence Display System）の開発・オープンソース公開</h3>
-        <p>
-          遠隔地の視覚的環境を観測者の周囲へリアルタイムに忠実再現するテレイグジスタンス実験システムを独自に設計・開発し、GitHubでオープンソースとして公開しています。
-        </p>
-        <ul>
-          <li><strong>リポジトリ:</strong> <a href="https://github.com/tokoik/ted" target="_blank" rel="noopener">https://github.com/tokoik/ted</a></li>
-          <li><strong>アーキテクチャ:</strong> 2台のPC間でHMDの視界とヘッドトラッキング姿勢を低遅延UDPネットワークで共有。OpenXR対応HMD、3Dディスプレイ、全方位／魚眼／ステレオカメラに柔軟に対応。</li>
-          <li><strong>機能群:</strong> OBJモデルの半透明重畳（AR的提示）、Leap Motion／OpenXRによるハンドトラッキング、中継サーバ（ted-server）、さらにMeta Quest 3向けネイティブアプリ（ted-quest）を完備。</li>
-          <li><strong>研究応用:</strong> 本システムを中核基盤として、月惑星探査「UZUME Project」における「遠隔代理科学者」（極限環境ロボットの視覚インターフェース応用）の実験システムが構築・実証されています。</li>
-        </ul>
-      </div>
+      <h3 id="proj3">3.3 TED（TelExistence Display System）の開発・公開</h3>
+      <ul>
+        <li>遠隔地の視覚的環境を観測者の周囲に再現する実験システムを開発し、GitHub でオープンソースとして公開しています。<br>
+          リポジトリ：<a href="https://github.com/tokoik/ted" target="_blank" rel="noopener">https://github.com/tokoik/ted</a>
+        </li>
+        <li>2台の PC 間で HMD の視界とヘッドトラッキングをネットワーク共有します。OpenXR 対応 HMD、3D ディスプレイ、全方位／魚眼／ステレオカメラに対応し、OBJ モデルの半透明重畳、Leap Motion／OpenXR ハンドトラッキング、中継サーバ（ted-server）、Meta Quest 3 向けネイティブアプリ（ted-quest）を含みます。</li>
+        <li>本システムを基礎として、UZUME Project における「遠隔代理科学者」（ロボットの視覚への応用）の実験システムが開発されています。</li>
+      </ul>
 
-      <!-- 実績4 -->
-      <div class="project-item" id="proj4">
-        <h3>4. CG教育・教材開発と技術コミュニティへの長年の貢献</h3>
-        <p>
-          2004年以来、Webサイトおよびブログ「床井研究室アーカイブ」において、先端CGプログラミングの解説を惜しみなく発信し続けています。
-        </p>
-        <ul>
-          <li><strong>Web教材の金字塔:</strong> OpenGL入門（GLUT / GLFW）、モダンOpenGL（プログラマブルシェーダ / GLSL）、RealSense点群描画、VR/XR開発、魚眼レンズ投影変換、物理シミュレーションなど、実動コード付きの教材を多数公開。日本の数多くのCGエンジニア・研究者に親しまれています。</li>
-          <li><strong>公式プロジェクト参画:</strong> 和歌山大学デジタルクリエイティブハブ創出プロジェクト、Game Grove X においてアカデミックリーダーとして参画。</li>
-          <li><strong>表彰実績:</strong> 2021年「CG Japan Award」、2022年 情報処理学会「優秀教材賞」受賞。</li>
-        </ul>
-      </div>
+      <h3 id="proj4">3.4 CG教育・教材開発</h3>
+      <ul>
+        <li>ブログ「床井研究室アーカイブ」（<a href="https://tokoik.github.io/blog/">https://tokoik.github.io/blog/</a>）にて、OpenGL/GLSL 入門、シェーダプログラミング、RealSense 点群描画、VR、魚眼レンズ画像処理、物理シミュレーション等の技術記事・教材を2004年から公開しています。</li>
+        <li>和歌山大学デジタルクリエイティブハブ創出プロジェクト、Game Grove X においてアカデミックリーダーとして参画しました。</li>
+      </ul>
 
-      <!-- 4. 保有スキル・技術スタック -->
-      <h2 id="skills"><a class="label" href="#skills">４．保有スキル・技術スタック</a></h2>
+      <!-- 4. 保有スキル -->
+      <h2 id="skills"><a class="label" href="#skills">4. 保有スキル</a></h2>
 
       <div class="table-responsive">
         <table class="info-table">
           <tr>
             <th>開発言語</th>
-            <td>
-              <strong>C++</strong>（C++11/14/17/20による高性能・低レイテンシプログラミング）、<strong>GLSL</strong>（シェーダプログラミング）、<strong>Python</strong>、C
-            </td>
+            <td>C++、Python、GLSL</td>
           </tr>
           <tr>
-            <th>グラフィックス / VR</th>
-            <td>
-              <strong>OpenGL</strong>（Core Profile / 3Dレンダリングパイプライン）、<strong>OpenXR</strong>（HMD/XRアプリ開発）、<strong>OpenCV</strong>（画像処理・幾何補正・カメラキャリブレーション）、<strong>GLFW</strong>、Leap Motion SDK
-            </td>
+            <th>ライブラリ／API</th>
+            <td>OpenGL、OpenXR、OpenCV、GLFW、Leap Motion SDK ほか</td>
           </tr>
           <tr>
-            <th>開発ツール / 環境</th>
-            <td>
-              <strong>CMake</strong>（クロスプラットフォームビルド構成）、Visual Studio、VS Code、Git / GitHub、各種プロファイラ
-            </td>
+            <th>開発環境</th>
+            <td>CMake、Visual Studio、VS Code、Git、Windows／macOS／Ubuntu Linux（クロスプラットフォーム開発）</td>
           </tr>
           <tr>
-            <th>対応プラットフォーム</th>
-            <td>
-              <strong>Windows</strong>、<strong>Ubuntu Linux</strong>、<strong>macOS</strong>（クロスプラットフォーム開発・ビルド環境の整備）
-            </td>
-          </tr>
-          <tr>
-            <th>専門・コア技術</th>
+            <th>専門領域</th>
             <td>
               <ul style="margin: 0; padding-left: 1.2rem;">
-                <li><strong>リアルタイムレンダリング &amp; GPU最適化:</strong> パイプライン最適化、シェーダアルゴリズム、メモリ転送最適化</li>
-                <li><strong>3次元幾何・点群・Gaussian Splatting:</strong> 異方性3DGS、TSDF、点群統合、メッシュ処理、法線推定</li>
-                <li><strong>光学・投影・幾何較正:</strong> 複数プロジェクタ投影較正、ステレオ窓、逆カメラ較正、クロストーク相殺</li>
-                <li><strong>照明計算・再照明:</strong> 球面調和関数（Spherical Harmonics）による実時間放射照度推定・環境調和</li>
-                <li><strong>VR/AR &amp; テレイグジスタンス:</strong> HMD映像同期、魚眼・全方位カメラモデル、低遅延UDP映像・姿勢伝送</li>
-                <li><strong>技術教育・教材開発:</strong> 難解な数学・グラフィックス概念の可視化、チュートリアル・教科書執筆</li>
+                <li>リアルタイムレンダリング、GPU最適化、シェーダプログラミング</li>
+                <li>点群処理、3D Gaussian Splatting、ボリュメトリック映像生成</li>
+                <li>ステレオ表示・プロジェクタ投影の幾何較正、再照明（球面調和関数による放射照度推定）</li>
+                <li>VR/AR、テレイグジスタンス、HMD（OpenXR）・全方位／魚眼／ステレオカメラの映像処理</li>
+                <li>ネットワーク映像伝送（UDP）、リアルタイムシステム設計</li>
               </ul>
             </td>
+          </tr>
+          <tr>
+            <th>教育・教材</th>
+            <td>講義・演習の設計と実施、教材（教科書・Web教材）の開発</td>
           </tr>
         </table>
       </div>
 
       <!-- 5. 職歴・学歴・学位 -->
-      <h2 id="career"><a class="label" href="#career">５．職歴・学歴・学位</a></h2>
+      <h2 id="career"><a class="label" href="#career">5. 職歴・学歴・学位</a></h2>
 
       <h3>職歴</h3>
-      <p>国立大学法人 和歌山大学において40年間にわたり教育研究に従事。</p>
+      <p>すべて国立大学法人 和歌山大学</p>
       <div class="table-responsive">
         <table class="info-table">
           <tr>
-            <th style="width: 30%;">期間</th>
+            <th style="width: 32%;">期間</th>
             <th>所属・職位</th>
           </tr>
           <tr>
-            <td>1986年4月 〜 1989年3月</td>
-            <td>和歌山大学 経済学部 助手</td>
+            <td>1986年4月〜1989年3月</td>
+            <td>経済学部 助手</td>
           </tr>
           <tr>
-            <td>1989年4月 〜 1991年3月</td>
-            <td>和歌山大学 経済学部 講師</td>
+            <td>1989年4月〜1991年3月</td>
+            <td>経済学部 講師</td>
           </tr>
           <tr>
-            <td>1991年4月 〜 1995年9月</td>
-            <td>和歌山大学 経済学部 助教授</td>
+            <td>1991年4月〜1995年9月</td>
+            <td>経済学部 助教授</td>
           </tr>
           <tr>
-            <td>1995年10月 〜 2007年3月</td>
-            <td>和歌山大学 システム工学部 助教授</td>
+            <td>1995年10月〜2007年3月</td>
+            <td>システム工学部 助教授</td>
           </tr>
           <tr>
-            <td>2007年4月 〜 2027年3月（予定）</td>
-            <td>和歌山大学 システム工学部 情報学領域 准教授</td>
+            <td>2007年4月〜現在</td>
+            <td>システム工学部 准教授（情報学領域、2027年3月まで在職予定）</td>
           </tr>
         </table>
       </div>
 
       <h3>学歴・学位</h3>
       <ul>
-        <li><strong>1982年3月:</strong> 舞鶴工業高等専門学校 電気工学科 卒業</li>
-        <li><strong>1984年3月:</strong> 豊橋技術科学大学 工学部 情報工学課程 卒業（3年次編入学）</li>
-        <li><strong>1986年3月:</strong> 豊橋技術科学大学 大学院工学研究科 情報工学専攻 修了（工学修士）</li>
-        <li><strong>2002年3月:</strong> <strong>博士（工学）</strong> 取得（大阪大学大学院基礎工学研究科）<br>
-          <span style="font-size: 0.95em; color: #464;">学位論文：「集合演算表現された多面体の直接的かつ高速な描画アルゴリズム」</span>
-        </li>
+        <li>1977年4月〜1982年3月：舞鶴工業高等専門学校 電気工学科</li>
+        <li>1982年4月：豊橋技術科学大学 工学部 情報工学課程に3年次編入学、1984年3月卒業</li>
+        <li>1984年4月〜1986年3月：豊橋技術科学大学 大学院工学研究科 情報工学専攻 修了（工学修士）</li>
+        <li>2002年3月：博士（工学）取得（大阪大学大学院基礎工学研究科）。学位論文「集合演算表現された多面体の直接的かつ高速な描画アルゴリズム」</li>
       </ul>
 
       <!-- 6. 著書・受賞・教育実績 -->
-      <h2 id="publications"><a class="label" href="#publications">６．著書・受賞・教育実績</a></h2>
+      <h2 id="publications"><a class="label" href="#publications">6. 著書・受賞・教育実績</a></h2>
 
-      <h3>受賞歴</h3>
+      <h3>著書（分担執筆を含む・計9件）</h3>
       <ul>
-        <li><strong>芸術科学会 CG Japan Award</strong>（2021年11月）：永年にわたるCG教育・学術・技術振興への多大な貢献を表彰。</li>
-        <li><strong>情報処理学会 2021年度 優秀教材賞</strong>（IPSJ Excellent Teaching Tool Developer Award、2022年4月表彰）：対象教材「3DCGプログラミングとデジタルコンテンツ制作演習教材」。</li>
-        <li>その他、指導学生・共同研究として学生優秀発表賞（2025年3月）、口頭発表優秀賞（2024年3月）、研究奨励賞（2023年2月）など多数。</li>
+        <li>宮崎大輔, 床井浩平, 結城修, 吉田典正『コンピュータグラフィックスの基礎』（第2章・第3章・第10章を担当、オーム社、IT Text、2020年）</li>
+        <li>『グラフィックス・アプリ制作のためのOpenGL入門』（工学社、2018年）</li>
+        <li>『GLUT/freeglutによるOpenGL入門』（工学社、2015年）</li>
+        <li>CG-ARTS協会『ディジタル映像表現：CGによるアニメーション制作』（Chapter 6.3 プログラマブルシェーダを担当、画像情報教育振興協会、2015年）</li>
+        <li>『GLUTによるOpenGL入門2 テクスチャマッピング』（工学社、2008年）</li>
+        <li>『GLUTによるOpenGL入門』（工学社、2005年）</li>
+        <li>Sarfraz 編『Geometric Modeling: Techniques, Applications, Systems and Tools』（Chapter 9を担当、Kluwer Academic、2004年）</li>
+        <li>和歌山大学システム工学部デザイン情報学科『デザイン情報学入門』（第6章を担当、日本規格協会、2000年）</li>
+        <li>日本図学会『マルチメディア・コミュニケーション：表現技術の基礎』（第8章を担当、共立出版、1997年）</li>
       </ul>
 
-      <h3>著書（単著・分担執筆 9件）</h3>
+      <h3>受賞</h3>
       <ul>
-        <li>宮崎大輔, 床井浩平, 結城修, 吉田典正『コンピュータグラフィックスの基礎』（第2章・第3章・第10章担当、オーム社、IT Text、2020年）</li>
-        <li>『グラフィックス・アプリ制作のためのOpenGL入門』（単著、工学社、2018年）</li>
-        <li>『GLUT/freeglutによるOpenGL入門』（単著、工学社、2015年）</li>
-        <li>CG-ARTS協会『ディジタル映像表現：CGによるアニメーション制作』（Chapter 6.3 プログラマブルシェーダ担当、画像情報教育振興協会、2015年）</li>
-        <li>『GLUTによるOpenGL入門2 テクスチャマッピング』（単著、工学社、2008年）</li>
-        <li>『GLUTによるOpenGL入門』（単著、工学社、2005年）</li>
-        <li>M. Sarfraz 編『Geometric Modeling: Techniques, Applications, Systems and Tools』（Chapter 9担当、Kluwer Academic Publishers、2004年）</li>
-        <li>和歌山大学システム工学部デザイン情報学科『デザイン情報学入門』（第6章担当、日本規格協会、2000年）</li>
-        <li>日本図学会『マルチメディア・コミュニケーション：表現技術の基礎』（第8章担当、共立出版、1997年）</li>
+        <li>芸術科学会 CG Japan Award（2021年11月）</li>
+        <li>情報処理学会 2021年度優秀教材賞（IPSJ Excellent Teaching Tool Developer Award、2022年4月表彰、対象教材：「3DCGプログラミングとデジタルコンテンツ制作演習教材」）</li>
+        <li>その他、共著者として学生優秀発表賞（2025年3月）、口頭発表優秀賞（2024年3月）、研究奨励賞（2023年2月）</li>
       </ul>
 
-      <h3>教育担当実績（直近の例）</h3>
+      <h3>教育実績（直近の担当例）</h3>
       <ul>
-        <li><strong>学部：</strong>卒業研究、メジャー体験演習A/B、システム工学入門セミナー、アプリデザイン総合演習（2025年度）</li>
-        <li><strong>大学院：</strong>システム工学講究I・II、システム工学研究I・II（知的モデリング、博士前期課程）</li>
+        <li>学部：卒業研究、メジャー体験演習A/B、システム工学入門セミナー、アプリデザイン総合演習（2025年度）</li>
+        <li>大学院：システム工学講究I・II、システム工学研究I・II（知的モデリング、博士前期）</li>
       </ul>
 
-      <!-- 7. 主な論文・発表・プロジェクト -->
-      <h2 id="research"><a class="label" href="#research">７．主な論文・発表・研究プロジェクト</a></h2>
+      <!-- 7. 論文・発表・研究プロジェクト・学会活動 -->
+      <h2 id="research"><a class="label" href="#research">7. 論文・発表・研究プロジェクト・学会活動</a></h2>
 
-      <h3>代表的学術論文・学会発表（抜粋）</h3>
-      <p style="font-size: 0.9em; color: #464;">通算：学術論文 34件、学会発表 180件以上。代表的な近年の成果を以下に示します。</p>
+      <h3>論文・発表（代表例）</h3>
+      <p class="note">通算：学術論文34件、学会発表180件超。</p>
       <ul>
-        <li>環境適応型の実時間3次元映像描画・提示システムに関する論文（情報処理学会シンポジウム「インタラクション2027」に投稿、2026年10月）</li>
-        <li>青木悠真, 床井浩平「cGANによる中空オブジェクトの脆性破壊形状生成」画像電子学会誌, 54巻4号, pp.375–383, 2025年（最終著者・責任著者）</li>
-        <li>"A Virtual Reality System for Predictive Display Functionality in a Telexistence-Controlled SEED-Noid Humanoid Robot with Evaluation of VR Sickness", <em>IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)</em>, 2023年（共著）</li>
-        <li>床井浩平「遠隔地のロボットの作業環境を操縦者の周囲に再現する実験システムの開発」第23回計測自動制御学会システムインテグレーション部門講演会（SI2022）, 2022年</li>
+        <li>環境適応型の実時間3次元映像描画・提示システムに関する論文（情報処理学会インタラクション2027に2026年10月26日投稿）</li>
+        <li>青木悠真, 床井浩平「cGANによる中空オブジェクトの脆性破壊形状生成」画像電子学会誌 54(4), 375–383, 2025年（最終著者・責任著者）</li>
+        <li>"A Virtual Reality System for Predictive Display Functionality in a Telexistence-Controlled SEED-Noid Humanoid Robot with Evaluation of VR Sickness", IEEE RO-MAN 2023（共著）</li>
+        <li>床井浩平「遠隔地のロボットの作業環境を操縦者の周囲に再現する実験システムの開発」第23回計測自動制御学会システムインテグレーション部門講演会（SI2022）</li>
+        <li>全業績は和歌山大学研究者情報データベースをご参照ください：<a href="https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html" target="_blank" rel="noopener">https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html</a></li>
       </ul>
 
-      <h3>競争的資金（研究代表者）</h3>
+      <h3>研究プロジェクト（競争的資金、研究代表者）</h3>
       <ul>
-        <li><strong>日本学術振興会 科学研究費助成事業 基盤研究(C):</strong> 「光源環境の整合性を維持する拡張現実型臨場感通信手法」（課題番号: 17K00234, 2017〜2020年度, 研究代表者）</li>
-        <li><strong>日本学術振興会 科学研究費助成事業 基盤研究(C):</strong> 「グラフィックスハードウェアの形状処理への応用に関する研究」（課題番号: 21500115, 2009〜2011年度, 研究代表者）</li>
+        <li>科学研究費助成事業 基盤研究(C)「光源環境の整合性を維持する拡張現実型臨場感通信手法」（2017〜2020年度）</li>
+        <li>科学研究費助成事業 基盤研究(C)「グラフィックスハードウェアの形状処理への応用に関する研究」（2009〜2011年度）</li>
       </ul>
 
-      <h3>学会・社会活動</h3>
+      <h3>学会・社会における活動</h3>
       <ul>
-        <li><strong>所属学会:</strong> 電子情報通信学会（1982年〜）、情報処理学会（1986年〜）、映像情報メディア学会（1999年〜）、画像電子学会（2007年〜、理事 2017〜2019年）、芸術科学会（2012年〜、関西支部長 2018〜2024年）、ACM（2002年〜）</li>
-        <li><strong>委員会等:</strong> 画像情報教育振興協会（CG-ARTS協会）委員（1993年〜現在）</li>
+        <li>所属学会：電子情報通信学会（1982年〜）、情報処理学会（1986年〜）、映像情報メディア学会（1999年〜）、画像電子学会（2007年〜、理事2017〜2019年）、芸術科学会（2012年〜、関西支部長2018〜2024年）、ACM（2002年〜）</li>
+        <li>画像情報教育振興協会（CG-ARTS協会）委員（1993年〜）</li>
       </ul>
 
       <!-- 8. 連絡先・関連リンク -->
-      <h2 id="contact"><a class="label" href="#contact">８．連絡先・関連リンク</a></h2>
+      <h2 id="contact"><a class="label" href="#contact">8. 連絡先・関連リンク</a></h2>
 
-      <div class="doc-card" style="background-color: #f0f7f0; border-color: #b8e0b8;">
-        <h3 style="margin-top: 0.2rem; border-left: none; padding-left: 0; color: #052; font-size: 1.25rem;">お問い合わせ先</h3>
+      <div class="doc-card">
         <p>
-          技術顧問、受託開発、コンサルティング、技術研修、共同研究、求職・採用のご提案など、どのような内容でもまずはお気軽にご連絡ください。
+          採用・技術コンサルティング・共同研究・研修等に関するお問い合わせや事前のご相談は、下記メールアドレスまでご連絡ください。
         </p>
-        <p style="font-size: 1.05rem; margin: 0.8rem 0;">
-          📧 E-mail: <a href="mailto:tokoik@hotmail.co.jp" style="font-weight: bold; font-size: 1.1rem; text-decoration: underline;">tokoik@hotmail.co.jp</a>
-        </p>
-        <p style="font-size: 0.9rem; color: #464; margin-top: 0.4rem;">
-          ※和歌山大学在職期間（〜2027年3月）のご相談は、上記メールアドレス宛にお送りいただければ個別に調整・回答いたします。
+        <p>
+          <span class="emphasis">E-mail：</span><a href="mailto:kohe.tokoi@outlook.jp">kohe.tokoi@outlook.jp</a>
         </p>
       </div>
 
-      <h3>関連Webサイト・リポジトリ</h3>
       <ul>
-        <li><strong>技術ブログ（床井研究室アーカイブ）：</strong><br>
-          <a href="https://tokoik.github.io/blog/" target="_blank" rel="noopener">https://tokoik.github.io/blog/</a>
-          <br><span style="font-size: 0.9em; color: #464;">OpenGL/GLSL、シェーダプログラミング、RealSense点群、VRなどの技術解説記事を多数掲載。</span>
-        </li>
-        <li><strong>GitHub（TED リポジトリ）：</strong><br>
-          <a href="https://github.com/tokoik/ted" target="_blank" rel="noopener">https://github.com/tokoik/ted</a>
-          <br><span style="font-size: 0.9em; color: #464;">テレイグジスタンス実験システムの全ソースコード、Meta Quest 3連携実装を公開中。</span>
-        </li>
-        <li><strong>和歌山大学 研究者情報データベース：</strong><br>
-          <a href="https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html" target="_blank" rel="noopener">https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html</a>
-          <br><span style="font-size: 0.9em; color: #464;">学術論文、学会発表、著書、競争的資金などの全業績一覧を網羅。</span>
-        </li>
+        <li>ブログ（床井研究室アーカイブ）：<a href="https://tokoik.github.io/blog/">https://tokoik.github.io/blog/</a></li>
+        <li>GitHub（TED）：<a href="https://github.com/tokoik/ted" target="_blank" rel="noopener">https://github.com/tokoik/ted</a></li>
+        <li>和歌山大学 研究者情報データベース：<a href="https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html" target="_blank" rel="noopener">https://researchers.center.wakayama-u.ac.jp/html/100000716_ja.html</a></li>
       </ul>
 
     </main>
@@ -758,15 +645,14 @@
           <a href="/blog/">床井研究室</a>
         </div>
         <div class="buttons">
-          <a href="#top" class="button" style="text-decoration:none; padding: 0.3em 0.8em; background-color: #ada; color: #030; border-radius: 4px; font-size: 0.9rem;">▲ 先頭へ戻る</a>
+          <a href="#top" class="nav-link-btn">先頭へ</a>
         </div>
       </div>
     </footer>
 
-    <a href="#top" class="back-to-top" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
+    <a href="#top" class="back-to-top hide" title="トップへ戻る" aria-label="トップへ戻る">&#9650;</a>
 
     <script>
-      // スクロール時にトップへ戻るボタンの表示切替
       window.addEventListener('scroll', function() {
         var backToTop = document.querySelector('.back-to-top');
         if (backToTop) {
